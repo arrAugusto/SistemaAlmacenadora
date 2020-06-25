@@ -1,0 +1,468 @@
+
+
+/*estilos de login*/
+nav.ul.li.a.i.p{
+    color: #fff;
+}
+.fa-power-off{
+    color: #fff;
+}
+.colorBarSuper{
+    color: #fff;
+}
+.colorBarSuperTitle{
+    color: #E9DF0E;
+}
+.colorBarSuperVill{
+    color: #F5D608;
+}
+
+.bgNavSuper{
+    background-color: #13b2ff; 
+    color:#fff;
+}
+
+.btn-circle.btn-xl {
+    width: 70px;
+    height: 70px;
+    padding: 10px 16px;
+    border-radius: 35px;
+    font-size: 24px;
+    line-height: 1.33;
+
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    padding: 6px 0px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.42857;
+}
+
+/**TIME LINE*/
+
+.timeline {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-width: 1000px;
+    margin: 10px auto;
+    counter-reset: step;
+}
+
+.timeline li {
+    float: left;
+    text-align: center;
+    width: 150px;
+    position: relative;
+}
+
+.timeline li:before {
+    content: counter(step);
+    counter-increment: step;
+    line-height: 35px;
+    width: 35px;
+    height: 35px;
+    display: block;
+    border-radius: 100%;
+    border: 1px solid #CCC;
+    margin: 0 auto 15px auto;
+    background: #fff;
+}
+
+.timeline li:after {
+    content: '';
+    width: 100%;
+    height: 10px;
+    background: #DDD;
+    display: block;
+    position: absolute;
+    top: 17.5px;
+    left: 50%;
+    z-index: -1;
+}
+
+.timeline li:last-child:after {
+    content: none;
+}
+
+.timeline li.active {
+    color: #8cc413;
+}
+
+.timeline li:first-child:before {
+    border-color: #8cc413;
+}
+.timeline li:first-child:after {
+    background: #8cc413;
+}
+
+
+
+
+#MapaUbica{
+    margin: 0 auto;
+    border: 8px solid  #0d47a1;
+    width: 1600px;
+    height: 490px;
+}
+
+#tablaUbica{
+    margin: 0 auto;
+    border: 8px solid  #0d47a1;
+    width: 500px;
+    height: 140px;
+}
+
+.casellaMapa{
+    background-color:#29b6f6;
+    width:1500px;
+    height:450px;
+    text-align:center;
+    border: 1px solid #666;
+}
+
+
+.casellaMapa:hover{
+    background-color: #7986cb;
+}
+
+.casella{
+    background-color:#29b6f6;
+    width:500px;
+    height:140px;
+    text-align:center;
+    border: 1px solid #666;
+}
+
+
+.casella:hover{
+    background-color: #7986cb;
+}
+
+.casilla{
+    background-color:#29b6f6;
+    width:250px;
+    height:50px;
+    text-align:center;
+    border: 1px solid #666;
+}
+
+
+.casilla:hover{
+    background-color: #ffb300;
+}
+
+#cuadricula {
+    position:fixed;
+    top:300px;
+    right:100px;
+}
+
+#tablaScrolling{
+    margin: 0 auto;
+    border: 8px solid  #0d47a1;
+    width: 1200px;
+    height: 490px;
+}
+
+#mapeandoUbicaciones td{
+    background-color:#6cb3e6;
+    color: white;
+    width:100px;
+    height:40px;
+    text-align:center;
+    cursor: default;
+    font-size: 13px;
+    border-radius: 6px;
+    padding:1em;
+    border-left: 1px solid #0495ec;
+    border-bottom: 4px solid #7E7F7F;
+    border-bottom-style: dashed;
+    text-align:center;
+
+}
+
+#mapeandoUbicaciones td:hover{
+    background-color: #38C6F0;
+}
+
+#mapeandoUbicaciones{
+    width: 10px;
+    overflow-x: scroll;
+    overflow-y: scroll;
+}
+
+#mapeandoAcciones label{
+    background-color:#673ab7;
+    color: white;
+    text-align:center;
+    border: 2px solid #F5F9FA;
+    cursor: default;
+    width: 30em;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+#mapeandoAcciones label:hover{
+    background-color: #005cb2;
+}
+
+
+
+#mapaGenerado{
+    height: 700px;
+    overflow-y: scroll;
+}
+
+.respScroll{
+    overflow-y: scroll;
+}
+
+
+/**/
+
+.tip{
+    background: #333333;
+    color: #fff;
+    display: none;
+    position: absolute;
+    -webkit-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    box-shadow: 2px 2px 2px 0px rgba(0,0,0,0.75);
+    margin: 10px;
+    padding: 0px 5px 0 5px;
+    width: 400px;
+    height: 400px;
+    font-family: Verdana;
+    opacity: 0.93;
+}
+
+
+/**/
+
+.tipOtros{
+    display: none;
+    position: absolute;
+    opacity: 0.95;
+}
+.tipOtros {
+    animation: tipOtros 0.7s linear both;
+}
+
+/**
+ * ----------------------------------------
+ * animation tipOtros
+ * ----------------------------------------
+ */
+@keyframes tipOtros {
+    0% {
+        transform: scale(1) rotate3d(1, 1, 0, 0deg);
+    }
+    50% {
+        transform: scale(0.5) rotate3d(1, 1, 0, -180deg);
+    }
+    100% {
+        transform: scale(1) rotate3d(1, 1, 0, -360deg);
+    }
+}
+
+
+#divEdiciones{
+    display:none;
+}
+
+#divFechaNuevaEditOP{
+    display:none;
+}
+
+
+.divCalculoDetalle{
+    display:none;
+}
+
+#style-3::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #D5DBDE;
+
+}
+
+#style-3::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #A79D14;
+}
+
+#style-3::-webkit-scrollbar-thumb
+{
+    background-color: #A79D14;
+    border-radius: 50px;
+}
+
+
+#styleBajo-3::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #D5DBDE;
+}
+
+#styleBajo-3::-webkit-scrollbar
+{
+    width: 6px;
+    background-color: #F5F5F5;
+}
+
+#styleBajo-3::-webkit-scrollbar-thumb
+{
+    background-color: #343a40;
+}
+
+#buttonStock{
+    width: 50px;
+
+}
+#buttonTrash{
+    width: 50px;   
+}
+
+#divEdicionesBodega{
+    display:none;
+}
+
+#divTableUbi{
+    display:none;
+}
+
+/**/
+/* Dibujo del map */
+
+#mapEntrada{
+    background: #00a096;
+    padding: 10px;
+    height: 490px;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-size: 250%;
+}
+
+
+
+/**servicios registro de ingresos bodega*/
+
+#lblTipoServ{
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-size: 150%; 
+    color: #FF0040; 
+}
+
+/*tooltip*/
+div.tooltips {
+    position: relative;
+    display: inline;
+}
+div.tooltips span {
+    position: absolute;
+    width:540px;
+    color: #FFFFFF;
+    background: #000000;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    visibility: hidden;
+    border-radius: 6px;
+}
+div.tooltips span:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -8px;
+    width: 0; height: 0;
+    border-right: 8px solid #000000;
+    border-top: 8px solid transparent;
+    border-bottom: 8px solid transparent;
+}
+div:hover.tooltips span {
+    visibility: visible;
+    opacity: 0.9;
+    left: 100%;
+    top: 50%;
+    margin-top: -15px;
+    margin-left: 15px;
+    z-index: 999;
+}
+
+
+
+
+
+/*mapaUbicacion*/
+#mapEntradaUbic{
+    background: #00a096;
+    padding: 10px;
+    height: 560px;
+    width: 100%;
+    margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    writing-mode: vertical-lr;
+    transform: rotate(180deg);
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-size: 250%;
+}
+
+#tablaScrollingUbica{
+    margin: 0 auto;
+    border: 8px solid  #0d47a1;
+
+}
+
+
+#mapeandoUbica td{
+    background-color:#6cb3e6;
+    color: black;
+    width:5000px;
+    height:140px;
+    text-align:center;
+    border: 2px solid black;
+    cursor: default;
+}
+
+#mapeandoUbica td:hover{
+    background-color: #58D3F7;
+}
+
+#mapeandoUbica{
+    width: 40px;
+    overflow-x: scroll;
+}
+
+
+#h3Title{
+    font: italic normal 400 16px/22px Arial, Verdana, sans-serif;    
+    font-size: 18px;
+    color: #3b63db;
+}
+
+/*style numero de retiro mostra en html*/
+.s1class span,  .s2class span{
+    display:block;
+    color: red;
+
+}
+.su{
+    font-size:20px;
+}
+
