@@ -33,7 +33,7 @@ async function validacionParaGuardar() {
         return false;
     }
     var puertoOrigen = document.getElementById("puertoOrigen").value;
-    if(puertoOrigen == "" || puertoOrigen == 0) {
+    if (puertoOrigen == "" || puertoOrigen == 0) {
         $("#puertoOrigen").removeClass("is-valid");
         $("#puertoOrigen").addClass("is-invalid");
 
@@ -337,6 +337,18 @@ async function validacionParaGuardar() {
 }
 
 $(document).on("change", "#txtNitEmpresa", async function () {
+    if ($(this).val() == "") {
+        $("#txtNitEmpresa").removeClass("is-valid");
+        $("#txtNitEmpresa").addClass("is-invalid");
+        Swal.fire({
+            position: 'top-center',
+            type: 'error',
+            title: '¡El nit ingresado es invalido, revise!',
+            showConfirmButton: true
+        })
+        borrarDatosCliente();
+        return false;
+    }
     document.getElementById("hiddenTipoTar").value = 0;
     var datoBuscado = $(this).val();
     var verGuiones = await patternPregSinG(datoBuscado);
@@ -351,17 +363,12 @@ $(document).on("change", "#txtNitEmpresa", async function () {
         })
 
     } else {
-
-
         var valNit = await validar_nit(datoBuscado);
-        console.log(valNit);
         if (valNit) {
             $("#txtNitEmpresa").removeClass("is-invalid");
             $("#txtNitEmpresa").addClass("is-valid");
             var esperandoRes = await funcionBuscarNit(datoBuscado);
             if (esperandoRes) {
-
-
                 Swal.fire({
                     position: 'top-end',
                     type: 'info',
@@ -373,7 +380,10 @@ $(document).on("change", "#txtNitEmpresa", async function () {
                 document.getElementById("dateTime").focus();
             }
         } else {
+
             borrarDatosCliente();
+            $("#txtNitEmpresa").removeClass("is-valid");
+            $("#txtNitEmpresa").addClass("is-invalid");
             Swal.fire({
                 position: 'top-center',
                 type: 'error',
@@ -1272,6 +1282,10 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                         document.getElementById("divAccionesVehiculos").innerHTML = '';
                                     }
                                 } else if (valTipoConso == "Cliente individual") {
+
+                                    $("#sel2").removeClass("is-invalid");
+                                    $("#sel2").addClass("is-valid");
+
                                     document.getElementById("divAcciones").innerHTML = '';
                                     document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
                                     Swal.fire({
@@ -1906,6 +1920,10 @@ function valConsolidados(valTipoConso, cantClientes) {
             respValCons = true;
         }
     } else if (valTipoConso == "Cliente individual") {
+
+        $("#sel2").removeClass("is-valid");
+        $("#sel2").addClass("is-invalid");
+
         var e = document.getElementById("servicioTarifa");
         var indexValue = e.options[e.selectedIndex].value;
         var indexText = e.options[e.selectedIndex].text;
@@ -2003,7 +2021,7 @@ async function guardarSinTarifa(tipo) {
 
         /*FIN DATOS UNIDAD DE TRANSPORTE*/
         var datos = new FormData();
-            datos.append("cartaDeCupo", cartaDeCupo);
+        datos.append("cartaDeCupo", cartaDeCupo);
         datos.append("poliza", poliza);
         datos.append("cantContenedores", cantContenedores);
         datos.append("dua", dua);
@@ -2116,7 +2134,9 @@ function funcionBuscarNit(datoBuscado) {
 
                 if (respuesta[0].idUs == 0) {
                     //     if (document.getElementById("editarData")) {
-                    serviciosSeleccion(consultaEmpresa);
+                    if ($(".btnAcuseConsoli").length==0) {
+                    serviciosSeleccion(consultaEmpresa);                        
+                    }
                     document.getElementById("divContacto").innerHTML = "";
                     document.getElementById("divEjecutivo").innerHTML = "";
                     document.getElementById("divContacto").innerHTML = `<div class="alert alert-primary" role="alert"><storng>Cliente sin tarifa autorizada</strong><br/><br/></div>`;
@@ -2219,8 +2239,12 @@ function funcionBuscarNit(datoBuscado) {
 
                     var tarifaId = document.getElementById("lblNumerotarifa").innerHTML;
                     var idCliente = document.getElementById("lblIdMostrar").value;
-                    document.getElementById("divVerTarifa").innerHTML = '<button type="button" class="btn btn-info btnView" data-toggle="modal" data-target="#MostrarTodoServicio" idmostrar=' + tarifaId + ' numerotarifa=' + respuesta[0]["idUs"] + '><i class="fa fa-eye"></i></button>';
-                    serviciosSeleccion(consultaEmpresa);
+                    document.getElementById("divVerTarifa").innerHTML = '<button type="button" class="btn btn-outline-danger btn-sm btnPDFGTarifa" idclt="' + respuesta[0]["idUs"] + '"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></button>';
+                    
+                    if ($(".btnAcuseConsoli").length==0) {
+                    serviciosSeleccion(consultaEmpresa);                        
+                    }
+
 
                 }
                 respuestaData = true;
@@ -2488,6 +2512,8 @@ function guardarSinTarifaS(tipo) {
                             });
                         }
                     } else if (valTipoConso == "Cliente individual") {
+                        $("#sel2").removeClass("is-invalid");
+                        $("#sel2").addClass("is-valid");
                         Swal.fire({
                             type: 'info',
                             title: 'Transacción exitosa',
@@ -2514,17 +2540,16 @@ function serviciosSeleccion(consultaEmpresa) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            console.log(respuesta);
+            $("#servicioTarifa").append('<option selected="selected" disabled="disabled">Seleccione Servicio</option>');
+
             if (respuesta.length == 1) {
                 if (respuesta[0]["servicio"] == "ZONA ADUANERA" || respuesta[0]["servicio"] == "CUARTO REFRIGERADO" || respuesta[0]["servicio"] == "CUARTO CONGELADO" || respuesta[0]["servicio"] == "VEHICULOS NUEVOS") {
-
-                    $("#servicioTarifa").append('<option value=' + respuesta[0]['identy'] + ' disabled="disabled" selected="selected" readOnly="reaondly">' + respuesta[0]["servicio"] + '</option>');
+                    $("#servicioTarifa").append('<option value=' + respuesta[0]['identy'] + ' disabled="disabled"  readOnly="reaondly">' + respuesta[0]["servicio"] + '</option>');
                 }
             } else if (respuesta.length >= 2) {
 
                 for (var i = 0; i < respuesta.length; i++) {
                     if (respuesta[i]["servicio"] == "ZONA ADUANERA" || respuesta[i]["servicio"] == "CUARTO REFRIGERADO" || respuesta[i]["servicio"] == "CUARTO CONGELADO" || respuesta[i]["servicio"] == "VEHICULOS NUEVOS") {
-
                         $("#servicioTarifa").append('<option value=' + respuesta[i]['identy'] + '>' + respuesta[i]["servicio"] + '</option>');
                     }
                 }
@@ -2619,8 +2644,7 @@ $(document).on("change", "#regimenPoliza", function () {
 })
 
 $(document).on("change", "#sel2", async function () {
-
-
+    var selectChang = $(this);
     var clientes = document.getElementById("cantClientes").value;
     var tipoReg = $(this).val();
     if (clientes == 0 || isNaN(clientes)) {
@@ -2638,10 +2662,9 @@ $(document).on("change", "#sel2", async function () {
 
     }
     if (tipoReg == "Cliente individual") {
+
         if (clientes >= 2) {
             document.getElementById("sel2").selectedIndex = "Seleccione tipo de cliente";
-            $(this).removeClass("is-valid");
-            $(this).addClass("is-invalid");
             swal({
                 type: "error",
                 title: "Cantidad de clientes",
@@ -2651,6 +2674,9 @@ $(document).on("change", "#sel2", async function () {
                 closeConfirm: true
             });
 
+        } else {
+            $("#sel2").removeClass("is-invalid");
+            $("#sel2").addClass("is-valid");
         }
     }
     /*
@@ -3124,7 +3150,8 @@ function buscandoTarifas() {
                                         <input id="lblIdMostrar" name="idMostrar" type="hidden" value="2">
                                             <br/>
                                                 <div id="divVerTarifa">
-                                                    <button class="btn btn-info btnView" data-target="#MostrarTodoServicio" data-toggle="modal" idmostrar="737852" numerotarifa="2" type="button">
+    
+                                                <button class="btn btn-info btnView" data-target="#MostrarTodoServicio" data-toggle="modal" idmostrar="737852" numerotarifa="2" type="button">
                                                         <i aria-hidden="true" class="fa fa-eye">
                                                         </i>
                                                     </button>

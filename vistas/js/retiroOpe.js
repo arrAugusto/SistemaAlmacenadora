@@ -664,7 +664,7 @@ function guardarRetiroMercaderia(
             if (respuesta["exito"] == "exito") {
                 var tipo = 0;
                 desbloqueBloque(tipo);
-                Swal.fire('Guardado exitosamente', 'El ingreso fue guardado con exito', 'success');
+                Swal.fire('Guardado exitosamente', 'El retiro fue guardado con exito', 'success');
                 document.getElementById("divBottoneraAccion").innerHTML = `
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + respuesta["valIdRetiro"] + `>Editar&nbsp;&nbsp;&nbsp;<i class="fas fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
@@ -1457,6 +1457,11 @@ $(document).on("change", "#regimen", function () {
 
 $(document).on("change", "#valorTAduana", function () {
     var dato = $(this).val();
+    
+    var parseDato = parseFloat(dato).toFixed(2);
+    $(this).val(parseDato);
+    
+    
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
@@ -1506,7 +1511,6 @@ $(document).on("change", "#valorTAduana", function () {
 
 $(document).on("change", "#cambio", function () {
     var dato = $(this).val();
-    console.log(dato);
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
@@ -1552,7 +1556,8 @@ $(document).on("change", "#cambio", function () {
 
 $(document).on("change", "#calculoValorImpuesto", function () {
     var dato = $(this).val();
-    console.log(dato);
+    var parseDato = parseFloat(dato).toFixed(2);
+    $(this).val(parseDato);
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
@@ -1590,7 +1595,8 @@ $(document).on("change", "#calculoValorImpuesto", function () {
 
 $(document).on("change", "#pesoKg", function () {
     var dato = $(this).val();
-    console.log(dato);
+    var parseDato = parseFloat(dato).toFixed(2);
+    $(this).val(parseDato);
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
@@ -1628,7 +1634,8 @@ $(document).on("change", "#pesoKg", function () {
 
 $(document).on("change", "#cantBultos", function () {
     var dato = $(this).val();
-    console.log(dato);
+    var parseDato = parseInt(dato);
+    $(this).val(parseDato);
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";

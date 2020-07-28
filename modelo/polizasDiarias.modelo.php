@@ -43,8 +43,9 @@ class ModeloGenerarContabilidad {
 
     public static function mdlMostrarContabilidad($sp, $tipo) {
         $conn = Conexion::Conectar();
-        $sql = 'EXECUTE '.$sp.' ?';
+        $sql = 'EXECUTE ' . $sp . ' ?';
         $params = array(&$tipo);
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -58,5 +59,65 @@ class ModeloGenerarContabilidad {
         } else {
             return sqlsrv_errors();
         }
+    }
 
-}}
+    public static function mdlMostrarIng($sp) {
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp;
+
+        $stmt = sqlsrv_prepare($conn, $sql);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    public static function mdlMostrarRetirosFiscales($sp, $estado, $identBodega) {
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp . ' ?, ?';
+        $params = array(&$estado, &$identBodega);
+
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    public static function mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $sumaCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto) {
+        
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?, ?, ?, ?';
+        $params = array(&$conPolDefCif, &$dependencia, &$sumaCif, &$estado, &$conceptoPoliza, &$numeroDepolizaAsig, &$debeCif, &$tipOperaSaldo, &$tipConcepto);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }        
+    }
+
+}

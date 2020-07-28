@@ -34,9 +34,9 @@
                                 ?>">
 
                             </div>
-                            <div class="col-6 mt-4" id="dataRetiro">
+                            <div class="col-7 mt-4" id="dataRetiro">
                             </div>
-                            <div class="col-6 mt-4" id="ListaSelect">
+                            <div class="col-3 mt-4" id="ListaSelect">
                             </div>
                             <input type="hidden" id="hiddenIdentificador" value="" />
                             <input type="hidden" id="hiddeniddeingreso" value="" />

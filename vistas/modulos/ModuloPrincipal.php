@@ -93,6 +93,10 @@
         <script src="vistas/js/polizasDiarias.js"></script>
         <script src="vistas/js/vehiculosSinMedidas.js"></script>
         <script src="vistas/js/retiroVeh.js"></script>
+        <script src="vistas/js/contabilidadRetiro.js"></script>
+        <script src="vistas/js/nuevasEmpresas.js"></script>
+       <script src="vistas/js/sldDiarioContabilidad.js"></script>
+        
         <!-- iCheck 1.0.1 -->
         <script src="vistas/dist/js/dataTables.bootstrap.js"></script><script src="vistas/dist/js/responsive.bootstrap.min.js"></script>
         <!-- iCheck 1.0.1 -->
@@ -106,7 +110,9 @@
         <script type="text/javascript" src='vistas/dist/js/jquerynumber.min.js'></script>
         <script src="vistas/dist/js/font-awesome.js" crossorigin="anonymous"></script>
         <script src="vistas/dist/js/toastr.min.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js'></script>
 
+        
     </head>
     <body class="hold-transition sidebar-collapse sidebar-mini">
         <div class="wrapper">

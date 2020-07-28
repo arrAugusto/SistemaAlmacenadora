@@ -502,8 +502,8 @@ $(document).on("click", ".btnAudioDescr", function () {
         imageHeight: 200,
         imageAlt: 'Custom image',
         animation: true
-    }).then(okay => {
-        if (okay) {
+    }).then(async function (result) {
+        if (result) {
             let rec;
             if (!("webkitSpeechRecognition" in window)) {
                 alert("Su navegador no soporta, la api.")
@@ -512,12 +512,12 @@ $(document).on("click", ".btnAudioDescr", function () {
                 rec.lang = "es-GT";
                 rec.continuos = true;
                 rec.interim = true;
-                rec.addEventListener("result", iniciar);
+                rec.addEventListener(iniciar("result"));
+                
             }
             function iniciar(event) {
                 for (i = event.resultIndex; i < event.results.length; i++) {
                     var cadenaAudio = event.results[i][0].transcript;
-                    console.log(cadenaAudio);
                     document.getElementById('descripcionMerca').innerHTML = "OBSERVACIONES : " + cadenaAudio.toUpperCase();
                 }
             }
@@ -599,7 +599,7 @@ $(document).on("change", "#personaSeleccionada", async function () {
         <div class="info-box-content">
             <span class="info-box-text">` + nombre + ` ` + apellidos + `</span>
             <span class="info-box-number">Correo : ` + email + `</span>
-        <span class="info-box-number">Teleno : ` + telefono + ` - Montarguista</span>
+        <span class="info-box-number">Teléfono : ` + telefono + `  Montarguista</span>
         </div>
     </div>
 `);

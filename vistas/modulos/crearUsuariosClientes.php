@@ -26,8 +26,8 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
-                                        <input type="text" class="form-control" placeholder="Codigo de cif" name="nuevoUsuario" required >
-                                        <span class="fa fa-user"></span>
+                                    <input type="text" class="form-control" placeholder="Codigo de cif" name="nuevoUsuario" required >
+                                    <span class="fa fa-user"></span>
                                 </div>
                                 <div class="col-6">
                                     <input type="text" class="form-control" placeholder="Ingresa Contraseña" name="nuevaContraseña" required >
@@ -46,7 +46,7 @@
                                     <input type="text" class="form-control" placeholder="# DPI" name="dpi" required >
                                     <span class="fa fa-edit"></span>
                                 </div>
-                                 <div class="col-md-6">
+                                <div class="col-md-6">
                                     <label>Pregunta Secreta</label>
                                     <select class="form-control select2" style="width: 100%;" id="preguntaSecreta" name="preguntaSecreta" required>
                                         <option>¿Nombre de su primera mascota?</option>
@@ -56,14 +56,14 @@
                                         <option>¿Cual es tu refrán favorito?</option>
                                         <option>¿Cual es tu canción favorita?</option>
                                         <option>¿Cual es tu pelicula favorita?</option>
-                                        </select>
-                                 <span class="fa fa-asl-interpreting"> </span>
+                                    </select>
+                                    <span class="fa fa-asl-interpreting"> </span>
                                 </div>
-                                          <div class="col-6">
-                                            <label>Respuesta de la pregunta secreta</label>
-                                            <input type="text" class="form-control input-lg"  placeholder="Escriba su respuesta"  id="respuestaSecreta" name="respuestaSecreta">
+                                <div class="col-6">
+                                    <label>Respuesta de la pregunta secreta</label>
+                                    <input type="text" class="form-control input-lg"  placeholder="Escriba su respuesta"  id="respuestaSecreta" name="respuestaSecreta">
                                     <span class="fa fa-question"></span>
-                                        </div>
+                                </div>
                                 <div class="col-md-6">
                                     <label>Dependencia</label>
                                     <select class="form-control select2" style="width: 100%;" name="dependencia" required>
@@ -92,38 +92,38 @@
                                     </div>
                                 </div>
 
-   <div class="form-group">
-              
-              <div class="panel">SUBIR FOTO</div>
+                                <div class="form-group">
 
-              <input type="file" class="nuevaFoto" name="nuevaFoto" id="nuevaFoto">
+                                    <div class="panel">SUBIR FOTO</div>
 
-              <p class="help-block">Peso máximo de la foto 2MB</p>
+                                    <input type="file" class="nuevaFoto" name="nuevaFoto" id="nuevaFoto">
 
-              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
+                                    <p class="help-block">Peso máximo de la foto 2MB</p>
 
+                                    <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!--CIERRE DE CODIGO HTML-->
+                    </div>
             </div>
+            <div class="card-footer">
+                <div class="btn-group">
+                    <button type="submit" class="btn btn-primary">Guardar usuario</button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Salir</button>
 
-          </div>
+                    </button>
+                </div>      
+            </div>      
 
         </div>
-                                <!--CIERRE DE CODIGO HTML-->
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <div class="btn-group">
-                                <button type="submit" class="btn btn-primary">Guardar usuario</button>
-                                <button type="button" class="btn btn-info" data-dismiss="modal">Salir</button>
+        </form>
+</div>
 
-                                </button>
-                            </div>      
-                        </div>      
-                        
-                    </div>
-                </form>
-            </div>
-
-    </section>
+</section>
 
 </div>
 

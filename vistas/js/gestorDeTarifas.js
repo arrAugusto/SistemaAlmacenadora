@@ -1,11 +1,8 @@
 $(document).on("click", ".btnView", function () {
     var idMostrar = $(this).attr("idMostrar");
     console.log(idMostrar);
-    var numerotarifa = $(this).attr("numerotarifa");
-    console.log(numerotarifa);
     var datos = new FormData();
     datos.append("idMostrar", idMostrar);
-    datos.append("numerotarifa", numerotarifa);
     $.ajax({
         url: "ajax/gestorDeTarifas.ajax.php",
         method: "POST",

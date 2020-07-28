@@ -106,6 +106,7 @@ class ModeloRegIngBod {
                             &$estado,
                             &$usuarioOp
                         );
+    
                         $sql = "EXECUTE spIngIncidencias  ?, ?, ?, ?, ?, ?, ?";
                         $stmt = sqlsrv_prepare($conn, $sql, $params);
                         if (sqlsrv_execute($stmt) == true) {
@@ -115,7 +116,8 @@ class ModeloRegIngBod {
                             }
                             if (!empty($resultsIdent)) {
                                 $idDetalle = $datos['idDetalle'];
-                                $paramsIngreso = array(&$datos["idOrdenIng"], &$usuarioOp, $idDetalle);
+                                $paramsIngreso = array(&$datos["idOrdenIng"], &$idDetalle, &$usuarioOp);
+
                                 $sql = "EXECUTE spUpdateEstadoDet ?, ?, ?";
                                 $stmt = sqlsrv_prepare($conn, $sql, $paramsIngreso);
                                 $idIngreso = $datos['idOrdenIng'];

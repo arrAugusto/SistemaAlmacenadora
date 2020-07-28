@@ -201,10 +201,6 @@
 
                                         <br/>
                                         <div id="divVerTarifa">
-                                            <button class="btn btn-info btnView" data-target="#MostrarTodoServicio" data-toggle="modal" idmostrar="737852" númerotarifa="2" type="button">
-                                                <i aria-hidden="true" class="fa fa-eye">
-                                                </i>
-                                            </button>
                                         </div>
                                         <br/>
                                         </input>
@@ -254,7 +250,7 @@
                                         <div class="row">
                                             <div class="col-4" id="divSeleccionDeServicios">
                                                 <label>Selecciona Servicio</label>
-                                                <select class="form-control is-invalid" id="servicioTarifa" name="servicioTarifa"> <option selected="true" disabled="disabled">Seleccion ubicación</option></select>
+                                                <select class="form-control is-invalid" id="servicioTarifa" name="servicioTarifa"></select>
 
                                             </div>
                                             <div class="col-md-4">

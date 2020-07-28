@@ -9,74 +9,75 @@ class ControladorUsuarios {
         if (isset($_POST["ingUsuarios"])) {
             if (preg_match('/^[0-9]+$/', $_POST["ingUsuarios"]) &&
                     preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
-         
+
                 $encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                 $tabla = "PERSONAL";
                 $item = "usuarios";
                 $valor = $_POST["ingUsuarios"];
                 $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
-                if ($respuesta=="SD") {
-                 echo '</br></br><div class="alert alert-info alert-dismissible">
+                if ($respuesta == "SD") {
+                    echo '</br></br><div class="alert alert-info alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 <h5><i class="icon fa fa-info"></i> ¡Aviso!</h5>
 Contraseña o Usuario Incorrecto
-</div>';    
-                }else{
-                    
-                
-                if ($respuesta == false) {
-                    echo '</br></br><div class="alert alert-danger alert-dismissible">
+</div>';
+                } else {
+
+
+                    if ($respuesta == false) {
+                        echo '</br></br><div class="alert alert-danger alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 <h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 Por el momento no puede ingresar al sistema. Comiquese con el dapartamento de TI.
 </div>';
-                    exit;
-                }
+                        exit;
+                    }
 
-                if ($respuesta[0]["usuario"] == $_POST["ingUsuarios"] && $respuesta[0]["contra"] == $encriptar) {
-                    if ($respuesta[0]["estado"] === 1) {
-                        $_SESSION["IniciarSesion"] = "ok";
-                        $_SESSION["id"] = $respuesta[0]["id"];
-                        $_SESSION["nombre"] = $respuesta[0]["nombre"];
-                        $_SESSION["foto"] = $respuesta[0]["foto"];
-                        $_SESSION["apellidos"] = $respuesta[0]["apellidos"];
-                        $_SESSION["fecha_creacion"] = $respuesta[0]["fecha_creacion"];
-                        $_SESSION["telefono"] = $respuesta[0]["telefono"];
-                        $_SESSION["niveles"] = $respuesta[0]["niveles"];
-                        $_SESSION["email"] = ($respuesta[0]["email"]);
-                        $_SESSION["usuario"] = $respuesta[0]["usuario"];
-                        $_SESSION["estado"] = $respuesta[0]["estado"];
-                        $_SESSION["dependencia"] = $respuesta[0]["dependencia"];
-                        $_SESSION["EmpresaDependiente"] = $respuesta[0]["dependencia"];
-                        $_SESSION["departamentos"] = $respuesta[0]["departamentos"];
-                        $idUsNavega = $_SESSION["id"];
-                        $depe = $_SESSION["dependencia"];
-                        $respuestaNavega = ModeloUsuarios::HistorialNavega($idUsNavega, $depe);
-                        if ($respuestaNavega == "ErrorSinData") {
-                            $_SESSION["Navega"] = "SinNav";
-                            $_SESSION["NavegaBod"] = "SinNav";
-                            $_SESSION["NavegaNumB"] = "SinNav";
-                            $_SESSION["idDeBodega"] = "SinNav";
-                            echo '<script>
+                    if ($respuesta[0]["usuario"] == $_POST["ingUsuarios"] && $respuesta[0]["contra"] == $encriptar) {
+                        if ($respuesta[0]["estado"] === 1) {
+                            $_SESSION["IniciarSesion"] = "ok";
+                            $_SESSION["id"] = $respuesta[0]["id"];
+                            $_SESSION["nombre"] = $respuesta[0]["nombre"];
+                            $_SESSION["foto"] = $respuesta[0]["foto"];
+                            $_SESSION["apellidos"] = $respuesta[0]["apellidos"];
+                            $_SESSION["fecha_creacion"] = $respuesta[0]["fecha_creacion"];
+                            $_SESSION["telefono"] = $respuesta[0]["telefono"];
+                            $_SESSION["niveles"] = $respuesta[0]["niveles"];
+                            $_SESSION["email"] = ($respuesta[0]["email"]);
+                            $_SESSION["usuario"] = $respuesta[0]["usuario"];
+                            $_SESSION["estado"] = $respuesta[0]["estado"];
+                            $_SESSION["dependencia"] = $respuesta[0]["dependencia"];
+                            $_SESSION["EmpresaDependiente"] = $respuesta[0]["dependencia"];
+                            $_SESSION["departamentos"] = $respuesta[0]["departamentos"];
+                            $idUsNavega = $_SESSION["id"];
+                            $depe = $_SESSION["dependencia"];
+                            $respuestaNavega = ModeloUsuarios::HistorialNavega($idUsNavega, $depe);
+                            if ($respuestaNavega == "ErrorSinData") {
+                                $_SESSION["Navega"] = "SinNav";
+                                $_SESSION["NavegaBod"] = "SinNav";
+                                $_SESSION["NavegaNumB"] = "SinNav";
+                                $_SESSION["idDeBodega"] = "SinNav";
+                                echo '<script>
 window.location="configuracion";
 </script>';
-                        } else {
-                            $_SESSION["Navega"] = $respuestaNavega[0]["nomEmpresa"];
-                            $_SESSION["NavegaBod"] = $respuestaNavega[0]["Areas"];
-                            $_SESSION["NavegaNumB"] = $respuestaNavega[0]["numBod"];
-                            $_SESSION["idDeBodega"] = $respuestaNavega[0]["idDeBodega"];
-                            echo '<script>
+                            } else {
+                                $_SESSION["Navega"] = $respuestaNavega[0]["nomEmpresa"];
+                                $_SESSION["NavegaBod"] = $respuestaNavega[0]["Areas"];
+                                $_SESSION["NavegaNumB"] = $respuestaNavega[0]["numBod"];
+                                $_SESSION["idDeBodega"] = $respuestaNavega[0]["idDeBodega"];
+                                echo '<script>
 window.location="Inicio";
 </script>';
-                        }
-                    } else {
-                        echo '</br></br><div class="alert alert-danger alert-dismissible">
+                            }
+                        } else {
+                            echo '</br></br><div class="alert alert-danger alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 <h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 No cuenta con permisos para ingresar al sistema
 </div>';
+                        }
                     }
-                }}
+                }
             } else {
                 echo '</br></br><div class="alert alert-info alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -84,10 +85,7 @@ No cuenta con permisos para ingresar al sistema
 Contraseña o Usuario Incorrecto
 </div>';
             }
-        
-            
-            }
-        
+        }
     }
 
     /* =============================================
@@ -453,7 +451,7 @@ type: "success"}).then(okay => {
     static public function ctrEditarclave() {
 
         if (isset($_POST["passwordAcutal"])) {
-            $encriptar1 = crypt($_POST["passwordAcutal"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+            $encriptar1 = $_POST["passwordAcutal"];
 
             $encriptar = crypt($_POST["ActualContra"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
             if ($encriptar1 == $encriptar) {
@@ -509,7 +507,7 @@ closeConfirm: true
 swal({
 type: "error",
 title: "SU CONTRASEÑA NO COINCIDE",
-text: "Las contraseña digitada actual no es correcta",
+text: "Las contraseña digitada actual no es correcta"'.$encriptar1.',
 showConfirmButton: true,
 confrimButtonText: "Aceptar",
 closeConfirm: true
@@ -757,6 +755,11 @@ closeConfirm: true
     public static function ctrEstadoCliente($activarIdCliente, $activarUsuarioCliente) {
         $respuesta = ModeloUsuarios::mdlEstadoCliente($activarIdCliente, $activarUsuarioCliente);
         return $respuesta;
+    }
+
+    public static function ctrVerUsuarioEdicion($idUsuario) {
+        $respuesta = ModeloUsuarios::mdlVerUsuarioEdicion($idUsuario);
+        return $respuesta;        
     }
 
 }

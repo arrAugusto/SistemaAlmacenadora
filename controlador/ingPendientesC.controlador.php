@@ -10,17 +10,22 @@ class ControladorGeneracionDeContabilidad {
      * ctrIngRegistroConta registra a contabilidad todos los ingresos pendientes.
      */
 
-    public static function ctrIngRegistroConta($idContabilizar) {
+    public static function ctrIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp) {
 
         if (is_numeric($idContabilizar)) {
-            $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroConta($idContabilizar);
+            $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp);
             return $respuesta;
         }
     }
 
-    public static function ctrMostrarSaldos() {
+    public static function ctrMostrarSaldos($estado) {
         $valor = $_SESSION["idDeBodega"];
-        $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
+        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+            $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
+        } else {
+            $respuesta = ModeloContabilidadRegistrada::mdlPolizasPorDia($valor);
+        }
+
         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {
                 
@@ -28,28 +33,77 @@ class ControladorGeneracionDeContabilidad {
 
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
-                    if ($value["accionEstado"] == 4) {
+
+                    if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+                        if ($key % 2 != 0) {
+                            $spanBodega = '<span class="right badge badge-success">Bodega_' . ($value["numeroIdentidad"]) . '</span>';
+                        } else {
+                            $spanBodega = '<span class="right badge badge-primary">Bodega_' . ($value["numeroIdentidad"]) . '</span>';
+                        }
 
                         $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fas fa-file-excel"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-dark btnSelectMultiple btn-sm" estado=0><i class="fas fa-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-danger btn-sm btnContabilizar"><i class="fa fa-thumbs-down"></i></button></div>';
-                    }
-                    $fecha_actual = new DateTime();
-                    $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
+                        $fecha_actual = new DateTime();
+                        $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
+                        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
 
-                    echo '
-                                                         <tr>
-                                                         <td>' . ($key + 1) . '</td>
-                                                         <td>' . ($respuesta[$key]["nit"]) . '</td>
-                                     <td>' . ($value["empresa"]) . '</td>
-                                     <td>' . ($value["poliza"]) . '</td>
-                                     <td>' . ($cadena_fecha_actual) . '</td>
-                                     <td>' . ($value["blts"]) . '</td>
-                                     <td>' . ($value["cif"]) . '</td>
-                                     <td>' . ($value["impuesto"]) . '</td>
-                                    <td><center>' . $botoneraAcciones . '</center></td>
-                                    </tr>';
+                            echo '
+                        <tr>
+                            <td>' . ($key + 1) . '</td>
+                            <td>' . ($respuesta[$key]["nit"]) . '</td>
+                            <td>' . ($value["empresa"]) . '</td>
+                            <td>' . $spanBodega . '</td>
+                            <td>' . ($value["poliza"]) . '</td>
+                            <td>' . ($cadena_fecha_actual) . '</td>
+                            <td>' . ($value["blts"]) . '</td>
+                            <td>' . ($value["cif"]) . '</td>
+                            <td>' . ($value["impuesto"]) . '</td>
+                            <td><center>' . $botoneraAcciones . '</center></td>
+                        </tr>';
+                        } else {
+
+                            echo '
+                        <tr>
+                            <td>' . ($key + 1) . '</td>
+                            <td>' . ($respuesta[$key]["nit"]) . '</td>
+                            <td>' . ($value["empresa"]) . '</td>
+                            <td>' . ($value["poliza"]) . '</td>
+                            <td>' . ($cadena_fecha_actual) . '</td>
+                            <td>' . ($value["blts"]) . '</td>
+                            <td>' . ($value["cif"]) . '</td>
+                            <td>' . ($value["impuesto"]) . '</td>
+                            <td><center>' . $botoneraAcciones . '</center></td>
+                        </tr>';
+                        }
+                    }
                 }
             }
         }
+    }
+
+    public static function ctrIngRegistroContaReportes($codigo, $ident) {
+        if ($codigo == "Ingreso") {
+            $sp = "spReporteConta";
+            $tipo = 1;
+            $repContabilidad = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $tipo);
+            return $repContabilidad;
+        } else {
+            $sp = "spReporteConta";
+            $tipo = 2;
+            $repContabilidad = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $tipo, $ident);
+            return $repContabilidad;
+        }
+    }
+
+    public static function ctrJefeUnidad($ident) {
+        $sp = "spJefeRepConta";
+        $repContabilidad = ModeloGeneracionDeContabilidad::mdlJefeUnidad($sp, $ident);
+        return $repContabilidad;
+    }
+
+    public static function ctrDescontaIng($descontabilizaIng, $usuarioOp) {
+        $sp = "spDescontabilizaIng";
+        $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $descontabilizaIng, $usuarioOp);
+        return $respuesta;
     }
 
 }

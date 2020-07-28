@@ -5,7 +5,6 @@ class ControladorHistorialIngresos {
     public static function ctrMostrarIngresosVigentes() {
         $valor = $_SESSION["idDeBodega"];
         $respuesta = ModeloHistorialIngresos::mdlMostrarIngresosVigentes($valor);
-
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta == "SD") {
                 
@@ -31,7 +30,7 @@ class ControladorHistorialIngresos {
                         } else {
                             $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-success btnEditOp"  estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button>';
                         }
-                    } else if ($value["accionEstado"] == 4) {
+                    } else if ($value["accionEstado"] == 4  || $value["accionEstado"] == 5) {
                         if ($_SESSION["niveles"] == "MEDIO") {
                             $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-success btnEditOp" estado=3 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fas fa-close"></i> </button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button></div>';
                         } else {

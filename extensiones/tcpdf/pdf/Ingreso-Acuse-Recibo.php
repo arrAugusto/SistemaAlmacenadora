@@ -1,68 +1,72 @@
 <?php
+
 require_once "../../../controlador/registroIngresoBodega.controlador.php";
 require_once "../../../modelo/registroIngresoBodega.modelo.php";
 
 require_once "../../../controlador/historiaIngresosFisacales.controlador.php";
 require_once "../../../modelo/historiaIngresosFisacales.modelo.php";
 
-class imprimirIngresoBodega{
-public $Ingreso;
-public function traerDatosIngreso(){
+class imprimirIngresoBodega {
+
+    public $Ingreso;
+
+    public function traerDatosIngreso() {
 // TRAER DATOS DE INGRESO
-$Ingreso = $this->Ingreso;
-$repuestaUsuarios = ControladorRegistroBodega::ctrTraerUsuarios($Ingreso);
-$nombres = $repuestaUsuarios[0]["nombres"];
-$apellidos = $repuestaUsuarios[0]["apellidos"];
-$repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($Ingreso);
-$repuestaBodega = ControladorRegistroBodega::ctrTraerDatosBodegas($Ingreso);
-$tipo = "Acuse";
-$repuestaUnidades = ControladorRegistroBodega::ctrTraerDatosUnidades($Ingreso, $tipo);
+        $Ingreso = $this->Ingreso;
+        $repuestaUsuarios = ControladorRegistroBodega::ctrTraerUsuarios($Ingreso);
+        $nombres = $repuestaUsuarios[0]["nombres"];
+        $apellidos = $repuestaUsuarios[0]["apellidos"];
+        $repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($Ingreso);
+        
+        
+        $tipo = "Acuse";
+        $repuestaUnidades = ControladorRegistroBodega::ctrTraerDatosUnidades($Ingreso, $tipo);
 
-$fechaIngreso = $repuestaOperaciones[0]["fechaRealIng"];
-$fechaIngFormat = date("d-m-Y- H:i:s", strtotime($fechaIngreso));
+        $fechaIngreso = $repuestaOperaciones[0]["fechaRealIng"];
+        $fechaIngFormat = date("d-m-Y- H:i:s", strtotime($fechaIngreso));
 
-$fechaOperacion = $repuestaOperaciones[0]["fechaOperacion"];
-$fechaOperacionIngFormat = date("d-m-Y H:i:s", strtotime($fechaOperacion));
+        $fechaOperacion = $repuestaOperaciones[0]["fechaOperacion"];
+        $fechaOperacionIngFormat = date("d-m-Y H:i:s", strtotime($fechaOperacion));
 
-$area = $repuestaOperaciones[0]["area"];
-$numeroArea = $repuestaOperaciones[0]["numeroArea"];
-$nombreEmpresa = $repuestaOperaciones[0]["empresa"];
-$numeroNit = $repuestaOperaciones[0]["numeroNit"];
-$bultosTotal = $repuestaOperaciones[0]["blts"];
-$ing=$repuestaOperaciones[0]["ing"];
-$origen = $repuestaOperaciones[0]["origen"];
-$bill = $repuestaOperaciones[0]["bill"];
-$mrch = $repuestaOperaciones[0]["mrch"];
-$numberoDua = $repuestaOperaciones[0]["numberoDua"];
-$regIngreso = $repuestaOperaciones[0]["regIngreso"];
-$valFobDolares = number_format($repuestaOperaciones[0]["valFobDolares"], 2);
-$bultosIngreso = $repuestaOperaciones[0]["bultosIngreso"];
+        $area = $repuestaOperaciones[0]["area"];
+        $numeroArea = $repuestaOperaciones[0]["numeroArea"];
+        $nombreEmpresa = $repuestaOperaciones[0]["empresa"];
+        $numeroNit = $repuestaOperaciones[0]["numeroNit"];
+        $bultosTotal = $repuestaOperaciones[0]["blts"];
+        $ing = $repuestaOperaciones[0]["ing"];
+        $origen = $repuestaOperaciones[0]["origen"];
+        $bill = $repuestaOperaciones[0]["bill"];
+        $mrch = $repuestaOperaciones[0]["mrch"];
+        $numberoDua = $repuestaOperaciones[0]["numberoDua"];
+        $regIngreso = $repuestaOperaciones[0]["regIngreso"];
+        $valFobDolares = number_format($repuestaOperaciones[0]["valorTotalAduana"], 2);
+        $bultosIngreso = $repuestaOperaciones[0]["bultosIngreso"];
 
 
-$cif = number_format($repuestaOperaciones[0]["cif"],2);
-$impuesto = number_format($repuestaOperaciones[0]["impuesto"],2);
+        $cif = number_format($repuestaOperaciones[0]["cif"], 2);
+        $impuesto = number_format($repuestaOperaciones[0]["impuesto"], 2);
 
-$idIngreso = $repuestaUnidades[0]["idIngreso"];
-$poliza = $repuestaOperaciones[0]["poliza"];
-$numPlaca = $repuestaUnidades[0]["placa"];
+        $idIngreso = $repuestaUnidades[0]["idIngreso"];
+        $poliza = $repuestaOperaciones[0]["poliza"];
+        $numPlaca = $repuestaUnidades[0]["placa"];
 //$concatenarConsultImagen = "../../imagenesQRCreadas/qrCode".$idIngreso.$poliza.$numPlaca.".png";
 
-require_once('tcpdf_include.php');
+        require_once('tcpdf_include.php');
 
-$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 //$pdf->startPageGroup();
 
-$pdf->AddPage();
+        $pdf->AddPage();
 
 //$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
 
-$pdf->SetMargins(6, 0, 6);
-$pdf->setPrintHeader(false);
-$pdf->setPrintFooter(false);
+        $pdf->SetMargins(6, 0, 6);
+        $pdf->setPrintHeader(false);
+        $pdf->setPrintFooter(false);
 // 
 //---------------------------------------------------------------------------------------------------
-$bloque1 = <<<EOF
+        $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
@@ -85,11 +89,11 @@ $bloque1 = <<<EOF
 	</table>
 EOF;
 
-$pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
+        $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 
 
 //-------------------------------------------------------------------------------------------------------
-$bloque2 = <<<EOF
+        $bloque2 = <<<EOF
 
 
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
@@ -118,11 +122,11 @@ $bloque2 = <<<EOF
          </table>	
 EOF;
 
-$pdf->writeHTML($bloque2, false, false, false, false, '');
+        $pdf->writeHTML($bloque2, false, false, false, false, '');
 
 //-------------------------------------------------------------------------------------------------------
 
-$bloque3 = <<<EOF
+        $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:center;">
 		<tr><br/>
                     <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>PILOTO</strong></th>
@@ -134,34 +138,32 @@ $bloque3 = <<<EOF
 	</table>	
 EOF;
 
-$pdf->writeHTML($bloque3, false, false, false, false, '');
+        $pdf->writeHTML($bloque3, false, false, false, false, '');
 //-------------------------------------------------------------------------------------------------------
- //       var_dump($repuestaUnidades);
- $fontLetra = "font-size:7px";  
-foreach ($repuestaUnidades as $key => $value) {
-$piloto =  $value["piloto"];
-$licencia =  $value["licencia"]; 
-$placa =  $value["placa"]; 
-$contenedor =  $value["contenedor"];
-$marchamo =  $value["marchamo"];
-$llave= count($repuestaUnidades);
-if ($key+1 == $llave) {
-$colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; '.$fontLetra.'">'.$piloto.'</td>';
-$colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; '.$fontLetra.'">'.$licencia.'</td>';
-$colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; '.$fontLetra.'">'.$placa.'</td>';
-$colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; '.$fontLetra.'">'.$contenedor.'</td>';
-$marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; '.$fontLetra.'">'.$marchamo.'</td>';
-    
-}else {
-$colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:191px; '.$fontLetra.'">'.$piloto.'</td>';
-$colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:111px; '.$fontLetra.'">'.$licencia.'</td>';
-$colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:90px; '.$fontLetra.'">'.$placa.'</td>';
-$colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; '.$fontLetra.'">'.$contenedor.'</td>';
-$marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:70px; '.$fontLetra.'">'.$marchamo.'</td>';
-        
-}
+        //       var_dump($repuestaUnidades);
+        $fontLetra = "font-size:7px";
+        foreach ($repuestaUnidades as $key => $value) {
+            $piloto = $value["piloto"];
+            $licencia = $value["licencia"];
+            $placa = $value["placa"];
+            $contenedor = $value["contenedor"];
+            $marchamo = $value["marchamo"];
+            $llave = count($repuestaUnidades);
+            if ($key + 1 == $llave) {
+                $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $piloto . '</td>';
+                $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licencia . '</td>';
+                $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placa . '</td>';
+                $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedor . '</td>';
+                $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $marchamo . '</td>';
+            } else {
+                $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $piloto . '</td>';
+                $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licencia . '</td>';
+                $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placa . '</td>';
+                $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedor . '</td>';
+                $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $marchamo . '</td>';
+            }
 
-$bloque4 = <<<EOF
+            $bloque4 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -173,21 +175,20 @@ $bloque4 = <<<EOF
     	</table>	
 EOF;
 
-$pdf->writeHTML($bloque4, false, false, false, false, '');
+            $pdf->writeHTML($bloque4, false, false, false, false, '');
+        }
 
-} 
-
-/*
- *
- *  
- * LEYENDA ALMACENADORAS ACUSE FISCAL 42 / 33 CALLE
- * 
- * 
- */
+        /*
+         *
+         *  
+         * LEYENDA ALMACENADORAS ACUSE FISCAL 42 / 33 CALLE
+         * 
+         * 
+         */
 
 //-------------------------------------------------------------------------------------------------------
 
-$bloque8 = <<<EOF
+        $bloque8 = <<<EOF
 
 		<table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 			<tbody>
@@ -197,24 +198,22 @@ $bloque8 = <<<EOF
         </table>
 EOF;
 
-$pdf->writeHTML($bloque8, false, false, false, false, '');
+        $pdf->writeHTML($bloque8, false, false, false, false, '');
 
-$pdf->OutPut('Sin título.pdf');
-	}
-	}
+        $pdf->OutPut('Sin título.pdf');
+    }
 
-	
+}
 
-
-$ingreso= new imprimirIngresoBodega();
-$ingreso -> Ingreso = $_GET["Ingreso"];
+$ingreso = new imprimirIngresoBodega();
+$ingreso->Ingreso = $_GET["Ingreso"];
 ob_start();
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
-$ingreso -> traerDatosIngreso();
+$ingreso->traerDatosIngreso();
 ?>
 
 
-															
-															
+
+

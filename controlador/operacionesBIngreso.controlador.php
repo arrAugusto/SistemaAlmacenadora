@@ -96,13 +96,10 @@ class ControladorOpB {
                         $dato = $respuesta["dataTxt"][0]["Identity"]*1;
                         if ($dato >= 1) {
                             $resp = 0;
-            
                                 if ($datos["sel2"] == "Cliente individual" || $datos["sel2"] == "Cliente consolidado poliza") {
-                                  
                                     $llaveConsulta = $respuesta["dataTxt"][0]["Identity"]*1;
                                     $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
                                     $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
-                           
                                     if ($datos["sel2"] == "Cliente consolidado poliza") {
                                         $idBodega = $datos["hiddenIdBod"];
                                         $paramPlaca = $datos['numeroPlaca'];
@@ -129,13 +126,11 @@ class ControladorOpB {
                                         }
                                     }
                                 }
-                            
                             $dato = $respuesta["dataTxt"][0]["Identity"]*1;
                             $tipoOperacion = 1;
                             if ($datos["sel2"] != "Cliente consolidado poliza") {
                                 $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
                             }
-
                             return $respuesta["dataTxt"][0];
                         }
                     } else {

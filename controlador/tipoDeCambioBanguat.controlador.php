@@ -25,9 +25,9 @@ class tipoDeCambio {
             $tipoDeCambio = $result["TipoCambioDiaResult"]["CambioDolar"]["VarDolar"]["referencia"];
             $fecha = $result["TipoCambioDiaResult"]["CambioDolar"]["VarDolar"]["fecha"];
             $respuesta = ModeloUsuarios::mdlGuardarTipoDeCambio($fechaHoy, $tipoDeCambio);
-                echo 'T. Cambio : ' . $fecha . ',  Q. ' . $tipoDeCambio;
+                echo 'Cambio : ' . $fecha . ',  Q. ' . $tipoDeCambio;
         }else{
-            echo 'Tipo de Cambio : ' . $fechaHoy = date('d/m/Y') . ',  Q. ' . $respuesta[0]["cambio"];
+            echo 'Cambio : ' . $fechaHoy = date('d/m/Y') . ',  Q. ' . $respuesta[0]["cambio"];
 
         }
     }

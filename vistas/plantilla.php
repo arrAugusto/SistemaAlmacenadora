@@ -93,7 +93,6 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     include "modulos/Page_Error/error404.php";
                 }
             }
-
             if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["departamentos"] != "Ventas") {
                 if ($_GET["ruta"] == "Inicio" ||
                         $_GET["ruta"] == "gestorDeTarifas" ||
@@ -116,12 +115,11 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "salir" ||
                         $_GET["ruta"] == "ingPendientesC" ||
                         $_GET["ruta"] == "polizasDiarias" ||
-                        
+                        $_GET["ruta"] == "sldDiarioContabilidad" ||                        
+                        $_GET["ruta"] == "retiroPendienteC" ||
+                        $_GET["ruta"] == "retirosContabilizados" ||        
                         $_GET["ruta"] == "historialCalculos" ||
-                        
-                        $_GET["ruta"] == "ingReportados"
-                ) {
-
+                        $_GET["ruta"] == "ingReportados") {
                     /*
                       Include para hacer URL amigables.
                      */
@@ -131,8 +129,6 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                 }
             }
         } else if ($_SESSION["niveles"] == "ALTO" && $_SESSION["departamentos"] == "Operaciones Generales" && $_SESSION["departamentos"] != "Ventas") {
-           
-            
             if ($_GET["ruta"] == "Inicio" ||
                     $_GET["ruta"] == "parametrizarAlmacenaje" ||
                     $_GET["ruta"] == "miperfil" ||
@@ -153,8 +149,8 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "salir" ||
                     $_GET["ruta"] == "clientesSinTarifa" ||
                     $_GET["ruta"] == "calcAlmacenajeF" ||
-                    $_GET["ruta"] == "activarTarifa" ||
-                    
+                    $_GET["ruta"] == "nuevasEmpresas" ||
+                    $_GET["ruta"] == "activarTarifa" ||                   
                     $_GET["ruta"] == "detallesTarifa") {
                 /*
                   Include para hacer URL amigables.
@@ -171,7 +167,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "UbicacionBodega" ||
                     $_GET["ruta"] == "inventariosFiscales" ||
                     $_GET["ruta"] == "calculosDeAlmacenaje" ||
-                    $_GET["ruta"] == "paseDeSalida" ||
+                    $_GET["ruta"] == "paseDeSalida" ||  
                     $_GET["ruta"] == "retiroBod" ||
                     $_GET["ruta"] == "historialCalculos" ||
                     $_GET["ruta"] == "culminarIngresosBodega" ||

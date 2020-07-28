@@ -79,7 +79,7 @@ class ControladorRetiroOpe {
             $valorTotalAduana = $datos["valorTotalAduana"];
             $pesoKg = $datos["pesoKg"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
-            $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso, $cantBultos, $valorTotalAduana, $valorCif, $calculoValorImpuesto, $pesoKg);
+            $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
             return $respuesta;
         }
     }

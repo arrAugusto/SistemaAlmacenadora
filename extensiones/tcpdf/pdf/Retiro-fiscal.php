@@ -204,7 +204,7 @@ EOF;
         }
 
 //-------------------------------------------------------------------------------------------------------
-        $bloque7 = <<<EOF
+$bloque7 = <<<EOF
 
 		<table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 			<tbody>

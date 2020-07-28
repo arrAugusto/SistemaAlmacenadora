@@ -143,11 +143,11 @@ class AjaxRegistroIngBodega {
     public $guardarChas;
 
     public function ajaxVehiculosUbicaN() {
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $vehiculosUbicaN = $this->vehiculosUbicaN;
         $listaValida = $this->listaValida;
-        
+
         $respuesta = ControladorRegistroBodega::ctrVehiculosUbicaN($vehiculosUbicaN, $listaValida, $usuarioOp);
         echo json_encode($respuesta);
     }
@@ -155,9 +155,9 @@ class AjaxRegistroIngBodega {
     public $montarguista;
 
     public function ajaxMostrarMontarguista() {
-     $montarcarguista = $this->montarcarguista;
-  $respuesta = ControladorRegistroBodega::ctrMostrarMontarguista($montarcarguista);
-     echo json_encode($respuesta);
+        $montarcarguista = $this->montarcarguista;
+        $respuesta = ControladorRegistroBodega::ctrMostrarMontarguista($montarcarguista);
+        echo json_encode($respuesta);
     }
 
 }

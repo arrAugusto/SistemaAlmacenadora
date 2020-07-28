@@ -35,7 +35,6 @@ class ControladorRegistroBodega {
         $dataListaUbica = json_decode($dataListaUbica, true);
         $llave = $respuesta["llaveIdent"][0]["Identity"];
 
-
         $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica, $llave);
         if ($respuestaGUbica == "fin") {
             return $respuesta;

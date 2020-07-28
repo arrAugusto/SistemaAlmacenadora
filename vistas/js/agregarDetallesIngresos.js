@@ -3,6 +3,7 @@ $(document).on("click", ".btnAgregarDetalles", function () {
     var hiddenIngV = "";
     if (tipoIng == "VEHICULOS NUEVOS") {
         var hiddenIngV = '<input type="hidden" id="hiddenTipoIng" value="' + tipoIng + '" />';
+
     }
     var numeroIdIng = $(this).attr("numeroOrden");
     var numeroButton = $(this).attr("numeroButton");
@@ -17,21 +18,23 @@ $(document).on("click", ".btnAgregarDetalles", function () {
     var nit = document.getElementById(lblNit).innerHTML;
     var poliza = document.getElementById(lblPoliza).innerHTML;
     var bultos = document.getElementById(lblBultos).innerHTML;
+    var css = "display: block;";
+    document.getElementById("divMontarguist").setAttribute("style", css);
     document.getElementById("agregarDetalles").innerHTML = '<div class="alert alert-primary">' + hiddenIngV + '<input type="hidden" id="cliente" name="cliente" value="' + numeroCliente + '"><input type="hidden" id="idOrdenIng" name="idOrdenIng" value="' + numeroorden + '"><input type="hidden" id="numeroIdIng" name="numeroIdIng" value="' + numeroIdIng + '"><label id="lblEmpresaGuardar"><b>Empresa : </b> <strong>' + empresa + '</strong></label><br><label id="lblPolizaGuardar">Nit : ' + nit + '</label><br><label id="lblBultosGuardar">Bultos : ' + bultos + '</label><br><label id="lblPolizaGuardar">Poliza : ' + poliza + '</label><br><button type="button" class="btn btn-primary btnVerDetalles" id="btnDetallesMerca" estado=0 data-toggle="modal" data-target="#agrDetalles">Agregar Detalles</button></div>';
     document.getElementById("divDetallesMerca").innerHTML = ` 
-        <div class="card card-danger card-outline">
-            <div class="card-body">
-                <div class="row">
-                        <div class="col-md-3 col-sm-6 col-12" id="montacargas">
-                            
+                <div class="card card-danger card-outline">
+                    <div class="card-body">
+                        <div class="row">
+                                <div class="col-md-3 col-sm-6 col-12" id="montacargas">
 
+
+                            </div>
+                        <div class="col-12" id="divContenidoDetalle">
+
+                        </div>
                     </div>
-                <div class="col-12" id="divContenidoDetalle">
-
                 </div>
-            </div>
-        </div>
-    </div>`;
+            </div>`;
 });
 $(document).on("click", ".btnVerDetalles", function () {
     if ($("#proTarima").length >= 1) {
@@ -45,7 +48,7 @@ $(document).on("click", ".btnVerDetalles", function () {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.value) {
                     if ($("#hiddenTipoIng").length >= 1) {
@@ -62,24 +65,24 @@ $(document).on("click", ".btnVerDetalles", function () {
                             $("#divUbicacionMerc").removeClass("col-4");
                             $("#divUbicacionMerc").addClass("col-6");
                             document.getElementById("divUbicacionMerc").innerHTML = `
-                                                 <div class="form-group has-error" id="selectSucces">
-                                                        <label>Ubicación de Vehiculos</label>
-                                                        <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
-                                                            <option selected="selected" disabled="disabled">Seleccione predio</option>   
-                                                        </select>
-                                                    </div>`;
+                                                         <div class="form-group has-error" id="selectSucces">
+                                                                <label>Ubicación de Vehiculos</label>
+                                                                <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
+                                                                    <option selected="selected" disabled="disabled">Seleccione predio</option>   
+                                                                </select>
+                                                            </div>`;
                             document.getElementById("divObserva").innerHTML = `
-                                    
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="divAcciones">
-                                                        <button type="button" class="btn btn-primary btn-block btnGdChasVehN">Registrar Vehículos Seleccionados</button>
+
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div id="divAcciones">
+                                                                <button type="button" class="btn btn-primary btn-block btnGdChasVehN">Registrar Vehículos Seleccionados</button>
+                                                            </div>
+                                                        </div> 
                                                     </div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    `;
+                                                </div>
+                                            `;
 
                             $('#vehiculosUbicaN').select2();
 
@@ -99,44 +102,47 @@ $(document).on("click", ".btnVerDetalles", function () {
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'Aceptar'
             }).then((result) => {
                 if (result.value) {
-                    var tipoIng = document.getElementById("hiddenTipoIng").value;
+                    if ($("#hiddenTipoIng").length >= 1) {
 
-                    if (tipoIng == "VEHICULOS NUEVOS") {
-                        document.getElementById("datoEmpresa").innerHTML = "";
-                        document.getElementById("datoBltsEmp").innerHTML = "";
-                        document.getElementById("datoPesoEmp").innerHTML = "";
-                        document.getElementById("mdStandarTarima").innerHTML = "";
-                        document.getElementById("newTxtBtn").innerHTML = '';
-                        document.getElementById("newTxtBtn").innerHTML = '';
-                        document.getElementById("divUbicacionMerc").innerHTML = "";
-                        document.getElementById("divObserva").innerHTML = "";
-                        $("#divUbicacionMerc").removeClass("col-4");
-                        $("#divUbicacionMerc").addClass("col-6");
-                        document.getElementById("divUbicacionMerc").innerHTML = `
-                                                 <div class="form-group has-error" id="selectSucces">
-                                                        <label>Ubicación de Vehiculos</label>
-                                                        <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
-                                                            <option selected="selected" disabled="disabled">Seleccione predio</option>   
-                                                        </select>
-                                                    </div>`;
-                        document.getElementById("divObserva").innerHTML = `
-                                    
-                                        <div class="card-footer">
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div id="divAcciones">
-                                                        <button type="button" class="btn btn-primary btn-block btnGdChasVehN">Registrar Vehículos Seleccionados</button>
+
+                        var tipoIng = document.getElementById("hiddenTipoIng").value;
+
+                        if (tipoIng == "VEHICULOS NUEVOS") {
+                            document.getElementById("datoEmpresa").innerHTML = "";
+                            document.getElementById("datoBltsEmp").innerHTML = "";
+                            document.getElementById("datoPesoEmp").innerHTML = "";
+                            document.getElementById("mdStandarTarima").innerHTML = "";
+                            document.getElementById("newTxtBtn").innerHTML = '';
+                            document.getElementById("newTxtBtn").innerHTML = '';
+                            document.getElementById("divUbicacionMerc").innerHTML = "";
+                            document.getElementById("divObserva").innerHTML = "";
+                            $("#divUbicacionMerc").removeClass("col-4");
+                            $("#divUbicacionMerc").addClass("col-6");
+                            document.getElementById("divUbicacionMerc").innerHTML = `
+                                                         <div class="form-group has-error" id="selectSucces">
+                                                                <label>Ubicación de Vehiculos</label>
+                                                                <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
+                                                                    <option selected="selected" disabled="disabled">Seleccione predio</option>   
+                                                                </select>
+                                                            </div>`;
+                            document.getElementById("divObserva").innerHTML = `
+
+                                                <div class="card-footer">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div id="divAcciones">
+                                                                <button type="button" class="btn btn-primary btn-block btnGdChasVehN">Registrar Vehículos Seleccionados</button>
+                                                            </div>
+                                                        </div> 
                                                     </div>
-                                                </div> 
-                                            </div>
-                                        </div>
-                                    `;
+                                                </div>
+                                            `;
 
-                        $('#vehiculosUbicaN').select2();
-
+                            $('#vehiculosUbicaN').select2();
+                        }
                     }
                 } else {
                     $(".btnPromedioTarima").removeClass("btn-info");
@@ -545,7 +551,7 @@ $(document).on("click", ".btnConsCadena", async function () {
             document.getElementById("recargaBtn").disabled = false;
         }
 
-//
+        //
         Swal.fire({
             title: "Operación Exitosa, Piloto Autorizado",
             text: "¿Desea imprimir pase de salida del piloto?",
@@ -561,7 +567,7 @@ $(document).on("click", ".btnConsCadena", async function () {
             }
         })
 
-//        
+        //        
     }
     if (respuesta == "creadoFin") {
         $("#salidaRapida" + ingreso).removeClass("btn-primary");
@@ -576,7 +582,7 @@ $(document).on("click", ".btnConsCadena", async function () {
         if ($(".btnRecarga").length >= 1) {
             document.getElementById("recargaBtn").disabled = false;
         }
-//
+        //
         Swal.fire({
             title: "Operación Exitosa, Pilotos Autorizados",
             text: "¿Desea imprimir pase de salida de lo(s) piloto(s)?",
@@ -592,7 +598,7 @@ $(document).on("click", ".btnConsCadena", async function () {
             }
         })
 
-//
+        //
     }
 })
 
@@ -794,6 +800,7 @@ $(document).on("click", ".btnMsVehiculos", async function () {
             console.log(idIng);
             document.getElementById("chasisVeh").innerHTML = '';
             document.getElementById("chasisVeh").innerHTML = '<table id="tableChasisVehiculos" class="table table-hover"></table>';
+
             var respFinVeh = await finalizarChasis(idIng);
 
             if (respFinVeh != false) {
@@ -972,12 +979,12 @@ $(document).on("click", ".btnGdChasVehN", async function () {
                 document.getElementById("divUbicacionMerc").innerHTML = "";
 
                 document.getElementById("divUbicacionMerc").innerHTML = `
-                                                 <div class="form-group has-error" id="selectSucces">
-                                                        <label>Ubicación de Vehiculos</label>
-                                                        <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
-                                                            <option selected="selected" disabled="disabled">Seleccione predio</option>   
-                                                        </select>
-                                                    </div>`;
+                                                         <div class="form-group has-error" id="selectSucces">
+                                                                <label>Ubicación de Vehiculos</label>
+                                                                <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
+                                                                    <option selected="selected" disabled="disabled">Seleccione predio</option>   
+                                                                </select>
+                                                            </div>`;
                 $('#vehiculosUbicaN').select2();
                 Swal.fire({
                     position: 'top-center',
@@ -991,12 +998,12 @@ $(document).on("click", ".btnGdChasVehN", async function () {
                 $(".btnMsVehiculos").click();
                 document.getElementById("divUbicacionMerc").innerHTML = "";
                 document.getElementById("divUbicacionMerc").innerHTML = `
-                                                 <div class="form-group has-error" id="selectSucces">
-                                                        <label>Ubicación de Vehiculos</label>
-                                                        <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
-                                                            <option selected="selected" disabled="disabled">Seleccione predio</option>   
-                                                        </select>
-                                                </div>`;
+                                                         <div class="form-group has-error" id="selectSucces">
+                                                                <label>Ubicación de Vehiculos</label>
+                                                                <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
+                                                                    <option selected="selected" disabled="disabled">Seleccione predio</option>   
+                                                                </select>
+                                                        </div>`;
                 $('#vehiculosUbicaN').select2();
                 Swal.fire({
                     position: 'top-center',

@@ -168,7 +168,6 @@ $(document).on("click", ".btnCalculos", function () {
                                                       <th>Q.  ` + cantPesoCalculo + `</th>
                                                       <th>Q.  ` + parseSeguro + `</th>
                                                       <th>Q.  ` + cantCalcGstAdmin + `</th>
-                
                                                       <th>Q.  ` + persetotaACobrar + `</th>
                     <th></th>`
                                     );

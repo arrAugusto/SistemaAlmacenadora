@@ -11,8 +11,7 @@ class AjaxGestorDeTarifas {
 
     public function AjaxMostrarTodoServicio() {
         $idMostrar = $this->idMostrar;
-        $numerotarifa = $this->numerotarifa;
-        $respuesta = ControladorGestorDeTarifas::ctrMostrarTodoServicio($idMostrar, $numerotarifa);
+        $respuesta = ControladorGestorDeTarifas::ctrMostrarTodoServicio($idMostrar);
         echo json_encode($respuesta);
     }
 
@@ -27,10 +26,9 @@ class AjaxGestorDeTarifas {
 
 }
 
-if (isset($_POST["numerotarifa"])) {
+if (isset($_POST["idMostrar"])) {
     $MostrarTodoServicio = new AjaxGestorDeTarifas();
     $MostrarTodoServicio->idMostrar = $_POST["idMostrar"];
-    $MostrarTodoServicio->numerotarifa = $_POST["numerotarifa"];
     $MostrarTodoServicio->AjaxMostrarTodoServicio();
 }
 

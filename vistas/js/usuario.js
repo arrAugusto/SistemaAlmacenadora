@@ -1,9 +1,10 @@
 /*=============================================
  SUBIENDO fotoGRAFIA USUARIO
  =============================================*/
-$(document).ready(function() {
-    $(".nuevaFoto").change(function() {
+$(document).ready(function () {
+    $(".nuevaFoto").change(function () {
         var imagen = this.files[0];
+        console.log(this.files);
         /*=============================================
          VALIDAMOS EL FORMATO DE LA IMAGEN SEA JPG O PNG
          =============================================*/
@@ -30,7 +31,7 @@ $(document).ready(function() {
         } else {
             var datosImagen = new FileReader;
             datosImagen.readAsDataURL(imagen);
-            $(datosImagen).on("load", function(event) {
+            $(datosImagen).on("load", function (event) {
                 var rutaImagen = event.target.result;
                 $(".previsualizar").attr("src", rutaImagen);
             });
@@ -48,8 +49,8 @@ $(document).ready(function() {
 /*=============================================
  ACTUALIZANDO DATOS
  =============================================*/
-$(document).ready(function() {
-    $(".btnEditarUsuario").click(function() {
+$(document).ready(function () {
+    $(".btnEditarUsuario").click(function () {
         var idUsuario = $(this).attr("idUsuario");
         var datos = new FormData();
         datos.append("idUsuario", idUsuario);
@@ -61,22 +62,38 @@ $(document).ready(function() {
             contentType: false,
             processData: false,
             dataType: "json",
-            success: function(respuesta) {
-                $("#editarTelefono").val(respuesta["telefono"]);
-                $("#telefonoActual").val(respuesta["telefono"]);
-                $("#emailActual").val(respuesta["email"]);
-                $("#editarEmail").val(respuesta["email"]);
-                $("#editarUsuario").val(respuesta["usuario"]);
-                $("#fotoActual").val(respuesta["foto"]);
-                $("#passwordAcutal").val(respuesta["contraseña"]);
+            success: function (respuesta) {
+                console.log(respuesta);
+                document.getElementById("editarUsuario").value = respuesta[0]["usuarios"];
+                document.getElementById("editarTelefono").value = respuesta[0]["telefono"];
+                document.getElementById("editarEmail").value = respuesta[0]["email"];
+
+                document.getElementById("telefonoActual").value = respuesta[0]["telefono"];
+                document.getElementById("emailActual").value = respuesta[0]["email"];
+
+                document.getElementById("passwordAcutal").value = respuesta[0]["contra"];
+
                 if (respuesta["foto"] != "") {
-                    $(".previsualizar").attr("src", respuesta["foto"]);
+                    $(".previsualizar").attr("src", respuesta[0]["foto"]);
                 }
+                /*
+                 
+                 $("#editarTelefono").val(respuesta["telefono"]);
+                 $("#emailActual").val(respuesta["email"]);
+                 $("#editarEmail").val(respuesta["email"]);
+                 $("#editarUsuario").val(respuesta["usuario"]);
+                 $("#fotoActual").val(respuesta["foto"]);
+                 $("#passwordAcutal").val(respuesta["contraseña"]);
+                 
+                 
+                 */
+            }, error: function (respuesta) {
+                console.log(respuesta);
             }
         })
     });
 });
-$(document).on("click", ".btnActivar", function() {
+$(document).on("click", ".btnActivar", function () {
     var idUsuario = $(this).attr("idUsuario");
     var estadoUsuario = $(this).attr("estadoUsuario");
     console.log(idUsuario);
@@ -94,47 +111,47 @@ $(document).on("click", ".btnActivar", function() {
         contentType: false,
         processData: false,
         dataType: "json",
-        success: function(respuesta) {
+        success: function (respuesta) {
             console.log(respuesta);
-            if (respuesta[0].resp==1) {
-                   if (estadoUsuario == 0) {
-        button.removeClass('btn-success');
-        button.addClass('btn-danger');
-        button.html('Desactivado');
-        button.attr('estadoUsuario', 1);
-    } else {
-        button.removeClass('btn-danger');
-        button.addClass('btn-success');
-        button.html('Activado');
-        button.attr('estadoUsuario', 0);
-    }
-                                swal({
-                type: "success",
-                title: "Operación exitosa",
-                showConfirmButton: true,
-                confrimButtonText: "Aceptar",
-                closeConfirm: true
-            });
-            }else{
-                            swal({
-                type: "warning",
-                title: "Por alguna razon no se finalizo la operación, vuelva intentarlo",
-                
-                showConfirmButton: true,
-                confrimButtonText: "Aceptar",
-                closeConfirm: true
-            });
+            if (respuesta[0].resp == 1) {
+                if (estadoUsuario == 0) {
+                    button.removeClass('btn-success');
+                    button.addClass('btn-danger');
+                    button.html('Desactivado');
+                    button.attr('estadoUsuario', 1);
+                } else {
+                    button.removeClass('btn-danger');
+                    button.addClass('btn-success');
+                    button.html('Activado');
+                    button.attr('estadoUsuario', 0);
+                }
+                swal({
+                    type: "success",
+                    title: "Operación exitosa",
+                    showConfirmButton: true,
+                    confrimButtonText: "Aceptar",
+                    closeConfirm: true
+                });
+            } else {
+                swal({
+                    type: "warning",
+                    title: "Por alguna razon no se finalizo la operación, vuelva intentarlo",
+
+                    showConfirmButton: true,
+                    confrimButtonText: "Aceptar",
+                    closeConfirm: true
+                });
             }
-        }, error: function(respuesta){
+        }, error: function (respuesta) {
             console.log(respuesta);
         }
     })
- 
+
 })
-$(document).ready(function() {
-    $("#nitTarifaEspecial").change(function() {
-var combo = document.getElementById("nitTarifaEspecial");
-var selected = combo.options[combo.selectedIndex].text;
+$(document).ready(function () {
+    $("#nitTarifaEspecial").change(function () {
+        var combo = document.getElementById("nitTarifaEspecial");
+        var selected = combo.options[combo.selectedIndex].text;
 
         var idNitEspecial = $(this).val();
         console.log(idNitEspecial);
@@ -148,7 +165,7 @@ var selected = combo.options[combo.selectedIndex].text;
             contentType: false,
             processData: false,
             dataType: "json",
-            success: function(respuesta) {
+            success: function (respuesta) {
                 console.log(respuesta);
                 document.getElementById("razonSocial").value = respuesta[0]["nombreEmpresa"];
                 document.getElementById("nombreComercial").value = respuesta[0]["nombreEmpresa"];
@@ -158,3 +175,25 @@ var selected = combo.options[combo.selectedIndex].text;
         })
     })
 })
+
+$(document).on("click", ".btnCambiaDataEdicion", function () {
+    var editarTelefono = $("#editarTelefono").val();
+    var editarEmail = $("#editarEmail").val();
+
+    var telefonoActual = $("#telefonoActual").val();
+    var emailActual = $("#emailActual").val();
+
+    if (editarTelefono != telefonoActual || emailActual != editarEmail) {
+        
+    } else {
+        Swal.fire(
+                'No existen cambios',
+                'No se detecta cambios de telefono o correo',
+                'error'
+                )
+    }
+
+
+})
+
+

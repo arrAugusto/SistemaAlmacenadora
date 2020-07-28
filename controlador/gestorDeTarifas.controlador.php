@@ -4,23 +4,27 @@ class ControladorGestorDeTarifas {
 
     public static function ctrMostrarTarifas() {
         $respuesta = ModeloGestorDeTarifas::mdlMostrarTarifas();
+        $contador = 0;
         foreach ($respuesta as $key => $value) {
                 $buttonPDF = '<button type="button" class="btn btn-outline-danger btn-sm btnPDFGTarifa" idClt="' . $value["identificador"] . '"><i class="fa fa-file-pdf-o"></i></button>';
+                if ($value["estadoDeTarifa"]==1 || $value["estadoDeTarifa"]==2) {
+                    
+           $contador = $contador+1;
                 if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "ALTO" && $_SESSION["departamentos"] == "Operaciones Generales") {
                     if ($value["estadoDeTarifa"] == 0) {
-                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-warning btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '" disabled="disabled">Inactiva&nbsp;</button><button type="button" class="btn btn-info btnView btn-sm" data-toggle="modal" data-target="#MostrarTodoServicio" idMostrar=' . $value["tarifa"] . ' numerotarifa=' . $value["identificador"] . '  disabled="disabled"><i class="fa fa-eye"></i></button>' . $buttonPDF . '</div>';
+                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-warning btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '" disabled="disabled">Inactiva&nbsp;</button><button type="button" class="btn btn-info btnView btn-sm" data-toggle="modal" data-target="#MostrarTodoServicio" idMostrar=' . $value["identificador"] . '   disabled="disabled"><i class="fa fa-eye"></i></button>' . $buttonPDF . '</div>';
                         $numTarifa = "Inactiva / Sin tarifa";
                     }
                     if ($value["estadoDeTarifa"] == 1) {
-                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-outline-primary btnActivarTarifa btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '">Activa&nbsp;&nbsp;&nbsp;</button><button type="button" class="btn btn-outline-info btnView btn-sm" data-toggle="modal" data-target="#MostrarTodoServicio" idMostrar=' . $value["tarifa"] . ' numerotarifa=' . $value["identificador"] . '><i class="fa fa-eye"></i></button>' . $buttonPDF . '</div>';
+                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-outline-primary btnActivarTarifa btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '">Activa&nbsp;&nbsp;&nbsp;</button>' . $buttonPDF . '</div>';
                         $numTarifa = $value["tarifa"];
                     }
                     if ($value["estadoDeTarifa"] == 2) {
-                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-outline-dark btnActivarTarifa btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '">Anulada</button><button type="button" class="btn btn-outline-info btnView btn-sm" data-toggle="modal" data-target="#MostrarTodoServicio" idMostrar=' . $value["tarifa"] . ' numerotarifa=' . $value["identificador"] . '><i class="fa fa-eye"></i></button>' . $buttonPDF . '</div>';
+                        $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-outline-dark btnActivarTarifa btn-sm" idClt="' . $value["identificador"] . '" estado="' . $value["estadoDeTarifa"] . '">Anulada</button>' . $buttonPDF . '</div>';
                         $numTarifa = $value["tarifa"];
                     }
                 } else {
-                    $bottonera = '<div class="btn-group btn-sm"><button type="button" class="btn btn-outline-info btnView btn-sm" data-toggle="modal" data-target="#MostrarTodoServicio" idMostrar=' . $value["tarifa"] . ' numerotarifa=' . $value["identificador"] . '><i class="fa fa-eye"></i></button>' . $buttonPDF . '</div>';
+                    $bottonera = '<div class="btn-group btn-sm">' . $buttonPDF . '</div>';
                     if ($value["estadoDeTarifa"] == 0) {
                         $numTarifa = "Inactiva / Sin tarifa";
                     }
@@ -32,21 +36,19 @@ class ControladorGestorDeTarifas {
                     }
                 }
                 echo '<tr>
-                                <td>' . ($key + 1) . '</td>
+                                <td>' . ($contador) . '</td>
                                 <td>' . $value["numNit"] . '</td>
                                 <td>' . $value["nombreEmpresa"] . '</td>
-                                <td>' . $numTarifa . '</td>
                                 <td>' . $value["Contacto"] . '</td>
                                 <td>' . $value["telefono"] . '</td>
                                 <td>' . $value["correo"] . '</td>
                                 <td>' . $bottonera . '</td></tr>';
             
-        }
+        }     }
     }
 
-    public static function ctrMostrarTodoServicio($idMostrar, $numerotarifa) {
-
-        $respuesta = ModeloGestorDeTarifas::mdlMostrarTodoServicio($idMostrar, $numerotarifa);
+    public static function ctrMostrarTodoServicio($idMostrar) {
+        $respuesta = ModeloGestorDeTarifas::mdlMostrarTodoServicio($idMostrar);
         return $respuesta;
     }
 

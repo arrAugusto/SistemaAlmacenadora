@@ -276,10 +276,10 @@ class ModeloRetiroOpe {
         }
     }
 
-    public static function mdlActualizarStockGeneral($idIngreso, $cantBultos, $valorTotalAduana, $valorCif, $calculoValorImpuesto, $pesoKg) {
+    public static function mdlActualizarStockGeneral($idIngreso) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spStockGeneral ?, ?, ?, ?, ?, ?";
-        $params = array(&$idIngreso, &$cantBultos, &$valorTotalAduana, &$valorCif, &$calculoValorImpuesto, &$pesoKg);
+        $sql = 'EXECUTE spStockGeneral ?';
+        $params = array(&$idIngreso);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             return "Ok";

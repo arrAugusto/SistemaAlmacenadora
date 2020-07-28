@@ -18,26 +18,22 @@ class ModeloGestorDeTarifas {
         }
     }
 
-    public static function mdlMostrarTodoServicio($idMostrar, $numerotarifa) {
+    public static function mdlMostrarTodoServicio($idMostrar) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE  spMostrarTodo ?, ?";
-        $params = array(&$numerotarifa, &$idMostrar);
+        $sql = 'EXECUTE  spMostrarTodo ?';
+        $params = array(&$idMostrar);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
-        if (is_null(sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC))) {
-            return "sindata";
-        } else {
-            if (sqlsrv_execute($stmt) == true) {
-                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                    $results[] = $row;
-                }
-                if (!empty($results)) {
-                    return $results;
-                } else {
-                    return "SD";
-                }
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
             } else {
                 return "SD";
             }
+        } else {
+            return sqlsrv_errors();
         }
     }
 

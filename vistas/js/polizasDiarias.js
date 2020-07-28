@@ -22,10 +22,6 @@ $(function () {
     });
 });
 
-$(document).on("click", ".btnGenerarPolizaContable", async function () {
-    var fecha = document.getElementById("hiddenDateTime").value;
-    var generarPolizas = await generarPolizaContable(fecha);
-})
 
 function generarPolizaContable(fecha) {
     let estado;
@@ -95,12 +91,12 @@ function generarPolizaContable(fecha) {
                 var ctaContra = '<strong>TOTAL</strong>';
                 var Contra = '<strong>INGRESOS DE CIF E IMPUESTOS EN ZONA ADUANERA DE BODEGAS Y PREDIOS DE VEHÍCULOS</stron>';
 
-                var totalDebe = '<strong>'+respuesta[0].total+'</strong>';
-                var totalHaber = '<strong>'+respuesta[0].total+'</strong>';
+                var totalDebe = '<strong>' + respuesta[0].total + '</strong>';
+                var totalHaber = '<strong>' + respuesta[0].total + '</strong>';
                 //   var acciones = '<button type="button" class="btn btn-primary">Ver Reporte</button>';
                 var acciones = '<button type="button" class="btn btn-primary">Ver Reporte</button>';
                 cuentaDefinitiva.push([numero, ctaContra, Contra, totalDebe, totalHaber, acciones]);
-                    $('#tableContabilidad').DataTable({
+                $('#tableContabilidad').DataTable({
                     "language": {
                         "sProcessing": "Procesando...",
                         "sLengthMenu": "Mostrar _MENU_ registros",
@@ -152,4 +148,120 @@ function generarPolizaContable(fecha) {
     });
     return estado;
 }
+
+$(document).on("click", ".btnGenerarPolizaContable", async function () {
+    if ($(".btnViewContabilidad").length == 0 && $(".btnViewContabilidadRet").length == 0 && $(".btnViewAjustes").length == 0) {
+        Swal.fire({
+            title: 'Sin Contabilidad',
+            text: "No existe contabilidad para reportar!",
+            type: 'error',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            if (result.value) {
+                location.reload();
+                return 0;
+            }
+        })
+    } else {
+        console.log($(".btnViewContabilidad").length);
+        var nomVar = "ultimaData";
+        var data = 1;
+        var respUltimaDate = await funcionContabilizarPoliza(nomVar, data);
+        if (respUltimaDate != "SD") {
+            var fechaMaxima = respUltimaDate;
+        } else {
+            var fechaMaxima = new Date('DD/MM/YYYY');
+        }
+        console.log(respUltimaDate);
+        Swal.fire({
+            title: 'Seleccione Fecha  ' + '<i class="fa fa-calendar"></i>',
+            text: 'Something went wrong!',
+            html: '<input type="text" id="dateTime" class="form-control" />',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirm',
+            cancelButtonText: 'Cancel',
+            onOpen: function () {
+                $('#dateTime').daterangepicker({
+                    timePicker: false,
+                    startDate: moment().startOf('hour'),
+                    singleDatePicker: true,
+                    endDate: moment().startOf('hour').add(32, 'hour'),
+                    minDate: (fechaMaxima),
+                    locale: {
+                        format: 'DD/MM/YYYY'
+                    }
+                });
+            },
+        }).then(async function (result) {
+            if (result.value) {
+                var dateTime = document.getElementById("dateTime").value;
+                if (dateTime != "") {
+                    Swal.fire({
+                        title: '¿Seguro quiere contabiliza con fecha : ' + dateTime + '?',
+                        type: 'info',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, contabilizar!'
+                    }).then(async function (result) {
+                        if (result.value) {
+                            var nomVar = "cotabilizarFecha";
+                            var respContabilizar = await funcionContabilizarPoliza(nomVar, dateTime);
+                            if (respContabilizar) {
+                                Swal.fire({
+                                    title: '¿Desea Imprimir?',
+                                    text: "Desea imprimir la poliza contable del dia",
+                                    icon: 'success',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, Imprimir!'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.open("extensiones/tcpdf/pdf/polizaContable.php?fechaPoliza=" + dateTime + '&entidad=1', "_blank");
+                                        location.reload();
+
+                                    }
+                                })
+                            }
+                        }
+                    })
+                } else {
+                    Swal.fire(
+                            'Fecha incorrecta',
+                            'La fecha seleccionada no es correcta!',
+                            'error'
+                            )
+                }
+            }
+        });
+    }
+});
+
+function funcionContabilizarPoliza(nomVar, dateTime) {
+    let respEdicion;
+    var datos = new FormData();
+    datos.append(nomVar, dateTime);
+    $.ajax({
+        async: false,
+        url: "ajax/polizasDiarias.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdicion = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }});
+    return respEdicion;
+}
+
 

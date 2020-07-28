@@ -1,33 +1,59 @@
 $(document).on("click", ".btnContabilizar", async function () {
-    var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-    var buttonid = $(this).attr("buttonid");
-    Swal.fire({
-        title: '¿Desea Contabilizar?',
-        text: "El ingreso Contabilizado, se reportara con fecha, " + hiddenDateTime,
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No, Contabilizar!',
-        confirmButtonText: 'Sí, Contabilizar!'
-    }).then((result) => {
-        if (result.value) {
-            $(this).removeClass("btn-danger");
-            $(this).addClass("btn-primary");
-            $(this).html('<i class="fas fa-thumbs-up"></i>');
 
-            contabilizar(buttonid);
+    var estado = $(".btnMatenerFecha").attr("estado");
 
-        }
-    })
+    if (estado == 0) {
+        Swal.fire(
+                'Fecha contabilidad!',
+                'Selecciona fecha contable y luego haz click en el boton verde!',
+                'error'
+                )
+        return false;
+
+    } else {
+
+
+
+
+        var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
+        var buttonid = $(this).attr("buttonid");
+        Swal.fire({
+            title: '¿Desea Contabilizar?',
+            text: "El ingreso Contabilizado, se reportara con fecha, " + fechaCongeladaConta,
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No, Contabilizar!',
+            confirmButtonText: 'Sí, Contabilizar!'
+        }).then(async function (result) {
+            if (result.value) {
+                var respuesta = await contabilizar(buttonid, fechaCongeladaConta);
+                if (respuesta) {
+                    Swal.fire({
+                        title: 'Contabilizado',
+                        text: "El ingreso fue contabilizado de manera exitosa",
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+            }
+        })
+    }
 })
 
 
 
-function contabilizar(buttonid) {
+function contabilizar(buttonid, fechaCongeladaConta) {
     let estado;
     var datos = new FormData();
     datos.append("idContabilizar", buttonid);
+    datos.append("fechaCongeladaConta", fechaCongeladaConta);
     $.ajax({
         url: "ajax/ingPendientesC.ajax.php",
         method: "POST",
@@ -54,7 +80,6 @@ $(document).on("click", ".btnSelectMultiple", async function () {
         $(this).removeClass("btn btn-outline-dark");
         $(this).addClass("btn btn-info");
         $(this).html('<i class="fa fa-circle"></i>');
-
     } else {
         $(this).attr("estado", 0);
         $(this).removeClass("btn btn-outline-info");
@@ -124,3 +149,78 @@ function contabilizarLotes(buttonid) {
     });
     return estado;
 }
+
+$(document).on("click", ".btnImprimirReporteContable", async function () {
+    var tipoReporte = "Ingreso";
+    window.open("extensiones/tcpdf/pdf/ReporteDeIngresos.php?tipoReporte=" + tipoReporte, "_blank");
+})
+
+
+
+function contabilizarReportes(nomVar, tipoReporte) {
+    let estado;
+    var datos = new FormData();
+    datos.append(nomVar, tipoReporte);
+    $.ajax({
+        async: false,
+        url: "ajax/ingContaReportar.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            estado = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return estado;
+}
+
+
+$(document).on("click", ".btnMatenerFecha", async function () {
+    var estado = $(".btnMatenerFecha").attr("estado");
+    if (estado == 0) {
+
+
+        var fechaCongeladaConta = document.getElementById("dateTime").value;
+        /*Guardando los datos en el LocalStorage*/
+        localStorage.setItem("fechaCongeladaConta", fechaCongeladaConta);
+        $(this).removeClass("btn-success");
+        $(this).addClass("btn-dark");
+        $(this).html("Fecha Congelada");
+        $(this).attr("estado", 1);
+        swal({
+            type: "success",
+            title: "Fecha Contabilidad",
+            text: "Fecha para registrar contabilidad :  " + fechaCongeladaConta,
+            showConfirmButton: true,
+            confrimButtonText: "cerrar",
+            closeConfirm: true
+        });
+
+    }
+});
+
+$(document).on("click", ".btnDescontableIng", async function () {
+    var idIng = $(this).attr("idIng");
+    var idRet = $(this).attr("idRet");
+    swal({
+        title: "¿Quiere revertir el ingreso contable?",
+        text: 'Presione "Revertir", para guardar la transacción',
+        type: "info",
+        showCancelButton: true,
+        confirmButtonText: 'Revertir',
+        confirmButtonColor: '#642EFE',
+        allowOutsideClick: false,
+        cancelButtonColor: '#DF0101'
+    }).then(async function (result) {
+        if (result.value) {
+            var nomVar = "descontabilizaIng";
+            var respuesta = await contabilizarReportes(nomVar, idIng);
+        }
+    })
+})
+

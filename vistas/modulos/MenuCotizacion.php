@@ -1,4 +1,4 @@
-<nav class="mt-2" id="navBarLateral">
+    <nav class="mt-2" id="navBarLateral">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Primer Elaboracion y creacion de cotizaciones -->
 
@@ -360,7 +360,7 @@
                     <a href="polizasDiarias" class="nav-link">
                         <i class="fa fa-calculator colorBarSuper"></i>
                         <p class="colorBarSuper">
-                            Polizas Diarias
+                            Pólizas Diarias
                         </p>
 
                     </a>
@@ -376,6 +376,14 @@
                 <i class="fa fa-user-plus colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Clientes Sin Tarifa
+                </p>
+            </a>
+        </li>  
+                    <li class="nav-item has-treeview">
+            <a href="nuevasEmpresas" class="nav-link">
+                <i class="fa fa-table colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Nuevas Empresas
                 </p>
             </a>
         </li>  
@@ -537,7 +545,8 @@
         </li>';
 
             if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
-                echo '        <li class="nav-item has-treeview">
+                echo '
+                    <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="fa fa-circle colorBarSuperVill"></i>
                 <p class="colorBarSuper">
@@ -547,7 +556,6 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-
                     <a href="ingPendientesC" class="nav-link">
                         <i class="fa fa-calendar-times-o colorBarSuper"></i>
                         <p class="colorBarSuper">
@@ -563,7 +571,19 @@
                     <a href="ingReportados" class="nav-link">
                         <i class="fa fa-calendar-check-o colorBarSuper"></i>
                         <p class="colorBarSuper">
-                            Ing. Reportados
+                               Ing. Reportados
+                        </p>
+
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="retiroPendienteC" class="nav-link">
+                        <i class="fa fa-calendar-times-o colorBarSuper"></i>
+                        <p class="colorBarSuper">
+                            Ret. Pendietes
                         </p>
 
                     </a>
@@ -572,15 +592,39 @@
             <ul class="nav nav-treeview">
                 <li class="nav-item">
 
-                    <a href="polizasDiarias" class="nav-link">
-                        <i class="fa fa-calculator colorBarSuper"></i>
+                    <a href="retirosContabilizados" class="nav-link">
+                        <i class="fa fa-calendar-check-o colorBarSuper"></i>
                         <p class="colorBarSuper">
-                            Polizas Diarias
+                            Ret. Reportados
                         </p>
 
                     </a>
                 </li>
-            </ul>            
+            </ul>
+<ul class="nav nav-treeview">
+                <li class="nav-item">
+
+                    <a href="polizasDiarias" class="nav-link">
+                        <i class="fa fa-calculator colorBarSuper"></i>
+                        <p class="colorBarSuper">
+                            Pólizas Diarias
+                        </p>
+
+                    </a>
+                </li>
+            </ul> 
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+
+                    <a href="sldDiarioContabilidad" class="nav-link">
+                        <i class="fa fa-calculator colorBarSuper"></i>
+                        <p class="colorBarSuper">
+                            Diario Contabilidad
+                        </p>
+
+                    </a>
+                </li>
+            </ul>    
         </li>';
             }
             echo '

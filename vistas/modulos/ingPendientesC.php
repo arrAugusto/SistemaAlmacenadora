@@ -23,27 +23,48 @@
             </div>
             <div class="col-md-12">
                 <div class="input-group">
-               <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
-                        <span>
-                            <i class="fa fa-calendar"></i> Rango de fecha
-                        </span>
-                        <i class="fa fa-caret-down"></i>
-                    </button>-->
+                    <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
+                             <span>
+                                 <i class="fa fa-calendar"></i> Rango de fecha
+                             </span>
+                             <i class="fa fa-caret-down"></i>
+                         </button>-->
                 </div>
             </div>
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-6 mt-4">
+                        <div class="col-4 mt-4">
                             <button type="button" class="btn btn-outline-success btn-lg bntReportarLote">Reportar Lote Seleccionado</button>
                         </div>
-                        <div class="col-12 mt-4">
+
+                        <div class="col-4 mt-4">
+                            <label>Calculado hasta :</label>
+                            <div class="input-group input-group">
+                                <input type="text" id="dateTime" class="form-control">
+                                <input type="hidden" id="hiddenDateTime" value="<?php
+                                date_default_timezone_set('America/Guatemala');
+                                echo date('Y-m-d H:i:s');
+                                ?>">
+                                <input type="hidden" id="hiddenDateTimeVal" value="" />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-success btnMatenerFecha" estado="0">Congelar Fecha</button>
+                                </span>
+
+                            </div>
+                        </div>
+                        <div class="col-3 mt-4">
+
+                        </div>                        <div class="col-12 mt-4">
                             <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
+                                    <?php if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+                                        echo '<th>Bodega</th>';
+                                    } ?>
                                     <th>Poliza</th>
                                     <th>Fecha</th>
                                     <th>Bultos</th>
@@ -60,7 +81,8 @@
                                         $fechaInicial = null;
                                         $fechaFinal = null;
                                     }
-                                    $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarSaldos();
+                                    $estado = 4;
+                                    $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarSaldos($estado);
                                     if ($respuesta !== null) {
                                         
                                     }
@@ -83,7 +105,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            
+
                             <label>Selecciona Servicio</label>
                             <input type="hidden" name="ServicioTarifa" id="ServicioTarifa">
                             <input type="hidden" id="hiddenIdentity" value="" />
@@ -104,9 +126,9 @@
                                     </span>
                                 </div>
                                 <input type="hidden" id="hiddenDateTime" value="<?php
-                                date_default_timezone_set('America/Guatemala');
-                                echo date('d-m-Y');
-                                ?>"/>
+                                       date_default_timezone_set('America/Guatemala');
+                                       echo date('d-m-Y');
+                                       ?>"/>
                             </div>
 
                         </div>
@@ -243,86 +265,88 @@
                 </div>
             </div>
     </section>
-        <section id="divEdicionesBodega">
-       <div class="col-12" id="divDetallesMerca"> 
-        <div class="card card-success">
-        <div class="card-header">
-            <h5 class="card-title">Edicion de detalles <?php if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'."Su usuario no tiene navegación configurada";
-        }else{
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$_SESSION["Navega"].'&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">'.$_SESSION["NavegaBod"].'</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">'.$_SESSION["NavegaNumB"].'</i>';
-
-        }?></h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12" id="divContenidoEdicionBodega">
-
-
-
+    <section id="divEdicionesBodega">
+        <div class="col-12" id="divDetallesMerca"> 
+            <div class="card card-success">
+                <div class="card-header">
+                    <h5 class="card-title">Edicion de detalles <?php
+                        if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . "Su usuario no tiene navegación configurada";
+                        } else {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>';
+                        }
+                        ?></h5>
                 </div>
-            </div>
-        </div>
-        </div>
-            </div>
-</section>
-            <section id="divTableUbi">
-       <div class="col-12" id="divTableUbicciones"> 
-        <div class="card card-success">
-        <div class="card-header">
-            <h5 class="card-title">Edicion de detalles <?php if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'."Su usuario no tiene navegación configurada";
-        }else{
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$_SESSION["Navega"].'&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">'.$_SESSION["NavegaBod"].'</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">'.$_SESSION["NavegaNumB"].'</i>';
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12" id="divContenidoEdicionBodega">
 
-        }?></h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12" id="mapeandoUbica">
 
-   
-                         <?php
-                    $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();
-                    ?>
 
-                </div>
-            </div>
-        </div>
-        </div>
-            
-       </div>
-       <div id="mapeandoAcciones" class="col-12"></div>
-                        <div class="card-footer mt-4" id="divBottoneraAccion">
-                            <div class="btn-group" id="divBotonesAcciones">
-                              
-                            </div>
                         </div>
-       <br/>
-       <br/>
-       <br/>
-       <br/><br/>
-              <br/>
-       <br/>
-       <br/>
-       <br/><br/>
-       
-     </section>  
-   
-<div class="tip" id="tip2">
-    <div class="info-box-content">
-        <b id="numIng"></b><br/>
-        <b id="numPoliza"></b><br/>
-        <b id="Nomempresa"></b><br/>
-        <b id="cantBultos"></b><br/>
-        <b id="CantpesoKg"></b><br/>
-        <b id="descripcion"></b><br/>
-        <b id="posiciones"></b><br/>
-        <b id="metros"></b><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="divTableUbi">
+        <div class="col-12" id="divTableUbicciones"> 
+            <div class="card card-success">
+                <div class="card-header">
+                    <h5 class="card-title">Edicion de detalles <?php
+                        if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . "Su usuario no tiene navegación configurada";
+                        } else {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>';
+                        }
+                        ?></h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12" id="mapeandoUbica">
 
+
+                            <?php
+                            $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();
+                            ?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="mapeandoAcciones" class="col-12"></div>
+        <div class="card-footer mt-4" id="divBottoneraAccion">
+            <div class="btn-group" id="divBotonesAcciones">
+
+            </div>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/><br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/><br/>
+
+    </section>  
+
+    <div class="tip" id="tip2">
+        <div class="info-box-content">
+            <b id="numIng"></b><br/>
+            <b id="numPoliza"></b><br/>
+            <b id="Nomempresa"></b><br/>
+            <b id="cantBultos"></b><br/>
+            <b id="CantpesoKg"></b><br/>
+            <b id="descripcion"></b><br/>
+            <b id="posiciones"></b><br/>
+            <b id="metros"></b><br/>
+
+        </div>
     </div>
-</div>
- 
+
 </div>
 
 <!-- The Modal -->

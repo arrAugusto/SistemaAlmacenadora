@@ -62,7 +62,7 @@
                                     <li class="list-group-item">
                                     <button type="button" class="btn btn-info btnEditarUsuario" idUsuario="<?php echo ($_SESSION['id']); ?>" data-toggle="modal" data-target="#myModal">Mi datos</button>
 
-                                    <button type="button" class="btn btn-danger btnEditarUsuario1"  idUsuario="<?php echo ($_SESSION['id']); ?>" data-toggle="modal" data-target="#myModal2">Contraseña</button>
+                                    <button type="button" class="btn btn-danger btnEditarUsuario"  idUsuario="<?php echo ($_SESSION['id']); ?>" data-toggle="modal" data-target="#myModal2">Contraseña</button>
 
                                     <button type="button" class="btn btn-success btnEditarUsuario" idUsuario="<?php echo ($_SESSION['id']); ?>" data-toggle="modal" data-target="#myModalfoto"><i class="fa fa-camera-retro" style="font-size18px"></i>                         
                                     </button>
@@ -141,10 +141,7 @@ MODAL AGREGAR USUARIO
                                     </div>
                                     <div class="card-footer">
                                         <div class="btn-group">
-                                            <button type="submit" class="btn btn-primary" idUsuario="<?php echo ($_SESSION["id"]); ?>">Editar mis datos</button>
-
-
-
+                                            <button type="submit" class="btn btn-primary btnCambiaDataEdicion" idUsuario="<?php echo ($_SESSION["id"]); ?>">Editar mis datos</button>
                                             <button type="button" class="btn btn-info" data-dismiss="modal">Salir</button>
 
 
@@ -209,7 +206,7 @@ MODAL CONTRASEÑA
                                             <div class="form-group has-feedback">
                                                 <input type="password" class="form-control" placeholder="Nueva Contraseña" id="ActualContra" name="ActualContra" value="" required>
                                                 <input type="hidden" id="passwordAcutal" name="passwordAcutal">
-                                                <span class="fa fa-lock form-control-feedback"></span>
+                                                
                                             </div>
                                         </div>
 
@@ -218,7 +215,7 @@ MODAL CONTRASEÑA
                                             <label>Nueva contraseña</label>
                                             <div class="form-group has-feedback">
                                                 <input type="password" class="form-control" placeholder="Nueva Contraseña" id="nuevacontra" name="nuevacontra" value="" required>
-                                                <span class="fa fa-lock form-control-feedback"></span>
+                                                
                                             </div>
                                         </div>
 
@@ -226,7 +223,7 @@ MODAL CONTRASEÑA
                                             <label>Confirma Nueva contraseña</label>
                                             <div class="form-group has-feedback">
                                                 <input type="password" class="form-control" placeholder="Confirma Contraseña" id="confirmapassword" name="confirmapassword" value="" required>
-                                                <span class="fa fa-lock form-control-feedback"></span>
+                                                
                                             </div>
 
 

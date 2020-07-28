@@ -45,18 +45,18 @@
                                     <span class="fa fa-edit"></span>
                                 </div>
                                 <div class="col-md-6">
-                                    
+
                                     <label>Nivel de usuario</label>
                                     <select class="form-control select2" style="width: 100%;" name="nivelUsuario" required>
-                                       <?php $respuesta = ControladorUsuarios::ctrNivelDeUsuario(); ?>
+                                        <?php $respuesta = ControladorUsuarios::ctrNivelDeUsuario(); ?>
                                     </select>
                                     <span class="fa fa-edit"></span>
                                 </div>
                                 <div class="col-md-6">
-                                     
+
                                     <label>Departamento</label>
                                     <select class="form-control select2" style="width: 100%;" name="departamento" required>
-                                       <?php $respuesta = ControladorUsuarios::ctrDepartamentos(); ?>
+                                        <?php $respuesta = ControladorUsuarios::ctrDepartamentos(); ?>
                                     </select>
                                     <span class="fa fa-edit"></span>
                                 </div>
@@ -141,11 +141,11 @@
                     </button>
                 </div>
             </div>
-<?php
-$perfil = "interno";
-$tipoUsuario = "empleado";
-$user = ControladorUsuarios::ctrCrearUsuario($perfil, $tipoUsuario);
-?>
+            <?php
+            $perfil = "interno";
+            $tipoUsuario = "empleado";
+            $user = ControladorUsuarios::ctrCrearUsuario($perfil, $tipoUsuario);
+            ?>
         </div>
         </form>
 </div>

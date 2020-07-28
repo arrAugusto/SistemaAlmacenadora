@@ -3,7 +3,7 @@
   <aside class="main-sidebar elevation-4" style="background-color:rgba(0,0,0, 0.89); color: #fff;">
     <!-- Brand Logo -->
     <a href="#" class="brand-link">
-      <img src="../AlmacenadorasUnidasDesarrollo/vistas/img/plantilla/bi.png"
+      <img src="vistas/img/plantilla/bi.png"
            alt="Almacenadora Integrada"
            class="brand-image img-square elevation-2"
            style="opacity: 1">

@@ -62,7 +62,7 @@ class AjaxOperacionesBIngreso {
         $idNitCliente = $this->idNitCliente;
         $dependencia = $this->dependencia;
         $consolidado = $this->consolidado;
-        $hiddenIdBod = $this->hiddenIdBod;
+        $hiddenIdBod = $_SESSION["idDeBodega"];
         $numeroLicencia = $this->numeroLicencia;
         $nombrePiloto = $this->nombrePiloto;
         $numeroPlaca = $this->numeroPlaca;

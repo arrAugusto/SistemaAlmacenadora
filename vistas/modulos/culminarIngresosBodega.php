@@ -55,13 +55,12 @@
                                             <!--=====================================
                                             DATOS DE CHEQUE
                                             ======================================-->
-                                           <div class="col-12">
-                                                <label id="lblUsuario">Recibido por:&nbsp;&nbsp;';
+                                           <div class="col-12">';
                             ($_SESSION['nombre']) . "  " . ($_SESSION['apellidos']);
                             echo '</label><br/>
 
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-12" id="divMontarguist" style="display: none;">
                                                 <label id="idMontacarguista">Montacarguista:&nbsp;&nbsp;     </label>
                                                 <select class="form-control is-invalid" style="width: 100%;" id="personaSeleccionada" name="personaSeleccionada" required="">
                                                 <option selected="selected" disabled="disabled">Seleccione Montacarguista</option>';

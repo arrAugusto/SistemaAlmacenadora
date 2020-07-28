@@ -41,13 +41,13 @@ class imprimirIngresoBodega {
         $nombreEmpresa = $repuestaOperaciones[0]["empresa"];
         $numeroNit = $repuestaOperaciones[0]["numeroNit"];
         $bultosTotal = $repuestaOperaciones[0]["blts"];
-        
+
         $cadena_fecha_Garita = $repuestaOperaciones[0]["fechaRealIng"];
         $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
 
         $cadenaEmision = $repuestaOperaciones[0]["fechaOperacion"];
         $cadenaEmisionFormat = date("d/m/Y H:i:s A", strtotime($cadenaEmision));
-        
+
         $numAsigIng = $repuestaOperaciones[0]["numAsigIng"];
         $origen = $repuestaOperaciones[0]["origen"];
         $bill = $repuestaOperaciones[0]["bill"];
@@ -91,17 +91,16 @@ class imprimirIngresoBodega {
                 <td style="width:490px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Ingreso de $titulo</td>
                 <td style="background-color:white; width:70px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
             </tr>
-                
-	</table>
+        </table><br/><br/>
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 
 //-------------------------------------------------------------------------------------------------------
         $bloque2 = <<<EOF
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
-		<tr><br/><br/>
-                    <td style="width:75px"><b>Empresa :</b></td><td style="width:250px">$nombreEmpresa&nbsp;&nbsp;</td>
-                    <td style="width:90px;"><b>Valor Cif Q.:</b></td><td style="width:165px">$cif</td>    
+                <tr>
+                    <td style="width:75px;"><b>Empresa :</b></td><td style="width:250px;">$nombreEmpresa&nbsp;&nbsp;</td>
+                    <td style="width:90px;"><b>Valor Cif Q.:</b></td><td style="width:165px;">$cif</td>    
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$numeroNit</td>
@@ -209,7 +208,6 @@ EOF;
                 $tdCantidad = "";
                 $linea = 0;
                 if ($key + 1 == $llave) {
-
                     $tdDetalle = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:500px; ' . $fontLetra . ' text-align:left;">' . $nombreDetalle . '</td>';
                     $tdCantidad = '<td style="text-align:center; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:62px; ' . $fontLetra . '">' . $blts . '</td>';
                 } else {
@@ -315,18 +313,17 @@ EOF;
 
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-
-		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
-			<td style="width:242px text-align:left;"></td>
-			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>
+		<tr><br/>
+                    <td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
+                    <td style="width:242px text-align:left;"></td>
+                    <td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="width:480px; text-align:left;"><strong>Nota:</strong> <br/>El ingreso de la mercadería que se describe en el presente documento, implica la aceptación por parte del su propietario de que la misma se le entregará sin responsabilidad alguna de Almacenadora Integrada, Sociedad Anónima, al portador de la respectiva póliza de importación.<br/>
+                    <td colspan="2" style="width:480px; text-align:left;"><strong>Nota:</strong> <br/>El ingreso de la mercadería que se describe en el presente documento, implica la aceptación por parte del su propietario de que la misma se le entregará sin responsabilidad alguna de Almacenadora Integrada, Sociedad Anónima, al portador de la respectiva póliza de importación.<br/>
                 La persona que ingrese la mercaderia a la Almacenadora es la responsable de obtener la autorización y aceptación del propietario para el ingreso de la misma. De no existir consentimiento del propietario, la responsabilidad sobre la mercadería recaerá en la persona que ingrese la mercaderia y en ningún caso en la Almacenadora.<br/>
                 Almacenadora Integrada, S.A. no se responsabiliza de la merma, deterioro o destrucción de las mercancías derivadas de su propia naturaleza</td>
 		</tr>
 	</tbody>
-
         </table>
 EOF;
 
