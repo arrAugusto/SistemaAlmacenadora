@@ -197,7 +197,6 @@ function funcionHistorial(nomVar, idEmpresa) {
             console.log(respuesta);
         }});
     return respHistorial;
-
 }
 
 $(document).on("click", ".btnCorteContaPendt", async function () {
@@ -272,7 +271,54 @@ $(document).on("click", ".btnVerPoliza", async function () {
 
 });
 
-$(document).on("click", ".btnVerReportes", async function () {
-    
+$(document).on("click", ".btnInicialFiscal", async function () {
+    var cifInicial = $("#cifInicial").val();
+    var impuestoInicial = $("#impuestoInicial").val();
+    var btninicia = $(this).attr("btninicia");
+    if (cifInicial > 0 && impuestoInicial > 0) {
+       var respuesta = await funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial);
+       console.log(respuesta);
+    }
+
 })
+
+$(document).on("change", "#cifInicial", async function () {
+    if ($(this).val() > 0) {
+        $(this).removeClass("is-invalid");
+        $(this).addClass("is-valid");
+    }
+})
+
+$(document).on("change", "#impuestoInicial", async function () {
+    if ($(this).val() > 0) {
+        $(this).removeClass("is-invalid");
+        $(this).addClass("is-valid");
+    }
+})
+
+
+function funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial){
+    let respHistorial;
+    var datos = new FormData();
+    datos.append("idEmpInicalConta", btninicia);
+    datos.append("sldContableCif", cifInicial);
+    datos.append("sldContableImpts", impuestoInicial);    
+    $.ajax({
+        async: false,
+        url: "ajax/sldDiarioContabilidad.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+
+            respHistorial = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }});
+    return respHistorial;
+    
+}
 

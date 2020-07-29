@@ -2,6 +2,8 @@
 
 require_once "../controlador/polizasDiarias.controlador.php";
 require_once "../modelo/polizasDiarias.modelo.php";
+//SESSION DE USUARIO PARA MANEJAR BITACORA
+require_once "../controlador/usuario.controlador.php";
 
 class AjaxGenerarContabilidad {
 
@@ -26,7 +28,10 @@ class AjaxGenerarContabilidad {
 
     public function ajaxCierreContableDiario() {
         $cotabilizarFecha = $this->cotabilizarFecha;
-        $respCierre = ControladorGenerarContabilidad::ctrCierreContableDiario($cotabilizarFecha);
+                session_start();
+                $hiddenIdBod = $_SESSION["idDeBodega"];
+                
+        $respCierre = ControladorGenerarContabilidad::ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod);
         echo json_encode($respCierre);
     }
 

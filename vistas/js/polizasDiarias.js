@@ -211,22 +211,39 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
                         if (result.value) {
                             var nomVar = "cotabilizarFecha";
                             var respContabilizar = await funcionContabilizarPoliza(nomVar, dateTime);
-                            if (respContabilizar) {
+                            if (respContabilizar == 0) {
                                 Swal.fire({
-                                    title: '¿Desea Imprimir?',
-                                    text: "Desea imprimir la poliza contable del dia",
-                                    icon: 'success',
-                                    showCancelButton: true,
+                                    title: 'No hay saldo anterior',
+                                    text: "Se le rediccionara a un formulario, donde debe agregar saldos anteriores de contablidad.",
+                                    type: 'warning',
                                     confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Si, Imprimir!'
+                                    allowOutsideClick: false,
+                                    confirmButtonText: 'Ok'
                                 }).then((result) => {
                                     if (result.value) {
-                                        window.open("extensiones/tcpdf/pdf/polizaContable.php?fechaPoliza=" + dateTime + '&entidad=1', "_blank");
-                                        location.reload();
-
+                                        window.location = 'sldDiarioContabilidad';
                                     }
                                 })
+                            } else {
+
+
+                                if (respContabilizar) {
+                                    Swal.fire({
+                                        title: '¿Desea Imprimir?',
+                                        text: "Desea imprimir la poliza contable del dia",
+                                        icon: 'success',
+                                        showCancelButton: true,
+                                        confirmButtonColor: '#3085d6',
+                                        cancelButtonColor: '#d33',
+                                        confirmButtonText: 'Si, Imprimir!'
+                                    }).then((result) => {
+                                        if (result.value) {
+                                            window.open("extensiones/tcpdf/pdf/polizaContable.php?fechaPoliza=" + dateTime + '&entidad=1', "_blank");
+                                            location.reload();
+
+                                        }
+                                    })
+                                }
                             }
                         }
                     })
@@ -240,6 +257,7 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
             }
         });
     }
+
 });
 
 function funcionContabilizarPoliza(nomVar, dateTime) {

@@ -37,6 +37,16 @@ class AjaxHistorialDeSaldos {
         echo json_encode($respuesta);
     }
 
+    public $inicialConta;
+
+    public function ajaxSaldosInicioConta() {
+        $idEmpInicalConta = $this->idEmpInicalConta;
+        $sldContableCif = $this->sldContableCif;
+        $sldContableImpts = $this->sldContableImpts;
+        $respuesta = ControladorSaldosContables::ctrSaldosInicioConta($idEmpInicalConta, $sldContableCif, $sldContableImpts);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["viewHistorialCif"])) {
@@ -55,4 +65,12 @@ if (isset($_POST["cortesPendientes"])) {
     $cortePendiente = new AjaxHistorialDeSaldos();
     $cortePendiente->cortesPendientes = $_POST["cortesPendientes"];
     $cortePendiente->ajaxCortesPendientesContables();
+}
+
+if (isset($_POST["idEmpInicalConta"])) {
+    $inicialConta = new AjaxHistorialDeSaldos();
+    $inicialConta->idEmpInicalConta = $_POST["idEmpInicalConta"];
+    $inicialConta->sldContableCif = $_POST["sldContableCif"];
+    $inicialConta->sldContableImpts = $_POST["sldContableImpts"];
+    $inicialConta->ajaxSaldosInicioConta();
 }
