@@ -1,8 +1,10 @@
 <?php
-require_once "cone.php";
-class ModeloContabilidadRegistrada{
 
-    public static function mdlPolizasPorDia($valor){
+require_once "cone.php";
+
+class ModeloContabilidadRegistrada {
+
+    public static function mdlPolizasPorDia($valor) {
         $conn = Conexion::Conectar();
         $params = array(&$valor);
         $sql = "EXECUTE spSaldosContabilizados ?";
@@ -18,8 +20,8 @@ class ModeloContabilidadRegistrada{
             }
         }
     }
-    
-        public static function mdlPolizasReportadasDia($valor, $estado){
+
+    public static function mdlPolizasReportadasDia($valor, $estado) {
         $conn = Conexion::Conectar();
         $params = array(&$valor, &$estado);
         $sql = "EXECUTE spSaldosContaGeneral ?, ?";
@@ -35,4 +37,5 @@ class ModeloContabilidadRegistrada{
             }
         }
     }
+
 }

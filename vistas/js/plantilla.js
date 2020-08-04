@@ -54,7 +54,7 @@ function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones,
 
     if (paragraphs.length >= 1) {
         var btnCambiaUbica = "";
-           Command: toastr["success"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros);
+        Command: toastr["success"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros);
 
     } else {
 
@@ -90,35 +90,32 @@ function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones,
             "hideMethod": "fadeOut",
             "tapToDismiss": false
         }
-     
+
         Command: toastr["info"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros + "<br/><strong>Opciones de Ubicación</strong>" + btnCambiaUbica);
 
     }
-   }
+}
 
-    function alertValNoAdm(mensaje, tipo) {
-
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-center",
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "8000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-
-
-        Command: toastr[tipo](mensaje);
-
+function alertValNoAdm(mensaje, tipo) {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "8000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    Command: toastr[tipo](mensaje);
 
 }
+
 

@@ -23,7 +23,7 @@ class AjaxContabilidadRetiro {
 
     public function ajaxMostrarReporteConta() {
         $reportContaIdent = $this->reportContaIdent;
-        $respuesta = ControladorContabilidadDeRet::ctrMostramostrarRepRetirorReporteConta($reportContaIdent);
+        $respuesta = ControladorContabilidadDeRet::ctrMostrarReporteConta($reportContaIdent);
         echo json_encode($respuesta);
     }
 

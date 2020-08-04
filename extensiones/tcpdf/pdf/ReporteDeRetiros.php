@@ -15,14 +15,32 @@ class imprimirIngresoBodega {
 
         $tipoReporte = $this->tipoReporte;
         $idBodega = $this->idBodega;
+        $tipo = 5;
+        if ($tipoReporte != "retiro") {
+            $date = $tipoReporte;
+            if (!empty($date)) {
+                $timestamp = strtotime($date);
+                if ($timestamp === FALSE) {
+                    $timestamp = strtotime(str_replace('/', '-', $date));
+                }
+                $date = date('Y-m-d', $timestamp);
+            }
+            $tipo = 6;
+            $sp = "spRetirosContabilizados";
+            $respRepRet = ControladorContabilidadDeRet::ctrListarRetContabilizados($sp, $tipo, $idBodega, $date);
+            $dataReporte = [];
+        } else {
+            $respRepRet = ControladorContabilidadDeRet::ctrMostrarReporteReitiro($tipo, $idBodega);
+            $dataReporte = [];
+        }
+
         $repContabilidad = ControladorGeneracionDeContabilidad::ctrIngRegistroContaReportes($tipoReporte, $idBodega);
         $nombreAuxiliar = $repContabilidad[0]["nombres"];
         $apellidoAuxiliar = $repContabilidad[0]["apellidos"];
-        $tipo = 5;
+
         $ident = $idBodega;
 
-        $respRepRet = ControladorContabilidadDeRet::ctrMostrarReporteReitiro($tipo, $ident);
-        $dataReporte = [];
+
         foreach ($respRepRet as $key => $value) {
             $estado = 0;
             if ($key == 0) {
@@ -72,7 +90,7 @@ class imprimirIngresoBodega {
               <br/>
               Teléfono: 2422-3000 
               <br/>
-              Email: aintegrada@bi.com.gt
+              Email: aintegrada@bi.com.gt 
             </td>
 		</tr>
 	</table>

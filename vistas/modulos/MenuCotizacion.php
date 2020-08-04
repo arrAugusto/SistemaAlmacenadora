@@ -542,10 +542,9 @@
                 </p>
 
             </a>
-        </li>';
+        </li>
 
-            if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
-                echo '
+
                     <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="fa fa-circle colorBarSuperVill"></i>
@@ -600,7 +599,9 @@
 
                     </a>
                 </li>
-            </ul>
+            </ul>';
+                                        if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
+                echo '
 <ul class="nav nav-treeview">
                 <li class="nav-item">
 

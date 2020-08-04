@@ -28,9 +28,8 @@ class AjaxGenerarContabilidad {
 
     public function ajaxCierreContableDiario() {
         $cotabilizarFecha = $this->cotabilizarFecha;
-                session_start();
-                $hiddenIdBod = $_SESSION["idDeBodega"];
-                
+        session_start();
+        $hiddenIdBod = $_SESSION["idDeBodega"];
         $respCierre = ControladorGenerarContabilidad::ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod);
         echo json_encode($respCierre);
     }
@@ -39,9 +38,9 @@ class AjaxGenerarContabilidad {
 
     public function ajaxUltimaFecha() {
         $ultimaData = $this->ultimaData;
-        if ($ultimaData==1) {
-        $respuesta = ControladorGenerarContabilidad::ctrUltimaFecha();
-        echo json_encode($respuesta);
+        if ($ultimaData == 1) {
+            $respuesta = ControladorGenerarContabilidad::ctrUltimaFecha();
+            echo json_encode($respuesta);
         }
     }
 

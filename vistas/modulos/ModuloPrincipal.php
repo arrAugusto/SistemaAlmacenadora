@@ -19,9 +19,10 @@
 
 
         <!-- Tema de plantilla -->
-        <link rel="stylesheet" href="vistas/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="vistas/dist/css/adminlte.min.css?n=1">
         <!-- Fuente Google:  -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <link href="vistas/dist/font.html">
+
         <!-- sweetalert2 css:  -->
         <link rel="stylesheet" href="vistas/dist/css/weetalert2css/weetalert2.css">
         <!-- DataTables -->
@@ -105,13 +106,18 @@
         <script src="vistas/plugins/select2/select2.full.min.js"></script>
         <script type="text/javascript" src="vistas/plugins/daterangepicker/moment.js"></script>
         <script type="text/javascript" src="vistas/plugins/daterangepicker/daterangepicker.js"></script>
-        <script type="text/javascript" src='vistas/dist/js/kit.fontawesome.js'></script>
         <script type="text/javascript" src='vistas/dist/js/bootstrap-datetimepicker.min.js'></script>
         <script type="text/javascript" src='vistas/dist/js/jquerynumber.min.js'></script>
-        <script src="vistas/dist/js/font-awesome.js" crossorigin="anonymous"></script>
-        <script src="vistas/dist/js/toastr.min.js" crossorigin="anonymous"></script>
-        <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js'></script>
-
+        <script type="text/javascript" src='vistas/dist/js/bootstrapValidator.min.js'></script>
+        
+        <script type="text/javascript" src="vistas/dist/js/toastr.min.js"></script>
+        <!--
+        SCRIPT DESCATADOS PORQUE CONSUMEN INTERNET EN EL SERVIDOR
+        <script type="text/javascript" src='vistas/dist/js/kit.fontawesome.js'></script>
+       
+        <script type="text/javascript" src="vistas/dist/js/font-awesome.js"></script> 
+       -->
+        
         
     </head>
     <body class="hold-transition sidebar-collapse sidebar-mini">

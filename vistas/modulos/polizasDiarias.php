@@ -190,28 +190,8 @@
 
                                     </div>
                                 </div>
-                                <!--
-                            <div class="row">   
-                            <div class="col-10 mx-auto">
-                                <h4 class="text-center">ALMACENADORA INTEGRADA, S.A.<br/>PÓLIZAS DE MERCADERÍAS SEGUN REPORTES ADJUNTOS DEL DÍA</h4>
-                                    <table class="table col-12">
-                                        <thead class="table-primary">
-                                            <tr>
-                                            <th scope="col">CUENTA</th>
-                                            <th scope="col">NOMBRE DE CUENTA</th>
-                                            <th scope="col" style="width: 190px">DEBE</th>
-                                            <th scope="col" style="width: 190px">HABER</th>
-                                            </tr>
-                                        </thead>
 
-
-                                    </table>
-
-
-                                </div>
-                            </div>
-
-                                <!-- /.row -->
+              
 
                                 
                             </div>

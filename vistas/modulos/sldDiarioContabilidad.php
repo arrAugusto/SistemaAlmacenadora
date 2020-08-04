@@ -55,7 +55,7 @@
         color: #fff;
     }
     .pricing tr td .ptable-title i {
-        width: 23px;
+        width: 15px;
         line-height: 5px;
         text-align: right;
         margin-right: 5px;
@@ -165,30 +165,35 @@
                                         </address>
                                     </div>
                                 </div>
-                                <div class="row">   
+                                <div class="row">    
                                     <div class="col-12">
                                         <!-- Pricing # -->
                                         <div class="pricing">
                                             <div class="container">
                                                 <div class="pricing-table table-responsive">
-                                                    <table class="table">
-                                                        <!-- Heading -->
-                                                        <thead>
-                                                            <tr>
-                                                            <th>Empresa<br/>&nbsp;</th>
-                                                            <th class="highlight">
-                                                                SALDO<br/>&nbsp;
-                                                            </th>
-                                                            <th>
-                                                                Acciones
-                                                                <br/>&nbsp;
-                                                            </th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <?php $respuesta = ControladorSaldosContables::ctrSaldoActualContabilidad(); ?>
-                                                        </tbody>
-                                                    </table>
+                                                    <div class="col-12">
+                                                        <button type="button" class="btn btn-block btn-warning"  data-toggle="modal" data-target="#crearPolizaAjuste">Crear póliza de ajuste contable </button><br/>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <table class="table">
+                                                            <!-- Heading -->
+                                                            <thead>
+                                                                <tr>
+                                                                <th>Empresa<br/>&nbsp;</th>
+                                                                <th class="highlight">
+                                                                    SALDO<br/>&nbsp;
+                                                                </th>
+                                                                <th>
+                                                                    Acciones
+                                                                    <br/>&nbsp;
+                                                                </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php $respuesta = ControladorSaldosContables::ctrSaldoActualContabilidad(); ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,7 +257,7 @@
         </form>
     </div>
 </div>
-</div>
+
 
 
 <!-- Modal -->
@@ -264,13 +269,26 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-12">
+
+                    <div class="col-6">
                         <div class="alert alert-warning" role="alert">
                             DIAS PENDIENTES DE CERRAR CONTABILIDAD
                         </div>
-                        <div class="col-6" id="divDiasPendContables">
-                            
+                        <div id="divDiasPendContables">
+
                         </div>
+
+
+                    </div>
+                    <div class="col-6">
+                        <div class="alert alert-warning" role="alert">
+                            REPORTES CONTABLES
+                        </div>
+                        <div id="divTableReportes">
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>
@@ -280,3 +298,73 @@
         </div>
     </div>
 </div>
+
+
+
+<div class="modal fade" id="modalAjustes" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <!-- Modal content-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" id="divViewAjuste">
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="crearPolizaAjuste" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+            <!-- Modal content-->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <?php $respuesta = ControladorSaldosContables::ctrSaldoActualContabilidadPolConta(); ?>
+                    </div>
+                    <div class="col-6 mt-4">
+                        <div class="btn-group btn-group-justified">
+                            <button type="button" class="btn btn-primary btnajusteIngreso" id="btnajusteIngresos" estado="0">Ajuste Ingreso</button>
+                            <button type="button" class="btn btn-outline-dark btnCifAjuste" id="btnCifAjustes" estado="0">Cif</button>
+                            <button type="button" class="btn btn-outline-dark btnImptsAjuste" id="btnImptsAjustes" estado="0">Impuesto</button>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-4">
+                        <div class="btn-group btn-group-justified">
+                            <button type="button" class="btn btn-primary btnAjusteRetF" id="btnAjusteRetFs" estado="0">Ajuste Retiro</button>
+                            <button type="button" class="btn btn-outline-dark btnAjusteCifRetF" id="btnAjusteRetCifFs" estado="0">Cif</button>
+                            <button type="button" class="btn btn-outline-dark btnAjusteImptsRetF" id="btnAjusteRetImprsF" estado="0">Impuesto</button>
+                        </div>
+                    </div>
+
+                    <div class="col-12 mt-4">
+                        <button type="button" class="btn btn-dark btn-block btnGenerarPolizaConta">GENERAR PÓLIZA CONTABLE</button> 
+                    </div>
+                    <div class="col-12 mt-4" >
+                        <div class="row" id="divPolizaAjustes">   
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>

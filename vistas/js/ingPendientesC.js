@@ -24,24 +24,29 @@ $(document).on("click", ".btnContabilizar", async function () {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
+            allowOutsideClick: false,
             cancelButtonText: 'No, Contabilizar!',
             confirmButtonText: 'Sí, Contabilizar!'
         }).then(async function (result) {
             if (result.value) {
                 var respuesta = await contabilizar(buttonid, fechaCongeladaConta);
-                if (respuesta) {
+                if (respuesta[0].resp == 1) {
                     Swal.fire({
-                        title: 'Contabilizado',
-                        text: "El ingreso fue contabilizado de manera exitosa",
+                        title: 'Actualizado con éxito',
+                        text: "Ingreso contabilizado!",
                         type: 'success',
+                        showCancelButton: true,
+                        allowOutsideClick: false,                        
                         confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Ok'
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Ok!'
                     }).then((result) => {
                         if (result.value) {
                             location.reload();
                         }
                     })
                 }
+
             }
         })
     }
@@ -55,6 +60,7 @@ function contabilizar(buttonid, fechaCongeladaConta) {
     datos.append("idContabilizar", buttonid);
     datos.append("fechaCongeladaConta", fechaCongeladaConta);
     $.ajax({
+        async: false,
         url: "ajax/ingPendientesC.ajax.php",
         method: "POST",
         data: datos,
@@ -64,7 +70,7 @@ function contabilizar(buttonid, fechaCongeladaConta) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-
+            estado = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
         }
@@ -152,7 +158,8 @@ function contabilizarLotes(buttonid) {
 
 $(document).on("click", ".btnImprimirReporteContable", async function () {
     var tipoReporte = "Ingreso";
-    window.open("extensiones/tcpdf/pdf/ReporteDeIngresos.php?tipoReporte=" + tipoReporte, "_blank");
+    var idingreporte = $(this).attr("idingreporte");
+    window.open("extensiones/tcpdf/pdf/ReporteDeIngresos.php?tipoReporte=" + tipoReporte     + '&idBodega=' + idingreporte, "_blank");
 })
 
 

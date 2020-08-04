@@ -84,6 +84,13 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "ingresosPendientes" ||
                         $_GET["ruta"] == "inventariosFiscales" ||
                         $_GET["ruta"] == "calcAlmacenajeF" ||
+                        
+                        $_GET["ruta"] == "ingPendientesC" ||
+                        $_GET["ruta"] == "ingReportados" ||
+                        $_GET["ruta"] == "retiroPendienteC" ||
+                        $_GET["ruta"] == "retirosContabilizados" ||
+                        
+                        
                         $_GET["ruta"] == "salir") {
                     /*
                       Include para hacer URL amigables.

@@ -5,16 +5,32 @@ require_once "../../../modelo/ingPendientesC.modelo.php";
 
 class imprimirIngresoBodega {
 
-    public $codigo;
+    public $reportIngConta;
 
     public function traerDatosIngreso() {
 // TRAER DATOS DE INGRESO
-        $codigo = $this->codigo;
-        $repContabilidad = ControladorGeneracionDeContabilidad::ctrIngRegistroContaReportes($codigo);
+        $tipoReporte = $this->tipoReporte;
+        $idBodega = $this->idBodega;
+
+        if ($tipoReporte == "Ingreso") {
+            $repContabilidad = ControladorGeneracionDeContabilidad::ctrIngRegistroContaReportes($tipoReporte, $idBodega);
+        } else {
+
+            $date = $tipoReporte;
+            if (!empty($date)) {
+                $timestamp = strtotime($date);
+                if ($timestamp === FALSE) {
+                    $timestamp = strtotime(str_replace('/', '-', $date));
+                }
+                $date = date('Y-m-d', $timestamp);
+            }
+            $repContabilidad = ControladorGeneracionDeContabilidad::ctrReporteIngContabilizado($date, $idBodega);
+        }
         $nombreAuxiliar = $repContabilidad[0]["nombres"];
         $apellidoAuxiliar = $repContabilidad[0]["apellidos"];
 
-        $respJefe = ControladorGeneracionDeContabilidad::ctrJefeUnidad();
+        $respJefe = ControladorGeneracionDeContabilidad::ctrJefeUnidad($idBodega);
+
         $nombreJefe = $respJefe[0]["nombres"];
         $apellidoJefe = $respJefe[0]["apellidos"];
 
@@ -47,7 +63,7 @@ class imprimirIngresoBodega {
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
                 
-                <td style="width:560px; text-align:center; font-size:9px; font-family: 'Source Sans Pro';">ALMACENADORA INTEGRADA, S.A.<br/>INGRESO DE GUIAS A ALMACÉN FISCAL<br/>CIFRAS EXPRESADAS EN QUETZALES, $formatFechConta</td>
+                <td style="width:560px; text-align:center; font-size:9px; font-family: 'Source Sans Pro';">ALMACENADORA INTEGRADA, S.A.<br/>INGRESO DE PÓLIZAS A ALMACÉN FISCAL<br/>CIFRAS EXPRESADAS EN QUETZALES, $formatFechConta</td>
    </tr>
                 
 	</table>
@@ -59,7 +75,7 @@ EOF;
     <table style="font-size:7px;">
         <tr><br/>
             <th style="border: 1px solid #030505; background-color:white; color:black; background-color: #4ECBE9; width:47px; text-align:center;"><strong>Ingreso</strong></th>
-            <th style="border: 1px solid #030505; background-color:white;  color:black; background-color: #4ECBE9; width:47px; text-align:center;"><strong>Guia</strong></th>
+            <th style="border: 1px solid #030505; background-color:white;  color:black; background-color: #4ECBE9; width:47px; text-align:center;"><strong>Póliza</strong></th>
             <th style="border: 1px solid #030505; background-color:white;  color:black; background-color: #4ECBE9;  width:40px; text-align:center;"><strong>Fecha</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:23px;   color:black; background-color: #4ECBE9; text-align:center;"><strong>Reg.</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:200px;  color:black; background-color: #4ECBE9;  text-align:center;"><strong>Nombre de Empresa</strong></th>
@@ -148,17 +164,18 @@ EOF;
 		</tbody>
         </table>
 EOF;
-$pdf->writeHTML($bloque7, false, false, false, false, '');
-$pdf->OutPut('Sin título.pdf');
+        $pdf->writeHTML($bloque7, false, false, false, false, '');
+        $pdf->OutPut('Sin título.pdf');
     }
 
 }
 
-$ingreso = new imprimirIngresoBodega();
-$ingreso->codigo = $_GET["tipoReporte"];
+$reportIngConta = new imprimirIngresoBodega();
+$reportIngConta->tipoReporte = $_GET["tipoReporte"];
+$reportIngConta->idBodega = $_GET["idBodega"];
 ob_start();
 error_reporting(E_ALL & ~E_NOTICE);
 ini_set('display_errors', 0);
 ini_set('log_errors', 1);
-$ingreso->traerDatosIngreso();
+$reportIngConta->traerDatosIngreso();
 ?>

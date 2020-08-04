@@ -16,9 +16,9 @@ class ControladorUsuarios {
                 $valor = $_POST["ingUsuarios"];
                 $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
                 if ($respuesta == "SD") {
-                    echo '</br></br><div class="alert alert-info alert-dismissible">
+                    echo '</br></br><div class="alert alert-danger alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-<h5><i class="icon fa fa-info"></i> ¡Aviso!</h5>
+<h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 Contraseña o Usuario Incorrecto
 </div>';
                 } else {
@@ -30,7 +30,6 @@ Contraseña o Usuario Incorrecto
 <h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 Por el momento no puede ingresar al sistema. Comiquese con el dapartamento de TI.
 </div>';
-                        exit;
                     }
 
                     if ($respuesta[0]["usuario"] == $_POST["ingUsuarios"] && $respuesta[0]["contra"] == $encriptar) {
@@ -76,12 +75,18 @@ window.location="Inicio";
 No cuenta con permisos para ingresar al sistema
 </div>';
                         }
+                    }else{
+                echo '</br></br><div class="alert alert-danger alert-dismissible">
+<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+<h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
+Contraseña o Usuario Incorrecto
+</div>';                        
                     }
                 }
             } else {
-                echo '</br></br><div class="alert alert-info alert-dismissible">
+                echo '</br></br><div class="alert alert-danger alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-<h5><i class="icon fa fa-info"></i> ¡Aviso!</h5>
+<h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 Contraseña o Usuario Incorrecto
 </div>';
             }

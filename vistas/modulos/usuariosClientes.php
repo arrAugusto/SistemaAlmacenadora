@@ -193,6 +193,7 @@
                         </div>
                         <!--CIERRE DE CODIGO HTML-->
                     </div>
+                </form>
             </div>
             <div class="card-footer">
                 <div class="btn-group">
@@ -207,7 +208,6 @@
             $user = ControladorUsuarios::ctrCrearUsuario($perfil, $tipoUsuario);
             ?>
         </div>
-        </form>
 </div>
 
 </section>

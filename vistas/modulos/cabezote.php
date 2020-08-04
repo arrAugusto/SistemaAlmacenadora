@@ -43,8 +43,8 @@
         <!-- MENSAJES PRINCIPALES -->
         <li class="nav-item dropdown">
             <a class="nav-link" style="color:#fff;" data-toggle="dropdown">
-                <span><?php
-                $respuesta = tipoDeCambio::cambioDelDia();
+                <span><?php/*
+                $respuesta = tipoDeCambio::cambioDelDia();*/
                 ?></span>
             </a>
         </li>

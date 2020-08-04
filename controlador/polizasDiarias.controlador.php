@@ -215,6 +215,7 @@ class ControladorGenerarContabilidad {
                 </th>
             </tr>';
         }
+
         $sp = "spIndentRetiros";
         $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
         if ($respRet != "SD") {
@@ -276,8 +277,8 @@ class ControladorGenerarContabilidad {
                 }
             }
         }
-        if ($respIng != "SD") {
 
+        if ($respIng != "SD") {
             $valorCif = 0;
             $varlorImpuesto = 0;
             foreach ($respAjustes as $key => $value) {
@@ -333,10 +334,10 @@ class ControladorGenerarContabilidad {
     }
 
     public static function ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod) {
+        $date = $cotabilizarFecha;
 
         $sp = "spConsultaEmppresa";
         $respEmpresa = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
-
         if ($respEmpresa[0]["idEmpresa"] >= 1) {
 
 
@@ -350,16 +351,6 @@ class ControladorGenerarContabilidad {
             return 0;
         } else {
 
-            return true;
-
-            $date = $cotabilizarFecha;
-            if (!empty($date)) {
-                $timestamp = strtotime($date);
-                if ($timestamp === FALSE) {
-                    $timestamp = strtotime(str_replace('/', '-', $date));
-                }
-                $date = date('Y-m-d', $timestamp);
-            }
 
             /*
              * SOLICITAR VALORES DE INGRESO PARA GENERAR POLIZA DE INGRESOS

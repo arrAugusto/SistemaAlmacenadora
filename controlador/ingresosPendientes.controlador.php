@@ -137,7 +137,7 @@ class ControladorIngresosPendientes {
                         $vehNV = 1;
                     }
                     $botonera = '<button type="button" class="btn btn-outline-success btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
-                }
+                }   
 
                 if ($value["vinculo"] != "NoAplica") {
                     $empresaCons = $respuesta[$key]["empresa"] . ' / <strong style="color:blue;">' . $respuesta[$key]["consolidadoEmpresa"] . '<strong>  ';
@@ -147,6 +147,9 @@ class ControladorIngresosPendientes {
                 if ($value["servicioFis"] == "VEHICULOS USADOS") {
 
                     $botonera = '<button type="button" class="btn btn-outline-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                }else{
+                 $botonera = '<button type="button" class="btn btn-outline-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                      $vehNV = 1;
                 }
                 if ($vehNV == 1) {
                     echo '

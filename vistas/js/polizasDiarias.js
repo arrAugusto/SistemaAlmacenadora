@@ -23,7 +23,7 @@ $(function () {
 });
 
 
-function generarPolizaContable(fecha) {
+function generarPolizaContable(fecha) { 
     let estado;
     var datos = new FormData();
     datos.append("fechaContable", fecha);
@@ -165,14 +165,13 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
             }
         })
     } else {
-        console.log($(".btnViewContabilidad").length);
         var nomVar = "ultimaData";
         var data = 1;
         var respUltimaDate = await funcionContabilizarPoliza(nomVar, data);
         if (respUltimaDate != "SD") {
             var fechaMaxima = respUltimaDate;
         } else {
-            var fechaMaxima = new Date('DD/MM/YYYY');
+            var fechaMaxima = new Date('YYYY-MM-DD');
         }
         console.log(respUltimaDate);
         Swal.fire({
@@ -192,7 +191,7 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
                     endDate: moment().startOf('hour').add(32, 'hour'),
                     minDate: (fechaMaxima),
                     locale: {
-                        format: 'DD/MM/YYYY'
+                        format: 'YYYY-MM-DD'
                     }
                 });
             },
@@ -231,7 +230,7 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
                                     Swal.fire({
                                         title: '¿Desea Imprimir?',
                                         text: "Desea imprimir la poliza contable del dia",
-                                        icon: 'success',
+                                        type: 'success',
                                         showCancelButton: true,
                                         confirmButtonColor: '#3085d6',
                                         cancelButtonColor: '#d33',
@@ -282,4 +281,91 @@ function funcionContabilizarPoliza(nomVar, dateTime) {
     return respEdicion;
 }
 
+
+
+$(document).on("click", ".btnViewAjustes", async function () {
+    document.getElementById("divReporteIngresosView").innerHTML = '';
+    document.getElementById("divReporteIngresosView").innerHTML = '<table id="tbAjustesContables" class="table table-hover table-sm"></table>';
+    var paragraphs = Array.from(document.querySelectorAll(".btnViewContabilidad"));
+    var listaDB = [];
+    for (var i = 0; i < paragraphs.length; i++) {
+        var idNumber = paragraphs[i].attributes.btnviewconta.value;
+        listaDB.push([idNumber]);
+    }
+    var listaDBConsult = JSON.stringify(listaDB);
+    console.log(listaDBConsult);
+    var nomVar = "mstAjustesConta";
+    var numero = 0;
+    var respDataAjustes = await funcionContabilizarRet(nomVar, listaDBConsult);
+    var listaAjustesDB = [];
+    for (var i = 0; i < respDataAjustes.length; i++) {
+
+        var numero = numero + 1;
+        var idIng = respDataAjustes[i].idIng;
+
+        var numeroPoliza = respDataAjustes[i].numeroPoliza;
+        var nitEmpresa = respDataAjustes[i].nitEmpresa;
+        var fecha = respDataAjustes[i].fecha;
+        var fechaSet = await formato(fecha);
+        var nombreEmpresa = respDataAjustes[i].nombreEmpresa;
+
+        var saldoValorCif = respDataAjustes[i].saldoValorCif;
+        var saldoValorImpuesto = respDataAjustes[i].saldoValorImpuesto;
+
+        var cifNumber = new Intl.NumberFormat("en-GT").format(saldoValorCif);
+        var impuestoNumber = new Intl.NumberFormat("en-GT").format(saldoValorImpuesto);
+        var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + idIng + '><i class="fas fa-file-pdf"></i></button>';
+        var area = respDataAjustes[i].empresa + ' ' + respDataAjustes[i].areasAutorizadas + ' ' + respDataAjustes[i].numeroIdentidad;
+        listaAjustesDB.push([numero, numeroPoliza, fechaSet, nitEmpresa, nombreEmpresa, area, saldoValorCif, saldoValorImpuesto, button]);
+
+    }
+    $('#tbAjustesContables').DataTable({
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        data: listaAjustesDB,
+        columns: [{
+                title: "#"
+            }, {
+                title: "Poliza"
+            }, {
+                title: "Fecha"
+            }, {
+                title: "Nit"
+            }, {
+                title: "Nombre Empresa"
+            }, {
+                title: "Area"
+            }, {
+                title: "Cif"
+            }, {
+                title: "Impuesto"
+            }, {
+                title: "Acciones"
+            }]
+
+    });
+
+});
 

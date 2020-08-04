@@ -406,7 +406,7 @@
                                             <input type="hidden" id ="hiddenTipoTar" value=""> 
                                             <input type="hidden" id ="hidenPilotosPlus" value="">
                                             <input type="hidden" id ="hiddenIdentity" value="">
-        
+
                                             <input type="hidden" id ="hiddenContadorPolizas" value="0">
                                             <input type="hidden" id ="hiddencartaDeCupo" value="">
                                             <input type="hidden" id ="hiddencantContenedores" value="">
@@ -489,37 +489,6 @@
 </div>
 
 
-<div id="MostrarTodoServicio" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Detalle de Todos los Servicios Prestados</h3>
-                        </div>
-                        <form role="form" method="post">
-                            <div class="form-horizontal">
-                                <div class="row" id="divMostrarTodoServicio">
-                                    <div class="card-body">
-                                        <div  id="divServicio">
-
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-info btn-block" data-dismiss="modal">Salir</button>
-                                </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-</div>
-
 <!--=====================================
 MODAL GUARDAR DATOS
 ======================================-->
@@ -570,9 +539,10 @@ MODAL GUARDAR DATOS
                                     </div>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
-                </form>
+
             </div>
         </div>
     </div>
@@ -648,7 +618,7 @@ MODAL POLIZA CONSOLIDADA
                                         </div>
 
                                         <div class="col-4 mt-4">
-                                            <button type="button" class="btn btn-primary bntGuardarPolCons">Guardar póliza <i class="fas fa-save"></i></button>
+                                            <button type="button" class="btn btn-primary bntGuardarPolCons">Guardar póliza <i class="fa fa-save"></i></button>
 
                                             <input type="hidden" id="hiddenClientPoltxtNitSalida" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                             <input type="hidden" id="hiddenClientPoltxtNombreSalida" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
@@ -756,8 +726,8 @@ MODAL POLIZA CONSOLIDADA
                                                 </div>
 
                                                 <div class="col-12">
-                                                <div id="divEmpresasAgregadasMani">
-                                                </div>
+                                                    <div id="divEmpresasAgregadasMani">
+                                                    </div>
                                                 </div>
 
                                             </div>
@@ -822,7 +792,7 @@ MODAL POLIZA CONSOLIDADA
                                 <div class="col-4">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-info">
-                                            <i class="fas fa-calculator">
+                                            <i class="fa fa-calculator">
                                             </i>
                                         </span>
                                         <div class="info-box-content">
@@ -837,7 +807,7 @@ MODAL POLIZA CONSOLIDADA
                                 <div class="col-4">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-info">
-                                            <i class="fas fa-calculator">
+                                            <i class="fa fa-calculator">
                                             </i>
                                         </span>
                                         <div class="info-box-content">
@@ -854,7 +824,7 @@ MODAL POLIZA CONSOLIDADA
                                 <div class="col-4">
                                     <div class="info-box">
                                         <span class="info-box-icon bg-success">
-                                            <i class="fas fa-calculator">
+                                            <i class="fa fa-calculator">
                                             </i>
                                         </span>
                                         <div class="info-box-content">
@@ -897,7 +867,7 @@ MODAL POLIZA CONSOLIDADA
                     <!-- Horizontal Form -->
                     <div class="card card-warning">
                         <div class="card-header">
-                            <h3 class="card-title">Nuevo Nit <i class="fas fa-plus"></i></h3>
+                            <h3 class="card-title">Nuevo Nit <i class="fa fa-plus"></i></h3>
                         </div>
                         <!--campos formularios -->
                         <form role="form" method="post" id="divGuardaDetalle">
@@ -910,7 +880,7 @@ MODAL POLIZA CONSOLIDADA
                                             </label>
                                             <input id="valueClientes" name="valueClientes" type="hidden" value="" />
                                             <input id="cantVsClientes" name="cantVsClientes" type="hidden" value="0" />
-                                            
+
                                         </div>
                                         <div class="col-12 form-group">
                                             <label>
@@ -1055,39 +1025,6 @@ MODAL POLIZA CONSOLIDADA
             </div>
         </div>
     </div>
-</div>
-
-
-
-<div id="MostrarTodoServicio" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="col-md-12">
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Detalle de Todos los Servicios Prestados</h3>
-                        </div>
-                        <form role="form" method="post">
-                            <div class="form-horizontal">
-                                <div class="row" id="divMostrarTodoServicio">
-                                    <div class="card-body">
-                                        <div  id="divServicio">
-
-                                        </div>
-                                    </div>
-                                    <button type="button" class="btn btn-outline-info btn-block" data-dismiss="modal">Salir</button>
-                                </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </div>
 
 

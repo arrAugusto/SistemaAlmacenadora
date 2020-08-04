@@ -25,8 +25,7 @@
         <link rel="stylesheet" href="vistas/dist/css/adminlte.min.css">
 
         <!-- Fuente Google:  -->
-
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+        <link href="vistas/dist/css/css.css" rel="stylesheet">
 
         <!-- sweetalert2 css:  -->
 

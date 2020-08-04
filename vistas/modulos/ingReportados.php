@@ -19,7 +19,7 @@
     <div class="col-md-12">
         <div class="card card-info card-outline">
             <div class="col-md-6 col-lg-6 col-sm-12 mt-4">
-                <button type="button" class="btn btn-outline-danger btn-block btnImprimirReporteContable">Imprimir Reporte <i class="fa fa-print"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-block btnImprimirReporteContable" idIngReporte="<?php echo $_SESSION["idDeBodega"]; ?>">Imprimir Reporte <i class="fa fa-print"></i></button>
             </div> 
             <form role="form" method="post">
                 <div class="card-body">

@@ -88,7 +88,7 @@ class ControladorContabilidadDeRet {
                 }
             }
         }
-      return $listaRet;  
+        return $listaRet;
     }
 
     public static function ctrMstrAjustesContables($mstAjustesConta) {
@@ -107,6 +107,11 @@ class ControladorContabilidadDeRet {
     public static function ctrDescontabilizaRet($descontabilizaRet, $usuarioOp) {
         $sp = "spDescontabiliza";
         $respuesta = ModeloContabilidadDeRet::mdlMostrarReporteConta($sp, $descontabilizaRet, $usuarioOp);
+        return $respuesta;
+    }
+
+    public static function ctrListarRetContabilizados($sp, $tipo, $idBodega, $tipoReporte) {
+        $respuesta = ModeloContabilidadDeRet::mdlListarRetContabilizados($sp, $tipo, $idBodega, $tipoReporte);
         return $respuesta;
     }
 

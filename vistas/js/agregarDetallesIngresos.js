@@ -18,8 +18,10 @@ $(document).on("click", ".btnAgregarDetalles", function () {
     var nit = document.getElementById(lblNit).innerHTML;
     var poliza = document.getElementById(lblPoliza).innerHTML;
     var bultos = document.getElementById(lblBultos).innerHTML;
-    var css = "display: block;";
-    document.getElementById("divMontarguist").setAttribute("style", css);
+    if (tipoIng != "VEHICULOS NUEVOS") {
+        var css = "display: block;";
+        document.getElementById("divMontarguist").setAttribute("style", css);
+    }
     document.getElementById("agregarDetalles").innerHTML = '<div class="alert alert-primary">' + hiddenIngV + '<input type="hidden" id="cliente" name="cliente" value="' + numeroCliente + '"><input type="hidden" id="idOrdenIng" name="idOrdenIng" value="' + numeroorden + '"><input type="hidden" id="numeroIdIng" name="numeroIdIng" value="' + numeroIdIng + '"><label id="lblEmpresaGuardar"><b>Empresa : </b> <strong>' + empresa + '</strong></label><br><label id="lblPolizaGuardar">Nit : ' + nit + '</label><br><label id="lblBultosGuardar">Bultos : ' + bultos + '</label><br><label id="lblPolizaGuardar">Poliza : ' + poliza + '</label><br><button type="button" class="btn btn-primary btnVerDetalles" id="btnDetallesMerca" estado=0 data-toggle="modal" data-target="#agrDetalles">Agregar Detalles</button></div>';
     document.getElementById("divDetallesMerca").innerHTML = ` 
                 <div class="card card-danger card-outline">
@@ -37,41 +39,66 @@ $(document).on("click", ".btnAgregarDetalles", function () {
             </div>`;
 });
 $(document).on("click", ".btnVerDetalles", function () {
-    if ($("#proTarima").length >= 1) {
-        var promedioPorTarima = document.getElementById("proTarima").value;
-        console.log(promedioPorTarima);
-        if (promedioPorTarima == 0) {
-            Swal.fire({
-                title: "Promedio por tarima",
-                text: "Configure el promedio en tarima y guarde antes de finalizar la operación",
-                type: "error",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.value) {
-                    if ($("#hiddenTipoIng").length >= 1) {
-                        var tipoIng = document.getElementById("hiddenTipoIng").value;
-                        if (tipoIng == "VEHICULOS NUEVOS") {
-                            document.getElementById("datoEmpresa").innerHTML = "";
-                            document.getElementById("datoBltsEmp").innerHTML = "";
-                            document.getElementById("datoPesoEmp").innerHTML = "";
-                            document.getElementById("mdStandarTarima").innerHTML = "";
-                            document.getElementById("newTxtBtn").innerHTML = '';
-                            document.getElementById("newTxtBtn").innerHTML = '';
-                            document.getElementById("divUbicacionMerc").innerHTML = "";
-                            document.getElementById("divObserva").innerHTML = "";
-                            $("#divUbicacionMerc").removeClass("col-4");
-                            $("#divUbicacionMerc").addClass("col-6");
-                            document.getElementById("divUbicacionMerc").innerHTML = `
+    var tipoIng = $(".btnAgregarDetalles").attr("tipoing");
+    console.log(tipoIng);
+    if (tipoIng != "VEHICULOS NUEVOS") {
+        if ($("#proTarima").length >= 1) {
+
+
+            var promedioPorTarima = document.getElementById("proTarima").value;
+            console.log(promedioPorTarima);
+            if (promedioPorTarima == 0) {
+                Swal.fire({
+                    title: "Promedio por tarima",
+                    text: "Configure el promedio en tarima y guarde antes de finalizar la operación",
+                    type: "error",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.value) {
+
+                        $(".btnPromedioTarima").removeClass("btn-info");
+                        $(".btnPromedioTarima").addClass("btn-danger");
+                        document.getElementById("btnPromedioTarima").focus();
+                    }
+
+                })
+            } else {
+                Swal.fire({
+                    title: "Promedio de tarima configurado",
+                    type: "success",
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Aceptar'
+                }).then((result) => {
+                    if (result.value) {
+                        if ($("#hiddenTipoIng").length >= 1) {
+
+
+                            var tipoIng = document.getElementById("hiddenTipoIng").value;
+                            if (tipoIng == "VEHICULOS NUEVOS") {
+
+                                document.getElementById("datoEmpresa").innerHTML = "";
+                                document.getElementById("datoBltsEmp").innerHTML = "";
+                                document.getElementById("datoPesoEmp").innerHTML = "";
+                                document.getElementById("mdStandarTarima").innerHTML = "";
+                                document.getElementById("newTxtBtn").innerHTML = '';
+                                document.getElementById("newTxtBtn").innerHTML = '';
+                                document.getElementById("divUbicacionMerc").innerHTML = "";
+                                document.getElementById("divObserva").innerHTML = "";
+                                $("#divUbicacionMerc").removeClass("col-4");
+                                $("#divUbicacionMerc").addClass("col-6");
+                                document.getElementById("divUbicacionMerc").innerHTML = `
                                                          <div class="form-group has-error" id="selectSucces">
                                                                 <label>Ubicación de Vehiculos</label>
                                                                 <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
                                                                     <option selected="selected" disabled="disabled">Seleccione predio</option>   
                                                                 </select>
                                                             </div>`;
-                            document.getElementById("divObserva").innerHTML = `
+                                document.getElementById("divObserva").innerHTML = `
 
                                                 <div class="card-footer">
                                                     <div class="row">
@@ -83,52 +110,54 @@ $(document).on("click", ".btnVerDetalles", function () {
                                                     </div>
                                                 </div>
                                             `;
-
-                            $('#vehiculosUbicaN').select2();
-
+                                $('#vehiculosUbicaN').select2();
+                            }
                         }
                     } else {
                         $(".btnPromedioTarima").removeClass("btn-info");
                         $(".btnPromedioTarima").addClass("btn-danger");
                         document.getElementById("btnPromedioTarima").focus();
-
                     }
+
+                })
+            }
+            var estado = $(this).attr("estado");
+            if (estado == 0) {
+                document.getElementById("cantidadPosiciones").innerHTML = "";
+                document.getElementById("Metraje").innerHTML = "";
+                $(".btnVerDetalles").attr("estado", 1);
+            } else if (estado == 1) {
+                if ($("#hiddenTipoIng").length == 0) {
+
+                    document.getElementById("cantidadPosiciones").innerHTML = "";
+                    document.getElementById("Metraje").innerHTML = "";
                 }
-            })
-        } else {
-            Swal.fire({
-                title: "Promedio de tarima configurado",
-                type: "success",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Aceptar'
-            }).then((result) => {
-                if (result.value) {
-                    if ($("#hiddenTipoIng").length >= 1) {
 
+            }
+        }
+    } else {
 
-                        var tipoIng = document.getElementById("hiddenTipoIng").value;
-
-                        if (tipoIng == "VEHICULOS NUEVOS") {
-                            document.getElementById("datoEmpresa").innerHTML = "";
-                            document.getElementById("datoBltsEmp").innerHTML = "";
-                            document.getElementById("datoPesoEmp").innerHTML = "";
-                            document.getElementById("mdStandarTarima").innerHTML = "";
-                            document.getElementById("newTxtBtn").innerHTML = '';
-                            document.getElementById("newTxtBtn").innerHTML = '';
-                            document.getElementById("divUbicacionMerc").innerHTML = "";
-                            document.getElementById("divObserva").innerHTML = "";
-                            $("#divUbicacionMerc").removeClass("col-4");
-                            $("#divUbicacionMerc").addClass("col-6");
-                            document.getElementById("divUbicacionMerc").innerHTML = `
+        if ($("#hiddenTipoIng").length >= 1) {
+            var tipoIng = document.getElementById("hiddenTipoIng").value;
+            if (tipoIng == "VEHICULOS NUEVOS") {
+                document.getElementById("datoEmpresa").innerHTML = "";
+                document.getElementById("datoBltsEmp").innerHTML = "";
+                document.getElementById("datoPesoEmp").innerHTML = "";
+                document.getElementById("mdStandarTarima").innerHTML = "";
+                document.getElementById("newTxtBtn").innerHTML = '';
+                document.getElementById("newTxtBtn").innerHTML = '';
+                document.getElementById("divUbicacionMerc").innerHTML = "";
+                document.getElementById("divObserva").innerHTML = "";
+                $("#divUbicacionMerc").removeClass("col-4");
+                $("#divUbicacionMerc").addClass("col-6");
+                document.getElementById("divUbicacionMerc").innerHTML = `
                                                          <div class="form-group has-error" id="selectSucces">
                                                                 <label>Ubicación de Vehiculos</label>
                                                                 <select  class="select2" style="width: 100%;" id="vehiculosUbicaN">
                                                                     <option selected="selected" disabled="disabled">Seleccione predio</option>   
                                                                 </select>
                                                             </div>`;
-                            document.getElementById("divObserva").innerHTML = `
+                document.getElementById("divObserva").innerHTML = `
 
                                                 <div class="card-footer">
                                                     <div class="row">
@@ -140,38 +169,17 @@ $(document).on("click", ".btnVerDetalles", function () {
                                                     </div>
                                                 </div>
                                             `;
+                $('#vehiculosUbicaN').select2();
+            }
 
-                            $('#vehiculosUbicaN').select2();
-                        }
-                    }
-                } else {
-                    $(".btnPromedioTarima").removeClass("btn-info");
-                    $(".btnPromedioTarima").addClass("btn-danger");
-                    document.getElementById("btnPromedioTarima").focus();
-
-                }
-
-            })
         }
     }
-    var estado = $(this).attr("estado");
 
-    if (estado == 0) {
-        document.getElementById("cantidadPosiciones").innerHTML = "";
-        document.getElementById("Metraje").innerHTML = "";
-
-        $(".btnVerDetalles").attr("estado", 1);
-
-    } else if (estado == 1) {
-        if ($("#hiddenTipoIng").length == 0) {
-
-            document.getElementById("cantidadPosiciones").innerHTML = "";
-            document.getElementById("Metraje").innerHTML = "";
-        }
-
-
-    }
     var indexValue = document.getElementById("personaSeleccionada").value;
+    if (tipoIng == "VEHICULOS NUEVOS") {
+        indexValue = 1;
+    }
+
     if (indexValue >= 1) {
         document.getElementById("tableMercaderia").innerHTML = '';
         document.getElementById("tableMercaderia").innerHTML = '<table id="tableDetallesMerca" class="table table-hover table-sm"></table>';
@@ -285,6 +293,7 @@ $(document).on("click", ".btnVerDetalles", function () {
             }
         })
     }
+
 });
 $(document).on("click", ".btnUsarFila", function () {
     var idUsarFila = $(this).attr("buttonusarid");
@@ -306,7 +315,6 @@ $(document).on("click", ".btnUsarFila", function () {
                 document.getElementById("nombreEmpresa").value = respuesta[0]["empresa"];
                 document.getElementById("cantidadBultos").value = respuesta[0]["bultos"];
                 document.getElementById("pesoKg").value = respuesta[0]["peso"];
-
                 document.getElementById("nombreEmpresa").disabled = true;
                 document.getElementById("cantidadBultos").disabled = true;
                 document.getElementById("pesoKg").disabled = true;
@@ -314,7 +322,6 @@ $(document).on("click", ".btnUsarFila", function () {
                     type: 'success',
                     title: 'Empresa seleccionada ',
                     text: respuesta[0]["empresa"] + ', Agregue ubicación, detalle, metros o ubicaciones. ',
-
                 })
 
                 for (var i = 0; i < 25; i++) {
@@ -327,10 +334,6 @@ $(document).on("click", ".btnUsarFila", function () {
         }
     });
 });
-
-
-
-
 $(document).on("click", ".btnPaseDeSalidaVacio", function () {
     var valUnidad = $(this).attr("idUnidad");
     var datos = new FormData();
@@ -354,7 +357,6 @@ $(document).on("click", ".btnPaseDeSalidaVacio", function () {
                     if (okay) {
                         window.open("extensiones/tcpdf/pdf/Pase-vacio-fiscal.php?unidad=" + valUnidad, "_blank");
                         location.reload();
-
                     }
                 });
             }
@@ -380,7 +382,6 @@ $(document).on("click", ".btnPromedioTarima", function () {
         confrimButtonText: "cerrar",
         closeConfirm: true
     });
-
 });
 /*
  $(document).ready(function () {
@@ -424,14 +425,12 @@ $(document).on("keyup", "#cantidadPosiciones", async function () {
     }
 
 });
-
 $(document).on("keyup", "#proTarima", async function () {
     var PromedioTarima = $(this).val();
     if ($("#cantidadPosiciones").attr("estado") == 1) {
         var cantPos = $("#cantidadPosiciones").val();
         if (cantPos >= 0.001 && PromedioTarima >= 0.001) {
             var funcCalculo = await validaCalculoPosMts(cantPos, PromedioTarima);
-
         }
 
     } else if ($("#Metraje").attr("estado") == 1) {
@@ -494,7 +493,6 @@ $(document).on("keyup", "#Metraje", async function () {
 
         var cantMts = $(this).val();
         var PromedioTarima = document.getElementById("proTarima").value;
-
         if (PromedioTarima == 0 || PromedioTarima == "") {
             document.getElementById("proTarima").focus();
             swal({
@@ -505,15 +503,12 @@ $(document).on("keyup", "#Metraje", async function () {
                 confrimButtonText: "cerrar",
                 closeConfirm: true
             });
-
         } else {
             var funcCalculoMts = await validaCalculoMts(cantMts, PromedioTarima);
         }
 
     }
 });
-
-
 async function validaCalculoMts(cantMts, PromedioTarima) {
     var resNumMts = await patternPregNumEntero(cantMts);
     if (resNumMts == 1) {
@@ -551,7 +546,7 @@ $(document).on("click", ".btnConsCadena", async function () {
             document.getElementById("recargaBtn").disabled = false;
         }
 
-        //
+//
         Swal.fire({
             title: "Operación Exitosa, Piloto Autorizado",
             text: "¿Desea imprimir pase de salida del piloto?",
@@ -582,7 +577,7 @@ $(document).on("click", ".btnConsCadena", async function () {
         if ($(".btnRecarga").length >= 1) {
             document.getElementById("recargaBtn").disabled = false;
         }
-        //
+//
         Swal.fire({
             title: "Operación Exitosa, Pilotos Autorizados",
             text: "¿Desea imprimir pase de salida de lo(s) piloto(s)?",
@@ -623,15 +618,11 @@ function guardarPaseVacio(operacion, tipo, cadena) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-
             todoMenus = respuesta;
-
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }});
     return todoMenus;
-
 }
 
 $(document).on("click", ".bntSalidaRapida", function () {
@@ -730,7 +721,6 @@ $(document).on("click", ".bntSalidaRapida", function () {
                         title: "Acción"
                     }]
             });
-
             /*    document.getElementById("pSalidaPiloto").value = respuesta[0]["piloto"];
              document.getElementById("pSalidaLicencia").value = respuesta[0]["licencia"];
              document.getElementById("pSalidaMarchamo").value = respuesta[0]["marchamo"];
@@ -745,19 +735,14 @@ $(document).on("click", ".bntSalidaRapida", function () {
 
     });
 });
-
 $(document).on("change", "#cantidadPosiciones", function () {
     document.getElementById("GuardarIngBod").focus();
 });
-
 $(document).on("change", "#Metraje", function () {
     document.getElementById("GuardarIngBod").focus();
 });
-
-
 function CheckTextbox(text) {
     var textbox = document.getElementById(text);
-
     if (textbox.readOnly) {
         // If disabled, do this 
         return false;
@@ -781,12 +766,10 @@ $(document).on("click", ".btnImpAutorizado", function () {
     }).then((result) => {
         if (result.value) {
             window.open("extensiones/tcpdf/pdf/Pase-vacio-fiscal.php?unidad=" + ingreso, "_blank");
-
         }
     })
 
 });
-
 $(document).on("click", ".btnMsVehiculos", async function () {
     var dependencia = document.getElementById("hiddenIdDependencia").value;
     var listPredios = await cargarPrediosDeEmpresa(dependencia);
@@ -800,9 +783,7 @@ $(document).on("click", ".btnMsVehiculos", async function () {
             console.log(idIng);
             document.getElementById("chasisVeh").innerHTML = '';
             document.getElementById("chasisVeh").innerHTML = '<table id="tableChasisVehiculos" class="table table-hover"></table>';
-
             var respFinVeh = await finalizarChasis(idIng);
-
             if (respFinVeh != false) {
                 listaChasis = [];
                 for (var i = 0; i < respFinVeh.length; i++) {
@@ -812,7 +793,6 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                     var tipoV = respFinVeh[i].tipoV;
                     var lineaV = respFinVeh[i].lineaV;
                     var ubica = respFinVeh[i].ubica;
-
                     if (ubica == 0) {
                         var btnubica = '<button type="button" class="btn btn-danger" disabled="disabled">S-P</button>';
                     } else {
@@ -893,7 +873,6 @@ function finalizarChasis(idIng) {
                 todoMenus = respuesta;
             } else {
                 todoMenus = false;
-
             }
 
 
@@ -902,8 +881,6 @@ function finalizarChasis(idIng) {
             console.log(respuesta);
         }});
     return todoMenus;
-
-
 }
 
 $(document).on("click", ".btnSinUbicacion", async function () {
@@ -911,18 +888,14 @@ $(document).on("click", ".btnSinUbicacion", async function () {
     if (estado == 0) {
         $(this).removeClass("btn-outline-danger");
         $(this).addClass("btn-outline-primary");
-
         $(this).html('<i class="fa fa-close"></i>');
         $(this).html('<i class="fa fa-check"></i>');
-
         $(this).attr("estado", 1);
     } else {
         $(this).removeClass("btn-outline-primary");
         $(this).addClass("btn-outline-danger");
-
         $(this).html('<i class="fa fa-check"></i>');
         $(this).html('<i class="fa fa-close"></i>');
-
         $(this).attr("estado", 0);
     }
 })
@@ -948,7 +921,6 @@ function cargarPrediosDeEmpresa(dependencia) {
                 todoMenus = respuesta;
             } else {
                 todoMenus = false;
-
             }
 
         }, error: function (respuesta) {
@@ -977,7 +949,6 @@ $(document).on("click", ".btnGdChasVehN", async function () {
             if (gdUbVehN.estadoIng == 1) {
                 $(".btnMsVehiculos").click();
                 document.getElementById("divUbicacionMerc").innerHTML = "";
-
                 document.getElementById("divUbicacionMerc").innerHTML = `
                                                          <div class="form-group has-error" id="selectSucces">
                                                                 <label>Ubicación de Vehiculos</label>
@@ -1051,7 +1022,6 @@ function guardarUbicacionesVehN(vehiculosUbicaN, listaValida) {
             console.log(respuesta);
         }});
     return todoMenus;
-
 }
 
 $(document).on("click", ".btnMostrarDetOpIng", async function () {
@@ -1079,7 +1049,6 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                     var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
                     var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
                     var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-
                     lista.push([numeroLabel, empresa, bultos, peso]);
                 }
                 $('#tableDiffBodMan').DataTable({
@@ -1122,7 +1091,6 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
 
         }, error: function (respuesta) {
             console.log(respuesta);
-
         }})
 })
 
