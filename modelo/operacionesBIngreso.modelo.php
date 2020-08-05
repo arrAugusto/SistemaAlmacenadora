@@ -935,7 +935,7 @@ class ModeloControladorOpB {
     public static function mdlDetallesVehiculosUSados($idIngVehUs, $idDetVehUs, $tipoVeh, $marcaVeh, $lineaVeh, $anioVehiculo) {
         $conn = Conexion::Conectar();
         $params = array(&$idIngVehUs, &$idDetVehUs, &$tipoVeh, &$marcaVeh, &$lineaVeh, &$anioVehiculo);
-        $sql = "EXECUTE spNuevaEmpresa ?, ?, ?, ?, ?, ?";
+        $sql = "EXECUTE spNuevoUsados ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             return true;

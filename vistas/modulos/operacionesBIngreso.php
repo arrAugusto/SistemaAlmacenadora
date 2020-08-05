@@ -737,27 +737,26 @@ MODAL POLIZA CONSOLIDADA
                                             <div class="row">
                                                 <div class="col-6">
                                                     <label>Ingrese el Numero de Chasis</label>
-                                                    <input type="text" class="form-control is-invalid" id="numChasisVehUs" placeholder="Chasis: 5UXFA53543LW26843" value="" />
-
+                                                    <input type="text" class="form-control is-invalid" id="numChasisVehUs" placeholder="Chasis: 5UXFA53543LW26843" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
 
                                                 <div class="col-3">
                                                     <label>Tipo de Vehículo</label>
-                                                    <input type="text" class="form-control is-invalid" id="tVehiculoUs" placeholder="Ejemplo : AUTOMOVIL" value="" />
+                                                    <input type="text" class="form-control is-invalid" id="tVehiculoUs" placeholder="Ejemplo : AUTOMOVIL" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
 
                                                 </div>
                                                 <div class="col-3">
                                                     <label>Marca del Vehículo</label>
-                                                    <input type="text" class="form-control is-invalid" id="marcaVeh" placeholder="Ejemplo : TOYOTA" value="" />
+                                                    <input type="text" class="form-control is-invalid" id="marcaVeh" placeholder="Ejemplo : TOYOTA" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>      
 
                                                 <div class="col-6">
                                                     <label>Linea del Vehículo</label>
-                                                    <input type="text" class="form-control is-invalid"  id="lineaVeh" placeholder="Ejemplo : Yaris" value="" />
+                                                    <input type="text" class="form-control is-invalid"  id="lineaVeh" placeholder="Ejemplo : Yaris" value=""  autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
                                                 <div class="col-6">
                                                     <label>Modelo del Vehículo</label>
-                                                    <input type="number" class="form-control is-invalid"  id="modeloVeh" placeholder="Ejemplo : <?php
+                                                    <input type="number" class="form-control is-invalid"  id="modeloVeh" autocomplete="false" placeholder="Ejemplo : <?php
                                                     date_default_timezone_set('America/Guatemala');
                                                     $year = date('Y');
                                                     echo $year;
@@ -765,14 +764,14 @@ MODAL POLIZA CONSOLIDADA
                                                 </div>
                                                 <div class="col-6">
                                                     <label>Cantidad de Vehículos</label>
-                                                    <input type="number" class="form-control is-valid"  id="cantidaVeh" value=1 readOnly="false" />
+                                                    <input type="number" class="form-control is-valid"  id="cantidaVeh" value="1" autocomplete="false" readOnly="false" />
                                                     <center><label id="bultosSobregiro" style="color:red;"></label></center>
                                                 </div>                                                
                                                 <div class="col-6">
                                                     <div class="col-12">
                                                         <label>Peso de Vehículo</label>
                                                         <div class="input-group">
-                                                            <input type="number" class="form-control is-invalid" id="pesoVehiculoUs" placeholder="Ejemplo : 2125.12" value="" />
+                                                            <input type="number" class="form-control is-invalid" id="pesoVehiculoUs" autocomplete="false" placeholder="Ejemplo : 2125.12" value="" />
                                                             <span class="input-group-append">
                                                                 <button type="button" class="btn btn-success btnGVehciuloUs">Agregar Chasis</button>
                                                             </span>

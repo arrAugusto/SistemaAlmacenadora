@@ -168,7 +168,7 @@ $(document).on("click", ".btnSearch", function () {
                             var pesoKG = respuesta["detallesIngs"][i][j].pesoKG;
                             var stockP = respuesta["detallesIngs"][i][j].stockP;
                             var stockM = respuesta["detallesIngs"][i][j].stockM;
-                            var acciones = '<button class="btn btn-info btnVista" id="buttonVista' + respuesta["detallesIngs"][i][j].idDet + '" idDetalle=' + respuesta["detallesIngs"][i][j].idDet + ' idIng=' + respuesta["detallesIngs"][i][j].idIng + ' merca = "' + merca + '" peso="' + pesoKG + '"><i class="fas fa-eye"></i></button>';
+                            var acciones = '<button class="btn btn-info btnVista" id="buttonVista' + respuesta["detallesIngs"][i][j].idDet + '" idDetalle=' + respuesta["detallesIngs"][i][j].idDet + ' idIng=' + respuesta["detallesIngs"][i][j].idIng + ' merca = "' + merca + '" peso="' + pesoKG + '"><i class="fa fa-eye"></i></button>';
                             listaDataDetalle.push([contador, cosolidado, pol, empresa, merca, bultos, pesoKG, stockP, stockM, acciones]);
                         }
                     }
@@ -348,7 +348,7 @@ $(document).on("click", ".btnModificarUbica", async function () {
     var idIncidencia = $(this).attr("idincidencia");
     document.getElementById("mapeandoAcciones").innerHTML = "";
     var ubicacionEdicion = await mapaEdicionUbicacionModificar(idDet);
-    document.getElementById("divBotonesAcciones").innerHTML = `<button type="button" class="btn btn-info btn-block btnUbModificadas" idDet=` + idDet + ` idIncidencia=` + idIncidencia + `>Guardar Ubicaciones Modificadas <i class="fas fa-save"><i/></button>`;
+    document.getElementById("divBotonesAcciones").innerHTML = `<button type="button" class="btn btn-info btn-block btnUbModificadas" idDet=` + idDet + ` idIncidencia=` + idIncidencia + `>Guardar Ubicaciones Modificadas <i class="fa fa-save"><i/></button>`;
     console.log(ubicacionEdicion);
 })
 
@@ -434,3 +434,171 @@ $(document).ready(function () {
         $("#mapeandoUbica").addClass("col-12");
     }
 })
+
+$(document).on("click", ".btnMostrarVehUsados", async function () {
+    document.getElementById("mapEntradaUbic").remove();
+    document.getElementById("mapeandoUbica").remove();
+    document.getElementById("mapEntradaUbic").remove();
+
+    document.getElementById("detalleSeleccionado").innerHTML = '<table id="tableVhUsados" class="table table-hover table-sm"></table>';
+    var nomVar = "mostrarVehiculosUsados";
+    var tipo = "Usados";
+    var resp = await funcionVerVehUsados(nomVar, tipo);
+    if (resp != "SD") {
+        var listaVehUsados = [];
+        var numero = 0;
+        for (var i = 0; i < resp.length; i++) {
+            var numero = numero + 1;
+            var nitEmpresa = resp[i].nitEmpresa;
+            var nombreEmpresa = resp[i].nombreEmpresa;
+            var numeroPoliza = resp[i].numeroPoliza;
+            var chasis = resp[i].empresa;
+            var tipoVehiculo = resp[i].tipoVehiculo;
+            var lineaVehiculo = resp[i].lineaVehiculo;
+            var idBodega = resp[i].id;
+            var button = '<button type="button" class="btn btn-success btnVerUbicacionVhUs" idBodVhU=' + idBodega + '  empresa="' + nombreEmpresa + '" chasis="' + chasis + '" data-toggle="modal" data-target="#modalVehUsados">Ubicación</button> ';
+            listaVehUsados.push([numero, nitEmpresa, nombreEmpresa, numeroPoliza, chasis, tipoVehiculo, lineaVehiculo, button]);
+        }
+        $('#tableVhUsados').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            data: listaVehUsados,
+            columns: [{
+                    title: "#"
+                }, {
+                    title: "Nit"
+                }, {
+                    title: "Empresa"
+                }, {
+                    title: "Póliza"
+                }, {
+                    title: "Chasis"
+                }, {
+                    title: "Tipo"
+                }, {
+                    title: "Linea"
+                }, {
+                    title: "Acciones"
+                }]
+        });
+
+    }
+
+})
+
+function funcionVerVehUsados(nomVar, tipo) {
+    let respEdicion;
+    var datos = new FormData();
+    datos.append(nomVar, tipo);
+    $.ajax({
+        async: false,
+        url: "ajax/inventariosFiscales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdicion = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }});
+    return respEdicion;
+}
+
+$(document).on("click", ".btnVerUbicacionVhUs", async function () {
+    document.getElementById("divRecibidoVehUs").innerHTML =  '<table id="tablePosUbi" class="table table-hover table-sm"></table>';
+
+    var empresa = $(this).attr("empresa");
+    var chasis = $(this).attr("chasis");
+    var idBod = $(this).attr("idbodvhu");
+    var nomVar = "idDetChas";
+    var resp = await funcionVerVehUsados(nomVar, idBod);
+    if (resp != "SD") {
+        var deta;
+        for (var i = 0; i < resp.detalles.length; i++) {
+            var detalles = `<p>` + resp.detalles[i].descripcionMercaderia + `</p><br/>`;
+            deta = detalles;
+        }
+
+        document.getElementById("divTablePosVehUS").innerHTML = `
+
+
+        <div class="small-box bg-warning">
+              <div class="inner">
+                <h8>EMPRESA : ` + empresa + ` <br/>CHASIS : ` + chasis + `</h8>
+` + deta + `
+        </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+            </div>`;
+        var numero = 0;
+        listaUbica = [];
+        for (var i = 0; i < resp.ubicacionVehUs.length; i++) {
+            var numero = numero+1;
+           var pasXY = 'Pas '+resp.ubicacionVehUs[i].ColX +' Col '+resp.ubicacionVehUs[i].pasY;
+            listaUbica.push([numero, pasXY]);
+        }
+        
+        console.log(listaUbica);
+        console.log(resp.ubicacionVehUs);
+                $('#tablePosUbi').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            data: listaUbica,
+            columns: [{
+                    title: "#"
+                }, {
+                    title: "Ubicación"
+                }]
+        });
+    }
+})
+

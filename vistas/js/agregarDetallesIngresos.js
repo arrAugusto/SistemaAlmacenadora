@@ -295,12 +295,29 @@ $(document).on("click", ".btnVerDetalles", function () {
     }
 
 });
-$(document).on("click", ".btnUsarFila", function () {
+$(document).on("click", ".btnUsarFila", async function () {
     var idUsarFila = $(this).attr("buttonusarid");
-    console.log(idUsarFila);
+    var nomVar = "verIdDetVehUsados";
+    var resp = await funcionRevVehUsados(nomVar, idUsarFila);
+    if (resp[0].vehiUSado >= 1) {
+        var select = document.getElementById("selectUbicacion");
+        var length = select.options.length;
+        for (var i = 0; i < length + 1; i++) {
+            select.remove(i);
+        }
+        select.remove(0);
+        var nomVar = "prediosVehUsados";
+        var respPredios = await funcionRevVehUsados(nomVar, idUsarFila);
+        $("#selectUbicacion").append('<option selected="selected" disabled="disabled">Seleccione Ubicación</option>');
+        for (var i = 0; i < respPredios.length; i++) {
+            $("#selectUbicacion").append('<option value='+respPredios[i].id+'>' + respPredios[i].areasAutorizadas + '</option>');
+        }
+
+    }
     var datos = new FormData();
     datos.append("idUsarFila", idUsarFila);
     $.ajax({
+        async: false,
         url: "ajax/registroIngresoBodega.ajax.php",
         method: "POST",
         data: datos,
@@ -334,6 +351,30 @@ $(document).on("click", ".btnUsarFila", function () {
         }
     });
 });
+
+function funcionRevVehUsados(nomVar, idDetalle) {
+    let respEdicion;
+    var datos = new FormData();
+    datos.append(nomVar, idDetalle);
+    $.ajax({
+        async: false,
+        url: "ajax/registroIngresoBodega.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdicion = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }});
+    return respEdicion;
+}
+
+
 $(document).on("click", ".btnPaseDeSalidaVacio", function () {
     var valUnidad = $(this).attr("idUnidad");
     var datos = new FormData();

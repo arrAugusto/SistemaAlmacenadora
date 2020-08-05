@@ -194,7 +194,8 @@ class AjaxOperacionesBIngreso {
     public $agregandoDetalles;
 
     public function AjaxAgregandoDetalles() {
-
+                        session_start();
+        $usuarioOp = $_SESSION["id"];
         $datos = array(
             "identidad" => $this->identidad,
             "tipoBusqueda" => $this->tipoBusqueda,

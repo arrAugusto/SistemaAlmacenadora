@@ -34,7 +34,7 @@
                                             <th>Nit</th>
                                             <th>Bultos</th>
                                             <th>Poliza</th>
-                                            <th>Tarifas</th>
+                                            <th>Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -53,8 +53,6 @@
         </div>
     </section>
 </div>
-
-
 
 <!--=====================================
 MODAL POLIZA CONSOLIDADA
@@ -78,9 +76,7 @@ MODAL POLIZA CONSOLIDADA
                             <h3 class="card-title">Agregar Detalles de Mercadería</h3>
                         </div>
                         <!--campos formularios -->
-                        <form role="form" method="post" id="divGuardaDetalle">
-                            <input type="hidden" id ="hiddenIdentity" value=""> 
-
+                        <form role="form" method="post" autocomplete="off" id="divGuardaDetalle">
                             <div class="row">
                                 <div class="col-12 mt-4" id="UltimochasisTeclado">
                                     <center><label id="comprobarChasis"></label></center>
@@ -104,14 +100,14 @@ MODAL POLIZA CONSOLIDADA
 
                                                 <div class="col-4 form-group autocompletar">
                                                     <label>
-                                                        Nombre de empresa
+                                                        Nombre de Empresa
                                                     </label>
                                                     <input class="form-control is-invalid" id="tipoBusqueda" name="tipoBusqueda" placeholder="Ingrese Nombre de empresa" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
                                                 <div class="col-3">
                                                     <div class="form-group">
                                                         <label>
-                                                            Cantidad de bultos
+                                                            Cantidad de Bultos
                                                         </label>
                                                         <input class="form-control is-invalid" id="bultosAgregados" name="bultosAgregados" placeholder="Ingrese cantidad de bultos" type="number" />
                                                         <center><label id="bultosSobregiro" style="color:red;"></label></center>
@@ -133,8 +129,7 @@ MODAL POLIZA CONSOLIDADA
 
                                                 </div>
 
-
-                      <div class="col-12">
+                                                <div class="col-12">
                                                     <div id="divEmpresasAgregadasMani">
                                                     </div>
                                                 </div>
@@ -145,43 +140,42 @@ MODAL POLIZA CONSOLIDADA
                                         <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="tabVehiculosUsados">
                                             <div class="row">
                                                 <div class="col-6">
-                                                    <label>Ingrese el numero de chasis</label>
-                                                    <input type="text" class="form-control is-invalid" id="numChasisVehUs" placeholder="Chasis: 5UXFA53543LW26843" value="" />
-
+                                                    <label>Ingrese el Numero de Chasis</label>
+                                                    <input type="text" class="form-control is-invalid" id="numChasisVehUs" placeholder="Chasis: 5UXFA53543LW26843" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
 
                                                 <div class="col-3">
-                                                    <label>Tipo de vehículo</label>
-                                                    <input type="text" class="form-control is-invalid" id="tVehiculoUs" placeholder="Ejemplo : AUTOMOVIL" value="" />
+                                                    <label>Tipo de Vehículo</label>
+                                                    <input type="text" class="form-control is-invalid" id="tVehiculoUs" placeholder="Ejemplo : AUTOMOVIL" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
 
                                                 </div>
                                                 <div class="col-3">
-                                                    <label>Marca del vehículo</label>
-                                                    <input type="text" class="form-control is-invalid" id="marcaVeh" placeholder="Ejemplo : TOYOTA" value="" />
+                                                    <label>Marca del Vehículo</label>
+                                                    <input type="text" class="form-control is-invalid" id="marcaVeh" placeholder="Ejemplo : TOYOTA" value="" autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>      
 
                                                 <div class="col-6">
-                                                    <label>Linea del vehículo</label>
-                                                    <input type="text" class="form-control is-invalid"  id="lineaVeh" placeholder="Ejemplo : Yaris" value="" />
+                                                    <label>Linea del Vehículo</label>
+                                                    <input type="text" class="form-control is-invalid"  id="lineaVeh" placeholder="Ejemplo : Yaris" value=""  autocomplete="false" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
                                                 <div class="col-6">
-                                                    <label>Modelo del vehículo</label>
-                                                    <input type="number" class="form-control is-invalid"  id="modeloVeh" placeholder="Ejemplo : <?php
+                                                    <label>Modelo del Vehículo</label>
+                                                    <input type="number" class="form-control is-invalid"  id="modeloVeh" autocomplete="false" placeholder="Ejemplo : <?php
                                                     date_default_timezone_set('America/Guatemala');
                                                     $year = date('Y');
                                                     echo $year;
                                                     ?>" value="" />
                                                 </div>
                                                 <div class="col-6">
-                                                    <label>Cantidad de vehículos</label>
-                                                    <input type="number" class="form-control is-valid"  id="cantidaVeh" value=1 readOnly="false" />
+                                                    <label>Cantidad de Vehículos</label>
+                                                    <input type="number" class="form-control is-valid"  id="cantidaVeh" value="1" autocomplete="false" readOnly="false" />
                                                     <center><label id="bultosSobregiro" style="color:red;"></label></center>
                                                 </div>                                                
                                                 <div class="col-6">
                                                     <div class="col-12">
-                                                        <label>Peso de vehículo</label>
+                                                        <label>Peso de Vehículo</label>
                                                         <div class="input-group">
-                                                            <input type="number" class="form-control is-invalid" id="pesoVehiculoUs" placeholder="Ejemplo : 2125.12" value="" />
+                                                            <input type="number" class="form-control is-invalid" id="pesoVehiculoUs" autocomplete="false" placeholder="Ejemplo : 2125.12" value="" />
                                                             <span class="input-group-append">
                                                                 <button type="button" class="btn btn-success btnGVehciuloUs">Agregar Chasis</button>
                                                             </span>
@@ -189,15 +183,10 @@ MODAL POLIZA CONSOLIDADA
                                                     </div>
                                                     <center><label id="pesoSobregiro" style="color:red;"></label></center>
                                                 </div>
-
-
-
                                             </div>   
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="row"> 
                                 <div class="col-12 mt-4" id="divChaisVehiculosUS">
@@ -210,7 +199,7 @@ MODAL POLIZA CONSOLIDADA
                                             </i>
                                         </span>
                                         <div class="info-box-content">
-                                            <span class="info-box-text">Detalle de bultos</span>
+                                            <span class="info-box-text">Detalle de Bultos</span>
                                             <h4 id="saldoIngNblts"></h4>
 
                                             <h4 id="saldoNuevoblts"></h4>
@@ -226,7 +215,7 @@ MODAL POLIZA CONSOLIDADA
                                         </span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">
-                                                Detalle de peso
+                                                Detalle de Peso
                                             </span>
                                             <h4 id="saldoIngNPeso"></h4>
                                             <h4 id="pesoNuevoblts"></h4>
@@ -243,7 +232,7 @@ MODAL POLIZA CONSOLIDADA
                                         </span>
                                         <div class="info-box-content">
                                             <span class="info-box-text">
-                                                Clientes agregados
+                                                Clientes Agregados
                                             </span>
                                             <h3 id="contadorClientes"></h3>
                                         </div>
@@ -326,3 +315,31 @@ MODAL POLIZA CONSOLIDADA
     </div>
 </div>
 
+<!-- The Modal -->
+<div class="modal fade" id="mdlDepDiffBodega">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Manifiesto de la poliza</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" id="tableMrcDiffMani">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -4607,7 +4607,7 @@ $(document).on("click", ".btnGVehciuloUs", async function () {
     var llaveConsulta = document.getElementById("hiddenIdentity").value;
     var tipoBusqueda = document.getElementById("numChasisVehUs").value;
     var bultosAgregados = 1;
-    var pesoAgregado = document.getElementById("cantidaVeh").value;
+    var pesoAgregado = document.getElementById("pesoVehiculoUs").value;
     var respuestaSaldoPeso = await saldoPesoIng(llaveConsulta, bultosAgregados, pesoAgregado);
     console.log(respuestaSaldoPeso);
     if ($(".tableIngFail").length == 0) {
@@ -4728,6 +4728,7 @@ function guardarDetVeUsados(llaveConsulta, idDet, tipoVeh, marcaVeh, lineaVeh, a
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+            console.log(respuesta);
             if (respuesta) {
                 resp = true;
             } else {

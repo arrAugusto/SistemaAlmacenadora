@@ -13,13 +13,12 @@ class ControladorGeneracionDeInventarios {
 
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
-                    if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"]=="BAJO") {
-                    if ($value["accionEstado"] >= 4) {
-                        $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa  fa-file-pdf"></i></button></div>';
-                    }
-                    }else{
+                    if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
+                        if ($value["accionEstado"] >= 4) {
+                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa  fa-file-pdf"></i></button></div>';
+                        }
+                    } else {
                         $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"></div>';
-                        
                     }
                     $fecha_actual = new DateTime();
                     $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
@@ -112,7 +111,7 @@ class ControladorGeneracionDeInventarios {
                 array_push($jsonGenerateExcel, $datosArray);
             }
         }
-        return array("moviminetos" => $jsonGenerateExcel, "detalles" => $respuestaDetalle); 
+        return array("moviminetos" => $jsonGenerateExcel, "detalles" => $respuestaDetalle);
     }
 
     public static function ctrMostrarEdicionesBod($idIngEdicionBod) {
@@ -188,6 +187,36 @@ class ControladorGeneracionDeInventarios {
             $respuestaEliminar = ModeloGeneracionDeInventarios::mdlEliminarUbicacion($pasilloYTrash, $columnaXTrash, $idIncidenciaTrash, $sp);
             return $respuestaEliminar;
         }
+    }
+
+    public static function ctrMostrarVehiculosUsados($mostrarVehiculosUsados) {
+
+        $sp = "spListaVehUsados";
+        $guardarUbicacion = ModeloGeneracionDeInventarios::mdlModificacionesUbicaciones($mostrarVehiculosUsados, $sp);
+        return $guardarUbicacion;
+    }
+
+    public static function ctrMostrarUbicacionesVhUS($idDetChas) {
+        $sp = "spMostrarUbicacion";
+        $guardarUbicacion = ModeloGeneracionDeInventarios::mdlModificacionesUbicaciones($idDetChas, $sp);
+        $listaDetalles = [];
+        foreach ($guardarUbicacion as $key => $value) {
+            if ($key == 0) {
+                array_push($listaDetalles, $value);
+            }
+            if ($key >= 1) {
+                $estado = 0;
+                foreach ($listaDetalles as $key => $values) {
+                    if ($values["descripcionMercaderia"] == $value["descripcionMercaderia"]) {
+                        $estado = $estado + 1;
+                    }
+                }
+                if ($estado == 0) {
+                    array_push($listaDetalles, $value);
+                }
+            }
+        }
+        return array("detalles"=>$listaDetalles,  "ubicacionVehUs"=>$guardarUbicacion);
     }
 
 }

@@ -4,7 +4,7 @@ require_once "cone.php";
 
 class ModeloRegIngBod {
 
-    public static function mdlConsultaDetalles($numeroIdIng) {
+    public static function  mdlConsultaDetalles($numeroIdIng) {
 
         $conn = Conexion::Conectar();
         $params = array(&$numeroIdIng);

@@ -58,41 +58,41 @@ class ControladorIngresosPendientes {
                         if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
 
                             if ($contador == 0) {
-                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-outline-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                             } else {
-                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
+                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
                             }
                         } else {
-                            $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                            $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                         }
                     } else {
 
                         if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
                             if ($contador == 0) {
-                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-outline-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                             } else {
-                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
+                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
                             }
                         } else {
                             if ($contadorEstadoTres >= 1) {
                                 if ($value["vinculo"] == "NoAplica") {
-                                    $botonera = '<button type="button" class="btn btn-outline-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
-                                    $botonera = '<button type="button" class="btn btn-outline-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 }
                             } else if ($contador == 0 && $contadorEstadoTres == 0) {
 
                                 if ($value["vinculo"] == "NoAplica") {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-outline-success bntSalidaRapida" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-outline-success bntSalidaRapida" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 }
                             } else if ($contador >= 1 && $contadorEstadoTres == 0) {
 
                                 if ($value["vinculo"] == "NoAplica") {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                                 } else {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-outline-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                                 }
                             }
                         }
@@ -104,7 +104,7 @@ class ControladorIngresosPendientes {
                     }
 
                     if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas") {
-                        $botonera = '<button type="button" class="btn btn-outline-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
+                        $botonera = '<button type="button" class="btn btn-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                     }
                     echo '
                       <tr>
@@ -136,7 +136,7 @@ class ControladorIngresosPendientes {
                     if ($respuestaTran[0]["countChas"] >= 1) {
                         $vehNV = 1;
                     }
-                    $botonera = '<button type="button" class="btn btn-outline-success btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
+                    $botonera = '<button type="button" class="btn btn-success btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
                 }   
 
                 if ($value["vinculo"] != "NoAplica") {
@@ -146,11 +146,12 @@ class ControladorIngresosPendientes {
                 }
                 if ($value["servicioFis"] == "VEHICULOS USADOS") {
 
-                    $botonera = '<button type="button" class="btn btn-outline-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                    $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
                 }else{
-                 $botonera = '<button type="button" class="btn btn-outline-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                 $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
                       $vehNV = 1;
                 }
+                $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="'.$value["numeroOrden"].'" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                 if ($vehNV == 1) {
                     echo '
                       <tr>
@@ -159,10 +160,10 @@ class ControladorIngresosPendientes {
                         <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
-                    echo '<td>' . '<center><div class="btn-group">' . $botonera . '</div></center></td>';
+                    echo '<td>' . '<center><div class="btn-group">' . $botonera .$buttonDetalle .'</div></center></td>';
                 }
             }
         }
     }
 
-}
+}   

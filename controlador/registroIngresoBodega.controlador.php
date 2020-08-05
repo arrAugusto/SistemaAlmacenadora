@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 use Endroid\QrCode\QrCode;
 
@@ -165,7 +165,7 @@ class ControladorRegistroBodega {
 
         $sp = "spPilotosCont";
         $respuestaCount = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);
-        
+
 
         if ($respuestaCount[0]["conteoIng"] >= 1) {
 
@@ -386,11 +386,10 @@ class ControladorRegistroBodega {
                         $estadoIng = 1;
                         $sp = "spFinalVN";
                         $respuestaFin = ModeloRegIngBod::mdlConsultaDosParam($idData, $sp, $usuarioOp);
-              
                     }
                 }
             }
-            return array("tipoRes" => true, "listaResp" => $listaRespuesta, "estadoIng" => $estadoIng, "respFianl"=>$respuestaFin);
+            return array("tipoRes" => true, "listaResp" => $listaRespuesta, "estadoIng" => $estadoIng, "respFianl" => $respuestaFin);
         }
     }
 
@@ -407,9 +406,21 @@ class ControladorRegistroBodega {
     }
 
     public static function ctrCadenaVinculo($codigo) {
-           $sp = "spCadenaPlt";
+        $sp = "spCadenaPlt";
         $respCadena = ModeloRegIngBod::mdlConsultaUnParam($codigo, $sp);
-        return $respCadena;     
+        return $respCadena;
+    }
+
+    public static function ctrVerificaIdVehUsado($verIdDetVehUsados) {
+        $sp = "spVerificaVehUs";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($verIdDetVehUsados, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrMostrarOPrediosVehUsados($prediosVehUsados) {
+        $sp = "spPredioVeUsado";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($prediosVehUsados, $sp);
+        return $respuesta;
     }
 
 }

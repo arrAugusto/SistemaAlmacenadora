@@ -269,7 +269,7 @@ $(document).on("click", ".bntEditarDetalle", async function () {
     var estado = $(this).attr("estado");
     if (estado == 0) {
         $(this).attr("estado", 1);
-        $(this).html('<i class="fas fa-save"></i>');
+        $(this).html('<i class="fa fa-save"></i>');
         $(this).removeClass("btn-warning");
         $(this).addClass("btn-primary");
         //IdTextEmpresa
@@ -279,7 +279,7 @@ $(document).on("click", ".bntEditarDetalle", async function () {
         document.getElementById("IdDescIngreso" + llaveDetalleEdit).readOnly = false;
     } else if (estado == 1) {
         $(this).attr("estado", 0);
-        $(this).html('<i class="fas fa-edit"></i>');
+        $(this).html('<i class="fa fa-edit"></i>');
         $(this).removeClass("btn-primary");
         $(this).addClass("btn-warning");
         document.getElementById("IdTextPosiciones" + llaveDetalleEdit).readOnly = true;
@@ -352,7 +352,9 @@ $(document).ready(function () {
     $("#selectUbicacion").change(function () {
         var ubicaTipo = $(this).val();
         if (ubicaTipo == "Piso" || ubicaTipo == "Rack") {
-            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"><i class="fas fa-map-marker-alt"></i></button><span>Seleccione ubicación</span></div>';
+            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
+        }else{
+            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 idPredio='+ubicaTipo+' data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';  
         }
     })
 })
@@ -360,7 +362,14 @@ $(document).on("click", "#btnUbica", function () {
     var estadoButton = $(this).attr("estado");
     if (estadoButton == 0) {
         document.getElementById("buttonMin").click();
-        var hiddenIdBod = document.getElementById("hiddenIdBod").value;
+        var idPredio = $(this).attr("idPredio");
+        if (idPredio>=1){
+           var hiddenIdBod = idPredio;         
+        }else{
+        var hiddenIdBod = document.getElementById("hiddenIdBod").value;            
+        }
+
+        alert(hiddenIdBod);
         var datos = new FormData();
         datos.append("hiddenIdBod", hiddenIdBod);
         $.ajax({
@@ -634,3 +643,6 @@ function mostrarMontarguista(montarcarguista) {
     return respMont;
 
 }
+
+
+//            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';

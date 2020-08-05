@@ -11,7 +11,7 @@ class ControladorUsuarios {
                     preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
 
                 $encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-                $tabla = "PERSONAL";
+                $tabla = "personal";
                 $item = "usuarios";
                 $valor = $_POST["ingUsuarios"];
                 $respuesta = ModeloUsuarios::mdlMostrarUsuarios($tabla, $item, $valor);
@@ -132,8 +132,7 @@ Contraseña o Usuario Incorrecto
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagepng($destino, $ruta);
-                            }
-                            if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
+                            }else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                                 /* =============================================
                                   GUARDAR LA IMAGEN EN EL DIRECTORIO
                                   ============================================= */
@@ -144,7 +143,20 @@ Contraseña o Usuario Incorrecto
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destino, $ruta);
-                            }
+                            }else{
+                                            echo '<script>
+
+swal({
+type: "error",
+title: "Formato de fotografia",
+text: "El formato de fotografia no se acepta utilice extension, jpeg o  png",
+showConfirmButton: true,
+confrimButtonText: "Aceptar",
+closeConfirm: true
+ });
+                    </script>';
+                        return false;
+                    }
                         }
                     }
 
@@ -237,8 +249,7 @@ closeConfirm: true
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagepng($destino, $ruta);
-                            }
-                            if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
+                            }else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                                 /* =============================================
                                   GUARDAR LA IMAGEN EN EL DIRECTORIO
                                   ============================================= */
@@ -249,13 +260,26 @@ closeConfirm: true
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destino, $ruta);
-                            }
+                            }else{
+                                            echo '<script>
+
+swal({
+type: "error",
+title: "Formato de fotografia",
+text: "El formato de fotografia no se acepta utilice extension, jpeg o  png",
+showConfirmButton: true,
+confrimButtonText: "Aceptar",
+closeConfirm: true
+ });
+                    </script>';
+                        return false;
+                    }
                         }
                     }
 
                     date_default_timezone_set('America/Guatemala');
                     $date = date('Y-m-d');
-                    $tabla = "PERSONAL";
+                    $tabla = "personal";
                     $encriptar = crypt($_POST["nuevaContraseña"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                     $correo = md5($_POST["Email"]);
                     $datos = array("nombres" => $_POST["nuevoNombre"],
@@ -409,7 +433,7 @@ closeConfirm: true
     }
 
     static public function ctrEditarUsuario() {
-
+     
         if (isset($_POST["editarUsuario"])) {
 
             if ($_POST["editarTelefono"] == $_POST["telefonoActual"] &&
@@ -429,7 +453,7 @@ closeConfirm: true
 
                 $item = "usuarios";
                 $datos = array("telefono" => $_POST["editarTelefono"], "correo" => $_POST["editarEmail"], "usuarioid" => $_SESSION["usuario"]);
-                $tabla = "PERSONAL";
+                $tabla = "personal";
                 $respuesta = ModeloUsuarios::mdlEditarUsuario($tabla, $item, $datos);
                 if ($respuesta == "ok") {
                     $_SESSION["telefono"] = $datos["telefono"];
@@ -482,7 +506,7 @@ closeConfirm: true
                         if ($_POST["nuevacontra"] == $_POST["confirmapassword"]) {
                             $nuevoDato = crypt($_POST["nuevacontra"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                             $encriptarAnterior = crypt($_POST["passwordAcutal"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-                            $tabla = "PERSONAL";
+                            $tabla = "personal";
                             $colum = "contra";
                             $item = "usuarios";
                             $datos = array("nuevoDato" => $nuevoDato, "encriptarAnterior" => $encriptarAnterior, "usuario" => $_SESSION["usuario"]);
@@ -524,6 +548,7 @@ closeConfirm: true
 
     static public function ctrCambiarFoto() {
         if (isset($_POST["fotoActual"])) {
+         
             $editarFoto = $_FILES["editarFoto"];
             if ($_FILES['editarFoto']['name'] != null) {
                 $ruta = $_POST["fotoActual"];
@@ -538,7 +563,6 @@ closeConfirm: true
                     $directorio = "vistas/img/usuarios/" . $_SESSION["usuario"];
 
                     if (!empty($_POST["fotoActual"])) {
-
                         unlink($_POST["fotoActual"]);
                     } else {
 
@@ -558,8 +582,7 @@ closeConfirm: true
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                         imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                         imagepng($destino, $ruta);
-                    }
-                    if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
+                    }else if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
                         /* =============================================
                           GUARDAR LA IMAGEN EN EL DIRECTORIO
                           ============================================= */
@@ -570,9 +593,23 @@ closeConfirm: true
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                         imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                         imagejpeg($destino, $ruta);
+                    }else{
+                                            echo '<script>
+
+swal({
+type: "error",
+title: "Formato de fotografia",
+text: "El formato de fotografia no se acepta utilice extension, jpeg o  png",
+showConfirmButton: true,
+confrimButtonText: "Aceptar",
+closeConfirm: true
+ });
+                    </script>';
+                        return false;
                     }
                 }
-                $tabla = "PERSONAL";
+
+                $tabla = "personal";
                 $colum = "foto";
                 $item = "usuarios";
                 $datos = array("nuevoDato" => $ruta, "usuario" => $_SESSION["usuario"]);
@@ -624,7 +661,7 @@ closeConfirm: true
                 $respuesaIng = md5($_POST["respuestaSecreta"]);
 
                 $valor = $_POST["recuperaUsuario"];
-                $tabla = "PERSONAL";
+                $tabla = "personal";
                 $item = "usuarios";
                 $respuesta = ModeloUsuarios::mdlRecuperaPass($valor, $tabla, $item);
 
@@ -645,7 +682,7 @@ closeConfirm: true
 
                     $nuevaContraseña = generarPassword(11);
                     $encriptar = crypt($nuevaContraseña, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-                    $tabla = "PERSONAL";
+                    $tabla = "personal";
                     $colum = "contra";
                     $item = "usuarios";
                     $datos = array("nuevoDato" => $encriptar, "encriptarAnterior" => $respuesta["contra"], "usuario" => $_POST["recuperaUsuario"]);

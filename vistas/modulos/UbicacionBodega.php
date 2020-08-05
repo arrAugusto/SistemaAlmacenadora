@@ -1,28 +1,28 @@
 <style>
     .wrapper-iframe {
-  position: relative;
-  overflow: hidden;
-  float: left;
+        position: relative;
+        overflow: hidden;
+        float: left;
 
 
-}
+    }
 
-iframe {
+    iframe {
 
-  position: absolute;
-  background: #f5f5f5;
-  border: none;
-}
+        position: absolute;
+        background: #f5f5f5;
+        border: none;
+    }
 
-.table td,
-.table th {
-  padding: 0.2em .5em;
-}
+    .table td,
+    .table th {
+        padding: 0.2em .5em;
+    }
 
-th {
-  font-weight: normal;
-}
-    
+    th {
+        font-weight: normal;
+    }
+
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -31,7 +31,7 @@ th {
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Ubicacione Bodegas</h1>
+                    <h1>Ubicaciones Bodegas</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -54,7 +54,10 @@ th {
                             Puede buscar ubicaciones en bodega por <strong>Número de NIT del cliente , Número de Póliza, BL, Carta Porte o Factura Comercial o bien por el nombre del consignatario de retiro.</strong>
                         </div>
                     </div>
-                    <div class="col-4">
+                    <div class="col-2">
+                        <button type="button" class="btn btn-dark btnMostrarVehUsados">Mostrar Vehiculos Usados&nbsp;&nbsp;<i class="fa fa-map-signs"></i></button>
+                    </div>
+                    <div class="col-2">
                         <button type="button" class="btn btn-primary btnLimpiarPan">Limpiar pagina&nbsp;&nbsp;<i class="fa fa-trash"></i></button>
                     </div>
                     <div id="mapEntradaUbic" class="col-1 mt-4 pull-left">
@@ -90,6 +93,33 @@ th {
             <b id="posiciones"></b><br/>
             <b id="metros"></b><br/>
 
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="modalVehUsados" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-5" id="divTablePosVehUS">
+                        
+                    </div>
+                    <div class="col-7" id="divRecibidoVehUs">
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 </div>

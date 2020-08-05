@@ -3,6 +3,8 @@
 require_once "../controlador/inventariosFiscales.controlador.php";
 require_once "../modelo/inventariosFiscales.modelo.php";
 require_once "../modelo/registroIngresoBodega.modelo.php";
+//SESSION DE USUARIO PARA MANEJAR BITACORA
+require_once "../controlador/usuario.controlador.php";
 
 class AjaxInventario {
 
@@ -50,6 +52,23 @@ class AjaxInventario {
         echo json_encode($respuesta);
     }
 
+    public $mostrarVehUsados;
+
+    public function ajaxMostrarVehiculosUsados() {
+        session_start();
+        $idDeBodega = $_SESSION["idDeBodega"];
+        $respuesta = ControladorGeneracionDeInventarios::ctrMostrarVehiculosUsados($idDeBodega);
+        echo json_encode($respuesta);
+    }
+
+    public $mostrarUbicaciones;
+    public function ajaxMostrarUbicacionesVhUS() {
+    $idDetChas = $this->idDetChas;
+        $respuesta = ControladorGeneracionDeInventarios::ctrMostrarUbicacionesVhUS($idDetChas);
+        echo json_encode($respuesta);
+        
+    }
+
 }
 
 if (isset($_POST["idIngresoExcel"])) {
@@ -85,4 +104,17 @@ if (isset($_POST["idIncidenciaTrash"])) {
     $eliminarUbicacion->columnaXTrash = $_POST["columnaXTrash"];
     $eliminarUbicacion->idIncidenciaTrash = $_POST["idIncidenciaTrash"];
     $eliminarUbicacion->ajaxEliminarUbicacion();
+}
+
+
+if (isset($_POST["mostrarVehiculosUsados"])) {
+    $mostrarVehUsados = new AjaxInventario();
+    $mostrarVehUsados->mostrarVehiculosUsados = $_POST["mostrarVehiculosUsados"];
+    $mostrarVehUsados->ajaxMostrarVehiculosUsados();
+}
+
+if (isset($_POST["idDetChas"])) {
+    $mostrarUbicaciones = new AjaxInventario();
+    $mostrarUbicaciones->idDetChas = $_POST["idDetChas"];
+    $mostrarUbicaciones->ajaxMostrarUbicacionesVhUS();
 }

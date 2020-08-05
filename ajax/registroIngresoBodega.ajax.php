@@ -160,6 +160,23 @@ class AjaxRegistroIngBodega {
         echo json_encode($respuesta);
     }
 
+    public $verIdVehUsado;
+
+    public function ajaxVerificaIdVehUsado() {
+        $verIdDetVehUsados = $this->verIdDetVehUsados;
+        $respuesta = ControladorRegistroBodega::ctrVerificaIdVehUsado($verIdDetVehUsados);
+        echo json_encode($respuesta);
+    }
+
+    public $mostPrediosVUsados;
+
+    public function ajaxMostrarOPrediosVehUsados() {
+                session_start();
+        $prediosVehUsados = $_SESSION["idDeBodega"];
+        $respuesta = ControladorRegistroBodega::ctrMostrarOPrediosVehUsados($prediosVehUsados);
+        echo json_encode($respuesta);        
+    }
+
 }
 
 if (isset($_POST["razonSocial"])) {
@@ -268,4 +285,18 @@ if (isset($_POST["montarcarguista"])) {
     $montarguista = new AjaxRegistroIngBodega();
     $montarguista->montarcarguista = $_POST["montarcarguista"];
     $montarguista->ajaxMostrarMontarguista();
+}
+
+
+if (isset($_POST["verIdDetVehUsados"])) {
+    $verIdVehUsado = new AjaxRegistroIngBodega();
+    $verIdVehUsado->verIdDetVehUsados = $_POST["verIdDetVehUsados"];
+    $verIdVehUsado->ajaxVerificaIdVehUsado();
+}
+
+
+if (isset($_POST["prediosVehUsados"])) {
+    $mostPrediosVUsados = new AjaxRegistroIngBodega();
+    $mostPrediosVUsados->prediosVehUsados = $_POST["prediosVehUsados"];
+    $mostPrediosVUsados->ajaxMostrarOPrediosVehUsados();
 }

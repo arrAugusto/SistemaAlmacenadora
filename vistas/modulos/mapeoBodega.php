@@ -20,7 +20,7 @@
       <div class="col-md-12">
                   <div class="card card-success">
                       <div class="card-header">
-                          <h5 class="card-title">Parametrizar almacenajes con tarifas normales</h5>
+                          <h5 class="card-title">MAPEO BODEGA</h5>
                       </div>
                       <form role="form" method="post">
                           <div class="card-body">
