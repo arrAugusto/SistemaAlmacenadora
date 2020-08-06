@@ -28,22 +28,22 @@ class ControladorOpB {
         $bl = $datos["bl"];
         $puertoOrigen = $datos["puertoOrigen"];
         $producto = $datos["producto"];
-        $estadoIngreso = $datos["estadoIngreso"]*1;
-        $idUsuarioCliente = $datos["idUsuarioCliente"]*1;
-        $idNitCliente = $datos["idNitCliente"]*1;
-        $servicioTarifa = $datos["servicioTarifa"]*1;
-        $idRegPol = $datos["idRegPol"]*1;
+        $estadoIngreso = $datos["estadoIngreso"] * 1;
+        $idUsuarioCliente = $datos["idUsuarioCliente"] * 1;
+        $idNitCliente = $datos["idNitCliente"] * 1;
+        $servicioTarifa = $datos["servicioTarifa"] * 1;
+        $idRegPol = $datos["idRegPol"] * 1;
         $consolidado = $datos["consolidado"];
-        $cantContenedores = $datos["cantContenedores"]*1;
-        $cantClientes = $datos["cantClientes"]*1;
-        $peso = $datos["peso"]*1;
-        $bultos = $datos["bultos"]*1;
-        $valorTotalAduana = $datos["valorTotalAduana"]*1;
-        $tipoDeCambio = $datos["tipoDeCambio"]*1;
-        $totalValorCif = $datos["totalValorCif"]*1;
-        $valorImpuesto = $datos["valorImpuesto"]*1;
+        $cantContenedores = $datos["cantContenedores"] * 1;
+        $cantClientes = $datos["cantClientes"] * 1;
+        $peso = $datos["peso"] * 1;
+        $bultos = $datos["bultos"] * 1;
+        $valorTotalAduana = $datos["valorTotalAduana"] * 1;
+        $tipoDeCambio = $datos["tipoDeCambio"] * 1;
+        $totalValorCif = $datos["totalValorCif"] * 1;
+        $valorImpuesto = $datos["valorImpuesto"] * 1;
         $hiddenDateTime = $datos["hiddenDateTime"];
-        
+
         //CASTEO DE NUMEROS ENTEROS
         if (is_numeric($estadoIngreso) && is_numeric($idUsuarioCliente) && is_numeric($idNitCliente) &&
                 is_numeric($servicioTarifa) && is_numeric($idRegPol) && is_numeric($cantContenedores) &&
@@ -93,40 +93,48 @@ class ControladorOpB {
                         $idSer = $datos["servicioTarifa"];
                         $sp = "spServicio";
                         $respuestaServicio = ModeloControladorOpB::mdlTipoNewVeh($idSer, $sp);
-                        $dato = $respuesta["dataTxt"][0]["Identity"]*1;
+                        if ($respuestaServicio[0]["servicio"] == "VEHICULOS NUEVOS") {
+                            $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
+                            $tipoOperacion = 1;
+                            $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
+
+                            return $respuesta["dataTxt"][0];
+                        }
+                        $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
+
                         if ($dato >= 1) {
                             $resp = 0;
-                                if ($datos["sel2"] == "Cliente individual" || $datos["sel2"] == "Cliente consolidado poliza") {
-                                    $llaveConsulta = $respuesta["dataTxt"][0]["Identity"]*1;
-                                    $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
-                                    $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
-                                    if ($datos["sel2"] == "Cliente consolidado poliza") {
-                                        $idBodega = $datos["hiddenIdBod"];
-                                        $paramPlaca = $datos['numeroPlaca'];
-                                        $numeroMarchamo = $datos['numeroMarchamo'];
-                                        $paramContenedor = $datos['numeroContenedor'];
-                                        $fechaIngFormat = date("d-m-Y", strtotime($datos['hiddenDateTime']));
-                                        $numeroLicencia = $datos['numeroLicencia'];
-                                        $tipoConsolidadoPol = $datos["sel2"];
-                                        $concatLlave = ($idBodega . $paramPlaca . $numeroMarchamo . $paramContenedor . $fechaIngFormat . $numeroLicencia);
-                                        $llaveConsolidadoPoliza = md5($concatLlave);
-                                        $tipoOperacion = 1;
-                                        $busquedaConsolidadoGrd = $datos["busquedaConsolidadoGrd"];
-                                        $respuestaVinculo = ModeloControladorOpB::mdlCadenaVinculo($dato, $tipoOperacion, $llaveConsolidadoPoliza, $busquedaConsolidadoGrd);
-                                        if ($respuestaVinculo == "okVinculo") {
-                                            $sp = "spValVinculo";
-                                            $respuestaLlave = ModeloControladorOpB::mdlUnParametroConsult($llaveConsolidadoPoliza, $sp);
-                                            if ($respuestaLlave[0]["countCadena"] == 1) {
-                                                $tipoOperacion = 1;
-                                                $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
-                                            }
-                                            $resp = 1;
-                                        } else {
-                                            $resp = 2;
+                            if ($datos["sel2"] == "Cliente individual" || $datos["sel2"] == "Cliente consolidado poliza") {
+                                $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
+                                $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
+                                $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
+                                if ($datos["sel2"] == "Cliente consolidado poliza") {
+                                    $idBodega = $datos["hiddenIdBod"];
+                                    $paramPlaca = $datos['numeroPlaca'];
+                                    $numeroMarchamo = $datos['numeroMarchamo'];
+                                    $paramContenedor = $datos['numeroContenedor'];
+                                    $fechaIngFormat = date("d-m-Y", strtotime($datos['hiddenDateTime']));
+                                    $numeroLicencia = $datos['numeroLicencia'];
+                                    $tipoConsolidadoPol = $datos["sel2"];
+                                    $concatLlave = ($idBodega . $paramPlaca . $numeroMarchamo . $paramContenedor . $fechaIngFormat . $numeroLicencia);
+                                    $llaveConsolidadoPoliza = md5($concatLlave);
+                                    $tipoOperacion = 1;
+                                    $busquedaConsolidadoGrd = $datos["busquedaConsolidadoGrd"];
+                                    $respuestaVinculo = ModeloControladorOpB::mdlCadenaVinculo($dato, $tipoOperacion, $llaveConsolidadoPoliza, $busquedaConsolidadoGrd);
+                                    if ($respuestaVinculo == "okVinculo") {
+                                        $sp = "spValVinculo";
+                                        $respuestaLlave = ModeloControladorOpB::mdlUnParametroConsult($llaveConsolidadoPoliza, $sp);
+                                        if ($respuestaLlave[0]["countCadena"] == 1) {
+                                            $tipoOperacion = 1;
+                                            $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
                                         }
+                                        $resp = 1;
+                                    } else {
+                                        $resp = 2;
                                     }
                                 }
-                            $dato = $respuesta["dataTxt"][0]["Identity"]*1;
+                            }
+                            $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             $tipoOperacion = 1;
                             if ($datos["sel2"] != "Cliente consolidado poliza") {
                                 $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
@@ -181,7 +189,7 @@ class ControladorOpB {
     }
 
     public static function ctrMostrarIngPendientes() {
-        
+
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $respuesta = ModeloControladorOpB::mdlMostrarIngPendientes($llaveIngresosPen);
         return $respuesta;
@@ -329,14 +337,16 @@ class ControladorOpB {
         return $respuesta;
     }
 
-    public static function ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG) {
+    public static function ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp) {
 
         //$respuesta = ModeloCalculos::mdlGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
         //revisando si los vehiculos no se estan duplicando
         $listaChasis = json_decode($jsonVehiculosG, true);
         $arrayChasisVal = [];
         $duplicado = 0;
+        $varAgregados = 0;
         foreach ($listaChasis as $key => $value) {
+            $varAgregados = $varAgregados + 1;
             $chasis = $value[0];
             $tipo = $value[1];
             $linea = $value[2];
@@ -352,17 +362,23 @@ class ControladorOpB {
             //revisando las lineas que existen y cuales no      
             $tipo = 1;
             $respustaChasis = ControladorOpB::ctrValidacionNuevosVehiculos($jsonVehiculosG, $tipo);
+
             //guardando cada uno de los vehiculos
+            $agregadosDB = 0;
             foreach ($respustaChasis as $key => $values) {
+
                 if ($values["estado"] == 0) {
                     //vehiculos y lineas no registradas en nuestra db
                     $tipoVh = $values["TipoVehiculo"];
                     $lineaV = $values["lineaVehiculo"];
                     $sp = "spConsultaTipoV";
                     $respuesta = ModeloControladorOpB::mdlConsultaTipoV($tipoVh, $lineaV, $sp);
+
                     $idTipo = $respuesta[0]["tipoVe"];
                     //si el tipo de vehiculo no existe en db se agrega 
+
                     if ($respuesta[0]["tipoVe"] == 0 || $respuesta[0]["lineaVe"] == 0) {
+
                         if ($respuesta[0]["tipoVe"] == 0) {
                             $sp = "spNuevoTipoV";
                             $respInsertNuevoTipo = ModeloControladorOpB::mdlTipoNewVeh($tipoVh, $sp);
@@ -374,14 +390,25 @@ class ControladorOpB {
                         }
                         //vehiculos y lineasde vehiculos registradas en nuestra db
                         $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
+                        $agregadosDB = $agregadosDB + 1;
                     }
                 } else {
                     //vehiculos y lineasde vehiculos registradas en nuestra db
                     $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
+                    $agregadosDB = $agregadosDB + 1;
                 }
             }
-
-            return true;
+            if ($agregadosDB == $varAgregados) {
+                $idIngreso = $hiddenIdnetyIngV;
+                $idUSser = $usuarioOp;
+                $estado = 0;
+                $respuesta = ModeloControladorOpB::mdlEstadoIngreesoFiscal($idIngreso, $estado, $idUSser);
+            }
+            if ($respuesta[0]["resp"] == 1) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 
@@ -412,6 +439,18 @@ class ControladorOpB {
     public static function ctrConsultaTipoVehiculo($indexValue) {
         $respuesta = ModeloControladorOpB::mdlConsultaTipoVehiculo($indexValue);
         return $respuesta;
+    }
+
+    public static function ctrGuardarListaNoEncontrada($listaNoEncontrada) {
+
+        $sp = "spMedidaVeh";
+        $objectValidar = json_decode($listaNoEncontrada);
+        foreach ($objectValidar as $key => $value) {
+            $tipo = $value[0];
+            $linea = $value[1];
+            $respuesta = ModeloControladorOpB::mdlGuardarNuevaLinea($tipo, $linea, $sp);
+            return $respuesta;
+        }
     }
 
 }

@@ -301,7 +301,7 @@ MODAL POLIZA CONSOLIDADA
                                             <input type="hidden" id="parseRepuesta" value="">
 
                                 <input type="hidden" id="bultosIngreso" value="" />
-                                <div class="col-lg-6 col-xs-12" id="divChaisesNoEncontrados"></div>
+
                             </div>       
 
 
@@ -340,6 +340,70 @@ MODAL POLIZA CONSOLIDADA
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
 
+        </div>
+    </div>
+</div>
+<div id="verChasisNoEncon" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="col-md-12">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Detalle de Todos los Servicios Prestados</h3>
+                        </div>
+                        <form role="form" method="post">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-lg-6 col-xs-12"  id="divChaisesNoEncontrados">
+
+                                        </div>
+                                        <div class="col-lg-6 col-xs-12 mt-5">
+                                            <div class="col-12">
+                                                <div class="alert alert-primary">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <strong>Información</strong> <br/>Los botones rojos significan que el tipo de vehículo y linea no existe en la base de datos.<br/>Los botones amarillos significan que existen vehículos con tipo y linea similares en predios
+                                                </div>
+                                                <div class="col-12 mt-4">
+
+                                                    <div class="form-group">
+                                                        <label>Buscar linea</label>
+                                                        <select class="form-control is-invalid select2" style="width: 100%;" id="selectVehiculos" name="selectVehiculos" required>
+                                                            <option selected="selected" disabled="disabled">Seleccione regimen</option>
+                                                            <?php
+                                                            $respuesta = ControladorOpB::ctrMostrarTiposLines();
+                                                            ?>
+                                                        </select>
+
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 mt-4" id="divCompararChasis">
+
+
+                                                </div>
+                                                <div class="col-12 mt-4" id="divButtonsCompara">
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="card-footer mt-4">
+                                        <div class="col-12">
+                                            <button type="button" class="btn btn-outline-success btn-block btnGuardarNuevasLineas" data-dismiss="modal">Guardar lineas</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

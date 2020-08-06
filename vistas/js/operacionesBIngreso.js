@@ -1438,6 +1438,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                 processData: false,
                 dataType: "json",
                 success: function (respuesta) {
+                    console.log(respuesta);
                     document.getElementById("divChaisesNoEncontrados").innerHTML = "";
                     if ($("#tableChasisNoEncotrados").length) {
                         document.getElementById("tableChasisNoEncotrados").innerHTML = "";
@@ -1506,7 +1507,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                                 }
                             }
                         }
-
+                        console.log(listaDataRevNoEn);
                         document.getElementById("divChaisesNoEncontrados").innerHTML = "";
                         document.getElementById("divChaisesNoEncontrados").innerHTML = '<table id="tableChasisNoEncotrados" class="table table-hover table-sm"></table>';
                         document.getElementById("buttonsChasis").innerHTML = '<button type="button" class="btn btn-info btnValidarChasis" id="buttonChasis" estado="0">Validar Chasis <i class="fa fa-wrench" aria-hidden="true"></i></button><button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#verChasisNoEncon" >Ver lineas no encotradas</button>'
@@ -2081,7 +2082,7 @@ async function guardarSinTarifa(tipo) {
                 console.log(respuesta);
                 llaveIndet = respuesta.Identity;
                 if (llaveIndet >= 1) {
-                    document.getElementById("hiddenIdentity").value = llaveIndet
+                    document.getElementById("hiddenIdentity").value = llaveIndet;
                     respGST = true;
                 } else {
                     respGST = false;
@@ -5198,3 +5199,76 @@ $(document).on("change", "#ClPolPoliza", function () {
     });
 })
 
+$(document).on("click", ".btnGuardarNuevasLineas", async function () {
+    var iteraciones = 3;
+    var chasisDelimitados = document.getElementById("chasisDelimitados").value;
+    var chasisTrim = chasisDelimitados.trim();
+    var sin_salto = chasisTrim.split("\n").join("");
+    var cadenaArray = sin_salto.split("|");
+    var validacion = cadenaArray.length;
+    var validarIter = (validacion / iteraciones);
+    var validarIterInt = parseInt(validarIter);
+    if (validarIter == validarIterInt) {
+        var lista = [];
+        var denegacion = 0;
+        var numFila = 0;
+        for (var i = 0; i < cadenaArray.length; i++) {
+            var numFila = numFila + 1;
+            var chasis = cadenaArray[i];
+            var tipoVeh = cadenaArray[i + 1];
+            var lineaVeh = cadenaArray[i + 2];
+            if (chasis == "" || tipoVeh == "" || lineaVeh == "") {
+                var denegacion = 1;
+                var mensaje = 'Debe ingresar Chasis, tipo vehiculo y linea del vehiculo, por cada vehiculo revise si el detalle proporcionado es correcto, tambien revise si el simbolo " | " no se encuentra al final del ultimo detalle...';
+                var tipo = "error";
+                alertaToast(mensaje, tipo);
+                break;
+            }
+            var i = (i + 2);
+            lista.push([numFila, chasis, tipoVeh, lineaVeh]);
+        }
+    }
+    var listaValidacion = JSON.stringify(lista);
+    var nomVar = "listaValidacion";
+    var respIng = await revisarVehUsados(nomVar, listaValidacion);
+    var chasisNoEncontrado = [];
+    for (var i = 0; i < respIng.length; i++) {
+        var tipoVehiculo = respIng[i].TipoVehiculo;
+        var lineaVehiculo = respIng[i].lineaVehiculo;
+        var estado = respIng[i].estado;
+        if (estado == 0) {
+            chasisNoEncontrado.push([tipoVehiculo, lineaVehiculo]);
+        }
+    }
+    var nomVar = "listaNoEncontrada";
+    var listaNoEncontrada = JSON.stringify(chasisNoEncontrado);
+
+    var respIng = await revisarVehUsados(nomVar, listaNoEncontrada);
+    if (respIng!="SD") {
+        $(".btnValidarChasis").click();
+    }
+
+});
+
+function revisarVehUsados(nomVar, listaValidacion) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append(nomVar, listaValidacion);
+    $.ajax({
+        async: false,
+        url: "ajax/operacionesBIngreso.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }})
+    return respFunc;
+}

@@ -109,7 +109,7 @@ class AjaxOperacionesBIngreso {
             "lblEmpresa" => $lblEmpresa,
             "hiddenIdUsser" => $hiddenIdUsser,
             "busquedaConsolidadoGrd" => $busquedaConsolidadoGrd,
-            "idUs"=>$usuarioOp
+            "idUs" => $usuarioOp
         );
         $respuesta = ControladorOpB::ctrRegistrarIngresoOperacion($datos);
         echo json_encode($respuesta);
@@ -194,14 +194,14 @@ class AjaxOperacionesBIngreso {
     public $agregandoDetalles;
 
     public function AjaxAgregandoDetalles() {
-                        session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $datos = array(
             "identidad" => $this->identidad,
             "tipoBusqueda" => $this->tipoBusqueda,
             "bultosAgregados" => $this->bultosAgregados,
             "pesoAgregado" => $this->pesoAgregado,
-            "idUs"=>$usuarioOp);
+            "idUs" => $usuarioOp);
 
         $respuesta = ControladorOpB::ctrAgregandoDetalles($datos);
         echo json_encode($respuesta);
@@ -216,14 +216,14 @@ class AjaxOperacionesBIngreso {
     }
 
     public function ajaxAgregarDetalles() {
-                        session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $llaveConsulta = $this->llaveConsulta;
         $datos = array(
             "tipoBusqueda" => $this->tipoBusqueda,
             "bultosAgregados" => $this->bultosAgregados,
             "pesoAgregado" => $this->pesoAgregado,
-            "idUs"=>$usuarioOp);
+            "idUs" => $usuarioOp);
         $respuesta = ControladorOpB::ctrAgregarDetalles($llaveConsulta, $datos);
         echo json_encode($respuesta);
     }
@@ -266,8 +266,6 @@ class AjaxOperacionesBIngreso {
         $respuesta = ControladorOpB::ctrMostrarServicioGeneral($MostrarServicios);
         echo json_encode($respuesta);
     }
-
-
 
     public $validacionNuevosVehiculos;
 
@@ -339,7 +337,7 @@ class AjaxOperacionesBIngreso {
         $hiddenIdentityPlus = $this->hiddenIdentityPlus;
         $tipoOperacion = $this->hiddenTipo;
         $datos = array("numeroLicencia" => $numeroLicenciaPlus, "numeroPlaca" => $numeroPlacaPlusUn,
-            "numeroContenedor" => $numeroContenedorPlusUn, "nombrePiloto" => $nombrePilotoPlusUn, "numeroMarchamo" => $numeroMarchamoPlusUn, "hiddenTipo"=>$tipoOperacion);
+            "numeroContenedor" => $numeroContenedorPlusUn, "nombrePiloto" => $nombrePilotoPlusUn, "numeroMarchamo" => $numeroMarchamoPlusUn, "hiddenTipo" => $tipoOperacion);
 
         $respuesta = ControladorOpB::ctrGuardarPilotosPlus($hiddenIdentityPlus, $datos, $tipoOperacion);
         echo json_encode($respuesta);
@@ -420,12 +418,21 @@ class AjaxOperacionesBIngreso {
     public function ajaxGuardarNuevosVehiculos() {
         $hiddenIdnetyIngV = $this->hiddenIdnetyIngV;
         $jsonVehiculosG = $this->jsonVehiculosG;
-        $respuesta = ControladorOpB::ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
-        
+                session_start();
+        $usuarioOp = $_SESSION["id"];
+        $respuesta = ControladorOpB::ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp);
+
         echo json_encode($respuesta);
     }
 
+    public $gdListaNoEncontrada;
 
+    public function ajaxGuardarListaNoEncontrada() {
+        $listaNoEncontrada = $this->listaNoEncontrada;
+        $respuesta = ControladorOpB::ctrGuardarListaNoEncontrada($listaNoEncontrada);
+        echo json_encode($respuesta);
+        
+    }
 
 }
 
@@ -662,7 +669,7 @@ if (isset($_POST["numeroLicenciaPlusRev"])) {
     $revPilotosUnidadPlus->numeroMarchamoPlusUnRev = $_POST["numeroMarchamoPlusUnRev"];
     $revPilotosUnidadPlus->hiddenIdentityPlusRev = $_POST["hiddenIdentityPlusRev"];
     $revPilotosUnidadPlus->tipoPlus = $_POST["tipoPlus"];
-    
+
     $revPilotosUnidadPlus->ajaxRevPilotosUnidadPlus();
 }
 
@@ -712,4 +719,9 @@ if (isset($_POST["hiddenIdnetyIngV"])) {
     $nuevosVehiculosG->hiddenIdnetyIngV = $_POST["hiddenIdnetyIngV"];
     $nuevosVehiculosG->jsonVehiculosG = $_POST["jsonVehiculosG"];
     $nuevosVehiculosG->ajaxGuardarNuevosVehiculos();
+}
+if (isset($_POST["listaNoEncontrada"])) {
+    $gdListaNoEncontrada = new AjaxOperacionesBIngreso();
+    $gdListaNoEncontrada->listaNoEncontrada = $_POST["listaNoEncontrada"];
+    $gdListaNoEncontrada->ajaxGuardarListaNoEncontrada();
 }

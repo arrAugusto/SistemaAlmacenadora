@@ -1080,6 +1080,9 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+            if (respuesta[1]!="SD") {
+                
+    
             if (respuesta[0] != "UpdateHis") {
 
                 var lista = [];
@@ -1129,7 +1132,15 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                         }]
                 });
             }
-
+        }else{
+  
+            Swal.fire(
+  'Ingreso sin detalle',
+  'El ingreso no tiene detalle por mostrar',
+  'info'
+)
+          $(".close").click();
+        }
         }, error: function (respuesta) {
             console.log(respuesta);
         }})
