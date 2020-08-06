@@ -11,6 +11,7 @@ class ControladorRegistroBodega {
 
     public static function ctrConsultaDetalles($numeroUsuario) {
         $respuesta = ModeloRegIngBod::mdlConsultaDetalles($numeroUsuario);
+
         $sp = "spTipoServicio";
         $respuestaDetalle = ModeloRegIngBod::mdlConsultaUnParam($numeroUsuario, $sp);
         return array($respuesta, $respuestaDetalle);
@@ -32,10 +33,26 @@ class ControladorRegistroBodega {
         $idIngreso = $datos['idOrdenIng'];
         $respuesta = ModeloRegIngBod::mdlGuardarDetalle($datos, $usuarioOp);
         $dataListaUbica = $datos["hiddenLista"];
-        $dataListaUbica = json_decode($dataListaUbica, true);
-        $llave = $respuesta["llaveIdent"][0]["Identity"];
+        
+        if ($datos["hiddenLista"] == "vehiculoUsado") {
+            $idDetalle = $datos['idDetalle'];
+            $ubicacion = $datos['selectUbicacion'];
 
-        $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica, $llave);
+            $sp = "spUbicacionVehUsado";
+            $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
+            return $respuestaGUbica;
+            if ($respuestaGUbica[0]["resp"] == 2) {
+                return "finDetalle";
+                
+            }
+
+        } else {
+
+            $dataListaUbica = json_decode($dataListaUbica, true);
+            $llave = $respuesta["llaveIdent"][0]["Identity"];
+
+            $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica, $llave);
+        }
         if ($respuestaGUbica == "fin") {
             return $respuesta;
         }

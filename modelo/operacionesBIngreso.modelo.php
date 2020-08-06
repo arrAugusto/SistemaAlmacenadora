@@ -175,7 +175,7 @@ class ModeloControladorOpB {
             }
             if (!empty($results)) {
                 $agregado = 0;
-                if ($results[0]["respLicencia"] == 0) { 
+                if ($results[0]["respLicencia"] == 0) {
                     $paramPiloto = array(&$datos['numeroLicencia'], &$datos['nombrePiloto']);
                     $sql = "EXECUTE  spRetPlto ?, ?";
                     $stmt = sqlsrv_prepare($conn, $sql, $paramPiloto);
@@ -194,10 +194,10 @@ class ModeloControladorOpB {
                 } else {
                     $idPiloto = $results[0]["idLicencia"];
                 }
-                
-                
-                
-                
+
+
+
+
                 if ($results[0]["respPlaca"] == 0) {
                     $paramPlaca = array(&$datos['numeroPlaca']);
                     $sql = "EXECUTE  spNuevaPlaca ?";
@@ -238,7 +238,7 @@ class ModeloControladorOpB {
                 } else {
                     $idContenedor = $results[0]["idContenedor"];
                 }
-                
+
 
                 if ($idPiloto >= 1 && $idPlaca >= 1 && $idContenedor >= 1) {
                     $paramPlaca = array(&$dato, &$idPiloto, &$idPlaca, &$idContenedor, &$tipoOperacion, &$datos['numeroMarchamo']);
@@ -325,9 +325,10 @@ class ModeloControladorOpB {
             return "SD";
         }
     }
+
     public static function mdlGuardarNuevaLinea($tipo, $linea, $sp) {
         $conn = Conexion::Conectar();
-        $sql = 'EXECUTE '.$sp.' ?, ?';
+        $sql = 'EXECUTE ' . $sp . ' ?, ?';
         $params = array(&$tipo, &$linea);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -343,6 +344,7 @@ class ModeloControladorOpB {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlEditarIngOP($datos) {
         $conn = Conexion::Conectar();
         $fechaIngFormat = date("Y-m-d", strtotime($datos['hiddenDateTimeEditar']));
@@ -491,6 +493,52 @@ class ModeloControladorOpB {
                 }
             } else {
                 return sqlsrv_errors();
+            }
+        }
+    }
+    public static function mdlAgregarDetallesVehiculos($llaveConsulta, $datosArrayDetalle) {
+        $conn = Conexion::Conectar();
+        $sp = "spBultosIngN";
+        $validarSumarTotales = FuncionesRepetitivas::validarSumarTotales($llaveConsulta, $sp);
+
+        $sumarDetalles = FuncionesRepetitivas::sumaDetalles($llaveConsulta);
+        $resultSumBultos = $sumarDetalles[0]["bultosDetalle"] + $datos['bultosAgregados'];
+        $saldoIngreso = $validarSumarTotales - $resultSumBultos;
+
+        if ($validarSumarTotales == $resultSumBultos || $validarSumarTotales > $resultSumBultos) {
+
+            $estado = 0;
+            $params = array(
+                &$llaveConsulta,
+                &$datos['tipoBusqueda'],
+                &$datos['bultosAgregados'],
+                &$datos['pesoAgregado'],
+                &$estado
+            );
+            $sql = "EXECUTE spGuardDetalle ?, ?, ?, ?, ?";
+            $stmt = sqlsrv_prepare($conn, $sql, $params);
+            if ($validarSumarTotales == $resultSumBultos) {
+                if (sqlsrv_execute($stmt) == true) {
+                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                        $results[] = $row;
+                    }
+                    /**/////////////////////////////////////////////////////////////////////////////////
+
+                        return array("estado" => "Okk", "resultado" => $results, "saldo" => $saldoIngreso);
+                } else {
+                    return sqlsrv_errors();
+                }
+            } else if ($validarSumarTotales > $resultSumBultos) {
+                if (sqlsrv_execute($stmt) == true) {
+                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                        $results[] = $row;
+                    }
+                    return array("estado" => "OK", "resultado" => $results, "saldo" => $saldoIngreso);
+                } else {
+                    return "sqlsrv_errors()";
+                }
+            } else {
+                return "sobreGiro";
             }
         }
     }
@@ -1090,6 +1138,7 @@ class ModeloControladorOpB {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlEstadoIngreesoFiscal($idIngreso, $tipo, $idUSser) {
         $conn = Conexion::Conectar();
         $params = array(&$idIngreso, &$tipo, &$idUSser);
@@ -1108,6 +1157,7 @@ class ModeloControladorOpB {
             return sqlsrv_errors();
         }
     }
+
 }
 
 //**********************************************************************************************/
@@ -1210,5 +1260,6 @@ class FuncionesRepetitivas {
             return sqlsrv_errors();
         }
     }
+
 
 }

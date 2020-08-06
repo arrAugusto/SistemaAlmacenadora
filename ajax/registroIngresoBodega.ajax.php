@@ -47,7 +47,8 @@ class AjaxRegistroIngBodega {
             "Metraje" => $this->Metraje,
             "hiddenLista" => $this->hiddenLista,
             "idChequeBodega" => $this->idChequeBodega,
-            "montacarga" => $this->montacarga
+            "montacarga" => $this->montacarga,
+            "selectUbicacion"=>$this->selectUbicacion
         );
         session_start();
         $usuarioOp = $_SESSION["id"];
@@ -209,6 +210,8 @@ if (isset($_POST["idDetalle"])) {
     $guardarDetalle->hiddenLista = $_POST["hiddenLista"];
     $guardarDetalle->idChequeBodega = $_POST["idChequeBodega"];
     $guardarDetalle->montacarga = $_POST["montacarga"];
+    $guardarDetalle->selectUbicacion = $_POST["selectUbicacion"];
+    
     $guardarDetalle->AjaxGuardarDetalle();
 }
 

@@ -93,13 +93,21 @@ class ControladorOpB {
                         $idSer = $datos["servicioTarifa"];
                         $sp = "spServicio";
                         $respuestaServicio = ModeloControladorOpB::mdlTipoNewVeh($idSer, $sp);
-                        if ($respuestaServicio[0]["servicio"] == "VEHICULOS NUEVOS") {
+                       if ($respuestaServicio[0]["servicio"] == "VEHICULOS NUEVOS") {
                             $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             $tipoOperacion = 1;
                             $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
 
-                            return $respuesta["dataTxt"][0];
-                        }
+      
+                            
+                            
+                             $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
+                                $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
+                                $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetallesVehiculos($llaveConsulta, $datosArrayDetalle);
+                               
+                        }else{
+                            
+              
                         $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
 
                         if ($dato >= 1) {
@@ -134,6 +142,7 @@ class ControladorOpB {
                                     }
                                 }
                             }
+                              }
                             $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             $tipoOperacion = 1;
                             if ($datos["sel2"] != "Cliente consolidado poliza") {

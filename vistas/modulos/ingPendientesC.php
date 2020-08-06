@@ -62,9 +62,11 @@
                                     <th style="whidth:3px;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
-                                    <?php if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+                                    <?php
+                                    if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
                                         echo '<th>Bodega</th>';
-                                    } ?>
+                                    }
+                                    ?>
                                     <th>Poliza</th>
                                     <th>Fecha</th>
                                     <th>Bultos</th>
@@ -81,7 +83,12 @@
                                         $fechaInicial = null;
                                         $fechaFinal = null;
                                     }
-                                    $estado = 4;
+                                    if ($_SESSION["NavegaBod"] == "Predio de Vehiculos Nuevos") {
+                                        $estado = 5;
+                                    } else {
+                                        $estado = 4;
+                                    }
+
                                     $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarSaldos($estado);
                                     if ($respuesta !== null) {
                                         

@@ -1,10 +1,8 @@
 $(document).on("click", ".btnAgregarDetalles", function () {
     var tipoIng = $(this).attr("tipoing");
-    var hiddenIngV = "";
-    if (tipoIng == "VEHICULOS NUEVOS") {
-        var hiddenIngV = '<input type="hidden" id="hiddenTipoIng" value="' + tipoIng + '" />';
 
-    }
+    var hiddenIngV = '<input type="hidden" id="hiddenTipoIng" value="' + tipoIng + '" />';
+
     var numeroIdIng = $(this).attr("numeroOrden");
     var numeroButton = $(this).attr("numeroButton");
     var numeroCliente = $(this).attr("cliente");
@@ -38,10 +36,10 @@ $(document).on("click", ".btnAgregarDetalles", function () {
                 </div>
             </div>`;
 });
-$(document).on("click", ".btnVerDetalles", function () {
+$(document).on("click", ".btnVerDetalles", async function () {
     var tipoIng = $(".btnAgregarDetalles").attr("tipoing");
-    console.log(tipoIng);
-    if (tipoIng != "VEHICULOS NUEVOS") {
+
+    if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
         if ($("#proTarima").length >= 1) {
 
 
@@ -136,10 +134,15 @@ $(document).on("click", ".btnVerDetalles", function () {
             }
         }
     } else {
-
         if ($("#hiddenTipoIng").length >= 1) {
-            var tipoIng = document.getElementById("hiddenTipoIng").value;
+            if (tipoIng == "vehiculoUsado") {
+                document.getElementById("proTarima").value = 1.3;
+                document.getElementById("proTarima").readOnly = true;
+                document.getElementById("btnPromedioTarima").remove();
+                document.getElementById("cantidadPosiciones").readOnly = true;
+            }
             if (tipoIng == "VEHICULOS NUEVOS") {
+                var tipoIng = document.getElementById("hiddenTipoIng").value;
                 document.getElementById("datoEmpresa").innerHTML = "";
                 document.getElementById("datoBltsEmp").innerHTML = "";
                 document.getElementById("datoPesoEmp").innerHTML = "";
@@ -170,20 +173,24 @@ $(document).on("click", ".btnVerDetalles", function () {
                                                 </div>
                                             `;
                 $('#vehiculosUbicaN').select2();
-            }
 
+
+            }
         }
     }
 
     var indexValue = document.getElementById("personaSeleccionada").value;
-    if (tipoIng == "VEHICULOS NUEVOS") {
+
+    if (tipoIng == "VEHICULOS NUEVOS" || tipoIng == "vehiculoUsado") {
         indexValue = 1;
     }
+
 
     if (indexValue >= 1) {
         document.getElementById("tableMercaderia").innerHTML = '';
         document.getElementById("tableMercaderia").innerHTML = '<table id="tableDetallesMerca" class="table table-hover table-sm"></table>';
         var numeroIdIng = document.getElementById("numeroIdIng").value;
+        console.log(numeroIdIng);
         var datos = new FormData();
         datos.append("numeroIdIng", numeroIdIng);
         $.ajax({
@@ -196,57 +203,77 @@ $(document).on("click", ".btnVerDetalles", function () {
             dataType: "json",
             success: function (respuesta) {
                 console.log(respuesta);
-                if ($("#hiddenTipoIng").length == 0) {
-                    document.getElementById("descripcionMerca").innerHTML = "OBSERVACIONES :";
-                    document.getElementById("Metraje").value = "";
-                    document.getElementById("divTarPrivarMts").value = "";
-                    document.getElementById("divTarPrivar").innerHTML = "";
-                    document.getElementById("Metraje").innerHTML = "";
-                }
-                var base = respuesta[1][0].base;
-                if (base == "Posiciones") {
-                    document.getElementById("Metraje").readOnly = false;
-                    document.getElementById("cantidadPosiciones").readOnly = false;
-                    document.getElementById("divTarPrivar").innerHTML = `<label id="lblTipoServ">Ingrese :` + base + `</label>`;
-                    document.getElementById("Metraje").readOnly = true;
-                    document.getElementById("cantidadPosiciones").value = "";
-                    document.getElementById("Metraje").value = "";
-                    $("#cantidadPosiciones").attr("estado", 1);
-                } else if (base == "Metros²" || base == "Metros³") {
-                    document.getElementById("Metraje").readOnly = false;
-                    document.getElementById("cantidadPosiciones").readOnly = false;
-                    document.getElementById("divTarPrivarMts").innerHTML = `<label id="lblTipoServ">Ingrese :` + base + `</label>`;
-                    document.getElementById("cantidadPosiciones").readOnly = true;
-                    document.getElementById("Metraje").value = "";
-                    document.getElementById("cantidadPosiciones").value = "";
-                    $("#Metraje").attr("estado", 1);
-                } else {
+                console.log(tipoIng);
+                if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
                     if ($("#hiddenTipoIng").length == 0) {
+                        document.getElementById("descripcionMerca").innerHTML = "OBSERVACIONES :";
+                        document.getElementById("Metraje").value = "";
+                        document.getElementById("divTarPrivarMts").value = "";
+                        document.getElementById("divTarPrivar").innerHTML = "";
+                        document.getElementById("Metraje").innerHTML = "";
+                    }
+                    var base = respuesta[0].base;
+                    if (base == "Posiciones") {
                         document.getElementById("Metraje").readOnly = false;
                         document.getElementById("cantidadPosiciones").readOnly = false;
-                        document.getElementById("divTarPrivar").innerHTML = `<label id="lblTipoServ">Ingrese : Posiciones</label>`;
+                        document.getElementById("divTarPrivar").innerHTML = `<label id="lblTipoServ">Ingrese :` + base + `</label>`;
                         document.getElementById("Metraje").readOnly = true;
                         document.getElementById("cantidadPosiciones").value = "";
                         document.getElementById("Metraje").value = "";
                         $("#cantidadPosiciones").attr("estado", 1);
+                    } else if (base == "Metros²" || base == "Metros³") {
+                        document.getElementById("Metraje").readOnly = false;
+                        document.getElementById("cantidadPosiciones").readOnly = false;
+                        document.getElementById("divTarPrivarMts").innerHTML = `<label id="lblTipoServ">Ingrese :` + base + `</label>`;
+                        document.getElementById("cantidadPosiciones").readOnly = true;
+                        document.getElementById("Metraje").value = "";
+                        document.getElementById("cantidadPosiciones").value = "";
+                        $("#Metraje").attr("estado", 1);
+                    } else {
+                        if ($("#hiddenTipoIng").length == 0) {
+                            document.getElementById("Metraje").readOnly = false;
+                            document.getElementById("cantidadPosiciones").readOnly = false;
+                            document.getElementById("divTarPrivar").innerHTML = `<label id="lblTipoServ">Ingrese : Posiciones</label>`;
+                            document.getElementById("Metraje").readOnly = true;
+                            document.getElementById("cantidadPosiciones").value = "";
+                            document.getElementById("Metraje").value = "";
+                            $("#cantidadPosiciones").attr("estado", 1);
+                        }
                     }
                 }
                 if (respuesta[0] != "UpdateHis") {
 
                     var lista = [];
-                    console.log(respuesta);
-                    for (var i = 0; i < respuesta[0].length; i++) {
-                        var numero = i + 1;
-                        var numeroLabel = '<label>' + numero + '</label>'
-                        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
-                        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
-                        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                        if ($("#hiddenTipoIng").length == 0) {
-                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
-                        } else {
-                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
+                    var numero = 0;
+                    if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+                        
+                        for (var i = 0; i < respuesta.length; i++) {
+                            var numero = numero + 1;
+                            var numeroLabel = '<label>' + numero + '</label>'
+                            var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[i]["peso"] + '</label>';
+                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+
+                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
                         }
-                        lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                    } else {
+                        for (var i = 0; i < respuesta.length; i++) {
+
+                            var numero = numero + 1;
+                            var numeroLabel = '<label>' + numero + '</label>'
+                            var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[i]["peso"] + '</label>';
+                            if (tipoIng == "VEHICULOS NUEVOS") {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
+                            } else {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+
+                            }
+
+                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                        }
                     }
                     $('#tableDetallesMerca').DataTable({
                         "language": {
@@ -299,6 +326,7 @@ $(document).on("click", ".btnUsarFila", async function () {
     var idUsarFila = $(this).attr("buttonusarid");
     var nomVar = "verIdDetVehUsados";
     var resp = await funcionRevVehUsados(nomVar, idUsarFila);
+
     if (resp[0].vehiUSado >= 1) {
         var select = document.getElementById("selectUbicacion");
         var length = select.options.length;
@@ -310,7 +338,7 @@ $(document).on("click", ".btnUsarFila", async function () {
         var respPredios = await funcionRevVehUsados(nomVar, idUsarFila);
         $("#selectUbicacion").append('<option selected="selected" disabled="disabled">Seleccione Ubicación</option>');
         for (var i = 0; i < respPredios.length; i++) {
-            $("#selectUbicacion").append('<option value='+respPredios[i].id+'>' + respPredios[i].areasAutorizadas + '</option>');
+            $("#selectUbicacion").append('<option value=' + respPredios[i].id + '> Vehiculo Usado   Predio '+respPredios[i].numeroIdentidad+'</option>');
         }
 
     }
@@ -409,7 +437,7 @@ $(document).on("click", ".btnPaseDeSalidaVacio", function () {
 
 
 
-$(document).on("click", ".btnPromedioTarima", function () {
+    $(document).on("click", ".btnPromedioTarima", function () {
     var promedioTarima = document.getElementById("proTarima").value;
     /*Guardando los datos en el LocalStorage*/
     localStorage.setItem("promedioTarima", promedioTarima);
@@ -887,8 +915,6 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                             title: "Acciones"
                         }]
                 });
-            } else {
-                alert("dfs");
             }
         }
     }
@@ -1080,67 +1106,68 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            if (respuesta[1]!="SD") {
-                
-    
-            if (respuesta[0] != "UpdateHis") {
+            console.log(respuesta);
+            if (respuesta[1] != "SD") {
 
-                var lista = [];
-                console.log(respuesta);
-                for (var i = 0; i < respuesta[0].length; i++) {
-                    var numero = i + 1;
-                    var numeroLabel = '<label>' + numero + '</label>'
-                    var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
-                    var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
-                    var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                    lista.push([numeroLabel, empresa, bultos, peso]);
-                }
-                $('#tableDiffBodMan').DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Busqueda:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
+
+                if (respuesta[0] != "UpdateHis") {
+
+                    var lista = [];
+                    console.log(respuesta);
+                    for (var i = 0; i < respuesta.length; i++) {
+                        var numero = i + 1;
+                        var numeroLabel = '<label>' + numero + '</label>'
+                        var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
+                        var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
+                        var peso = '<label>' + respuesta[i]["peso"] + '</label>';
+                        lista.push([numeroLabel, empresa, bultos, peso]);
+                    }
+                    $('#tableDiffBodMan').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Busqueda:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
                         },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    },
-                    data: lista,
-                    columns: [{
-                            title: "#"
-                        }, {
-                            title: "Empresa"
-                        }, {
-                            title: "Bultos"
-                        }, {
-                            title: "Peso"
-                        }]
-                });
+                        data: lista,
+                        columns: [{
+                                title: "#"
+                            }, {
+                                title: "Empresa"
+                            }, {
+                                title: "Bultos"
+                            }, {
+                                title: "Peso"
+                            }]
+                    });
+                }
+            } else {
+
+                Swal.fire(
+                        'Ingreso sin detalle',
+                        'El ingreso no tiene detalle por mostrar',
+                        'info'
+                        )
+                $(".close").click();
             }
-        }else{
-  
-            Swal.fire(
-  'Ingreso sin detalle',
-  'El ingreso no tiene detalle por mostrar',
-  'info'
-)
-          $(".close").click();
-        }
         }, error: function (respuesta) {
             console.log(respuesta);
         }})
