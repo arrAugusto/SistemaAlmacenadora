@@ -10,17 +10,25 @@ class ControladorIngresosPendientes {
     public static function ctrMostrarIngresosPendientes() {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $respuesta = ModeloIngresosPendientes::mdlMostrarIngresosPendientes($llaveIngresosPen);
-
         // ARRAY : LISTA TEMPORAL PARA GUARDAR, LAS POLIZAS YA MAQUETADAS EN EL TABLE
         date_default_timezone_set('America/Guatemala');
         $timeActual = date('d-m-Y H:i:s');
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
+                
                 //revision si esta cuadrado
                 $idIng = $value["numeroOrden"];
 
                 $sp = "spRevertirIng";
                 $respuestaRevert = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
+                    $spVeh = "spIngVehUsados";
+                $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $spVeh);
+
+                if ($respuestaRevertVeh[0]['resp']==1) {
+                  $usados = 'vehiculoUsado';  
+                }else{
+                    $usados = 'ZA';
+                }
                 if ($respuestaRevert[0]["resp"] == 1) {
 
 
@@ -36,6 +44,7 @@ class ControladorIngresosPendientes {
                     }
                     $verPase = $value["numeroOrden"];
                     $respuestaPase = ControladorRegistroBodega::ctrMostarPaseSalida($verPase);
+
                     $contador = 0;
                     $contadorEstadoTres = 0;
                     foreach ($respuestaPase as $keys => $valueUnidad) {
@@ -49,7 +58,7 @@ class ControladorIngresosPendientes {
                     if (count($respuestaPase) != $contador) {
                         $contador = 0;
                     }
-                    if (count($respuestaPase) != $contadorEstadoTres) {
+                        if (count($respuestaPase) != $contadorEstadoTres) {
                         $contadorEstadoTres = 0;
                     }
                     if ($valueUnidad["estadoIngreso"] == 3 && $valueUnidad["unidad"] >= 1 && $valueUnidad["diferencia"] == 0) {
@@ -62,23 +71,23 @@ class ControladorIngresosPendientes {
                           echo '<script>location.reload();</script>';
                           } else {
                          */ if ($valueUnidad["diferencia"] == 1 && $contadorEstadoTres != 0) {
-                            if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
+                            if ($value["servicioFis"] == "VEHICULOS NUEVOS" || $usados=="vehiculoUsado") {
 
                                 if ($contador == 0) {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
                                 }
                             } else {
-                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                                $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                             }
                         } else {
 
-                            if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
+                            if ($value["servicioFis"] == "VEHICULOS NUEVOS" || $usados=="vehiculoUsado") {
                                 if ($contador == 0) {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
-                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
+                                    $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados. '" numeroButton=' . ($key + 1) . ' >Vehículos</button>';
                                 }
                             } else {
                                 if ($contadorEstadoTres >= 1) {
@@ -90,16 +99,16 @@ class ControladorIngresosPendientes {
                                 } else if ($contador == 0 && $contadorEstadoTres == 0) {
 
                                     if ($value["vinculo"] == "NoAplica") {
-                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                     } else {
-                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
+                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                     }
                                 } else if ($contador >= 1 && $contadorEstadoTres == 0) {
 
                                     if ($value["vinculo"] == "NoAplica") {
-                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                                     } else {
-                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $value["servicioFis"] . '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
+                                        $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados. '" numeroButton=' . ($key + 1) . ' >Mercadería</button>';
                                     }
                                 }
                             }

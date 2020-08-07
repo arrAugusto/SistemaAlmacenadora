@@ -134,7 +134,7 @@ $(document).on("click", ".btnADetalle", function () {
                                 });
 
                             } else {
-                                                                    var lista = [];
+                                    var lista = [];
                                     document.getElementById("descripcionMerca").value = "OBSERVACIONES :";
                                     document.getElementById("nombreEmpresa").value = "";
                                     document.getElementById("cantidadBultos").value = "";
@@ -142,24 +142,38 @@ $(document).on("click", ".btnADetalle", function () {
                                     document.getElementById("Metraje").value = "";
                                     document.getElementById("pesoKg").value = "";
 
-                                    for (var i = 0; i < respuesta.length; i++) {
-                                        var numero = i + 1;
-                                        var numeroLabel = '<label>' + numero + '</label>';
-                                        var empresa = '<label style="width: 350px">' + respuesta[i]["empresa"] + '</label>';
-                                        var bultos = '<label style="width: 100px">' + respuesta[i]["bultos"] + '</label>';
-                                        var peso = '<label style="width: 100px">' + respuesta[i]["peso"] + '</label>';
-                                        if (tipoIng == "VEHICULOS NUEVOS") {
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
-                                        }if (tipoIng == "vehiculoUsado") {
-                                                         var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+                    var lista = [];
+                    var numero = 0;
+                    if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+                        
+                        for (var i = 0; i < respuesta[0].length; i++) {
+                            var numero = numero + 1;
+                            var numeroLabel = '<label>' + numero + '</label>'
+                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
-                                    }else {
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                        }
+                    } else {
+                        for (var i = 0; i < respuesta[0].length; i++) {
+                            
+                            var numero = numero + 1;
+                            var numeroLabel = '<label>' + numero + '</label>'
+                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                            if (tipoIng == "VEHICULOS NUEVOS") {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
+                            } else {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
-                                        }
+                            }
 
-                                        lista.push([numeroLabel, empresa, bultos, peso, acciones]);
-                                }
+                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                        }
+                    }
                                 $('#tableDetallesMerca').DataTable({
                                     "language": {
                                         "sProcessing": "Procesando...",

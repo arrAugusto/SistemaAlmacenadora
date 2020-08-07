@@ -37,12 +37,10 @@ $(document).on("click", ".btnAgregarDetalles", function () {
             </div>`;
 });
 $(document).on("click", ".btnVerDetalles", async function () {
-    var tipoIng = $(".btnAgregarDetalles").attr("tipoing");
+    var tipoIng = document.getElementById("hiddenTipoIng").value;
 
     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
         if ($("#proTarima").length >= 1) {
-
-
             var promedioPorTarima = document.getElementById("proTarima").value;
             console.log(promedioPorTarima);
             if (promedioPorTarima == 0) {
@@ -56,7 +54,6 @@ $(document).on("click", ".btnVerDetalles", async function () {
                     confirmButtonText: 'Aceptar'
                 }).then((result) => {
                     if (result.value) {
-
                         $(".btnPromedioTarima").removeClass("btn-info");
                         $(".btnPromedioTarima").addClass("btn-danger");
                         document.getElementById("btnPromedioTarima").focus();
@@ -78,7 +75,6 @@ $(document).on("click", ".btnVerDetalles", async function () {
 
                             var tipoIng = document.getElementById("hiddenTipoIng").value;
                             if (tipoIng == "VEHICULOS NUEVOS") {
-
                                 document.getElementById("datoEmpresa").innerHTML = "";
                                 document.getElementById("datoBltsEmp").innerHTML = "";
                                 document.getElementById("datoPesoEmp").innerHTML = "";
@@ -203,8 +199,14 @@ $(document).on("click", ".btnVerDetalles", async function () {
             dataType: "json",
             success: function (respuesta) {
                 console.log(respuesta);
-                console.log(tipoIng);
-                if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+                var tipoPos = 0;
+                if (tipoIng != "VEHICULOS NUEVOS") {
+                    var tipoPos = 1;
+                }
+                if (tipoIng != "vehiculoUsado") {
+                    var tipoPos = 1;
+                }
+                if (tipoIng == 0) {
                     if ($("#hiddenTipoIng").length == 0) {
                         document.getElementById("descripcionMerca").innerHTML = "OBSERVACIONES :";
                         document.getElementById("Metraje").value = "";
@@ -247,28 +249,28 @@ $(document).on("click", ".btnVerDetalles", async function () {
                     var numero = 0;
                     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
                         
-                        for (var i = 0; i < respuesta.length; i++) {
+                        for (var i = 0; i < respuesta[0].length; i++) {
                             var numero = numero + 1;
                             var numeroLabel = '<label>' + numero + '</label>'
-                            var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
-                            var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
-                            var peso = '<label>' + respuesta[i]["peso"] + '</label>';
-                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
                             lista.push([numeroLabel, empresa, bultos, peso, acciones]);
                         }
                     } else {
-                        for (var i = 0; i < respuesta.length; i++) {
-
+                        for (var i = 0; i < respuesta[0].length; i++) {
+                            
                             var numero = numero + 1;
                             var numeroLabel = '<label>' + numero + '</label>'
-                            var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
-                            var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
-                            var peso = '<label>' + respuesta[i]["peso"] + '</label>';
+                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
                             if (tipoIng == "VEHICULOS NUEVOS") {
                                 var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
                             } else {
-                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
                             }
 
@@ -1109,7 +1111,9 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
             console.log(respuesta);
             if (respuesta[1] != "SD") {
 
-
+                if (respuesta[0] != "finDetalle") {
+                    
+            
                 if (respuesta[0] != "UpdateHis") {
 
                     var lista = [];
@@ -1159,6 +1163,15 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                             }]
                     });
                 }
+                    }else{
+                        
+                Swal.fire(
+                        'Ingreso sin detalle',
+                        'El ingreso no tiene detalle por mostrar',
+                        'info'
+                        )
+                $(".close").click();
+                    }
             } else {
 
                 Swal.fire(

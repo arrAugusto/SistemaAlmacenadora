@@ -89,7 +89,7 @@ class ControladorOpB {
 
                     $respuesta = ModeloControladorOpB::mdlRegistrarIngresoOperacion($datos);
 
-                    if ($respuesta["resp"] == true) {
+                    if ($respuesta["resp"]) {
                         $idSer = $datos["servicioTarifa"];
                         $sp = "spServicio";
                         $respuestaServicio = ModeloControladorOpB::mdlTipoNewVeh($idSer, $sp);
@@ -97,13 +97,10 @@ class ControladorOpB {
                             $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             $tipoOperacion = 1;
                             $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
-
-      
-                            
-                            
-                             $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
-                                $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
-                                $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetallesVehiculos($llaveConsulta, $datosArrayDetalle);
+                            $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
+                            $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
+                            $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetallesVehiculos($llaveConsulta, $datosArrayDetalle);
+                            return $respuesta["dataTxt"][0];
                                
                         }else{
                             
@@ -150,6 +147,8 @@ class ControladorOpB {
                             }
                             return $respuesta["dataTxt"][0];
                         }
+                          return $respuestaCltIndividual;
+                          
                     } else {
                         return "ErrorDB";
                     }
@@ -351,6 +350,7 @@ class ControladorOpB {
         //$respuesta = ModeloCalculos::mdlGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
         //revisando si los vehiculos no se estan duplicando
         $listaChasis = json_decode($jsonVehiculosG, true);
+        
         $arrayChasisVal = [];
         $duplicado = 0;
         $varAgregados = 0;
@@ -411,8 +411,9 @@ class ControladorOpB {
                 $idIngreso = $hiddenIdnetyIngV;
                 $idUSser = $usuarioOp;
                 $estado = 0;
-                $respuesta = ModeloControladorOpB::mdlEstadoIngreesoFiscal($idIngreso, $estado, $idUSser);
+                $respuesta = ModeloControladorOpB::mdlEstadoIngresoFiscal($idIngreso, $estado, $idUSser);
             }
+           
             if ($respuesta[0]["resp"] == 1) {
                 return true;
             } else {

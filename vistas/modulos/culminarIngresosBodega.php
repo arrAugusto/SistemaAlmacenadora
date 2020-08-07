@@ -45,7 +45,7 @@
 
                         </div>
                         <?php
-                        if ($_SESSION["departamentos"] == "Bodega Fiscal" || $_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
+                        if ($_SESSION["departamentos"] == "Bodega Fiscal" || $_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
                             echo '
                             <div class="col-lg-3 col-xs-12" id="divAgregandoDetalles">
                                 <div class="box box-success">
@@ -105,7 +105,7 @@
                                     </table>
                                 </div>
                             </div>          ';
-                        } else if ($_SESSION["niveles"] == "ALTO" && $_SESSION["departamentos"] == "Operaciones Generales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Ventas" || $_SESSION["departamentos"] == "Gerencia") {
+                        } else if ($_SESSION["niveles"] == "ALTO" && $_SESSION["departamentos"] == "Operaciones Generales" || $_SESSION["departamentos"] == "Ventas" || $_SESSION["departamentos"] == "Gerencia") {
 
                             echo '
                             <div class="col-md-11" id="tableDinamicIngBod">

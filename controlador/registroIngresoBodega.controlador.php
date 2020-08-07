@@ -40,7 +40,6 @@ class ControladorRegistroBodega {
 
             $sp = "spUbicacionVehUsado";
             $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
-            return $respuestaGUbica;
             if ($respuestaGUbica[0]["resp"] == 2) {
                 return "finDetalle";
                 
@@ -398,8 +397,9 @@ class ControladorRegistroBodega {
                     $contadorRes = $contadorRes + 1;
                     array_push($listaRespuesta, $idData);
                     $sp = "spRevVehN";
-                    $respuestaFin = ModeloRegIngBod::mdlConsultaUnParam($idData, $sp);
-                    if ($respuestaFin[0]["countChas"] == 0) {
+                    $revFin = ModeloRegIngBod::mdlConsultaUnParam($idData, $sp);
+                   
+                    if ($revFin[0]["countChas"] == 0) {
                         $estadoIng = 1;
                         $sp = "spFinalVN";
                         $respuestaFin = ModeloRegIngBod::mdlConsultaDosParam($idData, $sp, $usuarioOp);

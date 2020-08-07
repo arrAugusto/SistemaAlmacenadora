@@ -496,7 +496,8 @@ class ModeloControladorOpB {
             }
         }
     }
-    public static function mdlAgregarDetallesVehiculos($llaveConsulta, $datosArrayDetalle) {
+    public static function mdlAgregarDetallesVehiculos($llaveConsulta, $datos) {
+        
         $conn = Conexion::Conectar();
         $sp = "spBultosIngN";
         $validarSumarTotales = FuncionesRepetitivas::validarSumarTotales($llaveConsulta, $sp);
@@ -505,8 +506,7 @@ class ModeloControladorOpB {
         $resultSumBultos = $sumarDetalles[0]["bultosDetalle"] + $datos['bultosAgregados'];
         $saldoIngreso = $validarSumarTotales - $resultSumBultos;
 
-        if ($validarSumarTotales == $resultSumBultos || $validarSumarTotales > $resultSumBultos) {
-
+        if ($validarSumarTotales == $resultSumBultos) {
             $estado = 0;
             $params = array(
                 &$llaveConsulta,
@@ -1048,6 +1048,7 @@ class ModeloControladorOpB {
     }
 
     public static function mdlTipoNewVeh($tipoVh, $sp) {
+        
         $conn = Conexion::Conectar();
         $params = array(&$tipoVh);
         $sql = "EXECUTE " . $sp . " ?";
@@ -1105,6 +1106,8 @@ class ModeloControladorOpB {
     }
 
     public static function mdlGuardarVehiculo($hiddenIdnetyIngV, $value) {
+        
+        
         //return true;//
         $chasis = $value["chasis"];
         $tipo = $value["TipoVehiculo"];
@@ -1116,7 +1119,7 @@ class ModeloControladorOpB {
         if (sqlsrv_execute($stmt) == true) {
             return true;
         } else {
-            return sqlsrv_errors();
+            return "sqlsrv_errors()";
         }
     }
 
@@ -1139,7 +1142,7 @@ class ModeloControladorOpB {
         }
     }
 
-    public static function mdlEstadoIngreesoFiscal($idIngreso, $tipo, $idUSser) {
+    public static function mdlEstadoIngresoFiscal($idIngreso, $tipo, $idUSser) {
         $conn = Conexion::Conectar();
         $params = array(&$idIngreso, &$tipo, &$idUSser);
         $sql = "EXECUTE spEstIng ?, ?, ?";

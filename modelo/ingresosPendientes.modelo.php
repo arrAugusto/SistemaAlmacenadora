@@ -5,6 +5,7 @@ require_once "cone.php";
 class ModeloIngresosPendientes {
 
     public static function mdlMostrarIngresosPendientes($llaveIngresosPen) {
+        
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spIngPendientes ?";
         $params = array(&$llaveIngresosPen);

@@ -21,13 +21,12 @@ class ControladorGeneracionDeContabilidad {
     public static function ctrMostrarSaldos($estado) {
         $valor = $_SESSION["idDeBodega"];
 
-            $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
-            var_dump($valor);
-        if ($respuesta !== null || $respuesta !== null) {
+        $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
+         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {
                 
             } else {
-
+                
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
 

@@ -83,12 +83,9 @@
                                         $fechaInicial = null;
                                         $fechaFinal = null;
                                     }
-                                    if ($_SESSION["NavegaBod"] == "Predio de Vehiculos Nuevos") {
-                                        $estado = 5;
-                                    } else {
+                                
                                         $estado = 4;
-                                    }
-
+                                
                                     $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarSaldos($estado);
                                     if ($respuesta !== null) {
                                         

@@ -4,52 +4,66 @@ require_once "cone.php";
 
 class ModeloRegIngBod {
 
-    public static function  mdlConsultaDetalles($numeroIdIng) {
+    public static function mdlConsultaDetalles($numeroIdIng) {
 
         $conn = Conexion::Conectar();
         $params = array(&$numeroIdIng);
-        $sql = "EXECUTE spIgualDetalles ?";
 
-        $stmt = sqlsrv_prepare($conn, $sql, $params);
-        if (sqlsrv_execute($stmt) == true) {
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $resultsContIng[] = $row;
-            }
+        $sp = "spVerificaVehNew";
+        $revisionVeh = ModeloRegIngBod::mdlRevisionVehNuevo($sp, $numeroIdIng);
+        if ($revisionVeh[0]["resp"] == 1) {
+                $spDetalles  = "spMstDetalles";
+                $mostrarDetalle = ModeloRegIngBod::mdlRevisionVehNuevo($spDetalles, $numeroIdIng);
+                return $mostrarDetalle; 
 
-            if (!empty($resultsContIng)) {
-
-                $sql = "EXECUTE spIgualIncidencia ?";
-                $stmt = sqlsrv_prepare($conn, $sql, $params);
-
-                if (sqlsrv_execute($stmt) == true) {
-                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                        $results1[] = $row;
-                    }
+        }
+        if ($revisionVeh[0]["resp"] == 0) {
 
 
-                    if (!empty($results1)) {
-                        if ($resultsContIng[0]["countDetMerca"] > $results1[0]["countIncidencia"]) {
 
-                            $sql = "EXECUTE spMstDetalles ?";
+            $sql = "EXECUTE spIgualDetalles ?";
 
-                            $stmt = sqlsrv_prepare($conn, $sql, $params);
-                            if (sqlsrv_execute($stmt) == true) {
-                                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                    $results2[] = $row;
-                                }
-                                if (!empty($results2)) {
-                                    return $results2;
+            $stmt = sqlsrv_prepare($conn, $sql, $params);
+            if (sqlsrv_execute($stmt) == true) {
+                while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                    $resultsContIng[] = $row;
+                }
+
+                if (!empty($resultsContIng)) {
+
+                    $sql = "EXECUTE spIgualIncidencia ?";
+                    $stmt = sqlsrv_prepare($conn, $sql, $params);
+
+                    if (sqlsrv_execute($stmt) == true) {
+                        while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                            $results1[] = $row;
+                        }
+
+
+                        if (!empty($results1)) {
+                            if ($resultsContIng[0]["countDetMerca"] > $results1[0]["countIncidencia"]) {
+
+                                $sql = "EXECUTE spMstDetalles ?";
+
+                                $stmt = sqlsrv_prepare($conn, $sql, $params);
+                                if (sqlsrv_execute($stmt) == true) {
+                                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                                        $results2[] = $row;
+                                    }
+                                    if (!empty($results2)) {
+                                        return $results2;
+                                    } else {
+                                        return "Nodatos";
+                                    }
                                 } else {
-                                    return "Nodatos";
+                                    return "SD";
                                 }
                             } else {
-                                return "SD";
+                                return "finDetalle";
                             }
                         } else {
-                            return "finDetalle";
+                            return "SinDatosOp";
                         }
-                    } else {
-                        return "SinDatosOp";
                     }
                 }
             }
@@ -106,7 +120,7 @@ class ModeloRegIngBod {
                             &$estado,
                             &$usuarioOp
                         );
-    
+
                         $sql = "EXECUTE spIngIncidencias  ?, ?, ?, ?, ?, ?, ?";
                         $stmt = sqlsrv_prepare($conn, $sql, $params);
                         if (sqlsrv_execute($stmt) == true) {
@@ -209,10 +223,30 @@ class ModeloRegIngBod {
             }
         }
     }
+
+    public static function mdlRevisionVehNuevo($sp, $idIngreso) {
+
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp . ' ?';
+        $params = array(&$idIngreso);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        }
+    }
+
     public static function mdlUbicarVehUsado($sp, $idDetalle, $ubicacion) {
 
         $conn = Conexion::Conectar();
-        $sql = 'EXECUTE '.$sp.' ?, ?';
+        $sql = 'EXECUTE ' . $sp . ' ?, ?';
         $params = array(&$idDetalle, &$ubicacion);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -227,6 +261,7 @@ class ModeloRegIngBod {
             }
         }
     }
+
     public static function mdlMostrarDetalles($codigo) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spMostrarDetI ?";
@@ -621,7 +656,7 @@ class ModeloRegIngBod {
         }
     }
 
-        public static function mdlConsultaDosParam($Ingreso, $sp, $usuarioOp) {
+    public static function  mdlConsultaDosParam($Ingreso, $sp, $usuarioOp) {
 
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?";
@@ -640,6 +675,7 @@ class ModeloRegIngBod {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlMostVehNewFinalIng($idIngMstV) {
 
         $conn = Conexion::Conectar();

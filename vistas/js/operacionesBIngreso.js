@@ -150,7 +150,7 @@ async function validacionParaGuardar() {
     var numeroContenedor = document.getElementById("numeroContenedor").value;
     var txtNitEmpresa = document.getElementById("txtNitEmpresa").value;
 
-    if (cantClientes >= 1 && pesoIng >= 0.01 && valorTotalAduana >= 0.01 && tipoDeCambio >= 0.001 && totalValorCif >= 0.01 && cantContenedores >= 1 && bultosIngreso >= 1 && valorImpuesto >= 0.01) {
+    if (cantClientes >= 1 && pesoIng >0 && valorTotalAduana >0 && tipoDeCambio >= 0.001 && totalValorCif >0 && cantContenedores >= 1 && bultosIngreso >= 1 && valorImpuesto >0) {
         /**
          * --------------------------------------------------------------------------------------------------------------------
          *
@@ -290,7 +290,7 @@ async function validacionParaGuardar() {
             $("#numeroContenedor").removeClass('is-valid');
             $("#numeroContenedor").addClass('is-invalid');
         }
-        /*        console.log(indexText);
+         console.log(indexText);
          console.log(cartaDeCupo);
          console.log(cantContenedores);
          console.log(dua);
@@ -312,7 +312,7 @@ async function validacionParaGuardar() {
          console.log(numeroMarchamo);
          console.log(nombrePiloto);
          console.log(numeroPlaca);
-         console.log(numeroContenedor);*/
+         console.log(numeroContenedor);
 
         var suma = (indexText + cartaDeCupo + cantContenedores + dua + bl + poliza + bultosIngreso + puertoOrigen + cantClientes + producto + pesoIng + valorTotalAduana + tipoDeCambio + totalValorCif + valorImpuesto + hiddenDateTimeVal + sel2 + servicioTarifa + numeroLicencia + numeroMarchamo + nombrePiloto + numeroPlaca + numeroContenedor);
         if (suma == 23) {
@@ -819,7 +819,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
                             }
                             $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
 
-                            document.getElementById("cantVsClientes").value = cantVsClientes;
+                                document.getElementById("cantVsClientes").value = cantVsClientes;
 
                             document.getElementById("tipoBusqueda").value = '';
                             document.getElementById("tipoBusqueda").value = '';
@@ -891,7 +891,7 @@ $(document).on("change", "#tipoDeCambio", function () {
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
 
 
-    if (valorCif >= 0.01) {
+    if (valorCif >0) {
         document.getElementById("totalValorCif").value = valorCif;
         $("#totalValorCif").removeClass("is-invalid");
         $("#totalValorCif").addClass("is-valid");
@@ -910,7 +910,7 @@ $(document).on("change", "#valorTotalAduana", function () {
     var tipoDeCambio = document.getElementById("tipoDeCambio").value;
     var valorTotalAduana = document.getElementById("valorTotalAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >= 0.01) {
+    if (valorCif >0) {
         document.getElementById("totalValorCif").value = valorCif;
         $("#totalValorCif").removeClass("is-invalid");
         $("#totalValorCif").addClass("is-valid");
@@ -2067,7 +2067,6 @@ async function guardarSinTarifa(tipo) {
         datos.append("lblEmpresa", lblEmpresa);
         datos.append("hiddenIdUsser", hiddenIdUsser);
         datos.append("busquedaConsolidadoGrd", busquedaConsolidado);
-
         datos.append("idUs", idUs);
         $.ajax({
             async: false,
@@ -2081,9 +2080,13 @@ async function guardarSinTarifa(tipo) {
             success: function (respuesta) {
                 console.log(respuesta);
                 llaveIndet = respuesta.Identity;
+
                 if (llaveIndet >= 1) {
+                    if (llaveIndet >= 1) {
                     document.getElementById("hiddenIdentity").value = llaveIndet;
                     respGST = true;
+                        
+                    }
                 } else {
                     respGST = false;
                 }
@@ -2709,7 +2712,7 @@ $(document).on("change", "#sel2", async function () {
      if (valFob) {
      
      
-     if (!isNaN(valFob) && valFob >= 0.01) {
+     if (!isNaN(valFob) && valFob >0) {
      var guardarValFob = crearValFob(valFob);
      } else {
      Swal.fire(`Valor no admitido, se acepta solo numeros : ${valFob}`)
@@ -3450,7 +3453,7 @@ function saldoPesoIng(hiddenIdentityIngPeso, bultosAgregados, pesoAgregado) {
  if (valFob) {
  
  
- if (!isNaN(valFob) && valFob >= 0.01) {
+ if (!isNaN(valFob) && valFob >0) {
  var guardarValFob = crearValFob(valFob);
  } else {
  Swal.fire(`Valor no admitido, se acepta solo numeros : ${valFob}`)
@@ -3464,7 +3467,7 @@ $(document).on("change", "#ClPolTAduana", function () {
     var tipoDeCambio = document.getElementById("ClPolCambio").value;
     var valorTotalAduana = document.getElementById("ClPolTAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >= 0.01) {
+    if (valorCif >0) {
         document.getElementById("ClPolCif").value = valorCif;
         $("#ClPolCif").removeClass("is-invalid");
         $("#ClPolCif").addClass("is-valid");
@@ -3482,7 +3485,7 @@ $(document).on("change", "#ClPolCambio", function () {
     var tipoDeCambio = document.getElementById("ClPolCambio").value;
     var valorTotalAduana = document.getElementById("ClPolTAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >= 0.01) {
+    if (valorCif >0) {
         document.getElementById("ClPolCif").value = valorCif;
         $("#ClPolCif").removeClass("is-invalid");
         $("#ClPolCif").addClass("is-valid");
@@ -4959,8 +4962,9 @@ $(document).on("click", ".btnGuradarChasVeh", async function () {
             var hiddenIdnetyIngV = document.getElementById("hiddenIdentity").value;
             var jsonVehiculosG = document.getElementById("hiddenJsonVehiculos").value;
             console.log(jsonVehiculosG);
+            
             var respuestaVehN = guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG);
-
+            console.log(respuestaVehN);
             if (respuestaVehN) {
                 $(".btnGuradarChasVeh").removeClass("btn-success");
                 $(".btnGuradarChasVeh").addClass("btn-warning");
@@ -5024,6 +5028,7 @@ function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
+            
             if (respuesta) {
                 todoMenus = true;
             } else {
