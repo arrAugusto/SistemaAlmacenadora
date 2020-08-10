@@ -93,10 +93,7 @@ class ControladorCalculoDeAlmacenaje {
         $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($polizaExtraSer);
         $sp = "spVerIdCalc";
         $repIdCalc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($polizaExtraSer, $sp);
-
         if ($repIdCalc != "SD") {
-
-
             $idCalculo = $repIdCalc[0]["id"];
             if ($respuestaVerifacacion[0]["cantidadEstado"] == 0) {
                 return "sinCalculo";
@@ -233,6 +230,7 @@ class calculoDeAlmacenaje {
                     $tiempoAlmacenaje = 0;
                     $diasZA = $tiempoTotal - $tiempoAlmacenaje;
                 }
+                
                 $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $tiempoAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                 $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
                 $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO

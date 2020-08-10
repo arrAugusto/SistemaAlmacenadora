@@ -3,10 +3,14 @@
 require_once "../controlador/ubicacionBodega.controlador.php";
 require_once "../modelo/ubicacionBodega.modelo.php";
 
+require_once "../controlador/calculoDeAlmacenaje.controlador.php";
+require_once "../modelo/calculoDeAlmacenaje.modelo.php";
+
 require_once "../controlador/retiroOpe.controlador.php";
 require_once "../modelo/retiroOpe.modelo.php";
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
+
 class AjaxUbicacionOpe {
 
     public $MostrarUbicaUnicas;
@@ -36,7 +40,7 @@ class AjaxUbicacionOpe {
     public $insertRetiroOpe;
 
     public function ajaxInsertRetiroOpe() {
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $datos = array(
             "hiddeniddeingreso" => $hiddeniddeingreso = $this->hiddeniddeingreso,
@@ -59,7 +63,7 @@ class AjaxUbicacionOpe {
             "hiddenIdentificador" => $hiddenIdentificador = $this->hiddenIdentificador,
             "hiddenDateTime" => $hiddenDateTime = $this->hiddenDateTime,
             "listaDetalles" => $listaDetalles = $this->listaDetalles,
-            "usuarioOp"=>$usuarioOp);
+            "usuarioOp" => $usuarioOp);
 
         $respuesta = ControladorRetiroOpe::ctrInsertRetiroOpe($datos);
         echo json_encode($respuesta);
@@ -248,6 +252,16 @@ class AjaxUbicacionOpe {
         $estado = 1;
         $respuesta = ControladorRetiroOpe::ctrBorrarActivarUnidad($activarUnidad, $estado);
         echo json_encode($respuesta);
+    }
+
+    public $mostrarVehUsado;
+
+    public function ajaxCalcVehUsados() {
+      $revVehUsados = $this->revVehUsados;
+      $dateReVehUs = $this->dateReVehUs;
+        $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($revVehUsados, $dateReVehUs);
+        echo json_encode($respuesta);      
+      
     }
 
 }
@@ -444,4 +458,14 @@ if (isset($_POST["activarUnidad"])) {
     $activarUnidad = new AjaxUbicacionOpe();
     $activarUnidad->activarUnidad = $_POST["activarUnidad"];
     $activarUnidad->ajaxActivarUnidad();
+}
+
+
+if (isset($_POST["revVehUsados"])) {
+    $mostrarVehUsado = new AjaxUbicacionOpe();
+    $mostrarVehUsado->revVehUsados = $_POST["revVehUsados"];
+    $mostrarVehUsado->dateReVehUs = $_POST["dateReVehUs"];
+    
+    
+    $mostrarVehUsado->ajaxCalcVehUsados();
 }

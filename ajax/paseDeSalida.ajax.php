@@ -3,6 +3,10 @@
 require_once "../controlador/paseDeSalida.controlador.php";
 require_once "../modelo/paseDeSalida.modelo.php";
 
+require_once "../controlador/retiroOpe.controlador.php";
+require_once "../modelo/retiroOpe.modelo.php";
+
+
 /*
   REQUERIDO POR METODO CONSULTA DE LOTE Y VERIFICACION PARA CALCULO DE ALMACENAJE
  */

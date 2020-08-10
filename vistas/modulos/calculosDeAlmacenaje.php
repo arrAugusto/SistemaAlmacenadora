@@ -1,3 +1,25 @@
+<style>
+    .cardVehUs {
+        background: #058BBD;
+        border-radius: 2px;
+        display: inline-block;
+        height: 100%;
+        margin: 1rem;
+        position: relative;
+        width: 100%;
+        color: #FFFFFF;
+    }
+    .card-1 {
+        box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    }
+
+    .card-1:hover {
+        box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+    }
+
+</style>
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -105,8 +127,17 @@
                                     echo date('Y-m-d H:i:s');
                                     ?>">
                                     <span class="input-group-append">
-                                        <button type="button" class="btn btn-success btnCalcularAlmacenaje">Calcular Almacenaje&nbsp;&nbsp;<i class="fas fa-calculator"></i></button>
+                                        <button type="button" class="btn btn-success btnCalcularAlmacenaje">Calcular Almacenaje&nbsp;&nbsp;<i class="fa fa-calculator"></i></button>
                                     </span>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-4" id="divCalcVehUsados">
+
+                            </div>
+                            <div class="col-3 mt-4" id="divDetVehUsados">
+
+                               
+
                                 </div>
                             </div>
                             <input type="hidden" id="hiddenZonaAduana" value="" />
@@ -192,7 +223,7 @@
             </div>
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="anulacionDefinitiva" numeroIdIngreso="" disabled="disabled" />Anular Ingreso&nbsp;&nbsp;<i class="fas fa-trash"></i></button>
+                <button type="button" class="btn btn-danger" id="anulacionDefinitiva" numeroIdIngreso="" disabled="disabled" />Anular Ingreso&nbsp;&nbsp;<i class="fa fa-trash"></i></button>
             </div>
 
         </div>
@@ -219,7 +250,7 @@
                             echo date('Y-m-d H:i:s');
                             ?>">
                             <span class="input-group-append">
-                                <button type="button" class="btn btn-danger btnCalcularAlmacenaje"><i class="fas fa-calculator"></i></button>
+                                <button type="button" class="btn btn-danger btnCalcularAlmacenaje"><i class="fa fa-calculator"></i></button>
                                 <input type="hidden" id="hiddenDateTimeVal" value="1"/>
                             </span>
                         </div>

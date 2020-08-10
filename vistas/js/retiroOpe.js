@@ -108,6 +108,33 @@ $(document).on("change", "#txtNitSalida", function () {
             success: function (respuesta) {
                 console.log(respuesta);
                 if (respuesta == "SD") {
+                                                    //agregar nuevo nit
+
+Swal.fire({
+  title: 'Agregar Nit',
+  text: "Agrega el nuevo numero de nit",
+  type: 'error',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  cancelButtonText: 'Cancelar',
+  confirmButtonText: 'Agregar'
+}).then((result) => {
+  if (result.value) {
+     $("#txtNitSalida").removeClass("is-valid");
+     $("#txtNitSalida").addClass("is-invalid");
+     document.getElementById("txtNitSalida").value = "";
+    Swal.fire(
+      'Agregar Nit',
+      'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
+      'info'
+    )
+  }
+})
+
+
+                    respuestaData = false;
+                    
                     $("#txtNitSalida").removeClass("is-valid");
                     $("#txtNitSalida").addClass("is-invalid");
                     $("#txtNombreSalida").removeClass("is-valid");

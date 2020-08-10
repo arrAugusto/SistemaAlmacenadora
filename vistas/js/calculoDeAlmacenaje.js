@@ -13,6 +13,32 @@ $(document).on("change", "#calculoTxtNitSalida", function () {
         success: function (respuesta) {
             console.log(respuesta);
             if (respuesta == "SD") {
+                //agregar nuevo nit
+
+                Swal.fire({
+                    title: 'Agregar Nit',
+                    text: "Agrega el nuevo numero de nit",
+                    type: 'error',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Agregar'
+                }).then((result) => {
+                    if (result.value) {
+                        $("#calculoTxtNitSalida").removeClass("is-valid");
+                        $("#calculoTxtNitSalida").addClass("is-invalid");
+                        document.getElementById("calculoTxtNitSalida").value = "";
+                        Swal.fire(
+                                'Agregar Nit',
+                                'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
+                                'info'
+                                )
+                    }
+                })
+
+
+                respuestaData = false;
             } else {
                 $("#txtNitSalida").attr("dataretiro", respuesta[0]["nt"]);
                 document.getElementById("calculoTxtNombreSalida").value = respuesta[0].nombre;
@@ -37,155 +63,260 @@ $(document).on("change", "#calculoTxtNitSalida", function () {
 
 });
 
+
+function funcionVehCalcUsado(hiddenDateTime, idIng) {
+    let respEdicion;
+    var datos = new FormData();
+    datos.append("dateReVehUs", hiddenDateTime);
+    datos.append("revVehUsados", idIng);
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdicion = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }});
+    return respEdicion;
+}
+
 $(document).on("click", ".btnCalcularAlmacenaje", async function () {
-    var hiddenTxtNitSalida = document.getElementById("hiddenTxtNitSalida").value;
-    var hiddenTxtNitSalida = parseFloat(hiddenTxtNitSalida).toFixed(2);
-    var hiddenTxtNitSalida = (hiddenTxtNitSalida * 1);
-    var hiddenTxtNombreSalida = document.getElementById("hiddenTxtNombreSalida").value;
-    var hiddenTxtNombreSalida = parseFloat(hiddenTxtNombreSalida).toFixed(2);
-    var hiddenTxtNombreSalida = (hiddenTxtNombreSalida * 1);
-    var hiddenTxtDireccionSalida = document.getElementById("hiddenTxtDireccionSalida").value;
-    var hiddenTxtDireccionSalida = parseFloat(hiddenTxtDireccionSalida).toFixed(2);
-    var hiddenTxtDireccionSalida = (hiddenTxtDireccionSalida * 1);
-    var hiddenPolizaRetiro = document.getElementById("hiddenPolizaRetiro").value;
-    var hiddenPolizaRetiro = parseFloat(hiddenPolizaRetiro).toFixed(2);
-    var hiddenPolizaRetiro = (hiddenPolizaRetiro * 1);
-    var hiddenRegimen = document.getElementById("hiddenRegimen").value;
-    var hiddenRegimen = parseFloat(hiddenRegimen).toFixed(2);
-    var hiddenRegimen = (hiddenRegimen * 1);
-    var hiddenValorTAduana = document.getElementById("hiddenValorTAduana").value;
-    var hiddenValorTAduana = parseFloat(hiddenValorTAduana).toFixed(2);
-    var hiddenValorTAduana = (hiddenValorTAduana * 1);
-    var hiddenCambio = document.getElementById("hiddenCambio").value;
-    var hiddenCambio = parseFloat(hiddenCambio).toFixed(2);
-    var hiddenCambio = (hiddenCambio * 1);
-    var hiddenValorCif = document.getElementById("hiddenValorCif").value;
-    var hiddenValorCif = parseFloat(hiddenValorCif).toFixed(2);
-    var hiddenValorCif = (hiddenValorCif * 1);
-    var hiddenValorImpuesto = document.getElementById("hiddenValorImpuesto").value;
-    var hiddenValorImpuesto = parseFloat(hiddenValorImpuesto).toFixed(2);
-    var hiddenValorImpuesto = (hiddenValorImpuesto * 1);
-    var hiddenPesoKg = document.getElementById("hiddenPesoKg").value;
-    var hiddenPesoKg = parseFloat(hiddenPesoKg).toFixed(2);
-    var hiddenPesoKg = (hiddenPesoKg * 1);
-    var hiddenCantBultos = document.getElementById("hiddenCantBultos").value;
-    var hiddenCantBultos = parseFloat(hiddenCantBultos).toFixed(2);
-    var hiddenCantBultos = (hiddenCantBultos * 1);
-    var totalHidden = (hiddenTxtNitSalida + hiddenTxtNombreSalida + hiddenTxtDireccionSalida + hiddenPolizaRetiro + hiddenRegimen + hiddenValorTAduana + hiddenCambio + hiddenValorCif + hiddenValorImpuesto + hiddenPesoKg + hiddenCantBultos);
-    if (totalHidden == 11) {
-        var idCalculoAlmacenaje = document.getElementById("hiddeniddeingreso").value;
-        if (idCalculoAlmacenaje == "") {
-            Swal.fire(
-                    'Poliza no seleccionada',
-                    'No selecciono ninguna poliza de ingreso porfavor seleccione para poder, brindarle un calculo',
-                    'error'
-                    );
-        } else if (!isNaN(idCalculoAlmacenaje)) {
-            var hiddenEstadoCalculo = document.getElementById("hiddenEstadoCalculo").value
-            var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-            var hiddenIdNitSalida = document.getElementById("hiddenIdNitSalida").value;
-            var calculoTxtNitSalida = document.getElementById("calculoTxtNitSalida").value;
-            var calculoTxtNombreSalida = document.getElementById("calculoTxtNombreSalida").value;
-            var calculoTxtDireccionSalida = document.getElementById("calculoTxtDireccionSalida").value;
-            var calculoPolizaRetiro = document.getElementById("calculoPolizaRetiro").value;
-            var calculoRegimen = document.getElementById("calculoRegimen").value;
-            var calculoValorTAduana = document.getElementById("calculoValorTAduana").value;
-            var calculoCambio = document.getElementById("calculoCambio").value;
-            var calculoValorCif = document.getElementById("calculoValorCif").value;
-            var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
-            var calculoPesoKg = document.getElementById("calculoPesoKg").value;
-            var calculoCantBultos = document.getElementById("calculoCantBultos").value;
-            var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
-            var datos = new FormData();
-            datos.append("idCalculoAlmacenaje", idCalculoAlmacenaje);
-            datos.append("hiddenIdNitSalida", hiddenIdNitSalida);
-            datos.append("calculoTxtNitSalida", calculoTxtNitSalida);
-            datos.append("calculoTxtNombreSalida", calculoTxtNombreSalida);
-            datos.append("calculoTxtDireccionSalida", calculoTxtDireccionSalida);
-            datos.append("calculoPolizaRetiro", calculoPolizaRetiro);
-            datos.append("calculoRegimen", calculoRegimen);
-            datos.append("calculoValorTAduana", calculoValorTAduana);
-            datos.append("calculoCambio", calculoCambio);
-            datos.append("calculoValorCif", calculoValorCif);
-            datos.append("calculoValorImpuesto", calculoValorImpuesto);
-            datos.append("calculoPesoKg", calculoPesoKg);
-            datos.append("calculoCantBultos", calculoCantBultos);
-            datos.append("hiddenDateTime", hiddenDateTime);
-            datos.append("hiddenIdentificador", hiddenIdentificador);
-            datos.append("hiddenEstadoCalculo", hiddenEstadoCalculo);
-            $.ajax({
-                async: false,
-                url: "ajax/calculoDeAlmacenaje.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-                    console.log(respuesta);
-                    
-                    if (respuesta.tipoOPCalc == "OkModificcion") {
-                        var mensaje = "Almacenaje recalculado";
-                        var tipo = "warning";
-                        alertaToast(mensaje, tipo);
-                    } else if (respuesta.tipoOPCalc == "OkNuevo") {
-                        var mensaje = "El calculo con los campos digitados, se guardo correctamente, si existe un dato erroneo unicamente coloque el dato correcto donde corresponda y recalcule..";
-                        var tipo = "info";
-                        alertaToast(mensaje, tipo);
-                    }
-                    if (respuesta !== "SD") {
-                        var nit = respuesta["datosCalculo"]["respuestaData"].nit;
-                        var empresa = respuesta["datosCalculo"]["respuestaData"].empresa;
-                        var polizaIng = respuesta["datosCalculo"]["respuestaData"].polizaIng;
-                        var fechaIng = respuesta["datosCalculo"]["respuestaData"].fechaIng;
-                        var tiempo = respuesta["datosCalculo"]["respuestaData"].tiempo;
-                        var ZonaAdCalculo = respuesta["datosCalculo"]["datos"].zonaAduanMSuperior;
-                        var AlmNormalCalculo = respuesta["datosCalculo"]["datos"].almaMSuperior;
-                        var calcmanejoCalculo = respuesta["datosCalculo"]["datos"].calculoManejo;
-                        var calcGstAdminCalculo = respuesta["datosCalculo"]["datos"].gtoAdminMSuperior;
-                        var fechaRetiro = respuesta["datosCalculo"]["respuestaData"].fechaRetiro;
-                        var total = respuesta["datosCalculo"]["datos"].cobrar;
+    var idIng = document.getElementById("hiddeniddeingreso").value;
+    var hiddenDateTime = document.getElementById("hiddenDateTime").value;
+    var respVehUsados = await funcionVehCalcUsado(hiddenDateTime, idIng);
+    if (respVehUsados.respuesta == true) {
+        var fechaCalc = respVehUsados.fechaCalculo;
+        var fechaIngreso = respVehUsados.fechaIngreso;
+        var almacenaje = respVehUsados.almacenaje;
+        var manejo = respVehUsados.manejo;
+        var transEle = respVehUsados.transEle;
+        var total = almacenaje + manejo + transEle;
 
-                        document.getElementById("hiddenZonaAduana").value = respuesta["datosCalculo"]["datos"].zonaAduanMSuperior;
-                        document.getElementById("hiddenAlmacenaje").value = respuesta["datosCalculo"]["datos"].almaMSuperior;
-                        document.getElementById("hiddenManejo").value = respuesta["datosCalculo"]["datos"].calculoManejo;
-                        document.getElementById("hiddenGstosAdmin").value = respuesta["datosCalculo"]["datos"].gtoAdminMSuperior;
+        var almacenajeParse = parseFloat(almacenaje).toFixed(2);
+        var numberAlm = new Intl.NumberFormat("en-GT").format(almacenajeParse);
 
-                        //   document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
+        var manejoParse = parseFloat(manejo).toFixed(2);
+        var numbermanejo = new Intl.NumberFormat("en-GT").format(manejoParse);
+
+        var transEleParse = parseFloat(transEle).toFixed(2);
+        var numbertransEle = new Intl.NumberFormat("en-GT").format(transEleParse);
+
+        var totalParse = parseFloat(total).toFixed(2);
+        var numberTotal = new Intl.NumberFormat("en-GT").format(totalParse);
 
 
-                        if (respuesta["datosCalculo"]["mensaje"] == 1) {
-                            var mensaje = '<div class="alert alert-warning mt-4" role="alert">Se genero el calculo con tarifa general, sin embargo <strong>tiene asignación pendiente de tarifa especial </strong>por el ejecutivo de ventas, comuniquese y consulte con el departamento de ventas o bien consulte con su superior.</div>'
-                        } else {
-                            var mensaje = '';
+        var empresa = respVehUsados.datosIngInfo[0].nombreEmpresa;
+        var numeroPoliza = respVehUsados.datosIngInfo[0].numeroPoliza;
+
+        var regimen = respVehUsados.datosIngInfo[0].regimen;
+        var nitEmpresa = respVehUsados.datosIngInfo[0].nitEmpresa;
+
+
+        console.log(numberAlm);
+        document.getElementById("divCalcVehUsados").innerHTML = `
+
+                            <div class="cardVehUs card-1">
+
+
+                                        <div class="table-responsive">
+                                <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th style="width:50%">Almacenaje:</th>
+                                        <td>Q.: ` + numberAlm + `</td>
+                                        </tr>
+                                        <tr>
+                                        <th>Manejo</th>
+                                        <td>Q.: ` + numbermanejo + `</td>
+                                        </tr>
+                                        <tr>
+                                        <th>Trans. Electronica:</th>
+                                        <td>Q.:  ` + numbertransEle + `</td>
+                                        </tr>
+                                        <tr>
+                                        <th>Total:</th>
+                                        <td>Q.: ` + numberTotal + `</td>
+                                    </tr>
+                                </tbody>
+                                </table>
+
+                                </div>
+                            </div>
+`;
+
+        document.getElementById("divDetVehUsados").innerHTML = `
+         <div class="cardVehUs card-1">
+                                                            <center>
+                                        <address>
+                                            <strong>` + empresa + ` <br/></strong>
+                                            Nit : ` + nitEmpresa + `<br/>
+                                            Póliza ingreso : ` + numeroPoliza + `<br/>
+                                            Regimen Póliza : ` + regimen + `<br/>
+                                            Fecha Ingreso :  ` + fechaIngreso + `<br/>
+                                        Calculo al : ` + fechaCalc + `
+                                        </address>
+                                    </center>
+        </div>
+`;
+    }
+    if (respVehUsados.respuesta == false) {
+
+
+        var hiddenTxtNitSalida = document.getElementById("hiddenTxtNitSalida").value;
+        var hiddenTxtNitSalida = parseFloat(hiddenTxtNitSalida).toFixed(2);
+        var hiddenTxtNitSalida = (hiddenTxtNitSalida * 1);
+        var hiddenTxtNombreSalida = document.getElementById("hiddenTxtNombreSalida").value;
+        var hiddenTxtNombreSalida = parseFloat(hiddenTxtNombreSalida).toFixed(2);
+        var hiddenTxtNombreSalida = (hiddenTxtNombreSalida * 1);
+        var hiddenTxtDireccionSalida = document.getElementById("hiddenTxtDireccionSalida").value;
+        var hiddenTxtDireccionSalida = parseFloat(hiddenTxtDireccionSalida).toFixed(2);
+        var hiddenTxtDireccionSalida = (hiddenTxtDireccionSalida * 1);
+        var hiddenPolizaRetiro = document.getElementById("hiddenPolizaRetiro").value;
+        var hiddenPolizaRetiro = parseFloat(hiddenPolizaRetiro).toFixed(2);
+        var hiddenPolizaRetiro = (hiddenPolizaRetiro * 1);
+        var hiddenRegimen = document.getElementById("hiddenRegimen").value;
+        var hiddenRegimen = parseFloat(hiddenRegimen).toFixed(2);
+        var hiddenRegimen = (hiddenRegimen * 1);
+        var hiddenValorTAduana = document.getElementById("hiddenValorTAduana").value;
+        var hiddenValorTAduana = parseFloat(hiddenValorTAduana).toFixed(2);
+        var hiddenValorTAduana = (hiddenValorTAduana * 1);
+        var hiddenCambio = document.getElementById("hiddenCambio").value;
+        var hiddenCambio = parseFloat(hiddenCambio).toFixed(2);
+        var hiddenCambio = (hiddenCambio * 1);
+        var hiddenValorCif = document.getElementById("hiddenValorCif").value;
+        var hiddenValorCif = parseFloat(hiddenValorCif).toFixed(2);
+        var hiddenValorCif = (hiddenValorCif * 1);
+        var hiddenValorImpuesto = document.getElementById("hiddenValorImpuesto").value;
+        var hiddenValorImpuesto = parseFloat(hiddenValorImpuesto).toFixed(2);
+        var hiddenValorImpuesto = (hiddenValorImpuesto * 1);
+        var hiddenPesoKg = document.getElementById("hiddenPesoKg").value;
+        var hiddenPesoKg = parseFloat(hiddenPesoKg).toFixed(2);
+        var hiddenPesoKg = (hiddenPesoKg * 1);
+        var hiddenCantBultos = document.getElementById("hiddenCantBultos").value;
+        var hiddenCantBultos = parseFloat(hiddenCantBultos).toFixed(2);
+        var hiddenCantBultos = (hiddenCantBultos * 1);
+        var totalHidden = (hiddenTxtNitSalida + hiddenTxtNombreSalida + hiddenTxtDireccionSalida + hiddenPolizaRetiro + hiddenRegimen + hiddenValorTAduana + hiddenCambio + hiddenValorCif + hiddenValorImpuesto + hiddenPesoKg + hiddenCantBultos);
+        if (totalHidden == 11) {
+            var idCalculoAlmacenaje = document.getElementById("hiddeniddeingreso").value;
+            if (idCalculoAlmacenaje == "") {
+                Swal.fire(
+                        'Poliza no seleccionada',
+                        'No selecciono ninguna poliza de ingreso porfavor seleccione para poder, brindarle un calculo',
+                        'error'
+                        );
+            } else if (!isNaN(idCalculoAlmacenaje)) {
+                var hiddenEstadoCalculo = document.getElementById("hiddenEstadoCalculo").value
+
+                var hiddenIdNitSalida = document.getElementById("hiddenIdNitSalida").value;
+                var calculoTxtNitSalida = document.getElementById("calculoTxtNitSalida").value;
+                var calculoTxtNombreSalida = document.getElementById("calculoTxtNombreSalida").value;
+                var calculoTxtDireccionSalida = document.getElementById("calculoTxtDireccionSalida").value;
+                var calculoPolizaRetiro = document.getElementById("calculoPolizaRetiro").value;
+                var calculoRegimen = document.getElementById("calculoRegimen").value;
+                var calculoValorTAduana = document.getElementById("calculoValorTAduana").value;
+                var calculoCambio = document.getElementById("calculoCambio").value;
+                var calculoValorCif = document.getElementById("calculoValorCif").value;
+                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                var calculoPesoKg = document.getElementById("calculoPesoKg").value;
+                var calculoCantBultos = document.getElementById("calculoCantBultos").value;
+                var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
+                var datos = new FormData();
+                datos.append("idCalculoAlmacenaje", idCalculoAlmacenaje);
+                datos.append("hiddenIdNitSalida", hiddenIdNitSalida);
+                datos.append("calculoTxtNitSalida", calculoTxtNitSalida);
+                datos.append("calculoTxtNombreSalida", calculoTxtNombreSalida);
+                datos.append("calculoTxtDireccionSalida", calculoTxtDireccionSalida);
+                datos.append("calculoPolizaRetiro", calculoPolizaRetiro);
+                datos.append("calculoRegimen", calculoRegimen);
+                datos.append("calculoValorTAduana", calculoValorTAduana);
+                datos.append("calculoCambio", calculoCambio);
+                datos.append("calculoValorCif", calculoValorCif);
+                datos.append("calculoValorImpuesto", calculoValorImpuesto);
+                datos.append("calculoPesoKg", calculoPesoKg);
+                datos.append("calculoCantBultos", calculoCantBultos);
+                datos.append("hiddenDateTime", hiddenDateTime);
+                datos.append("hiddenIdentificador", hiddenIdentificador);
+                datos.append("hiddenEstadoCalculo", hiddenEstadoCalculo);
+                $.ajax({
+                    async: false,
+                    url: "ajax/calculoDeAlmacenaje.ajax.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (respuesta) {
+                        console.log(respuesta);
+
+                        if (respuesta.tipoOPCalc == "OkModificcion") {
+                            var mensaje = "Almacenaje recalculado";
+                            var tipo = "warning";
+                            alertaToast(mensaje, tipo);
+                        } else if (respuesta.tipoOPCalc == "OkNuevo") {
+                            var mensaje = "El calculo con los campos digitados, se guardo correctamente, si existe un dato erroneo unicamente coloque el dato correcto donde corresponda y recalcule..";
+                            var tipo = "info";
+                            alertaToast(mensaje, tipo);
                         }
+                        if (respuesta !== "SD") {
+                            var nit = respuesta["datosCalculo"]["respuestaData"].nit;
+                            var empresa = respuesta["datosCalculo"]["respuestaData"].empresa;
+                            var polizaIng = respuesta["datosCalculo"]["respuestaData"].polizaIng;
+                            var fechaIng = respuesta["datosCalculo"]["respuestaData"].fechaIng;
+                            var tiempo = respuesta["datosCalculo"]["respuestaData"].tiempo;
+                            var ZonaAdCalculo = respuesta["datosCalculo"]["datos"].zonaAduanMSuperior;
+                            var AlmNormalCalculo = respuesta["datosCalculo"]["datos"].almaMSuperior;
+                            var calcmanejoCalculo = respuesta["datosCalculo"]["datos"].calculoManejo;
+                            var calcGstAdminCalculo = respuesta["datosCalculo"]["datos"].gtoAdminMSuperior;
+                            var fechaRetiro = respuesta["datosCalculo"]["respuestaData"].fechaRetiro;
+                            var total = respuesta["datosCalculo"]["datos"].cobrar;
 
-                        var TotalDescuento = "";
-                        if (respuesta.descuentoCalc != 0) {
-                            var desc = respuesta.descuentoCalc[0].descuento;
-                            if (respuesta.descuentoCalc[0].tipoOp == 0) {
-                                var TotalDescuento = `<tr>
+                            document.getElementById("hiddenZonaAduana").value = respuesta["datosCalculo"]["datos"].zonaAduanMSuperior;
+                            document.getElementById("hiddenAlmacenaje").value = respuesta["datosCalculo"]["datos"].almaMSuperior;
+                            document.getElementById("hiddenManejo").value = respuesta["datosCalculo"]["datos"].calculoManejo;
+                            document.getElementById("hiddenGstosAdmin").value = respuesta["datosCalculo"]["datos"].gtoAdminMSuperior;
+
+                            //   document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
+
+
+                            if (respuesta["datosCalculo"]["mensaje"] == 1) {
+                                var mensaje = '<div class="alert alert-warning mt-4" role="alert">Se genero el calculo con tarifa general, sin embargo <strong>tiene asignación pendiente de tarifa especial </strong>por el ejecutivo de ventas, comuniquese y consulte con el departamento de ventas o bien consulte con su superior.</div>'
+                            } else {
+                                var mensaje = '';
+                            }
+
+                            var TotalDescuento = "";
+                            if (respuesta.descuentoCalc != 0) {
+                                var desc = respuesta.descuentoCalc[0].descuento;
+                                if (respuesta.descuentoCalc[0].tipoOp == 0) {
+                                    var TotalDescuento = `<tr>
 <th>Total Descuentos :</th>
 <td id="thDescuento" style="color:red;">(` + desc + `)</td>
 </tr>  `;
 
 
-                            }
-                            if (respuesta.descuentoCalc[0].tipoOp == 1) {
-                                var TotalDescuento = `<tr>
+                                }
+                                if (respuesta.descuentoCalc[0].tipoOp == 1) {
+                                    var TotalDescuento = `<tr>
 <th>Total Descuentos :</th>
 <td id="thDescuento" style="color:red;">(` + desc + `)</td>
 </tr>  `
+                                }
+
+
                             }
 
-          
-                        }
 
 
-
-                        $(".divCalculoDetalle").attr("style", "display:block;");
-                        document.getElementById("divCalculoDetalle").innerHTML = `
+                            $(".divCalculoDetalle").attr("style", "display:block;");
+                            document.getElementById("divCalculoDetalle").innerHTML = `
                         
                         <div class="row">
 
@@ -250,32 +381,32 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                         </div>
                         </div>
         `;
-                    }
+                        }
 
 
-                    formatNumber("ZonaAdCalculo");
-                    formatNumber("AlmNormalCalculo");
-                    formatNumber("calcmanejoCalculo");
-                    formatNumber("calcGstAdminCalculo");
-                    formatNumber("detalleOtrosCalculo");
-                    formatNumber("totalCobrarCalc");
+                        formatNumber("ZonaAdCalculo");
+                        formatNumber("AlmNormalCalculo");
+                        formatNumber("calcmanejoCalculo");
+                        formatNumber("calcGstAdminCalculo");
+                        formatNumber("detalleOtrosCalculo");
+                        formatNumber("totalCobrarCalc");
 
-                    if (respuesta.descuentoCalc != 0 || respuesta.servPrestados.length >= 1) {
-                        document.getElementById("divBtnOtros").innerHTML = `
+                        if (respuesta.descuentoCalc != 0 || respuesta.servPrestados.length >= 1) {
+                            document.getElementById("divBtnOtros").innerHTML = `
                         <div class="card-footer">
                         <button type="button" class="btn btn-warning btn-block btnGdOtrosSer" estado="1">Editar Rubros / Agregar Nuevos Rubros</button
                     </div>`;
 
-                    }
-                    if (respuesta.descuentoCalc != 0) {
-                        var desc = respuesta.descuentoCalc[0].descuento;
-                        if (respuesta.descuentoCalc[0].tipoOp == 0) {
-                            document.getElementById("hiddenTipoOP").value = 0;
-                            document.getElementById("hiddenDescuento").value = respuesta.descuentoCalc[0].descuentoPercent;
-                            document.getElementById("valDescuento").value = desc;
-                            document.getElementById("spanDescuentos").innerHTML = desc;
+                        }
+                        if (respuesta.descuentoCalc != 0) {
+                            var desc = respuesta.descuentoCalc[0].descuento;
+                            if (respuesta.descuentoCalc[0].tipoOp == 0) {
+                                document.getElementById("hiddenTipoOP").value = 0;
+                                document.getElementById("hiddenDescuento").value = respuesta.descuentoCalc[0].descuentoPercent;
+                                document.getElementById("valDescuento").value = desc;
+                                document.getElementById("spanDescuentos").innerHTML = desc;
 
-                            document.getElementById("divAlerta").innerHTML = `
+                                document.getElementById("divAlerta").innerHTML = `
                             <div class="alert alert-info alert-dismissible fade show" role="alert">
                              <strong style="color: white;">¡Esta autorizando un descuento!</strong> del ` + respuesta.descuentoCalc[0].descuentoPercent + `% / monto  Q ` + desc + `
                              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -283,78 +414,79 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                              </button>
                            </div>`;
 
-                            totalCobrar();
-                        }
-                        if (respuesta.descuentoCalc[0].tipoOp == 1) {
-                            document.getElementById("hiddenTipoOP").value = 1;
-                            document.getElementById("hiddenDescuento").value = respuesta.descuentoCalc[0].descuentoPercent;
-                            document.getElementById("valDescuento").value = desc;
-                            document.getElementById("spanDescuentos").innerHTML = desc;
-                            document.getElementById("divAlerta").innerHTML = `
-                            <div class="alert alert-info alert-dismissible fade show" role="alert">
-                             <strong style="color: white;">¡Esta autorizando un descuento!</strong> del ` + respuesta.descuentoCalc[0].descuentoPercent + `% / monto  Q ` + desc + `
-                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                               <span aria-hidden="true">&times;</span>
-                             </button>
-                           </div>`;
-
-                            totalCobrar();
-                        }
-                        var totalOtros = 0;
-                        var serviciosExtras = 0;
-                        var montoDefault = 0;
-                        if ($("#montoOtroServicio").lista >= 1) {
-
-
-                            document.getElementById("montoOtroServicio").innerHTML = "";
-                            document.getElementById("montoOtroServicioDefault").innerHTML = "";
-                            document.getElementById("divOtrosServicios").innerHTML = "";
-                            document.getElementById("divServiciosDefault").innerHTML = "";
-                        }
-                        if (respuesta.servPrestados.length >= 1) {
-                            for (var i = 0; i < respuesta.servPrestados.length; i++) {
-                                var selectOtrosServ = respuesta.servPrestados[i].id;
-                                var selected = respuesta.servPrestados[i].otrosServicios;
-                                var montoOtroServicio = respuesta.servPrestados[i].montoServicio;
-                                var idServicioSer = respuesta.servPrestados[i].idServicio;
-                                if (respuesta.servPrestados[i].tipo == 0) {
-                                    var serviciosExtras = serviciosExtras + respuesta.servPrestados[i].montoServicio;
-                                    $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarOtroServ" id="valueCombo' + idServicioSer + '" idValue="' + idServicioSer + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + idServicioSer + '" value="' + montoOtroServicio + '" /></div></div>');
-                                }
-                                if (respuesta.servPrestados[i].tipo == 1) {
-                                    var selectedServicioDefault = respuesta.servPrestados[i].servicioDefault;
-
-                                    $("#divServiciosDefault").append('<div id="divNumeroDefatult" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarServDefault" id="valueComboDefault' + idServicioSer + '" idValue="' + idServicioSer + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control textPlusServicios" readOnly="readOnly" value="' + selectedServicioDefault + '" /><input type="number"  class="form-control textDefaultSer" id="montoSerDefaultText' + idServicioSer + '" value="' + montoOtroServicio + '" /></div></div>');
-                                    var montoDefault = montoDefault + respuesta.servPrestados[i].montoServicio;
-                                }
+                                totalCobrar();
                             }
-                            document.getElementById("spanServicios").innerHTML = montoDefault;
-                            document.getElementById("spanOtro").innerHTML = serviciosExtras;
-                            document.getElementById("thAlteracion").innerHTML = montoDefault;
-                            document.getElementById("detalleOtros").innerHTML = serviciosExtras;
-                            document.getElementById("hiddenOtros").value = serviciosExtras;
-                            document.getElementById("serviciosDefTotal").value = montoDefault;
+                            if (respuesta.descuentoCalc[0].tipoOp == 1) {
+                                document.getElementById("hiddenTipoOP").value = 1;
+                                document.getElementById("hiddenDescuento").value = respuesta.descuentoCalc[0].descuentoPercent;
+                                document.getElementById("valDescuento").value = desc;
+                                document.getElementById("spanDescuentos").innerHTML = desc;
+                                document.getElementById("divAlerta").innerHTML = `
+                            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                             <strong style="color: white;">¡Esta autorizando un descuento!</strong> del ` + respuesta.descuentoCalc[0].descuentoPercent + `% / monto  Q ` + desc + `
+                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                               <span aria-hidden="true">&times;</span>
+                             </button>
+                           </div>`;
 
+                                totalCobrar();
+                            }
+                            var totalOtros = 0;
+                            var serviciosExtras = 0;
+                            var montoDefault = 0;
+                            if ($("#montoOtroServicio").lista >= 1) {
+
+
+                                document.getElementById("montoOtroServicio").innerHTML = "";
+                                document.getElementById("montoOtroServicioDefault").innerHTML = "";
+                                document.getElementById("divOtrosServicios").innerHTML = "";
+                                document.getElementById("divServiciosDefault").innerHTML = "";
+                            }
+                            if (respuesta.servPrestados.length >= 1) {
+                                for (var i = 0; i < respuesta.servPrestados.length; i++) {
+                                    var selectOtrosServ = respuesta.servPrestados[i].id;
+                                    var selected = respuesta.servPrestados[i].otrosServicios;
+                                    var montoOtroServicio = respuesta.servPrestados[i].montoServicio;
+                                    var idServicioSer = respuesta.servPrestados[i].idServicio;
+                                    if (respuesta.servPrestados[i].tipo == 0) {
+                                        var serviciosExtras = serviciosExtras + respuesta.servPrestados[i].montoServicio;
+                                        $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarOtroServ" id="valueCombo' + idServicioSer + '" idValue="' + idServicioSer + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + idServicioSer + '" value="' + montoOtroServicio + '" /></div></div>');
+                                    }
+                                    if (respuesta.servPrestados[i].tipo == 1) {
+                                        var selectedServicioDefault = respuesta.servPrestados[i].servicioDefault;
+
+                                        $("#divServiciosDefault").append('<div id="divNumeroDefatult" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarServDefault" id="valueComboDefault' + idServicioSer + '" idValue="' + idServicioSer + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control textPlusServicios" readOnly="readOnly" value="' + selectedServicioDefault + '" /><input type="number"  class="form-control textDefaultSer" id="montoSerDefaultText' + idServicioSer + '" value="' + montoOtroServicio + '" /></div></div>');
+                                        var montoDefault = montoDefault + respuesta.servPrestados[i].montoServicio;
+                                    }
+                                }
+                                document.getElementById("spanServicios").innerHTML = montoDefault;
+                                document.getElementById("spanOtro").innerHTML = serviciosExtras;
+                                document.getElementById("thAlteracion").innerHTML = montoDefault;
+                                document.getElementById("detalleOtros").innerHTML = serviciosExtras;
+                                document.getElementById("hiddenOtros").value = serviciosExtras;
+                                document.getElementById("serviciosDefTotal").value = montoDefault;
+
+                            }
                         }
+                        totalCobrar();
+                    }, error: function (respuesta) {
+                        console.log(respuesta);
                     }
-                    totalCobrar();
-                }, error: function (respuesta) {
-                    console.log(respuesta);
-                }
-            });
-        } else if (isNaN(idCalculoAlmacenaje)) {
+                });
+            } else if (isNaN(idCalculoAlmacenaje)) {
+                Swal.fire(
+                        'Poliza no seleccionada',
+                        'No selecciono ninguna poliza de ingreso porfavor seleccione para poder, brindarle un calculo',
+                        'error'
+                        );
+            }
+        } else if (totalHidden <= 10) {
             Swal.fire(
-                    'Poliza no seleccionada',
-                    'No selecciono ninguna poliza de ingreso porfavor seleccione para poder, brindarle un calculo',
+                    'Formulario invalido',
+                    'Existe un campo, con datos no adminitidos, busque los campos marcados con color rojo y corrijalo para continuar..',
                     'error'
                     );
         }
-    } else if (totalHidden <= 10) {
-        Swal.fire(
-                'Formulario invalido',
-                'Existe un campo, con datos no adminitidos, busque los campos marcados con color rojo y corrijalo para continuar..',
-                'error'
-                );
     }
 });
 
@@ -825,8 +957,8 @@ $(document).on("click", ".btnGdOtrosSer", async function () {
     var estado = btnAction.attr("estado");
 
     var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
-listaOtros = [];
-listaServiciosDefault = [];
+    listaOtros = [];
+    listaServiciosDefault = [];
     if (paragraphs.length == 0) {
         var otrosValores = 0;
     } else {
@@ -868,14 +1000,14 @@ listaServiciosDefault = [];
     // Valor calculado 
     var valCalculado = await totalCalculado();
     var calculoPolizaRetiro = document.getElementById("calculoPolizaRetiro").value;
-    if (listaOtros.length>=1) {
-            listaOtrosJSON = JSON.stringify(listaOtros);
-    }else{
+    if (listaOtros.length >= 1) {
+        listaOtrosJSON = JSON.stringify(listaOtros);
+    } else {
         listaOtrosJSON = [];
     }
-    if (listaServiciosDefault.length>=1) {
-           listaServiciosDefaultJSON = JSON.stringify(listaServiciosDefault); 
-    }else{
+    if (listaServiciosDefault.length >= 1) {
+        listaServiciosDefaultJSON = JSON.stringify(listaServiciosDefault);
+    } else {
         listaServiciosDefaultJSON = [];
     }
     if (listaOtros.length >= 1 || listaServiciosDefault.length >= 1 || valDescuento > 0) {
@@ -901,8 +1033,8 @@ listaServiciosDefault = [];
 
             }
         }
-    }else{
-    swal("Sin Selección", "Servicios Extras no seleccionados revise!", "error");
+    } else {
+        swal("Sin Selección", "Servicios Extras no seleccionados revise!", "error");
     }
 
 });

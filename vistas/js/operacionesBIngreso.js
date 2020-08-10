@@ -158,7 +158,7 @@ async function validacionParaGuardar() {
          *
          * --------------------------------------------------------------------------------------------------------------------
          */
-        var indexText = patternPreg(indexText);
+
         var cartaDeCupo = patternPreg(cartaDeCupo);
         if (indexText == "TO" || indexText == "DUT" || indexText == "FAUCA") {
             var cartaDeCupo = 1;
@@ -172,8 +172,8 @@ async function validacionParaGuardar() {
         if (indexText == "DUT" || indexText == "FAUCA") {
             var dua = 1;
             var bl = 1;
-            document.getElementById("dua").value = "";
-            document.getElementById("bl").value = "";
+            document.getElementById("dua").value = 0;
+            document.getElementById("bl").value = 0;
         } else if (indexText != "DUT" || indexText != "FAUCA") {
             if (dua == "" || dua == 0 || bl == 0 || bl == "") {
                 var dua = 0;
@@ -290,6 +290,10 @@ async function validacionParaGuardar() {
             $("#numeroContenedor").removeClass('is-valid');
             $("#numeroContenedor").addClass('is-invalid');
         }
+        if (indexText == "DUT" || indexText == "FAUCA") {
+         var dua = 1;
+         var bl = 1;
+        }
          console.log(indexText);
          console.log(cartaDeCupo);
          console.log(cantContenedores);
@@ -314,8 +318,9 @@ async function validacionParaGuardar() {
          console.log(numeroPlaca);
          console.log(numeroContenedor);
 
-        var suma = (indexText + cartaDeCupo + cantContenedores + dua + bl + poliza + bultosIngreso + puertoOrigen + cantClientes + producto + pesoIng + valorTotalAduana + tipoDeCambio + totalValorCif + valorImpuesto + hiddenDateTimeVal + sel2 + servicioTarifa + numeroLicencia + numeroMarchamo + nombrePiloto + numeroPlaca + numeroContenedor);
-        if (suma == 23) {
+        var suma = (cartaDeCupo + cantContenedores + dua + bl + poliza + bultosIngreso + puertoOrigen + cantClientes + producto + pesoIng + valorTotalAduana + tipoDeCambio + totalValorCif + valorImpuesto + hiddenDateTimeVal + sel2 + servicioTarifa + numeroLicencia + numeroMarchamo + nombrePiloto + numeroPlaca + numeroContenedor);
+
+        if (suma >= 22) {
             if (document.getElementById("btnConsolidado")) {
                 document.getElementById("btnConsolidado").disabled = true;
                 document.getElementById("btnConsulTarifa").disabled = true;
@@ -1751,11 +1756,8 @@ $(document).on("change", "#ClientPoltxtNitSalida", function () {
                 document.getElementById("hiddenClientPoltxtNitSalida").value = "";
                 document.getElementById("ClientPoltxtNitSalida").focus();
 
-                document.getElementById("divBtnPlusNit").innerHTML = 'Ingrese polizas del consolidado &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button btnagrega="0" class="btn btn-warning btn-flat btnAgregarNitNuevo is-invalid" id="agregarNuevoNit" type="button" data-toggle="modal" data-target="#agregarNit">Agregar Nit</button>';
-                $("#agregarNuevoNit").click();
-                var mensaje = "Nit no existe";
-                var tipo = "error";
-                alertaToast(mensaje, tipo);
+//agregar nuevo nit
+alert("agregar");
             }
         },
         error: function (respuesta) {
@@ -2119,26 +2121,42 @@ function funcionBuscarNit(datoBuscado) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            console.log("procesando...");
+                        if (respuesta == "SD") {
+                //agregar nuevo nit
+
+Swal.fire({
+  title: 'Agregar Nit',
+  text: "Agrega el nuevo numero de nit",
+  type: 'error',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  cancelButtonText: 'Cancelar',
+  confirmButtonText: 'Agregar'
+}).then((result) => {
+  if (result.value) {
+     $("#txtNitEmpresa").removeClass("is-valid");
+     $("#txtNitEmpresa").addClass("is-invalid");
+     document.getElementById("txtNitEmpresa").value = "";
+    Swal.fire(
+      'Agregar Nit',
+      'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
+      'info'
+    )
+  }
+})
+
+
+                    respuestaData = false;
+
+            
+            } else  {
+                    respuestaData = true;
+               console.log("procesando...");
             document.getElementById("lblNit").innerHTML = respuesta[0]['nitEmpresa'];
             document.getElementById("lblClienteId").value = respuesta[0]["idNitEmp"];
             document.getElementById("lblEmpresa").innerHTML = respuesta[0]['nombreEmpresa'];
             document.getElementById("lblDireccion").innerHTML = respuesta[0]['direccionEmpresa'];
-            if (respuesta == "SD") {
-                $("#divNitNuevo").removeClass("form-group");
-                $("#divNitNuevo").addClass("input-group");
-                $("#txtNitEmpresa").parent().append(`<span class="input-group-append">
-                        <button btnagrega="0" class="btn btn-info btn-flat btnAgregarNitNuevo is-invalid" id="agregarNuevoNit" type="button"  data-toggle="modal" data-target="#agregarNit">Agregar Nit</button>
-                      </span>`);
-                $("#agregarNuevoNit").click();
-                document.getElementById("nuevoNit").value = datoBuscado;
-                $("#nuevoNit").removeClass('is-invalid');
-                $("#nuevoNit").addClass('is-valid');
-                respuestaData = true;
-            } else if (respuesta != "SD") {
-                if (document.getElementById("agregarNuevoNit")) {
-                    document.getElementById("agregarNuevoNit").remove();
-                }
                 $(function () {
                     $('#datepicker').datepicker({
                         onSelect: function () { // When cal is opened execute
@@ -3950,8 +3968,6 @@ function ajaxNuevaEmpresa(nuevoNit, nuevaEmpresa, nuevaDireccion) {
                     if (okay) {
                         if (document.getElementById("btnPlusEmpresas")) {
                             $(".close").click();
-                        } else {
-                            location.reload();
                         }
                     }
                 });

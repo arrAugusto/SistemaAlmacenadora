@@ -45,7 +45,7 @@ class ControladorRetiroOpe {
 
     public static function ctrInsertRetiroOpe($datos) {
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
- 
+
         $estadoTransa = 0;
         foreach ($arrayDetalles as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -339,6 +339,74 @@ class ControladorRetiroOpe {
 
         $mostrarDetalleStock = ModeloRetiroOpe::mdlModificacionDetallesDosParams($borrarUnidad, $estado, $sp);
         return $mostrarDetalleStock;
+    }
+
+    public static function ctrCalcVehUsados($revVehUsados, $dateReVehUs) {
+        $spVeh = "spIngVehUsados";
+        $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($revVehUsados, $spVeh);
+        if ($respuestaRevertVeh[0]["resp"] == 1) {
+            $idPoliza = $revVehUsados;
+            // OBJETO DECLARADO Y UTILIZADO PARA OBTENER VALORES DE EL INGRESO.
+            $sp = "spDatosCalculoIng";
+            $idIngreso = $revVehUsados;
+            $datosIngInfo = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngreso, $sp);
+            $orgDate = $dateReVehUs;
+            $date = str_replace('-"', '/', $orgDate);
+            $fechaCalculo = date("d-m-Y", strtotime($date));
+            $fechaIngreso = $datosIngInfo[0]["fechaRealIng"]; //ingreso de contenedor
+            $tiempoTotal = funcionDiasCalc::diasCalc($fechaIngreso, $fechaCalculo); // DIAS TOTAL EN ALMACENADORA      
+            $sp = "spTarifaVehUsados";
+            $datosIng = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngreso, $sp);
+            //CALCULO DE ALMACENAJE FISCAL
+
+            foreach ($datosIng as $key => $value) {
+                if ($value["servicio"] == "ALMACENAJE") {
+                    $almacenaje = $value;
+                }
+            }
+            if ($almacenaje["tipoMinimo"] == "base") {
+                if ($tiempoTotal > $almacenaje["diaDeta"]) {
+                    $diasCalc = $tiempoTotal - $almacenaje["diaDeta"];
+                    $almacenaje = $almacenaje["minimoCobro"] + ($diasCalc * $almacenaje["deltaAlmacenajeDiario"]);
+                } else {
+                    $almacenaje = $almacenaje["minimoCobro"];
+                }
+            } else {
+                $almacenaje = $almacenaje["minimoCobro"];
+            }
+
+
+            //CALCULO DE MANEJO FISCAL
+            foreach ($datosIng as $key => $value) {
+                if ($value["servicio"] == "MANEJO_CUADRILLA") {
+                    $manejo = $value;
+                }
+            }
+            $manejo = $manejo["minimoCobro"];
+
+            //CALCULO DE TRANSMISION FISCAL
+            foreach ($datosIng as $key => $value) {
+                if ($value["servicio"] == "TRANS_ELECT") {
+                    $tranElec = $value;
+                }
+            }
+            $tranElec = $tranElec["minimoCobro"];
+            return array("almacenaje" => $almacenaje, "manejo" => $manejo, "transEle" => $tranElec, "respuesta"=>true, "datosIngInfo"=>$datosIngInfo, "fechaCalculo"=>$fechaCalculo, "fechaIngreso"=>$fechaIngreso, "totalDiasC"=>$tiempoTotal);
+        } else {
+            return array("respuesta"=>false);
+        }
+    }
+
+}
+
+class funcionDiasCalc {
+
+    public static function diasCalc($fechaIngFormat, $fechaCorteFormat) {
+        $fecha1 = new DateTime($fechaIngFormat);
+        $fecha2 = new DateTime($fechaCorteFormat);
+        $diff = $fecha1->diff($fecha2);
+        $dias = ($diff->days + 1);
+        return $dias;
     }
 
 }

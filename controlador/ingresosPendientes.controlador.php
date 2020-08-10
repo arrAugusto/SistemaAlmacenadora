@@ -72,7 +72,9 @@ class ControladorIngresosPendientes {
                           } else {
                          */ if ($valueUnidad["diferencia"] == 1 && $contadorEstadoTres != 0) {
                             if ($value["servicioFis"] == "VEHICULOS NUEVOS" || $usados=="vehiculoUsado") {
-
+                                if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
+                                    $usados = $value["servicioFis"];
+                                }
                                 if ($contador == 0) {
                                     $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
@@ -84,6 +86,9 @@ class ControladorIngresosPendientes {
                         } else {
 
                             if ($value["servicioFis"] == "VEHICULOS NUEVOS" || $usados=="vehiculoUsado") {
+                                                                if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
+                                    $usados = $value["servicioFis"];
+                                }
                                 if ($contador == 0) {
                                     $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Vehículos</button><button type="button" class="btn btn-success bntSalidaRapida btn-sm" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                                 } else {
@@ -142,6 +147,7 @@ class ControladorIngresosPendientes {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $sp = "spIngPendientesFail";
         $respuesta = ModeloIngresosPendientes::mdlTransaccionesPendientes($llaveIngresosPen, $sp);
+
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
                 $botonera = "";

@@ -847,77 +847,7 @@ MODAL POLIZA CONSOLIDADA
 </div>
 <script src="vistas/js/autocompletar.js"></script>
 
-<!--=====================================
-MODAL POLIZA CONSOLIDADA
-======================================-->
-<!-- Modal -->
-<div id="agregarNit" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <!--=====================================
-                INICIO FORM
-                ======================================-->
-                <div class="col-md-12">
-                    <!-- Horizontal Form -->
-                    <div class="card card-warning">
-                        <div class="card-header">
-                            <h3 class="card-title">Nuevo Nit <i class="fa fa-plus"></i></h3>
-                        </div>
-                        <!--campos formularios -->
-                        <form role="form" method="post" id="divGuardaDetalle">
-                            <div class="form-horizontal">
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <label>
-                                                Guarda los Siguientes Datos Para Continuar...
-                                            </label>
-                                            <input id="valueClientes" name="valueClientes" type="hidden" value="" />
-                                            <input id="cantVsClientes" name="cantVsClientes" type="hidden" value="0" />
 
-                                        </div>
-                                        <div class="col-12 form-group">
-                                            <label>
-                                                Nit Empresa
-                                            </label>
-                                            <input class="form-control is-invalid" id="nuevoNit" name="nuevoNit" placeholder="Ingrese el número de nit" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>
-                                                    Nombre de Empresa
-                                                </label>
-                                                <input class="form-control is-invalid" id="nuevaEmpresa" name="nuevaEmpresa" placeholder="Ingrese el nombre de la empresa" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
-                                            </div>
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>
-                                                    Dirección de Empresa
-                                                </label>
-                                                <input class="form-control is-invalid" id="nuevaDireccion" name="nuevaDireccion" placeholder="Ingrese dirección de la empresa" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="card-footer">
-                            <div id="divAcciones">
-                                <button type="button" class="btn btn-primary btn-block btnNuevaEmpresa">Guardar Cambios</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
