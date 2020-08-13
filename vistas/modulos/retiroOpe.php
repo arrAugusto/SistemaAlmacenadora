@@ -98,11 +98,11 @@
                                 <label>Descripción de la Mercadería</label>
                                 <input type="text" class="form-control is-invalid" id="descMercaderia" placeholder="Ejemplo : PERFILES" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                             </div>
-                            <div class="col-3 mt-4">
+                            <div class="col-3 mt-4" id="divDataLic">
                                 <label>Número de licencia</label>
                                 <input class="form-control is-invalid" type="number" placeholder="Ejemplo : 2330675310102" id="numeroLicencia" name="numeroLicencia" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                             </div>
-                            <div class="col-3 mt-4">
+                            <div class="col-3 mt-4" id="divDataPiloto">
                                 <label>Nombre de piloto</label>
                                 <input class="form-control is-invalid" type="text" placeholder="Ejemplo : CARLOS FERNANDO LOPEZ AVILA" id="nombrePiloto" name="nombrePiloto" onkeyup="javascript:this.value = this.value.toUpperCase();">
                             </div>
@@ -125,7 +125,7 @@
                         </div>
                         <div class="card-footer mt-4" id="divBottoneraAccion">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-primary btn-block btnGuardarRetiro">¡Aceptar !&nbsp;&nbsp;&nbsp;<i class="fas fa-map-marker-alt" style="font-size:20px"></i></button>
+                                <button type="button" class="btn btn-primary btn-block btnGuardarRetiro">¡Aceptar !&nbsp;&nbsp;&nbsp;<i class="fa fa-map-marker-alt" style="font-size:20px"></i></button>
                             </div>
                         </div>
                         <div id="divExiste"></div>

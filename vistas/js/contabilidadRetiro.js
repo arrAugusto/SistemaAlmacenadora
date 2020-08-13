@@ -121,7 +121,7 @@ $(document).on("click", ".btnViewContabilidad", async function () {
 
 
 
-            var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + identIng + '><i class="fas fa-file-pdf"></i></button>';
+            var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + identIng + '><i class="fa fa-file-pdf-o"></i></button>';
             listaIng.push([numero, nitEmpresa, nombreEmpresa, numeroDeIngreso, numeroPoliza, regimen, bultos, totalValorCif, valorImpuesto, button]);
         }
         $('#tableReportIngView').DataTable({
@@ -234,7 +234,7 @@ $(document).on("click", ".btnViewContabilidadRet", async function () {
         var totalBultos = totalBultos + bultosRet;
         var numberCif = numberCif + totalValorCif;
         var NumberImpuesto = NumberImpuesto + valorImpuesto;
-        var button = '<div class="btn-group" role="group"><button type="button" class="btn btn-success btn-sm btnPrintIng" idIngPrint=' + identIng + '>Ing. <i class="fas fa-file-pdf"></i></button><button type="button" class="btn btn-danger btn-sm btnViewPDFRet" idRetPrint=' + identRet + '>Ret. <i class="fas fa-file-pdf"></i></button></button>';
+        var button = '<div class="btn-group" role="group"><button type="button" class="btn btn-success btn-sm btnPrintIng" idIngPrint=' + identIng + '>Ing. <i class="fa fa-file-pdf-o"></i></button><button type="button" class="btn btn-danger btn-sm btnViewPDFRet" idRetPrint=' + identRet + '>Ret. <i class="fa fa-file-pdf-o"></i></button></button>';
         listaRepRetiro.push([numero, numNit, empresa, numeroRetiro, numeroIngreso, polRet, regimenSalida, bultosRet, totalCifNum, totalImptNum, button]);
 
     }

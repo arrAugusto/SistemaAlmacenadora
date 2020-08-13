@@ -1,4 +1,4 @@
-$(document).on("click", ".btnImprimirRecibo", async function () {
+    $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
     if ($("#hiddenDateTimeVal").length >= 1) {
         var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
@@ -149,7 +149,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                         <h5 class="widget-user-desc">Piloto(s) y Unidad(es)</h5>
                                     </div>
                                     <div class="card-footer p-0">
-                                    <div id="numeroRetiro"></div>
+                                    <div id="ListaSelect"></div>
                         
         
                                     </div>
@@ -169,6 +169,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     <i class="fa fa-print fa-lg mr-2"></i>
                                     Imprimir Retiro
                                 </div>
+                                <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
+Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
+                                </div>                        
                             </div>                        
                         </div>`;
                         $(function () {

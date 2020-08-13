@@ -44,7 +44,9 @@ class ControladorIngresosPendientes {
                     }
                     $verPase = $value["numeroOrden"];
                     $respuestaPase = ControladorRegistroBodega::ctrMostarPaseSalida($verPase);
+                    if ($respuestaPase!="SD"){
 
+                     
                     $contador = 0;
                     $contadorEstadoTres = 0;
                     foreach ($respuestaPase as $keys => $valueUnidad) {
@@ -61,6 +63,7 @@ class ControladorIngresosPendientes {
                         if (count($respuestaPase) != $contadorEstadoTres) {
                         $contadorEstadoTres = 0;
                     }
+                } 
                     if ($valueUnidad["estadoIngreso"] == 3 && $valueUnidad["unidad"] >= 1 && $valueUnidad["diferencia"] == 0) {
                         
                     } else {

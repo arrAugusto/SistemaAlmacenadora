@@ -314,7 +314,7 @@ $(document).on("click", ".btnViewAjustes", async function () {
 
         var cifNumber = new Intl.NumberFormat("en-GT").format(saldoValorCif);
         var impuestoNumber = new Intl.NumberFormat("en-GT").format(saldoValorImpuesto);
-        var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + idIng + '><i class="fas fa-file-pdf"></i></button>';
+        var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + idIng + '><i class="fa fa-file-pdf"></i></button>';
         var area = respDataAjustes[i].empresa + ' ' + respDataAjustes[i].areasAutorizadas + ' ' + respDataAjustes[i].numeroIdentidad;
         listaAjustesDB.push([numero, numeroPoliza, fechaSet, nitEmpresa, nombreEmpresa, area, saldoValorCif, saldoValorImpuesto, button]);
 

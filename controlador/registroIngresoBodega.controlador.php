@@ -11,7 +11,6 @@ class ControladorRegistroBodega {
 
     public static function ctrConsultaDetalles($numeroUsuario) {
         $respuesta = ModeloRegIngBod::mdlConsultaDetalles($numeroUsuario);
-
         $sp = "spTipoServicio";
         $respuestaDetalle = ModeloRegIngBod::mdlConsultaUnParam($numeroUsuario, $sp);
         return array($respuesta, $respuestaDetalle);

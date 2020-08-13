@@ -1184,7 +1184,7 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                 if (val) {
                     var guardar = await guardarSinTarifa(tipo);
                     console.log(guardar);
-                    if (guardar) {
+                    if (guardar==true) {
                         swal({
                             title: "Creado Correctamente",
                             text: "El ingreso fue creado exitosamente...",
@@ -1215,13 +1215,15 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                 document.getElementById("numeroPlaca").readOnly = true;
                                 document.getElementById("numeroContenedor").readOnly = true;
                                 document.getElementById("txtNitEmpresa").readOnly = true;
-                                var valTipoConso = $("#sel2").val();
+                                
+                                var valTipoConso = $("#sel2 option:selected").text();
                                 if (valTipoConso == "Cliente consolidado") {
                                     document.getElementById("divAcciones").innerHTML = '';
                                     document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
 
                                     document.getElementById("gDetalles").click();
-                                } else if (valTipoConso == "Cliente consolidado poliza") {
+                                } 
+                                if (valTipoConso == "Cliente consolidado poliza") {
 
                                     if (tipo == 0) {
                                         var lblNit = document.getElementById("lblNit").innerHTML;
@@ -1300,12 +1302,10 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                         });
                                         document.getElementById("divAccionesVehiculos").innerHTML = '';
                                     }
-                                } else if (valTipoConso == "Cliente individual") {
-
-                                    $("#sel2").removeClass("is-invalid");
-                                    $("#sel2").addClass("is-valid");
-
-                                    document.getElementById("divAcciones").innerHTML = '';
+                                } 
+                                if (valTipoConso == "Cliente individual") {
+        $("#sel2").removeClass("is-valid");
+        $("#sel2").addClass("is-invalid");
                                     document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
                                     Swal.fire({
                                         type: 'info',
@@ -1965,7 +1965,7 @@ async function guardarSinTarifa(tipo) {
     var btnConsolidado = $("#btnConsolidado").attr("estado");
     console.log(btnConsolidado);
     let llaveIndet;
-    var valTipoConso = $("#sel2").val();
+                                    var valTipoConso = $("#sel2 option:selected").text();
     var cantClientes = document.getElementById("cantClientes").value;
     var validacionCons = await valConsolidados(valTipoConso, cantClientes);
     console.log(validacionCons);
@@ -2298,7 +2298,7 @@ Swal.fire({
 
 function guardarSinTarifaS(tipo) {
     return new Promise((resolve, reject) => {
-        var valTipoConso = $("#sel2").val();
+                                        var valTipoConso = $("#sel2 option:selected").text();
         var cantClientes = document.getElementById("cantClientes").value;
         if (valTipoConso == "Cliente consolidado") {
             if (cantClientes == 1 || cantClientes == 0) {
@@ -2468,7 +2468,7 @@ function guardarSinTarifaS(tipo) {
                     document.getElementById("numeroContenedor").readOnly = true;
                     document.getElementById("regimenPoliza").readOnly = true;
                     document.getElementById("txtNitEmpresa").readOnly = true;
-                    var valTipoConso = $("#sel2").val();
+                                                    var valTipoConso = $("#sel2 option:selected").text();
                     if (valTipoConso == "Cliente consolidado") {
                         document.getElementById("diveGuardaEmpresa").innerHTML = '';
                         document.getElementById("diveGuardaEmpresa").innerHTML = `<div class="col-12"><label>CONSOLIDADO SIMPLE</label><input type="hidden" id="valueClientes" name="valueClientes" value=""><input type="hidden" id="cantVsClientes" name="cantVsClientes" value="0"></div><div class="col-md-4 autocompletar">
@@ -2550,6 +2550,9 @@ function guardarSinTarifaS(tipo) {
                     } else if (valTipoConso == "Cliente individual") {
                         $("#sel2").removeClass("is-invalid");
                         $("#sel2").addClass("is-valid");
+                               document.getElementById("divAcciones").innerHTML = '';
+                                    document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
+                             
                         Swal.fire({
                             type: 'info',
                             title: 'Transacción exitosa',

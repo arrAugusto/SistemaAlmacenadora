@@ -170,7 +170,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                         <!-- Icon -->
-                        <i class="fas fa-eye green"></i>
+                        <i class="fa fa-eye green"></i>
                         <div class="btn-group"><button type="button" class="btn btn-success btnViewContabilidad" btnViewConta=' . $ident . ' data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                     </td>
                 </tr>
@@ -194,7 +194,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                         <!-- Icon -->
-                        <i class="fas fa-eye lblue"></i>
+                        <i class="fa fa-eye lblue"></i>
                         <div class="btn-group"><button type="button" class="btn btn-primary btnViewContabilidad" btnViewConta=' . $ident . ' data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                     </td>
                 </tr>
@@ -252,7 +252,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                         <!-- Icon -->
-                        <i class="fas fa-eye green"></i>
+                        <i class="fa fa-eye green"></i>
                         <div class="btn-group"><button type="button" class="btn btn-success btnViewContabilidadRet" btnViewContaRet=' . $ident . ' data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                     </td>
                 </tr>
@@ -269,7 +269,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                           <!-- Icon -->
-                        <i class="fas fa-eye lblue"></i>
+                        <i class="fa fa-eye lblue"></i>
                         <div class="btn-group"><button type="button" class="btn btn-primary btnViewContabilidadRet" btnViewContaRet=' . $ident . ' data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                     </td>
                 </tr>
@@ -306,7 +306,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                         <!-- Icon -->
-                        <i class="fas fa-eye lblue"></i>
+                        <i class="fa fa-eye lblue"></i>
                         <div class="btn-group"><button type="button" class="btn btn-primary btnViewAjustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                     </td>
                 </tr>
@@ -324,7 +324,7 @@ class ControladorGenerarContabilidad {
                     </td>
                     <td>
                         <!-- Icon -->
-                        <i class="fas fa-eye green"></i>
+                        <i class="fa fa-eye green"></i>
                         <div class="btn-group"><button type="button" class="btn btn-success btnViewAjustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                 </tr>
                 ';

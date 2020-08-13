@@ -4,17 +4,24 @@ class ControladorRetirosBodega {
 
     public static function ctrRebajarRetiroBod() {
         $respuesta = ModeloRetirosBodega::mdlRebajarRetiroBod();
-        if ($respuesta !== "SD") {
 
+        if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
+                $idIngOpDet = $value["idIngreso"];
+                $spVeh = "spIngVehUsados";
+                $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
+                $vehiUsado = 'ZA'; 
+                if ($respuestaRevertVeh[0]['resp']==1) {
+                    $vehiUsado = "vehiculoUsado";    
+                }
                 if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Generales" && $_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas" || $_SESSION["departamentos"] == "Gerencia") {
                     $bottonera = '<div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
+                                    <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" tipoIng='.$vehiUsado.' id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
                                   </div>';
                 } else if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
                     $bottonera = '<div class="btn-group" role="group">
         <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
-        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" idRetiro=' . $value["idRetiro"] . '  ><i class="fa fa-rocket"></i></button>
+        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" tipoIng='.$vehiUsado.'  idRetiro=' . $value["idRetiro"] . '  ><i class="fa fa-rocket"></i></button>
 </div>';
                 }
                 echo '

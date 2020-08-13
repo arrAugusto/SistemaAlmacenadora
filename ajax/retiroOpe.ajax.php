@@ -8,16 +8,22 @@ require_once "../modelo/calculoDeAlmacenaje.modelo.php";
 
 require_once "../controlador/retiroOpe.controlador.php";
 require_once "../modelo/retiroOpe.modelo.php";
+
+require_once "../controlador/ingresosPendientes.controlador.php";
+require_once "../modelo/ingresosPendientes.modelo.php";
+
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
+
+
 
 class AjaxUbicacionOpe {
 
     public $MostrarUbicaUnicas;
 
     public function AjaxMostrarUbUnitaria() {
-        $datoSearch = $this->datoSearch;
-        $respuesta = ControladorRetiroOpe::ctrMostrarBusqueda($datoSearch);
+        $datoSearchPol = $this->datoSearchPol;
+        $respuesta = ControladorRetiroOpe::ctrMostrarBusqueda($datoSearchPol);
         echo json_encode($respuesta);
     }
 
@@ -63,7 +69,8 @@ class AjaxUbicacionOpe {
             "hiddenIdentificador" => $hiddenIdentificador = $this->hiddenIdentificador,
             "hiddenDateTime" => $hiddenDateTime = $this->hiddenDateTime,
             "listaDetalles" => $listaDetalles = $this->listaDetalles,
-            "usuarioOp" => $usuarioOp);
+            "usuarioOp" => $usuarioOp,
+            "tipoIng"=>$tipoIng = $this->tipoIng);
 
         $respuesta = ControladorRetiroOpe::ctrInsertRetiroOpe($datos);
         echo json_encode($respuesta);
@@ -266,9 +273,9 @@ class AjaxUbicacionOpe {
 
 }
 
-if (isset($_POST["datoSearch"])) {
+if (isset($_POST["datoSearchPol"])) {
     $MostrarUbicaUnicas = new AjaxUbicacionOpe();
-    $MostrarUbicaUnicas->datoSearch = $_POST["datoSearch"];
+    $MostrarUbicaUnicas->datoSearchPol = $_POST["datoSearchPol"];
     $MostrarUbicaUnicas->AjaxMostrarUbUnitaria();
 }
 
@@ -307,6 +314,8 @@ if (isset($_POST["hiddeniddeingreso"])) {
     $insertRetiroOpe->hiddenIdentificador = $_POST["hiddenIdentificador"];
     $insertRetiroOpe->hiddenDateTime = $_POST["hiddenDateTime"];
     $insertRetiroOpe->listaDetalles = $_POST["listaDetalles"];
+    $insertRetiroOpe->tipoIng = $_POST["tipoIng"];
+    
     $insertRetiroOpe->ajaxInsertRetiroOpe();
 }
 

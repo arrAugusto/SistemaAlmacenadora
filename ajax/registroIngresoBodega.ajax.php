@@ -1,9 +1,8 @@
 <?php
 
 require_once "../controlador/registroIngresoBodega.controlador.php";
-
-
 require_once "../modelo/registroIngresoBodega.modelo.php";
+
 require_once "../modelo/operacionesBIngreso.modelo.php";
 require_once "../extensiones/qrCodeCreate/vendor/autoload.php";
 //SESSION DE USUARIO PARA MANEJAR BITACORA
@@ -153,7 +152,7 @@ class AjaxRegistroIngBodega {
         echo json_encode($respuesta);
     }
 
-    public $montarguista;
+    public $montarguistaBod;
 
     public function ajaxMostrarMontarguista() {
         $montarcarguista = $this->montarcarguista;
@@ -285,9 +284,10 @@ if (isset($_POST["vehiculosUbicaN"])) {
 }
 
 if (isset($_POST["montarcarguista"])) {
-    $montarguista = new AjaxRegistroIngBodega();
-    $montarguista->montarcarguista = $_POST["montarcarguista"];
-    $montarguista->ajaxMostrarMontarguista();
+
+    $montarguistaBod = new AjaxRegistroIngBodega();
+    $montarguistaBod->montarcarguista = $_POST["montarcarguista"];
+    $montarguistaBod->ajaxMostrarMontarguista();
 }
 
 

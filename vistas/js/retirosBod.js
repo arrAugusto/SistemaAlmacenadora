@@ -109,22 +109,22 @@ $(document).on("click", ".btnDetalleRetBod", function () {
                     },
                     data: listaTable,
                     columns: [{
-                            title: "#"
-                        }, {
-                            title: "Empresa"
-                        }, {
-                            title: "Bultos"
-                        }, {
-                            title: "Peso"
-                        }, {
-                            title: "Descripcion"
-                        }, {
-                            title: "Detalles"
-                        }, {
-                            title: "Posiciones"
-                        }, {
-                            title: "Metros"
-                        }
+                        title: "#"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Peso"
+                    }, {
+                        title: "Descripcion"
+                    }, {
+                        title: "Detalles"
+                    }, {
+                        title: "Posiciones"
+                    }, {
+                        title: "Metros"
+                    }
                     ]
                 });
                 fncMostrarUbicaciones(listaDet);
@@ -203,17 +203,19 @@ $(document).on("click", ".btnGdCambiosRet", function () {
 });
 $(document).on("click", ".btnPreparacionSaldia", async function () {
     var valIdRet = $(this).attr("idRetiro");
+    var tipoing = $(this).attr("tipoing");
     console.log("cargando el ajax");
-    var respuesta = await ajaxSolicInfo(valIdRet);
+    var respuesta = await ajaxSolicInfo(valIdRet, tipoing);
     console.log("esperandoRespuesta");
     if (respuesta == "Ok") {
         console.log("continuando...");
+
     }
 
 })
 
 
-function ajaxSolicInfo(valIdRet) {
+function ajaxSolicInfo(valIdRet, tipoing) {
     let todoMenus;
     var datos = new FormData();
     datos.append("valIdRet", valIdRet);
@@ -231,17 +233,21 @@ function ajaxSolicInfo(valIdRet) {
             console.log(respuesta);
             if (respuesta == "SD") {
                 alert(respuesta);
-                return;
+                return true;
             } else {
-                if (respuesta[2] != "SD") {
-                    var nombre = respuesta[2][0].nombres;
-                    var apellidos = respuesta[2][0].apellidos;
-                    var email = respuesta[2][0].email;
-                    var telefono = respuesta[2][0].telefono;
-                    var idOperacion = respuesta[2][0].id;
-                    var foto = respuesta[2][0].foto;
+               document.getElementById("divTablePilotos").innerHTML = '<table id="tablePilotlos" class="table  table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
+                    document.getElementById("divTableRetiraBodega").innerHTML = '<table id="tableSalidaBodega" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
+     
+                if (tipoing != "vehiculoUsado") {
+                    if (respuesta[2] != "SD") {
+                        var nombre = respuesta[2][0].nombres;
+                        var apellidos = respuesta[2][0].apellidos;
+                        var email = respuesta[2][0].email;
+                        var telefono = respuesta[2][0].telefono;
+                        var idOperacion = respuesta[2][0].id;
+                        var foto = respuesta[2][0].foto;
 
-                    $("#divRetiroOperacion").append(`
+                        $("#divRetiroOperacion").append(`
 
         <div class="info-box bg-warning">
             <span class="info-box-icon"><img class="img-circle elevation-2 imgMontarguisdivTableRetiraBodegata" src="` + foto + `" user=` + idOperacion + ` alt="User Avatar"></span>
@@ -252,68 +258,63 @@ function ajaxSolicInfo(valIdRet) {
             </div>
         </div>
     `);
-                }
-                document.getElementById("divTablePilotos").innerHTML = '<table id="tablePilotlos" class="table  table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
-                document.getElementById("divTableRetiraBodega").innerHTML = '<table id="tableSalidaBodega" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
-                console.log(respuesta[3][0]);
-                var listaPilotos = [];
-                var contador = 0;
-                for (var i = 0; i < respuesta[3].length; i++) {
-                    var contador = contador + 1;
-                    var idPiloto = respuesta[3][i].Identity;
-                    var contenedor = respuesta[3][i].contenedorUnidad;
-                    var placaUnidad = respuesta[3][i].placaUnidad;
-
-                    var numMarchamo = respuesta[3][i].numMarchamo;
-                    var licPiloto = respuesta[3][i].licPiloto;
-                    var nombrePiloto = respuesta[3][i].nombrePiloto;
-
-                    if (respuesta[3][i].estadoUnidad == 1) {
-                        var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-invalid" id=MarchamoPlt' + idPiloto + ' value="" /></div>';
-                        var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-info btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + ' idRet=' + valIdRet + '><i class="fa fa-save"></i></button><button type="button" class="btn btn-danger btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + '><i class="fa fa-trash"></i></button></div>';
                     }
-                    if (respuesta[3][i].estadoUnidad == 2) {
+                    console.log(respuesta[3][0]);
+                    var listaPilotos = [];
+                    var contador = 0;
+                    for (var i = 0; i < respuesta[3].length; i++) {
+                        var contador = contador + 1;
+                        var idPiloto = respuesta[3][i].Identity;
+                        var contenedor = respuesta[3][i].contenedorUnidad;
+                        var placaUnidad = respuesta[3][i].placaUnidad;
 
-                        var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id=MarchamoPlt' + idPiloto + ' value="' + numMarchamo + '" readOnly="true" /></div>';
-                        var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-warning btn-sm btnEditarPlt" id="EditarPlt' + idPiloto + '" estado=0 idPlt=' + idPiloto + ' idRet=' + valIdRet + '><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm btnTrashPiloto" id="TrashPiloto' + idPiloto + '" idPlt=' + idPiloto + '><i class="fa fa-trash"></i></button></div>';
-                    }
-                    if (respuesta[3][i].estadoUnidad == 3) {
-                        var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-invalid" id=MarchamoPlt' + idPiloto + ' value="" /></div>';
-                        var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-dark btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + ' idRet=' + valIdRet + '>Restaurar</div>';
-                    }
-                                    listaPilotos.push([contador, nombrePiloto + ' - ' + licPiloto + ' - ' + placaUnidad + ' - ' + contenedor, inputMarchamo, button]);
+                        var numMarchamo = respuesta[3][i].numMarchamo;
+                        var licPiloto = respuesta[3][i].licPiloto;
+                        var nombrePiloto = respuesta[3][i].nombrePiloto;
 
-                }
-
-
-
-                $('#tablePilotlos').DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Busqueda:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        if (respuesta[3][i].estadoUnidad == 1) {
+                            var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-invalid" id=MarchamoPlt' + idPiloto + ' value="" /></div>';
+                            var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-info btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + ' idRet=' + valIdRet + '><i class="fa fa-save"></i></button><button type="button" class="btn btn-danger btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + '><i class="fa fa-trash"></i></button></div>';
                         }
-                    },
-                    data: listaPilotos,
-                    columns: [{
+                        if (respuesta[3][i].estadoUnidad == 2) {
+
+                            var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id=MarchamoPlt' + idPiloto + ' value="' + numMarchamo + '" readOnly="true" /></div>';
+                            var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-warning btn-sm btnEditarPlt" id="EditarPlt' + idPiloto + '" estado=0 idPlt=' + idPiloto + ' idRet=' + valIdRet + '><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm btnTrashPiloto" id="TrashPiloto' + idPiloto + '" idPlt=' + idPiloto + '><i class="fa fa-trash"></i></button></div>';
+                        }
+                        if (respuesta[3][i].estadoUnidad == 3) {
+                            var inputMarchamo = '<div class="input-group input-group-sm"><input type="number" class="form-control is-invalid" id=MarchamoPlt' + idPiloto + ' value="" /></div>';
+                            var button = '<div class="btn-group" id="divButtonsPlt' + idPiloto + '"><button type="button" class="btn btn-dark btn-sm btnGdPiloto"  id="btnAccMarchamo' + idPiloto + '"idPlt=' + idPiloto + ' idRet=' + valIdRet + '>Restaurar</div>';
+                        }
+                        listaPilotos.push([contador, nombrePiloto + ' - ' + licPiloto + ' - ' + placaUnidad + ' - ' + contenedor, inputMarchamo, button]);
+
+                    }
+                    $('#tablePilotlos').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Busqueda:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        data: listaPilotos,
+                        columns: [{
                             title: "#"
                         }, {
                             title: "Piloto"
@@ -322,8 +323,8 @@ function ajaxSolicInfo(valIdRet) {
                         }, {
                             title: "Acciones"
                         }]
-                });
-
+                    });
+                }
 
                 var listaSalidaBodega = [];
                 for (var i = 0; i < respuesta[1].length; i++) {
@@ -337,13 +338,13 @@ function ajaxSolicInfo(valIdRet) {
                     if (respuesta[1][i].estadoDet == 0) {
                         var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [i] + '" value="' + stockPos + '" readOnly="readOnly" /></div>';
                         var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [i] + '" value="' + stockMts + '" readOnly="readOnly"  /></div>';
-                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [i] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Editar <i class="fas fa-edit"></i></button></div>';
+                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [i] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Editar <i class="fa fa-edit"></i></button></div>';
                         listaSalidaBodega.push([num, empresa, bultos, stockPos, stockMts, textPos, textBultos, botonera]);
 
                     } else if (respuesta[1][i].estadoDet == 1) {
                         var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [i] + '" value="" /></div>';
                         var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [i] + '" value="" /></div>';
-                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Guardar <i class="fas fa-save"></i></button></div>';
+                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Guardar <i class="fafa-save"></i></button></div>';
                         listaSalidaBodega.push([num, empresa, bultos, stockPos, stockMts, textPos, textBultos, botonera]);
 
                     }
@@ -375,22 +376,22 @@ function ajaxSolicInfo(valIdRet) {
                     },
                     data: listaSalidaBodega,
                     columns: [{
-                            title: "#"
-                        }, {
-                            title: "Empresa"
-                        }, {
-                            title: "Bultos"
-                        }, {
-                            title: "Stock Posiciones"
-                        }, {
-                            title: "Stock Metros"
-                        }, {
-                            title: "Posiciones"
-                        }, {
-                            title: "Metros"
-                        }, {
-                            title: "Acciones"
-                        }]
+                        title: "#"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Stock Posiciones"
+                    }, {
+                        title: "Stock Metros"
+                    }, {
+                        title: "Posiciones"
+                    }, {
+                        title: "Metros"
+                    }, {
+                        title: "Acciones"
+                    }]
                 });
 
             }
@@ -407,10 +408,12 @@ function ajaxSolicInfo(valIdRet) {
 $(document).on("click", ".btnSalidaBodega", async function () {
     document.getElementById("divRetiroOperacion").innerHTML = "";
     var valIdRet = $(this).attr("idRetiro");
+    var tipoing = $(this).attr("tipoing");
     console.log("cargando el ajax");
-    var respuesta = await ajaxSolicInfo(valIdRet);
+    var respuesta = await ajaxSolicInfo(valIdRet, tipoing);
+    
     console.log("esperandoRespuesta");
-    if (respuesta == "Ok") {
+if (respuesta == "Ok") {
         console.log("continuando...");
     }
 
@@ -426,10 +429,10 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
     var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
     if (valPosSalida == "" || valMtsSalida == "" || valPosSalida <= 0 || valMtsSalida <= 0) {
         Swal.fire(
-                'Sin Posiciones o Metros',
-                'Agregue Metros o Posiciones de Esta Rebaja',
-                'error'
-                )
+            'Sin Posiciones o Metros',
+            'Agregue Metros o Posiciones de Esta Rebaja',
+            'error'
+        )
     } else if (isNaN(valPosSalida) || isNaN(valMtsSalida)) {
 
     } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
@@ -451,10 +454,10 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                 $("#mtsDet" + idfila).removeClass("is-invalid");
                 $("#mtsDet" + idfila).addClass("is-valid");
                 Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
+                    'Transacción Exitosa',
+                    'Se Guardo Correctamente los Metros y Posiciones',
+                    'success'
+                )
             }
             if (guardDet == "exito") {
 
@@ -478,18 +481,18 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                 $("#posDet" + idfila).attr("readOnly", true);
 
                 Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
+                    'Transacción Exitosa',
+                    'Se Guardo Correctamente los Metros y Posiciones',
+                    'success'
+                )
 
             }
             if (guardDet == "sobreGirara") {
                 Swal.fire(
-                        'Transacción Interrumpida',
-                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
-                        'error'
-                        );
+                    'Transacción Interrumpida',
+                    'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                    'error'
+                );
             }
 
             console.log("esperando...");
@@ -530,7 +533,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
              type: "info"
              }).then(okay => {
              if (okay) {
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fas fa-edit"></i></button>';
+             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
              
              }
              });
@@ -542,7 +545,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
 
             /*     } else if (respuestaActualStock == "UnoPendiente") {
              
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fas fa-edit"></i></button>';
+             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
              document.getElementById("posDet" + idfila).readOnly = true;
              document.getElementById("mtsDet" + idfila).readOnly = true;
              
@@ -553,7 +556,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
              'info'
              )
              } else if (respuestaActualStock == "faltanDetalles") {
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fas fa-edit"></i></button>';
+             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
              document.getElementById("posDet" + idfila).readOnly = true;
              document.getElementById("mtsDet" + idfila).readOnly = true;
              
@@ -595,7 +598,8 @@ function ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida) {
             todoMenus = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -611,7 +615,7 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
         var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
         $(this).removeClass("btn-warning");
         $(this).addClass("btn-primary");
-        $(this).html('Guaradar <i class="fas fa-save"></i>');
+        $(this).html('Guaradar <i class="fafa-save"></i>');
         $(this).attr("estado", 1);
         document.getElementById("posDet" + idRetEdit).readOnly = false;
         document.getElementById("mtsDet" + idRetEdit).readOnly = false;
@@ -630,7 +634,7 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                 $("#mtsDet" + idRetEdit).addClass("is-valid");
                 $(this).removeClass("btn-primary");
                 $(this).addClass("btn-warning");
-                $(this).html('Editar <i class="fas fa-edit"></i>');
+                $(this).html('Editar <i class="fa fa-edit"></i>');
                 $(this).attr("estado", 1);
                 var guardDet = await ajaxGuadarDet(idDeta, idRetEdit, valPosSalida, valMtsSalida);
                 console.log(guardDet);
@@ -646,10 +650,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                     $("#mtsDet" + idfila).addClass("is-valid");
 
                     Swal.fire(
-                            'Transacción Exitosa',
-                            'Se Guardo Correctamente los Metros y Posiciones',
-                            'success'
-                            )
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                    )
 
                 }
                 if (guardDet == "puedeEditar") {
@@ -661,10 +665,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                 }
                 if (guardDet == "sobreGirara") {
                     Swal.fire(
-                            'Transacción Interrumpida',
-                            'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
-                            'error'
-                            );
+                        'Transacción Interrumpida',
+                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                        'error'
+                    );
                 }
                 console.log(guardDet);
                 /*if (guardDet == "Ok") {
@@ -718,7 +722,8 @@ function ajaxEditPosMts(tipoEdit, idDeta, idRet, valPosSalida, valMtsSalida) {
 
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -760,7 +765,8 @@ function fncMostrarUbicaciones(listaDetalles) {
                 }
             }, error: function (respuesta) {
                 console.log(respuesta);
-            }});
+            }
+        });
     }
     return todoMenus;
 }
@@ -773,10 +779,10 @@ $(document).on("click", ".btnGdPiloto", async function () {
     var marchamo = document.getElementById("MarchamoPlt" + idPlt).value;
     if (isNaN(marchamo) || marchamo == "" || marchamo <= 0) {
         Swal.fire(
-                'Sin Marchamo!',
-                'Ingrese el Numero de Marchamo!',
-                'error'
-                );
+            'Sin Marchamo!',
+            'Ingrese el Numero de Marchamo!',
+            'error'
+        );
     } else {
         var respMarchamo = await ajaxGuardarMarchamo(idPlt, marchamo, idRet);
         if (respMarchamo == true) {
@@ -796,10 +802,10 @@ $(document).on("click", ".btnGdPiloto", async function () {
                 document.getElementById("divButtonsPlt" + idPlt).innerHTML = '<button type="button" class="btn btn-warning btn-sm btnEditarPlt" id="EditarPlt' + idPlt + '" estado=0 idPlt=' + idPlt + ' idRet=' + idRet + '><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm btnTrashPiloto" id="TrashPiloto' + idPlt + '" idPlt=' + idPlt + '><i class="fa fa-trash"></i></button>';
             }
             Swal.fire(
-                    'Transacción Exitosa',
-                    'El Marchamo se Guardo con Exito',
-                    'success'
-                    )
+                'Transacción Exitosa',
+                'El Marchamo se Guardo con Exito',
+                'success'
+            )
         }
     }
 });
@@ -827,7 +833,8 @@ function ajaxGuardarMarchamo(idPlt, marchamo, idRet) {
             todoMenus = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -898,10 +905,10 @@ $(document).on("click", ".btnEditarPlt", async function () {
                 button.attr("estado", 0);
 
                 Swal.fire(
-                        'Transacción Exitosa',
-                        'Se edito correctamente el numero de marchamo',
-                        'success'
-                        );
+                    'Transacción Exitosa',
+                    'Se edito correctamente el numero de marchamo',
+                    'success'
+                );
             }
         });
     }
@@ -948,7 +955,8 @@ function ajaxEditarMarchamo(idPlt, marchamo) {
             respTran = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return respTran;
 }
 
@@ -992,7 +1000,8 @@ function ajaxCancelarPlt(idPlt, nomVar) {
             respTran = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return respTran;
 }
 $(document).on("click", ".btnPilotoInac", async function () {
@@ -1016,10 +1025,10 @@ $(document).on("click", ".btnLimpiarRetiros", async function () {
             location.reload();
         } else {
             Swal.fire(
-                    'No se reinicio la lista de retiros',
-                    'Puede editar los datos de este retiro',
-                    'warning'
-                    )
+                'No se reinicio la lista de retiros',
+                'Puede editar los datos de este retiro',
+                'warning'
+            )
         }
     })
 })

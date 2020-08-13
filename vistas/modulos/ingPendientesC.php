@@ -310,8 +310,8 @@
                         <div class="col-12" id="mapeandoUbica">
 
 
-                            <?php
-                            $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();
+                            <?php/*
+                            $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();*/
                             ?>
 
                         </div>

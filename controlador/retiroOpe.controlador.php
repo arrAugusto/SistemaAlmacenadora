@@ -102,9 +102,17 @@ class ControladorRetiroOpe {
             $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
             return array("respTipo" => "vehN", "data" => $respuestaVehN, "dataRetiro" => $respuesta);
         } else {
+            $spVeh = "spIngVehUsados";
+            $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
 
-            $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
-            return array("respTipo" => "vehM", "data" => $respuesta);
+            if ($respuestaRevertVeh[0]['resp']==1) {
+                $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
+                return array("respTipo" => "vehUs", "data" => $respuesta);
+                }else{
+                    $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
+                    return array("respTipo" => "vehM", "data" => $respuesta);
+                }
+
         }
     }
 

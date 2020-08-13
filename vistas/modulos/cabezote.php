@@ -142,7 +142,7 @@ MODAL POLIZA CONSOLIDADA
                             </div>
                         </form>
                         <div class="card-footer">
-                            <div id="divAcciones">
+                            <div>
                                 <button type="button" class="btn btn-primary btn-block btnNuevaEmpresa">Guardar Cambios</button>
                             </div>
                         </div>

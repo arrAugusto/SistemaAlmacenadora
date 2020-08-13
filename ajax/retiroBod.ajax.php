@@ -5,6 +5,10 @@ require_once "../modelo/retiroBod.modelo.php";
 
 require_once "../controlador/retiroOpe.controlador.php";
 require_once "../modelo/retiroOpe.modelo.php";
+
+require_once "../controlador/ingresosPendientes.controlador.php";
+require_once "../modelo/ingresosPendientes.modelo.php";
+
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
 

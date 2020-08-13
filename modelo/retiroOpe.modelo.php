@@ -94,7 +94,11 @@ class ModeloRetiroOpe {
         date_default_timezone_set('America/Guatemala');
         $time = date('Y-m-d H:i:s');
         $estadoRet = 1;
-
+        if ($datos['tipoIng']=="vehUs"){
+            $tipo = 1;
+        }else{
+            $tipo = 0;
+        }
         $paramsDet = array(
             &$datos['hiddeniddeingreso'],
             &$datos['idNit'],
@@ -112,16 +116,17 @@ class ModeloRetiroOpe {
             &$datos['valorTotalAduana'],
             &$datos['valorCif'],
             &$datos['calculoValorImpuesto'],
-            $datos['licencia'],
-            $datos['piloto'],
-            $datos['placa'],
-            $datos['contenedor'],
-            $datos['usuarioOp']
+            &$datos['licencia'],
+            &$datos['piloto'],
+            &$datos['placa'],
+            &$datos['contenedor'],
+            &$datos['usuarioOp'],
+            &$tipo
             
                 
         );
 
-        $sqlDet = "EXECUTE spInsRetiro  ?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?";
+        $sqlDet = "EXECUTE spInsRetiro  ?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?";
         $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
         if (sqlsrv_execute($stmt) == true) {    
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -133,13 +138,19 @@ class ModeloRetiroOpe {
             $sql = "EXECUTE spRetPlto ?, ?";
             $stmtPlt = sqlsrv_prepare($conn, $sql, $paramPiloto);
             if (sqlsrv_execute($stmtPlt) == true) {
-                $paramUnidad = array(&$numeroIdRet, &$datos['placa'], &$datos['contenedor']);
-                $sql = "EXECUTE spRetUnidades   ?, ?, ?";
-                $stmtUnidad = sqlsrv_prepare($conn, $sql, $paramUnidad);
-                if (sqlsrv_execute($stmtUnidad) == true) {
+                if ($datos['tipoIng']=="vehUs"){
                     return "oKk";
-                } else {
-                    return "errorLinea121";
+
+                }else{
+                    $paramUnidad = array(&$numeroIdRet, &$datos['placa'], &$datos['contenedor']);
+                    $sql = "EXECUTE spRetUnidades   ?, ?, ?";
+                    $stmtUnidad = sqlsrv_prepare($conn, $sql, $paramUnidad);
+                    if (sqlsrv_execute($stmtUnidad) == true) {
+                        return "oKk";
+                    } else {
+                        return "errorLinea121";
+                    }
+    
                 }
             } else {
                 return "errorLinea124";

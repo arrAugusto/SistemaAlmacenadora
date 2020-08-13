@@ -22,7 +22,8 @@ class ControladorGeneracionDeContabilidad {
         $valor = $_SESSION["idDeBodega"];
 
         $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
-         if ($respuesta !== null || $respuesta !== null) {
+
+        if ($respuesta !== null) {
             if ($respuesta == "SD") {
                 
             } else {

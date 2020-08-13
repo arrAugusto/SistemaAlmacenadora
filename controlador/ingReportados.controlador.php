@@ -16,10 +16,8 @@ class ControladorContabilidadRegistrada {
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
             $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
         } else {
-            $respuesta = ModeloContabilidadRegistrada::mdlPolizasPorDia($valor);
+            $respuesta = ModeloContabilidadRegistrada::mdlPolizasPorDia($valor, $estado);
         }
-        if ($respuesta !== null || $respuesta !== null) {
-
             if ($respuesta == "SD") {
                 
             } else {
@@ -69,7 +67,7 @@ class ControladorContabilidadRegistrada {
                     
                 }
             }
-        }
+        
     }
 
 }
