@@ -101,26 +101,36 @@ $respuesta = ControladorPasesDeSalida::ctrListarRetiros();
                     <div class="col-4 mt-4">
                         <label>Valor en Aduana Total</label>
                         <input type="number" class="form-control is-invalid" id="valorDoll" placeholder="Ejemplo : 40525.23" value=""/>
+                        <span class="badge bg-danger pull-right" id="spanvalorDoll" style="display: none;"></span>
                     </div>
                     <div class="col-4 mt-4">
                         <label>Tasa de Cambio</label>                        
                         <input type="number" class="form-control is-invalid" id="tCambio" placeholder="Ejemplo : 7.6452" value=""/>
+                        <span class="badge bg-danger pull-right" id="spantCambio" style="display: none;"></span>                        
                     </div>
                     <div class="col-4 mt-4">
                         <label>Total Val. Aduana * Tasa de Cambio</label>   
                         <input type="number" class="form-control is-invalid" id="cif" placeholder="Ejemplo : 309823.49" value=""/>
+                        <span class="badge bg-danger pull-right" id="spancif" style="display: none;"></span>                        
+                        
                     </div>
                     <div class="col-4 mt-4">
                         <label>Total General (DAI+IVA)</label>
                         <input type="number" class="form-control is-invalid" id="impuestos" placeholder="Ejemplo : 41252.13" value=""/>
+                        <span class="badge bg-danger pull-right" id="spanimpuestos" style="display: none;"></span>                        
+
                     </div>
                     <div class="col-4 mt-4">
                         <label>Peso Bruto Total KG</label>
                         <input type="number" class="form-control is-invalid" id="peso" placeholder="Ejemplo : 524.25" value=""/>
+                        <span class="badge bg-danger pull-right" id="spanpeso" style="display: none;"></span>                        
+                        
                     </div>
                     <div class="col-4 mt-4">
                         <label>Total de Bultos en Póliza</label>
                         <input type="number" class="form-control is-invalid" id="bultos" placeholder="Ejemplo : 5" value=""/>
+                        <span class="badge bg-danger pull-right" id="spanbultos" style="display: none;"></span>                        
+
                     </div>                    
                     <input type="hidden" id="hiddenvalorDoll" value="">
                     <input type="hidden" id="hiddentCambio" value="">

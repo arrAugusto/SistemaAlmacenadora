@@ -1,4 +1,4 @@
-    $(document).on("click", ".btnImprimirRecibo", async function () {
+$(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
     if ($("#hiddenDateTimeVal").length >= 1) {
         var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
@@ -9,12 +9,14 @@
     var hiddenvalorDoll = document.getElementById("hiddenvalorDoll").value;
     var hiddentCambio = document.getElementById("hiddentCambio").value;
     var hiddencif = document.getElementById("hiddencif").value;
+    var hiddencif = parseFloat(hiddencif).toFixed(2);
     var hiddenimpuestos = document.getElementById("hiddenimpuestos").value;
     var hiddenbultos = document.getElementById("hiddenbultos").value;
     var hiddenpeso = document.getElementById("hiddenpeso").value;
     var valorDoll = document.getElementById("valorDoll").value;
     var tCambio = document.getElementById("tCambio").value;
     var cif = document.getElementById("cif").value;
+    var cif = parseFloat(cif).toFixed(2);
     var impuestos = document.getElementById("impuestos").value;
     var bultos = document.getElementById("bultos").value;
     var peso = document.getElementById("peso").value;
@@ -41,6 +43,7 @@
             processData: false,
             dataType: "json",
             success: function (respuestaDetalle) {
+
                 console.log(respuestaDetalle);
                 var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
                 var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
@@ -62,7 +65,8 @@
                     contentType: false,
                     processData: false,
                     dataType: "json",
-                    success: function (respuesta) {
+                    success: async function (respuesta) {
+                        var respValRet = await funcGuardarValRet();
                         console.log(respuesta);
 
                         listaPushDefault = [];
@@ -344,6 +348,16 @@ Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-
 
 });
 
+function funcGuardarValRet() {
+    var valDoll = document.getElementById("hiddenvalorDoll").value;
+    var tCambio = document.getElementById("hiddentCambio").value;
+    var cif = document.getElementById("hiddencif").value;
+    var impts = document.getElementById("hiddenimpuestos").value;
+    var cantBultos = document.getElementById("hiddenbultos").value;
+    var peso = document.getElementById("hiddenpeso").value;
+    
+}
+
 
 function revDatosExtras(polizaRetiroRev) {
     let resp;
@@ -373,10 +387,32 @@ function revDatosExtras(polizaRetiroRev) {
 
 }
 
-$(document).on("click", ".btnConfirmaDataRet", function () {
-    alert("docouemnt");
-});
 $(document).on("click", ".btnConsultDataConfirm", function () {
+    document.getElementById("valorDoll").value = "";
+    document.getElementById("tCambio").value = "";
+    document.getElementById("cif").value = "";
+    document.getElementById("impuestos").value = "";
+    document.getElementById("bultos").value = "";
+    document.getElementById("peso").value = "";
+    
+    $("#valorDoll").removeClass('is-valid');
+    $("#valorDoll").addClass('is-invalid');
+    
+    $("#tCambio").removeClass('is-valid');
+    $("#tCambio").addClass('is-invalid');
+    
+    $("#cif").removeClass('is-valid');
+    $("#cif").addClass('is-invalid');
+    
+    $("#impuestos").removeClass('is-valid');
+    $("#impuestos").addClass('is-invalid');
+    
+    $("#bultos").removeClass('is-valid');
+    $("#bultos").addClass('is-invalid');
+    
+    $("#peso").removeClass('is-valid');
+    $("#peso").addClass('is-invalid');
+    
     var idNumRetConsult = $(this).attr("idret");
     var idNumIng = $(this).attr("idIngreso");
     var datos = new FormData();
@@ -395,22 +431,30 @@ $(document).on("click", ".btnConsultDataConfirm", function () {
             document.getElementById("polizaIngreso").value = respuesta[0].polIng;
             document.getElementById("polizaRetiro").value = respuesta[0].polRet;
             document.getElementById("numeroRetiro").value = respuesta[0].numRet;
-  
-
-            document.getElementById("valorDoll").value = respuesta[0].valDoll;
-            document.getElementById("tCambio").value = respuesta[0].tCambio;
-            document.getElementById("cif").value = respuesta[0].cif;
-            document.getElementById("impuestos").value = respuesta[0].impts;
-            document.getElementById("bultos").value = respuesta[0].cantBultos;
-            document.getElementById("peso").value = respuesta[0].peso;
-            
-            
+            /*
+             
+             document.getElementById("valorDoll").value = respuesta[0].valDoll;
+             document.getElementById("tCambio").value = respuesta[0].tCambio;
+             document.getElementById("cif").value = respuesta[0].cif;
+             document.getElementById("impuestos").value = respuesta[0].impts;
+             document.getElementById("bultos").value = respuesta[0].cantBultos;
+             document.getElementById("peso").value = respuesta[0].peso;
+             
+             */
             document.getElementById("hiddenvalorDoll").value = respuesta[0].valDoll;
             document.getElementById("hiddentCambio").value = respuesta[0].tCambio;
             document.getElementById("hiddencif").value = respuesta[0].cif;
             document.getElementById("hiddenimpuestos").value = respuesta[0].impts;
             document.getElementById("hiddenbultos").value = respuesta[0].cantBultos;
             document.getElementById("hiddenpeso").value = respuesta[0].peso;
+
+            document.getElementById("spanvalorDoll").innerHTML = respuesta[0].valDoll;
+            document.getElementById("spantCambio").innerHTML = respuesta[0].tCambio;
+            document.getElementById("spancif").innerHTML = respuesta[0].cif;
+            document.getElementById("spanimpuestos").innerHTML = respuesta[0].impts;
+            document.getElementById("spanpeso").innerHTML = respuesta[0].peso;
+            document.getElementById("spanbultos").innerHTML = respuesta[0].cantBultos;
+
         },
         error: function (respuesta) {
             console.log(respuesta);
@@ -436,9 +480,38 @@ $(document).on("change", "#valorDoll", function () {
         if (rest == 0) {
             $("#valorDoll").removeClass('is-invalid');
             $("#valorDoll").addClass('is-valid');
+            $("#spanvalorDoll").attr("style", "display:none;");
+            if ($("#tCambio").val() > 0) {
+                alert("hola mundo");
+                var totalCif = $("#valorDoll").val() * $("#tCambio").val();
+                var totalCif = parseFloat(totalCif).toFixed(2);
+                var cif = $("#hiddencif").val();
+                var cif = parseFloat(cif).toFixed(2);
+                if (cif == totalCif) {
+                    $("#cif").removeClass('is-invalid');
+                    $("#cif").addClass('is-valid');
+                    document.getElementById("cif").readOnly = true;
+                    document.getElementById("impuestos").focus();
+                    $("#spancif").attr("style", "display:none;");
+                    document.getElementById("cif").value = totalCif;
+
+                } else {
+                    $("#spancif").attr("style", "display:block;");
+                    $("#cif").removeClass('is-invalid');
+                    $("#cif").addClass('is-valid');
+                }
+            } else {
+                $("#cif").removeClass('is-valid');
+                $("#cif").addClass('is-invalid');
+                $("#spancif").attr("style", "display:none;");
+
+            }
+
+
         } else {
             $("#valorDoll").removeClass('is-valid');
             $("#valorDoll").addClass('is-invalid');
+            $("#spanvalorDoll").attr("style", "display:block;");
         }
     }
 });
@@ -457,9 +530,39 @@ $(document).on("change", "#tCambio", function () {
         if (rest == 0) {
             $("#tCambio").removeClass('is-invalid');
             $("#tCambio").addClass('is-valid');
+            $("#spantCambio").attr("style", "display:none;");
+
+            if ($("#valorDoll").val() > 0) {
+                var totalCif = $("#valorDoll").val() * $("#tCambio").val();
+                var totalCif = parseFloat(totalCif).toFixed(2);
+                var cif = $("#hiddencif").val();
+                var cif = parseFloat(cif).toFixed(2);
+                if (cif == totalCif) {
+                    $("#cif").removeClass('is-invalid');
+                    $("#cif").addClass('is-valid');
+                    document.getElementById("cif").readOnly = true;
+                    document.getElementById("impuestos").focus();
+                    $("#spancif").attr("style", "display:none;");
+                    document.getElementById("cif").value = totalCif;
+
+                } else {
+                    $("#spancif").attr("style", "display:block;");
+                    $("#cif").removeClass('is-invalid');
+                    $("#cif").addClass('is-valid');
+                }
+            } else {
+                $("#cif").removeClass('is-valid');
+                $("#cif").addClass('is-invalid');
+                $("#spancif").attr("style", "display:none;");
+
+            }
+
+
+
         } else {
             $("#tCambio").removeClass('is-valid');
             $("#tCambio").addClass('is-invalid');
+            $("#spantCambio").attr("style", "display:block;");
         }
     }
 });
@@ -470,6 +573,7 @@ $(document).on("change", "#cif", function () {
     if (isNaN(valIng)) {
         alert("error");
     } else if (!isNaN(valIng)) {
+
         var valDolComprobar = document.getElementById("hiddencif").value;
         var comprobarValDoll = parseFloat(valDolComprobar);
         var comprobarValDoll = comprobarValDoll * 1;
@@ -478,9 +582,13 @@ $(document).on("change", "#cif", function () {
         if (rest == 0) {
             $("#cif").removeClass('is-invalid');
             $("#cif").addClass('is-valid');
+            $("#spancif").attr("style", "display:none;");
+
         } else {
             $("#cif").removeClass('is-valid');
             $("#cif").addClass('is-invalid');
+            $("#spancif").attr("style", "display:block;");
+
         }
     }
 });
@@ -499,9 +607,11 @@ $(document).on("change", "#impuestos", function () {
         if (rest == 0) {
             $("#impuestos").removeClass('is-invalid');
             $("#impuestos").addClass('is-valid');
+            $("#spanimpuestos").attr("style", "display:none;");
         } else {
             $("#impuestos").removeClass('is-valid');
             $("#impuestos").addClass('is-invalid');
+            $("#spanimpuestos").attr("style", "display:block;");
         }
     }
 });
@@ -520,9 +630,11 @@ $(document).on("change", "#bultos", function () {
         if (rest == 0) {
             $("#bultos").removeClass('is-invalid');
             $("#bultos").addClass('is-valid');
+            $("#spanbultos").attr("style", "display:none;");
         } else {
             $("#bultos").removeClass('is-valid');
             $("#bultos").addClass('is-invalid');
+            $("#spanbultos").attr("style", "display:block;");
         }
     }
 });
@@ -541,9 +653,11 @@ $(document).on("change", "#peso", function () {
         if (rest == 0) {
             $("#peso").removeClass('is-invalid');
             $("#peso").addClass('is-valid');
+            $("#spanpeso").attr("style", "display:none;");
         } else {
             $("#peso").removeClass('is-valid');
             $("#peso").addClass('is-invalid');
+            $("#spanpeso").attr("style", "display:block;");
         }
     }
 });

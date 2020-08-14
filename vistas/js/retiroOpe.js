@@ -108,33 +108,33 @@ $(document).on("change", "#txtNitSalida", function () {
             success: function (respuesta) {
                 console.log(respuesta);
                 if (respuesta == "SD") {
-                                                    //agregar nuevo nit
+                    //agregar nuevo nit
 
-Swal.fire({
-  title: 'Agregar Nit',
-  text: "Agrega el nuevo numero de nit",
-  type: 'error',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  cancelButtonText: 'Cancelar',
-  confirmButtonText: 'Agregar'
-}).then((result) => {
-  if (result.value) {
-     $("#txtNitSalida").removeClass("is-valid");
-     $("#txtNitSalida").addClass("is-invalid");
-     document.getElementById("txtNitSalida").value = "";
-    Swal.fire(
-      'Agregar Nit',
-      'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
-      'info'
-    )
-  }
-})
+                    Swal.fire({
+                        title: 'Agregar Nit',
+                        text: "Agrega el nuevo numero de nit",
+                        type: 'error',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Agregar'
+                    }).then((result) => {
+                        if (result.value) {
+                            $("#txtNitSalida").removeClass("is-valid");
+                            $("#txtNitSalida").addClass("is-invalid");
+                            document.getElementById("txtNitSalida").value = "";
+                            Swal.fire(
+                                    'Agregar Nit',
+                                    'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
+                                    'info'
+                                    )
+                        }
+                    })
 
 
                     respuestaData = false;
-                    
+
                     $("#txtNitSalida").removeClass("is-valid");
                     $("#txtNitSalida").addClass("is-invalid");
                     $("#txtNombreSalida").removeClass("is-valid");
@@ -205,10 +205,10 @@ $(document).on("click", ".btnListaSelect", async function () {
                     document.getElementById("hiddenTipoRet").value = "vehN";
                     console.log(173);
                 } else if (respuestaDetIng.respTipo == "vehM" || servicio.respTipo == "vehUs") {
-                    if (servicio.respTipo == "vehUs"){
+                    if (servicio.respTipo == "vehUs") {
                         document.getElementById("divDataPiloto").innerHTML = '';
                         document.getElementById("divDataLic").innerHTML = '';
-            
+
                         document.getElementById("divPlaca").innerHTML = '';
                         document.getElementById("divCont").innerHTML = '';
                     }
@@ -450,7 +450,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                 listaVehN.push([numero, chasis, tipoVehiculo, linea, predio, descripcion, button]);
             }
         }
-        $('#tableVehNuevos').DataTable({    
+        $('#tableVehNuevos').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",
@@ -545,15 +545,15 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     var descMercaderia = document.getElementById("descMercaderia").value;
                     if (tipoIng == "vehM" || tipoIng == "vehUs") {
                         console.log("521");
-                        if (tipoIng == "vehUs"){
+                        if (tipoIng == "vehUs") {
                             var placa = "";
                             var contenedor = "";
-    
-                        }else{
-                            
+
+                        } else {
+
                             var placa = document.getElementById("numeroPlaca").value;
                             var contenedor = document.getElementById("contenedor").value;
-    
+
                         }
                         $("#arrayListDetalle").val(JSON.stringify(listaIdButton));
                         var listaDetalles = document.getElementById("arrayListDetalle").value;
@@ -573,21 +573,21 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         }
                         var listaVehiculos = JSON.stringify(listaVehiculos);
                     }
-                    if (tipoIng == "vehUs"){
+                    if (tipoIng == "vehUs") {
                         var licencia = "";
                         var piloto = "";
                         var hiddenIdentificador = "";
                         var hiddenDateTime = "";
-    
-                    }else{
+
+                    } else {
                         var licencia = document.getElementById("numeroLicencia").value;
                         var piloto = document.getElementById("nombrePiloto").value;
                         var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
                         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-                            
+
                     }
                     if (totalBultos == cantBultos) {
-                        if (tipoIng == "vehM" || tipoIng == "vehUs")  {
+                        if (tipoIng == "vehM" || tipoIng == "vehUs") {
                             var guardarRetMerca = await guardarRetiroMercaderia(
                                     listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
                                     valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
@@ -713,8 +713,8 @@ function guardarRetiroMercaderia(
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            console.log(respuesta);
-            if (respuesta["exito"] == "exito") {
+            console.log(respuesta.exito);
+            if (respuesta.exito == "exito") {
                 var tipo = 0;
                 desbloqueBloque(tipo);
                 Swal.fire('Guardado exitosamente', 'El retiro fue guardado con exito', 'success');
@@ -1281,10 +1281,21 @@ function desbloqueBloque(tipo) {
         document.getElementById("pesoKg").readOnly = true;
         document.getElementById("cantBultos").readOnly = true;
         document.getElementById("descMercaderia").readOnly = true;
-        document.getElementById("numeroLicencia").readOnly = true;
-        document.getElementById("nombrePiloto").readOnly = true;
-        document.getElementById("numeroPlaca").readOnly = true;
-        document.getElementById("contenedor").readOnly = true;
+        if ($("#numeroLicencia").length >= 1) {
+            document.getElementById("numeroLicencia").readOnly = true;
+        }
+        if ($("#nombrePiloto").length >= 1) {
+            document.getElementById("nombrePiloto").readOnly = true;
+        }
+        if ($("#numeroPlaca").length >= 1) {
+            document.getElementById("numeroPlaca").readOnly = true;
+
+        }
+        if ($("#contenedor").length >= 1) {
+            document.getElementById("contenedor").readOnly = true;
+
+        }
+
 
     } else if (tipo == 1) {
         document.getElementById("textParamBusqRet").readOnly = true;
@@ -1300,10 +1311,20 @@ function desbloqueBloque(tipo) {
         document.getElementById("pesoKg").readOnly = true;
         document.getElementById("cantBultos").readOnly = true;
         document.getElementById("descMercaderia").readOnly = true;
-        document.getElementById("numeroLicencia").readOnly = true;
-        document.getElementById("nombrePiloto").readOnly = true;
-        document.getElementById("numeroPlaca").readOnly = true;
-        document.getElementById("contenedor").readOnly = true;
+        if ($("#numeroLicencia").length >= 1) {
+            document.getElementById("numeroLicencia").readOnly = true;
+        }
+        if ($("#nombrePiloto").length >= 1) {
+            document.getElementById("nombrePiloto").readOnly = true;
+        }
+        if ($("#numeroPlaca").length >= 1) {
+            document.getElementById("numeroPlaca").readOnly = true;
+
+        }
+        if ($("#contenedor").length >= 1) {
+            document.getElementById("contenedor").readOnly = true;
+
+        }
     }
 }
 
@@ -1510,11 +1531,11 @@ $(document).on("change", "#regimen", function () {
 
 $(document).on("change", "#valorTAduana", function () {
     var dato = $(this).val();
-    
+
     var parseDato = parseFloat(dato).toFixed(2);
     $(this).val(parseDato);
-    
-    
+
+
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
