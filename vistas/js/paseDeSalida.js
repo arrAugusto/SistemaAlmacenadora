@@ -1,83 +1,82 @@
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
-    if ($("#hiddenDateTimeVal").length >= 1) {
-        var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
-    } else {
-        var hiddenDateTimeVal = "NA";
-    }
-    console.log(hiddenDateTimeVal);
-    var hiddenvalorDoll = document.getElementById("hiddenvalorDoll").value;
-    var hiddentCambio = document.getElementById("hiddentCambio").value;
-    var hiddencif = document.getElementById("hiddencif").value;
-    var hiddencif = parseFloat(hiddencif).toFixed(2);
-    var hiddenimpuestos = document.getElementById("hiddenimpuestos").value;
-    var hiddenbultos = document.getElementById("hiddenbultos").value;
-    var hiddenpeso = document.getElementById("hiddenpeso").value;
-    var valorDoll = document.getElementById("valorDoll").value;
-    var tCambio = document.getElementById("tCambio").value;
-    var cif = document.getElementById("cif").value;
-    var cif = parseFloat(cif).toFixed(2);
-    var impuestos = document.getElementById("impuestos").value;
-    var bultos = document.getElementById("bultos").value;
-    var peso = document.getElementById("peso").value;
-    if (hiddenvalorDoll == valorDoll && hiddentCambio == tCambio && hiddencif == cif && hiddenimpuestos == impuestos && hiddenbultos == bultos && hiddenpeso == peso) {
-        var $contador = 0;
-    } else if (hiddenvalorDoll !== valorDoll || hiddentCambio !== tCambio || hiddencif !== cif || hiddenimpuestos !== impuestos || hiddenbultos !== bultos || hiddenpeso !== peso) {
-        var $contador = 1;
-    }
-    if ($contador == 0) {
-        document.getElementById("divCalculoHistoria").innerHTML = ``;
-        var idRetCal = $(this).attr("idRet");
-        var idIngresoCal = $(this).attr("idIngreso");
+    var idRetCal = $(this).attr("idRet");
+    var respRemplazoValRet = await remplazoDataRet(idRetCal);
+    console.log(respRemplazoValRet);
+    if (respRemplazoValRet[0]["resp"] == 1) {
 
-        var datos = new FormData();
-        datos.append("idRetDatosGen", idRetCal);
-        //   datos.append("hiddenDateTimeVal", hiddenDateTimeVal);
-        $.ajax({
-            async: false,
-            url: "ajax/paseDeSalida.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function (respuestaDetalle) {
-
-                console.log(respuestaDetalle);
-                var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
-                var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
-                var numeroPoliza = respuestaDetalle[0]["numPol"];
-                var fechaIng = respuestaDetalle[0]["fechaIng"];
-                var polizaRetiro = respuestaDetalle[0]["polRetiro"];
-                var fechaSalida = respuestaDetalle[0]["fechaSalida"];
-                polizaRetiroRev = respuestaDetalle[0]["polRetiro"];
-                var datos = new FormData();
-                datos.append("idRetCal", idRetCal);
-                datos.append("idIngresoCal", idIngresoCal);
-                datos.append("hiddenDateTimeVal", hiddenDateTimeVal);
-                $.ajax({
-                    async: false,
-                    url: "ajax/paseDeSalida.ajax.php",
-                    method: "POST",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: "json",
-                    success: async function (respuesta) {
-                        var respValRet = await funcGuardarValRet();
-                        console.log(respuesta);
-
-                        listaPushDefault = [];
-                        var tiempoTotal = respuesta['tiempoTotal'];
-                        var zonaAduana = respuesta['zonaAduanMSuperior'];
-                        var almacenaje = respuesta['almaMSuperior'];
-                        var manejo = respuesta['calculoManejo'];
-                        var gstosAdmin = respuesta['gtoAdminMSuperior'];
-                        var fechaCorte = respuesta['fechaCorte'];
-                        var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'];
-                        document.getElementById("divCalculoHistoria").innerHTML = `
+        if ($("#hiddenDateTimeVal").length >= 1) {
+            var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
+        } else {
+            var hiddenDateTimeVal = "NA";
+        }
+        console.log(hiddenDateTimeVal);
+        var hiddenvalorDoll = document.getElementById("hiddenvalorDoll").value;
+        var hiddentCambio = document.getElementById("hiddentCambio").value;
+        var hiddencif = document.getElementById("hiddencif").value;
+        var hiddencif = parseFloat(hiddencif).toFixed(2);
+        var hiddenimpuestos = document.getElementById("hiddenimpuestos").value;
+        var hiddenbultos = document.getElementById("hiddenbultos").value;
+        var hiddenpeso = document.getElementById("hiddenpeso").value;
+        var valorDoll = document.getElementById("valorDoll").value;
+        var tCambio = document.getElementById("tCambio").value;
+        var cif = document.getElementById("cif").value;
+        var cif = parseFloat(cif).toFixed(2);
+        var impuestos = document.getElementById("impuestos").value;
+        var bultos = document.getElementById("bultos").value;
+        var peso = document.getElementById("peso").value;
+        if (hiddenvalorDoll == valorDoll && hiddentCambio == tCambio && hiddencif == cif && hiddenimpuestos == impuestos && hiddenbultos == bultos && hiddenpeso == peso) {
+            var $contador = 0;
+        } else if (hiddenvalorDoll !== valorDoll || hiddentCambio !== tCambio || hiddencif !== cif || hiddenimpuestos !== impuestos || hiddenbultos !== bultos || hiddenpeso !== peso) {
+            var $contador = 1;
+        }
+        if ($contador == 0) {
+            document.getElementById("divCalculoHistoria").innerHTML = ``;
+            var idIngresoCal = $(this).attr("idIngreso");
+            var datos = new FormData();
+            datos.append("idRetDatosGen", idRetCal);
+            //datos.append("hiddenDateTimeVal", hiddenDateTimeVal);
+            $.ajax({
+                async: false,
+                url: "ajax/paseDeSalida.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (respuestaDetalle) {
+                    var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
+                    var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
+                    var numeroPoliza = respuestaDetalle[0]["numPol"];
+                    var fechaIng = respuestaDetalle[0]["fechaIng"];
+                    var polizaRetiro = respuestaDetalle[0]["polRetiro"];
+                    var fechaSalida = respuestaDetalle[0]["fechaSalida"];
+                    polizaRetiroRev = respuestaDetalle[0]["polRetiro"];
+                    var datos = new FormData();
+                    datos.append("idRetCal", idRetCal);
+                    datos.append("idIngresoCal", idIngresoCal);
+                    datos.append("hiddenDateTimeVal", hiddenDateTimeVal);
+                    $.ajax({
+                        async: false,
+                        url: "ajax/paseDeSalida.ajax.php",
+                        method: "POST",
+                        data: datos,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        dataType: "json",
+                        success: async function (respuesta) {
+                            var respValRet = await funcGuardarValRet();
+                            listaPushDefault = [];
+                            var tiempoTotal = respuesta['tiempoTotal'];
+                            var zonaAduana = respuesta['zonaAduanMSuperior'];
+                            var almacenaje = respuesta['almaMSuperior'];
+                            var manejo = respuesta['calculoManejo'];
+                            var gstosAdmin = respuesta['gtoAdminMSuperior'];
+                            var fechaCorte = respuesta['fechaCorte'];
+                            var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'];
+                            document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
                                     <div class="col-12">
@@ -153,199 +152,216 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                         <h5 class="widget-user-desc">Piloto(s) y Unidad(es)</h5>
                                     </div>
                                     <div class="card-footer p-0">
-                                    <div id="ListaSelect"></div>
-                        
-        
+                                    <div class="card-body" id="ListaSelect">
+                            
                                     </div>
                                 </div>
-                                <div class="mt-4 pull-right">
-                                    <div class="btn-group mt-4">
-                                        <button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusOtrosServicios">Otros : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanOtro"></b></span></button>
-                                        <button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button>
-                                        <button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button>
-                                        <button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button>
-                                    </div>
-                                <div class="btn btn-primary btn-lg btn-flat" id="imprimirReciboAlmacenaje" idRet= ` + idRetCal + `>
-                                    <i class="fa fa-print fa-lg mr-2"></i>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusOtrosServicios">Otros : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanOtro"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-2">                                <div class="btn btn-primary btn-lg btn-flat" id="imprimirReciboAlmacenaje" idRet= ` + idRetCal + `>
+                                        <i class="fa fa-print fa-lg mr-2"></i>
                                         Imprimir Recibo
-                                </div>
-                                <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
+                                    </div>
+                                    </div>
+                        
+                                    <div class="col-sm-12 col-lg-2">
+                                 <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
                                     <i class="fa fa-print fa-lg mr-2"></i>
                                     Imprimir Retiro
+                                </div>  
                                 </div>
+                                <div class="col-sm-12 col-lg-2">
                                 <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
-Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
+                                    Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
                                 </div>                        
-                            </div>                        
+                            </div>                           
+                                </div>
                         </div>`;
-                        $(function () {
-                            $('#dateTime').daterangepicker({
-                                singleDatePicker: true,
-                                locale: {
-                                    format: 'DD-MM-YYYY'
-                                }
-                            }, function (start, end, label) {
-                                var tiempo = start.format('YYYY-MM-DD hh:mm A');
-                                var tiempoVal = start.format('YYYY-MM-DD');
-                                document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+                            $(function () {
+                                $('#dateTime').daterangepicker({
+                                    singleDatePicker: true,
+                                    locale: {
+                                        format: 'DD-MM-YYYY'
+                                    }
+                                }, function (start, end, label) {
+                                    var tiempo = start.format('YYYY-MM-DD hh:mm A');
+                                    var tiempoVal = start.format('YYYY-MM-DD');
+                                    document.getElementById("hiddenDateTimeVal").value = tiempoVal;
 
-                                $("#dateTime").val(fechaCorte);
+                                    $("#dateTime").val(fechaCorte);
+                                });
                             });
-                        });
 
-                        setTimeout(function () {
-                            $("#dateTime").val(fechaCorte);
-                        }, 1000);
-
-                        document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
-                        document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
-                        document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
-                        document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
-                        document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
-                        formatNumber("factTNormal");
-                        formatNumber("ZonaAd");
-                        formatNumber("AlmNormal");
-                        formatNumber("calcmanejo");
-                        formatNumber("calcGstAdmin");
-                        $('.select2').select2();
-                        totalCobrar();
-                        $(".close").click();
-                        Swal.fire({
-                            title: "Asignacion Fecha Hoy",
-                            text: "¡Cambie de fecha si necesita hacerlo !",
-                            type: 'warning',
-
-                            confirmButtonColor: '#3085d6',
-
-                            confirmButtonText: 'Ok',
-                        }).then((result) => {
-                            if (result.value) {
-
+                            setTimeout(function () {
                                 $("#dateTime").val(fechaCorte);
-                            }
-                        })
-                    },
-                    error: function (respuesta) {
-                        console.log(respuesta);
-                    }
-                });
+                            }, 1000);
+                            document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
+                            document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
+                            document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
+                            document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
+                            document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
+                            formatNumber("factTNormal");
+                            formatNumber("ZonaAd");
+                            formatNumber("AlmNormal");
+                            formatNumber("calcmanejo");
+                            formatNumber("calcGstAdmin");
+                            $('.select2').select2();
+                            totalCobrar();
+                            $(".close").click();
+                            Swal.fire({
+                                title: "Asignacion Fecha Hoy",
+                                text: "¡Cambie de fecha si necesita hacerlo !",
+                                type: 'warning',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok',
+                            }).then(async function (result) {
+                                if (result.value) {
+                                    $("#dateTime").val(fechaCorte);
+                                    var idMasPilotos = idRetCal;
+                                    var nomVar = "todasUnidades";
+                                    var respTodosPlt = await editarPiloto(nomVar, idMasPilotos);
+                                    console.log(respTodosPlt);
+                                    if (respTodosPlt != "SD") {
+                                        for (var i = 0; i < respTodosPlt.length; i++) {
+                                            var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
+                                            var numeroLicenciaPlus = respTodosPlt[i].licPiloto;
+                                            var numeroPlacaPlusUn = respTodosPlt[i].placaUnidad;
+                                            var numeroContenedorPlusUn = respTodosPlt[i].contenedorUnidad;
+                                            console.log(respTodosPlt[i].Identity);
+                                            if (respTodosPlt[i].estadoUnidad == 0) {
+                                                var button = '<button type="button" class="btn btn-dark btnInactivo" numIdentUn="' + respTodosPlt[i].Identity + '" >Eliminado</button>';
+                                            }
+                                            if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1 || respTodosPlt[i].estadoUnidad == 2) {
+                                                var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
 
-
-
-
-            },
-            error: function (respuesta) {
-                console.log(respuesta);
-            }
-        });
-
-        var revDato = await revDatosExtras(polizaRetiroRev);
-        console.log(revDato);
-        if (revDato != false) {
-            formatNumber("ZonaAdCalculo");
-            formatNumber("AlmNormalCalculo");
-            formatNumber("calcmanejoCalculo");
-            formatNumber("calcGstAdminCalculo");
-            formatNumber("detalleOtrosCalculo");
-            formatNumber("totalCobrarCalc");
-            var TotalDescuento = "";
-            if (revDato != "SD") {
-
-
-                if (revDato.descuentoCalc != 0) {
-                    var desc = revDato.descuentoCalc[0].descuento;
-                    if (revDato.descuentoCalc[0].tipoOp == 0) {
-                        document.getElementById("hiddenTipoOP").value = 0;
-                        document.getElementById("hiddenDescuento").value = revDato.descuentoCalc[0].descuentoPercent;
-                        document.getElementById("valDescuento").value = desc;
-                        document.getElementById("spanDescuentos").innerHTML = desc;
-                    }
-                    if (revDato.descuentoCalc[0].tipoOp == 1) {
-                        document.getElementById("hiddenTipoOP").value = 1;
-                        document.getElementById("hiddenDescuento").value = revDato.descuentoCalc[0].descuentoPercent;
-                        document.getElementById("valDescuento").value = desc;
-                        document.getElementById("spanDescuentos").innerHTML = desc;
-                    }
+                                            }
+                                            $("#ListaSelect").append(`
+                <div class="input-group mb-3" id="divUnidadExt` + respTodosPlt[0].Identity + `">
+                <div class="input-group-prepend">
+           ` + button + `
+                </div>
+                  <!-- /btn-group -->
+                  <input type="text" class="form-control" id="texToEmpresaVal` + respTodosPlt[0].Identity + `" value="` + nombrePilotoPlusUn + ` - ` + numeroLicenciaPlus + ` - ` + numeroPlacaPlusUn + ` - ` + numeroContenedorPlusUn + `" />
+                </div>`);
+                                        }
+                                    }
+                                }
+                            })
+                        },
+                        error: function (respuesta) {
+                            console.log(respuesta);
+                        }
+                    });
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
                 }
-                if (revDato.descuentoCalc != 0) {
-                    var desc = revDato.descuentoCalc[0].descuento;
-                    if (revDato.descuentoCalc[0].tipoOp == 0) {
-                        document.getElementById("trDescuento").innerHTML = `
+            });
+            var revDato = await revDatosExtras(polizaRetiroRev);
+            console.log(revDato);
+            if (revDato == false) {
+                toastr.options = {
+                    "closeButton": false,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": false,
+                    "positionClass": "toast-top-full-width",
+                    "preventDuplicates": true,
+                    "onclick": null,
+                    "showDuration": "400",
+                    "hideDuration": "2000",
+                    "timeOut": "8000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                }
+                Command: -toastr["error"]("¡ Error existen datos con diferencia en la difitacion revise !");
+            }
+            if (revDato == true) {
+                formatNumber("ZonaAdCalculo");
+                formatNumber("AlmNormalCalculo");
+                formatNumber("calcmanejoCalculo");
+                formatNumber("calcGstAdminCalculo");
+                formatNumber("detalleOtrosCalculo");
+                formatNumber("totalCobrarCalc");
+                var TotalDescuento = "";
+                if (revDato != "SD") {
+                    if (revDato.descuentoCalc != 0) {
+                        var desc = revDato.descuentoCalc[0].descuento;
+                        if (revDato.descuentoCalc[0].tipoOp == 0) {
+                            document.getElementById("hiddenTipoOP").value = 0;
+                            document.getElementById("hiddenDescuento").value = revDato.descuentoCalc[0].descuentoPercent;
+                            document.getElementById("valDescuento").value = desc;
+                            document.getElementById("spanDescuentos").innerHTML = desc;
+                        }
+                        if (revDato.descuentoCalc[0].tipoOp == 1) {
+                            document.getElementById("hiddenTipoOP").value = 1;
+                            document.getElementById("hiddenDescuento").value = revDato.descuentoCalc[0].descuentoPercent;
+                            document.getElementById("valDescuento").value = desc;
+                            document.getElementById("spanDescuentos").innerHTML = desc;
+                        }
+                    }
+                    if (revDato.descuentoCalc != 0) {
+                        var desc = revDato.descuentoCalc[0].descuento;
+                        if (revDato.descuentoCalc[0].tipoOp == 0) {
+                            document.getElementById("trDescuento").innerHTML = `
                     
                                                      
                                                 <th>Descuentos :</th>
                                                    <td id="thDescuento" style="color:red;">(` + desc + `)</td>
                                            `;
 
-                    }
-                    if (revDato.descuentoCalc[0].tipoOp == 1) {
-                        document.getElementById("trDescuento").innerHTML = `
+                        }
+                        if (revDato.descuentoCalc[0].tipoOp == 1) {
+                            document.getElementById("trDescuento").innerHTML = `
                                         
                                                    
                                                 <th>Descuentos :</th>
                                                    <td id="thDescuento" style="color:red;">(` + desc + `)</td>
                                             `;
+                        }
                     }
-                }
-                var totalOtros = 0;
-                var serviciosExtras = 0;
-                var montoDefault = 0;
-                document.getElementById("divOtrosServicios").innerHTML = "";
-                document.getElementById("divServiciosDefault").innerHTML = "";
-                var contadorSer = 0;
-                var contador = 0;
+                    var totalOtros = 0;
+                    var serviciosExtras = 0;
+                    var montoDefault = 0;
+                    document.getElementById("divOtrosServicios").innerHTML = "";
+                    document.getElementById("divServiciosDefault").innerHTML = "";
+                    var contadorSer = 0;
+                    var contador = 0;
 
-                for (var i = 0; i < revDato.servPrestados.length; i++) {
-                    var selectOtrosServ = revDato.servPrestados[i].idServicio;
-                    var montoOtroServicio = revDato.servPrestados[i].montoServicio;
-                    if (revDato.servPrestados[i].tipo == 0) {
-                        var contadorSer = contadorSer + 1;
-                        var selected = revDato.servPrestados[i].otrosServicios;
-                        var serviciosExtras = serviciosExtras + revDato.servPrestados[i].montoServicio;
-                        $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                    for (var i = 0; i < revDato.servPrestados.length; i++) {
+                        var selectOtrosServ = revDato.servPrestados[i].idServicio;
+                        var montoOtroServicio = revDato.servPrestados[i].montoServicio;
+                        if (revDato.servPrestados[i].tipo == 0) {
+                            var contadorSer = contadorSer + 1;
+                            var selected = revDato.servPrestados[i].otrosServicios;
+                            var serviciosExtras = serviciosExtras + revDato.servPrestados[i].montoServicio;
+                            $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                        }
+                        if (revDato.servPrestados[i].tipo == 1) {
+                            var contador = contador + 1;
+                            var selected = revDato.servPrestados[i].servicioDefault;
+                            $("#divServiciosDefault").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarServDefault" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoSerDefaultText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                            var montoDefault = montoDefault + revDato.servPrestados[i].montoServicio;
+                        }
                     }
-                    if (revDato.servPrestados[i].tipo == 1) {
-                        var contador = contador + 1;
-                        var selected = revDato.servPrestados[i].servicioDefault;
-                        $("#divServiciosDefault").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarServDefault" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoSerDefaultText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
-                        var montoDefault = montoDefault + revDato.servPrestados[i].montoServicio;
-                    }
+                    document.getElementById("spanServicios").innerHTML = montoDefault;
+                    document.getElementById("spanOtro").innerHTML = serviciosExtras;
+                    document.getElementById("thAlteracion").innerHTML = montoDefault;
+                    document.getElementById("detalleOtros").innerHTML = serviciosExtras;
+                    document.getElementById("hiddenOtros").value = serviciosExtras;
+                    document.getElementById("serviciosDefTotal").value = montoDefault;
+                    totalCobrar();
                 }
-                document.getElementById("spanServicios").innerHTML = montoDefault;
-                document.getElementById("spanOtro").innerHTML = serviciosExtras;
-                document.getElementById("thAlteracion").innerHTML = montoDefault;
-                document.getElementById("detalleOtros").innerHTML = serviciosExtras;
-                document.getElementById("hiddenOtros").value = serviciosExtras;
-                document.getElementById("serviciosDefTotal").value = montoDefault;
-                totalCobrar();
-
             }
-
-
-
         }
-
-    } else if ($contador == 1) {
-        toastr.options = {
-            "closeButton": false,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": false,
-            "positionClass": "toast-top-full-width",
-            "preventDuplicates": true,
-            "onclick": null,
-            "showDuration": "400",
-            "hideDuration": "2000",
-            "timeOut": "8000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        }
-        Command: -toastr["error"]("¡ Error existen datos con diferencia en la difitacion revise !");
     }
-
 });
 
 function funcGuardarValRet() {
@@ -355,7 +371,7 @@ function funcGuardarValRet() {
     var impts = document.getElementById("hiddenimpuestos").value;
     var cantBultos = document.getElementById("hiddenbultos").value;
     var peso = document.getElementById("hiddenpeso").value;
-    
+
 }
 
 
@@ -387,33 +403,37 @@ function revDatosExtras(polizaRetiroRev) {
 
 }
 
-$(document).on("click", ".btnConsultDataConfirm", function () {
+$(document).on("click", ".btnConsultDataConfirm", async function () {
+
+
+
     document.getElementById("valorDoll").value = "";
     document.getElementById("tCambio").value = "";
     document.getElementById("cif").value = "";
     document.getElementById("impuestos").value = "";
     document.getElementById("bultos").value = "";
     document.getElementById("peso").value = "";
-    
+
     $("#valorDoll").removeClass('is-valid');
     $("#valorDoll").addClass('is-invalid');
-    
+
     $("#tCambio").removeClass('is-valid');
     $("#tCambio").addClass('is-invalid');
-    
+
     $("#cif").removeClass('is-valid');
     $("#cif").addClass('is-invalid');
-    
+
     $("#impuestos").removeClass('is-valid');
     $("#impuestos").addClass('is-invalid');
-    
+
     $("#bultos").removeClass('is-valid');
     $("#bultos").addClass('is-invalid');
-    
+
     $("#peso").removeClass('is-valid');
     $("#peso").addClass('is-invalid');
-    
     var idNumRetConsult = $(this).attr("idret");
+
+
     var idNumIng = $(this).attr("idIngreso");
     var datos = new FormData();
     document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
@@ -454,13 +474,51 @@ $(document).on("click", ".btnConsultDataConfirm", function () {
             document.getElementById("spanimpuestos").innerHTML = respuesta[0].impts;
             document.getElementById("spanpeso").innerHTML = respuesta[0].peso;
             document.getElementById("spanbultos").innerHTML = respuesta[0].cantBultos;
-
         },
         error: function (respuesta) {
             console.log(respuesta);
         }
     })
+
 });
+
+function remplazoDataRet(idNumRetConsult) {
+    let resp;
+    var valorDoll = document.getElementById("valorDoll").value;
+    var tCambio = document.getElementById("tCambio").value;
+    var cif = document.getElementById("cif").value;
+    var impuestos = document.getElementById("impuestos").value;
+    var bultos = document.getElementById("bultos").value;
+    var peso = document.getElementById("peso").value;
+    var datos = new FormData();
+    datos.append("valorDollReplace", valorDoll);
+    datos.append("tCambioReplace", tCambio);
+    datos.append("cifReplace", cif);
+    datos.append("impuestosReplace", impuestos);
+    datos.append("bultosReplace", bultos);
+    datos.append("pesoReplace", peso);
+    datos.append("idNumRetConsultReplace", idNumRetConsult);
+
+    $.ajax({
+        async: false,
+        url: "ajax/paseDeSalida.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            resp = respuesta;
+            console.log(respuesta);
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+
+    })
+    return resp;
+
+}
 $(document).on("change", "#valorDoll", function () {
     var valDolIngresado = $(this).val();
     var valIng = parseFloat(valDolIngresado);
@@ -1115,6 +1173,7 @@ $(document).on("click", ".btnDescuento", async function () {
 $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
     //Retiro
     var idRet = $(this).attr("idRet");
+
     //Ingreso 
     var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
     //Otros servicios
@@ -1235,7 +1294,6 @@ function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, lis
     datos.append("valDescuentoGdRec", valDescuento);
     datos.append("hiddenDescuentoGdRec", hiddenDescuento);
     datos.append("hiddenDateTimeValRecEle", hiddenDateTimeVal);
-    console.log("dentroDeLaFuncion");
     $.ajax({
         async: false,
         url: "ajax/paseDeSalida.ajax.php",
@@ -1305,19 +1363,35 @@ function limpiarValoresDigitados() {
 $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
     //Retiro
     var idRet = $(this).attr("idret");
-    var nomVar = "idRetAutorizado";
-    Swal.fire({
-        title: '¿Desea Autorizar Salida?',
-        text: "Si autoriza el retiro el piloto podra salir de la almacenadora",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No, Cancelar',
-        confirmButtonText: 'Si, Autorizo!'
-    }).then((result) => {
-        guardarRetiroRegistroSal(idRet, nomVar);
-    })
+    var nomVar = "paseSalRetVal";
+    var resp = await AjaxUnParam(idRet, nomVar);
+    if (resp) {
+        var nomVar = "idRetAutorizado";
+        Swal.fire({
+            title: '¿Desea Autorizar Salida?',
+            text: "Si autoriza el retiro el piloto podra salir de la almacenadora",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            cancelButtonText: 'No, Cancelar',
+            confirmButtonText: 'Si, Autorizo!'
+        }).then((result) => {
+            guardarRetiroRegistroSal(idRet, nomVar);
+
+        })
+    } else {
+        Swal.fire({
+            title: 'Retiro sin piloto',
+            text: "No se registro ningun transporte en el retiro, registre el piloto",
+            type: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        }).then((result) => {
+            $("#idbtnMasPilotos").click();
+
+        })
+    }
 })
 
 async function guardarRetiroRegistroSal(idRet, nomVar) {

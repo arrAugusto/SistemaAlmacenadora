@@ -1823,7 +1823,6 @@ $(document).on("click", ".btnMasPilotos", async function () {
     $("#btnGuardaNuevaUnidad").removeClass("btnGuardaNuevaUnidadPlus");
     $("#btnGuardaNuevaUnidad").removeClass("btnEditarUnidadPlus");
     $("#btnGuardaNuevaUnidad").addClass("btnGuardaNuevaUnidadPlus");
-
     $("#btnGuardaNuevaUnidad").removeClass("btn-warning");
     $("#btnGuardaNuevaUnidad").removeClass("btn-info");
     $("#btnGuardaNuevaUnidad").addClass("btn-info");
@@ -1842,7 +1841,7 @@ $(document).on("click", ".btnMasPilotos", async function () {
             if (respTodosPlt[i].estadoUnidad == 0) {
                 var button = '<button type="button" class="btn btn-dark btnInactivo" numIdentUn="' + respTodosPlt[i].Identity + '" >Eliminado</button>';
             }
-            if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1) {
+            if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1 || respTodosPlt[i].estadoUnidad == 2) {
                 var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
 
             }

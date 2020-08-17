@@ -66,9 +66,9 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                                     ?>
                                     </tr>
                                 </thead> <tbody>
-<?php
-$respuesta = ControladorPasesDeSalida::ctrListarRetiros();
-?>
+                                    <?php
+                                    $respuesta = ControladorPasesDeSalida::ctrListarRetiros();
+                                    ?>
                                 </tbody>
                             </table>
                         </div>
@@ -112,7 +112,7 @@ $respuesta = ControladorPasesDeSalida::ctrListarRetiros();
                         <label>Total Val. Aduana * Tasa de Cambio</label>   
                         <input type="number" class="form-control is-invalid" id="cif" placeholder="Ejemplo : 309823.49" value=""/>
                         <span class="badge bg-danger pull-right" id="spancif" style="display: none;"></span>                        
-                        
+
                     </div>
                     <div class="col-4 mt-4">
                         <label>Total General (DAI+IVA)</label>
@@ -124,7 +124,7 @@ $respuesta = ControladorPasesDeSalida::ctrListarRetiros();
                         <label>Peso Bruto Total KG</label>
                         <input type="number" class="form-control is-invalid" id="peso" placeholder="Ejemplo : 524.25" value=""/>
                         <span class="badge bg-danger pull-right" id="spanpeso" style="display: none;"></span>                        
-                        
+
                     </div>
                     <div class="col-4 mt-4">
                         <label>Total de Bultos en Póliza</label>
@@ -194,9 +194,9 @@ $respuesta = ControladorPasesDeSalida::ctrListarRetiros();
                         </label>
                         <select class="form-control select2" id="selectOtrosServ"style="width: 100%;">
                             <option selected="selected" disabled="disabled">Seleccione el servicio</option>
-<?php
-$respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServicios();
-?>
+                            <?php
+                            $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServicios();
+                            ?>
                         </select>
                     </div>
                     <div class="col-md-6">
@@ -246,9 +246,9 @@ $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServicios();
                             </label>
                             <select class="form-control select2" id="selectOtrosServDefault"style="width: 100%;">
                                 <option selected="selected" disabled="disabled">Seleccione el servicio</option>
-<?php
-$respuesta = ControladorPasesDeSalida::ctrMostrarServiciosDefault();
-?>
+                                <?php
+                                $respuesta = ControladorPasesDeSalida::ctrMostrarServiciosDefault();
+                                ?>
                             </select>
                         </div>
                         <div class="col-md-6">

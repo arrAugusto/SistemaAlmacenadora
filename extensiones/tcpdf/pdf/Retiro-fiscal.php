@@ -14,8 +14,9 @@ class imprimirIngresoBodega {
     public function pdfDatosRetiro() {
 // TRAER DATOS DE INGRESO
         $retiroF = $this->retiroF;
-
+        
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
+
         $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($retiroF);
         $tipo = 1;
         $respAuxRebaja = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);

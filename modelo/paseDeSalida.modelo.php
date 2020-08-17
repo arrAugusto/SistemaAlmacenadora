@@ -19,9 +19,9 @@ class ModeloPasesDeSalida {
                     $resultsData = [];
                     $idIngreso = $values["idIngOp"];
                     $identificaRet = $values["identificaRet"];
-             
+
                     $params = array(&$idIngreso, &$identificaRet);
-  
+
                     $sql = "EXECUTE spVerificaTarifa ?, ?";
                     $stmt = sqlsrv_prepare($conn, $sql, $params);
                     if (sqlsrv_execute($stmt) == true) {
@@ -322,8 +322,9 @@ class ModeloPasesDeSalida {
             return sqlsrv_errors();
         }
     }
-public static function mdlAuxiliares($retiroF, $tipo, $sp){
-          $conn = Conexion::Conectar();
+
+    public static function mdlAuxiliares($retiroF, $tipo, $sp) {
+        $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?";
         $params = array(&$retiroF, &$tipo);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -338,8 +339,9 @@ public static function mdlAuxiliares($retiroF, $tipo, $sp){
             }
         } else {
             return sqlsrv_errors();
-        }  
-}
+        }
+    }
+
     public static function mdlAgregarServicios($sp, $idRetCal, $serviciosOtros, $valorOtros) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
@@ -379,7 +381,30 @@ public static function mdlAuxiliares($retiroF, $tipo, $sp){
         }
     }
 
-
+    public static function mdlReplaceDataRet($sp, $datos, $replaceDataRet) {
+                $conn = Conexion::Conectar();
+        $bultosReplace = $datos["bultosReplace"];
+        $pesoReplace = $datos["pesoReplace"];
+        $tCambioReplace = $datos["tCambioReplace"];
+        $valorDollReplace = $datos["valorDollReplace"];
+        $cifReplace = $datos["cifReplace"];
+        $impuestosReplace = $datos["impuestosReplace"];
+        $params = array(&$replaceDataRet, &$bultosReplace, &$pesoReplace, &$tCambioReplace, &$valorDollReplace, &$cifReplace, &$impuestosReplace);
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?, ?';
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
 
 }
 

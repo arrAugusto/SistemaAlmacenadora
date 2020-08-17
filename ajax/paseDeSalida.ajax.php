@@ -66,7 +66,7 @@ class AjaxPasesDeSalida {
             "valDescuentoGdRec" => $valDescuentoGdRec = $this->valDescuentoGdRec,
             "hiddenDescuentoGdRec" => $hiddenDescuentoGdRec = $this->hiddenDescuentoGdRec,
             "hiddenDateTimeValRecEle" => $hiddenDateTimeValRecEle = $this->hiddenDateTimeValRecEle,
-            "usuarioOp"=>$usuarioOp);
+            "usuarioOp" => $usuarioOp);
         $respuesta = ControladorPasesDeSalida::ctrGuardarNuevoRecibo($datos);
         echo json_encode($respuesta);
     }
@@ -74,7 +74,7 @@ class AjaxPasesDeSalida {
     public $guardarRetiroMerca;
 
     public function ajaxGuardarRetiroMerca() {
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
 
         $idRetAutorizado = $this->idRetAutorizado;
@@ -87,6 +87,30 @@ class AjaxPasesDeSalida {
     public function ajaxMostrarSerExtra() {
         $revExtrasPol = $this->revExtrasPol;
         $respuesta = ControladorPasesDeSalida::ctrMostrarSerExtra($revExtrasPol);
+        echo json_encode($respuesta);
+    }
+
+    public $mostrarRetValidacion;
+
+    public function ajaxMostrarRetValidacion() {
+        $paseSalRetVal = $this->paseSalRetVal;
+        $respuesta = ControladorPasesDeSalida::ctrMostrarRetValidacion($paseSalRetVal);
+        echo json_encode($respuesta);
+    }
+
+    public $replaceDataRet;
+
+    public function ajaxReplaceDataRet() {
+        $replaceDataRet=$this->idNumRetConsultReplace;
+        $datos = array(
+            "valorDollReplace"=>$valorDollReplace = $this->valorDollReplace,
+            "tCambioReplace"=>$tCambioReplace=$this->tCambioReplace,
+            "cifReplace"=>$cifReplace = $this->cifReplace,
+            "impuestosReplace"=>$impuestosReplace = $this->impuestosReplace,
+            "bultosReplace"=>$bultosReplace = $this->bultosReplace,
+            "pesoReplace"=>$pesoReplace = $this->pesoReplace);
+        
+        $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
         echo json_encode($respuesta);
     }
 
@@ -135,4 +159,22 @@ if (isset($_POST["revExtrasPol"])) {
     $mostrarSerEx = new AjaxPasesDeSalida();
     $mostrarSerEx->revExtrasPol = $_POST["revExtrasPol"];
     $mostrarSerEx->ajaxMostrarSerExtra();
+}
+
+if (isset($_POST["paseSalRetVal"])) {
+    $mostrarRetValidacion = new AjaxPasesDeSalida();
+    $mostrarRetValidacion->paseSalRetVal = $_POST["paseSalRetVal"];
+    $mostrarRetValidacion->ajaxMostrarRetValidacion();
+}
+
+if (isset($_POST["valorDollReplace"])) {
+    $replaceDataRet = new AjaxPasesDeSalida();
+    $replaceDataRet->valorDollReplace = $_POST["valorDollReplace"];
+    $replaceDataRet->tCambioReplace = $_POST["tCambioReplace"];
+    $replaceDataRet->cifReplace = $_POST["cifReplace"];
+    $replaceDataRet->impuestosReplace = $_POST["impuestosReplace"];
+    $replaceDataRet->bultosReplace = $_POST["bultosReplace"];
+    $replaceDataRet->pesoReplace = $_POST["pesoReplace"];
+    $replaceDataRet->idNumRetConsultReplace=$_POST["idNumRetConsultReplace"];
+    $replaceDataRet->ajaxReplaceDataRet();
 }
