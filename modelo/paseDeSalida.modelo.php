@@ -63,6 +63,12 @@ class ModeloPasesDeSalida {
     }
 
     public static function mdlMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal) {
+                $spVeh = "spIngVehUsados";
+        $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
+        if ($respuestaRevertVeh[0]["resp"] == 1) {
+            $tipo = 1;
+            return "fin";
+        }
         $identRet = 0;
         $respuestaVerifica = ModeloCalculoDeAlmacenaje::mdlVerificarMostrarTarifa($idIngresoCal, $identRet);
 
@@ -355,7 +361,7 @@ class ModeloPasesDeSalida {
         }
     }
 
-    public static function mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $nuevafechaInicio, $fechaCorte, $usuarioOp) {
+    public static function mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $nuevafechaInicio, $fechaCorte, $usuarioOp, $revCuad) {
         $conn = Conexion::Conectar();
         /*  FORMATO DE FECHA INICIAL.  */
         $fechaIngreso = $nuevafechaInicio;
@@ -363,9 +369,9 @@ class ModeloPasesDeSalida {
         /*  FORMAT FECHA DE CORTE.  */
         $fechaCorteFormat = date("Y-m-d", strtotime($fechaCorte));
         $idRetCal = $idRetCal * 1;
-        $params = array(&$idRetCal, &$almaMSuperior, &$zonaAduanMSuperior, &$calculoManejo, &$gtoAdminMSuperior, &$usuarioOp);
+        $params = array(&$idRetCal, &$almaMSuperior, &$zonaAduanMSuperior, &$calculoManejo, &$gtoAdminMSuperior, &$usuarioOp, &$revCuad);
 
-        $sql = "EXECUTE spGdServCobrados ?, ?, ?, ?, ?, ?";
+        $sql = "EXECUTE spGdServCobrados ?, ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

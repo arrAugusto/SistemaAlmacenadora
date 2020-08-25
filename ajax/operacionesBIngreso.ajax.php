@@ -433,6 +433,13 @@ class AjaxOperacionesBIngreso {
         echo json_encode($respuesta);
         
     }
+    public $mostValParaDet;
+    public function ajaxMostrarValDeDetalles(){
+        $idIngValDet = $this->idIngValDet;
+        $respuesta = ControladorOpB::ctrMostrarValDeDetalles($idIngValDet);
+        echo json_encode($respuesta);
+        
+    }
 
 }
 
@@ -724,4 +731,10 @@ if (isset($_POST["listaNoEncontrada"])) {
     $gdListaNoEncontrada = new AjaxOperacionesBIngreso();
     $gdListaNoEncontrada->listaNoEncontrada = $_POST["listaNoEncontrada"];
     $gdListaNoEncontrada->ajaxGuardarListaNoEncontrada();
+}
+if (isset($_POST["idIngValDet"])) {
+    $mostValParaDet = new AjaxOperacionesBIngreso();
+    $mostValParaDet -> idIngValDet =$_POST["idIngValDet"];
+    $mostValParaDet -> ajaxMostrarValDeDetalles();
+    
 }

@@ -54,8 +54,6 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                                     <th>Nombre de Empresa</th>
                                     <th>Poliza Ing</th>
                                     <th>Poliza Ret</th>
-                                    <th>Ingreso</th>
-                                    <th>Retiro</th>
                                     <th>Bultos</th>
                                     <th>Peso</th>
                                     <th>Servicio</th>
@@ -140,7 +138,9 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                     <input type="hidden" id="hiddenpeso" value="">
                     <input type="hidden" id="hiddenOtros" value="">
                     <input type="hidden" id="spanTotalC" value="">
-                    <input type="hidden" id="hiddenZonaAduana" value="">                    
+                    <input type="hidden" id="hiddenZonaAduana" value="">  
+                  
+                    <input type="hidden" id="hiddenRevision" value="">                     
                     <input type="hidden" id="hiddenAlmacenaje" value="">                    
                     <input type="hidden" id="hiddenManejo" value="">                    
                     <input type="hidden" id="hiddenGstosAdmin" value="">                    

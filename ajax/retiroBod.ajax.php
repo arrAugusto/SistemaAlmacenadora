@@ -123,10 +123,31 @@ echo json_encode($estado);
     public $editMarchamoSal;
 
     public function ajaxEditMarchamoPlt() {
+                        session_start();
+        $usuarioOp = $_SESSION["id"];
+        $idRetNewMarc = $this->idRetEditMar;
         $idPltEdit = $this->idPltEdit;
         $marchamoEdit = $this->marchamoEdit;
-        $respuesta = ControladorRetirosBodega::ctrEditMarchamoPlt($idPltEdit, $marchamoEdit);
-        echo json_encode($respuesta);
+        $guardarMarchamo = ControladorRetirosBodega::ctrEditMarchamoPlt($idPltEdit, $marchamoEdit);
+        if ($guardarMarchamo[0]["resp"] == 1) {
+            $estado = true;
+        }else{
+            $estado = false;
+        }
+        
+         $respRev = ControladorRetirosBodega::ctrNewMarchamoPlt($idRetNewMarc, $usuarioOp);
+
+         if ($respRev==true) {
+            
+            $respRet = ModeloRetirosBodega::mdlGuardaDetalleRet($idRetNewMarc, $usuarioOp);
+
+            if ($respRet == "oksReb") {
+                $estado = true;
+            }
+        }
+            echo json_encode($estado);
+       
+        
     }
 
     public $trashMarchamoSal;
@@ -203,6 +224,7 @@ if (isset($_POST["idRetPltNew"])) {
 
 if (isset($_POST["idPltEdit"])) {
     $editMarchamoSal = new AjaxRetiroBodega();
+    $editMarchamoSal->idRetEditMar=$_POST["idRetEditMar"];
     $editMarchamoSal->idPltEdit = $_POST["idPltEdit"];
     $editMarchamoSal->marchamoEdit = $_POST["marchamoEdit"];
     $editMarchamoSal->ajaxEditMarchamoPlt();

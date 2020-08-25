@@ -5,13 +5,16 @@ class ControladorContabilidadDeRet {
     public static function ctrListarRetiros($tipo, $NavegaNumB) {
 
         $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientes($tipo, $NavegaNumB);
+        var_dump($respuesta);
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
+                $numIng = $value["idIngOp"];
+                $identRet = $value["identRet"];
                 if ($tipo == 4) {
-                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button"><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fas fa-file-excel"></i></button><button type="button"  class="btn btn-outline-dark btnSelectMultiple btn-sm" idRet=' . $value["identificaRet"] . ' estado=0><i class="fas fa-close"></i></button><div class="btn-group"><button type="button" class="btn btn-outline-danger btn-sm btnContabilizarRet" idRet=' . $value["identificaRet"] . '><i class="fa fa-thumbs-down"></i></button></div>';
+                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonid="'.$numIng.'" class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" class="btn btn-outline-primary btn-sm" id="imprimirReciboAlmacenaje" idRet="'.$identRet.'">Rec.</i></button><button type="button"  class="btn btn-outline-dark btnSelectMultiple btn-sm" idRet=' . $value["identificaRet"] . ' estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" class="btn btn-outline-danger btn-sm btnContabilizarRet" idRet=' . $value["identificaRet"] . '><i class="fa fa-thumbs-down"></i></button></div>';
                 }
                 if ($tipo == 5) {
-                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button"><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fas fa-file-excel"></i></button><button type="button"  class="btn btn-outline-dark btnSelectMultiple btn-sm" idRet=' . $value["identificaRet"] . ' estado=0><i class="fas fa-close"></i></button><div class="btn-group"><button type="button" class="btn btn-outline-primary btn-sm btnDescontabilizar" idRet=' . $value["identificaRet"] . '><i class="fa fa-thumbs-up"></i></button></div>';
+                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonid="'.$numIng.'" class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button"  class="btn btn-outline-dark btnSelectMultiple btn-sm" idRet=' . $value["identificaRet"] . ' estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" class="btn btn-outline-primary btn-sm btnDescontabilizar" idRet=' . $value["identificaRet"] . '><i class="fa fa-thumbs-up"></i></button></div>';
                 }
 
                 echo '

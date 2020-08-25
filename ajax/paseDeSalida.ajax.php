@@ -76,7 +76,6 @@ class AjaxPasesDeSalida {
     public function ajaxGuardarRetiroMerca() {
         session_start();
         $usuarioOp = $_SESSION["id"];
-
         $idRetAutorizado = $this->idRetAutorizado;
         $respuesta = ControladorPasesDeSalida::ctrGuardarRetiroMerca($idRetAutorizado, $usuarioOp);
         echo json_encode($respuesta);
@@ -102,13 +101,26 @@ class AjaxPasesDeSalida {
 
     public function ajaxReplaceDataRet() {
         $replaceDataRet=$this->idNumRetConsultReplace;
+        $valorDollReplace = $this->valorDollReplace;
+        $valorDollReplace = $valorDollReplace*1;   
+        $tCambioReplace=$this->tCambioReplace;
+        $tCambioReplace=$tCambioReplace*1;
+        $cifReplace = $this->cifReplace;
+        $cifReplace = $cifReplace*1;
+        $impuestosReplace = $this->impuestosReplace;
+        $impuestosReplace = $impuestosReplace*1;
+        $bultosReplace = $this->bultosReplace;
+        $bultosReplace = $bultosReplace*1;
+        $pesoReplace = $this->pesoReplace;
+        $pesoReplace = $pesoReplace *1;
+        
         $datos = array(
-            "valorDollReplace"=>$valorDollReplace = $this->valorDollReplace,
-            "tCambioReplace"=>$tCambioReplace=$this->tCambioReplace,
-            "cifReplace"=>$cifReplace = $this->cifReplace,
-            "impuestosReplace"=>$impuestosReplace = $this->impuestosReplace,
-            "bultosReplace"=>$bultosReplace = $this->bultosReplace,
-            "pesoReplace"=>$pesoReplace = $this->pesoReplace);
+            "valorDollReplace"=>$valorDollReplace,
+            "tCambioReplace"=>$tCambioReplace,
+            "cifReplace"=>$cifReplace,
+            "impuestosReplace"=>$impuestosReplace,
+            "bultosReplace"=>$bultosReplace,
+            "pesoReplace"=>$pesoReplace);
         
         $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
         echo json_encode($respuesta);

@@ -15,8 +15,6 @@ require_once "../modelo/ingresosPendientes.modelo.php";
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
 
-
-
 class AjaxUbicacionOpe {
 
     public $MostrarUbicaUnicas;
@@ -70,7 +68,7 @@ class AjaxUbicacionOpe {
             "hiddenDateTime" => $hiddenDateTime = $this->hiddenDateTime,
             "listaDetalles" => $listaDetalles = $this->listaDetalles,
             "usuarioOp" => $usuarioOp,
-            "tipoIng"=>$tipoIng = $this->tipoIng);
+            "tipoIng" => $tipoIng = $this->tipoIng);
 
         $respuesta = ControladorRetiroOpe::ctrInsertRetiroOpe($datos);
         echo json_encode($respuesta);
@@ -264,11 +262,16 @@ class AjaxUbicacionOpe {
     public $mostrarVehUsado;
 
     public function ajaxCalcVehUsados() {
-      $revVehUsados = $this->revVehUsados;
-      $dateReVehUs = $this->dateReVehUs;
+        $revVehUsados = $this->revVehUsados;
+        $dateReVehUs = $this->dateReVehUs;
         $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($revVehUsados, $dateReVehUs);
-        echo json_encode($respuesta);      
-      
+        echo json_encode($respuesta);
+    }
+    public $trasladoIngZAAF;
+    public function ajaxTrasladoZAAF() {
+        $idIngTrasladar = $this->idIngTrasladar;
+        $datosUnidades = ControladorRetiroOpe::ctrTrasladoZAAF($idIngTrasladar);
+        echo json_encode($datosUnidades);        
     }
 
 }
@@ -315,7 +318,7 @@ if (isset($_POST["hiddeniddeingreso"])) {
     $insertRetiroOpe->hiddenDateTime = $_POST["hiddenDateTime"];
     $insertRetiroOpe->listaDetalles = $_POST["listaDetalles"];
     $insertRetiroOpe->tipoIng = $_POST["tipoIng"];
-    
+
     $insertRetiroOpe->ajaxInsertRetiroOpe();
 }
 
@@ -474,7 +477,12 @@ if (isset($_POST["revVehUsados"])) {
     $mostrarVehUsado = new AjaxUbicacionOpe();
     $mostrarVehUsado->revVehUsados = $_POST["revVehUsados"];
     $mostrarVehUsado->dateReVehUs = $_POST["dateReVehUs"];
-    
-    
     $mostrarVehUsado->ajaxCalcVehUsados();
 }
+
+if (isset($_POST["idIngTrasladar"])) {
+    $trasladoIngZAAF = new AjaxUbicacionOpe();
+    $trasladoIngZAAF->idIngTrasladar = $_POST["idIngTrasladar"];
+    $trasladoIngZAAF->ajaxTrasladoZAAF();
+}
+

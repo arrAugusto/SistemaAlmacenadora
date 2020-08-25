@@ -103,7 +103,7 @@ function contar_palabras(texto){
 }
 
 
-$(document).on("keyup", "#numeroLicencia", function() {
+$(document).on("change", "#numeroLicencia", async function() {
     var dato = $(this).val();
     if (dato=="") {
     $("#numeroLicencia").removeClass("is-valid");
@@ -127,11 +127,13 @@ $(document).on("keyup", "#numeroLicencia", function() {
         $("#numeroLicencia").removeClass("is-valid");
     $("#numeroLicencia").addClass("is-invalid");
       var dato = $(this).val();
-      var resp = cuiIsValid(dato);
-
-  if (resp) {
+      var resp = await cuiIsValid(dato);      
+  if (resp==true) {
     $("#numeroLicencia").removeClass("is-invalid");
     $("#numeroLicencia").addClass("is-valid");
+    document.getElementById("nombrePiloto").readOnly = false;
+    $("#numeroLicencia").removeAttr('type');
+    $("#numeroLicencia").attr('type', 'number');      
 
     
             if ($("#nombrePiloto").length>=1) {

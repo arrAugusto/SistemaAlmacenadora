@@ -24,7 +24,7 @@ class ControladorContabilidadRegistrada {
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
                     if ($value["accionEstado"] == 5) {
-                        $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-primary btn-sm btnDescontableIng"idIng='.$value["identificador"].'><i class="fa fa-thumbs-up"></i></button></div>';
+                        $botoneraAcciones = '<div class="btn-group"><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-primary btn-sm btnDescontableIng"idIng='.$value["identificador"].'><i class="fa fa-thumbs-up"></i></button></div>';
                     }
                     $fecha_actual = new DateTime();
                     $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");

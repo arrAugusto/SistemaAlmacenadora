@@ -196,7 +196,14 @@ class ModeloRetirosBodega {
         $params = array(&$arrayNuevoDetalle, &$idRet, &$usuarioOp);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
-            return "exito";
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
         } else {
             return sqlsrv_errors();
         }
@@ -244,6 +251,7 @@ class ModeloRetirosBodega {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
         $params = array(&$value1, &$value2, &$value3);
+    
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

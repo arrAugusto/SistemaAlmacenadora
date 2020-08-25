@@ -433,8 +433,6 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
             'Agregue Metros o Posiciones de Esta Rebaja',
             'error'
         )
-    } else if (isNaN(valPosSalida) || isNaN(valMtsSalida)) {
-
     } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
         if (valPosSalida >= 1 && valMtsSalida >= 1) {
             $("#posDet" + idRet).removeClass("is-invalid");
@@ -777,13 +775,14 @@ $(document).on("click", ".btnGdPiloto", async function () {
     var idRet = $(this).attr("idRet");
 
     var marchamo = document.getElementById("MarchamoPlt" + idPlt).value;
-    if (isNaN(marchamo) || marchamo == "" || marchamo <= 0) {
+    if (isNaN(marchamo) || marchamo == "") {
         Swal.fire(
             'Sin Marchamo!',
             'Ingrese el Numero de Marchamo!',
             'error'
         );
     } else {
+    
         var respMarchamo = await ajaxGuardarMarchamo(idPlt, marchamo, idRet);
         if (respMarchamo == true) {
             button.removeClass("btn-info");
@@ -842,6 +841,7 @@ $(document).on("click", ".btnEditarPlt", async function () {
     var button = $(this);
     var idplt = $(this).attr("idPlt");
     var estado = $(this).attr("estado");
+    var idRet = $(this).attr("idret");
     if (estado == 0) {
 
 
@@ -894,9 +894,10 @@ $(document).on("click", ".btnEditarPlt", async function () {
             allowOutsideClick: false,
             allowEscapeKey: false
         }).then(async function (result) {
+            
             var marchamoEdit = document.getElementById("MarchamoPlt" + idplt).value;
-            var respEditMarchamo = await ajaxEditarMarchamo(idplt, marchamoEdit);
-            if (respEditMarchamo[0].resp == 1) {
+            var respEditMarchamo = await ajaxEditarMarchamo(idRet, idplt, marchamoEdit);
+            if (respEditMarchamo == true) {
 
                 button.removeClass("btn-outline-dark");
                 button.addClass("btn-warning");
@@ -935,10 +936,12 @@ function respMSG() {
 }
 
 
-function ajaxEditarMarchamo(idPlt, marchamo) {
+function ajaxEditarMarchamo(idRet, idPlt, marchamo) {
     console.log(idPlt);
     let respTran;
     var datos = new FormData();
+    
+    datos.append("idRetEditMar", idRet);
     datos.append("idPltEdit", idPlt);
     datos.append("marchamoEdit", marchamo);
     $.ajax({

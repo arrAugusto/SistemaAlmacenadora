@@ -1,6 +1,6 @@
 $(document).on("click", ".btnBuscaRetiro", function () {
     document.getElementById("dataRetiro").innerHTML = "";
-    document.getElementById("dataRetiro").innerHTML = '<table id="tablaMerRetiro" class="table table-hover"></table><input type="hidden" id="hiddenListaDeta" value="">';
+    document.getElementById("dataRetiro").innerHTML = '<table id="tablaMerRetiro" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
     var datoSearchPol = document.getElementById("textParamBusqRet").value;
     datoSearchPol.toLowerCase();
     console.log(datoSearchPol);
@@ -33,7 +33,11 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                         var datconsolidado = respuesta[i].Empresa;
                         var datblts = respuesta[i].blts;
                         var datdimPeso = respuesta[i].pesokg + " kg";
-                        var acciones = '<div class="btn-group">' + '<button type="button" class="btn btn-primary btnListaSelect" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
+                        if (respuesta[i].familiaPoliza == 1) {
+                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
+                        } else {
+                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
+                        }
                         lista.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones]);
                     }
                     $('#tablaMerRetiro').DataTable({
@@ -211,6 +215,10 @@ $(document).on("click", ".btnListaSelect", async function () {
 
                         document.getElementById("divPlaca").innerHTML = '';
                         document.getElementById("divCont").innerHTML = '';
+                        document.getElementById("descMercaderia").value = 'VEHICULO USADO';
+                        $("#descMercaderia").removeClass("is-invalid");
+                        $("#descMercaderia").addClass("is-valid");
+                        
                     }
                     if (respuestaDetIng.data == "sinRet") {
                         Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
@@ -1150,7 +1158,7 @@ async function editarRetiroOpFis(idRetiroBtn) {
         console.log(totalBultos);
         if (totalBultos == cantBultos) {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
-                var funcEditRetMerca = await funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro,
+                var respuestaEdita = await funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro,
                         regimen, tipoCambio, valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, descMercaderia,
                         licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime);
             } else {
@@ -1487,7 +1495,17 @@ $(document).on("click", "#buttonTrashVeh", async function () {
     $("#btnOrigen" + numOrigen).removeAttr("disabled");
     $(this).parent().parent().remove();
 })
-
+    
+$(document).on("click", "#buttonTrash", async function () {
+    var numOrigen = $(this).attr("numOrigen");
+    $(this).parent().parent().remove();
+    document.getElementById("textDetalle" + numOrigen).readOnly = false;
+    document.getElementById("textDetalle" + numOrigen).value = "";
+    $("#textDetalle" + numOrigen).removeClass("is-invalid");
+    $("#textDetalle" + numOrigen).addClass("is-valid");
+    document.getElementById("btnAceptarDet" + numOrigen).disabled = false;
+    
+ })
 
 $(document).on("click", ".btnEditarRetiroVeh", async function () {
     var idRet = $(this).attr("idRet");
@@ -2063,3 +2081,132 @@ $(document).on("click", ".btnInactivo", async function () {
 
 })
 
+$(document).on("click", ".btnTrasladoFiscal", async function () {
+    var idIngOpDet = $(this).attr("idingselectdetope");
+    document.getElementById("hiddenIdentificador").value = idIngOpDet;
+    document.getElementById("hiddeniddeingreso").value = idIngOpDet;
+    if ($("#idChasAnt").length >= 1) {
+        if ($("#idChasAnt").value != idIngOpDet) {
+            Swal.fire('Error DA', 'La póliza seleccionada no es igual a la del chasis que decea hacer reversión', 'error');
+        }
+    }
+    var servicio = await functionVerServicio(idIngOpDet);
+    if (servicio.respTipo == "vehM" || servicio.respTipo == "vehUs") {
+        document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
+        if ($("#hiddenGdVehMerc").length >= 1) {
+            document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
+        }
+        if (servicio.data == "sinRet") {
+            var nomVar = "idIngEditOp";
+            var respData = await dataIngTraslado(nomVar, idIngOpDet);
+            var bultos = respData[0]["bultos"];
+            var valCif = respData[0]["valCif"];
+            var valImpuesto = respData[0]["valImpuesto"];
+            var idIngreso = respData[0]["idIngreso"];
+
+            var bultos = parseInt(bultos);
+            var valCif = parseFloat(valCif).toFixed(2);
+            var valImpuesto = parseFloat(valImpuesto).toFixed(2);
+
+            var valCifGT = new Intl.NumberFormat("en-GT").format(valCif);
+            var valImpuestoGT = new Intl.NumberFormat("en-GT").format(valImpuesto);
+            console.log(respData);
+            document.getElementById("ListaSelect").innerHTML = `
+            <div class="row mt-4">
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header"><span class="description-percentage text-success">` + bultos + `</span></h5>
+                      <span class="description-text">BULTOS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4 border-right">
+                    <div class="description-block">
+                      <h5 class="description-header"><span class="description-percentage text-success">` + valCifGT + `</span></h5>
+                      <span class="description-text">CIF</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-sm-4">
+                    <div class="description-block">
+                      <h5 class="description-header"><span class="description-percentage text-success">` + valImpuestoGT + `</span></h5>
+                      <span class="description-text">IMPUESTOS</span>
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <div class="card-header">
+                <center><p>VALORES DE TRASLADO A ALMACEN FISCAL</p></center><br/>
+                <button type="button" class="btn btn-danger btn-block trasladoZAAF" idIngTraslado=` + idIngreso + `>Guardar Traslado Fiscal</button>
+                </div>
+            `;
+
+        } else {
+            alert("no se puede trasladar");
+        }
+    }
+});
+
+
+function dataIngTraslado(nomVar, idIngEditOp) {
+    let resp;
+    var datos = new FormData();
+    datos.append(nomVar, idIngEditOp);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            resp = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return resp;
+}
+
+$(document).on("click", ".trasladoZAAF", async function () {
+    var idIngTrasladar = $(this).attr("idingtraslado");
+    var nomVar = "idIngTrasladar";
+    var resp = await trasladarIngFiscal(nomVar, idIngTrasladar);
+    if (resp[0]["resp"] == 1) {
+        Swal.fire(
+                'Transacción exitosa!',
+                'El trasaldo se realizo con exito!',
+                'success'
+                )
+    }
+})
+
+
+function trasladarIngFiscal(nomVar, idIngEditOp) {
+    let resp;
+    var datos = new FormData();
+    datos.append(nomVar, idIngEditOp);
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            resp = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return resp;
+}

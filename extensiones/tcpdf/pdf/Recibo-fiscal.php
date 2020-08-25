@@ -37,8 +37,8 @@ class imprimirIngresoBodega {
         $bultosSalida = $respRet[0]["bultosSalida"];
         $polRetiro = $respRet[0]["polRetiro"];
         $polIng = $respRet[0]["polIng"];
-        $valCif = number_format($respRet[0]["valCif"]);
-        $valImpuesto = number_format($respRet[0]["valImpuesto"]);
+        $valCif = number_format($respRet[0]["valCif"], 2);
+        $valImpuesto = number_format($respRet[0]["valImpuesto"], 2);
         $totalParcial = 0;
         $nombrePiloto = $respRet[0]["nombrePiloto"];
         $licPiloto = $respRet[0]["licPiloto"];
@@ -54,6 +54,7 @@ class imprimirIngresoBodega {
         $rubroZA = floatval($respRet[0]["cbZnaAduana"]);
         $rubroGAd = floatval($respRet[0]["cbGastosAdmin"]);
         $rubroMan = floatval($respRet[0]["cbManejo"]);
+        $rubroRevIng = floatval($respRet[0]["cbrubroRevision"]);
 
         // muestra el formato internacional para la configuración regional en_US
 
@@ -61,8 +62,10 @@ class imprimirIngresoBodega {
         $numberMan = number_format($rubroMan, 2);
         $numberZA = number_format($rubroZA, 2);
         $numberGAd = number_format($rubroGAd, 2);
+    $numberRubroRevIng = number_format($rubroRevIng, 2);
 
-        $totalRecibo = floatval(($rubroAlm + $rubroZA + $rubroGAd + $rubroMan));
+        
+        $totalRecibo = floatval(($rubroAlm + $rubroZA + $rubroGAd + $rubroMan+$rubroRevIng));
         $reciboEmitVal = number_format($totalRecibo, 2);
         require_once('tcpdf_include.php');
 
@@ -176,7 +179,7 @@ EOF;
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
 
-        if ($rubroZA > 0.01) {
+        if ($rubroZA > 0) {
             $totalParcial = $totalParcial + $rubroZA;
             $ZADesc = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">ZONA ADUANERA</td>';
             $tdZATot = '<td style="text-align:rigth; border-right: 1px solid #030505; width:82px;' . $fontLetra . '">Q. ' . $numberZA . '</td>';
@@ -192,6 +195,7 @@ EOF;
 EOF;
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
+        
         if ($rubroGAd > 0) {
             $totalParcial = $totalParcial + $rubroGAd;
             $GADesc = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">GASTOS ADMINISTRACIÓN</td>';
@@ -203,6 +207,23 @@ EOF;
        
                 $GADesc
                 $tdGATot
+            </tr>
+	</table>	
+EOF;
+            $pdf->writeHTML($bloque4, false, false, false, false, '');
+        }
+            if ($rubroRevIng > 0) {
+                
+            $totalParcial = $totalParcial + $rubroRevIng;
+            $ZARev = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">REVISIÓN</td>';
+            $tdRevTot = '<td style="text-align:rigth; border-right: 1px solid #030505; width:82px;' . $fontLetra . '">Q. ' . $numberRubroRevIng . '</td>';
+
+            $bloque4 = <<<EOF
+        <table style="padding: 2px 5px">
+            <tr>
+                $ZARev
+                $tdRevTot
+          
             </tr>
 	</table>	
 EOF;

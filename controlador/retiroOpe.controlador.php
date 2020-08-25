@@ -105,14 +105,13 @@ class ControladorRetiroOpe {
             $spVeh = "spIngVehUsados";
             $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
 
-            if ($respuestaRevertVeh[0]['resp']==1) {
+            if ($respuestaRevertVeh[0]['resp'] == 1) {
                 $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
                 return array("respTipo" => "vehUs", "data" => $respuesta);
-                }else{
-                    $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
-                    return array("respTipo" => "vehM", "data" => $respuesta);
-                }
-
+            } else {
+                $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
+                return array("respTipo" => "vehM", "data" => $respuesta);
+            }
         }
     }
 
@@ -159,6 +158,7 @@ class ControladorRetiroOpe {
             $mostrarDetalleStock = ModeloRetiroOpe::mdlModificacionDetalles($idDetalle, $sp);
             $sp = "spConsultRetDet";
             $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetalles($idRetiroBtn, $sp);
+
             $arrayDetallesReb = json_decode($mostrarDetRebajado[0]["detallesRebajados"], true);
             if ($idDetalle == $arrayDetallesReb[0]["idDetalles"]) {
                 $saldoActual = $mostrarDetalleStock[0]["bultosDetalle"];
@@ -174,14 +174,28 @@ class ControladorRetiroOpe {
                 $stock = $respuesta[0]["stock"];
                 $valARebajar = $value["cantBultos"];
                 $nuevoStock = $stock - $valARebajar;
-                if ($nuevoStock >= 0) {
+                if ($nuevoStock > 0) {
                     $contador = $contador + 1;
                 }
             }
         }
 
         if (count($RevDetRebajados) == $contador) {
-            foreach ($RevDetRebajados as $key => $value) {
+            //reversion de detalles mercaderia
+            $count = 0;
+            foreach ($arrayDetallesReb as $key => $value) {
+                $idDetalles = $value["idDetalles"];
+                $cantidadBultos = $value["cantBultos"];
+                $sp = "spModStockAnterior";
+                $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetallesDosParams($idDetalles, $cantidadBultos, $sp);
+                if ($mostrarDetRebajado[0]["resp"]==1) {
+                    $count = $count+1;
+                }
+            }
+            if ($count==count($arrayDetallesReb)) {
+                
+            
+           foreach ($RevDetRebajados as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $bultos = $value["cantBultos"];
                 $sp = "spSelectStockBultos";
@@ -205,6 +219,7 @@ class ControladorRetiroOpe {
                 } else {
                     $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $bultos);
                 }
+            }
             }
             $tipo = 1;
             $respuesta = ModeloRetiroOpe::mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo);
@@ -365,6 +380,9 @@ class ControladorRetiroOpe {
             $tiempoTotal = funcionDiasCalc::diasCalc($fechaIngreso, $fechaCalculo); // DIAS TOTAL EN ALMACENADORA      
             $sp = "spTarifaVehUsados";
             $datosIng = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngreso, $sp);
+            if ($datosIng=="SD") {
+                return $datosIng;
+            } 
             //CALCULO DE ALMACENAJE FISCAL
 
             foreach ($datosIng as $key => $value) {
@@ -382,8 +400,6 @@ class ControladorRetiroOpe {
             } else {
                 $almacenaje = $almacenaje["minimoCobro"];
             }
-
-
             //CALCULO DE MANEJO FISCAL
             foreach ($datosIng as $key => $value) {
                 if ($value["servicio"] == "MANEJO_CUADRILLA") {
@@ -394,15 +410,22 @@ class ControladorRetiroOpe {
 
             //CALCULO DE TRANSMISION FISCAL
             foreach ($datosIng as $key => $value) {
-                if ($value["servicio"] == "TRANS_ELECT") {
-                    $tranElec = $value;
+                if ($value["servicio"] == "REVVEH") {
+                    $revision = $value;
                 }
             }
-            $tranElec = $tranElec["minimoCobro"];
-            return array("almacenaje" => $almacenaje, "manejo" => $manejo, "transEle" => $tranElec, "respuesta"=>true, "datosIngInfo"=>$datosIngInfo, "fechaCalculo"=>$fechaCalculo, "fechaIngreso"=>$fechaIngreso, "totalDiasC"=>$tiempoTotal);
+            $revision = $revision["minimoCobro"];
+
+            return array("revCuad"=>$revision, "almacenaje" => $almacenaje, "manejo" => $manejo, "transEle" => 0, "respuesta" => true, "datosIngInfo" => $datosIngInfo, "fechaCalculo" => $fechaCalculo, "fechaIngreso" => $fechaIngreso, "totalDiasC" => $tiempoTotal);
         } else {
-            return array("respuesta"=>false);
+            return array("respuesta" => false);
         }
+    }
+
+    public static function ctrTrasladoZAAF($idIngTrasladar) {
+        $sp="spTrasladoFiscal";
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idIngTrasladar, $sp); 
+        return $respuesta;
     }
 
 }

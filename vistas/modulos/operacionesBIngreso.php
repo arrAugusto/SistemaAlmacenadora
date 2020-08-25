@@ -96,7 +96,7 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3" id="divNitNuevo">
+                        <div class="col-md-2" id="divNitNuevo">
 
                             <div class="form-group">
                                 <label>Número de Nit del Cliente</label>
@@ -104,8 +104,8 @@
                             </div>
 
                         </div>
-                        <div class="col-3">
-                            <label>Seleccione la Fecha Real de Ingreso</label>
+                        <div class="col-2">
+                            <label>Fecha Real de Ingreso</label>
                             <input type="text" id="dateTime" class="form-control">
                             <input type="hidden" id="hiddenDateTime" value="<?php
                             date_default_timezone_set('America/Guatemala');
@@ -116,13 +116,25 @@
                             echo date('d-m-Y');
                             ?>">                 
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                             <label>Ver Tipos de Consolidados</label><br/>
                             <button type="button" class="btn btn-primary" id="buttonMostrarCons" data-toggle="modal" data-target="#exampleModalCenter">
                                 Mostrar consolidados&nbsp;&nbsp;<i class="fa fa-database"></i>
                             </button>
                         </div>
-                        <div class="col-md-12" id="individualGlobal">
+                        <div class="col-6">
+                            <div class="input-group input-group-sm">
+                                <input type="hidden" id="hiddenLista" value="">
+                                <textarea class="form-control textoQRPoliza" rows="5" >2330706270GTGUAG1200050160001712082020GTGUAG1                   332208 23ID10 US307.70300000000285153.97000000001112.000000000035774.74000000000653.54000000000590.28000000000000.00000000035030.22000000035030.2252HYDSG8I
+                                </textarea>
+                                <span id="cancelAudio" class="input-group-append">
+                                    <button type="button" id="capturarQRPol" class="btn btn-success btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
+                                </span>
+                            </div>
+
+
+                        </div>                        
+                        <div class="col-md-12 mt-2" id="individualGlobal">
                             <div class="col-md-12" id="imprimirCotizacion">
 
                                 <div class="row invoice-info">
@@ -672,8 +684,7 @@ MODAL POLIZA CONSOLIDADA
                             <h3 class="card-title">Agregar Detalles de Mercadería</h3>
                         </div>
                         <!--campos formularios -->
-                        <form role="form" method="post" id="divGuardaDetalle">
-                            <div class="row">
+                        <form role="form" method="post" id="divGuardaDetalle">                            <div class="row">
                                 <div class="col-12 mt-4" id="UltimochasisTeclado">
                                     <center><label id="comprobarChasis"></label></center>
                                 </div>
@@ -836,7 +847,10 @@ MODAL POLIZA CONSOLIDADA
                                     </div>
                                     <!-- /.info-box -->
                                 </div>
-                            </div>       
+                            </div>  
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default btn-block" id="btnGuardarDetallesIng" disabled="false">Guardar Detalles</button>
+                            </div>
                         </form>
 
                     </div>

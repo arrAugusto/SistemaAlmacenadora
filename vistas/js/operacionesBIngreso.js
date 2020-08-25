@@ -150,7 +150,7 @@ async function validacionParaGuardar() {
     var numeroContenedor = document.getElementById("numeroContenedor").value;
     var txtNitEmpresa = document.getElementById("txtNitEmpresa").value;
 
-    if (cantClientes >= 1 && pesoIng >0 && valorTotalAduana >0 && tipoDeCambio >= 0.001 && totalValorCif >0 && cantContenedores >= 1 && bultosIngreso >= 1 && valorImpuesto >0) {
+    if (cantClientes >= 1 && pesoIng > 0 && valorTotalAduana > 0 && tipoDeCambio >= 0.001 && totalValorCif > 0 && cantContenedores >= 1 && bultosIngreso >= 1 && valorImpuesto > 0) {
         /**
          * --------------------------------------------------------------------------------------------------------------------
          *
@@ -291,32 +291,32 @@ async function validacionParaGuardar() {
             $("#numeroContenedor").addClass('is-invalid');
         }
         if (indexText == "DUT" || indexText == "FAUCA") {
-         var dua = 1;
-         var bl = 1;
+            var dua = 1;
+            var bl = 1;
         }
-         console.log(indexText);
-         console.log(cartaDeCupo);
-         console.log(cantContenedores);
-         console.log(dua);
-         console.log(bl);
-         console.log(poliza);
-         console.log(bultosIngreso);
-         console.log(puertoOrigen);
-         console.log(cantClientes);
-         console.log(producto);
-         console.log(pesoIng);
-         console.log(valorTotalAduana);
-         console.log(tipoDeCambio);
-         console.log(totalValorCif);
-         console.log(valorImpuesto);
-         console.log(hiddenDateTimeVal);
-         console.log(sel2);
-         console.log(servicioTarifa);
-         console.log(numeroLicencia);
-         console.log(numeroMarchamo);
-         console.log(nombrePiloto);
-         console.log(numeroPlaca);
-         console.log(numeroContenedor);
+        console.log(indexText);
+        console.log(cartaDeCupo);
+        console.log(cantContenedores);
+        console.log(dua);
+        console.log(bl);
+        console.log(poliza);
+        console.log(bultosIngreso);
+        console.log(puertoOrigen);
+        console.log(cantClientes);
+        console.log(producto);
+        console.log(pesoIng);
+        console.log(valorTotalAduana);
+        console.log(tipoDeCambio);
+        console.log(totalValorCif);
+        console.log(valorImpuesto);
+        console.log(hiddenDateTimeVal);
+        console.log(sel2);
+        console.log(servicioTarifa);
+        console.log(numeroLicencia);
+        console.log(numeroMarchamo);
+        console.log(nombrePiloto);
+        console.log(numeroPlaca);
+        console.log(numeroContenedor);
 
         var suma = (cartaDeCupo + cantContenedores + dua + bl + poliza + bultosIngreso + puertoOrigen + cantClientes + producto + pesoIng + valorTotalAduana + tipoDeCambio + totalValorCif + valorImpuesto + hiddenDateTimeVal + sel2 + servicioTarifa + numeroLicencia + numeroMarchamo + nombrePiloto + numeroPlaca + numeroContenedor);
 
@@ -497,7 +497,7 @@ $(document).on("change", "#txtNitEmpresa", async function () {
  document.getElementById("totalValorCif").readOnly = true;
  document.getElementById("valorImpuesto").readOnly = true;
  document.getElementById("divAcciones").innerHTML = "";
- document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#guardarEmpresas" id="gDetalles">Cargar Empresas</button><button type="button" class="btn btn-info" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos </i class="fas fa-plus"></i></button></div>';
+ document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#guardarEmpresas" id="gDetalles">Cargar Empresas</button><button type="button" class="btn btn-info" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos </i class="fa fa-plus"></i></button></div>';
  
  }
  });
@@ -764,131 +764,306 @@ $(document).on("click", ".btnCancelaCarga", function () {
 
 $(document).on("click", ".btnAgregarEmpresa", async function () {
     var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    var tipoBusqueda = document.getElementById("tipoBusqueda").value;
     var bultosAgregados = document.getElementById("bultosAgregados").value;
+    var bultosAgregados = parseInt(bultosAgregados);
     var pesoAgregado = document.getElementById("pesoAgregado").value;
+    var pesoAgregado = pesoAgregado * 1;
+    var pesoAgregado = parseFloat(pesoAgregado).toFixed(2);
+    /*
+     var respuestaSaldoPeso = await saldoPesoIng(hiddenIdentityIngPeso, bultosAgregados, pesoAgregado);
+     console.log(respuestaSaldoPeso);
+     
+     if (respuestaSaldoPeso == "Ok") {
+     var revisar = await fucionRevisarConsolidado();
+     console.log(revisar);
+     if (revisar == 3) {
+     var tipoBusqueda = document.getElementById("tipoBusqueda").value;
+     var bultosAgregados = document.getElementById("bultosAgregados").value;
+     var pesoAgregado = document.getElementById("pesoAgregado").value;
+     if (tipoBusqueda == "") {
+     alert("existe un dato vacio favor revise");
+     } else {
+     */
+    /*if ($("#divTableFail").lenght == 0) {
+     document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
+     document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
+     document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
+     var cantVsClientes = document.getElementById("cantVsClientes").value;
+     document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
+     var valueClientes = document.getElementById("valueClientes").value;
+     cantVsClientes = parseInt(cantVsClientes) + 1;
+     document.getElementById("contadorH3").innerHTML = cantVsClientes;
+     document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+     }*/
+    var totalBultos = 0;
+    var totalPeso = 0;
+    var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
 
-    var respuestaSaldoPeso = await saldoPesoIng(hiddenIdentityIngPeso, bultosAgregados, pesoAgregado);
-    console.log(respuestaSaldoPeso);
+    if (paragraphsPesoIng.length >= 1) {
+        var paragraphsBltsIng = Array.from(document.querySelectorAll("#TextBltsIng"));
+        var totalBultos = 0;
+        for (var i = 0; i < paragraphsBltsIng.length; i++) {
+            var bultosIng = paragraphsBltsIng[i].attributes[3].value;
+            var bultosIng = parseInt(bultosIng);
+            var totalBultos = totalBultos + bultosIng;
 
-    if (respuestaSaldoPeso == "Ok") {
-        var revisar = await fucionRevisarConsolidado();
-        console.log(revisar);
-        if (revisar == 3) {
-            var tipoBusqueda = document.getElementById("tipoBusqueda").value;
-            var bultosAgregados = document.getElementById("bultosAgregados").value;
-            var pesoAgregado = document.getElementById("pesoAgregado").value;
-            if (tipoBusqueda == "") {
-                alert("existe un dato vacio favor revise");
-            } else {
-                var llaveConsulta = document.getElementById("hiddenIdentity").value;
-                var datos = new FormData();
-                datos.append("llaveConsulta", llaveConsulta);
-                datos.append("tipoBusqueda", tipoBusqueda);
-                datos.append("bultosAgregados", bultosAgregados);
-                datos.append("pesoAgregado", pesoAgregado);
-                $.ajax({
-                    url: "ajax/operacionesBIngreso.ajax.php",
-                    method: "POST",
-                    data: datos,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    dataType: "json",
-                    success: function (respuesta) {
-                        console.log(respuesta);
-                        if (respuesta == "sobreGiro") {
-                            swal({
-                                type: "error",
-                                title: "Bultos Ingresados",
-                                text: "Los bultos ingresados, sobre pasa los limites de lo que reporto en el ingreso",
-                                showConfirmButton: true,
-                                confrimButtonText: "cerrar",
-                                closeConfirm: true
-                            });
-                        }
-                        console.log(790);
-                        if (respuesta["estado"] == "OK") {
-                            console.log(respuesta["estado"]);
-                            if ($("#divTableFail").lenght == 0) {
-
-
-                                document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
-                                document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
-                                document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
-                                var cantVsClientes = document.getElementById("cantVsClientes").value;
-                                document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
-                                var valueClientes = document.getElementById("valueClientes").value;
-                                cantVsClientes = parseInt(cantVsClientes) + 1;
-                                document.getElementById("contadorH3").innerHTML = cantVsClientes;
-                                document.getElementById("contadorClientes").innerHTML = cantVsClientes;
-                            }
-                            $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
-
-                                document.getElementById("cantVsClientes").value = cantVsClientes;
-
-                            document.getElementById("tipoBusqueda").value = '';
-                            document.getElementById("tipoBusqueda").value = '';
-                            document.getElementById("bultosAgregados").value = '';
-                            document.getElementById("pesoAgregado").value = '';
-
-                            $("#tipoBusqueda").removeClass("is-valid");
-                            $("#tipoBusqueda").addClass("is-invalid");
-                            $("#bultosAgregados").removeClass("is-valid");
-                            $("#bultosAgregados").addClass("is-invalid");
-                            $("#pesoAgregado").removeClass("is-valid");
-                            $("#pesoAgregado").addClass("is-invalid");
-                            document.getElementById("tipoBusqueda").focus();
-                        } else if (respuesta == "No") {
-                            alert("existen bultos");
-                        } else if (respuesta["estado"] == "Okk") {
-                            swal({
-                                title: "Operación Exitosa",
-                                text: "Toda la transacción fue operada correctamente",
-                                type: "success"
-                            }).then(okay => {
-                                if (okay) {
-                                    if ($("#divTableFail").lenght == 0) {
-                                        document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
-                                        document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
-                                        document.getElementById("gDetalles").innerHTML = "Editar Clientes";
-                                        document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
-                                        var valueClientes = document.getElementById("valueClientes").value;
-                                        var cantVsClientes = document.getElementById("cantVsClientes").value;
-                                        cantVsClientes = parseInt(cantVsClientes) + 1;
-                                        document.getElementById("contadorH3").innerHTML = cantVsClientes;
-                                        document.getElementById("contadorClientes").innerHTML = cantVsClientes;
-                                    }
-                                    $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
-                                    document.getElementById("cantVsClientes").value = cantVsClientes;
-
-                                    document.getElementById("tipoBusqueda").value = '';
-                                    document.getElementById("bultosAgregados").value = '';
-                                    document.getElementById("pesoAgregado").value = '';
-                                    document.getElementById("saldoIngN").innerHTML = respuesta["saldo"];
-                                    $(".close").click();
-
-                                }
-                            });
-                        }
-                    },
-                    error: function (respuesta) {
-                        console.log(respuesta);
-                    }
-                })
-            }
-        } else {
-            console.log("no se puede guardar porque no existe un campo erroneo");
         }
+        var totalBultos = totalBultos + bultosAgregados;
+        var totalBultos = parseInt(totalBultos);
+        var totalPeso = pesoAgregado * 1;
+        var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
+        for (var j = 0; j < paragraphsPesoIng.length; j++) {
+            var pesoIng = paragraphsPesoIng[j].attributes[3].value;
+            var pesoIng = parseFloat(pesoIng).toFixed(2);
+            var pesoIng = pesoIng * 1;
+            var totalPeso = totalPeso + pesoIng;
+        }
+        var totalPeso = totalPeso;
+        var totalPeso = parseFloat(totalPeso).toFixed(2);
+
+        var cantidadClientes = document.getElementById("cantClientes").value;
+        var bultosIngPol = document.getElementById("bultosIngreso").value;
+        var bultosIngPol = parseInt(bultosIngPol);
+
+        var saldoNuevoCruceBlts = bultosIngPol - totalBultos;
+        var saldoNuevoCruceBlts = parseInt(saldoNuevoCruceBlts);
+
+
+        var pesoIngPol = document.getElementById("pesoIng").value;
+        var pesoIngPol = parseFloat(pesoIngPol).toFixed(2);
+        var saldoNuevoCrucePeso = pesoIngPol - totalPeso;
+        var saldoNuevoCrucePeso = parseFloat(saldoNuevoCrucePeso).toFixed(2);
+
+        if (saldoNuevoCruceBlts >= 0 && saldoNuevoCrucePeso >= 0) {
+            $("#divEmpresasAgregadasMani").append('<div class="col-12"><div class="input-group mb-3"><div class="input-group-prepend" id="dataManifiesto"><button type="button" class="btn btn-danger btnEliminarDetalleIng"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa" readOnly="readOnly"><input type="number" class="form-control" id="TextBltsIng" value="' + bultosAgregados + '" readOnly="readOnly"><input type="number"  class="form-control" id="TextpesoIng"  value="' + pesoAgregado + '"  readOnly="readOnly"></div></div>');
+
+        } else {
+            Swal.fire(
+                    'Sobregiro!',
+                    'El detalle por agregar sobregira los saldos revise de bultos o peso!',
+                    'error'
+                    )
+            return false;
+        }
+
     } else {
-        swal({
-            type: "error",
-            title: "Sobregiro",
-            text: "La operación realizada sobregira el stock en bultos o peso, por favor revise",
-            showConfirmButton: true,
-            confrimButtonText: "cerrar",
-            closeConfirm: true
-        });
+        var totalBultos = totalBultos + bultosAgregados;
+        var totalPeso = totalPeso + pesoAgregado;
+
+        var bultosIngPol = document.getElementById("bultosIngreso").value;
+        var bultosIngPol = parseInt(bultosIngPol);
+        var pesoIngPol = document.getElementById("pesoIng").value;
+        var pesoIngPol = parseFloat(pesoIngPol).toFixed(2);
+        var saldoNuevoCruceBlts = bultosIngPol - totalBultos;
+        var saldoNuevoCruceBlts = parseInt(saldoNuevoCruceBlts);
+        var saldoNuevoCrucePeso = pesoIngPol - totalPeso;
+        var saldoNuevoCrucePeso = parseFloat(saldoNuevoCrucePeso).toFixed(2);
+        console.log(saldoNuevoCrucePeso);
+        console.log(saldoNuevoCruceBlts);
+
+        if (saldoNuevoCruceBlts >= 0 && saldoNuevoCrucePeso >= 0) {
+            $("#divEmpresasAgregadasMani").append('<div class="col-12"><div class="input-group mb-3"><div class="input-group-prepend" id="dataManifiesto"><button type="button" class="btn btn-danger btnEliminarDetalleIng"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa" readOnly="readOnly"><input type="number" class="form-control" id="TextBltsIng" value="' + bultosAgregados + '" readOnly="readOnly"><input type="number"  class="form-control" id="TextpesoIng"  value="' + pesoAgregado + '"  readOnly="readOnly"></div></div>');
+        } else {
+            Swal.fire(
+                    'Sobregiro!',
+                    'El detalle por agregar sobregira los saldos revise de bultos o peso!',
+                    'error'
+                    )
+
+            return false;
+        }
+
     }
+
+
+    if ($("#TextpesoIng").length >= 1) {
+        var paragraphsBltsIng = Array.from(document.querySelectorAll("#TextBltsIng"));
+        var totalBultos = 0;
+        for (var i = 0; i < paragraphsBltsIng.length; i++) {
+            var bultosIng = paragraphsBltsIng[i].attributes[3].value;
+            var bultosIng = parseInt(bultosIng);
+            var totalBultos = totalBultos + bultosIng;
+            var totalBultos = parseInt(totalBultos);
+
+        }
+        var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
+        var totalPeso = 0;
+        for (var j = 0; j < paragraphsPesoIng.length; j++) {
+            var pesoIng = paragraphsPesoIng[j].attributes[3].value;
+            var pesoIng = parseFloat(pesoIng).toFixed(2);
+            var pesoIng = pesoIng * 1;
+            var totalPeso = totalPeso + pesoIng;
+        }
+        var totalPeso = parseFloat(totalPeso).toFixed(2);
+        console.log(totalPeso);
+
+        if ($("#cantClientes").length >= 1) {
+            var cantidadClientes = document.getElementById("cantClientes").value;
+            var bultosIngPol = document.getElementById("bultosIngreso").value;
+            var bultosIngPol = parseInt(bultosIngPol);
+
+            var saldoNuevoCruceBlts = bultosIngPol - totalBultos;
+            var saldoNuevoCruceBlts = parseInt(saldoNuevoCruceBlts);
+
+            document.getElementById("saldoIngNblts").innerHTML = bultosIngPol;
+            document.getElementById("saldoNuevoblts").innerHTML = totalBultos;
+            document.getElementById("bltsRetirados").innerHTML = saldoNuevoCruceBlts;
+
+
+            var pesoIngPol = document.getElementById("pesoIng").value;
+            var pesoIngPol = parseFloat(pesoIngPol).toFixed(2);
+            var saldoNuevoCrucePeso = pesoIngPol - totalPeso;
+            var saldoNuevoCrucePeso = parseFloat(saldoNuevoCrucePeso).toFixed(2);
+
+
+            document.getElementById("saldoIngNPeso").innerHTML = pesoIngPol;
+            document.getElementById("pesoNuevoblts").innerHTML = totalPeso;
+            document.getElementById("pesoRetirados").innerHTML = saldoNuevoCrucePeso;
+
+
+            document.getElementById("tipoBusqueda").value = "";
+            $("#tipoBusqueda").removeClass("is-valid");
+            $("#tipoBusqueda").addClass("is-invalid");
+
+            document.getElementById("bultosAgregados").value = "";
+            $("#bultosAgregados").removeClass("is-valid");
+            $("#bultosAgregados").addClass("is-invalid");
+
+            document.getElementById("pesoAgregado").value = "";
+            $("#pesoAgregado").removeClass("is-valid");
+            $("#pesoAgregado").addClass("is-invalid");
+
+            var clientes = paragraphsBltsIng.length;
+
+            document.getElementById("contadorClientes").innerHTML = clientes;
+            if (saldoNuevoCrucePeso == 0 && saldoNuevoCruceBlts == 0) {
+                document.getElementById("btnGuardarDetallesIng").disabled = false;
+                $("#btnGuardarDetallesIng").removeClass("btn-default");
+                $("#btnGuardarDetallesIng").addClass("btn-primary");
+                Swal.fire(
+                        'Manifiesto Cuadrado!',
+                        'Haga click en guardar detalles!',
+                        'info'
+                        )
+            } else {
+                document.getElementById("tipoBusqueda").focus();
+
+            }
+
+        }
+    }
+
+    /* var llaveConsulta = document.getElementById("hiddenIdentity").value;
+     var datos = new FormData();
+     datos.append("llaveConsulta", llaveConsulta);
+     datos.append("tipoBusqueda", tipoBusqueda);
+     datos.append("bultosAgregados", bultosAgregados);
+     datos.append("pesoAgregado", pesoAgregado);
+     $.ajax({
+     url: "ajax/operacionesBIngreso.ajax.php",
+     method: "POST",
+     data: datos,
+     cache: false,
+     contentType: false,
+     processData: false,
+     dataType: "json",
+     success: function (respuesta) {
+     console.log(respuesta);
+     if (respuesta == "sobreGiro") {
+     swal({
+     type: "error",
+     title: "Bultos Ingresados",
+     text: "Los bultos ingresados, sobre pasa los limites de lo que reporto en el ingreso",
+     showConfirmButton: true,
+     confrimButtonText: "cerrar",
+     closeConfirm: true
+     });
+     }
+     console.log(790);
+     if (respuesta["estado"] == "OK") {
+     console.log(respuesta["estado"]);
+     if ($("#divTableFail").lenght == 0) {
+     
+     
+     document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
+     document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
+     document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
+     var cantVsClientes = document.getElementById("cantVsClientes").value;
+     document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
+     var valueClientes = document.getElementById("valueClientes").value;
+     cantVsClientes = parseInt(cantVsClientes) + 1;
+     document.getElementById("contadorH3").innerHTML = cantVsClientes;
+     document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+     }
+     $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
+     
+     document.getElementById("cantVsClientes").value = cantVsClientes;
+     
+     document.getElementById("tipoBusqueda").value = '';
+     document.getElementById("tipoBusqueda").value = '';
+     document.getElementById("bultosAgregados").value = '';
+     document.getElementById("pesoAgregado").value = '';
+     
+     $("#tipoBusqueda").removeClass("is-valid");
+     $("#tipoBusqueda").addClass("is-invalid");
+     $("#bultosAgregados").removeClass("is-valid");
+     $("#bultosAgregados").addClass("is-invalid");
+     $("#pesoAgregado").removeClass("is-valid");
+     $("#pesoAgregado").addClass("is-invalid");
+     document.getElementById("tipoBusqueda").focus();
+     } else if (respuesta == "No") {
+     alert("existen bultos");
+     } else if (respuesta["estado"] == "Okk") {
+     swal({
+     title: "Operación Exitosa",
+     text: "Toda la transacción fue operada correctamente",
+     type: "success"
+     }).then(okay => {
+     if (okay) {
+     if ($("#divTableFail").lenght == 0) {
+     document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
+     document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
+     document.getElementById("gDetalles").innerHTML = "Editar Clientes";
+     document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
+     var valueClientes = document.getElementById("valueClientes").value;
+     var cantVsClientes = document.getElementById("cantVsClientes").value;
+     cantVsClientes = parseInt(cantVsClientes) + 1;
+     document.getElementById("contadorH3").innerHTML = cantVsClientes;
+     document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+     }
+     $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
+     document.getElementById("cantVsClientes").value = cantVsClientes;
+     
+     document.getElementById("tipoBusqueda").value = '';
+     document.getElementById("bultosAgregados").value = '';
+     document.getElementById("pesoAgregado").value = '';
+     document.getElementById("saldoIngN").innerHTML = respuesta["saldo"];
+     $(".close").click();
+     
+     }
+     });
+     }
+     },
+     error: function (respuesta) {
+     console.log(respuesta);
+     }
+     })*/
+    /*    }
+     } else {
+     console.log("no se puede guardar porque no existe un campo erroneo");
+     }
+     } else {
+     swal({
+     type: "error",
+     title: "Sobregiro",
+     text: "La operación realizada sobregira el stock en bultos o peso, por favor revise",
+     showConfirmButton: true,
+     confrimButtonText: "cerrar",
+     closeConfirm: true
+     });
+     }*/
+
 })
 $(document).on("change", "#tipoDeCambio", function () {
     var tipoDeCambio = document.getElementById("tipoDeCambio").value;
@@ -896,7 +1071,7 @@ $(document).on("change", "#tipoDeCambio", function () {
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
 
 
-    if (valorCif >0) {
+    if (valorCif > 0) {
         document.getElementById("totalValorCif").value = valorCif;
         $("#totalValorCif").removeClass("is-invalid");
         $("#totalValorCif").addClass("is-valid");
@@ -915,7 +1090,7 @@ $(document).on("change", "#valorTotalAduana", function () {
     var tipoDeCambio = document.getElementById("tipoDeCambio").value;
     var valorTotalAduana = document.getElementById("valorTotalAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >0) {
+    if (valorCif > 0) {
         document.getElementById("totalValorCif").value = valorCif;
         $("#totalValorCif").removeClass("is-invalid");
         $("#totalValorCif").addClass("is-valid");
@@ -1062,7 +1237,7 @@ $(document).on("click", ".btnEditar", function () {
                         document.getElementById("gDetalles").innerHTML = "Editar Clientes";
                         document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
 
-                        //                    document.getElementById("divMasButtons").innerHTML += '<button type="button" class="btn btn-info btnPlusPilotos">Agregar mas pilotos <i class="fas fa-plus"></i></button>';
+                        //                    document.getElementById("divMasButtons").innerHTML += '<button type="button" class="btn btn-info btnPlusPilotos">Agregar mas pilotos <i class="fa fa-plus"></i></button>';
                         var valueClientes = document.getElementById("valueClientes").value;
                         var cantVsClientes = document.getElementById("cantVsClientes").value;
                         cantVsClientes = parseInt(cantVsClientes) + 1;
@@ -1087,8 +1262,8 @@ $(document).on("click", ".btnConsolidado", function () {
     $(this).removeClass('btn-danger');
     $(this).addClass('btn-info');
     $(this).attr("estado", 1);
-    $(this).html('Asignado como tarifa general&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>');
-    document.getElementById("divEjecutivo").innerHTML = '<div class="alert alert-warning" role="alert"><strong>Asignado como tarifa general : </strong><br/>Significa que todos los calculos y cobros de almacenaje se registraran con tarifas generales en ZA o AF, segun su regimen.</div>';
+    $(this).html('Asignado como tarifa general&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i>');
+    document.getElementById("divEjecutivo").innerHTML = '<div class="alert alert-warning" role="alert"><strong>Asignado como tarifa general : </strong><br/>Significa que todos los calculos y cobros de almacenaje se registraran con tarifa generales en ZA o AF, segun su regimen.</div>';
     var btnConsulTarifa = $("#btnConsulTarifa").attr("estado");
     if (btnConsulTarifa == 1) {
         $("#btnConsulTarifa").removeClass('btn-info');
@@ -1104,7 +1279,7 @@ $(document).on("click", ".btnConsulTarifa", function () {
     $(this).removeClass('btn-primary');
     $(this).addClass('btn-info');
     $(this).attr("estado", 1);
-    $(this).html('Se notificara a ejecutivos de ventas&nbsp;&nbsp;<i class="fas fa-thumbs-up"></i>');
+    $(this).html('Se notificara a ejecutivos de ventas&nbsp;&nbsp;<i class="fa fa-thumbs-up"></i>');
     document.getElementById("divEjecutivo").innerHTML = '<div class="alert alert-warning" role="alert"><strong>Se notificara a ejecutivos de ventas : </strong><br/>Significa que se asignará una tarea a el ejecutivo de ventas para determinar una tarifa especial.<br/>Continue su operación de ingreso, parcialmente se asigno tarifa general para calculos y cobros de almacenaje, hasta que la tarifa sea configurada.</div>';
 
     var btnConsolidado = $("#btnConsolidado").attr("estado");
@@ -1184,7 +1359,7 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                 if (val) {
                     var guardar = await guardarSinTarifa(tipo);
                     console.log(guardar);
-                    if (guardar==true) {
+                    if (guardar == true) {
                         swal({
                             title: "Creado Correctamente",
                             text: "El ingreso fue creado exitosamente...",
@@ -1215,20 +1390,20 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                 document.getElementById("numeroPlaca").readOnly = true;
                                 document.getElementById("numeroContenedor").readOnly = true;
                                 document.getElementById("txtNitEmpresa").readOnly = true;
-                                
+
                                 var valTipoConso = $("#sel2 option:selected").text();
                                 if (valTipoConso == "Cliente consolidado") {
                                     document.getElementById("divAcciones").innerHTML = '';
                                     document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
 
                                     document.getElementById("gDetalles").click();
-                                } 
+                                }
                                 if (valTipoConso == "Cliente consolidado poliza") {
 
                                     if (tipo == 0) {
                                         var lblNit = document.getElementById("lblNit").innerHTML;
                                         var lblEmpresa = document.getElementById("lblEmpresa").innerHTML;
-                                        document.getElementById("divPlusClientes").innerHTML = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso"><i class="fas fa-plus"></i></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button>';
+                                        document.getElementById("divPlusClientes").innerHTML = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso"><i class="fa fa-plus"></i></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button>';
                                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></div>';
                                         document.getElementById("hiddenContadorPolizas").value = 1;
                                         if ($(".tableIngFail").length == 0) {
@@ -1302,10 +1477,10 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                         });
                                         document.getElementById("divAccionesVehiculos").innerHTML = '';
                                     }
-                                } 
+                                }
                                 if (valTipoConso == "Cliente individual") {
-        $("#sel2").removeClass("is-valid");
-        $("#sel2").addClass("is-invalid");
+                                    $("#sel2").removeClass("is-valid");
+                                    $("#sel2").addClass("is-invalid");
                                     document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
                                     Swal.fire({
                                         type: 'info',
@@ -1491,10 +1666,10 @@ $(document).on("click", ".btnValidarChasis", function () {
                             var linea = listaEstado[chasisNoEn][2];
                             var estado = listaEstado[chasisNoEn][3];
                             if (estado == 0) {
-                                var buttton = '<button type="button" class="btn btn-danger btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fas fa-close"></i></button>';
+                                var buttton = '<button type="button" class="btn btn-danger btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fa fa-close"></i></button>';
                             }
                             if (estado == 1) {
-                                var buttton = '<button type="button" class="btn btn-warning btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fas fa-close"></i></button>';
+                                var buttton = '<button type="button" class="btn btn-warning btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fa fa-close"></i></button>';
                             }
                             if (chasisNoEn == 0) {
                                 listaDataRevNoEn.push([numeralChasis, tipo, linea, buttton]);
@@ -1757,7 +1932,7 @@ $(document).on("change", "#ClientPoltxtNitSalida", function () {
                 document.getElementById("ClientPoltxtNitSalida").focus();
 
 //agregar nuevo nit
-alert("agregar");
+                alert("agregar");
             }
         },
         error: function (respuesta) {
@@ -1965,7 +2140,7 @@ async function guardarSinTarifa(tipo) {
     var btnConsolidado = $("#btnConsolidado").attr("estado");
     console.log(btnConsolidado);
     let llaveIndet;
-                                    var valTipoConso = $("#sel2 option:selected").text();
+    var valTipoConso = $("#sel2 option:selected").text();
     var cantClientes = document.getElementById("cantClientes").value;
     var validacionCons = await valConsolidados(valTipoConso, cantClientes);
     console.log(validacionCons);
@@ -2085,9 +2260,9 @@ async function guardarSinTarifa(tipo) {
 
                 if (llaveIndet >= 1) {
                     if (llaveIndet >= 1) {
-                    document.getElementById("hiddenIdentity").value = llaveIndet;
-                    respGST = true;
-                        
+                        document.getElementById("hiddenIdentity").value = llaveIndet;
+                        respGST = true;
+
                     }
                 } else {
                     respGST = false;
@@ -2121,42 +2296,42 @@ function funcionBuscarNit(datoBuscado) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-                        if (respuesta == "SD") {
+            if (respuesta == "SD") {
                 //agregar nuevo nit
 
-Swal.fire({
-  title: 'Agregar Nit',
-  text: "Agrega el nuevo numero de nit",
-  type: 'error',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  cancelButtonText: 'Cancelar',
-  confirmButtonText: 'Agregar'
-}).then((result) => {
-  if (result.value) {
-     $("#txtNitEmpresa").removeClass("is-valid");
-     $("#txtNitEmpresa").addClass("is-invalid");
-     document.getElementById("txtNitEmpresa").value = "";
-    Swal.fire(
-      'Agregar Nit',
-      'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
-      'info'
-    )
-  }
-})
+                Swal.fire({
+                    title: 'Agregar Nit',
+                    text: "Agrega el nuevo numero de nit",
+                    type: 'error',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Agregar'
+                }).then((result) => {
+                    if (result.value) {
+                        $("#txtNitEmpresa").removeClass("is-valid");
+                        $("#txtNitEmpresa").addClass("is-invalid");
+                        document.getElementById("txtNitEmpresa").value = "";
+                        Swal.fire(
+                                'Agregar Nit',
+                                'Vaya ala barra superior azul, y haga click en agregar nuevos datos',
+                                'info'
+                                )
+                    }
+                })
 
 
-                    respuestaData = false;
+                respuestaData = false;
 
-            
-            } else  {
-                    respuestaData = true;
-               console.log("procesando...");
-            document.getElementById("lblNit").innerHTML = respuesta[0]['nitEmpresa'];
-            document.getElementById("lblClienteId").value = respuesta[0]["idNitEmp"];
-            document.getElementById("lblEmpresa").innerHTML = respuesta[0]['nombreEmpresa'];
-            document.getElementById("lblDireccion").innerHTML = respuesta[0]['direccionEmpresa'];
+
+            } else {
+                respuestaData = true;
+                console.log("procesando...");
+                document.getElementById("lblNit").innerHTML = respuesta[0]['nitEmpresa'];
+                document.getElementById("lblClienteId").value = respuesta[0]["idNitEmp"];
+                document.getElementById("lblEmpresa").innerHTML = respuesta[0]['nombreEmpresa'];
+                document.getElementById("lblDireccion").innerHTML = respuesta[0]['direccionEmpresa'];
                 $(function () {
                     $('#datepicker').datepicker({
                         onSelect: function () { // When cal is opened execute
@@ -2298,7 +2473,7 @@ Swal.fire({
 
 function guardarSinTarifaS(tipo) {
     return new Promise((resolve, reject) => {
-                                        var valTipoConso = $("#sel2 option:selected").text();
+        var valTipoConso = $("#sel2 option:selected").text();
         var cantClientes = document.getElementById("cantClientes").value;
         if (valTipoConso == "Cliente consolidado") {
             if (cantClientes == 1 || cantClientes == 0) {
@@ -2468,14 +2643,14 @@ function guardarSinTarifaS(tipo) {
                     document.getElementById("numeroContenedor").readOnly = true;
                     document.getElementById("regimenPoliza").readOnly = true;
                     document.getElementById("txtNitEmpresa").readOnly = true;
-                                                    var valTipoConso = $("#sel2 option:selected").text();
+                    var valTipoConso = $("#sel2 option:selected").text();
                     if (valTipoConso == "Cliente consolidado") {
                         document.getElementById("diveGuardaEmpresa").innerHTML = '';
                         document.getElementById("diveGuardaEmpresa").innerHTML = `<div class="col-12"><label>CONSOLIDADO SIMPLE</label><input type="hidden" id="valueClientes" name="valueClientes" value=""><input type="hidden" id="cantVsClientes" name="cantVsClientes" value="0"></div><div class="col-md-4 autocompletar">
   <label>Empresa</label>
 
 <input type="text" class="form-control" name="tipoBusqueda" id="tipoBusqueda" placeholder="Busqueda" />
-</div><div class="col-4"><div class="form-group"><label>Cantidad de bultos</label><input type="text" class="form-control" id="bultosAgregados" name="bultosAgregados" placeholder="Ingrese cantidad de bultos"></div></div><div class="col-4"><div class="form-group"><label>Valor Peso</label><input type="text" class="form-control" id="pesoAgregado" name="pesoAgregado" placeholder="Ingrese peso"></div></div> <div class="col-4"><div class="btn-group" role="group" aria-label="Basic example"><button type="button" class="btn btn-success btnAgregarEmpresa" btnAgrega=0>Agregar Empresa</button></div></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fas fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Bultos</span><h1>9000</h1></div><!-- /.info-box-content --></div><!-- /.info-box --></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fas fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Peso</span><h3>3</h3></div><!-- /.info-box-content --></div><!-- /.info-box --></div></div>`;
+</div><div class="col-4"><div class="form-group"><label>Cantidad de bultos</label><input type="text" class="form-control" id="bultosAgregados" name="bultosAgregados" placeholder="Ingrese cantidad de bultos"></div></div><div class="col-4"><div class="form-group"><label>Valor Peso</label><input type="text" class="form-control" id="pesoAgregado" name="pesoAgregado" placeholder="Ingrese peso"></div></div> <div class="col-4"><div class="btn-group" role="group" aria-label="Basic example"><button type="button" class="btn btn-success btnAgregarEmpresa" btnAgrega=0>Agregar Empresa</button></div></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Bultos</span><h1>9000</h1></div><!-- /.info-box-content --></div><!-- /.info-box --></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Peso</span><h3>3</h3></div><!-- /.info-box-content --></div><!-- /.info-box --></div></div>`;
                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
                         document.getElementById("gDetalles").click();
                     } else if (valTipoConso == "Cliente consolidado poliza") {
@@ -2494,7 +2669,7 @@ function guardarSinTarifaS(tipo) {
               <table id="tableConsolidadoPoliza" class="table table-hover table-sm">
             </table>
               <input type="hidden" id="hiddenListaDeta" value="">`;
-                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button></div>';
+                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button></div>';
                             var numero = 1;
                             var contadorH3 = document.getElementById("contadorH3").innerHTML;
                             var contadorH3 = contadorH3 + 1;
@@ -2550,9 +2725,9 @@ function guardarSinTarifaS(tipo) {
                     } else if (valTipoConso == "Cliente individual") {
                         $("#sel2").removeClass("is-invalid");
                         $("#sel2").addClass("is-valid");
-                               document.getElementById("divAcciones").innerHTML = '';
-                                    document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
-                             
+                        document.getElementById("divAcciones").innerHTML = '';
+                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
+
                         Swal.fire({
                             type: 'info',
                             title: 'Transacción exitosa',
@@ -2889,6 +3064,7 @@ $(document).on("change", "#numeroLicencia", async function () {
                     processData: false,
                     dataType: "json",
                     success: function (respuesta) {
+                        console.log(respuesta);
                         if (respuesta != "SD") {
                             $("#nombrePiloto").removeClass("is-invalid");
                             $("#nombrePiloto").addClass("is-valid");
@@ -2907,11 +3083,19 @@ $(document).on("change", "#numeroLicencia", async function () {
                 $("#numeroLicencia").removeClass("is-valid");
                 $("#numeroLicencia").addClass("is-invalid");
                 document.getElementById("nombrePiloto").readOnly = true;
-                document.getElementById("divPilotoExt").innerHTML = "";
-                document.getElementById("divPilotoExt").innerHTML = `
+                if ($("#sel2").length >= 1) {
+
+
+                    document.getElementById("divPilotoExt").innerHTML = "";
+                    document.getElementById("divPilotoExt").innerHTML = `
 <label>¿Es un piloto extranjero?</label><br/>
 <button type="button" class="btn btn-info btn-flat btnExtranjero" id="buttonPilotoExtranejero" estado="0">Es piloto extranjero</button>`;
-                document.getElementById("buttonPilotoExtranejero").focus();
+                    document.getElementById("buttonPilotoExtranejero").focus();
+                } else {
+                    if ($(".btnExtranjero").length == 0) {
+                        document.getElementById("divDataPiloto").innerHTML += '<button type="button" class="btn btn-info btn-flat btnExtranjero" id="buttonPilotoExtranejero" estado="0">Es piloto extranjero</button>';
+                    }
+                }
             }
         }
     }
@@ -3488,7 +3672,7 @@ $(document).on("change", "#ClPolTAduana", function () {
     var tipoDeCambio = document.getElementById("ClPolCambio").value;
     var valorTotalAduana = document.getElementById("ClPolTAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >0) {
+    if (valorCif > 0) {
         document.getElementById("ClPolCif").value = valorCif;
         $("#ClPolCif").removeClass("is-invalid");
         $("#ClPolCif").addClass("is-valid");
@@ -3506,7 +3690,7 @@ $(document).on("change", "#ClPolCambio", function () {
     var tipoDeCambio = document.getElementById("ClPolCambio").value;
     var valorTotalAduana = document.getElementById("ClPolTAduana").value;
     var valorCif = multiplicacion(tipoDeCambio, valorTotalAduana);
-    if (valorCif >0) {
+    if (valorCif > 0) {
         document.getElementById("ClPolCif").value = valorCif;
         $("#ClPolCif").removeClass("is-invalid");
         $("#ClPolCif").addClass("is-valid");
@@ -3530,11 +3714,6 @@ $(document).on("click", ".btnImpresionAcuse", function () {
 
 
 $(document).on("change", "#numeroLicenciaPlus", async function () {
-
-})
-
-
-$(document).on("change", "#numeroLicenciaPlus", async function () {
     document.getElementById("nombrePilotoPlusUn").value = "";
     $("#numeroLicenciaPlus").removeClass("is-valid");
     $("#numeroLicenciaPlus").addClass("is-invalid");
@@ -3547,7 +3726,9 @@ $(document).on("change", "#numeroLicenciaPlus", async function () {
         if (consCui == "Ok") {
             $("#numeroLicenciaPlus").removeClass("is-invalid");
             $("#numeroLicenciaPlus").addClass("is-valid");
-            var hiddenIdentityRevPlt = document.getElementById("hiddenIdentity").value;
+            if ($("#hiddenIdentity").lenght >= 1) {
+                var hiddenIdentityRevPlt = document.getElementById("hiddenIdentity").value;
+            }
             var nombrePilotoPlusUn = document.getElementById("numeroLicenciaPlus").value;
             var valRespuesta = await revisionNuevoPilotos(nombrePilotoPlusUn, hiddenIdentityRevPlt);
             if (valRespuesta == "Ok") {
@@ -3614,7 +3795,9 @@ function consultaPiloto(datoDpiConsult) {
                 $("#nombrePilotoPlusUn").removeClass("is-invalid");
                 $("#nombrePilotoPlusUn").addClass("is-valid");
                 document.getElementById("nombrePilotoPlusUn").value = respuesta[0].nombrePLT;
-                document.getElementById("hidenPilotosPlus").value = respuesta[0].pltId;
+                if ($("#hidenPilotosPlus").lenght >= 1) {
+                    document.getElementById("hidenPilotosPlus").value = respuesta[0].pltId;
+                }
                 document.getElementById("numeroPlacaPlusUn").focus();
                 todoMenus = "Ok";
             } else {
@@ -3813,8 +3996,8 @@ $(document).on("click", ".btnGuardaNuevaUnidadPlus", async function () {
                 if ($("#ListaSelect").length >= 1) {
                     $("#ListaSelect").append(`<div class="input-group mb-3" id="divUnidadExt` + guardarUnidadesPlus[0].Identity + `">
                   <div class="input-group-prepend">
-                    <button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + guardarUnidadesPlus[0].Identity + `  idUniDetTrash="` + guardarUnidadesPlus[0].Identity + `"><i class="fas fa-trash"></i></button>
-                    <button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + guardarUnidadesPlus[0].Identity + ` idUniDetEdit="` + guardarUnidadesPlus[0].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fas fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>
+                    <button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + guardarUnidadesPlus[0].Identity + `  idUniDetTrash="` + guardarUnidadesPlus[0].Identity + `"><i class="fa fa-trash"></i></button>
+                    <button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + guardarUnidadesPlus[0].Identity + ` idUniDetEdit="` + guardarUnidadesPlus[0].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>
                   </div>
                   <!-- /btn-group -->
                   <input type="text" class="form-control" id="texToEmpresaVal` + guardarUnidadesPlus[0].Identity + `" value="` + nombrePilotoPlusUn + ` - ` + numeroLicenciaPlus + ` - ` + numeroPlacaPlusUn + ` - ` + numeroContenedorPlusUn + `" />
@@ -4981,7 +5164,7 @@ $(document).on("click", ".btnGuradarChasVeh", async function () {
             var hiddenIdnetyIngV = document.getElementById("hiddenIdentity").value;
             var jsonVehiculosG = document.getElementById("hiddenJsonVehiculos").value;
             console.log(jsonVehiculosG);
-            
+
             var respuestaVehN = guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG);
             console.log(respuestaVehN);
             if (respuestaVehN) {
@@ -5047,7 +5230,7 @@ function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            
+
             if (respuesta) {
                 todoMenus = true;
             } else {
@@ -5268,7 +5451,7 @@ $(document).on("click", ".btnGuardarNuevasLineas", async function () {
     var listaNoEncontrada = JSON.stringify(chasisNoEncontrado);
 
     var respIng = await revisarVehUsados(nomVar, listaNoEncontrada);
-    if (respIng!="SD") {
+    if (respIng != "SD") {
         $(".btnValidarChasis").click();
     }
 
@@ -5295,4 +5478,294 @@ function revisarVehUsados(nomVar, listaValidacion) {
             console.log(respuesta);
         }})
     return respFunc;
+}
+
+$(document).on("click", ".btnCapturarQRPol", async function () {
+    var barcodePolizaIng = $(".textoQRPoliza").html();
+    var polizaIng = barcodePolizaIng.substr(0, 10);
+    var duca = barcodePolizaIng.substr(10, 20);
+    var saltoQR = barcodePolizaIng.substr(45, 220);
+    var nit = saltoQR.substr(0, 26);
+    console.log(nit);
+    var nitTrim = nit.trim();
+
+    document.getElementById("txtNitEmpresa").value = nitTrim;
+    $("#txtNitEmpresa").trigger('change');
+    var duca = barcodePolizaIng.substr(10, 20);
+    var duca = duca.trim();
+    document.getElementById("dua").value = duca;
+    $("#dua").trigger('change');
+    var saltoQRReg = saltoQR.substr(28, 220);
+
+    var tipoCambio = saltoQRReg.substr(9, 10);
+    var tipoCambio = parseFloat(tipoCambio).toFixed(5);
+
+    var saltoQR = saltoQRReg.substr(22, 220);
+    var cif = saltoQR.substr(0, 17);
+    var cif = parseFloat(cif).toFixed(2);
+
+    var valDolares = (cif / tipoCambio);
+    var valDolares = parseFloat(valDolares).toFixed(2);
+    document.getElementById("valorTotalAduana").value = valDolares;
+    $("#valorTotalAduana").trigger('change');
+
+    document.getElementById("tipoDeCambio").value = tipoCambio;
+    $("#tipoDeCambio").trigger('change');
+    var saltoQRPesop = saltoQR.substr(17, 220);
+    var saltoQRImpts = saltoQRPesop.substr(75, 220);
+    var impuestos = saltoQRImpts.substr(0, 15);   // '(1, 2): bc'*/
+    var impuestos = impuestos.trim();
+    var impuestos = parseFloat(impuestos).toFixed(2);
+    document.getElementById("valorImpuesto").value = impuestos;
+    $("#valorImpuesto").trigger('change');
+    var peso = saltoQRPesop.substr(0, 15);
+    var peso = peso.trim();
+    var peso = parseFloat(peso).toFixed();
+
+    document.getElementById("pesoIng").value = peso;
+    $("#pesoIng").trigger('change');
+
+    var duca = barcodePolizaIng.substr(10, 20);   // '(1, 2): bc'
+    var duca = duca.trim();
+    document.getElementById("dua").value = duca;
+    $("#dua").trigger('change');
+
+
+
+    /*
+     console.log("Poliza : " + barcodePolizaIng.substr(0, 10));   // '(1, 2): bc'
+     console.log("DUCA : " + barcodePolizaIng.substr(10, 20));   // '(1, 2): bc'
+     var saltoQR = barcodePolizaIng.substr(45, 220);
+     console.log("NIT : " + saltoQR.substr(0, 26));   // '(1, 2): bc'
+     var saltoQRReg = saltoQR.substr(28, 220);
+     console.log("REGIMEN : " + saltoQRReg.substr(0, 2));   // '(1, 2): bc'
+     console.log("TIPO CAMBIO : " + saltoQRReg.substr(9, 10));   // '(1, 2): bc'
+     var tipoCambio = saltoQRReg.substr(9, 10);
+     var tipoCambio = parseFloat(tipoCambio).toFixed(5);
+     var saltoQR = saltoQRReg.substr(22, 220);
+     console.log("CIF : " + saltoQR.substr(0, 17));   // '(1, 2): bc'
+     var cif = saltoQR.substr(0, 17);
+     var cif = parseFloat(cif).toFixed(2);
+     
+     var valDolares = (cif / tipoCambio);
+     var valDolares = parseFloat(valDolares).toFixed(2);
+     console.log("Valor Trans : " + valDolares);
+     console.log("PESO : " + saltoQR.substr(17, 33));   // '(1, 2): bc'
+     var saltoQRPesop = saltoQR.substr(17, 220);
+     console.log(saltoQR);
+     console.log("PESO : " + saltoQRPesop.substr(0, 15));   // '(1, 2): bc'
+     var saltoQRImpts = saltoQRPesop.substr(90, 220);
+     console.log("IMPUESTOS : " + saltoQRImpts.substr(0, 15));   // '(1, 2): bc'*/
+})
+
+$(document).on("click", ".btnEliminarDetalleIng", async function () {
+    $(this).parent().parent().parent().remove();
+})
+
+
+/*
+ var tipoBusqueda = document.getElementById("tipoBusqueda").value;
+ var bultosAgregados = document.getElementById("bultosAgregados").value;
+ var bultosAgregados = parseInt(bultosAgregados);
+ var pesoAgregado = document.getElementById("pesoAgregado").value;
+ */
+
+$(document).on("mouseover", "#nomEmpresa", async function () {
+    $(this).attr('readOnly', false);
+})
+
+$(document).on("mouseover", "#TextBltsIng", async function () {
+    $(this).attr('readOnly', false);
+})
+
+$(document).on("mouseover", "#TextpesoIng", async function () {
+    $(this).attr('readOnly', false);
+})
+
+
+$(document).on("mouseout", "#nomEmpresa", async function () {
+    $(this).attr('readOnly', true);
+})
+
+$(document).on("mouseout", "#TextBltsIng", async function () {
+    $(this).attr('readOnly', true);
+})
+
+$(document).on("mouseout", "#TextpesoIng", async function () {
+    $(this).attr('readOnly', true);
+})
+
+$(document).on("click", "#btnGuardarDetallesIng", async function () {
+    var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    var tipoBusqueda = document.getElementById("tipoBusqueda").value;
+    var bultosAgregados = document.getElementById("bultosAgregados").value;
+    var bultosAgregados = parseInt(bultosAgregados);
+    var pesoAgregado = document.getElementById("pesoAgregado").value;
+    var pesoAgregado = pesoAgregado * 1;
+    var pesoAgregado = parseFloat(pesoAgregado).toFixed(2);
+
+    var totalBultos = 0;
+    var totalPeso = 0;
+    var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
+
+    if (paragraphsPesoIng.length >= 1) {
+        var paragraphsBltsIng = Array.from(document.querySelectorAll("#TextBltsIng"));
+        var totalBultos = 0;
+        for (var i = 0; i < paragraphsBltsIng.length; i++) {
+            var bultosIng = paragraphsBltsIng[i].attributes[3].value;
+            var bultosIng = parseInt(bultosIng);
+            var totalBultos = totalBultos + bultosIng;
+
+        }
+        var totalPeso = pesoAgregado * 1;
+        var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
+        for (var j = 0; j < paragraphsPesoIng.length; j++) {
+            var pesoIng = paragraphsPesoIng[j].attributes[3].value;
+            var pesoIng = parseFloat(pesoIng).toFixed(2);
+            var pesoIng = pesoIng * 1;
+            var totalPeso = totalPeso + pesoIng;
+        }
+        var totalPeso = totalPeso;
+        var totalPeso = parseFloat(totalPeso).toFixed(2);
+
+        var cantidadClientes = document.getElementById("cantClientes").value;
+        var bultosIngPol = document.getElementById("bultosIngreso").value;
+        var bultosIngPol = parseInt(bultosIngPol);
+
+        var saldoNuevoCruceBlts = bultosIngPol - totalBultos;
+        var saldoNuevoCruceBlts = parseInt(saldoNuevoCruceBlts);
+
+
+        var pesoIngPol = document.getElementById("pesoIng").value;
+        var pesoIngPol = parseFloat(pesoIngPol).toFixed(2);
+        var saldoNuevoCrucePeso = pesoIngPol - totalPeso;
+        var saldoNuevoCrucePeso = parseFloat(saldoNuevoCrucePeso).toFixed(2);
+        console.log(saldoNuevoCrucePeso);
+        console.log(saldoNuevoCruceBlts);
+        if (saldoNuevoCruceBlts == 0 && saldoNuevoCrucePeso == 0) {
+            var llaveConsulta = document.getElementById("hiddenIdentity").value;
+            var nomVar = "idIngValDet";
+            var respSaldos = await revisarVehUsados(nomVar, llaveConsulta);
+            if (respSaldos != "SD") {
+                var dataIngBlt = respSaldos[0].bultos;
+                var dataIngPeso = respSaldos[0].peso;
+
+                var paragraphsManIng = Array.from(document.querySelectorAll("#dataManifiesto"));
+                listaGDParagh = [];
+                var totalDeBultos = 0;
+                var totalDePeso = 0;
+
+                for (var i = 0; i < paragraphsManIng.length; i++) {
+                    var llaveConsulta = llaveConsulta;
+                    var empresaChild = paragraphsManIng[i].parentNode.children[1].attributes[2].value;
+                    var bultosChild = paragraphsManIng[i].parentNode.children[2].attributes[3].value;
+                    var bultosChild = parseInt(bultosChild);
+                    var bultosChild = bultosChild * 1;
+                    var totalDeBultos = totalDeBultos + bultosChild;
+
+                    var pesoChild = paragraphsManIng[i].parentNode.children[3].attributes[3].value;
+                    var pesoChild = parseFloat(pesoChild).toFixed(2);
+                    var pesoChild = pesoChild * 1;
+                    var totalDePeso = totalDePeso + pesoChild;
+
+                    listaGDParagh.push({llaveConsulta, empresaChild, bultosChild, pesoChild});
+                }
+                console.log(dataIngBlt);
+                console.log(totalDeBultos);
+                console.log(dataIngPeso);
+                console.log(totalDePeso);
+                console.log(listaGDParagh);
+                var totalRec = 0;
+                var totalRecuList = listaGDParagh.length;
+                if (dataIngBlt == totalDeBultos && dataIngPeso == totalDePeso) {
+                    for (var i = 0; i < listaGDParagh.length; i++) {
+                        var empresaChild = listaGDParagh[i].empresaChild;
+                        var bultosChild = listaGDParagh[i].bultosChild;
+                        var pesoChild = listaGDParagh[i].pesoChild;
+                        var respGDDetalle = await guardarDetalleIng(llaveConsulta, empresaChild, bultosChild, pesoChild);
+                        if (respGDDetalle.estado=="OK" || respGDDetalle.estado=="Okk") {
+                            var totalRec = totalRec+1;
+                        }
+                    }
+                    if (totalRec == totalRecuList) {
+                        Swal.fire({
+  title: 'Transacciones satisfactorias',
+  text: "El manifiesto fue agregado con éxito!",
+  type: 'success',
+  position: 'top-end',
+  allowOutsideClick: false,
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'Ok!'
+}).then((result) => {
+  if (result.value) {
+    location.reload();
+  }
+})
+                    }else{
+                        Swal.fire({
+  title: 'Transacciones insatisfactorias',
+  text: "El manifiesto no fue agregado correctamente en ingresos interrumpidos puede agregar el los que no se guardaron!",
+  type: 'success',
+  position: 'top-end',
+  allowOutsideClick: false,
+  confirmButtonColor: '#3085d6',
+  confirmButtonText: 'Ok!'
+}).then((result) => {
+  if (result.value) {
+    window.location = "ingresosPendientes";
+  }
+})                        
+                    }
+                }
+
+            }
+        } else {
+            Swal.fire(
+                    'Sobregiro!',
+                    'El detalle por agregar sobregira los saldos revise de bultos o peso!',
+                    'error'
+                    )
+            return false;
+        }
+
+    } else {
+        Swal.fire(
+                'Error de manifiesto',
+                'No existe manifiesto elaborado!',
+                'error'
+                )
+
+        return false;
+    }
+
+
+
+
+})
+
+
+function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
+    let retorno;
+    var datos = new FormData();
+    datos.append("llaveConsulta", llaveConsulta);
+    datos.append("tipoBusqueda", empresa);
+    datos.append("bultosAgregados", bultos);
+    datos.append("pesoAgregado", peso);
+    $.ajax({
+        async: false,
+        url: "ajax/operacionesBIngreso.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            retorno = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return retorno;
 }

@@ -25,9 +25,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         var impuestos = document.getElementById("impuestos").value;
         var bultos = document.getElementById("bultos").value;
         var peso = document.getElementById("peso").value;
-        if (hiddenvalorDoll == valorDoll && hiddentCambio == tCambio && hiddencif == cif && hiddenimpuestos == impuestos && hiddenbultos == bultos && hiddenpeso == peso) {
+        if (valorDoll > 0 && cif > 0 && impuestos > 0 && bultos > 0 && peso > 0) {
             var $contador = 0;
-        } else if (hiddenvalorDoll !== valorDoll || hiddentCambio !== tCambio || hiddencif !== cif || hiddenimpuestos !== impuestos || hiddenbultos !== bultos || hiddenpeso !== peso) {
+        } else {
             var $contador = 1;
         }
         if ($contador == 0) {
@@ -52,7 +52,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                     var fechaIng = respuestaDetalle[0]["fechaIng"];
                     var polizaRetiro = respuestaDetalle[0]["polRetiro"];
                     var fechaSalida = respuestaDetalle[0]["fechaSalida"];
-                    polizaRetiroRev = respuestaDetalle[0]["polRetiro"];
+                    var polizaRetiroRev = respuestaDetalle[0]["polRetiro"];
                     var datos = new FormData();
                     datos.append("idRetCal", idRetCal);
                     datos.append("idIngresoCal", idIngresoCal);
@@ -67,6 +67,15 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         processData: false,
                         dataType: "json",
                         success: async function (respuesta) {
+                            console.log(respuesta);
+                            if (respuesta=="SD") {
+                                Swal.fire(
+                                'Cliente sin tarifa',
+                                'Este cliente no tiene tarifa especial!',
+                                'error'
+                                );    
+                        return false;
+                            }
                             var respValRet = await funcGuardarValRet();
                             listaPushDefault = [];
                             var tiempoTotal = respuesta['tiempoTotal'];
@@ -75,7 +84,18 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             var manejo = respuesta['calculoManejo'];
                             var gstosAdmin = respuesta['gtoAdminMSuperior'];
                             var fechaCorte = respuesta['fechaCorte'];
-                            var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'];
+                            
+                            if (!isNaN(respuesta['revCuad'])) {
+                                
+                             var revCuad = respuesta['revCuad'];   
+                             var revCuad = parseFloat(revCuad).toFixed(2);
+                            var revCuad = new Intl.NumberFormat("en-GT").format(revCuad);
+
+                            }else{
+                             var revCuad =  0;  
+                            }
+                            
+                            var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior']+revCuad;
                             document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
@@ -121,7 +141,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             </tr>
                                             <tr>
                                             <th>Revisión:</th>
-                                            <td>0</td>
+                                            <td>` +revCuad+`</td>
                                             </tr>
                                             <tr>
                                             <th>Otros gastos:</th>
@@ -158,23 +178,23 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusOtrosServicios">Otros : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanOtro"></b></span></button></div>
-                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
-                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
-                                    <div class="col-sm-12 col-lg-2"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
-                                    <div class="col-sm-12 col-lg-2">                                <div class="btn btn-primary btn-lg btn-flat" id="imprimirReciboAlmacenaje" idRet= ` + idRetCal + `>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusOtrosServicios">Otros : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanOtro"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-4 mt-4">                                <div class="btn btn-primary btn-lg btn-flat" id="imprimirReciboAlmacenaje" idRet= ` + idRetCal + `>
                                         <i class="fa fa-print fa-lg mr-2"></i>
                                         Imprimir Recibo
                                     </div>
                                     </div>
                         
-                                    <div class="col-sm-12 col-lg-2">
+                                    <div class="col-sm-12 col-lg-4 mt-4">
                                  <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
                                     <i class="fa fa-print fa-lg mr-2"></i>
                                     Imprimir Retiro
                                 </div>  
                                 </div>
-                                <div class="col-sm-12 col-lg-2">
+                                <div class="col-sm-12 col-lg-4 mt-4">
                                 <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
                                     Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
                                 </div>                        
@@ -199,6 +219,8 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             setTimeout(function () {
                                 $("#dateTime").val(fechaCorte);
                             }, 1000);
+                            document.getElementById("hiddenRevision").value = revCuad;
+
                             document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
                             document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
                             document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
@@ -263,26 +285,26 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
             });
             var revDato = await revDatosExtras(polizaRetiroRev);
             console.log(revDato);
-            if (revDato == false) {
-                toastr.options = {
-                    "closeButton": false,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": false,
-                    "positionClass": "toast-top-full-width",
-                    "preventDuplicates": true,
-                    "onclick": null,
-                    "showDuration": "400",
-                    "hideDuration": "2000",
-                    "timeOut": "8000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                }
-                Command: -toastr["error"]("¡ Error existen datos con diferencia en la difitacion revise !");
-            }
+            /*if (revDato == false) {
+             toastr.options = {
+             "closeButton": false,
+             "debug": false,
+             "newestOnTop": false,
+             "progressBar": false,
+             "positionClass": "toast-top-full-width",
+             "preventDuplicates": true,
+             "onclick": null,
+             "showDuration": "400",
+             "hideDuration": "2000",
+             "timeOut": "8000",
+             "extendedTimeOut": "1000",
+             "showEasing": "swing",
+             "hideEasing": "linear",
+             "showMethod": "fadeIn",
+             "hideMethod": "fadeOut"
+             }
+             Command: -toastr["error"]("¡ Error existen datos con diferencia en la difitacion revise !");
+             }*/
             if (revDato == true) {
                 formatNumber("ZonaAdCalculo");
                 formatNumber("AlmNormalCalculo");
@@ -404,9 +426,6 @@ function revDatosExtras(polizaRetiroRev) {
 }
 
 $(document).on("click", ".btnConsultDataConfirm", async function () {
-
-
-
     document.getElementById("valorDoll").value = "";
     document.getElementById("tCambio").value = "";
     document.getElementById("cif").value = "";
@@ -461,19 +480,26 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
              document.getElementById("peso").value = respuesta[0].peso;
              
              */
-            document.getElementById("hiddenvalorDoll").value = respuesta[0].valDoll;
-            document.getElementById("hiddentCambio").value = respuesta[0].tCambio;
-            document.getElementById("hiddencif").value = respuesta[0].cif;
-            document.getElementById("hiddenimpuestos").value = respuesta[0].impts;
-            document.getElementById("hiddenbultos").value = respuesta[0].cantBultos;
-            document.getElementById("hiddenpeso").value = respuesta[0].peso;
+            var valDol = parseFloat(respuesta[0].valDoll).toFixed(2);
+            var valTCambio = parseFloat(respuesta[0].tCambio).toFixed(4);
+            var valCif = parseFloat(respuesta[0].cif).toFixed(2);
+            var valImpts = parseFloat(respuesta[0].impts).toFixed(2);
+            var valBultos = parseInt(respuesta[0].cantBultos);
+            var valPeso = parseFloat(respuesta[0].peso).toFixed(2);
 
-            document.getElementById("spanvalorDoll").innerHTML = respuesta[0].valDoll;
-            document.getElementById("spantCambio").innerHTML = respuesta[0].tCambio;
-            document.getElementById("spancif").innerHTML = respuesta[0].cif;
-            document.getElementById("spanimpuestos").innerHTML = respuesta[0].impts;
-            document.getElementById("spanpeso").innerHTML = respuesta[0].peso;
-            document.getElementById("spanbultos").innerHTML = respuesta[0].cantBultos;
+            document.getElementById("hiddenvalorDoll").value = valDol;
+            document.getElementById("hiddentCambio").value = valTCambio;
+            document.getElementById("hiddencif").value = valCif;
+            document.getElementById("hiddenimpuestos").value = valImpts;
+            document.getElementById("hiddenbultos").value = valBultos;
+            document.getElementById("hiddenpeso").value = valPeso;
+
+            document.getElementById("spanvalorDoll").innerHTML = valDol;
+            document.getElementById("spantCambio").innerHTML = valTCambio;
+            document.getElementById("spancif").innerHTML = valCif;
+            document.getElementById("spanimpuestos").innerHTML = valImpts;
+            document.getElementById("spanbultos").innerHTML = valBultos;
+            document.getElementById("spanpeso").innerHTML = valPeso;
         },
         error: function (respuesta) {
             console.log(respuesta);
@@ -531,13 +557,14 @@ $(document).on("change", "#valorDoll", function () {
                 )
     } else if (!isNaN(valIng)) {
         var valDolComprobar = document.getElementById("hiddenvalorDoll").value;
-        var comprobarValDoll = parseFloat(valDolComprobar);
+        var comprobarValDoll = parseFloat(valDolComprobar).toFixed(2);
         var comprobarValDoll = comprobarValDoll * 1;
         var rest = (comprobarValDoll - valIng);
         console.log(rest);
         if (rest == 0) {
             $("#valorDoll").removeClass('is-invalid');
             $("#valorDoll").addClass('is-valid');
+            document.getElementById("valorDoll").value = parseFloat(valDolIngresado).toFixed(2);
             $("#spanvalorDoll").attr("style", "display:none;");
             if ($("#tCambio").val() > 0) {
                 alert("hola mundo");
@@ -548,6 +575,7 @@ $(document).on("change", "#valorDoll", function () {
                 if (cif == totalCif) {
                     $("#cif").removeClass('is-invalid');
                     $("#cif").addClass('is-valid');
+
                     document.getElementById("cif").readOnly = true;
                     document.getElementById("impuestos").focus();
                     $("#spancif").attr("style", "display:none;");
@@ -583,6 +611,8 @@ $(document).on("change", "#tCambio", function () {
         var valDolComprobar = document.getElementById("hiddentCambio").value;
         var comprobarValDoll = parseFloat(valDolComprobar);
         var comprobarValDoll = comprobarValDoll * 1;
+        document.getElementById("tCambio").value = parseFloat(tCambio).toFixed(4);
+
         var rest = (comprobarValDoll - valIng);
         console.log(rest);
         if (rest == 0) {
@@ -626,7 +656,7 @@ $(document).on("change", "#tCambio", function () {
 });
 $(document).on("change", "#cif", function () {
     var cif = $(this).val();
-    var valIng = parseFloat(cif);
+    var valIng = parseFloat(cif).toFixed(2);
     var valIng = valIng * 1;
     if (isNaN(valIng)) {
         alert("error");
@@ -640,6 +670,8 @@ $(document).on("change", "#cif", function () {
         if (rest == 0) {
             $("#cif").removeClass('is-invalid');
             $("#cif").addClass('is-valid');
+            document.getElementById("cif").value = parseFloat(cif).toFixed(2);
+
             $("#spancif").attr("style", "display:none;");
 
         } else {
@@ -665,6 +697,8 @@ $(document).on("change", "#impuestos", function () {
         if (rest == 0) {
             $("#impuestos").removeClass('is-invalid');
             $("#impuestos").addClass('is-valid');
+            document.getElementById("impuestos").value = parseFloat(impuestos).toFixed(2);
+
             $("#spanimpuestos").attr("style", "display:none;");
         } else {
             $("#impuestos").removeClass('is-valid');
@@ -688,6 +722,8 @@ $(document).on("change", "#bultos", function () {
         if (rest == 0) {
             $("#bultos").removeClass('is-invalid');
             $("#bultos").addClass('is-valid');
+            document.getElementById("bultos").value = parseInt(bultos);
+
             $("#spanbultos").attr("style", "display:none;");
         } else {
             $("#bultos").removeClass('is-valid');
@@ -711,6 +747,8 @@ $(document).on("change", "#peso", function () {
         if (rest == 0) {
             $("#peso").removeClass('is-invalid');
             $("#peso").addClass('is-valid');
+            document.getElementById("peso").value = parseFloat(peso).toFixed(2);
+
             $("#spanpeso").attr("style", "display:none;");
         } else {
             $("#peso").removeClass('is-valid');
@@ -1002,6 +1040,7 @@ $(document).on("click", ".btnNuevoServicios", function () {
 })
 
 function totalCobrar() {
+    var hiddenRevision = document.getElementById("hiddenRevision").value;    
     var hiddenZonaAduana = document.getElementById("hiddenZonaAduana").value;
     var hiddenAlmacenaje = document.getElementById("hiddenAlmacenaje").value;
     var hiddenManejo = document.getElementById("hiddenManejo").value;
@@ -1009,7 +1048,7 @@ function totalCobrar() {
     var hiddenOtros = document.getElementById("hiddenOtros").value;
     var serviciosDefTotal = document.getElementById("serviciosDefTotal").value;
     var valDescuento = document.getElementById("valDescuento").value;
-    var sumTotal = (hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1) - valDescuento;
+    var sumTotal = (hiddenRevision*1+hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1) - valDescuento;
     document.getElementById("spanTotalC").innerHTML = sumTotal;
     document.getElementById("totaTh").innerHTML = sumTotal;
     document.getElementById("hiddenTotalCobrar").value = sumTotal;
@@ -1173,7 +1212,13 @@ $(document).on("click", ".btnDescuento", async function () {
 $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
     //Retiro
     var idRet = $(this).attr("idRet");
+    var nomVar = "paseSalRetVal";
 
+    var resp = await AjaxUnParam(idRet, nomVar);
+    console.log(resp);
+    if (resp[0].cantidadPlt>=1) {
+        
+    
     //Ingreso 
     var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
     //Otros servicios
@@ -1281,6 +1326,18 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
             }
         }
     }
+    }else{
+        Swal.fire({
+            title: 'Retiro sin piloto',
+            text: "No se registro ningun transporte en el retiro, registre el piloto",
+            type: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        }).then((result) => {
+            $("#idbtnMasPilotos").click();
+
+        })        
+    }
 });
 
 function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal) {
@@ -1363,9 +1420,11 @@ function limpiarValoresDigitados() {
 $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
     //Retiro
     var idRet = $(this).attr("idret");
+    console.log(idRet);
     var nomVar = "paseSalRetVal";
     var resp = await AjaxUnParam(idRet, nomVar);
-    if (resp) {
+    console.log(resp);
+    if (resp[0].cantidadPlt>=1) {
         var nomVar = "idRetAutorizado";
         Swal.fire({
             title: '¿Desea Autorizar Salida?',
@@ -1396,6 +1455,7 @@ $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
 
 async function guardarRetiroRegistroSal(idRet, nomVar) {
     var respActivacionRet = await AjaxUnParam(idRet, nomVar);
+    console.log(respActivacionRet);
     if (respActivacionRet != false) {
         console.log(respActivacionRet[0].resp);
         document.getElementById("numeroRetiro").innerHTML = '<div id="right"><h3 class="s2class"><span>No. de Retiro :</span><span class="su">' + respActivacionRet[0].resp + '</span></h3>';
@@ -1432,13 +1492,14 @@ function AjaxUnParam(idRet, nomVar) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+
+            console.log(respuesta);            
             if (respuesta != "SD") {
                 respFunc = respuesta;
             } else {
                 respFunc = false;
             }
 
-            console.log(respuesta);
         }, error: function (respuesta) {
             console.log(respuesta);
         }

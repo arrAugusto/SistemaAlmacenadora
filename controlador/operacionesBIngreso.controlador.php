@@ -108,9 +108,9 @@ class ControladorOpB {
                                 if ($datos["sel2"] == "Cliente individual" || $datos["sel2"] == "Cliente consolidado poliza") {
                                     $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
                                     $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
-                            $tipoOperacion = 1;
-                            $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);                                  
-								  $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
+                                    $tipoOperacion = 1;
+                                    $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
+                                    $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
                                     return $respuesta["dataTxt"][0];
                                 }
                                 if ($datos["sel2"] == "Cliente consolidado poliza") {
@@ -178,7 +178,6 @@ class ControladorOpB {
         $sp = "spConsulTipoConsol";
         $respuesta = ModeloControladorOpB::mdlEditarIngOP($datos);
         $respuestaTipCons = ModeloControladorOpB::mdlUnParametroConsult($idIngrseso, $sp);
-        return $respuesta;
         if ($respuestaTipCons[0]["consolidado"] == 0) {
             $bultos = $datos['bultosEditar'];
             $peso = $datos['pesoEditar'];
@@ -458,6 +457,13 @@ class ControladorOpB {
             $respuesta = ModeloControladorOpB::mdlGuardarNuevaLinea($tipo, $linea, $sp);
             return $respuesta;
         }
+    }
+
+    public static function ctrMostrarValDeDetalles($idIngValDet) {
+        $sp = "spConsultaBltPs";
+        $respuesta = ModeloControladorOpB::mdlUnParametroConsult($idIngValDet, $sp);
+        return $respuesta;
+        
     }
 
 }

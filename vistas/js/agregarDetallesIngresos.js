@@ -1118,12 +1118,12 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
 
                     var lista = [];
                     console.log(respuesta);
-                    for (var i = 0; i < respuesta.length; i++) {
+                    for (var i = 0; i < respuesta[0].length; i++) {
                         var numero = i + 1;
                         var numeroLabel = '<label>' + numero + '</label>'
-                        var empresa = '<label>' + respuesta[i]["empresa"] + '</label>';
-                        var bultos = '<label>' + respuesta[i]["bultos"] + '</label>';
-                        var peso = '<label>' + respuesta[i]["peso"] + '</label>';
+                        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
                         lista.push([numeroLabel, empresa, bultos, peso]);
                     }
                     $('#tableDiffBodMan').DataTable({

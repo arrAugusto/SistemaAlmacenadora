@@ -44,8 +44,8 @@ class imprimirIngresoBodega {
         $polRetiro = $respRet[0]["polRetiro"];
         $polIng = $respRet[0]["polIng"];
 
-        $valCif = number_format($respRet[0]["valCif"]);
-        $valImpuesto = number_format($respRet[0]["valImpuesto"]);
+        $valCif = number_format($respRet[0]["valCif"], 2);
+        $valImpuesto = number_format($respRet[0]["valImpuesto"], 2);
 
 
 
@@ -174,7 +174,7 @@ EOF;
 //------------------------------------------------------------------------------------------------------- 
         foreach ($datosUnidades as $key => $value) {
             if ($value["estadoUnidad"] != 0) {
-
+                
 
                 $nombrePiloto = $value["nombrePiloto"];
                 $licPiloto = $value["licPiloto"];
@@ -182,7 +182,9 @@ EOF;
                 $contenedorUnidad = $value["contenedorUnidad"];
                 $numMarchamo = $value["numMarchamo"];
 
-
+                if ($numMarchamo==0) {
+                    $numMarchamo = "NO APLICA";
+                }
 
                 $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
                 $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';

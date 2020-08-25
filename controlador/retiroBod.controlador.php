@@ -10,18 +10,18 @@ class ControladorRetirosBodega {
                 $idIngOpDet = $value["idIngreso"];
                 $spVeh = "spIngVehUsados";
                 $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
-                $vehiUsado = 'ZA'; 
-                if ($respuestaRevertVeh[0]['resp']==1) {
-                    $vehiUsado = "vehiculoUsado";    
+                $vehiUsado = 'ZA';
+                if ($respuestaRevertVeh[0]['resp'] == 1) {
+                    $vehiUsado = "vehiculoUsado";
                 }
                 if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Generales" && $_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas" || $_SESSION["departamentos"] == "Gerencia") {
                     $bottonera = '<div class="btn-group" role="group">
-                                    <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" tipoIng='.$vehiUsado.' id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
+                                    <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" tipoIng=' . $vehiUsado . ' id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
                                   </div>';
                 } else if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
                     $bottonera = '<div class="btn-group" role="group">
         <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fas fa-eye"></i></button>
-        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" tipoIng='.$vehiUsado.'  idRetiro=' . $value["idRetiro"] . '  ><i class="fa fa-rocket"></i></button>
+        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" tipoIng=' . $vehiUsado . '  idRetiro=' . $value["idRetiro"] . '  ><i class="fa fa-rocket"></i></button>
 </div>';
                 }
                 echo '
@@ -148,7 +148,7 @@ class ControladorRetirosBodega {
             $nuevoSaldo = $stockPos - $valPosSalida;
             $stockMts = $respuestaDetalle[0]["stockMts"];
             $nuevoSaldoMts = $stockMts - $valMtsSalida;
-                $stockCondicional = $respuestaDetalle[0]["stock"];
+            $stockCondicional = $respuestaDetalle[0]["stock"];
             if ($respuestaDetalle[0]["stock"] == 0 && $nuevoSaldo == 0 && $nuevoSaldoMts == 0 ||
                     $respuestaDetalle[0]["stock"] > 0 && $nuevoSaldo > 0 && $nuevoSaldoMts > 0) {
 
@@ -176,9 +176,9 @@ class ControladorRetirosBodega {
                 }
                 $arrayNuevoDetalle = json_encode($nuevoDetalleDB, false);
                 $respuestaUpdate = ModeloRetirosBodega::mdlUpdateDetalle($idRet, $arrayNuevoDetalle, $usuarioOp);
-                if ($respuestaUpdate=="exito" && $stockCondicional > 0) {
+                if ($respuestaUpdate[0]["resp"] >= 1 && $stockCondicional > 0) {
                     return "puedeEditar";
-                }else{
+                } else {
                     return "exito";
                 }
             } else {
@@ -294,10 +294,11 @@ class ControladorRetirosBodega {
                 $contador = $contador + 1;
             }
         }
+
         $contadorMarchamos = 0;
         $countArraM = count($respuesta[3]);
         foreach ($respuesta[3] as $key => $value) {
-            if ($value["numMarchamo"] != 0) {
+            if ($value["estadoUnidad"] == 2) {
                 $contadorMarchamos = $contadorMarchamos + 1;
             }
         }
@@ -331,6 +332,3 @@ class ControladorRetirosBodega {
     }
 
 }
-
-
-

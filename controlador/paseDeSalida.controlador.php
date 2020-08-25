@@ -17,23 +17,20 @@ class ControladorPasesDeSalida {
                         $bottonera = '<div class="btn-group"><button type="button" class="btn btn-danger btnConsultDataConfirm btn-sm" reciboAsignado=0 retiroAsignado=0 polizaSal="' . $value["numPolIng"] . '" correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Pendiente &nbsp;<i class="fa fa-print"></i></button></div>';
                     }
                     echo '
-<tr>
-    <td>' . ($key + 1) . '</td>
-    <td>' . $value["numNit"] . '</td>
-    <td>' . $value["empresa"] . '</td>
-    <td>' . $value["numPolIng"] . '</td>
-    <td>' . $value["polRet"] . '</td>
-    <td>' . $value["idIngOp"] . '</td>
-    <td>' . $value["identRet"] . '</td>
-    <td>' . $value["bultosRet"] . '</td>
-    <td>' . $value["pesoRet"] . '</td>
-    <td>' . $value["tipoServicio"] . '</td>';
+                    <tr>
+                        <td>' . ($key + 1) . '</td>
+                        <td>' . $value["numNit"] . '</td>
+                        <td>' . $value["empresa"] . '</td>
+                        <td>' . $value["numPolIng"] . '</td>
+                        <td>' . $value["polRet"] . '</td>
+                        <td>' . $value["bultosRet"] . '</td>
+                        <td>' . $value["pesoRet"] . '</td>
+                        <td>' . $value["tipoServicio"] . '</td>';
                     if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
                         echo '    <td>' . $bottonera . '</td>';
                     }
                     echo '   
-
-</tr>';
+                    </tr>';
                 }
             }
         }
@@ -49,8 +46,11 @@ class ControladorPasesDeSalida {
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($idIngresoCal, $hiddenDateTimeVal);
+            if ($respuesta == "SD") {
+                return $respuesta;
+            }
             $tiempoTotal = $respuesta["totalDiasC"];
-            $datos = array("almaMSuperior" => $respuesta["almacenaje"], "zonaAduanMSuperior" => 0, "calculoManejo" => $respuesta["manejo"], "gtoAdminMSuperior" => $respuesta["transEle"], "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $respuesta["fechaIngreso"], "fechaCorte" => $respuesta["fechaCalculo"]);
+            $datos = array("revCuad" => $respuesta["revCuad"], "almaMSuperior" => $respuesta["almacenaje"], "zonaAduanMSuperior" => 0, "calculoManejo" => $respuesta["manejo"], "gtoAdminMSuperior" => $respuesta["transEle"], "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $respuesta["fechaIngreso"], "fechaCorte" => $respuesta["fechaCalculo"]);
             return $datos;
         } else {
 
@@ -110,22 +110,20 @@ class ControladorPasesDeSalida {
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
         if ($respuestaRevertVeh[0]["resp"] == 1) {
-            $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($idIngresoCal, $hiddenDateTimeVal);
-
             $sp = "spMostrarPoliza";
             $hiddenTipoOP = 3;
             $mostrarPoliza = ModeloPasesDeSalida::mdlValidacionCobro($sp, $idRetCal);
             $polizaExtraSer = $mostrarPoliza[0]["poliza"];
-            $respuestaCalculo = ModeloPasesDeSalida::mdlMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal);
+            $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($idIngresoCal, $hiddenDateTimeVal);
+            $tiempoTotal = $respuesta["totalDiasC"];
             $almaMSuperior = $respuesta["almacenaje"];
             $zonaAduanMSuperior = 0;
             $calculoManejo = $respuesta["manejo"];
-            $gtoAdminMSuperior = $respuesta["transEle"];
+            $gtoAdminMSuperior = 0;
             $nuevafechaInicio = $respuesta["fechaIngreso"];
             $fechaCorte = $respuesta["fechaCalculo"];
+            $revCuad = $respuesta["revCuad"];
         } else {
-
-
             $sp = "spMostrarPoliza";
             $hiddenTipoOP = 3;
             $mostrarPoliza = ModeloPasesDeSalida::mdlValidacionCobro($sp, $idRetCal);
@@ -137,7 +135,9 @@ class ControladorPasesDeSalida {
             $gtoAdminMSuperior = $respuestaCalculo["gtoAdminMSuperior"];
             $nuevafechaInicio = $respuestaCalculo["nuevafechaInicio"];
             $fechaCorte = $respuestaCalculo["fechaCorte"];
+            $revCuad = 0;
         }
+
         $tipoTran = 2;
         $estado = 2;
         $respuesta = ControladorCalculoDeAlmacenaje::ctrOtrosServiciosExtraGd($otros, $serviciosExt, $hiddenDescuento, $polizaExtraSer, $valCalculado, $hiddenTipoOP, $estado, $idRetCal);
@@ -146,7 +146,7 @@ class ControladorPasesDeSalida {
 
         if ($respuestaValidacion[0]["valiCobro"] == 0) {
             $usuarioOp = $datos["usuarioOp"];
-            $respuestaInsertCalculo = ModeloPasesDeSalida::mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $nuevafechaInicio, $fechaCorte, $usuarioOp);
+            $respuestaInsertCalculo = ModeloPasesDeSalida::mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $nuevafechaInicio, $fechaCorte, $usuarioOp, $revCuad);
             return "Oks";
         } else {
             return "ARegistrado";
@@ -227,6 +227,7 @@ class ControladorPasesDeSalida {
     }
 
     public static function ctrMostrarRetValidacion($paseSalRetVal) {
+        
         $sp = "spDatosRet";
         $respuesta = ModeloPasesDeSalida::mdlValidacionCobro($sp, $paseSalRetVal);
         return $respuesta;
