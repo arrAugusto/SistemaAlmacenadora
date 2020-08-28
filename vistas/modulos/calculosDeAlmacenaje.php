@@ -39,6 +39,8 @@
                         <div class="row">
                             <div class="col-6">
                                 <input type="text" id="calculoTextParamBusqRet" class="form-control" placeholder="Escriba poliza, nit, empresa..." onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
+                                <input type="hidden" id="hiddenGdVehMerc"  value="">
+
                                 <input type="hidden" id="hiddenStockIngreso"  value="">
                             </div>
                             <div class="col-2">

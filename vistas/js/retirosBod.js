@@ -109,22 +109,22 @@ $(document).on("click", ".btnDetalleRetBod", function () {
                     },
                     data: listaTable,
                     columns: [{
-                        title: "#"
-                    }, {
-                        title: "Empresa"
-                    }, {
-                        title: "Bultos"
-                    }, {
-                        title: "Peso"
-                    }, {
-                        title: "Descripcion"
-                    }, {
-                        title: "Detalles"
-                    }, {
-                        title: "Posiciones"
-                    }, {
-                        title: "Metros"
-                    }
+                            title: "#"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Peso"
+                        }, {
+                            title: "Descripcion"
+                        }, {
+                            title: "Detalles"
+                        }, {
+                            title: "Posiciones"
+                        }, {
+                            title: "Metros"
+                        }
                     ]
                 });
                 fncMostrarUbicaciones(listaDet);
@@ -235,9 +235,9 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                 alert(respuesta);
                 return true;
             } else {
-               document.getElementById("divTablePilotos").innerHTML = '<table id="tablePilotlos" class="table  table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
-                    document.getElementById("divTableRetiraBodega").innerHTML = '<table id="tableSalidaBodega" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
-     
+                document.getElementById("divTablePilotos").innerHTML = '<table id="tablePilotlos" class="table  table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
+                document.getElementById("divTableRetiraBodega").innerHTML = '<table id="tableSalidaBodega" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
+
                 if (tipoing != "vehiculoUsado") {
                     if (respuesta[2] != "SD") {
                         var nombre = respuesta[2][0].nombres;
@@ -246,7 +246,10 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                         var telefono = respuesta[2][0].telefono;
                         var idOperacion = respuesta[2][0].id;
                         var foto = respuesta[2][0].foto;
+                        if (foto == "NA") {
+                            var foto = 'vistas/img/usuarios/default/anonymous.png';
 
+                        }
                         $("#divRetiroOperacion").append(`
 
         <div class="info-box bg-warning">
@@ -315,14 +318,14 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                         },
                         data: listaPilotos,
                         columns: [{
-                            title: "#"
-                        }, {
-                            title: "Piloto"
-                        }, {
-                            title: "Marchamo"
-                        }, {
-                            title: "Acciones"
-                        }]
+                                title: "#"
+                            }, {
+                                title: "Piloto"
+                            }, {
+                                title: "Marchamo"
+                            }, {
+                                title: "Acciones"
+                            }]
                     });
                 }
 
@@ -376,22 +379,22 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                     },
                     data: listaSalidaBodega,
                     columns: [{
-                        title: "#"
-                    }, {
-                        title: "Empresa"
-                    }, {
-                        title: "Bultos"
-                    }, {
-                        title: "Stock Posiciones"
-                    }, {
-                        title: "Stock Metros"
-                    }, {
-                        title: "Posiciones"
-                    }, {
-                        title: "Metros"
-                    }, {
-                        title: "Acciones"
-                    }]
+                            title: "#"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Stock Posiciones"
+                        }, {
+                            title: "Stock Metros"
+                        }, {
+                            title: "Posiciones"
+                        }, {
+                            title: "Metros"
+                        }, {
+                            title: "Acciones"
+                        }]
                 });
 
             }
@@ -411,9 +414,9 @@ $(document).on("click", ".btnSalidaBodega", async function () {
     var tipoing = $(this).attr("tipoing");
     console.log("cargando el ajax");
     var respuesta = await ajaxSolicInfo(valIdRet, tipoing);
-    
+
     console.log("esperandoRespuesta");
-if (respuesta == "Ok") {
+    if (respuesta == "Ok") {
         console.log("continuando...");
     }
 
@@ -429,10 +432,10 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
     var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
     if (valPosSalida == "" || valMtsSalida == "" || valPosSalida <= 0 || valMtsSalida <= 0) {
         Swal.fire(
-            'Sin Posiciones o Metros',
-            'Agregue Metros o Posiciones de Esta Rebaja',
-            'error'
-        )
+                'Sin Posiciones o Metros',
+                'Agregue Metros o Posiciones de Esta Rebaja',
+                'error'
+                )
     } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
         if (valPosSalida >= 1 && valMtsSalida >= 1) {
             $("#posDet" + idRet).removeClass("is-invalid");
@@ -452,10 +455,10 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                 $("#mtsDet" + idfila).removeClass("is-invalid");
                 $("#mtsDet" + idfila).addClass("is-valid");
                 Swal.fire(
-                    'Transacción Exitosa',
-                    'Se Guardo Correctamente los Metros y Posiciones',
-                    'success'
-                )
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                        )
             }
             if (guardDet == "exito") {
 
@@ -479,18 +482,18 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                 $("#posDet" + idfila).attr("readOnly", true);
 
                 Swal.fire(
-                    'Transacción Exitosa',
-                    'Se Guardo Correctamente los Metros y Posiciones',
-                    'success'
-                )
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                        )
 
             }
             if (guardDet == "sobreGirara") {
                 Swal.fire(
-                    'Transacción Interrumpida',
-                    'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
-                    'error'
-                );
+                        'Transacción Interrumpida',
+                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                        'error'
+                        );
             }
 
             console.log("esperando...");
@@ -648,10 +651,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                     $("#mtsDet" + idfila).addClass("is-valid");
 
                     Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                    )
+                            'Transacción Exitosa',
+                            'Se Guardo Correctamente los Metros y Posiciones',
+                            'success'
+                            )
 
                 }
                 if (guardDet == "puedeEditar") {
@@ -663,10 +666,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                 }
                 if (guardDet == "sobreGirara") {
                     Swal.fire(
-                        'Transacción Interrumpida',
-                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
-                        'error'
-                    );
+                            'Transacción Interrumpida',
+                            'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                            'error'
+                            );
                 }
                 console.log(guardDet);
                 /*if (guardDet == "Ok") {
@@ -777,12 +780,12 @@ $(document).on("click", ".btnGdPiloto", async function () {
     var marchamo = document.getElementById("MarchamoPlt" + idPlt).value;
     if (isNaN(marchamo) || marchamo == "") {
         Swal.fire(
-            'Sin Marchamo!',
-            'Ingrese el Numero de Marchamo!',
-            'error'
-        );
+                'Sin Marchamo!',
+                'Ingrese el Numero de Marchamo!',
+                'error'
+                );
     } else {
-    
+
         var respMarchamo = await ajaxGuardarMarchamo(idPlt, marchamo, idRet);
         if (respMarchamo == true) {
             button.removeClass("btn-info");
@@ -801,10 +804,10 @@ $(document).on("click", ".btnGdPiloto", async function () {
                 document.getElementById("divButtonsPlt" + idPlt).innerHTML = '<button type="button" class="btn btn-warning btn-sm btnEditarPlt" id="EditarPlt' + idPlt + '" estado=0 idPlt=' + idPlt + ' idRet=' + idRet + '><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm btnTrashPiloto" id="TrashPiloto' + idPlt + '" idPlt=' + idPlt + '><i class="fa fa-trash"></i></button>';
             }
             Swal.fire(
-                'Transacción Exitosa',
-                'El Marchamo se Guardo con Exito',
-                'success'
-            )
+                    'Transacción Exitosa',
+                    'El Marchamo se Guardo con Exito',
+                    'success'
+                    )
         }
     }
 });
@@ -894,7 +897,7 @@ $(document).on("click", ".btnEditarPlt", async function () {
             allowOutsideClick: false,
             allowEscapeKey: false
         }).then(async function (result) {
-            
+
             var marchamoEdit = document.getElementById("MarchamoPlt" + idplt).value;
             var respEditMarchamo = await ajaxEditarMarchamo(idRet, idplt, marchamoEdit);
             if (respEditMarchamo == true) {
@@ -906,10 +909,10 @@ $(document).on("click", ".btnEditarPlt", async function () {
                 button.attr("estado", 0);
 
                 Swal.fire(
-                    'Transacción Exitosa',
-                    'Se edito correctamente el numero de marchamo',
-                    'success'
-                );
+                        'Transacción Exitosa',
+                        'Se edito correctamente el numero de marchamo',
+                        'success'
+                        );
             }
         });
     }
@@ -940,7 +943,7 @@ function ajaxEditarMarchamo(idRet, idPlt, marchamo) {
     console.log(idPlt);
     let respTran;
     var datos = new FormData();
-    
+
     datos.append("idRetEditMar", idRet);
     datos.append("idPltEdit", idPlt);
     datos.append("marchamoEdit", marchamo);
@@ -1028,10 +1031,10 @@ $(document).on("click", ".btnLimpiarRetiros", async function () {
             location.reload();
         } else {
             Swal.fire(
-                'No se reinicio la lista de retiros',
-                'Puede editar los datos de este retiro',
-                'warning'
-            )
+                    'No se reinicio la lista de retiros',
+                    'Puede editar los datos de este retiro',
+                    'warning'
+                    )
         }
     })
 })

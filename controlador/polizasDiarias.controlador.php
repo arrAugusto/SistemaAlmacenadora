@@ -442,6 +442,7 @@ class ControladorGenerarContabilidad {
             $sumCif = 0;
             $sumImpuesto = 0;
             $totalVal = 0;
+            if ($respRet!="SD") {
             foreach ($respRet as $keys => $value) {
                 $identBodega = $value["identBodega"];
                 $ident = $identBodega;
@@ -462,7 +463,7 @@ class ControladorGenerarContabilidad {
                 $area = $datosEmpresa[0]["areasAutorizadas"];
                 $bodega = $datosEmpresa[0]["numeroIdentidad"];
             }
-
+            
             $totalVal = $sumCif + $sumImpuesto;
             /**
              * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
@@ -505,7 +506,7 @@ class ControladorGenerarContabilidad {
                 $ajusteValCif = $ajusteValCif + $value["sumCif"];
                 $ajusteVImpst = $ajusteVImpst + $value["sumImpuesto"];
             }
-            ;
+  
             $totalAjuste = $ajusteValCif + $ajusteVImpst;
             if ($ajusteValCif > 0 && $ajusteVImpst > 0) {
 
@@ -650,6 +651,7 @@ class ControladorGenerarContabilidad {
                         $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
                         $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                     }
+                }
                 }
             }
             return true;

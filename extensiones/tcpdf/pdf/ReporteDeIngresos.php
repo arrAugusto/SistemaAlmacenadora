@@ -36,15 +36,17 @@ class imprimirIngresoBodega {
 
         $FConta = $repContabilidad[0]["fechaContabilidad"];
         $formatFechConta = date("d/m/Y", strtotime($FConta));
-        require_once('tcpdf_include.php');
-        $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
-        $pdf->AddPage();
-        $pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
-        $pdf->SetMargins(6, 0, 6);
-        $pdf->setPrintHeader(false);
-        $pdf->setPrintFooter(false);
+require_once('tcpdf_include.php');
+$pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+$pdf->startPageGroup();
+
+$pdf->AddPage();
+
+$pdf->SetFooterMargin(PDF_MARGIN_FOOTER);
+$pdf->SetMargins(6, 10, 6);
+$pdf->setPrintHeader(true);
 //---------------------------------------------------------------------------------------------------
-        $bloque1 = <<<EOF
+$bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
@@ -69,7 +71,7 @@ class imprimirIngresoBodega {
 	</table>
 
 EOF;
-        $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
+$pdf->writeHTML($bloque1, false, false, false, false, '');
 //---------------------------------------------------------------------------------------------------
         $bloque3 = <<<EOF
     <table style="font-size:7px;">

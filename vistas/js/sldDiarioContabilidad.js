@@ -1209,16 +1209,14 @@ function gdAjustesMultiple(date, montoParseCFloat, montoParseIFloat, tipo, estad
 }
 $(document).on("click", ".btnCorteDiario", async function () {
     var fechareporte = $(this).attr("fechareporte");
-    var entidad = $(this).attr("entidad");
-    var respHistoriaImpts = await funcionCorteDiario(fechareporte, entidad);
+    var respHistoriaImpts = await funcionCorteDiario(fechareporte);
 })
 
 
-function funcionCorteDiario(fechareporte, entidad) {
+function funcionCorteDiario(fechareporte) {
     let respHistorial;
     var datos = new FormData();
     datos.append("fechaCorteConta", fechareporte);
-    datos.append("idEmpresa", entidad);
     $.ajax({
         async: false,
         url: "ajax/sldDiarioContabilidad.ajax.php",
@@ -1229,7 +1227,7 @@ function funcionCorteDiario(fechareporte, entidad) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-
+            console.log(respuesta);
             respHistorial = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);

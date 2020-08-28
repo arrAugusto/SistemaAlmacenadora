@@ -79,7 +79,7 @@ $(document).on("click", ".btnEditOp", function () {
 
     var css = "display: block;";
     document.getElementById("divEdiciones").setAttribute("style", css);
-    if (valEstaod == 2 || valEstaod == 3) {
+    if (valEstaod >= 1 || valEstaod <= 3) {
         var datos = new FormData();
         datos.append("idIngClientesPlt", idIngEditOp);
         $.ajax({
@@ -99,10 +99,17 @@ $(document).on("click", ".btnEditOp", function () {
                 for (var i = 0; i < respuesta["respuestaClientes"].length; i++) {
                     var numero = i + 1;
                     var identi = respuesta["respuestaClientes"][i].identi;
-                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="7" numbtneliminar="1"><i class="fa fa-trash" aria-hidden="true"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
                     var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
                     var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
                     var cantPeso = '<input type="text" class="form-control" value="' + respuesta["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
+                    if (valEstaod<=2) {
+                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="'+identi+'" numbtneliminar="'+identi+'"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+                    }else{
+                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+                        
+                    }
+                    
+                    
                     lista.push([numero, nombreEmpresa, cantBultos, cantPeso, accion]);
                 }
 

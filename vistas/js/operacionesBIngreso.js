@@ -1169,7 +1169,17 @@ $(document).on("click", ".btnEditar", function () {
         var textnomEmpresa = document.getElementById(nomEmpresa).value;
         var textbltsEmpresa = document.getElementById(bltsEmpresa).value;
         var textpesoEmpresa = document.getElementById(pesoEmpresa).value;
-        var buttonEditar = $(this).attr("buttonEditar");
+        var buttonEditar = $(this).attr("numbtneditar");
+        var textbltsEmpresa = parseInt(textbltsEmpresa);
+        var textbltsEmpresa = textbltsEmpresa*1;
+        
+        var textpesoEmpresa = parseFloat(textpesoEmpresa).toFixed(2);
+        var textpesoEmpresa = textpesoEmpresa*1;
+        
+        var llaveConsultaEdit = parseInt(llaveConsultaEdit);
+        var llaveConsultaEdit = llaveConsultaEdit*1;
+        var buttonEditar = parseInt(buttonEditar);
+        var buttonEditar = buttonEditar*1;
         var datos = new FormData();
         datos.append("buttonEditar", buttonEditar);
         datos.append("textnomEmpresa", textnomEmpresa);
@@ -1185,6 +1195,40 @@ $(document).on("click", ".btnEditar", function () {
             processData: false,
             dataType: "json",
             success: function (respuesta) {
+                console.log(respuesta);
+                if (respuesta[0].resp==1) {
+                                    swal({
+                        type: "success",
+                        title: "Editado satisfactoriamente",
+                        text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
+                        showConfirmButton: true,
+                        confrimButtonText: "cerrar",
+                        closeConfirm: true
+                    });
+                    return true;
+                    
+                }else{
+                                                       swal({
+                        type: "error",
+                        title: "No se edito",
+                        text: "Hubo un error desconocido no se pudo editar",
+                        showConfirmButton: true,
+                        confrimButtonText: "cerrar",
+                        closeConfirm: true
+                    }); 
+                    return false;
+                }
+                return false;
+                if (respuesta=="conDetCorregido") {
+                    swal({
+                        type: "warning",
+                        title: "Se edito empresa y peso, bultos no se pueden editar porque bodega ya opero transacciones",
+                        showConfirmButton: true,
+                        confrimButtonText: "cerrar",
+                        closeConfirm: true
+                    });
+                    
+                }
                 if (respuesta["Tipo"] == "ConDetalleBodega") {
                     swal({
                         title: "Error",
@@ -5769,3 +5813,133 @@ function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
     })
     return retorno;
 }
+
+
+$(document).on("click", ".btnAgregarEmpresaInter", async function () {
+    var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    var bultosAgregados = document.getElementById("bultosAgregados").value;
+    var pesoAgregado = document.getElementById("pesoAgregado").value;
+
+    var respuestaSaldoPeso = await saldoPesoIng(hiddenIdentityIngPeso, bultosAgregados, pesoAgregado);
+    console.log(respuestaSaldoPeso);
+
+    if (respuestaSaldoPeso == "Ok") {
+        var revisar = await fucionRevisarConsolidado();
+        console.log(revisar);
+        if (revisar == 3) {
+            var tipoBusqueda = document.getElementById("tipoBusqueda").value;
+            var bultosAgregados = document.getElementById("bultosAgregados").value;
+            var pesoAgregado = document.getElementById("pesoAgregado").value;
+            if (tipoBusqueda == "") {
+                alert("existe un dato vacio favor revise");
+            } else {
+                var llaveConsulta = document.getElementById("hiddenIdentity").value;
+                var datos = new FormData();
+                datos.append("llaveConsulta", llaveConsulta);
+                datos.append("tipoBusqueda", tipoBusqueda);
+                datos.append("bultosAgregados", bultosAgregados);
+                datos.append("pesoAgregado", pesoAgregado);
+                $.ajax({
+                    url: "ajax/operacionesBIngreso.ajax.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (respuesta) {
+                        console.log(respuesta);
+                        if (respuesta == "sobreGiro") {
+                            swal({
+                                type: "error",
+                                title: "Bultos Ingresados",
+                                text: "Los bultos ingresados, sobre pasa los limites de lo que reporto en el ingreso",
+                                showConfirmButton: true,
+                                confrimButtonText: "cerrar",
+                                closeConfirm: true
+                            });
+                        }
+                        console.log(790);
+                        if (respuesta["estado"] == "OK") {
+                            console.log(respuesta["estado"]);
+                            if ($("#divTableFail").lenght == 0) {
+
+
+                                document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
+                                document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
+                                document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
+                                var cantVsClientes = document.getElementById("cantVsClientes").value;
+                                document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
+                                var valueClientes = document.getElementById("valueClientes").value;
+                                cantVsClientes = parseInt(cantVsClientes) + 1;
+                                document.getElementById("contadorH3").innerHTML = cantVsClientes;
+                                document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+                            }
+                            $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
+
+                            document.getElementById("cantVsClientes").value = cantVsClientes;
+
+                            document.getElementById("tipoBusqueda").value = '';
+                            document.getElementById("tipoBusqueda").value = '';
+                            document.getElementById("bultosAgregados").value = '';
+                            document.getElementById("pesoAgregado").value = '';
+
+                            $("#tipoBusqueda").removeClass("is-valid");
+                            $("#tipoBusqueda").addClass("is-invalid");
+                            $("#bultosAgregados").removeClass("is-valid");
+                            $("#bultosAgregados").addClass("is-invalid");
+                            $("#pesoAgregado").removeClass("is-valid");
+                            $("#pesoAgregado").addClass("is-invalid");
+                            document.getElementById("tipoBusqueda").focus();
+                        } else if (respuesta == "No") {
+                            alert("existen bultos");
+                        } else if (respuesta["estado"] == "Okk") {
+                            swal({
+                                title: "Operación Exitosa",
+                                text: "Toda la transacción fue operada correctamente",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    if ($("#divTableFail").lenght == 0) {
+                                        document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
+                                        document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
+                                        document.getElementById("gDetalles").innerHTML = "Editar Clientes";
+                                        document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
+                                        var valueClientes = document.getElementById("valueClientes").value;
+                                        var cantVsClientes = document.getElementById("cantVsClientes").value;
+                                        cantVsClientes = parseInt(cantVsClientes) + 1;
+                                        document.getElementById("contadorH3").innerHTML = cantVsClientes;
+                                        document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+                                    }
+                                    $("#divEmpresasAgregadasMani").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
+                                    document.getElementById("cantVsClientes").value = cantVsClientes;
+
+                                    document.getElementById("tipoBusqueda").value = '';
+                                    document.getElementById("bultosAgregados").value = '';
+                                    document.getElementById("pesoAgregado").value = '';
+                                    document.getElementById("saldoIngN").innerHTML = respuesta["saldo"];
+                                    $(".close").click();
+
+                                }
+                            });
+                        }
+                    },
+                    error: function (respuesta) {
+                        console.log(respuesta);
+                    }
+                })
+            }
+        } else {
+            console.log("no se puede guardar porque no existe un campo erroneo");
+        }
+    } else {
+        swal({
+            type: "error",
+            title: "Sobregiro",
+            text: "La operación realizada sobregira el stock en bultos o peso, por favor revise",
+            showConfirmButton: true,
+            confrimButtonText: "cerrar",
+            closeConfirm: true
+        });
+    }
+})

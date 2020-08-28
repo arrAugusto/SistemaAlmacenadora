@@ -215,9 +215,6 @@ $(document).on("click", ".btnListaSelect", async function () {
 
                         document.getElementById("divPlaca").innerHTML = '';
                         document.getElementById("divCont").innerHTML = '';
-                        document.getElementById("descMercaderia").value = 'VEHICULO USADO';
-                        $("#descMercaderia").removeClass("is-invalid");
-                        $("#descMercaderia").addClass("is-valid");
                         
                     }
                     if (respuestaDetIng.data == "sinRet") {
@@ -585,7 +582,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var licencia = "";
                         var piloto = "";
                         var hiddenIdentificador = "";
-                        var hiddenDateTime = "";
+                        var hiddenDateTime = document.getElementById("hiddenDateTime").value;
 
                     } else {
                         var licencia = document.getElementById("numeroLicencia").value;
@@ -732,6 +729,12 @@ function guardarRetiroMercaderia(
          <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + respuesta["valIdRetiro"] + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
                                                               
      </div>`;
+            }else{
+                Swal.fire(
+  'Error Interno!',
+  'La transaccion no se finalizo',
+  'success'
+)
             }
         },
         error: function (respuesta) {
@@ -768,6 +771,12 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                 if (isNaN(valTextDet) || valTextDet == "") {
                     Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
                 } else {
+ 
+                    if ($("#numeroPlaca").length==0) {
+                        document.getElementById("descMercaderia").value = 'VEHICULO USADO  '+respuesta[0].empresa;
+                        $("#descMercaderia").removeClass("is-invalid");
+                        $("#descMercaderia").addClass("is-valid");                    
+                    }
                     document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
                     document.getElementById("textDetalle" + idDetalle).readOnly = true;
                     document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">

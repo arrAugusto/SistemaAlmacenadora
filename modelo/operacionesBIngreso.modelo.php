@@ -625,7 +625,11 @@ class ModeloControladorOpB {
         $respuestaValDetalle = FuncionesRepetitivas::validarSumarTotales($llaveEdit, $sp);
 
         $respuestaValBultos = FuncionesRepetitivas::validarIncidencias($llaveEdit, $textbltsEmpresa);
-
+        $tipo = 0;
+        if ($respuestaValBultos == "ConDetalleBodega") {
+            $tipo = 1;
+        }
+        /*
         if ($respuestaValBultos == "ConDetalleBodega") {
             $conn = Conexion::Conectar();
             $params = array(&$buttonEditar);
@@ -642,36 +646,34 @@ class ModeloControladorOpB {
                 }
             }
         }
-
-
+*/
+        
         if ($respuestaValBultos <= $respuestaValDetalle) {
 
             $conn = Conexion::Conectar();
-            $sql = "EXECUTE spRevIncideUP ?, ?, ?, ?";
+            $sql = "EXECUTE spRevIncideUP ?, ?, ?, ?, ?";
             $params = array(
                 &$datos['textnomEmpresa'],
                 &$datos['textbltsEmpresa'],
                 &$datos['textpesoEmpresa'],
-                &$buttonEditar);
+                &$buttonEditar,
+                &$tipo);
             $stmt = sqlsrv_prepare($conn, $sql, $params);
+
             if (sqlsrv_execute($stmt) == true) {
 
-                if ($respuestaValDetalle == $respuestaValBultos) {
-                    $estado = 2;
-                    $paramsFin = array(&$buttonEditar, &$estado);
-                    $sqlFin = "EXECUTE spFinEdit ?, ?";
-                    $stmtFin = sqlsrv_prepare($conn, $sqlFin, $paramsFin);
-
-                    if (sqlsrv_execute($stmtFin) == true) {
-                        return "corregidoFinalizarlo";
-                    } else {
-                        return sqlsrv_errors();
-                    }
-                } else {
-                    return "corregido";
-                }
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
             } else {
-                return "500 Internal Server Error";
+                return sqlsrv_errors();
+            }
+                
+                
+            } else {
+                return sqlsrv_errors();
             }
         } else {
             return "bultosExcede";

@@ -122,7 +122,7 @@ MODAL POLIZA CONSOLIDADA
                                                             <input class="form-control is-invalid" id="pesoAgregado" name="pesoAgregado" placeholder="Ingrese peso" type="number" />
 
                                                             <span class="input-group-append">
-                                                                <button btnagrega="0" class="btn btn-info btn-flat btnAgregarEmpresa" type="button">Agregar Empresa</button>
+                                                                <button btnagrega="0" class="btn btn-info btn-flat btnAgregarEmpresaInter" type="button">Agregar Empresa</button>
                                                             </span>
                                                         </div>
                                                     </div>

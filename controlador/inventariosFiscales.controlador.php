@@ -14,11 +14,18 @@ class ControladorGeneracionDeInventarios {
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
                     if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
-                        if ($value["accionEstado"] >= 4) {
-                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa  fa-file-pdf"></i></button></div>';
+                        if ($_SESSION["departamentos"] == "Bodegas Fiscales") {
+                                         if ($value["accionEstado"] >= 4) {
+                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
+                        }    
+                        }else{
+                                             if ($value["accionEstado"] >= 4) {
+                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
                         }
+                        }
+       
                     } else {
-                        $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa  fa-file-excel"></i></button><div class="btn-group"></div>';
+                        $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"></div>';
                     }
                     $fecha_actual = new DateTime();
                     $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");

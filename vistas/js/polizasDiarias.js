@@ -23,7 +23,7 @@ $(function () {
 });
 
 
-function generarPolizaContable(fecha) { 
+function generarPolizaContable(fecha) {
     let estado;
     var datos = new FormData();
     datos.append("fechaContable", fecha);

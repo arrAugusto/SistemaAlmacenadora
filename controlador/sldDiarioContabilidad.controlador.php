@@ -407,7 +407,11 @@ class ControladorSaldosContables {
             }
             $date = date('Y-m-d', $timestamp);
         }
+        $sp = "spEstadoContaDia";
+        $estado = 1;
         
+        $finalDia = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $fechaCorteConta, $estado);
+                return $finalDia;
     }
 
 }

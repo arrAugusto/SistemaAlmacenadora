@@ -56,7 +56,7 @@ class ControladorIngresosPendientes {
                         if ($valueUnidad["unidad"] == 0 && $valueUnidad["estadoIngreso"] == 3) {
                             $contadorEstadoTres = $contadorEstadoTres + 1;
                         }
-                    }
+                    
                     if (count($respuestaPase) != $contador) {
                         $contador = 0;
                     }
@@ -141,7 +141,7 @@ class ControladorIngresosPendientes {
                         <td>' . $button . '</td>';
                         echo '<td>' . '<center><div class="btn-group">' . $botonera . '</div></center></td>';
                     }
-                }
+                }}
             }
         }
     }

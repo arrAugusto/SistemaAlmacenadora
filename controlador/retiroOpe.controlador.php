@@ -45,7 +45,6 @@ class ControladorRetiroOpe {
 
     public static function ctrInsertRetiroOpe($datos) {
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
-
         $estadoTransa = 0;
         foreach ($arrayDetalles as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -414,9 +413,27 @@ class ControladorRetiroOpe {
                     $revision = $value;
                 }
             }
+             
             $revision = $revision["minimoCobro"];
-
-            return array("revCuad"=>$revision, "almacenaje" => $almacenaje, "manejo" => $manejo, "transEle" => 0, "respuesta" => true, "datosIngInfo" => $datosIngInfo, "fechaCalculo" => $fechaCalculo, "fechaIngreso" => $fechaIngreso, "totalDiasC" => $tiempoTotal);
+                       $respMarcha = 0;
+            foreach ($datosIng as $key => $value) {
+                if ($value["servicio"] == "ALMACENAJE") {
+                if ($value["aplicaMarchamoElec"] == 1) {
+                    if ($fechaIngreso>=$value["apartirFecha"]) {
+                        $cantClientes = $value["clientes"];
+                        $TarifaMarcElect = $value["marchamoElectronico"];
+                        $minimoMarch = $value["minimoMarch"];
+                        $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
+                        $respMarcha = ceil($respMarcha/5)*5;
+                        if ($respMarcha <= $minimoMarch) {
+                            $respMarcha = $minimoMarch;
+                        }
+                    }
+                }
+                $respMarcha = ceil($respMarcha);
+               }
+            }
+            return array("revCuad"=>$revision, "almacenaje" => $almacenaje, "manejo" => $manejo, "transEle" => 0, "respuesta" => true, "datosIngInfo" => $datosIngInfo, "fechaCalculo" => $fechaCalculo, "fechaIngreso" => $fechaIngreso, "totalDiasC" => $tiempoTotal, "marchElectro" => $respMarcha);
         } else {
             return array("respuesta" => false);
         }

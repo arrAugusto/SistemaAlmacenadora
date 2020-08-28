@@ -5,18 +5,16 @@ class ControladorUbicacionBodega {
     public static function ctrDibujarMapaDetalles() {
         $numeroMapa = $_SESSION["idDeBodega"];
         $class = "";
-
-        if ($_SESSION["departamentos"] != "Operaciones Bodegas") {
+        if ($_SESSION["departamentos"] == "Bodegas Fiscales") {
+            $class = "";
+        }
+        if ($_SESSION["departamentos"] != "Bodegas Fiscales") {
             $class = "noBodega";
         }
         $salto = 0;
         $respuesta = ModeloUbicacionBodega::mdlDibujarMapaDetalles($numeroMapa);
-
         $respuestaUbicaSaldo = ModeloUbicacionBodega::mdlDibujarUbicaciones($numeroMapa);
-
         $listaUbica = json_encode($respuestaUbicaSaldo, JSON_UNESCAPED_UNICODE);
-
-
         if ($respuestaUbicaSaldo == "SD") {
             echo '<script>
                     swal({
@@ -76,6 +74,9 @@ closeConfirm: true
 
     public static function ctrMostrarUbUnitaria($datoSearch, $hiddenIdBodega) {
         $respuesta = ModeloUbicacionBodega::mdlMostrarUbUnitaria($datoSearch);
+        if ($respuesta!="SD") {
+            
+        
         $llaves = [];
         foreach ($respuesta as $key => $value) {
             array_push($llaves, $value["identifica"]);
@@ -87,7 +88,7 @@ closeConfirm: true
             $respuestaDetalles = ModeloUbicacionBodega::mdlMostrarDetallesIng($value);
             array_push($detalle, $respuestaDetalles);
         }
-        if (is_array($respuesta)) {
+        if (!empty($respuesta)) {
             if ($respuesta !== "SD") {
                 $respuestaDibuja = ModeloUbicacionBodega::mdlDibujarMapaDetalles($hiddenIdBodega);
                 if (is_array($respuestaDibuja)) {
@@ -99,8 +100,10 @@ closeConfirm: true
         } else {
             return $respuesta;
         }
+    }else{
+        return "SD";
     }
-
+}
     public static function ctrMostarUbicaciones($idDetView) {
         $respuestaDibuja = ModeloUbicacionBodega::mdlMostarUbicaciones($idDetView);
         return $respuestaDibuja;

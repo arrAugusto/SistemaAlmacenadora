@@ -3,7 +3,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Pases de Salida <?php echo $_SESSION["NavegaBod"] . ' - ' . $_SESSION["NavegaNumB"]; ?></h1>
+                    <h1>Pases de Salida</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -15,7 +15,7 @@
         </div>
     </section>
     <div class="col-md-12">
-        <div class="card card-primary">
+        <div class="card card-success card-outline">
 
             <form role="form" method="post">
                 <div class="card-body">
@@ -135,6 +135,8 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                     <input type="hidden" id="hiddencif" value="">
                     <input type="hidden" id="hiddenimpuestos" value="">
                     <input type="hidden" id="hiddenbultos" value="">
+                    <input type="hidden" id="hiddenMarchElect" value="">
+
                     <input type="hidden" id="hiddenpeso" value="">
                     <input type="hidden" id="hiddenOtros" value="">
                     <input type="hidden" id="spanTotalC" value="">

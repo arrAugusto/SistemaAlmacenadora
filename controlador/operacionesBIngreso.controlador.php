@@ -178,6 +178,7 @@ class ControladorOpB {
         $sp = "spConsulTipoConsol";
         $respuesta = ModeloControladorOpB::mdlEditarIngOP($datos);
         $respuestaTipCons = ModeloControladorOpB::mdlUnParametroConsult($idIngrseso, $sp);
+               return $respuesta;
         if ($respuestaTipCons[0]["consolidado"] == 0) {
             $bultos = $datos['bultosEditar'];
             $peso = $datos['pesoEditar'];

@@ -1,145 +1,123 @@
-</div>
-</div>
-</aside>
-<style type="text/css">
-  
+<style>
+    .pageNotFound{
+        margin:0;
+        padding:0;
+        font-family: 'Tomorrow', sans-serif;
+        height:100vh;
+        background-image: linear-gradient(to top, #2e1753, #1f1746, #131537, #0d1028, #050819);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
+    }
+    .textNotF{
+        position:absolute;
+        top:10%;
+        color:#fff;
+        text-align:left;
+    }
 
-
-.bodyNotFound {
-    @import "https://fonts.googleapis.com/css?family=Inconsolata";
-
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 100%;
-  background-color: #000000;
-  background-image: radial-gradient(#11581E, #041607);
-  font-family: 'Inconsolata', Helvetica, sans-serif;
-  font-size: 1.5rem;
-  color: rgba(128, 255, 128, 0.8);
-  text-shadow: 0 0 1ex #33ff33, 0 0 2px rgba(255, 255, 255, 0.8);
-}
-
-
-.containerNotFound {
-  pointer-events: none;
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-  background-size: auto 4px;
-  z-index: 99;
-}
-
-.containerNotFound::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  display: block;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  background-image: -webkit-gradient(linear, left bottom, left top, from(transparent), color-stop(2%, rgba(32, 128, 32, 0.2)), color-stop(3%, rgba(32, 128, 32, 0.8)), color-stop(3%, rgba(32, 128, 32, 0.2)), to(transparent));
-  background-image: linear-gradient(0deg, transparent 0%, rgba(32, 128, 32, 0.2) 2%, rgba(32, 128, 32, 0.8) 3%, rgba(32, 128, 32, 0.2) 3%, transparent 100%);
-  background-repeat: no-repeat;
-  -webkit-animation: scan 7.5s linear 0s infinite;
-          animation: scan 7.5s linear 0s infinite;
-}
-
-@-webkit-keyframes scan {
-  0% {
-    background-position: 0 -100vh;
-  }
-  35%, 100% {
-    background-position: 0 100vh;
-  }
-}
-
-@keyframes scan {
-  0% {
-    background-position: 0 -100vh;
-  }
-  35%, 100% {
-    background-position: 0 100vh;
-  }
-}
-
-.message {
-  -webkit-box-sizing: inherit;
-          box-sizing: inherit;
-  position: absolute;
-  height: 100%;
-  width: 1000px;
-  max-width: 100%;
-  padding: 4rem;
-  text-transform: uppercase;
-}
-
-.social::before {
-  content: "> ";
-}
-.errorcode {
-  color: white;
-}
+    .star{
+        position:absolute;
+        width:2px;
+        height:2px;
+        background:#fff;
+        right:0;
+        animation:starTwinkle 3s infinite linear;
+    }
+    .astronaut img{
+        width:100px;
+        position:absolute;
+        top:55%;
+        animation:astronautFly 6s infinite linear;
+    }
+    @keyframes astronautFly{
+        0%{
+            left:-100px;
+        }
+        25%{
+            top:50%;
+            transform:rotate(30deg);
+        }
+        50%{
+            transform:rotate(45deg);
+            top:55%;
+        }
+        75%{
+            top:60%;
+            transform:rotate(30deg);
+        }
+        100%{
+            left:110%;
+            transform:rotate(45deg);
+        }
+    }
+    @keyframes starTwinkle{
+        0%{
+            background:rgba(255,255,255,0.4);
+        }
+        25%{
+            background:rgba(255,255,255,0.8);
+        }
+        50%{
+            background:rgba(255,255,255,1);
+        }
+        75%{
+            background:rgba(255,255,255,0.8);
+        }
+        100%{
+            background:rgba(255,255,255,0.4);
+        }
+    }
 
 </style>
-<div class="content-wrapper bodyNotFound">
+<div class="content-wrapper pageNotFound">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <div class="containerNotFound-fluid containerNotFoundNotFound">
-             <div class="containerNotFound">
 
-        <div class="row mb-2">
-          <div class="col-sm-6">
-             </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
-              </ol>
-          </div>
+        <div class="box-.pageNotFound" style="font-size: 35px;">
+
+            <div class="textNotF">
+                <div>ERROR</div>
+                <h1>404</h1>
+                <hr>
+                <div>PAGINA NO EXISTE</div>
+
+                Ingresa al menú lateral y allí podrás encontrar las páginas disponibles. También puedes regresar haciendo <a href="Inicio">click aquí.</a>
+
+                </p>
+
+            </div>
+            <div class="astronaut mt-6">
+                <img src="https://images.vexels.com/media/users/3/152639/isolated/preview/506b575739e90613428cdb399175e2c8-space-astronaut-cartoon-by-vexels.png" alt="" class="src">
+
+            </div>
         </div>
-      </div><!-- /.containerNotFound-fluid -->
     </section>
-     <!-- Main content -->
-    <section class="content">
-      <div class="error-page">
- 
-  <div class="message">
-    <h1>Error <span class="errorcode">404</span></h1>
-
-      <div class="error-content">
-
-        <h3>
+</div><!-- /.container-fluid -->
 
 
-          La pagina no existe o no tiene los permisos necesesarios.
-          
+<script>
 
-        </h3>
+    document.addEventListener("DOMContentLoaded", function () {
 
-        <p>
-            
-           Ingresa al menú lateral y allí podrás encontrar las páginas disponibles. También puedes regresar haciendo <a href="Inicio">click aquí.</a>
-        
-        </p>
-
-      </div>
-
-  </div>
-</div>
-
-         
-        </div>
-      </div>
-      <!-- /.error-page -->
-
-
-
-<!--- =======================
-LOGOTIPO
-======================-->
-
-<!-- logo mini-->
-<!-- logo normal-->
+        var body = document.body;
+        setInterval(createStar, 100);
+        function createStar() {
+            var right = Math.random() * 500;
+            var top = Math.random() * screen.height;
+            var star = document.createElement("div");
+            star.classList.add("star")
+            body.appendChild(star);
+            setInterval(runStar, 10);
+            star.style.top = top + "px";
+            function runStar() {
+                if (right >= screen.width) {
+                    star.remove();
+                }
+                right += 3;
+                star.style.right = right + "px";
+            }
+        }
+    })
+</script>

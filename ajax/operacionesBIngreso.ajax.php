@@ -240,11 +240,15 @@ class AjaxOperacionesBIngreso {
 
     public function AjaxEditarDetalle() {
         $buttonEditar = $this->buttonEditar;
-
+        $buttonEditar = intval($buttonEditar);
+        $textbltsEmpresa = $this->textbltsEmpresa;
+        $textbltsEmpresa = intval($textbltsEmpresa);
+        $textpesoEmpresa = $this->textpesoEmpresa;
+        $textpesoEmpresa = round($textpesoEmpresa,2);
         $datos = array(
             "textnomEmpresa" => $textnomEmpresa = $this->textnomEmpresa,
-            "textbltsEmpresa" => $textbltsEmpresa = $this->textbltsEmpresa,
-            "textpesoEmpresa" => $textpesoEmpresa = $this->textpesoEmpresa,
+            "textbltsEmpresa" => $textbltsEmpresa,
+            "textpesoEmpresa" => $textpesoEmpresa
         );
 
         $respuesta = ControladorOpB::ctrEditarDetalle($buttonEditar, $datos);

@@ -4,8 +4,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
     var respRemplazoValRet = await remplazoDataRet(idRetCal);
     console.log(respRemplazoValRet);
     if (respRemplazoValRet[0]["resp"] == 1) {
-
-        if ($("#hiddenDateTimeVal").length >= 1) {
+        if ($("#hiddenDateTimeVal").length >= 1 && $("#hiddenDateTimeVal").val() != "") {
             var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
         } else {
             var hiddenDateTimeVal = "NA";
@@ -30,6 +29,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         } else {
             var $contador = 1;
         }
+        console.log($contador);
         if ($contador == 0) {
             document.getElementById("divCalculoHistoria").innerHTML = ``;
             var idIngresoCal = $(this).attr("idIngreso");
@@ -46,6 +46,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                 processData: false,
                 dataType: "json",
                 success: function (respuestaDetalle) {
+                    console.log(respuestaDetalle);
                     var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
                     var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
                     var numeroPoliza = respuestaDetalle[0]["numPol"];
@@ -68,13 +69,13 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         dataType: "json",
                         success: async function (respuesta) {
                             console.log(respuesta);
-                            if (respuesta=="SD") {
+                            if (respuesta == "SD") {
                                 Swal.fire(
-                                'Cliente sin tarifa',
-                                'Este cliente no tiene tarifa especial!',
-                                'error'
-                                );    
-                        return false;
+                                        'Cliente sin tarifa',
+                                        'Este cliente no tiene tarifa especial!',
+                                        'error'
+                                        );
+                                return false;
                             }
                             var respValRet = await funcGuardarValRet();
                             listaPushDefault = [];
@@ -83,19 +84,21 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             var almacenaje = respuesta['almaMSuperior'];
                             var manejo = respuesta['calculoManejo'];
                             var gstosAdmin = respuesta['gtoAdminMSuperior'];
+                            var marchElectro = respuesta['marchElectro'];
+                            var marchElectro = parseFloat(marchElectro).toFixed(2);
                             var fechaCorte = respuesta['fechaCorte'];
-                            
-                            if (!isNaN(respuesta['revCuad'])) {
-                                
-                             var revCuad = respuesta['revCuad'];   
-                             var revCuad = parseFloat(revCuad).toFixed(2);
-                            var revCuad = new Intl.NumberFormat("en-GT").format(revCuad);
 
-                            }else{
-                             var revCuad =  0;  
+                            if (!isNaN(respuesta['revCuad'])) {
+
+                                var revCuad = respuesta['revCuad'];
+                                var revCuad = parseFloat(revCuad).toFixed(2);
+                                var revCuad = new Intl.NumberFormat("en-GT").format(revCuad);
+
+                            } else {
+                                var revCuad = 0;
                             }
-                            
-                            var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior']+revCuad;
+
+                            var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'] + revCuad;
                             document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
@@ -140,8 +143,12 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             <td id="calcGstAdmin">` + gstosAdmin + `</td>
                                             </tr>
                                             <tr>
+                                            <th>Marchamo Electronico : </th>
+                                            <td id="calcMarchEle">` + marchElectro + `</td>
+                                            </tr>                            
+                                            <tr>
                                             <th>Revisión:</th>
-                                            <td>` +revCuad+`</td>
+                                            <td>` + revCuad + `</td>
                                             </tr>
                                             <tr>
                                             <th>Otros gastos:</th>
@@ -226,6 +233,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
                             document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
                             document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
+                            document.getElementById("hiddenMarchElect").value = marchElectro;
+
+
                             formatNumber("factTNormal");
                             formatNumber("ZonaAd");
                             formatNumber("AlmNormal");
@@ -238,6 +248,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 title: "Asignacion Fecha Hoy",
                                 text: "¡Cambie de fecha si necesita hacerlo !",
                                 type: 'warning',
+                                allowOutsideClick: false,
                                 confirmButtonColor: '#3085d6',
                                 confirmButtonText: 'Ok',
                             }).then(async function (result) {
@@ -412,17 +423,14 @@ function revDatosExtras(polizaRetiroRev) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+            console.log(respuesta);
             resp = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
+            resp = respuesta;
         }
-    })
-
+    });
     return resp;
-
-
-
-
 }
 
 $(document).on("click", ".btnConsultDataConfirm", async function () {
@@ -567,7 +575,7 @@ $(document).on("change", "#valorDoll", function () {
             document.getElementById("valorDoll").value = parseFloat(valDolIngresado).toFixed(2);
             $("#spanvalorDoll").attr("style", "display:none;");
             if ($("#tCambio").val() > 0) {
-                alert("hola mundo");
+
                 var totalCif = $("#valorDoll").val() * $("#tCambio").val();
                 var totalCif = parseFloat(totalCif).toFixed(2);
                 var cif = $("#hiddencif").val();
@@ -628,7 +636,6 @@ $(document).on("change", "#tCambio", function () {
                 if (cif == totalCif) {
                     $("#cif").removeClass('is-invalid');
                     $("#cif").addClass('is-valid');
-                    document.getElementById("cif").readOnly = true;
                     document.getElementById("impuestos").focus();
                     $("#spancif").attr("style", "display:none;");
                     document.getElementById("cif").value = totalCif;
@@ -824,13 +831,13 @@ $(document).on("click", ".btnAgregarOtrosNormal", function () {
     var valor = document.getElementById("valOtros").value;
     if (valor == "") {
         Swal.fire({
-            type: 'error',
+            type: 'error', allowOutsideClick: false,
             title: 'Sin Valor',
             text: '¡Favor especifique el valor de del servicio',
         });
     } else if (isNaN(valor)) {
         Swal.fire({
-            type: 'error',
+            type: 'error', allowOutsideClick: false,
             title: 'Dato no Adminitido',
             text: '¡Ingrese el valor del servicio',
         });
@@ -1005,7 +1012,7 @@ $(document).on("click", ".btnNuevoServicios", function () {
             Swal.fire({
                 title: 'Detalle agregado anteriormente',
                 text: "Esta incluyendo nuevamente un servicio que ya fue agregado, ¿Desea continuar?",
-                type: 'warning',
+                type: 'warning', allowOutsideClick: false,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -1040,15 +1047,18 @@ $(document).on("click", ".btnNuevoServicios", function () {
 })
 
 function totalCobrar() {
-    var hiddenRevision = document.getElementById("hiddenRevision").value;    
+    var hiddenRevision = document.getElementById("hiddenRevision").value;
     var hiddenZonaAduana = document.getElementById("hiddenZonaAduana").value;
     var hiddenAlmacenaje = document.getElementById("hiddenAlmacenaje").value;
     var hiddenManejo = document.getElementById("hiddenManejo").value;
     var hiddenGstosAdmin = document.getElementById("hiddenGstosAdmin").value;
     var hiddenOtros = document.getElementById("hiddenOtros").value;
     var serviciosDefTotal = document.getElementById("serviciosDefTotal").value;
+    var hiddenMarchElect = document.getElementById("hiddenMarchElect").value;
     var valDescuento = document.getElementById("valDescuento").value;
-    var sumTotal = (hiddenRevision*1+hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1) - valDescuento;
+
+    
+    var sumTotal = (hiddenRevision * 1 + hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1 + hiddenMarchElect * 1) - valDescuento;
     document.getElementById("spanTotalC").innerHTML = sumTotal;
     document.getElementById("totaTh").innerHTML = sumTotal;
     document.getElementById("hiddenTotalCobrar").value = sumTotal;
@@ -1118,7 +1128,7 @@ $(document).on("mouseover", ".btnDescuento", async function () {
     if ($("#hiddenAlmacenaje").val() == 0) {
         Swal.fire({
             position: 'top-end',
-            type: 'error',
+            type: 'error', allowOutsideClick: false,
             title: 'No puede hacer descuento porque el valor de almacenaje es 0',
             showConfirmButton: false,
             timer: 4500
@@ -1216,134 +1226,141 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
 
     var resp = await AjaxUnParam(idRet, nomVar);
     console.log(resp);
-    if (resp[0].cantidadPlt>=1) {
-        
-    
-    //Ingreso 
-    var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
-    //Otros servicios
-    var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
-    listaOtros = [];
-    listaServiciosDefault = [];
-    if (paragraphs.length == 0) {
-        var otrosValores = 0;
-    } else {
-        for (var i = 0; i < paragraphs.length; i++) {
-            var servicioOtro = paragraphs[i].attributes.idvalue.value;
-            var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
-            listaOtros.push({
-                "serviciosOtros": servicioOtro,
-                "valorOtros": valOtro
-            });
-        }
+    if (resp[0].cantidadPlt >= 1) {
 
-        // Recorrido de listas y descuentos para mostra al cliente.
-        // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
-        var otrosValores = 0;
-        for (var i = 0; i < listaOtros.length; i++) {
-            var otrosValores = (listaOtros[i].valorOtros * 1) + otrosValores;
-        }
-        var listaOtros = JSON.stringify(listaOtros);
-    }
-    //Servicios default
-    var paragraphs = Array.from(document.querySelectorAll(".btnEliminarServDefault"));
 
-    if (paragraphs.length == 0) {
-        console.log("no hay");
-        var valServicio = 0.00;
-    } else {
-        for (var i = 0; i < paragraphs.length; i++) {
-            var servicioDef = paragraphs[i].attributes.idvalue.value;
-            var valServicios = document.getElementById("montoSerDefaultText" + servicioDef).value;
-            listaServiciosDefault.push({
-                "serviciosDefault": servicioDef,
-                "valServicios": valServicios
-            });
-        }
-        console.log(listaServiciosDefault);
-        // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
-        var valServicio = 0;
-        for (var i = 0; i < listaServiciosDefault.length; i++) {
-            var valServicio = (listaServiciosDefault[i].valServicios) * 1 + valServicio;
-        }
-        var listaServiciosDefault = JSON.stringify(listaServiciosDefault);
-    }
-    //Descuento 
-    var valDescuento = document.getElementById("valDescuento").value;
-    var hiddenDescuento = document.getElementById("hiddenDescuento").value;
-    // Valor calculado 
-    var valCalculado = await totalCobrar();
-
-    valCalculado = parseFloat(valCalculado).toFixed(2);
-    //Total a cobrar 
-    var hiddenTotalCobrar = (valCalculado + otrosValores + valServicio) - valDescuento;
-    console.log(valDescuento);
-    //Total a cobrar 
-    var hiddenTotalCobrar = document.getElementById("hiddenTotalCobrar").value;
-    // Valor calculado 
-    var valCalculado = await totalCalculado();
-    if (valCalculado > 0) {
-        const {
-            value: tipoDescuento
-        } = await Swal.fire({
-            type: 'info',
-            title: '¿Desea guardar cambios?',
-            html: '<strong>¡Se generara un pdf con el recibo de almacenaje!</strong><br/><br/><b>Servicios Calculado : </b>Q. ' + valCalculado + '<br/><b>Aumento en servicios : </b>Q. ' + valServicio + '<br/><b>Otros Servicios :</b>Q. ' + otrosValores + '<br/><b>Descuento del ' + hiddenDescuento + ' % : </b>Q. ' + valDescuento + '<br/>___________________________________<br/><br/><strong>Total a Facutrar Q. ' + hiddenTotalCobrar + '</strong>',
-            showCancelButton: true,
-            inputValidator: (value) => {
-                console.log(value);
-                return new Promise((resolve) => {
-                    resolve();
+        //Ingreso 
+        var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
+        //Otros servicios
+        var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
+        listaOtros = [];
+        listaServiciosDefault = [];
+        if (paragraphs.length == 0) {
+            var otrosValores = 0;
+        } else {
+            for (var i = 0; i < paragraphs.length; i++) {
+                var servicioOtro = paragraphs[i].attributes.idvalue.value;
+                var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
+                listaOtros.push({
+                    "serviciosOtros": servicioOtro,
+                    "valorOtros": valOtro
                 });
             }
-        });
-        if (tipoDescuento) {
-            if ($("#hiddenDateTimeVal").val() == "") {
-                var hiddenDateTimeVal = "NA";
-            } else {
-                var hiddenDateTimeVal = $("#hiddenDateTimeVal").val();
+
+            // Recorrido de listas y descuentos para mostra al cliente.
+            // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
+            var otrosValores = 0;
+            for (var i = 0; i < listaOtros.length; i++) {
+                var otrosValores = (listaOtros[i].valorOtros * 1) + otrosValores;
             }
+            var listaOtros = JSON.stringify(listaOtros);
+        }
+        //Servicios default
+        var paragraphs = Array.from(document.querySelectorAll(".btnEliminarServDefault"));
 
-            var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal);
-            if (guardarRecibo == "ARegistrado") {
-                Swal.fire({
-                    title: 'Recibo Creado',
-                    text: "¿Desea Imprimir?",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Si, Imprimir'
-                }).then((result) => {
-                    if (result.value) {
-                        window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
-
-                    }
+        if (paragraphs.length == 0) {
+            console.log("no hay");
+            var valServicio = 0.00;
+        } else {
+            for (var i = 0; i < paragraphs.length; i++) {
+                var servicioDef = paragraphs[i].attributes.idvalue.value;
+                var valServicios = document.getElementById("montoSerDefaultText" + servicioDef).value;
+                listaServiciosDefault.push({
+                    "serviciosDefault": servicioDef,
+                    "valServicios": valServicios
                 });
-            } else if (guardarRecibo === "ok") {
-                window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+            }
+            console.log(listaServiciosDefault);
+            // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
+            var valServicio = 0;
+            for (var i = 0; i < listaServiciosDefault.length; i++) {
+                var valServicio = (listaServiciosDefault[i].valServicios) * 1 + valServicio;
+            }
+            var listaServiciosDefault = JSON.stringify(listaServiciosDefault);
+        }
+        //Descuento 
+        var valDescuento = document.getElementById("valDescuento").value;
+        var hiddenDescuento = document.getElementById("hiddenDescuento").value;
+        // Valor calculado 
+        var valCalculado = await totalCobrar();
+        valCalculado = parseFloat(valCalculado).toFixed(2);
+        //Total a cobrar 
+        var hiddenTotalCobrar = (valCalculado + otrosValores + valServicio) - valDescuento;
+        console.log(valDescuento);
+        //Total a cobrar 
+        var hiddenTotalCobrar = document.getElementById("hiddenTotalCobrar").value;
+        // Valor calculado 
+        var valCalculado = await totalCalculado();
+        if (valCalculado > 0) {
+            const {
+                value: tipoDescuento
+            } = await Swal.fire({
+                type: 'info',
+                allowOutsideClick: false,
+                title: '¿Desea guardar cambios?',
+                html: '<strong>¡Se generara un pdf con el recibo de almacenaje!</strong><br/><br/><b>Servicios Calculado : </b>Q. ' + valCalculado + '<br/><b>Aumento en servicios : </b>Q. ' + valServicio + '<br/><b>Otros Servicios :</b>Q. ' + otrosValores + '<br/><b>Descuento del ' + hiddenDescuento + ' % : </b>Q. ' + valDescuento + '<br/>___________________________________<br/><br/><strong>Total a Facutrar Q. ' + hiddenTotalCobrar + '</strong>',
+                showCancelButton: true,
+                inputValidator: (value) => {
+                    console.log(value);
+                    return new Promise((resolve) => {
+                        resolve();
+                    });
+                }
+            });
+            if (tipoDescuento) {
+                if ($("#hiddenDateTimeVal").val() == "") {
+                    var hiddenDateTimeVal = "NA";
+                } else {
+                    var hiddenDateTimeVal = $("#hiddenDateTimeVal").val();
+                }
 
+                var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal);
+                if (guardarRecibo == "ARegistrado") {
+                    Swal.fire({
+                        title: 'Recibo Creado',
+                        text: "¿Desea Imprimir?",
+                        type: 'warning', allowOutsideClick: false,
+                        allowOutsideClick: false,
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, Imprimir'
+                    }).then((result) => {
+                        if (result.value) {
+                            window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+
+                        }
+                    });
+                } else if (guardarRecibo === "ok") {
+                    window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+
+                }
             }
         }
-    }
-    }else{
+    } else {
         Swal.fire({
             title: 'Retiro sin piloto',
             text: "No se registro ningun transporte en el retiro, registre el piloto",
-            type: 'warning',
+            type: 'warning', allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok!'
         }).then((result) => {
             $("#idbtnMasPilotos").click();
 
-        })        
+        })
     }
 });
 
 function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal) {
     let gdRecibo;
     var datos = new FormData();
-    console.log(idRet);
+    console.log(listaOtros);
+    console.log(listaServiciosDefault);
+    console.log(valDescuento);
+    console.log(listaOtros.length);
+    console.log(listaServiciosDefault.length);
+
+
     datos.append("idRetGdRec", idRet);
     datos.append("hiddenresultIdIngresoGdRec", hiddenresultIdIngreso);
     datos.append("listaOtrosGdRec", listaOtros);
@@ -1372,8 +1389,7 @@ function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, lis
         }});
     return gdRecibo;
 }
-
-//imprimirRetiroAlmacenaje
+    
 function totalCalculado() {
     var hiddenZonaAduana = document.getElementById("hiddenZonaAduana").value;
     var hiddenZonaAduana = hiddenZonaAduana * 1;
@@ -1383,7 +1399,14 @@ function totalCalculado() {
     var hiddenManejo = hiddenManejo * 1;
     var hiddenGstosAdmin = document.getElementById("hiddenGstosAdmin").value;
     var hiddenGstosAdmin = hiddenGstosAdmin * 1;
-    var result = (hiddenZonaAduana + hiddenAlmacenaje + hiddenManejo + hiddenGstosAdmin);
+
+    var hiddenMarchElect = document.getElementById("hiddenMarchElect").value;
+    var hiddenMarchElect = hiddenMarchElect * 1;
+
+    var hiddenRevision = document.getElementById("hiddenRevision").value;
+    var hiddenRevision = hiddenRevision * 1;
+    
+    var result = (hiddenZonaAduana + hiddenAlmacenaje + hiddenManejo + hiddenGstosAdmin+hiddenRevision+hiddenMarchElect);
     return result;
 }
 
@@ -1424,26 +1447,29 @@ $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
     var nomVar = "paseSalRetVal";
     var resp = await AjaxUnParam(idRet, nomVar);
     console.log(resp);
-    if (resp[0].cantidadPlt>=1) {
+    if (resp[0].cantidadPlt >= 1) {
         var nomVar = "idRetAutorizado";
         Swal.fire({
             title: '¿Desea Autorizar Salida?',
             text: "Si autoriza el retiro el piloto podra salir de la almacenadora",
-            type: 'warning',
+            type: 'warning', allowOutsideClick: false,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'No, Cancelar',
             confirmButtonText: 'Si, Autorizo!'
-        }).then((result) => {
-            guardarRetiroRegistroSal(idRet, nomVar);
+        }).then(async function (result) {
+            if (result.value) {
+                resp = await guardarRetiroRegistroSal(idRet, nomVar);   
+            }
+
 
         })
     } else {
         Swal.fire({
             title: 'Retiro sin piloto',
             text: "No se registro ningun transporte en el retiro, registre el piloto",
-            type: 'warning',
+            type: 'warning', allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok!'
         }).then((result) => {
@@ -1462,14 +1488,17 @@ async function guardarRetiroRegistroSal(idRet, nomVar) {
         Swal.fire({
             title: "¿Desea Imprimir Retiro Fiscal?",
             text: "El retiro se registro con exito, imprima PDF",
-            type: 'success',
+                                    type: 'success',                        allowOutsideClick: false,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             cancelButtonText: 'No Imprimir',
             confirmButtonText: 'Si, Imprimir!'
         }).then((result) => {
+            if (result.value) {
             window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRet, "_blank");
+                
+            }
         })
 
 
@@ -1493,7 +1522,7 @@ function AjaxUnParam(idRet, nomVar) {
         dataType: "json",
         success: function (respuesta) {
 
-            console.log(respuesta);            
+            console.log(respuesta);
             if (respuesta != "SD") {
                 respFunc = respuesta;
             } else {

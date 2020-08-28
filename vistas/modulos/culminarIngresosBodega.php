@@ -21,7 +21,7 @@
                         <div class="col-12">
 
                             <?php
-                            if ($_SESSION["departamentos"] == "Bodega Fiscal" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
+                            if ($_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "BAJO" || $_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
                                 echo '
                                 <div class="alert alert-primary alert-dismissible fade show" role="alert">
                                     <center>Mercadería : Detallar lo recibido en bodega / Generar pase : Autorización de salida de pilotos</center>
@@ -45,8 +45,8 @@
 
                         </div>
                         <?php
-                        if ($_SESSION["departamentos"] == "Bodega Fiscal" || $_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
-                            echo '
+                           if ($_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "BAJO" || $_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
+                             echo '
                             <div class="col-lg-3 col-xs-12" id="divAgregandoDetalles">
                                 <div class="box box-success">
                                     <div class="box-header with-border"></div>
@@ -85,11 +85,11 @@
                                     INICIO
                                     ======================-->
                           
-                                    <table id="tablas" role="grid" class="table dt-responsive nowrap table-striped table-bordered display" cellspacing="0" >
+                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                         <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                             <tr>
                                             <th style="width:1%;">#</th>
-                                            <th style="width:35%;">Empresa</th>
+                                            <th style="width:25%;">Empresa</th>
                                             <th style="width:5%;">Nit</th>
                                             <th style="width:5%;">Bultos</th>
                                             <th style="width:8%">Poliza</th>
@@ -116,11 +116,11 @@
                                     INICIO
                                     ======================-->
                           
-                                    <table id="tablas" role="grid" class="table dt-responsive table-sm" cellspacing="0" >
-                                        <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
+                              <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                                      <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                             <tr>
                                             <th style="width:1%;">#</th>
-                                            <th style="width:35%;">Empresa</th>
+                                            <th style="width:25%;">Empresa</th>
                                             <th style="width:5%;">Nit</th>
                                             <th style="width:5%;">Bultos</th>
                                             <th style="width:8%">Poliza</th>

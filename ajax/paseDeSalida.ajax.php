@@ -85,8 +85,9 @@ class AjaxPasesDeSalida {
 
     public function ajaxMostrarSerExtra() {
         $revExtrasPol = $this->revExtrasPol;
-        $respuesta = ControladorPasesDeSalida::ctrMostrarSerExtra($revExtrasPol);
-        echo json_encode($respuesta);
+        $idRet = 0;
+        $respuesta = ControladorPasesDeSalida::ctrMostrarSerExtra($revExtrasPol, $idRet);
+        echo json_encode($revExtrasPol);
     }
 
     public $mostrarRetValidacion;
@@ -101,18 +102,24 @@ class AjaxPasesDeSalida {
 
     public function ajaxReplaceDataRet() {
         $replaceDataRet=$this->idNumRetConsultReplace;
+        $replaceDataRet=intval($replaceDataRet);        
         $valorDollReplace = $this->valorDollReplace;
-        $valorDollReplace = $valorDollReplace*1;   
+        $valorDollReplace = round($valorDollReplace, 2);
+        
         $tCambioReplace=$this->tCambioReplace;
-        $tCambioReplace=$tCambioReplace*1;
+        $tCambioReplace=round($tCambioReplace, 5);
+        
         $cifReplace = $this->cifReplace;
-        $cifReplace = $cifReplace*1;
+        $cifReplace = round($cifReplace, 2);
+        
         $impuestosReplace = $this->impuestosReplace;
-        $impuestosReplace = $impuestosReplace*1;
+        $impuestosReplace = round($impuestosReplace, 2);
+        
         $bultosReplace = $this->bultosReplace;
-        $bultosReplace = $bultosReplace*1;
+        $bultosReplace = round($bultosReplace, 2);
+        
         $pesoReplace = $this->pesoReplace;
-        $pesoReplace = $pesoReplace *1;
+        $pesoReplace = round($pesoReplace, 2);
         
         $datos = array(
             "valorDollReplace"=>$valorDollReplace,
@@ -122,7 +129,7 @@ class AjaxPasesDeSalida {
             "bultosReplace"=>$bultosReplace,
             "pesoReplace"=>$pesoReplace);
         
-        $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
+       $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
         echo json_encode($respuesta);
     }
 

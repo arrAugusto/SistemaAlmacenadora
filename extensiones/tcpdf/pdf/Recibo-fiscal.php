@@ -19,12 +19,16 @@ class imprimirIngresoBodega {
 // TRAER DATOS DE INGRESO
         $retiroF = $this->retiroF;
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
+
         $respuestaOtros = ControladorPasesDeSalida::ctrOtrosRubros($retiroF);
+        if ($respuestaOtros == "SD") {
+            $respuestaOtros = ControladorPasesDeSalida::ctrMostrarValExtras($retiroF);
+        }
         $tipo = 0;
         $respAuxiliares = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombre = $respAuxiliares[0]["nombres"];
         $apellidos = $respAuxiliares[0]["apellidos"];
-        
+
         $valEmpresas = 0;
         $idNitSal = $respRet[0]["idNitRet"];
         $idNitIng = $respRet[0]["idNitIng"];
@@ -51,6 +55,10 @@ class imprimirIngresoBodega {
 
 
         $rubroAlm = floatval($respRet[0]["cbAlmacenaje"]);
+        $rubroMarchElect = floatval($respRet[0]["rubrosMarchElect"]);
+        $numberMarchElect = number_format($rubroMarchElect, 2);
+
+
         $rubroZA = floatval($respRet[0]["cbZnaAduana"]);
         $rubroGAd = floatval($respRet[0]["cbGastosAdmin"]);
         $rubroMan = floatval($respRet[0]["cbManejo"]);
@@ -62,10 +70,9 @@ class imprimirIngresoBodega {
         $numberMan = number_format($rubroMan, 2);
         $numberZA = number_format($rubroZA, 2);
         $numberGAd = number_format($rubroGAd, 2);
-    $numberRubroRevIng = number_format($rubroRevIng, 2);
+        $numberRubroRevIng = number_format($rubroRevIng, 2);
 
-        
-        $totalRecibo = floatval(($rubroAlm + $rubroZA + $rubroGAd + $rubroMan+$rubroRevIng));
+        $totalRecibo = floatval(($rubroAlm + $rubroZA + $rubroGAd + $rubroMan + $rubroRevIng));
         $reciboEmitVal = number_format($totalRecibo, 2);
         require_once('tcpdf_include.php');
 
@@ -162,7 +169,7 @@ EOF;
 EOF;
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
-
+//
         if ($rubroMan > 0) {
             $totalParcial = $totalParcial + $rubroMan;
             $ManDesc = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">MANEJO</td>';
@@ -195,7 +202,7 @@ EOF;
 EOF;
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
-        
+
         if ($rubroGAd > 0) {
             $totalParcial = $totalParcial + $rubroGAd;
             $GADesc = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">GASTOS ADMINISTRACIÓN</td>';
@@ -212,8 +219,11 @@ EOF;
 EOF;
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
-            if ($rubroRevIng > 0) {
-                
+
+
+
+        if ($rubroRevIng > 0) {
+
             $totalParcial = $totalParcial + $rubroRevIng;
             $ZARev = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">REVISIÓN</td>';
             $tdRevTot = '<td style="text-align:rigth; border-right: 1px solid #030505; width:82px;' . $fontLetra . '">Q. ' . $numberRubroRevIng . '</td>';
@@ -224,6 +234,23 @@ EOF;
                 $ZARev
                 $tdRevTot
           
+            </tr>
+	</table>	
+EOF;
+            $pdf->writeHTML($bloque4, false, false, false, false, '');
+        }
+
+        if ($numberMarchElect > 0) {
+            $totalParcial = $totalParcial + $numberMarchElect;
+            $AlmaDesc = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:480px; ' . $fontLetra . ' text-align:left;">MARCHAMO ELECTRÓNICO</td>';
+            $tdAlmTot = '<td style="text-align:rigth; border-right: 1px solid #030505; width:82px;' . $fontLetra . '">Q. ' . $numberMarchElect . '</td>';
+
+            $bloque4 = <<<EOF
+        <table style="padding: 2px 5px">
+            <tr>
+                $AlmaDesc
+                $tdAlmTot
+
             </tr>
 	</table>	
 EOF;

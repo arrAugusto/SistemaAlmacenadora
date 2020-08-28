@@ -20,7 +20,6 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "operacionesBIngreso" ||
                     $_GET["ruta"] == "ingBodHistorial" ||
                     $_GET["ruta"] == "cartera" ||
-                    $_GET["ruta"] == "procesos-penedientes" ||
                     $_GET["ruta"] == "ingresosPendientes" ||
                     $_GET["ruta"] == "culminarIngresosBodega" ||
                     $_GET["ruta"] == "historiaIngresosFisacales" ||
@@ -52,7 +51,6 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "vehiculosSinMedidas" ||
                     $_GET["ruta"] == "retiroVeh" ||
                     $_GET["ruta"] == "historialCalculos" ||
-                    
                     $_GET["ruta"] == "retiroOpe") {
                 /*
                   Include para hacer URL amigables.
@@ -84,13 +82,10 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "ingresosPendientes" ||
                         $_GET["ruta"] == "inventariosFiscales" ||
                         $_GET["ruta"] == "calcAlmacenajeF" ||
-                        
                         $_GET["ruta"] == "ingPendientesC" ||
                         $_GET["ruta"] == "ingReportados" ||
                         $_GET["ruta"] == "retiroPendienteC" ||
                         $_GET["ruta"] == "retirosContabilizados" ||
-                        
-                        
                         $_GET["ruta"] == "salir") {
                     /*
                       Include para hacer URL amigables.
@@ -122,9 +117,9 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "salir" ||
                         $_GET["ruta"] == "ingPendientesC" ||
                         $_GET["ruta"] == "polizasDiarias" ||
-                        $_GET["ruta"] == "sldDiarioContabilidad" ||                        
+                        $_GET["ruta"] == "sldDiarioContabilidad" ||
                         $_GET["ruta"] == "retiroPendienteC" ||
-                        $_GET["ruta"] == "retirosContabilizados" ||        
+                        $_GET["ruta"] == "retirosContabilizados" ||
                         $_GET["ruta"] == "historialCalculos" ||
                         $_GET["ruta"] == "ingReportados") {
                     /*
@@ -157,7 +152,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "clientesSinTarifa" ||
                     $_GET["ruta"] == "calcAlmacenajeF" ||
                     $_GET["ruta"] == "nuevasEmpresas" ||
-                    $_GET["ruta"] == "activarTarifa" ||                   
+                    $_GET["ruta"] == "activarTarifa" ||
                     $_GET["ruta"] == "detallesTarifa") {
                 /*
                   Include para hacer URL amigables.
@@ -174,7 +169,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "UbicacionBodega" ||
                     $_GET["ruta"] == "inventariosFiscales" ||
                     $_GET["ruta"] == "calculosDeAlmacenaje" ||
-                    $_GET["ruta"] == "paseDeSalida" ||  
+                    $_GET["ruta"] == "paseDeSalida" ||
                     $_GET["ruta"] == "retiroBod" ||
                     $_GET["ruta"] == "historialCalculos" ||
                     $_GET["ruta"] == "culminarIngresosBodega" ||
@@ -186,6 +181,26 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "calcAlmacenajeF" ||
                     $_GET["ruta"] == "detallesTarifa") {
                 /*
+                  Include para hacer URL amigables.
+                 */
+                include "modulos/" . $_GET["ruta"] . ".php";
+            } else {
+                include "modulos/Page_Error/error404.php";
+            }
+        } else if ($_SESSION["departamentos"] == "Bodegas Fiscales") {
+                if ($_GET["ruta"] == "Inicio" ||
+                        $_GET["ruta"] == "gestorDeTarifas" ||
+                        $_GET["ruta"] == "culminarIngresosBodega" ||
+                        $_GET["ruta"] == "historiaIngresosFisacales" ||
+                        $_GET["ruta"] == "UbicacionBodega" ||
+                        $_GET["ruta"] == "paseDeSalida" ||
+                        $_GET["ruta"] == "gestorUsuarios" ||
+                        $_GET["ruta"] == "retiroBod" ||
+                        $_GET["ruta"] == "miperfil" ||
+                        $_GET["ruta"] == "clientesSinTarifa" ||
+                        $_GET["ruta"] == "ingresosPendientes" ||
+                        $_GET["ruta"] == "inventariosFiscales" ||
+                        $_GET["ruta"] == "salir") {                /*
                   Include para hacer URL amigables.
                  */
                 include "modulos/" . $_GET["ruta"] . ".php";

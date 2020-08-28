@@ -86,32 +86,36 @@ class ControladorCalculoDeAlmacenaje {
     }
 
     public static function ctrOtrosServiciosExtraGd($otrosExtra, $listaDefaultExtra, $hiddenDescuento, $polizaExtraSer, $valCalculado, $hiddenTipoOP, $estado, $idRetCal) {
+
         $otrosExtraArray = json_decode($otrosExtra, true);
+
         $listaDefaultExtraArray = json_decode($listaDefaultExtra, true);
+        
         date_default_timezone_set('America/Guatemala');
         $time = date('Y-m-d H:i:s');
         $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($polizaExtraSer);
         $sp = "spVerIdCalc";
         $repIdCalc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($polizaExtraSer, $sp);
+
         if ($repIdCalc != "SD") {
             $idCalculo = $repIdCalc[0]["id"];
             if ($respuestaVerifacacion[0]["cantidadEstado"] == 0) {
                 return "sinCalculo";
             }
+            }else{
+                $idCalculo = $idRetCal;
+            }
 
             //guardando servicios y descuentos en la db foreach para recorrer el array de servicios y el dato de descuento
-
-            if ($respuestaVerifacacion[0]["cantidadEstado"] == 1) {
-                if (!empty($otrosExtraArray) >= 1) {
+            if (!empty($otrosExtraArray)) {
                     foreach ($otrosExtraArray as $key => $value) {
                         //$idCalculo, $idServicio
                         $tipo = 0;
                         $sp = "spOtrosServicios";
                         $idServicio = $value["serviciosOtros"];
                         $valorOtros = $value["valorOtros"];
-                        $calcRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idCalculo, $idServicio, $tipo, $sp);
-
-                        if ($calcRev == "SD") {
+    
+                        if ($repIdCalc == "SD") {
                             $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
                         } else {
                             $sp = "spModificarRubrosSerCalc";
@@ -119,15 +123,14 @@ class ControladorCalculoDeAlmacenaje {
                         }
                     }
                 }
-                if (!empty($listaDefaultExtraArray) >= 1) {
+                if (!empty($listaDefaultExtraArray)) {
                     foreach ($listaDefaultExtraArray as $key => $value) {
                         $tipo = 1;
                         $idServicio = $value["serviciosDefault"];
                         $sp = "spOtrosServicios";
                         $valorOtros = $value["valServicios"];
-                        $calcRevDef = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idCalculo, $idServicio, $tipo, $sp);
-
-                        if ($calcRevDef == "SD") {
+                        
+                        if ($repIdCalc == "SD") {
                             $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
                         } else {
                             $sp = "spModificarRubrosSerCalc";
@@ -135,7 +138,7 @@ class ControladorCalculoDeAlmacenaje {
                         }
                     }
                 }
-                if ($valCalculado >= 0.0001) {
+                if ($valCalculado > 0) {
                     $tipo = 1;
                     $sp = "spRevDescCalcExis";
                     $revDesc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalculo, $tipo, $sp);
@@ -148,9 +151,9 @@ class ControladorCalculoDeAlmacenaje {
                         $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $hiddenDescuento, $tipo, $valCalculado, $estado, $idRetCal, $sp);
                     }
                 }
-            }
+           
             return "Oks";
-        }
+        
     }
 
     public static function ctrExistePoliza($verPoliza) {

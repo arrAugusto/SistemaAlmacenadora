@@ -113,8 +113,9 @@ class AjaxHistorialDeSaldos {
 
     public function ajaxCorteContaDia() {
         $fechaCorteConta = $this->fechaCorteConta;
-        $idEmpresaCorte = $this->idEmpresaCorte;
-        $respuesta = ControladorSaldosContables::ctrCorteContaDia($fechaCorteConta, $idEmpresaCorte);
+        session_start();
+        $idBodCorte = $_SESSION["idDeBodega"];
+        $respuesta = ControladorSaldosContables::ctrCorteContaDia($fechaCorteConta, $idBodCorte);
         echo json_encode($respuesta);
   
         }
@@ -189,6 +190,5 @@ if (isset($_POST["ajusteMultDate"])) {
 if (isset($_POST["fechaCorteConta"])) {
     $corteContaDia = new AjaxHistorialDeSaldos();
     $corteContaDia->fechaCorteConta = $_POST["fechaCorteConta"];
-    $corteContaDia->idEmpresaCorte = $_POST["entidad"];
     $corteContaDia->ajaxCorteContaDia();
 }

@@ -63,7 +63,7 @@ class ModeloPasesDeSalida {
     }
 
     public static function mdlMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal) {
-                $spVeh = "spIngVehUsados";
+        $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $tipo = 1;
@@ -80,7 +80,6 @@ class ModeloPasesDeSalida {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
             }
-
             if (!empty($results)) {
                 $cif = $results[0]["totalCif"];
                 $impuestos = $results[0]["valImpuesto"];
@@ -123,7 +122,7 @@ class ModeloPasesDeSalida {
                     $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera);
                     $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo);
                     $respuestaGastosAdmin = calculosRubros::gastosAdminCalculo($TarifaGtsAdmin, $cantClientes, $minGastosAdministracion);
-                    $gtoAdminMSuperior = ceil($respuestaGastosAdmin);
+                    $gtoAdminMSuperior = ceil($respuestaGastosAdmin / 10) * 10;
                     $almacenaje = $respuestaAlmacenaje;
                     $almaMSuperior = ceil($almacenaje / 10) * 10;
                     if ($results[0]["familiaPoliza"] == 1) {
@@ -133,7 +132,21 @@ class ModeloPasesDeSalida {
                         $zonaAduaneraCalc = intval($respuestaZonaAduanera);
                         $zonaAduanMSuperior = ceil($zonaAduaneraCalc / 5) * 5 + $defaultCopias;
                     }
-                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte);
+                    $respMarcha = 0;
+                    if ($results[0]["aplicaMarchamoElec"] == 1) {
+                        if ($results[0]["FecingAlmacen"] >= $results[0]["apartirFecha"]) {
+                            $TarifaMarcElect = $results[0]["marchamoElectronico"];
+                            $minimoMarch = $results[0]["minimoMarch"];
+                            $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
+                            $respMarcha = ceil($respMarcha/5)*5;
+                            if ($respMarcha <= $minimoMarch) {
+                                $respMarcha = $minimoMarch;
+                            }
+                        }
+                    }
+                    $respMarcha = ceil($respMarcha);
+
+                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha);
                     return $datos;
                 } else {
                     //OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
@@ -183,12 +196,26 @@ class ModeloPasesDeSalida {
 
                     $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
                     $respuestaGastosAdmin = calculosRubros::gastosAdminCalculo($TarifaGtsAdmin, $cantClientes, $minGastosAdministracion); // OBJETO CALCULA GASTOS ADMIN
-                    $gtoAdminMSuperior = ceil($respuestaGastosAdmin);
+                    $gtoAdminMSuperior = ceil($respuestaGastosAdmin / 10) * 10;
                     $almaMSuperior = ceil($respuestaAlmacenaje / 10) * 10;
                     $zonaAduaneraCalc = intval($respuestaZonaAduanera);
                     $zonaAduanMSuperior = ceil($zonaAduaneraCalc / 10) * 10 + $defaultCopias;
                     $totalCobrar = ($almaMSuperior + $zonaAduanMSuperior + $respuestaManejo + $gtoAdminMSuperior);
-                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte);
+                    $respMarcha = 0;
+                    if ($results[0]["aplicaMarchamoElec"] == 1) {
+                        if ($results[0]["FecingAlmacen"] >= $results[0]["apartirFecha"]) {
+                            $TarifaMarcElect = $results[0]["marchamoElectronico"];
+                            $minimoMarch = $results[0]["minimoMarch"];
+                            $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
+                            $respMarcha = ceil($respMarcha/5)*5;
+                            if ($respMarcha <= $minimoMarch) {
+                                $respMarcha = $minimoMarch;
+                            }
+                        }
+                    }
+                    $respMarcha = ceil($respMarcha);
+
+                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha);
                     return $datos;
                 }
             }
@@ -361,7 +388,7 @@ class ModeloPasesDeSalida {
         }
     }
 
-    public static function mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $nuevafechaInicio, $fechaCorte, $usuarioOp, $revCuad) {
+    public static function mdlGuardarNuevoRecibo($idRetCal, $almaMSuperior, $zonaAduanMSuperior, $calculoManejo, $gtoAdminMSuperior, $marchElectro, $nuevafechaInicio, $fechaCorte, $usuarioOp, $revCuad) {
         $conn = Conexion::Conectar();
         /*  FORMATO DE FECHA INICIAL.  */
         $fechaIngreso = $nuevafechaInicio;
@@ -369,9 +396,9 @@ class ModeloPasesDeSalida {
         /*  FORMAT FECHA DE CORTE.  */
         $fechaCorteFormat = date("Y-m-d", strtotime($fechaCorte));
         $idRetCal = $idRetCal * 1;
-        $params = array(&$idRetCal, &$almaMSuperior, &$zonaAduanMSuperior, &$calculoManejo, &$gtoAdminMSuperior, &$usuarioOp, &$revCuad);
+        $params = array(&$idRetCal, &$almaMSuperior, &$zonaAduanMSuperior, &$calculoManejo, &$gtoAdminMSuperior, &$marchElectro, &$usuarioOp, &$revCuad);
 
-        $sql = "EXECUTE spGdServCobrados ?, ?, ?, ?, ?, ?, ?";
+        $sql = "EXECUTE spGdServCobrados ?, ?, ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -388,7 +415,7 @@ class ModeloPasesDeSalida {
     }
 
     public static function mdlReplaceDataRet($sp, $datos, $replaceDataRet) {
-                $conn = Conexion::Conectar();
+        $conn = Conexion::Conectar();
         $bultosReplace = $datos["bultosReplace"];
         $pesoReplace = $datos["pesoReplace"];
         $tCambioReplace = $datos["tCambioReplace"];
