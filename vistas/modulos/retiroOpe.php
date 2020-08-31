@@ -16,24 +16,28 @@
                 <form role="form" method="post">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
-                                <input type="text" id="textParamBusqRet" placeholder="Escriba poliza, nit, empresa..." class="form-control is-invalid buscando" onkeyup="javascript:this.value = this.value.toUpperCase();" />
-                                <input type="hidden" id="hiddenTipoOP"  value="retiro">
-                                <input type="hidden" id="hiddenDateTimeVal" value="" />
-                                <input type="hidden" id="hiddenStockIngreso"  value="">
-
-                            </div>  
-                            <div class="col-2">
-                                <button type="button" class="btn btn-primary btn-block btnBuscaRetiro">Buscar poliza&nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></button>
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <input type="text" id="textParamBusqRet" placeholder="Escriba poliza, nit, empresa..." class="form-control is-invalid buscando" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                    <input type="hidden" id="hiddenTipoOP"  value="retiro">
+                                    <input type="hidden" id="hiddenDateTimeVal" value="" />
+                                    <input type="hidden" id="hiddenStockIngreso"  value="">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn-block btnBuscaRetiro"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-4">
-                                <input type="text" id="dateTime" class="form-control">
-                                <input type="hidden" id="hiddenDateTime" value="<?php
-                                date_default_timezone_set('America/Guatemala');
-                                echo date('Y-m-d H:i:s');
-                                ?>">
+                            <div class="col-7">
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" id="hiddenLista" value="">
+                                    <textarea class="form-control textoQRPoliza" rows="5" >2330706270GTGUAG1200050160001712082020GTGUAG1                   332208 23ID10 US307.70300000000285153.97000000001112.000000000035774.74000000000653.54000000000590.28000000000000.00000000035030.22000000035030.2252HYDSG8I
+                                    </textarea>
+                                    <span class="input-group-append">
+                                        <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
+                                    </span>
+                                </div>
+                            </div>                        
 
-                            </div>
                             <div class="col-7 mt-4" id="dataRetiro">
                             </div>
                             <div class="col-3 mt-4" id="ListaSelect">
@@ -114,6 +118,14 @@
                                 <label>Número de contenedor / Tipo Vehiculo</label>
                                 <input type="text" class="form-control is-invalid" id="contenedor" placeholder="Ejemplo : SMLU8415002" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                             </div>
+                            <div class="col-3 mt-4">
+                                <input type="text" id="dateTime" class="form-control">
+                                <input type="hidden" id="hiddenDateTime" value="<?php
+                                date_default_timezone_set('America/Guatemala');
+                                echo date('Y-m-d H:i:s');
+                                ?>">
+                            </div>
+
                             <input type="hidden" id="arrayListDetalle" value="" />
 
                             <div class="col-6 mt-4" id="tableVeh">
@@ -132,7 +144,7 @@
                         <input type="hidden" id="hiddenTipoRet" value="" />
                         <input type="hidden" id="hiddenGdVehMerc" value="" />
                         <input type="hidden" id="hiddenValorCif" value="" />
-                        
+
                         <input type="hidden" id="hidenPilotosPlus" value="" />
                         <input type="hidden" id="hiddenIdentity" value="" />                        
                     </div>

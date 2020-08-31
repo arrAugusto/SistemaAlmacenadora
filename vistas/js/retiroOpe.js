@@ -34,7 +34,15 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                         var datblts = respuesta[i].blts;
                         var datdimPeso = respuesta[i].pesokg + " kg";
                         if (respuesta[i].familiaPoliza == 1) {
-                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
+                            if (respuesta[i].tipo == "AF") {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
+
+                            }
+                            if (respuesta[i].tipo == "ZA") {
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
+
+                            }
+
                         } else {
                             var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
                         }
@@ -215,7 +223,7 @@ $(document).on("click", ".btnListaSelect", async function () {
 
                         document.getElementById("divPlaca").innerHTML = '';
                         document.getElementById("divCont").innerHTML = '';
-                        
+
                     }
                     if (respuestaDetIng.data == "sinRet") {
                         Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
@@ -499,8 +507,44 @@ $(document).on("click", ".btnListaSelect", async function () {
         });
     }
 });
+
+
+function funcRevSaldosAF(tipoIng) {
+    let todoMenus;
+    var datos = new FormData();
+    datos.append("saldosAF", tipoIng);
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            todoMenus = respuesta;
+
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return todoMenus;
+
+}
 $(document).on("click", ".btnGuardarRetiro", async function () {
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
+    var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
+    var respSaldos = await funcRevSaldosAF(hiddeniddeingreso);
+    var verSaldo = 0;
+    if (respSaldos != "SD") {
+        if (respSaldos[0].tipo == "AF") {
+            var verSaldo = 1;
+        }
+    }
+
+
     var numPolizaRev = $("#polizaRetiro").val();
     var revPoliza = await revPolizasIngreso(numPolizaRev);
     if (revPoliza == "Duplicada") {
@@ -534,7 +578,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
             if (estado >= 1 && estado == 1) {
                 alert("no selecciono ningun cliente");
             } else if (estado == 0 || estado == 2) {
-                var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
                 var hiddenIdUs = document.getElementById("hiddenIdUs").value;
                 var hiddenIdBod = document.getElementById("hiddenIdBod").value;
                 if (hiddeniddeingreso !== "" || hiddenIdUs !== "") {
@@ -591,44 +634,129 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
 
                     }
-                    if (totalBultos == cantBultos) {
-                        if (tipoIng == "vehM" || tipoIng == "vehUs") {
-                            var guardarRetMerca = await guardarRetiroMercaderia(
-                                    listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
-                                    valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
-                                    hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng);
-                        } else {
-                            console.log("data522 es vehiculo");
+                    var valorCif = parseFloat(valorCif).toFixed(2);
+                    var calculoValorImpuesto = parseFloat(calculoValorImpuesto).toFixed(2);
+                    var valorCif = (valorCif * 1);
+                    var calculoValorImpuesto = (calculoValorImpuesto * 1);
+                    var bltsSaldo = 3;
+                    var condicion = 3;
+                    if (verSaldo == 0) {
+                        var bltsSaldo = 0;
+                        var condicion = 0;
+                    }
 
-                            var guardaRetVeh = await guardarRetVehehiculos(
-                                    hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
-                                    valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
-                                    hiddenDateTime, listaVehiculos, descMercaderia,
-                                    );
-                            if (guardaRetVeh["tipoResp"]) {
-                                Swal.fire('Retiro', 'Guardado éxitosamente', 'success');
-                                document.getElementById("divBottoneraAccion").innerHTML = `
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${guardaRetVeh["idRet"]} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
-                                    </div>`;
+                    if (verSaldo == 1) {
+                        var respSaldImpt = parseFloat(respSaldos[0].saldoValorImpuesto).toFixed(2);
+                        var respSaldCif = parseFloat(respSaldos[0].saldoValorCif).toFixed(2);
+                        var respSaldImpt = respSaldImpt * 1;
+                        var respSaldCif = respSaldCif * 1;
+                        var respSaldCif = (respSaldImpt - valorCif);
+                        var respSaldImpt = (respSaldImpt - calculoValorImpuesto);
+                        var respSaldCif = parseInt(respSaldCif);
+                        var respSaldImpt = parseInt(respSaldImpt);
 
-                            } else {
-                                Swal.fire('Retiro', 'No se guardo correctamente', 'error');
+                        if (respSaldos[0].saldoBultos == totalBultos) {
+                            var bltsSaldo = 1;
+
+                            if (respSaldCif == 0 || respSaldImpt == 0) {
+
+                                var condicion = 1;
                             }
 
+                        } else {
+
+                            if (respSaldos[0].saldoBultos > 0 && respSaldCif > 0 && respSaldImpt > 0) {
+
+                                var bltsSaldo = 2;
+                                var condicion = 2;
+                            }
 
                         }
-                    } else {
-                        Swal.fire('Diferencia bultos', 'En el formulario declaro ' + cantBultos + ' bultos y en detalles ud declaro ' + totalBultos + ' bultos.', 'error');
+                    }
+                    if (verSaldo == 0 || verSaldo == 1) {
+                        if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
+                            if (totalBultos == cantBultos) {
+                                if (tipoIng == "vehM" || tipoIng == "vehUs") {
+                                    console.log(cantBultos);
+                                    console.log(valorTotalAduana);
+                                    console.log(valorCif);
+                                    console.log(calculoValorImpuesto);
+                                    var guardarRetMerca = await guardarRetiroMercaderia(
+                                            listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
+                                            valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
+                                            hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng);
+                                } else {
+                                    var guardaRetVeh = await guardarRetVehehiculos(
+                                            hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
+                                            valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
+                                            hiddenDateTime, listaVehiculos, descMercaderia,
+                                            );
+                                    if (guardaRetVeh["tipoResp"]) {
+                                        Swal.fire('Retiro', 'Guardado éxitosamente', 'success');
+                                        document.getElementById("divBottoneraAccion").innerHTML = `
+     <div class="btn-group">
+     <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${guardaRetVeh["idRet"]} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
+     </div>`;
+
+                                    } else {
+                                        Swal.fire('Retiro', 'No se guardo correctamente', 'error');
+                                    }
+
+
+                                }
+                            } else {
+                                Swal.fire('Diferencia bultos', 'En el formulario declaro ' + cantBultos + ' bultos y en detalles ud declaro ' + totalBultos + ' bultos.', 'error');
+                            }
+                        } else {
+                            if (respSaldos[0].saldoBultos == totalBultos) {
+                                Swal.fire({
+                                    title: 'Diferencia de saldos',
+                                    text: "Por ser ultimo retiro parcial, puede aplicar los valores del sistema si lo desea, sino revise los saldos rebajados!",
+                                    type: 'info',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, Aplicar Val. Sistema!'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        var dol = respSaldos[0].saldoValorTAduana;
+                                        var dol = parseFloat(dol).toFixed(2);
+                                        var dol = dol * 1;
+                                        var cif = respSaldos[0].saldoValorCif;
+                                        var cif = parseFloat(cif).toFixed(2);
+                                        var cif = cif * 1;
+                                        var cambio = (cif / dol);
+                                        var cambio = parseFloat(cambio).toFixed(4);
+                                        var cambio = cambio * 1;
+                                        var impuesto = respSaldos[0].saldoValorImpuesto;
+                                        var impuesto = parseFloat(impuesto).toFixed(2);
+                                        var impuesto = impuesto * 1;
+                                        document.getElementById("cambio").value = cambio;
+                                        document.getElementById("valorTAduana").value = dol;
+                                        document.getElementById("valorCif").value = cif;
+                                        document.getElementById("calculoValorImpuesto").value = impuesto;
+                                        $("#cambio").trigger('change');
+                                        $("#valorTAduana").trigger('change');
+                                        $("#valorCif").trigger('change');
+                                        $("#calculoValorImpuesto").trigger('change');
+                                        Swal.fire(
+                                                'Aplicados!',
+                                                'Los valores del sistema fueron aplicados en el ultimo retiro fiscal',
+                                                'success'
+                                                )
+                                    }
+                                })
+                            } else {
+                                Swal.fire('Diferencias saldos', 'Ultimo retiro almacen fiscal, no cuadra con valores del sistema ', 'error');
+                            }
+
+                        }
                     }
                 } else {
-                    console.log("error 404");
+                    Swal.fire('Error de formulario', 'El formulario declarado es incorrecto revise', 'error');
                 }
             }
-        } else {
-            Swal.fire('Error de formulario', 'El formulario declarado es incorrecto revise', 'error');
         }
-
     }/*else{
      
      }*/
@@ -729,12 +857,12 @@ function guardarRetiroMercaderia(
          <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + respuesta["valIdRetiro"] + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
                                                               
      </div>`;
-            }else{
+            } else {
                 Swal.fire(
-  'Error Interno!',
-  'La transaccion no se finalizo',
-  'success'
-)
+                        'Error Interno!',
+                        'La transaccion no se finalizo',
+                        'success'
+                        )
             }
         },
         error: function (respuesta) {
@@ -771,11 +899,11 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                 if (isNaN(valTextDet) || valTextDet == "") {
                     Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
                 } else {
- 
-                    if ($("#numeroPlaca").length==0) {
-                        document.getElementById("descMercaderia").value = 'VEHICULO USADO  '+respuesta[0].empresa;
+
+                    if ($("#numeroPlaca").length == 0) {
+                        document.getElementById("descMercaderia").value = 'VEHICULO USADO  ' + respuesta[0].empresa;
                         $("#descMercaderia").removeClass("is-invalid");
-                        $("#descMercaderia").addClass("is-valid");                    
+                        $("#descMercaderia").addClass("is-valid");
                     }
                     document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
                     document.getElementById("textDetalle" + idDetalle).readOnly = true;
@@ -1504,7 +1632,7 @@ $(document).on("click", "#buttonTrashVeh", async function () {
     $("#btnOrigen" + numOrigen).removeAttr("disabled");
     $(this).parent().parent().remove();
 })
-    
+
 $(document).on("click", "#buttonTrash", async function () {
     var numOrigen = $(this).attr("numOrigen");
     $(this).parent().parent().remove();
@@ -1513,8 +1641,8 @@ $(document).on("click", "#buttonTrash", async function () {
     $("#textDetalle" + numOrigen).removeClass("is-invalid");
     $("#textDetalle" + numOrigen).addClass("is-valid");
     document.getElementById("btnAceptarDet" + numOrigen).disabled = false;
-    
- })
+
+})
 
 $(document).on("click", ".btnEditarRetiroVeh", async function () {
     var idRet = $(this).attr("idRet");

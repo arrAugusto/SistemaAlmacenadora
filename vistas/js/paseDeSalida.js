@@ -110,7 +110,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             Fecha ingreso : ` + fechaIng + ` &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp ` + tiempoTotal + `&nbsp;dias<br/>Fecha salida : <div class="input-group input-group">
                                     <input type="text" id="dateTime" class="form-control">
                                     <span class="input-group-append">
-                                       <button type="button" class="btn btn-warning btnImprimirRecibo" id="btnCalculoAlm" idret="` + idRetCal + `" idingreso="` + idIngresoCal + `">Calcular Almacenaje <i class="fa fa-calculator" aria-hidden="true"></i></button>
+                                       <button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idret="` + idRetCal + `" idingreso="` + idIngresoCal + `">Calcular Almacenaje <i class="fa fa-calculator" aria-hidden="true"></i></button>
                                         
                                     </span>
                                     <input type="hidden" id="hiddenDateTimeVal" value="" />
@@ -463,7 +463,7 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
 
     var idNumIng = $(this).attr("idIngreso");
     var datos = new FormData();
-    document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
+    document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
     datos.append("idNumRetConsult", idNumRetConsult);
     $.ajax({
         url: "ajax/paseDeSalida.ajax.php",

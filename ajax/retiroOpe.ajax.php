@@ -267,11 +267,20 @@ class AjaxUbicacionOpe {
         $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($revVehUsados, $dateReVehUs);
         echo json_encode($respuesta);
     }
+
     public $trasladoIngZAAF;
+
     public function ajaxTrasladoZAAF() {
         $idIngTrasladar = $this->idIngTrasladar;
         $datosUnidades = ControladorRetiroOpe::ctrTrasladoZAAF($idIngTrasladar);
-        echo json_encode($datosUnidades);        
+        echo json_encode($datosUnidades);
+    }
+    
+    public $verSaldosAF; 
+    public function ajaxMostrarSaldosAF(){
+        $saldosAF = $this->saldosAF;
+        $respSaldAF = ControladorRetiroOpe::ctrMostrarSaldosAF($saldosAF);
+        echo json_encode($respSaldAF);        
     }
 
 }
@@ -486,3 +495,9 @@ if (isset($_POST["idIngTrasladar"])) {
     $trasladoIngZAAF->ajaxTrasladoZAAF();
 }
 
+
+if (isset($_POST["saldosAF"])) {
+    $verSaldosAF = new AjaxUbicacionOpe();
+    $verSaldosAF->saldosAF = $_POST["saldosAF"];
+    $verSaldosAF->ajaxMostrarSaldosAF();
+}

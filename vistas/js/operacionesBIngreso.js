@@ -785,7 +785,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
      alert("existe un dato vacio favor revise");
      } else {
      */
-    /*if ($("#divTableFail").lenght == 0) {
+    /*if ($("#divTableFail").length == 0) {
      document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
      document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
      document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
@@ -983,7 +983,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
      console.log(790);
      if (respuesta["estado"] == "OK") {
      console.log(respuesta["estado"]);
-     if ($("#divTableFail").lenght == 0) {
+     if ($("#divTableFail").length == 0) {
      
      
      document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
@@ -1021,7 +1021,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
      type: "success"
      }).then(okay => {
      if (okay) {
-     if ($("#divTableFail").lenght == 0) {
+     if ($("#divTableFail").length == 0) {
      document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
      document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
      document.getElementById("gDetalles").innerHTML = "Editar Clientes";
@@ -1171,15 +1171,15 @@ $(document).on("click", ".btnEditar", function () {
         var textpesoEmpresa = document.getElementById(pesoEmpresa).value;
         var buttonEditar = $(this).attr("numbtneditar");
         var textbltsEmpresa = parseInt(textbltsEmpresa);
-        var textbltsEmpresa = textbltsEmpresa*1;
-        
+        var textbltsEmpresa = textbltsEmpresa * 1;
+
         var textpesoEmpresa = parseFloat(textpesoEmpresa).toFixed(2);
-        var textpesoEmpresa = textpesoEmpresa*1;
-        
+        var textpesoEmpresa = textpesoEmpresa * 1;
+
         var llaveConsultaEdit = parseInt(llaveConsultaEdit);
-        var llaveConsultaEdit = llaveConsultaEdit*1;
+        var llaveConsultaEdit = llaveConsultaEdit * 1;
         var buttonEditar = parseInt(buttonEditar);
-        var buttonEditar = buttonEditar*1;
+        var buttonEditar = buttonEditar * 1;
         var datos = new FormData();
         datos.append("buttonEditar", buttonEditar);
         datos.append("textnomEmpresa", textnomEmpresa);
@@ -1196,8 +1196,8 @@ $(document).on("click", ".btnEditar", function () {
             dataType: "json",
             success: function (respuesta) {
                 console.log(respuesta);
-                if (respuesta[0].resp==1) {
-                                    swal({
+                if (respuesta[0].resp == 1) {
+                    swal({
                         type: "success",
                         title: "Editado satisfactoriamente",
                         text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
@@ -1206,20 +1206,20 @@ $(document).on("click", ".btnEditar", function () {
                         closeConfirm: true
                     });
                     return true;
-                    
-                }else{
-                                                       swal({
+
+                } else {
+                    swal({
                         type: "error",
                         title: "No se edito",
                         text: "Hubo un error desconocido no se pudo editar",
                         showConfirmButton: true,
                         confrimButtonText: "cerrar",
                         closeConfirm: true
-                    }); 
+                    });
                     return false;
                 }
                 return false;
-                if (respuesta=="conDetCorregido") {
+                if (respuesta == "conDetCorregido") {
                     swal({
                         type: "warning",
                         title: "Se edito empresa y peso, bultos no se pueden editar porque bodega ya opero transacciones",
@@ -1227,7 +1227,7 @@ $(document).on("click", ".btnEditar", function () {
                         confrimButtonText: "cerrar",
                         closeConfirm: true
                     });
-                    
+
                 }
                 if (respuesta["Tipo"] == "ConDetalleBodega") {
                     swal({
@@ -1273,7 +1273,7 @@ $(document).on("click", ".btnEditar", function () {
                         confrimButtonText: "cerrar",
                         closeConfirm: true
                     });
-                    if ($("#divTableFail").lenght == 0) {
+                    if ($("#divTableFail").length == 0) {
 
 
                         document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
@@ -3770,7 +3770,7 @@ $(document).on("change", "#numeroLicenciaPlus", async function () {
         if (consCui == "Ok") {
             $("#numeroLicenciaPlus").removeClass("is-invalid");
             $("#numeroLicenciaPlus").addClass("is-valid");
-            if ($("#hiddenIdentity").lenght >= 1) {
+            if ($("#hiddenIdentity").length >= 1) {
                 var hiddenIdentityRevPlt = document.getElementById("hiddenIdentity").value;
             }
             var nombrePilotoPlusUn = document.getElementById("numeroLicenciaPlus").value;
@@ -3839,7 +3839,7 @@ function consultaPiloto(datoDpiConsult) {
                 $("#nombrePilotoPlusUn").removeClass("is-invalid");
                 $("#nombrePilotoPlusUn").addClass("is-valid");
                 document.getElementById("nombrePilotoPlusUn").value = respuesta[0].nombrePLT;
-                if ($("#hidenPilotosPlus").lenght >= 1) {
+                if ($("#hidenPilotosPlus").length >= 1) {
                     document.getElementById("hidenPilotosPlus").value = respuesta[0].pltId;
                 }
                 document.getElementById("numeroPlacaPlusUn").focus();
@@ -5527,19 +5527,18 @@ function revisarVehUsados(nomVar, listaValidacion) {
 $(document).on("click", ".btnCapturarQRPol", async function () {
     var barcodePolizaIng = $(".textoQRPoliza").html();
     var polizaIng = barcodePolizaIng.substr(0, 10);
+
     var duca = barcodePolizaIng.substr(10, 20);
     var saltoQR = barcodePolizaIng.substr(45, 220);
     var nit = saltoQR.substr(0, 26);
     console.log(nit);
     var nitTrim = nit.trim();
 
-    document.getElementById("txtNitEmpresa").value = nitTrim;
-    $("#txtNitEmpresa").trigger('change');
     var duca = barcodePolizaIng.substr(10, 20);
     var duca = duca.trim();
-    document.getElementById("dua").value = duca;
-    $("#dua").trigger('change');
     var saltoQRReg = saltoQR.substr(28, 220);
+    var RegimenDat = saltoQRReg.substr(0, 2);
+
 
     var tipoCambio = saltoQRReg.substr(9, 10);
     var tipoCambio = parseFloat(tipoCambio).toFixed(5);
@@ -5550,32 +5549,91 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
 
     var valDolares = (cif / tipoCambio);
     var valDolares = parseFloat(valDolares).toFixed(2);
-    document.getElementById("valorTotalAduana").value = valDolares;
-    $("#valorTotalAduana").trigger('change');
 
-    document.getElementById("tipoDeCambio").value = tipoCambio;
-    $("#tipoDeCambio").trigger('change');
     var saltoQRPesop = saltoQR.substr(17, 220);
     var saltoQRImpts = saltoQRPesop.substr(75, 220);
     var impuestos = saltoQRImpts.substr(0, 15);   // '(1, 2): bc'*/
     var impuestos = impuestos.trim();
     var impuestos = parseFloat(impuestos).toFixed(2);
-    document.getElementById("valorImpuesto").value = impuestos;
-    $("#valorImpuesto").trigger('change');
     var peso = saltoQRPesop.substr(0, 15);
     var peso = peso.trim();
     var peso = parseFloat(peso).toFixed();
 
-    document.getElementById("pesoIng").value = peso;
-    $("#pesoIng").trigger('change');
 
     var duca = barcodePolizaIng.substr(10, 20);   // '(1, 2): bc'
     var duca = duca.trim();
-    document.getElementById("dua").value = duca;
-    $("#dua").trigger('change');
+    if ($("#buttonMostrarCons").length >= 1) {
+        document.getElementById("poliza").value = polizaIng;
+        $("#poliza").trigger('change');
+        document.getElementById("txtNitEmpresa").value = nitTrim;
+        $("#txtNitEmpresa").trigger('change');
+        document.getElementById("dua").value = duca;
+        $("#dua").trigger('change');
+        $("#regimenPoliza").find('option:selected').text(RegimenDat);
+        $("#regimenPoliza").trigger('change');
+        document.getElementById("valorTotalAduana").value = valDolares;
+        $("#valorTotalAduana").trigger('change');
+        document.getElementById("tipoDeCambio").value = tipoCambio;
+        $("#tipoDeCambio").trigger('change');
+        document.getElementById("valorImpuesto").value = impuestos;
+        $("#valorImpuesto").trigger('change');
+        document.getElementById("pesoIng").value = peso;
+        $("#pesoIng").trigger('change');
+        document.getElementById("dua").value = duca;
+        $("#dua").trigger('change');
+    }
+    if ($("#calculoTxtNitSalida").length>=1) {
+        document.getElementById("calculoTxtNitSalida").value = nitTrim;
+        $("#calculoTxtNitSalida").trigger('change');
+        document.getElementById("calculoPolizaRetiro").value = polizaIng;
+        $("#calculoPolizaRetiro").trigger('change');
+        document.getElementById("calculoRegimen").value = polizaIng;
+        $("#calculoRegimen").trigger('change');
+        document.getElementById("calculoValorTAduana").value = valDolares;
+        $("#calculoValorTAduana").trigger('change');
+        document.getElementById("calculoCambio").value = tipoCambio;
+        $("#calculoCambio").trigger('change');
+        document.getElementById("calculoValorImpuesto").value = impuestos;
+        $("#calculoValorImpuesto").trigger('change');
+        document.getElementById("calculoPesoKg").value = peso;
+        $("#calculoPesoKg").trigger('change');
 
 
+/*        document.getElementById("dua").value = duca;
+        $("#dua").trigger('change');
+  */      
+    }
+    if ($("#txtNitSalida").length>=1) {
+        document.getElementById("txtNitSalida").value = nitTrim;
+        $("#txtNitSalida").trigger('change');
+        document.getElementById("polizaRetiro").value = polizaIng;
+        $("#polizaRetiro").trigger('change');
+        document.getElementById("regimen").value = polizaIng;
+        $("#regimen").trigger('change');
+        
+        document.getElementById("valorTAduana").value = valDolares;
+        $("#valorTAduana").trigger('change');
+        document.getElementById("cambio").value = tipoCambio;
+        $("#cambio").trigger('change');
+        document.getElementById("calculoValorImpuesto").value = impuestos;
+        $("#calculoValorImpuesto").trigger('change');
+        document.getElementById("pesoKg").value = peso;
+        $("#pesoKg").trigger('change');
+   
+    }
+    
+    if ($("#polizaRetiro").length>=1) {
+        document.getElementById("valorDoll").value = peso;
+        $("#valorDoll").trigger('change');
 
+        document.getElementById("tCambio").value = tipoCambio;
+        $("#tCambio").trigger('change');
+        document.getElementById("impuestos").value = impuestos;
+        $("#impuestos").trigger('change');
+        document.getElementById("peso").value = peso;
+        $("#peso").trigger('change');
+        
+    }    
     /*
      console.log("Poliza : " + barcodePolizaIng.substr(0, 10));   // '(1, 2): bc'
      console.log("DUCA : " + barcodePolizaIng.substr(10, 20));   // '(1, 2): bc'
@@ -5727,38 +5785,38 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
                         var bultosChild = listaGDParagh[i].bultosChild;
                         var pesoChild = listaGDParagh[i].pesoChild;
                         var respGDDetalle = await guardarDetalleIng(llaveConsulta, empresaChild, bultosChild, pesoChild);
-                        if (respGDDetalle.estado=="OK" || respGDDetalle.estado=="Okk") {
-                            var totalRec = totalRec+1;
+                        if (respGDDetalle.estado == "OK" || respGDDetalle.estado == "Okk") {
+                            var totalRec = totalRec + 1;
                         }
                     }
                     if (totalRec == totalRecuList) {
                         Swal.fire({
-  title: 'Transacciones satisfactorias',
-  text: "El manifiesto fue agregado con éxito!",
-  type: 'success',
-  position: 'top-end',
-  allowOutsideClick: false,
-  confirmButtonColor: '#3085d6',
-  confirmButtonText: 'Ok!'
-}).then((result) => {
-  if (result.value) {
-    location.reload();
-  }
-})
-                    }else{
+                            title: 'Transacciones satisfactorias',
+                            text: "El manifiesto fue agregado con éxito!",
+                            type: 'success',
+                            position: 'top-end',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!'
+                        }).then((result) => {
+                            if (result.value) {
+                                location.reload();
+                            }
+                        })
+                    } else {
                         Swal.fire({
-  title: 'Transacciones insatisfactorias',
-  text: "El manifiesto no fue agregado correctamente en ingresos interrumpidos puede agregar el los que no se guardaron!",
-  type: 'success',
-  position: 'top-end',
-  allowOutsideClick: false,
-  confirmButtonColor: '#3085d6',
-  confirmButtonText: 'Ok!'
-}).then((result) => {
-  if (result.value) {
-    window.location = "ingresosPendientes";
-  }
-})                        
+                            title: 'Transacciones insatisfactorias',
+                            text: "El manifiesto no fue agregado correctamente en ingresos interrumpidos puede agregar el los que no se guardaron!",
+                            type: 'success',
+                            position: 'top-end',
+                            allowOutsideClick: false,
+                            confirmButtonColor: '#3085d6',
+                            confirmButtonText: 'Ok!'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.location = "ingresosPendientes";
+                            }
+                        })
                     }
                 }
 
@@ -5862,7 +5920,7 @@ $(document).on("click", ".btnAgregarEmpresaInter", async function () {
                         console.log(790);
                         if (respuesta["estado"] == "OK") {
                             console.log(respuesta["estado"]);
-                            if ($("#divTableFail").lenght == 0) {
+                            if ($("#divTableFail").length == 0) {
 
 
                                 document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
@@ -5900,7 +5958,7 @@ $(document).on("click", ".btnAgregarEmpresaInter", async function () {
                                 type: "success"
                             }).then(okay => {
                                 if (okay) {
-                                    if ($("#divTableFail").lenght == 0) {
+                                    if ($("#divTableFail").length == 0) {
                                         document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
                                         document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
                                         document.getElementById("gDetalles").innerHTML = "Editar Clientes";

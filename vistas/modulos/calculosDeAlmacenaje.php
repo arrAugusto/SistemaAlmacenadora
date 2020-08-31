@@ -37,16 +37,29 @@
                 <form role="form" method="post">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6">
-                                <input type="text" id="calculoTextParamBusqRet" class="form-control" placeholder="Escriba poliza, nit, empresa..." onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
-                                <input type="hidden" id="hiddenGdVehMerc"  value="">
+                            <div class="col-5">
+                                <div class="input-group">
+                                    <input type="text" id="calculoTextParamBusqRet" class="form-control" placeholder="Escriba poliza, nit, empresa..." onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
+                                    <input type="hidden" id="hiddenGdVehMerc"  value="">
 
-                                <input type="hidden" id="hiddenStockIngreso"  value="">
+                                    <input type="hidden" id="hiddenStockIngreso"  value="">
+                                    <span class="input-group-append">
+                                        <button type="button" class="btn btn-primary btn-block btnCalculoBusqueda"><i class="fa fa-search"></i></button>
+                                    </span>
+                                </div>
                             </div>
-                            <div class="col-2">
-                                <button type="button" class="btn btn-primary btn-block btnCalculoBusqueda">Buscar poliza&nbsp;&nbsp;&nbsp;<i class="fa fa-search"></i></button>
-                            </div>
-                            <br/><br/><br/>
+
+                            <div class="col-7">
+                                <div class="input-group input-group-sm">
+                                    <input type="hidden" id="hiddenLista" value="">
+                                    <textarea class="form-control textoQRPoliza" rows="5" >2330706270GTGUAG1200050160001712082020GTGUAG1                   332208 23ID10 US307.70300000000285153.97000000001112.000000000035774.74000000000653.54000000000590.28000000000000.00000000035030.22000000035030.2252HYDSG8I
+                                    </textarea>
+                                    <span class="input-group-append">
+                                        <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
+                                    </span>
+                                </div>
+                            </div>                        
+
                             <div class="col-7" id="dataRetiro">
                             </div>
                             <div class="col-5" id="ListaSelect">
@@ -138,43 +151,43 @@
                             </div>
                             <div class="col-3 mt-4" id="divDetVehUsados">
 
-                               
 
-                                </div>
-                            </div>
-                            <input type="hidden" id="hiddenZonaAduana" value="" />
-                            <input type="hidden" id="hiddenAlmacenaje" value="" />
-                            <input type="hidden" id="hiddenManejo" value="" />
-                            <input type="hidden" id="hiddenGstosAdmin" value="" />
-                            <input type="hidden" id="hiddenTotalCobrar" value="" />
-                            <input type="hidden" id="hiddenOtros" value="" />
-                            <input type="hidden" id="serviciosDefTotal" value="" />
-                            <input type="hidden" id="valDescuento" value="" />
-                            <input type="hidden" id="hiddenDescuento" value="" />
-                            <input type="hidden" id="hiddenTxtNitSalida" value=""/>
-                            <input type="hidden" id="hiddenTxtNombreSalida" value=""/>
-                            <input type="hidden" id="hiddenTxtDireccionSalida" value=""/>
-                            <input type="hidden" id="hiddenPolizaRetiro" value=""/>
-                            <input type="hidden" id="hiddenRegimen" value=""/>
-                            <input type="hidden" id="hiddenValorTAduana" value=""/>
-                            <input type="hidden" id="hiddenCambio" value=""/>
-                            <input type="hidden" id="hiddenValorCif" value=""/>
-                            <input type="hidden" id="hiddenValorImpuesto" value=""/>
-                            <input type="hidden" id="hiddenPesoKg" value=""/>
-                            <input type="hidden" id="hiddenCantBultos" value=""/>
-                            <input type="hidden" id="hiddenEstadoCalculo" value=""/>
-                            <input type="hidden" id="hiddenDateTimeVal" value=""/>
-                            <input type="hidden" id="hiddenTipoOP" value=""/>
-                            <div class="col-12 responsive divCalculoDetalle mt-4" id="divCalculoDetalle">
-                            </div>
-                            <div id="divExiste">
+
                             </div>
                         </div>
+                        <input type="hidden" id="hiddenZonaAduana" value="" />
+                        <input type="hidden" id="hiddenAlmacenaje" value="" />
+                        <input type="hidden" id="hiddenManejo" value="" />
+                        <input type="hidden" id="hiddenGstosAdmin" value="" />
+                        <input type="hidden" id="hiddenTotalCobrar" value="" />
+                        <input type="hidden" id="hiddenOtros" value="" />
+                        <input type="hidden" id="serviciosDefTotal" value="" />
+                        <input type="hidden" id="valDescuento" value="" />
+                        <input type="hidden" id="hiddenDescuento" value="" />
+                        <input type="hidden" id="hiddenTxtNitSalida" value=""/>
+                        <input type="hidden" id="hiddenTxtNombreSalida" value=""/>
+                        <input type="hidden" id="hiddenTxtDireccionSalida" value=""/>
+                        <input type="hidden" id="hiddenPolizaRetiro" value=""/>
+                        <input type="hidden" id="hiddenRegimen" value=""/>
+                        <input type="hidden" id="hiddenValorTAduana" value=""/>
+                        <input type="hidden" id="hiddenCambio" value=""/>
+                        <input type="hidden" id="hiddenValorCif" value=""/>
+                        <input type="hidden" id="hiddenValorImpuesto" value=""/>
+                        <input type="hidden" id="hiddenPesoKg" value=""/>
+                        <input type="hidden" id="hiddenCantBultos" value=""/>
+                        <input type="hidden" id="hiddenEstadoCalculo" value=""/>
+                        <input type="hidden" id="hiddenDateTimeVal" value=""/>
+                        <input type="hidden" id="hiddenTipoOP" value=""/>
+                        <div class="col-12 responsive divCalculoDetalle mt-4" id="divCalculoDetalle">
+                        </div>
+                        <div id="divExiste">
+                        </div>
                     </div>
-                </form>
             </div>
+            </form>
         </div>
-    </section>
+</div>
+</section>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="modalRebajaMercaOp" role="dialog">
