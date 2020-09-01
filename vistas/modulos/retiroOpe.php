@@ -40,7 +40,7 @@
 
                             <div class="col-7 mt-4" id="dataRetiro">
                             </div>
-                            <div class="col-3 mt-4" id="ListaSelect">
+                            <div class="col-5 mt-4" id="ListaSelect">
                             </div>
                             <input type="hidden" id="hiddenIdentificador" value="" />
                             <input type="hidden" id="hiddeniddeingreso" value="" />
@@ -115,20 +115,21 @@
                                 <input type="text" class="form-control is-invalid" id="numeroPlaca" placeholder="Ejemplo : C250CMK" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                             </div>
                             <div class="col-3 mt-4" id="divCont">
-                                <label>Número de contenedor / Tipo Vehiculo</label>
+                                <label>Núm contenedor / Tipo veh</label>
                                 <input type="text" class="form-control is-invalid" id="contenedor" placeholder="Ejemplo : SMLU8415002" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                             </div>
                             <div class="col-3 mt-4">
-                                <input type="text" id="dateTime" class="form-control">
+                                <label>Fecha Salida</label>
+                                <input type="text" id="dateTime" class="form-control is-valid">
                                 <input type="hidden" id="hiddenDateTime" value="<?php
                                 date_default_timezone_set('America/Guatemala');
                                 echo date('Y-m-d H:i:s');
                                 ?>">
                             </div>
-
                             <input type="hidden" id="arrayListDetalle" value="" />
 
                             <div class="col-6 mt-4" id="tableVeh">
+
                             </div>
                             <div class="col-6 mt-4" id="tableMostrarEmpresa">
                             </div>
@@ -141,6 +142,7 @@
                             </div>
                         </div>
                         <div id="divExiste"></div>
+                        <input type="hidden" id="hiddenDR" value="" />                        
                         <input type="hidden" id="hiddenTipoRet" value="" />
                         <input type="hidden" id="hiddenGdVehMerc" value="" />
                         <input type="hidden" id="hiddenValorCif" value="" />

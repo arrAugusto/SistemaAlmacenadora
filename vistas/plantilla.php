@@ -85,6 +85,8 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "ingPendientesC" ||
                         $_GET["ruta"] == "ingReportados" ||
                         $_GET["ruta"] == "retiroPendienteC" ||
+                        
+                        $_GET["ruta"] == "vehiculosSinMedidas" ||
                         $_GET["ruta"] == "retirosContabilizados" ||
                         $_GET["ruta"] == "salir") {
                     /*

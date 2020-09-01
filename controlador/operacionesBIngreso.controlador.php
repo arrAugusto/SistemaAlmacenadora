@@ -44,7 +44,7 @@ class ControladorOpB {
         $valorImpuesto = $datos["valorImpuesto"] * 1;
         $hiddenDateTime = $datos["hiddenDateTime"];
 
-        //CASTEO DE NUMEROS ENTEROS
+//CASTEO DE NUMEROS ENTEROS
         if (is_numeric($estadoIngreso) && is_numeric($idUsuarioCliente) && is_numeric($idNitCliente) &&
                 is_numeric($servicioTarifa) && is_numeric($idRegPol) && is_numeric($cantContenedores) &&
                 is_numeric($cantClientes) && is_numeric($bultos) && is_numeric($peso) &&
@@ -178,7 +178,7 @@ class ControladorOpB {
         $sp = "spConsulTipoConsol";
         $respuesta = ModeloControladorOpB::mdlEditarIngOP($datos);
         $respuestaTipCons = ModeloControladorOpB::mdlUnParametroConsult($idIngrseso, $sp);
-               return $respuesta;
+        return $respuesta;
         if ($respuestaTipCons[0]["consolidado"] == 0) {
             $bultos = $datos['bultosEditar'];
             $peso = $datos['pesoEditar'];
@@ -344,8 +344,8 @@ class ControladorOpB {
 
     public static function ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp) {
 
-        //$respuesta = ModeloCalculos::mdlGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
-        //revisando si los vehiculos no se estan duplicando
+//$respuesta = ModeloCalculos::mdlGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
+//revisando si los vehiculos no se estan duplicando
         $listaChasis = json_decode($jsonVehiculosG, true);
 
         $arrayChasisVal = [];
@@ -365,23 +365,23 @@ class ControladorOpB {
         if ($duplicado >= 1) {
             return array("chasisDuplicados" => $arrayChasisVal, "estado" => false);
         } else {
-            //revisando las lineas que existen y cuales no      
+//revisando las lineas que existen y cuales no      
             $tipo = 1;
             $respustaChasis = ControladorOpB::ctrValidacionNuevosVehiculos($jsonVehiculosG, $tipo);
 
-            //guardando cada uno de los vehiculos
+//guardando cada uno de los vehiculos
             $agregadosDB = 0;
             foreach ($respustaChasis as $key => $values) {
 
                 if ($values["estado"] == 0) {
-                    //vehiculos y lineas no registradas en nuestra db
+//vehiculos y lineas no registradas en nuestra db
                     $tipoVh = $values["TipoVehiculo"];
                     $lineaV = $values["lineaVehiculo"];
                     $sp = "spConsultaTipoV";
                     $respuesta = ModeloControladorOpB::mdlConsultaTipoV($tipoVh, $lineaV, $sp);
 
                     $idTipo = $respuesta[0]["tipoVe"];
-                    //si el tipo de vehiculo no existe en db se agrega 
+//si el tipo de vehiculo no existe en db se agrega 
 
                     if ($respuesta[0]["tipoVe"] == 0 || $respuesta[0]["lineaVe"] == 0) {
 
@@ -394,12 +394,12 @@ class ControladorOpB {
                             $sp = "spNuevaLinea";
                             $respInsertNuevoLinea = ModeloControladorOpB::mdlConsultaTipoV($idTipo, $lineaV, $sp);
                         }
-                        //vehiculos y lineasde vehiculos registradas en nuestra db
+//vehiculos y lineasde vehiculos registradas en nuestra db
                         $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
                         $agregadosDB = $agregadosDB + 1;
                     }
                 } else {
-                    //vehiculos y lineasde vehiculos registradas en nuestra db
+//vehiculos y lineasde vehiculos registradas en nuestra db
                     $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
                     $agregadosDB = $agregadosDB + 1;
                 }
@@ -464,7 +464,36 @@ class ControladorOpB {
         $sp = "spConsultaBltPs";
         $respuesta = ModeloControladorOpB::mdlUnParametroConsult($idIngValDet, $sp);
         return $respuesta;
-        
+    }
+
+    public static function ctrMostrarConsolidados() {
+        $sp = "spNitEmpresa";
+
+        $respuesta = ModeloControladorOpB::mdlMostrarConsolidados($sp);
+        if ($respuesta != "SD") {
+            $contador = 0;
+            foreach ($respuesta as $key => $value) {
+                $contador = $contador + 1;
+                echo '
+                    <tr>
+                        <td>' . $contador . '</td>
+                        <td>' . $value["nitEmpresa"] . '</td>
+                        <td>' . $value["nombreEmpresa"] . '</td>
+                        <td>' . $value["direccionEmpresa"] . '</td>
+                        <td>' . $value["consolidado"] . '</td>
+                            
+                    </tr>
+                
+                
+                ';
+            }
+        }
+    }
+
+    public static function ctrNewConsolidado($idNitConsolNew) {
+        $sp = "spNewConsolidad";
+        $respInsertNuevoTipo = ModeloControladorOpB::mdlTipoNewVeh($idNitConsolNew, $sp);
+        return $respInsertNuevoTipo;
     }
 
 }

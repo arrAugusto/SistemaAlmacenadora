@@ -35,12 +35,10 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                         var datdimPeso = respuesta[i].pesokg + " kg";
                         if (respuesta[i].familiaPoliza == 1) {
                             if (respuesta[i].tipo == "AF") {
-                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
-
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnVerSaldos btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
                             }
                             if (respuesta[i].tipo == "ZA") {
                                 var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
-
                             }
 
                         } else {
@@ -146,7 +144,6 @@ $(document).on("change", "#txtNitSalida", function () {
 
 
                     respuestaData = false;
-
                     $("#txtNitSalida").removeClass("is-valid");
                     $("#txtNitSalida").addClass("is-invalid");
                     $("#txtNombreSalida").removeClass("is-valid");
@@ -179,6 +176,76 @@ $(document).on("change", "#txtNitSalida", function () {
 $(document).on("click", ".btnListaSelect", async function () {
     var idBut = $(this);
     var idIngOpDet = $(this).attr("idingselectdetope");
+    var respSaldos = await funcRevSaldosAF(idIngOpDet);
+    console.log(respSaldos);
+    var verSaldo = 0;
+    if (respSaldos != "SD") {
+        if (respSaldos[0].tipo == "AF") {
+            var nomVar = "idIngEditOp";
+            var respData = await dataIngTraslado(nomVar, idIngOpDet);
+
+//SALDO BULTOS
+            var bultos = respData[0]["bultos"];
+            var bultos = parseInt(bultos);
+            var sldBlts = respSaldos[0].saldoBultos;
+            var sldBlts = parseInt(sldBlts);
+            var retiroBlts = bultos - sldBlts;
+//SALDO CIF
+            var valCif = respData[0]["valCif"];
+            var valCif = parseFloat(valCif).toFixed(2);
+            var valCifNumb = new Intl.NumberFormat("en-GT").format(valCif);
+
+            var cif = respSaldos[0].saldoValorCif;
+            var cif = parseFloat(cif).toFixed(2);
+            var cifNumber = new Intl.NumberFormat("en-GT").format(cif);
+
+            var cifRetiro = valCif - cif;
+            var cifRetiro = parseFloat(cifRetiro).toFixed(2);
+            var cifRetiroNumb = new Intl.NumberFormat("en-GT").format(cifRetiro);
+
+//SALDO IMPUESTOS
+            var valImpuesto = respData[0]["valImpuesto"];
+            var valImpuesto = parseFloat(valImpuesto).toFixed(2);
+            var valImpuestoNumb = new Intl.NumberFormat("en-GT").format(valImpuesto);
+
+
+            var sldImpt = respSaldos[0].saldoValorImpuesto;
+            var sldImpt = parseFloat(sldImpt).toFixed(2);
+            var sldImptNumber = new Intl.NumberFormat("en-GT").format(sldImpt);
+
+            var imptsRet = valImpuesto - sldImpt;
+            var imptsRet = parseFloat(imptsRet).toFixed(2);
+            var imptsRetNumb = new Intl.NumberFormat("en-GT").format(imptsRet);
+
+
+            document.getElementById("ListaSelect").innerHTML = `
+
+        <div class="card-footer mt-4">
+    <div class="row">
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Bultos <i class="fa fa-box-open"></i></h5>
+                <span class="description-text" id="bltsIng"><label class="badge bg-info" style="font-size: 13px;">Ing :&nbsp;` + bultos + `</label><br><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;` + retiroBlts + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + sldBlts + `</label></span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Cif (Q)</h5>
+                <span class="description-text" id="cifIng"><label class="badge bg-info" style="font-size: 13px;">ING : &nbsp;` + valCif + `</label><br><label class="badge bg-info" style="font-size: 13px;">RET : &nbsp;` + cifRetiroNumb + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + cifNumber + `</label></span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Impuesto (Q)</h5>
+                <span class="description-text" id="imptIng"><label class="badge bg-info" style="font-size: 13px;">Ing : &nbsp;` + valImpuestoNumb + `</label><br><label class="badge bg-info" style="font-size: 13px;">Ret : &nbsp;` + imptsRetNumb + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + sldImptNumber + `</label></span>
+            </div>
+        </div>
+
+    </div>
+</div>`;
+        }
+    }
+
     document.getElementById("hiddenIdentificador").value = idIngOpDet;
     document.getElementById("hiddeniddeingreso").value = idIngOpDet;
     if ($("#idChasAnt").length >= 1) {
@@ -220,10 +287,8 @@ $(document).on("click", ".btnListaSelect", async function () {
                     if (servicio.respTipo == "vehUs") {
                         document.getElementById("divDataPiloto").innerHTML = '';
                         document.getElementById("divDataLic").innerHTML = '';
-
                         document.getElementById("divPlaca").innerHTML = '';
                         document.getElementById("divCont").innerHTML = '';
-
                     }
                     if (respuestaDetIng.data == "sinRet") {
                         Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
@@ -458,7 +523,6 @@ $(document).on("click", ".btnListaSelect", async function () {
                     var button = '<button type="button" class="btn btn-outline-primary btn-sm btnRegresionChas" id="btnOrigen' + idChas + '" idChas="' + idChas + '" chasisVehNew="' + chasis + '"><i class="fa fa-close"></i></button>';
                 } else {
                     var button = '<button type="button" class="btn btn-outline-danger btn-sm btnSelectChasSal" id="btnOrigen' + idChas + '" idChas="' + idChas + '"><i class="fa fa-close"></i></button>';
-
                 }
                 listaVehN.push([numero, chasis, tipoVehiculo, linea, predio, descripcion, button]);
             }
@@ -525,15 +589,17 @@ function funcRevSaldosAF(tipoIng) {
         success: function (respuesta) {
             console.log(respuesta);
             todoMenus = respuesta;
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
     })
     return todoMenus;
-
 }
 $(document).on("click", ".btnGuardarRetiro", async function () {
+    if ($("#hiddenDR").length>=1) {
+            var estado = document.getElementById("hiddenDR").value;
+
+    }
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
     var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
     var respSaldos = await funcRevSaldosAF(hiddeniddeingreso);
@@ -544,10 +610,9 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
         }
     }
 
-
     var numPolizaRev = $("#polizaRetiro").val();
     var revPoliza = await revPolizasIngreso(numPolizaRev);
-    if (revPoliza == "Duplicada") {
+    if (revPoliza == "Duplicada" && estado==0) {
         Swal.fire('Poliza ya existe', 'La poliza declarada actualmente ya se encuentra gestionada en sistema.', 'error');
         $("#polizaRetiro").removeClass("is-valid");
         $("#polizaRetiro").addClass("is-invalid");
@@ -596,12 +661,10 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         if (tipoIng == "vehUs") {
                             var placa = "";
                             var contenedor = "";
-
                         } else {
 
                             var placa = document.getElementById("numeroPlaca").value;
                             var contenedor = document.getElementById("contenedor").value;
-
                         }
                         $("#arrayListDetalle").val(JSON.stringify(listaIdButton));
                         var listaDetalles = document.getElementById("arrayListDetalle").value;
@@ -626,13 +689,11 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var piloto = "";
                         var hiddenIdentificador = "";
                         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-
                     } else {
                         var licencia = document.getElementById("numeroLicencia").value;
                         var piloto = document.getElementById("nombrePiloto").value;
                         var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
                         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-
                     }
                     var valorCif = parseFloat(valorCif).toFixed(2);
                     var calculoValorImpuesto = parseFloat(calculoValorImpuesto).toFixed(2);
@@ -646,34 +707,42 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     }
 
                     if (verSaldo == 1) {
+
+                        var bultsResp = parseInt(cantBultos);
+                        var parseBlts = parseInt(respSaldos[0].saldoBultos);
+                        var bultsResp = (parseBlts - bultsResp);
                         var respSaldImpt = parseFloat(respSaldos[0].saldoValorImpuesto).toFixed(2);
                         var respSaldCif = parseFloat(respSaldos[0].saldoValorCif).toFixed(2);
                         var respSaldImpt = respSaldImpt * 1;
                         var respSaldCif = respSaldCif * 1;
-                        var respSaldCif = (respSaldImpt - valorCif);
+                        var respSaldCif = (respSaldCif - valorCif);
                         var respSaldImpt = (respSaldImpt - calculoValorImpuesto);
                         var respSaldCif = parseInt(respSaldCif);
                         var respSaldImpt = parseInt(respSaldImpt);
-
                         if (respSaldos[0].saldoBultos == totalBultos) {
                             var bltsSaldo = 1;
-
                             if (respSaldCif == 0 || respSaldImpt == 0) {
 
                                 var condicion = 1;
                             }
 
                         } else {
-
-                            if (respSaldos[0].saldoBultos > 0 && respSaldCif > 0 && respSaldImpt > 0) {
-
+                            console.log(bltsSaldo);
+                            console.log(condicion);
+                            console.log(bultsResp);
+                            console.log(respSaldCif);
+                            console.log(respSaldImpt);
+                            if (bultsResp > 0 && respSaldCif > 0 && respSaldImpt > 0) {
                                 var bltsSaldo = 2;
                                 var condicion = 2;
                             }
 
                         }
                     }
+                    console.log(verSaldo);
                     if (verSaldo == 0 || verSaldo == 1) {
+                        console.log(bltsSaldo);
+                        console.log(condicion);
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
@@ -697,7 +766,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
      <div class="btn-group">
      <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${guardaRetVeh["idRet"]} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
      </div>`;
-
                                     } else {
                                         Swal.fire('Retiro', 'No se guardo correctamente', 'error');
                                     }
@@ -747,6 +815,8 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                     }
                                 })
                             } else {
+                                console.log(bltsSaldo);
+                                console.log(condicion);
                                 Swal.fire('Diferencias saldos', 'Ultimo retiro almacen fiscal, no cuadra con valores del sistema ', 'error');
                             }
 
@@ -799,7 +869,6 @@ function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetir
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-
             guardarRetV = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
@@ -910,7 +979,8 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                     document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                   <div class="input-group-prepend">
                     <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
-                          <button type="button" class="btn btn-success" id="buttonStock">` + respuesta[0].stock + `</button>
+                    <button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>
+                    <button type="button" class="btn btn-warning" id="btnPolizasDR" estado=0>DR</button>                    
                   </div>
                   <!-- /btn-group -->
                   <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />
@@ -937,7 +1007,6 @@ $(document).on("click", ".btnAceptaDetalle", function () {
  var datos = new FormData();
  datos.append("cantBultosVal", cantBultosVal);
  datos.append("idIngresoCantBultos", idIngresoCantBultos);
- 
  $.ajax({
  url: "ajax/retiroOpe.ajax.php",
  method: "POST",
@@ -970,7 +1039,6 @@ $(document).on("click", ".btnAceptaDetalle", function () {
  } else if ("SobreGiro") {
  document.getElementById("cantBultos").focus();
  document.getElementById("cantBultos").value = "";
- 
  Swal.fire('Excedente Bultos', 'Los bultos ingresados, sobregiran el stock revise bien el numero de bultos ingresado, revise retiros anteriores.', 'error')
  
  }
@@ -1159,7 +1227,6 @@ function invalidar(nombreId) {
 
 function desbloquear() {
     let desbloqueo;
-
     document.getElementById("textParamBusqRet").readOnly = false;
     document.getElementById("txtNitSalida").readOnly = false;
     document.getElementById("txtNombreSalida").readOnly = false;
@@ -1197,14 +1264,12 @@ $(document).on("click", "#editRetiroF", async function () {
             $(this).addClass("btn btn-success");
             $(this).html('Guardar Edición <i class="fa fa-save"></i>');
             $(this).attr("estado", 1);
-
         }
     } else if (estado == 1) {
         $(this).removeClass("btn btn-success");
         $(this).addClass("btn btn-warning");
         $(this).html('Editar Retiro <i class="fa fa-edit"></i>');
         $(this).attr("estado", 0);
-
         var validarForm = await validarFormRet();
         if (validarForm) {
             console.log("hola mundo");
@@ -1290,8 +1355,6 @@ async function editarRetiroOpFis(idRetiroBtn) {
         var piloto = document.getElementById("nombrePiloto").value;
         var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-
-
         console.log(totalBultos);
         if (totalBultos == cantBultos) {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
@@ -1304,9 +1367,6 @@ async function editarRetiroOpFis(idRetiroBtn) {
                         valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, licencia, piloto,
                         hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia);
                 console.log(EditarVeh);
-
-
-
             }
 
         } else {
@@ -1434,11 +1494,9 @@ function desbloqueBloque(tipo) {
         }
         if ($("#numeroPlaca").length >= 1) {
             document.getElementById("numeroPlaca").readOnly = true;
-
         }
         if ($("#contenedor").length >= 1) {
             document.getElementById("contenedor").readOnly = true;
-
         }
 
 
@@ -1464,11 +1522,9 @@ function desbloqueBloque(tipo) {
         }
         if ($("#numeroPlaca").length >= 1) {
             document.getElementById("numeroPlaca").readOnly = true;
-
         }
         if ($("#contenedor").length >= 1) {
             document.getElementById("contenedor").readOnly = true;
-
         }
     }
 }
@@ -1489,7 +1545,6 @@ $(document).on("change", "#polizaRetiro", async function () {
 <input type="hidden" id="hiddenPesoKgExiste" value=""/>
 <input type="hidden" id="hiddenCantBultosExiste" value=""/>
 `;
-
         document.getElementById("hiddenRegimenExiste").value = poliza[0].regimen;
         document.getElementById("hiddenValorTAduanaExiste").value = poliza[0].valorAduanT;
         document.getElementById("hiddenCambioExiste").value = poliza[0].tipoCambio;
@@ -1497,8 +1552,6 @@ $(document).on("change", "#polizaRetiro", async function () {
         document.getElementById("hiddenValorImpuestoExiste").value = poliza[0].valorImpuesto;
         document.getElementById("hiddenPesoKgExiste").value = poliza[0].pesoKG;
         document.getElementById("hiddenCantBultosExiste").value = poliza[0].cantidadBultos;
-
-
         if (dato == "") {
             var mensaje = "Este campo es obligatorio";
             var tipo = "error";
@@ -1571,8 +1624,6 @@ function functionVerServicio(idIngOpDet) {
         success: function (respuesta) {
             console.log(respuesta);
             todoMenus = respuesta;
-
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
@@ -1615,13 +1666,11 @@ function consultChasis(idChas) {
         success: function (respuesta) {
             console.log(respuesta);
             todoMenus = respuesta;
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
     })
     return todoMenus;
-
 }
 
 $(document).on("click", "#buttonTrashVeh", async function () {
@@ -1641,7 +1690,6 @@ $(document).on("click", "#buttonTrash", async function () {
     $("#textDetalle" + numOrigen).removeClass("is-invalid");
     $("#textDetalle" + numOrigen).addClass("is-valid");
     document.getElementById("btnAceptarDet" + numOrigen).disabled = false;
-
 })
 
 $(document).on("click", ".btnEditarRetiroVeh", async function () {
@@ -1664,7 +1712,6 @@ $(document).on("change", "#regimen", function () {
         $(this).removeClass("is-valid");
         $(this).addClass("is-invalid");
         $("#hiddenRegimen").val(0);
-
     } else {
 
         $("#hiddenRegimen").val(1);
@@ -1678,7 +1725,6 @@ $(document).on("change", "#regimen", function () {
             document.getElementById("spanPoliza").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-
         }
     }
 });
@@ -1686,11 +1732,8 @@ $(document).on("change", "#regimen", function () {
 
 $(document).on("change", "#valorTAduana", function () {
     var dato = $(this).val();
-
     var parseDato = parseFloat(dato).toFixed(2);
     $(this).val(parseDato);
-
-
     if (dato == "") {
         var mensaje = "Este campo es obligatorio";
         var tipo = "error";
@@ -1719,8 +1762,6 @@ $(document).on("change", "#valorTAduana", function () {
                 document.getElementById("calculoValorImpuesto").focus();
                 $("#valorCif").removeClass('is-invalid');
                 $("#valorCif").addClass('is-valid');
-
-
             }
 
         }
@@ -1759,7 +1800,6 @@ $(document).on("change", "#cambio", function () {
             document.getElementById("spanCalculoCambio").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-
         }
 
         if ($("#valorTAduana").val() >= 0.001) {
@@ -1806,8 +1846,6 @@ $(document).on("change", "#calculoValorImpuesto", function () {
             document.getElementById("spanCalculoValorImpuesto").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-
-
         }
 
     } else if (isNaN(dato)) {
@@ -1843,8 +1881,6 @@ $(document).on("change", "#pesoKg", function () {
             document.getElementById("spanCalculoPesoKg").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-
-
         }
 
     } else if (isNaN(dato)) {
@@ -1874,8 +1910,6 @@ $(document).on("change", "#cantBultos", function () {
         $("#hiddenCantBultos").val(0);
     } else if (!isNaN(dato)) {
         $("#hiddenCantBultos").val(1);
-
-
         if ($("#hiddenCantBultosExiste").length >= 1 && $("#hiddenCantBultosExiste").val() != dato) {
             $("#spanCalculoCantBultos").attr("style", "display: block;");
             $(this).removeClass("is-valid");
@@ -1886,8 +1920,6 @@ $(document).on("change", "#cantBultos", function () {
             document.getElementById("spanCalculoCantBultos").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-
-
         }
 
     } else if (isNaN(dato)) {
@@ -1929,23 +1961,18 @@ $(document).on("click", "#btnEditPiloto", async function () {
         document.getElementById("nombrePilotoPlusUn").value = respEditUn[0].nombrePiloto;
         document.getElementById("numeroPlacaPlusUn").value = respEditUn[0].placaUnidad;
         document.getElementById("numeroContenedorPlusUn").value = respEditUn[0].contenedorUnidad;
-
         $("#numeroLicenciaPlus").removeClass("is-invalid");
         $("#nombrePilotoPlusUn").removeClass("is-invalid");
         $("#numeroPlacaPlusUn").removeClass("is-invalid");
         $("#numeroContenedorPlusUn").removeClass("is-invalid");
-
-
         $("#numeroLicenciaPlus").addClass("is-valid");
         $("#nombrePilotoPlusUn").addClass("is-valid");
         $("#numeroPlacaPlusUn").addClass("is-valid");
         $("#numeroContenedorPlusUn").addClass("is-valid");
-
         $(".btnEditarUnidadPlus").attr("idDatoPlto", idDatoPlto);
         $(".btnEditarUnidadPlus").removeClass("btn-info");
         $(".btnEditarUnidadPlus").addClass("btn-warning");
         $(".btnEditarUnidadPlus").html("Editar Unidad");
-
     }
 });
 
@@ -1965,7 +1992,6 @@ function editarPiloto(nomVar, idRet) {
         success: function (respuesta) {
             console.log(respuesta);
             respEdit = respuesta;
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
@@ -1998,7 +2024,6 @@ $(document).on("click", ".btnMasPilotos", async function () {
             }
             if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1 || respTodosPlt[i].estadoUnidad == 2) {
                 var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
-
             }
             $("#ListaSelect").append(`
                 <div class="input-group mb-3" id="divUnidadExt` + respTodosPlt[0].Identity + `">
@@ -2021,7 +2046,6 @@ $(document).on("click", ".btnEditarUnidadPlus", async function () {
     var nombrePilotoPlusUn = document.getElementById("nombrePilotoPlusUn").value;
     var numeroPlacaPlusUn = document.getElementById("numeroPlacaPlusUn").value;
     var numeroContenedorPlusUn = document.getElementById("numeroContenedorPlusUn").value;
-
     if ($("#txtNitSalida").length >= 1) {
         var hiddenIdentity = $(".btnMasPilotos").attr("idMasPilotos");
         var tipo = 2;
@@ -2101,7 +2125,6 @@ function editarVehiculosMercaderia(numeroLicenciaPlus, nombrePilotoPlusUn, numer
 
 $(document).on("click", "#btnTrashPiloto", async function () {
     var idUniDetTrash = $(this).attr("idUniDetTrash");
-
     Swal.fire({
         title: '¿Está Seguro?',
         text: "Borrara la Unidad de Transporte Para El Retiro!",
@@ -2126,7 +2149,6 @@ async function funcAsync(idUniDetTrash) {
         var idMasPilotos = $(".btnMasPilotos").attr("idMasPilotos");
         var nomVar = "todasUnidades";
         var respTodosPlt = await editarPiloto(nomVar, idMasPilotos);
-
         if (respTodosPlt != "SD") {
             for (var i = 0; i < respTodosPlt.length; i++) {
                 var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
@@ -2139,7 +2161,6 @@ async function funcAsync(idUniDetTrash) {
                 }
                 if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1) {
                     var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
-
                 }
                 $("#ListaSelect").append(`
                 <div class="input-group mb-3" id="divUnidadExt` + respTodosPlt[0].Identity + `">
@@ -2180,7 +2201,6 @@ function funcionBorrar(idUniDetTrash) {
             console.log(respuesta);
         }})
     return respEdicion;
-
 }
 $(document).on("click", ".btnInactivo", async function () {
     document.getElementById("ListaSelect").innerHTML = "";
@@ -2190,7 +2210,6 @@ $(document).on("click", ".btnInactivo", async function () {
     var idMasPilotos = $(".btnMasPilotos").attr("idMasPilotos");
     var nomVar = "todasUnidades";
     var respTodosPlt = await editarPiloto(nomVar, idMasPilotos);
-
     if (respTodosPlt != "SD") {
         for (var i = 0; i < respTodosPlt.length; i++) {
             var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
@@ -2203,7 +2222,6 @@ $(document).on("click", ".btnInactivo", async function () {
             }
             if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1) {
                 var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
-
             }
             $("#ListaSelect").append(`
                 <div class="input-group mb-3" id="divUnidadExt` + respTodosPlt[0].Identity + `">
@@ -2240,11 +2258,9 @@ $(document).on("click", ".btnTrasladoFiscal", async function () {
             var valCif = respData[0]["valCif"];
             var valImpuesto = respData[0]["valImpuesto"];
             var idIngreso = respData[0]["idIngreso"];
-
             var bultos = parseInt(bultos);
             var valCif = parseFloat(valCif).toFixed(2);
             var valImpuesto = parseFloat(valImpuesto).toFixed(2);
-
             var valCifGT = new Intl.NumberFormat("en-GT").format(valCif);
             var valImpuestoGT = new Intl.NumberFormat("en-GT").format(valImpuesto);
             console.log(respData);
@@ -2280,7 +2296,6 @@ $(document).on("click", ".btnTrasladoFiscal", async function () {
                 <button type="button" class="btn btn-danger btn-block trasladoZAAF" idIngTraslado=` + idIngreso + `>Guardar Traslado Fiscal</button>
                 </div>
             `;
-
         } else {
             alert("no se puede trasladar");
         }
@@ -2314,14 +2329,37 @@ function dataIngTraslado(nomVar, idIngEditOp) {
 $(document).on("click", ".trasladoZAAF", async function () {
     var idIngTrasladar = $(this).attr("idingtraslado");
     var nomVar = "idIngTrasladar";
-    var resp = await trasladarIngFiscal(nomVar, idIngTrasladar);
-    if (resp[0]["resp"] == 1) {
-        Swal.fire(
-                'Transacción exitosa!',
-                'El trasaldo se realizo con exito!',
-                'success'
-                )
-    }
+    Swal.fire({
+        title: 'Quiere trasladar saldos?',
+        text: "Si esta seguro de hacer traslado a Almacen Fiscal!",
+        type: 'warning',
+        allowOutsideClick: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, trasladar!'
+    }).then(async function (result) {
+        if (result.value) {
+            var resp = await trasladarIngFiscal(nomVar, idIngTrasladar);
+            if (resp[0]["resp"] == 1) {
+                Swal.fire({
+                    title: 'Trasladado',
+                    text: "Traslado exitoso!",
+                    type: 'success',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'oK'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+
+            }
+        }
+    })
+
+
 })
 
 
@@ -2347,3 +2385,99 @@ function trasladarIngFiscal(nomVar, idIngEditOp) {
     })
     return resp;
 }
+$(document).on("click", ".btnVerSaldos", async function () {
+
+    var idBut = $(this);
+    var idIngOpDet = $(this).attr("idingselectdetope");
+    var respSaldos = await funcRevSaldosAF(idIngOpDet);
+    console.log(respSaldos);
+    var verSaldo = 0;
+    if (respSaldos != "SD") {
+        if (respSaldos[0].tipo == "AF") {
+            var nomVar = "idIngEditOp";
+            var respData = await dataIngTraslado(nomVar, idIngOpDet);
+
+//SALDO BULTOS
+            var bultos = respData[0]["bultos"];
+            var bultos = parseInt(bultos);
+            var sldBlts = respSaldos[0].saldoBultos;
+            var sldBlts = parseInt(sldBlts);
+            var retiroBlts = bultos - sldBlts;
+//SALDO CIF
+            var valCif = respData[0]["valCif"];
+            var valCif = parseFloat(valCif).toFixed(2);
+            var valCifNumb = new Intl.NumberFormat("en-GT").format(valCif);
+
+            var cif = respSaldos[0].saldoValorCif;
+            var cif = parseFloat(cif).toFixed(2);
+            var cifNumber = new Intl.NumberFormat("en-GT").format(cif);
+
+            var cifRetiro = valCif - cif;
+            var cifRetiro = parseFloat(cifRetiro).toFixed(2);
+            var cifRetiroNumb = new Intl.NumberFormat("en-GT").format(cifRetiro);
+
+//SALDO IMPUESTOS
+            var valImpuesto = respData[0]["valImpuesto"];
+            var valImpuesto = parseFloat(valImpuesto).toFixed(2);
+            var valImpuestoNumb = new Intl.NumberFormat("en-GT").format(valImpuesto);
+
+
+            var sldImpt = respSaldos[0].saldoValorImpuesto;
+            var sldImpt = parseFloat(sldImpt).toFixed(2);
+            var sldImptNumber = new Intl.NumberFormat("en-GT").format(sldImpt);
+
+            var imptsRet = valImpuesto - sldImpt;
+            var imptsRet = parseFloat(imptsRet).toFixed(2);
+            var imptsRetNumb = new Intl.NumberFormat("en-GT").format(imptsRet);
+
+
+            document.getElementById("ListaSelect").innerHTML = `
+
+        <div class="card-footer mt-4">
+    <div class="row">
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Bultos <i class="fa fa-box-open"></i></h5>
+                <span class="description-text" id="bltsIng"><label class="badge bg-info" style="font-size: 13px;">Ing :&nbsp;` + bultos + `</label><br><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;` + retiroBlts + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + sldBlts + `</label></span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Cif (Q)</h5>
+                <span class="description-text" id="cifIng"><label class="badge bg-info" style="font-size: 13px;">ING : &nbsp;` + valCif + `</label><br><label class="badge bg-info" style="font-size: 13px;">RET : &nbsp;` + cifRetiroNumb + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + cifNumber + `</label></span>
+            </div>
+        </div>
+        <div class="col-sm-4 col-6">
+            <div class="description-block border-right">
+                <h5 class="description-header">Saldo Impuesto (Q)</h5>
+                <span class="description-text" id="imptIng"><label class="badge bg-info" style="font-size: 13px;">Ing : &nbsp;` + valImpuestoNumb + `</label><br><label class="badge bg-info" style="font-size: 13px;">Ret : &nbsp;` + imptsRetNumb + `</label><br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;` + sldImptNumber + `</label></span>
+            </div>
+        </div>
+
+    </div>
+</div>`;
+        }
+    }
+
+});
+
+$(document).on("click", "#btnPolizasDR", async function () {
+
+    var estado = document.getElementById("hiddenDR").value;
+    if (estado == 0 || estado == "") {
+        Swal.fire({
+            title: 'Quiere registrar como DR?',
+            text: "Se dejara duplicar la poliza de retiro!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Poliza DR!'
+        }).then((result) => {
+            if (result.value) {
+                document.getElementById("hiddenDR").value = 1;
+            }
+        })
+    }
+
+})

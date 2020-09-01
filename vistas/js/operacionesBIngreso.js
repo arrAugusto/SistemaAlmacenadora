@@ -5520,6 +5520,7 @@ function revisarVehUsados(nomVar, listaValidacion) {
             respFunc = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
+            respFunc = respuesta;
         }})
     return respFunc;
 }
@@ -5582,12 +5583,12 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         document.getElementById("dua").value = duca;
         $("#dua").trigger('change');
     }
-    if ($("#calculoTxtNitSalida").length>=1) {
+    if ($("#calculoTxtNitSalida").length >= 1) {
         document.getElementById("calculoTxtNitSalida").value = nitTrim;
         $("#calculoTxtNitSalida").trigger('change');
         document.getElementById("calculoPolizaRetiro").value = polizaIng;
         $("#calculoPolizaRetiro").trigger('change');
-        document.getElementById("calculoRegimen").value = polizaIng;
+        document.getElementById("calculoRegimen").value = RegimenDat;
         $("#calculoRegimen").trigger('change');
         document.getElementById("calculoValorTAduana").value = valDolares;
         $("#calculoValorTAduana").trigger('change');
@@ -5599,18 +5600,18 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         $("#calculoPesoKg").trigger('change');
 
 
-/*        document.getElementById("dua").value = duca;
-        $("#dua").trigger('change');
-  */      
+        /*        document.getElementById("dua").value = duca;
+         $("#dua").trigger('change');
+         */
     }
-    if ($("#txtNitSalida").length>=1) {
+    if ($("#txtNitSalida").length >= 1) {
         document.getElementById("txtNitSalida").value = nitTrim;
         $("#txtNitSalida").trigger('change');
         document.getElementById("polizaRetiro").value = polizaIng;
         $("#polizaRetiro").trigger('change');
-        document.getElementById("regimen").value = polizaIng;
+        document.getElementById("regimen").value = RegimenDat;
         $("#regimen").trigger('change');
-        
+
         document.getElementById("valorTAduana").value = valDolares;
         $("#valorTAduana").trigger('change');
         document.getElementById("cambio").value = tipoCambio;
@@ -5619,10 +5620,10 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         $("#calculoValorImpuesto").trigger('change');
         document.getElementById("pesoKg").value = peso;
         $("#pesoKg").trigger('change');
-   
+
     }
-    
-    if ($("#polizaRetiro").length>=1) {
+
+    if ($("#polizaRetiro").length >= 1) {
         document.getElementById("valorDoll").value = peso;
         $("#valorDoll").trigger('change');
 
@@ -5632,8 +5633,8 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         $("#impuestos").trigger('change');
         document.getElementById("peso").value = peso;
         $("#peso").trigger('change');
-        
-    }    
+
+    }
     /*
      console.log("Poliza : " + barcodePolizaIng.substr(0, 10));   // '(1, 2): bc'
      console.log("DUCA : " + barcodePolizaIng.substr(10, 20));   // '(1, 2): bc'
@@ -6001,3 +6002,76 @@ $(document).on("click", ".btnAgregarEmpresaInter", async function () {
         });
     }
 })
+
+$(document).on("click", ".btnBuscaCons", async function () {
+    var nitNewCons = document.getElementById("textParamBusqCons").value;
+    var nomVar = "consultaEmpresa";
+    var resp = await revisarVehUsados(nomVar, nitNewCons);
+    if (resp != "SD") {
+
+
+        var nitEmpresa = resp[0].nitEmpresa;
+        var nombreEmpresa = resp[0].nombreEmpresa;
+        var direccionEmpresa = resp[0].direccionEmpresa;
+
+        var idNitEmp = resp[0].idNitEmp;
+
+        document.getElementById("empresaElegiConso").innerHTML =
+                `
+                                        <label>
+                                            Datos del Cliente
+                                        </label>
+                                        <address>
+                                            <b>
+                                                Nit:
+                                            </b>
+                                            <label id="lblNit" style="font-weight: normal;">` + nitEmpresa + `</label>
+                                            <br />
+                                            <b>
+                                                Empresa:
+                                            </b>
+                                            <label id="lblEmpresa" style="font-weight: normal;">` + nombreEmpresa + `</label>
+                                            <br />
+                                            <b>
+                                                Direccion:
+                                            </b>
+                                            <label id="lblDireccion" style="font-weight: normal;">` + direccionEmpresa + `</label>
+                                            <br />
+                                            <button type="button" class="btn btn-warning btn-block btnConsolidadoReg" idNit="` + idNitEmp + `">Guardar Nuevo Consolidado</button>
+                                            <br />
+                                        </address>
+
+`;
+    }
+})
+
+$(document).on("click", ".btnConsolidadoReg", async function () {
+    var idnit = $(this).attr("idnit");
+    Swal.fire({
+        title: 'Quiere registrar nuevo Consolidado?',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Poliza DR!'
+    }).then(async function (result) {
+        if (result.value) {
+            var nomVar = "idNitConsolNew";
+            var resp = await revisarVehUsados(nomVar, idnit);
+            if (resp[0].resp == 1) {
+                Swal.fire({
+                    title: 'Nuevo consolidado registrado',
+                    type: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok'
+                }).then(async function (result) {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
+        }
+
+    })
+})
+

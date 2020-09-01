@@ -1,7 +1,5 @@
 $(document).on("click", ".btnContabilizar", async function () {
-
     var estado = $(".btnMatenerFecha").attr("estado");
-
     if (estado == 0) {
         Swal.fire(
                 'Fecha contabilidad!',
@@ -9,12 +7,7 @@ $(document).on("click", ".btnContabilizar", async function () {
                 'error'
                 )
         return false;
-
     } else {
-
-
-
-
         var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
         var buttonid = $(this).attr("buttonid");
         Swal.fire({
@@ -36,7 +29,7 @@ $(document).on("click", ".btnContabilizar", async function () {
                         text: "Ingreso contabilizado!",
                         type: 'success',
                         showCancelButton: true,
-                        allowOutsideClick: false,                        
+                        allowOutsideClick: false,
                         confirmButtonColor: '#3085d6',
                         cancelButtonColor: '#d33',
                         confirmButtonText: 'Ok!'
@@ -96,41 +89,66 @@ $(document).on("click", ".btnSelectMultiple", async function () {
 })
 
 $(document).on("click", ".bntReportarLote", async function () {
-    var paragraphs = Array.from(document.querySelectorAll(".btnSelectMultiple "));
-    console.log(paragraphs);
-    listaIng = [];
-    for (var i = 0; i < paragraphs.length; i++) {
-        var estado = paragraphs[i].attributes.estado.value;
-        var buttonID = paragraphs[i].attributes.buttonid.value;
-        if (estado == 1) {
-            listaIng.push([buttonID]);
 
-        }
-    }
-    var contador = 0;
-    for (var i = 0; i < listaIng.length; i++) {
-        var buttonid = listaIng[i];
-        var respuesta = await contabilizarLotes(buttonid);
-        if (respuesta == "Ok") {
-            var contador = contador + 1;
-        }
-
-    }
-    console.log(respuesta);
-    if (respuesta == "ok") {
+    var estado = $(".btnMatenerFecha").attr("estado");
+    if (estado == 0) {
+        Swal.fire(
+                'Fecha contabilidad!',
+                'Selecciona fecha contable y luego haz click en el boton verde!',
+                'error'
+                )
+        return false;
+    } else {
+        var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
+        var buttonid = $(this).attr("buttonid");
         Swal.fire({
-            title: 'Operacion Exitosa',
-            text: "Fueron Contabilizados los ingresos seleccionados",
-            type: 'success',
+            title: '¿Desea Contabilizar?',
+            text: "El ingreso Contabilizado, se reportara con fecha, " + fechaCongeladaConta,
+            type: 'warning',
+            showCancelButton: true,
+            allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            cancelButtonText: 'No, Contabilizar!',
             confirmButtonText: 'Sí, Contabilizar!'
-        }).then((result) => {
+        }).then(async function (result) {
             if (result.value) {
-                location.reload();
+                var paragraphs = Array.from(document.querySelectorAll(".btnSelectMultiple "));
+                console.log(paragraphs);
+                listaIng = [];
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var estado = paragraphs[i].attributes.estado.value;
+                    var buttonID = paragraphs[i].attributes.buttonid.value;
+                    if (estado == 1) {
+                        listaIng.push([buttonID]);
+                    }
+                }
+                var contador = 0;
+                for (var i = 0; i < listaIng.length; i++) {
+                    var buttonid = listaIng[i];
+                    var respuesta = await contabilizar(buttonid, fechaCongeladaConta);
+                    if (respuesta[0].resp == 1) {
+                        var contador = contador + 1;
+                    }
+                }
+                if (contador == listaIng.length) {
+                    Swal.fire({
+                        title: 'Operacion Exitosa',
+                        text: "Fueron Contabilizados los ingresos seleccionados",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, Contabilizar!'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
             }
         })
     }
-
 })
 
 
@@ -159,7 +177,7 @@ function contabilizarLotes(buttonid) {
 $(document).on("click", ".btnImprimirReporteContable", async function () {
     var tipoReporte = "Ingreso";
     var idingreporte = $(this).attr("idingreporte");
-    window.open("extensiones/tcpdf/pdf/ReporteDeIngresos.php?tipoReporte=" + tipoReporte     + '&idBodega=' + idingreporte, "_blank");
+    window.open("extensiones/tcpdf/pdf/ReporteDeIngresos.php?tipoReporte=" + tipoReporte + '&idBodega=' + idingreporte, "_blank");
 })
 
 
@@ -207,7 +225,6 @@ $(document).on("click", ".btnMatenerFecha", async function () {
             confrimButtonText: "cerrar",
             closeConfirm: true
         });
-
     }
 });
 
@@ -220,6 +237,7 @@ $(document).on("click", ".btnDescontableIng", async function () {
         type: "info",
         showCancelButton: true,
         confirmButtonText: 'Revertir',
+        allowOutsideClick: false,
         confirmButtonColor: '#642EFE',
         allowOutsideClick: false,
         cancelButtonColor: '#DF0101'
@@ -227,7 +245,20 @@ $(document).on("click", ".btnDescontableIng", async function () {
         if (result.value) {
             var nomVar = "descontabilizaIng";
             var respuesta = await contabilizarReportes(nomVar, idIng);
+            if (respuesta[0].resp == 1) {
+                Swal.fire({
+                    title: 'Ingreso revertido',
+                    text: "La contabilizacion del ingreso fue revertida!",
+                    type: 'warning',
+                    confirmButtonColor: '#3085d6',
+                    allowOutsideClick: false,
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
         }
     })
 })
-

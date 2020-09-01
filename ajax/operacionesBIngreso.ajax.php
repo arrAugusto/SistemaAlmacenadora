@@ -244,7 +244,7 @@ class AjaxOperacionesBIngreso {
         $textbltsEmpresa = $this->textbltsEmpresa;
         $textbltsEmpresa = intval($textbltsEmpresa);
         $textpesoEmpresa = $this->textpesoEmpresa;
-        $textpesoEmpresa = round($textpesoEmpresa,2);
+        $textpesoEmpresa = round($textpesoEmpresa, 2);
         $datos = array(
             "textnomEmpresa" => $textnomEmpresa = $this->textnomEmpresa,
             "textbltsEmpresa" => $textbltsEmpresa,
@@ -422,7 +422,7 @@ class AjaxOperacionesBIngreso {
     public function ajaxGuardarNuevosVehiculos() {
         $hiddenIdnetyIngV = $this->hiddenIdnetyIngV;
         $jsonVehiculosG = $this->jsonVehiculosG;
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $respuesta = ControladorOpB::ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp);
 
@@ -435,14 +435,22 @@ class AjaxOperacionesBIngreso {
         $listaNoEncontrada = $this->listaNoEncontrada;
         $respuesta = ControladorOpB::ctrGuardarListaNoEncontrada($listaNoEncontrada);
         echo json_encode($respuesta);
-        
     }
+
     public $mostValParaDet;
-    public function ajaxMostrarValDeDetalles(){
+
+    public function ajaxMostrarValDeDetalles() {
         $idIngValDet = $this->idIngValDet;
         $respuesta = ControladorOpB::ctrMostrarValDeDetalles($idIngValDet);
         echo json_encode($respuesta);
-        
+    }
+
+    public $newConsEmpre;
+
+    public function ajaxNewConsolidado() {
+        $idNitConsolNew = $this->idNitConsolNew;
+        $respuesta = ControladorOpB::ctrNewConsolidado($idNitConsolNew);
+        echo json_encode($respuesta);        
     }
 
 }
@@ -738,7 +746,12 @@ if (isset($_POST["listaNoEncontrada"])) {
 }
 if (isset($_POST["idIngValDet"])) {
     $mostValParaDet = new AjaxOperacionesBIngreso();
-    $mostValParaDet -> idIngValDet =$_POST["idIngValDet"];
-    $mostValParaDet -> ajaxMostrarValDeDetalles();
-    
+    $mostValParaDet->idIngValDet = $_POST["idIngValDet"];
+    $mostValParaDet->ajaxMostrarValDeDetalles();
+}
+
+if (isset($_POST["idNitConsolNew"])) {
+    $newConsEmpre = new AjaxOperacionesBIngreso();
+    $newConsEmpre->idNitConsolNew = $_POST["idNitConsolNew"];
+    $newConsEmpre->ajaxNewConsolidado();
 }

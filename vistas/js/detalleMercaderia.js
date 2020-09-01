@@ -6,7 +6,7 @@ $(document).ready(function () {
 $(document).on("click", ".btnADetalle", function () {
 
     var selectUbicacion = $("#selectUbicacion").val();
-    if (selectUbicacion >= 1) {
+    if (selectUbicacion >= 1 || selectUbicacion =='Piso' || selectUbicacion =='Rack') {
 
 
         var empresa = document.getElementById("nombreEmpresa").value;

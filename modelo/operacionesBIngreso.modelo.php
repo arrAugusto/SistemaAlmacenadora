@@ -927,7 +927,19 @@ class ModeloControladorOpB {
             return sqlsrv_errors();
         }
     }
-
+    public static function mdlMostrarConsolidados($sp) {
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE ".$sp;
+        $stmt = sqlsrv_prepare($conn, $sql);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            return $results;
+        } else {
+            return sqlsrv_errors();
+        }
+    }
     public static function mdlUnParametroConsult($idIngrseso, $sp) {
         $conn = Conexion::Conectar();
         $params = array(&$idIngrseso);

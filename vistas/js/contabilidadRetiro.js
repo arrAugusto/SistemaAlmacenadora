@@ -347,4 +347,14 @@ $(document).on("click", ".btnDescontabilizar", async function () {
 
 
 })
+$(document).on("click", "#btnReimprimeRec", async function () {
+ var idret = $(this).attr("idret");
+ window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idret, "_blank");
+ 
+})
+$(document).on("click", "#btnReimprimeRet", async function () {
+ var idret = $(this).attr("idret");
+           window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idret, "_blank");
+ 
+})
 

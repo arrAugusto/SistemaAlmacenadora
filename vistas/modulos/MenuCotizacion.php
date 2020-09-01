@@ -648,6 +648,15 @@
             </a>
 
         </li>
+                <li class="nav-item has-treeview">
+            <a href="vehiculosSinMedidas" class="nav-link">
+                <i class="fa fa-sort-numeric-asc colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Vehículos sin medida
+                </p>
+
+            </a>
+        </li>
 
         <li class="nav-item">
             <a href="gestorUsuarios" class="nav-link">
