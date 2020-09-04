@@ -1396,7 +1396,8 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
         processData: false,
         dataType: "json",
         success: async function (respuesta) {
-            if (respuesta[0].resultado == 0) {
+            console.log(respuesta);
+            if (respuesta["datIng"][0].resultado == 0) {
                 var tipo = 0;
                 const val = await validacionParaGuardar();
                 console.log(val);
@@ -1577,11 +1578,13 @@ function multiplicacion(tipoDeCambio, valorTotalAduana) {
     }
 }
 $(function () {
+    var today = new Date();
     $('#dateTime').daterangepicker({
         timePicker: true,
         startDate: moment().startOf('hour'),
         singleDatePicker: true,
         endDate: moment().startOf('hour').add(32, 'hour'),
+        maxDate: (today),
         locale: {
             format: 'DD-MM-YYYY hh:mm A'
         }
@@ -2022,9 +2025,7 @@ $(document).on("click", ".bntGuardarPolCons", async function () {
 
 
         const val = await validacionParaGuardar();
-        console.log(val);
         if (val) {
-            console.log(1779);
             var tipo = 1;
             var guardar = await guardarSinTarifa(tipo);
             console.log(guardar);
@@ -5380,7 +5381,7 @@ $(document).on("change", "#numeroContenedor", async function () {
 })
 
 
-$(document).on("change", "#poliza", function () {
+$(document).on("change", "#poliza", async function () {
     var numPolRev = $(this).val();
     var datos = new FormData();
     datos.append("numPolRev", numPolRev);
@@ -5392,9 +5393,9 @@ $(document).on("change", "#poliza", function () {
         contentType: false,
         processData: false,
         dataType: "json",
-        success: function (respuesta) {
+        success: async function (respuesta) {
             console.log(respuesta);
-            if (respuesta[0].resultado >= 1) {
+            if (respuesta.datIng[0].resultado >= 1) {
                 $('#poliza').removeClass('is-valid');
                 $('#poliza').addClass('is-invalid');
                 Swal.fire({
@@ -5405,8 +5406,200 @@ $(document).on("change", "#poliza", function () {
                     timer: 2500
                 })
             } else {
+                if (respuesta.datIng[0].resultado == -1) {
+                    var val = respuesta.datIng[0].nitEmpresa;
+                    var resp = await cambiarServicio(val);
+                 var identIng = respuesta.datIng[0].identIng;
+                  document.getElementById("hiddenIdentity").value = identIng;
+                 var idConsol = respuesta.datUnidad[0].idConsolidado;
+                    setTimeout(async function(){ 
+                    
+                    var valSer = respuesta.datIng[0].servicio;
+                    document.getElementById("servicioTarifa").value = valSer;
+                    
+                    $("#servicioTarifa").trigger('change');                    
+                           document.getElementById("cartaDeCupo").value = respuesta.datIng[0].idCartaCupo;
+                    $("#cartaDeCupo").trigger('change');    
+                                        document.getElementById("dua").value = respuesta.datIng[0].dua;
+                    $("#dua").trigger('change');                     
+
+                    document.getElementById("bl").value = respuesta.datIng[0].bl;
+                    $("#bl").trigger('change');                        
+
+                    document.getElementById("busquedaConsolidado").value = idConsol;
+                    $("#busquedaConsolidado").trigger('change');    
+                    
+
+                    
+                    document.getElementById("sel2").value = 'Cliente consolidado poliza';
+                    $("#sel2").trigger('change');  
+                    
+                    document.getElementById("numeroLicencia").value = respuesta.datUnidad[0].licencia;
+                    $("#numeroLicencia").trigger('change');  
+
+                    document.getElementById("nombrePiloto").value = respuesta.datUnidad[0].piloto;
+                    $("#nombrePiloto").trigger('change');  
+                      $("#nombrePiloto").removeClass('is-invalid');
+                        $("#nombrePiloto").addClass('is-valid');
+                    document.getElementById("numeroPlaca").value = respuesta.datUnidad[0].placa;
+                    $("#numeroPlaca").trigger('change');   
+
+                    document.getElementById("numeroContenedor").value = respuesta.datUnidad[0].contenedor;
+                    $("#numeroContenedor").trigger('change');                          
+
+                    document.getElementById("numeroMarchamo").value = respuesta.datUnidad[0].marchamo;
+                    $("#numeroMarchamo").trigger('change');  
+                    
+                    
+                                document.getElementById("cartaDeCupo").readOnly = true;
+                                document.getElementById("cantContenedores").readOnly = true;
+                                document.getElementById("dua").readOnly = true;
+                                document.getElementById("bl").readOnly = true;
+                                document.getElementById("poliza").readOnly = true;
+                                document.getElementById("bultosIngreso").readOnly = true;
+                                document.getElementById("puertoOrigen").disabled = true;
+                                document.getElementById("cantClientes").readOnly = true;
+                                document.getElementById("producto").readOnly = true;
+                                document.getElementById("pesoIng").readOnly = true;
+                                document.getElementById("valorTotalAduana").readOnly = true;
+                                document.getElementById("tipoDeCambio").readOnly = true;
+                                document.getElementById("totalValorCif").readOnly = true;
+                                document.getElementById("valorImpuesto").readOnly = true;
+                                document.getElementById("dateTime").readOnly = true;
+                                document.getElementById("sel2").disabled = true;
+                                document.getElementById("servicioTarifa").disabled = true;
+                                document.getElementById("regimenPoliza").disabled = true;
+                                document.getElementById("numeroLicencia").readOnly = true;
+                                document.getElementById("numeroMarchamo").readOnly = true;
+                                document.getElementById("nombrePiloto").readOnly = true;
+                                document.getElementById("numeroPlaca").readOnly = true;
+                                document.getElementById("numeroContenedor").readOnly = true;
+                                document.getElementById("txtNitEmpresa").readOnly = true;
+
+                                var valTipoConso = $("#sel2 option:selected").text();
+
+    
+                                        var lblNit = document.getElementById("lblNit").innerHTML;
+                                        var lblEmpresa = document.getElementById("lblEmpresa").innerHTML;
+                                        document.getElementById("divPlusClientes").innerHTML = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso"><i class="fa fa-plus"></i></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button>';
+                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></div>';
+                                        document.getElementById("hiddenContadorPolizas").value = 1;
+                                        if ($(".tableIngFail").length == 0) {
+                                            $("#divAccionesValidacion").removeClass("col-4");
+                                            $("#divAccionesValidacion").addClass("col-8");
+                                            $("#divRelleno").removeClass("col-4");
+                                            $("#divRelleno").addClass("col-0");
+
+
+
+                                        document.getElementById("divAccionesValidacion").innerHTML = `
+              <table id="tableConsolidadoPoliza" class="table table-hover table-sm">
+            </table>
+              <input type="hidden" id="hiddenListaDeta" value="">`;
+                                        var numero = 1;
+                                        var contadorH3 = document.getElementById("contadorH3").innerHTML;
+                                        var contadorH3 = contadorH3 + 1;
+                                        document.getElementById("contadorH3").innerHTML = "";
+                                        document.getElementById("contadorH3").innerHTML = contadorH3;
+                                        document.getElementById("contadorClientes").innerHTML = "";
+                                        document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+                                        var idIdenty = document.getElementById("hiddenIdentity").value;
+                                        var acciones = '<button type="button" class="btn btn-success btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button>';
+                                        var listaDataPoliza = [];
+                                        var poliza = document.getElementById("poliza").value;
+                                        var pesoIng = document.getElementById("pesoIng").value;
+                                        var bultosIngreso = document.getElementById("bultosIngreso").value;
+                                        listaDataPoliza.push([numero, poliza, lblNit, lblEmpresa, bultosIngreso, pesoIng, acciones]);
+
+                                        $('#tableConsolidadoPoliza').DataTable({
+                                            "language": {
+                                                "sProcessing": "Procesando...",
+                                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                                "sZeroRecords": "No se encontraron resultados",
+                                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                                "sInfoPostFix": "",
+                                                "sSearch": "Busqueda:",
+                                                "sUrl": "",
+                                                "sInfoThousands": ",",
+                                                "sLoadingRecords": "Cargando...",
+                                                "oPaginate": {
+                                                    "sFirst": "Primero",
+                                                    "sLast": "Último",
+                                                    "sNext": "Siguiente",
+                                                    "sPrevious": "Anterior"
+                                                },
+                                                "oAria": {
+                                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                                }
+                                            },
+                                            data: listaDataPoliza,
+                                            columns: [{
+                                                    title: "#"
+                                                }, {
+                                                    title: "Poliza"
+                                                }, {
+                                                    title: "Nit"
+                                                }, {
+                                                    title: "Empresa"
+                                                }, {
+                                                    title: "Bultos"
+                                                }, {
+                                                    title: "Peso kg"
+                                                }, {
+                                                    title: "Acciones"
+                                                }]
+                                        });
+                                        document.getElementById("divAccionesVehiculos").innerHTML = '';
+                                    }
+                    
+                    }, 5000);
+
+                    document.getElementById("regimenPoliza").value = respuesta.datIng[0].regimenPol;
+                    $("#regimenPoliza").trigger('change');     
+
+
+
+                    document.getElementById("cantContenedores").value = respuesta.datIng[0].cantidadContenedores;
+                    $("#cantContenedores").trigger('change');
+
+                    document.getElementById("bultosIngreso").value = respuesta.datIng[0].bultos;
+                    $("#bultosIngreso").trigger('change');   
+
+                    document.getElementById("puertoOrigen").value = respuesta.datIng[0].origenPuerto;
+                    $("#puertoOrigen").trigger('change');   
+
+                    document.getElementById("cantClientes").value = respuesta.datIng[0].cantidadClientes;
+                    $("#cantClientes").trigger('change');                       
+
+                    document.getElementById("producto").value = respuesta.datIng[0].producto;
+                    $("#producto").trigger('change'); 
+                    
+                    document.getElementById("pesoIng").value = respuesta.datIng[0].peso;
+                    $("#pesoIng").trigger('change'); 
+
+                    document.getElementById("valorTotalAduana").value = respuesta.datIng[0].valorTotalAduana;
+                    $("#valorTotalAduana").trigger('change'); 
+
+                    document.getElementById("tipoDeCambio").value = respuesta.datIng[0].tipoCambio;
+                    $("#tipoDeCambio").trigger('change'); 
+
+                    document.getElementById("valorImpuesto").value = respuesta.datIng[0].valorImpuesto;
+                    $("#valorImpuesto").trigger('change'); 
+                    $("#numeroLicencia").attr("type", "text");
+
+
+                    
+                    $('#poliza').removeClass('is-invalid');
+                    $('#poliza').addClass('is-valid');
+                }else{
                 $('#poliza').removeClass('is-invalid');
                 $('#poliza').addClass('is-valid');
+                    
+                }
             }
         },
         error: function (respuesta) {
@@ -5429,7 +5622,7 @@ $(document).on("change", "#ClPolPoliza", function () {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            if (respuesta[0].resultado >= 1) {
+            if (respuesta["datIng"][0].resultado >= 1) {
                 $('#ClPolPoliza').removeClass('is-valid');
                 $('#ClPolPoliza').addClass('is-invalid');
                 Swal.fire({
@@ -5526,12 +5719,54 @@ function revisarVehUsados(nomVar, listaValidacion) {
 }
 
 $(document).on("click", ".btnCapturarQRPol", async function () {
-    var barcodePolizaIng = $(".textoQRPoliza").html();
+      /*  Swal.mixin({
+  input: 'text',
+  confirmButtonText: 'Next &rarr;',
+  showCancelButton: true,
+  progressSteps: ['1', '2']
+}).queue([
+  {
+    title: 'Datos poliza',
+    text: 'Escaneé el codigo de barras de la poliza',
+      imageUrl: 'vistas/img/plantilla/ejemploPoliza.png',
+  imageWidth: 400,
+   allowOutsideClick: false,
+  imageHeight: 200,
+  imageAlt: 'Custom image',
+    
+  },
+    {
+    title: 'Datos licencia',
+    text: 'Escaneé el codigo de barras de la poliza',
+      imageUrl: 'vistas/img/plantilla/licenciaEjemplo.png',
+  imageWidth: 400,
+  imageHeight: 200,
+   allowOutsideClick: false,
+  imageAlt: 'Custom image',
+    
+  }
+]).then((result) => {
+  if (result.value) {
+    const answers = JSON.stringify(result.value)
+    Swal.fire({
+      title: 'Codigos Escaneados!',
+       allowOutsideClick: false,
+      type: 'success',
+      text: 'Revise los datos del formulario',
+      confirmButtonText: 'Ok!'
+    })
+  }
+})
+
+    */
+    var barcodePolizaIng = $(".textoQRPoliza").val();
+    barcodePolizaIng.trim();
+    console.log(barcodePolizaIng);
     var polizaIng = barcodePolizaIng.substr(0, 10);
 
     var duca = barcodePolizaIng.substr(10, 20);
     var saltoQR = barcodePolizaIng.substr(45, 220);
-    var nit = saltoQR.substr(0, 26);
+    var nit = saltoQR.substr(0, 25);
     console.log(nit);
     var nitTrim = nit.trim();
 
@@ -5554,7 +5789,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
     var saltoQRPesop = saltoQR.substr(17, 220);
     var saltoQRImpts = saltoQRPesop.substr(75, 220);
     var impuestos = saltoQRImpts.substr(0, 15);   // '(1, 2): bc'*/
-    var impuestos = impuestos.trim();
+  var impuestos = impuestos.trim();
     var impuestos = parseFloat(impuestos).toFixed(2);
     var peso = saltoQRPesop.substr(0, 15);
     var peso = peso.trim();
@@ -5564,13 +5799,14 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
     var duca = barcodePolizaIng.substr(10, 20);   // '(1, 2): bc'
     var duca = duca.trim();
     if ($("#buttonMostrarCons").length >= 1) {
+        console.log(polizaIng);
         document.getElementById("poliza").value = polizaIng;
         $("#poliza").trigger('change');
-        document.getElementById("txtNitEmpresa").value = nitTrim;
-        $("#txtNitEmpresa").trigger('change');
+        
+
         document.getElementById("dua").value = duca;
         $("#dua").trigger('change');
-        $("#regimenPoliza").find('option:selected').text(RegimenDat);
+       $("#regimenPoliza").find('option:selected').text(RegimenDat);
         $("#regimenPoliza").trigger('change');
         document.getElementById("valorTotalAduana").value = valDolares;
         $("#valorTotalAduana").trigger('change');
@@ -5582,6 +5818,13 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         $("#pesoIng").trigger('change');
         document.getElementById("dua").value = duca;
         $("#dua").trigger('change');
+
+
+        document.getElementById("txtNitEmpresa").value = nitTrim;
+        $("#txtNitEmpresa").trigger('change');
+        
+        var resp = await revisarVehUsados(nomVar, listaValidacion)
+
     }
     if ($("#calculoTxtNitSalida").length >= 1) {
         document.getElementById("calculoTxtNitSalida").value = nitTrim;
@@ -5603,7 +5846,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         /*        document.getElementById("dua").value = duca;
          $("#dua").trigger('change');
          */
-    }
+  }
     if ($("#txtNitSalida").length >= 1) {
         document.getElementById("txtNitSalida").value = nitTrim;
         $("#txtNitSalida").trigger('change');
@@ -5624,9 +5867,8 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
     }
 
     if ($("#polizaRetiro").length >= 1) {
-        document.getElementById("valorDoll").value = peso;
+        document.getElementById("valorDoll").value = valDolares;
         $("#valorDoll").trigger('change');
-
         document.getElementById("tCambio").value = tipoCambio;
         $("#tCambio").trigger('change');
         document.getElementById("impuestos").value = impuestos;
@@ -5635,7 +5877,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
         $("#peso").trigger('change');
 
     }
-    /*
+
      console.log("Poliza : " + barcodePolizaIng.substr(0, 10));   // '(1, 2): bc'
      console.log("DUCA : " + barcodePolizaIng.substr(10, 20));   // '(1, 2): bc'
      var saltoQR = barcodePolizaIng.substr(45, 220);
@@ -6075,3 +6317,11 @@ $(document).on("click", ".btnConsolidadoReg", async function () {
     })
 })
 
+
+function cambiarServicio(val){
+    let resp;
+   document.getElementById("txtNitEmpresa").value = val;
+   $("#txtNitEmpresa").trigger('change');  
+   resp = true;
+   return resp;
+}

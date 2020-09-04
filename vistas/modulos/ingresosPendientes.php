@@ -407,3 +407,105 @@ MODAL POLIZA CONSOLIDADA
         </div>
     </div>
 </div>
+
+
+
+<!--=====================================
+MODAL POLIZA CONSOLIDADA
+======================================-->
+<!-- Modal -->
+<div id="gdarEmpresasPolConso" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!--=====================================
+                INICIO FORM
+                ======================================-->
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-info">
+                        <div class="card-header">
+                            <h3 class="card-title" id="divBtnPlusNit">Ingrese Pólizas del Consolidado</h3>
+                        </div>
+                        <!--campos formularios -->
+                        <form role="form" method="post" id="divGuardaDetalle">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-4 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClientPoltxtNitSalida" placeholder="Ingrese Nit" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenNitIdenty" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-8 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClientPoltxtNombreSalida" placeholder="Ingrese Empresa" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-12 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClientPoltxtDireccionSalida" placeholder="Ingrese Dirección" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClPolDua" placeholder="Ingrese Dua" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClPolBL" placeholder="Ingrese BL" value=""  onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClPolPoliza" placeholder="Ingrese Poliza" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolBultos" placeholder="Ingrese Bultos" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="text" class="form-control is-invalid" id="ClPolProducto" placeholder="Ingrese Producto" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolPeso" placeholder="Ingrese Peso" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolTAduana" placeholder="Ingrese Total Aduana" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolCambio" placeholder="Ingrese tipo cambio" value="" onkeyup="javascript:this.value = this.value.toUpperCase();"/>
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolCif" placeholder="Ingrese Cif" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+                                        <div class="col-4 mt-4">
+                                            <input type="number" class="form-control is-invalid" id="ClPolImpuesto" placeholder="Ingrese Impuesto" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+
+                                        <div class="col-4 mt-4">
+                                            <button type="button" class="btn btn-primary bntGuardarPolCons">Guardar póliza <i class="fa fa-save"></i></button>
+
+                                            <input type="hidden" id="hiddenClientPoltxtNitSalida" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClientPoltxtNombreSalida" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClientPoltxtDireccionSalida" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolDua" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolBL" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolPoliza" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolBultos" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolProducto" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolPeso" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolTAduana" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolCambio" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolCif" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                            <input type="hidden" id="hiddenClPolImpuesto" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
+                                        </div>
+
+                                    </div>
+                                    <br/><br/>
+                                    <div id="divEmpresasAgregadas">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

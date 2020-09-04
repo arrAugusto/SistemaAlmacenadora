@@ -122,14 +122,11 @@
                                 Mostrar consolidados&nbsp;&nbsp;<i class="fa fa-database"></i>
                             </button>
                         </div>
-                        <div class="col-6">
+                        <div class="col-3">
                             <div class="input-group input-group-sm">
-                                <input type="hidden" id="hiddenLista" value="">
-                                <textarea class="form-control textoQRPoliza" rows="5" >2330706270GTGUAG1200050160001712082020GTGUAG1                   332208 23ID10 US307.70300000000285153.97000000001112.000000000035774.74000000000653.54000000000590.28000000000000.00000000035030.22000000035030.2252HYDSG8I
-                                </textarea>
-                                <span class="input-group-append">
-                                    <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
-                                </span>
+
+                                    <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol btn-block" style="font-size:35px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
+
                             </div>
                        </div>                        
                         <div class="col-md-12 mt-2" id="individualGlobal">

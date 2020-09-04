@@ -122,7 +122,8 @@ class ControladorRetirosBodega {
                 $respuestaDetalle = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
                 $sp = "spUsuarioOP";
                 $respUsuario = ModeloRetiroOpe::mdlDetUnParametro($valIdRet, $sp);
-                $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($valIdRet);
+                $estado = 0;
+                $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($valIdRet, $estado);
                 $empresa = $respuestaDetalle[0]["empresa"];
                 $bultos = $value["cantBultos"];
                 $estado = $value["estadoDet"];

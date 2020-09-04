@@ -409,6 +409,25 @@ class ModeloRetiroOpe {
         }
     }
 
+        public static function mdlModificacionDetallesTresParams($retiroF, $tipo, $estadoVerPlt, $sp) {
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE " . $sp . " ?, ?, ?";
+        $params = array(&$retiroF, &$tipo, &$estadoVerPlt);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
     public static function ctrGuardarDataRet($datos) {
 
         $conn = Conexion::Conectar();

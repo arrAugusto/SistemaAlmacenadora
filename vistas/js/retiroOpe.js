@@ -1753,7 +1753,7 @@ $(document).on("change", "#valorTAduana", function () {
             document.getElementById("spanCalculoValorTAduana").innerHTML = '';
             $(this).removeClass("is-invalid");
             $(this).addClass("is-valid");
-            if ($("#cambio").val() >= 0.001) {
+            if ($("#cambio").val() >0) {
                 var valCalculo = $("#cambio").val();
                 var conversion = parseFloat(dato * valCalculo).toFixed(2);
                 document.getElementById("valorCif").value = conversion;
@@ -1975,6 +1975,29 @@ $(document).on("click", "#btnEditPiloto", async function () {
         $(".btnEditarUnidadPlus").html("Editar Unidad");
     }
 });
+function verPltsRet(nomVar, idRet, estado) {
+    let respEdit;
+    var datos = new FormData();
+    datos.append(nomVar, idRet);
+    datos.append("estadoVerPlt", estado);    
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdit = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return respEdit;
+}
 
 function editarPiloto(nomVar, idRet) {
     let respEdit;
@@ -2010,8 +2033,11 @@ $(document).on("click", ".btnMasPilotos", async function () {
     $("#btnGuardaNuevaUnidad").html("Guardar Nueva Unidad");
     var idMasPilotos = $(this).attr("idMasPilotos");
     var nomVar = "todasUnidades";
-    var respTodosPlt = await editarPiloto(nomVar, idMasPilotos);
-    console.log(respTodosPlt);
+    var estado = 0;
+    if ($(".btnEditarRetiro").length>=1) {
+        var estado = 1;
+    }
+    var respTodosPlt = await verPltsRet(nomVar, idMasPilotos, estado);
     if (respTodosPlt != "SD") {
         for (var i = 0; i < respTodosPlt.length; i++) {
             var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
@@ -2035,7 +2061,6 @@ $(document).on("click", ".btnMasPilotos", async function () {
                 </div>`);
         }
     }
-
 });
 
 

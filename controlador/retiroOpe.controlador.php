@@ -337,10 +337,10 @@ class ControladorRetiroOpe {
         return $respuesta;
     }
 
-    public static function ctrDatosPilotos($retiroF) {
+    public static function ctrDatosPilotos($retiroF, $estadoVerPlt) {
         $sp = "spConsultaRetUnidad";
         $tipo = 2;
-        $respuesta = ModeloRetiroOpe::mdlModificacionDetallesDosParams($retiroF, $tipo, $sp);
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetallesTresParams($retiroF, $tipo, $estadoVerPlt, $sp);
         return $respuesta;
     }
 

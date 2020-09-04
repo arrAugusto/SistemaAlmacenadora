@@ -111,7 +111,6 @@ class ControladorOpB {
                                     $tipoOperacion = 1;
                                     $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
                                     $respuestaCltIndividual = ModeloControladorOpB::mdlAgregarDetalles($llaveConsulta, $datosArrayDetalle);
-                                    return $respuesta["dataTxt"][0];
                                 }
                                 if ($datos["sel2"] == "Cliente consolidado poliza") {
                                     $idBodega = $datos["hiddenIdBod"];
@@ -276,7 +275,21 @@ class ControladorOpB {
 
     public static function ctrRevisionPoliza($numPolRev) {
         $respuesta = ModeloControladorOpB::mdlRevisionPoliza($numPolRev);
-        return $respuesta;
+        if ($respuesta!="SD") {
+            
+       
+        if ($respuesta[0]["resultado"]==-1) {
+            $identIng = $respuesta[0]["identIng"];
+        $sp = "spUnidadConsPol";
+        $unidadesPlt = ModeloControladorOpB::mdlTipoNewVeh($identIng, $sp);
+        return array("datIng"=>$respuesta, "datUnidad"=>$unidadesPlt);
+            
+        }
+        return array("datIng"=>$respuesta);
+         }else{
+             $resp = array("resultado"=>0);
+         return array($resp);   
+         }
     }
 
     public static function ctrStockBultosPeso($hiddenIdentityIngPeso, $bultosAgregados, $pesoAgregado) {
@@ -495,5 +508,6 @@ class ControladorOpB {
         $respInsertNuevoTipo = ModeloControladorOpB::mdlTipoNewVeh($idNitConsolNew, $sp);
         return $respInsertNuevoTipo;
     }
+
 
 }

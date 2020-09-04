@@ -16,8 +16,8 @@ class imprimirIngresoBodega {
         $retiroF = $this->retiroF;
         
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
-
-        $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($retiroF);
+        $estado = 0;
+        $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($retiroF, $estado);
         $tipo = 1;
         $respAuxRebaja = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombreRebaja = $respAuxRebaja[0]["nombres"];

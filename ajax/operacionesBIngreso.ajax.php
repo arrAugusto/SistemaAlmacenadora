@@ -450,7 +450,15 @@ class AjaxOperacionesBIngreso {
     public function ajaxNewConsolidado() {
         $idNitConsolNew = $this->idNitConsolNew;
         $respuesta = ControladorOpB::ctrNewConsolidado($idNitConsolNew);
-        echo json_encode($respuesta);        
+        echo json_encode($respuesta);
+    }
+
+    public $mostrarUnPol;
+
+    public function ajaxUnidadesPoliza() {
+      $identIngConsPol = $this->identIngConsPol;
+        $respuesta = ControladorOpB::ctrUnidadesPoliza($identIngConsPol);
+        echo json_encode($respuesta);      
     }
 
 }
@@ -755,3 +763,4 @@ if (isset($_POST["idNitConsolNew"])) {
     $newConsEmpre->idNitConsolNew = $_POST["idNitConsolNew"];
     $newConsEmpre->ajaxNewConsolidado();
 }
+

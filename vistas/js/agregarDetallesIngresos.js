@@ -1051,7 +1051,7 @@ $(document).on("click", ".btnGdChasVehN", async function () {
                     title: 'Lote de vehículos ubicados correctamente',
                     showConfirmButton: false,
                     timer: 5000
-                })
+                });
 
             }
         }
@@ -1062,10 +1062,10 @@ $(document).on("click", ".btnGdChasVehN", async function () {
             title: 'Seleccione el predio del vehiculo',
             showConfirmButton: false,
             timer: 5000
-        })
+        });
     }
 
-})
+});
 
 
 function guardarUbicacionesVehN(vehiculosUbicaN, listaValida) {

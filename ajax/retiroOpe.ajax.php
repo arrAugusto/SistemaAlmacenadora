@@ -246,7 +246,8 @@ class AjaxUbicacionOpe {
 
     public function ajaxTodasUnidades() {
         $todasUnidades = $this->todasUnidades;
-        $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($todasUnidades);
+        $estadoVerPlt = $this->estadoVerPlt;
+        $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($todasUnidades, $estadoVerPlt);
         echo json_encode($datosUnidades);
     }
 
@@ -473,6 +474,7 @@ if (isset($_POST["borrarUnidad"])) {
 if (isset($_POST["todasUnidades"])) {
     $todasUnidades = new AjaxUbicacionOpe();
     $todasUnidades->todasUnidades = $_POST["todasUnidades"];
+    $todasUnidades->estadoVerPlt = $_POST["estadoVerPlt"];
     $todasUnidades->ajaxTodasUnidades();
 }
 if (isset($_POST["activarUnidad"])) {

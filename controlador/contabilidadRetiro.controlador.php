@@ -5,6 +5,7 @@ class ControladorContabilidadDeRet {
     public static function ctrListarRetiros($tipo, $NavegaNumB) {
 
         $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientes($tipo, $NavegaNumB);
+        
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
                 $numIng = $value["idIngOp"];
