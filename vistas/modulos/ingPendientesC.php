@@ -17,29 +17,21 @@
         </div><!-- /.container-fluid -->
     </section>
     <div class="col-md-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h5 class="card-title">Saldos Fiscales</h5>
-            </div>
-            <div class="col-md-12">
-                <div class="input-group">
-                    <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
-                             <span>
-                                 <i class="fa fa-calendar"></i> Rango de fecha
-                             </span>
-                             <i class="fa fa-caret-down"></i>
-                         </button>-->
-                </div>
-            </div>
+<div class="card card-info card-outline">
+
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 mt-4">
-                            <button type="button" class="btn btn-outline-success btn-lg bntReportarLote">Reportar Lote Seleccionado</button>
+                            <button type="button" class="btn btn-success btn-lg btn-block btnDescargaExcelIngRep"  estadoRep="4">DESCARGA EXCEL DE INGRESOS <i class="fa fa-file-excel-o"></i></button>
+                        </div>   
+
+                        <div class="col-4 mt-4">
+                            <button type="button" class="btn btn-outline-primary btn-lg  btn-block bntReportarLote">Reportar Lote Seleccionado</button>
                         </div>
 
                         <div class="col-4 mt-4">
-                            <label>Calculado hasta :</label>
+                            <label>Fecha Contabilidad :</label>
                             <div class="input-group input-group">
                                 <input type="text" id="dateTime" class="form-control">
                                 <input type="hidden" id="hiddenDateTime" value="<?php
@@ -48,15 +40,13 @@
                                 ?>">
                                 <input type="hidden" id="hiddenDateTimeVal" value="" />
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-success btnMatenerFecha" estado="0">Congelar Fecha</button>
+                                    <button type="button" class="btn btn-info btnMatenerFecha" estado="0">Congelar Fecha</button>
                                 </span>
 
                             </div>
                         </div>
-                        <div class="col-3 mt-4">
-
-                        </div>                        <div class="col-12 mt-4">
-                            <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                        <div class="col-12 mt-4">
+                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>

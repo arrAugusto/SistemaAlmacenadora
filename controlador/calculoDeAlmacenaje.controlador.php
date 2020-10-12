@@ -5,8 +5,9 @@ class ControladorCalculoDeAlmacenaje {
     public static function ctrPrepararCalculo($datos) {
         $idIngreso = $datos['idCalculoAlmacenaje'];
         $idDetalleCalc = $datos['hiddenIdentificador'];
+
         $idPoliza = $datos['calculoPolizaRetiro'];
-        $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($idPoliza);
+        $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($idIngreso, $idPoliza);
         $serPrestado = 0;
         $descuentoCalc = 0;
 
@@ -21,13 +22,13 @@ class ControladorCalculoDeAlmacenaje {
             /*
               CALCULAR DATO DE ALMACENAJE
              */
-        } else if ($respuestaVerifacacion[0]["cantidadEstado"] >= 1) {
+        }
+        if ($respuestaVerifacacion[0]["cantidadEstado"] >= 1) {
 
             /*
               MODIFICAR CALCULO ANTERIOR
              */
             $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculo($datos, $idIngreso, $idDetalleCalc);
-
             $Autorizacion = 1;
             $tipoOPCalc = "OkModificcion";
             $idCalc = $respuesta[0]["Identity"];
@@ -85,15 +86,15 @@ class ControladorCalculoDeAlmacenaje {
         return $respuesta;
     }
 
-    public static function ctrOtrosServiciosExtraGd($otrosExtra, $listaDefaultExtra, $hiddenDescuento, $polizaExtraSer, $valCalculado, $hiddenTipoOP, $estado, $idRetCal) {
+    public static function ctrOtrosServiciosExtraGd($idIngresoCal, $otrosExtra, $listaDefaultExtra, $hiddenDescuento, $polizaExtraSer, $valCalculado, $hiddenTipoOP, $estado, $idRetCal) {
 
         $otrosExtraArray = json_decode($otrosExtra, true);
 
         $listaDefaultExtraArray = json_decode($listaDefaultExtra, true);
-        
+
         date_default_timezone_set('America/Guatemala');
         $time = date('Y-m-d H:i:s');
-        $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($polizaExtraSer);
+        $respuestaVerifacacion = ModeloCalculoDeAlmacenaje::mdlVerificacionCalculo($idIngresoCal, $polizaExtraSer);
         $sp = "spVerIdCalc";
         $repIdCalc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($polizaExtraSer, $sp);
 
@@ -102,58 +103,57 @@ class ControladorCalculoDeAlmacenaje {
             if ($respuestaVerifacacion[0]["cantidadEstado"] == 0) {
                 return "sinCalculo";
             }
-            }else{
-                $idCalculo = $idRetCal;
+        } else {
+            $idCalculo = $idRetCal;
+        }
+
+        //guardando servicios y descuentos en la db foreach para recorrer el array de servicios y el dato de descuento
+        if (!empty($otrosExtraArray)) {
+            foreach ($otrosExtraArray as $key => $value) {
+                //$idCalculo, $idServicio
+                $tipo = 0;
+                $sp = "spOtrosServicios";
+                $idServicio = $value["serviciosOtros"];
+                $valorOtros = $value["valorOtros"];
+
+                if ($repIdCalc == "SD") {
+                    $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
+                } else {
+                    $sp = "spModificarRubrosSerCalc";
+                    $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $idServicio, $tipo, $valorOtros, $estado, $idRetCal, $sp);
+                }
             }
+        }
+        if (!empty($listaDefaultExtraArray)) {
+            foreach ($listaDefaultExtraArray as $key => $value) {
+                $tipo = 1;
+                $idServicio = $value["serviciosDefault"];
+                $sp = "spOtrosServicios";
+                $valorOtros = $value["valServicios"];
 
-            //guardando servicios y descuentos en la db foreach para recorrer el array de servicios y el dato de descuento
-            if (!empty($otrosExtraArray)) {
-                    foreach ($otrosExtraArray as $key => $value) {
-                        //$idCalculo, $idServicio
-                        $tipo = 0;
-                        $sp = "spOtrosServicios";
-                        $idServicio = $value["serviciosOtros"];
-                        $valorOtros = $value["valorOtros"];
-    
-                        if ($repIdCalc == "SD") {
-                            $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
-                        } else {
-                            $sp = "spModificarRubrosSerCalc";
-                            $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $idServicio, $tipo, $valorOtros, $estado, $idRetCal, $sp);
-                        }
-                    }
+                if ($repIdCalc == "SD") {
+                    $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
+                } else {
+                    $sp = "spModificarRubrosSerCalc";
+                    $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $idServicio, $tipo, $valorOtros, $estado, $idRetCal, $sp);
                 }
-                if (!empty($listaDefaultExtraArray)) {
-                    foreach ($listaDefaultExtraArray as $key => $value) {
-                        $tipo = 1;
-                        $idServicio = $value["serviciosDefault"];
-                        $sp = "spOtrosServicios";
-                        $valorOtros = $value["valServicios"];
-                        
-                        if ($repIdCalc == "SD") {
-                            $respuesta = ModeloCalculoDeAlmacenaje::mdlInsertRubroExtraCalculo($idCalculo, $idServicio, $valorOtros, $time, $estado, $tipo, $idRetCal);
-                        } else {
-                            $sp = "spModificarRubrosSerCalc";
-                            $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $idServicio, $tipo, $valorOtros, $estado, $idRetCal, $sp);
-                        }
-                    }
-                }
-                if ($valCalculado > 0) {
-                    $tipo = 1;
-                    $sp = "spRevDescCalcExis";
-                    $revDesc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalculo, $tipo, $sp);
+            }
+        }
+        if ($valCalculado > 0) {
+            $tipo = 1;
+            $sp = "spRevDescCalcExis";
+            $revDesc = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalculo, $tipo, $sp);
 
-                    if ($revDesc == "SD") {
-                        $respuesta = ModeloCalculoDeAlmacenaje::mdInsertDescuentoCalc($idCalculo, $valCalculado, $time, $estado, $hiddenTipoOP, $hiddenDescuento, $idRetCal);
-                    } else {
+            if ($revDesc == "SD") {
+                $respuesta = ModeloCalculoDeAlmacenaje::mdInsertDescuentoCalc($idCalculo, $valCalculado, $time, $estado, $hiddenTipoOP, $hiddenDescuento, $idRetCal);
+            } else {
 
-                        $sp = "spRevDescCalc";
-                        $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $hiddenDescuento, $tipo, $valCalculado, $estado, $idRetCal, $sp);
-                    }
-                }
-           
-            return "Oks";
-        
+                $sp = "spRevDescCalc";
+                $respuesta = ModeloCalculoDeAlmacenaje::mdlModificarCalculoSerExtra($idCalculo, $hiddenDescuento, $tipo, $valCalculado, $estado, $idRetCal, $sp);
+            }
+        }
+
+        return "Oks";
     }
 
     public static function ctrExistePoliza($verPoliza) {
@@ -175,6 +175,11 @@ class calculoDeAlmacenaje {
         } else {
             $mensaje = 0;
         }
+        $sp = "spMostrarSerAcuse";
+        $tipo = 1;
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idIngreso, $tipo, $sp);
+        $tipo = 2;
+        $revCalcRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalc, $tipo, $sp);
 
         if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["estadoTarifa"] == 1 || $respuestaVerifica[0]["estadoTarifa"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 0) {
             // OBJETO DECLARADO Y UTILIZADO PARA OBTENER VALORES DE EL INGRESO.
@@ -187,6 +192,7 @@ class calculoDeAlmacenaje {
             $sp = "spDataCalculoNormal";
             $familia = $datosIng[0]["familiaPoliza"];
             $datosIngCalculo = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($familia, $sp);
+
             // OBTENINIENDO LOS VALORES PARA EL CALCULO DE ALMACENAJE DE LOS ARRAYS
             if ($datosIng != "SD" && $datosIngSalida != "SD" && $datosIngCalculo != "SD") {
 
@@ -221,6 +227,8 @@ class calculoDeAlmacenaje {
                 $fechaVencimiento = $datosIngCalculo[0]["fechaVencimiento"]; // VENCIMIENTO DE LA TARIFA
                 $fechaSalida = $datosIngSalida[0]["fechaCalculo"]; // FECHA DE SALIDA DE LA MERCADERIA
                 $fechaIngreso = $datosIng[0]["fechaRealIng"]; // FECHA DE INGRESO
+                $fechaIngreso = date("d-m-Y", strtotime($fechaIngreso));
+
                 $tiempoTotal = funcionesDeCalculo::dias($fechaIngreso, $fechaSalida); // DIAS TOTAL EN ALMACENADORA      
                 /*
                  * SI EL TIEMPO TOTAL ES SUPERIOR A FECHA DE INGRESO Y SUPERA AL TIEMPO 
@@ -233,7 +241,7 @@ class calculoDeAlmacenaje {
                     $tiempoAlmacenaje = 0;
                     $diasZA = $tiempoTotal - $tiempoAlmacenaje;
                 }
-                
+
                 $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $tiempoAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                 $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
                 $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
@@ -247,14 +255,40 @@ class calculoDeAlmacenaje {
                     $zonaAduaneraCalc = intval($respuestaZonaAduanera);
                     $zonaAduanMSuperior = ceil($zonaAduaneraCalc / 5) * 5 + $defaultCopias;
                 }
+                $fechaMarch = $datosIngCalculo[0]["apartirFecha"];
+                $fechaMarch = date("d-m-Y", strtotime($fechaMarch));
+                $fDiffMarch = funcionesDeCalculo::dias($fechaIngreso, $fechaMarch); // DIAS TOTAL EN ALMACENADORA      
+
+                $respMarcha = 0;
+                if ($datosIngCalculo[0]["aplicaMarchamoElec"] == 1) {
+                    if ($fDiffMarch >= 0) {
+                        $TarifaMarcElect = $datosIngCalculo[0]["marchamoElectronico"];
+                        $minimoMarch = $datosIngCalculo[0]["minimoMarch"];
+                        $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
+                        $respMarcha = ceil($respMarcha / 5) * 5;
+                        if ($respMarcha <= $minimoMarch) {
+                            $respMarcha = $minimoMarch;
+                        }
+                    }
+                }
+
+                $respMarcha = ceil($respMarcha);
+                $monto = 0;
+                if ($revIngRev != "SD") {
+                    foreach ($revIngRev as $key => $value) {
+                        $monto = $monto + $value["montoExtra"];
+                    }
+                    $montoReturn = $monto / $cantClientes;
+                    $montoReturn = round($montoReturn);
+                }
 
                 $totalCobrar = ($almaMSuperior + $zonaAduanMSuperior + $respuestaManejo + $gtoAdminMSuperior);
-                $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "cobrar" => $totalCobrar);
+                $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "cobrar" => $totalCobrar, "marchamoElectro" => $respMarcha, "serviciosAcuse" => $montoReturn, "cantidadCliente"=>$cantClientes);
                 $datosCliente = array("empresa" => $datosIng[0]["nombreEmpresa"],
                     "polizaIng" => $datosIng[0]["numeroPoliza"], "reg" => $datosIng[0]["regimen"],
                     "tiempo" => $tiempoTotal,
                     "nit" => $datosIng[0]["nitEmpresa"], "fechaIng" => $fechaIngreso, "tipoOpCalc" => $tipoOPCalc, "fechaRetiro" => $fechaSalida);
-                return array("datos" => $datos, "respuestaData" => $datosCliente, "mensaje" => $mensaje);
+                return array("datos" => $datos, "respuestaData" => $datosCliente, "mensaje" => $mensaje, "respGTODescarga"=>$revIngRev);
             }
         } else if ($respuestaVerifica[0]["tarifaNormal"] == 1) {
             // OBJETO DECLARADO Y UTILIZADO PARA OBTENER VALORES DEL INGRESO.
@@ -312,6 +346,34 @@ class calculoDeAlmacenaje {
                     $tiempoAlmacenaje = 0;
                     $diasZA = $tiempoTotal - $tiempoAlmacenaje;
                 }
+                $fechaMarch = $datosIngCalculo[0]["apartirFecha"];
+                $fechaMarch = date("d-m-Y", strtotime($fechaMarch));
+                $fDiffMarch = funcionesDeCalculo::dias($fechaIngreso, $fechaMarch); // DIAS TOTAL EN ALMACENADORA      
+
+                $respMarcha = 0;
+                if ($datosIngCalculo[0]["aplicaMarchamoElec"] == 1) {
+                    if ($fDiffMarch >= 0) {
+                        $TarifaMarcElect = $datosIngCalculo[0]["marchamoElectronico"];
+                        $minimoMarch = $datosIngCalculo[0]["minimoMarch"];
+                        $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
+                        $respMarcha = ceil($respMarcha / 5) * 5;
+                        if ($respMarcha <= $minimoMarch) {
+                            $respMarcha = $minimoMarch;
+                        }
+                    }
+                }
+
+                $respMarcha = ceil($respMarcha);
+                $monto = 0;
+                if ($revIngRev != "SD") {
+                    foreach ($revIngRev as $key => $value) {
+                        $monto = $monto + $value["montoExtra"];
+                    }
+                    $montoReturn = $monto / $cantClientes;
+                    $montoReturn = round($montoReturn);
+                }
+
+
                 $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $tiempoAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                 $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
                 $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
@@ -321,7 +383,9 @@ class calculoDeAlmacenaje {
                 $zonaAduaneraCalc = intval($respuestaZonaAduanera);
                 $zonaAduanMSuperior = ceil($zonaAduaneraCalc / 10) * 10 + $defaultCopias;
                 $totalCobrar = ($almaMSuperior + $zonaAduanMSuperior + $respuestaManejo + $gtoAdminMSuperior);
-                $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "cobrar" => $totalCobrar);
+
+
+                $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "cobrar" => $totalCobrar, "marchElectro" => $respMarcha, "serviciosAcuse" => $montoReturn, "cantidadCliente"=>$cantClientes);
                 $datosCliente = array("empresa" => $datosIng[0]["nombreEmpresa"],
                     "polizaIng" => $datosIng[0]["numeroPoliza"], "reg" => $datosIng[0]["regimen"],
                     "tiempo" => $tiempoTotal,

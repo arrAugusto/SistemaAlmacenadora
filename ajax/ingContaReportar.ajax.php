@@ -19,11 +19,20 @@ class AjaxContabilidadFiscalRegistro {
 
     public function ajaxDescontaIng() {
         $descontabilizaIng = $this->descontabilizaIng;
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $respuesta = ControladorGeneracionDeContabilidad::ctrDescontaIng($descontabilizaIng, $usuarioOp);
         echo json_encode($respuesta);
-        
+    }
+
+    public $descargaRepIng;
+
+    public function ajaxDescargaRepExcel() {
+        $estadoDescarga = $this->descagarReporte;
+         session_start();
+        $idBod = $_SESSION["idDeBodega"];
+        $respuesta = ControladorGeneracionDeContabilidad::ctrDescargaRepExcel($idBod, $estadoDescarga);
+        echo json_encode($respuesta);        
     }
 
 }
@@ -38,4 +47,10 @@ if (isset($_POST["descontabilizaIng"])) {
     $descontaIng = new AjaxContabilidadFiscalRegistro();
     $descontaIng->descontabilizaIng = $_POST["descontabilizaIng"];
     $descontaIng->ajaxDescontaIng();
+}
+
+if (isset($_POST["descagarReporte"])) {
+    $descargaRepIng = new AjaxContabilidadFiscalRegistro();
+    $descargaRepIng->descagarReporte = $_POST["descagarReporte"];
+    $descargaRepIng->ajaxDescargaRepExcel();
 }

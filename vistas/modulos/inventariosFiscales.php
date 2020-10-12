@@ -30,7 +30,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-                            <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
+                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>

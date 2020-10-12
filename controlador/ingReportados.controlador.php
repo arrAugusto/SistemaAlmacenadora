@@ -12,7 +12,6 @@ class ControladorContabilidadRegistrada {
 
     public static function ctrPolizasPorDia($estado) {
         $valor = $_SESSION["idDeBodega"];
-        
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
             $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
         } else {

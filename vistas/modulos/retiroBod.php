@@ -39,7 +39,7 @@
                                 }
                                 ?>
                                 <div class="col-12 mt-4">
-                                    <table id="tablas" role="grid" class="table  dt-responsive nowrap table-hover table-sm" cellspacing="0">
+                                    <table id="tablasGeneral" role="grid" class="table  dt-responsive nowrap table-hover table-sm" cellspacing="0">
                                         <thead>
                                             <tr>
                                             <th style="whidth:5px">#</th>
@@ -65,7 +65,7 @@
                         </div>
 
                         <?php
-                        if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
+                        if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
                             echo '
                 <div class="col-12 mt-4">
         <div class="card card-dark">
@@ -146,7 +146,7 @@
 
 
                                         <div class="product-img">
-                                            <span class="info-box-icon"><i class="fas fa-dolly"></i></span>
+                                            <span class="info-box-icon"><i class="fa fa-dolly"></i></span>
                                         </div>
                                         <div class="product-info" style="text-align: justify;">
                                             <span class="product-description" id="txtDescripcionRet">
@@ -177,7 +177,7 @@
                                             <ul class="products-list product-list-in-card pl-2 pr-2">
                                                 <li class="item">
                                                     <div class="product-img">
-                                                        <span class="info-box-icon"><i class="fas fa-route"></i></span>
+                                                        <span class="info-box-icon"><i class="fa fa-route"></i></span>
                                                     </div>
                                                     <div class="product-info">
                                                         <div id="divUbicacionesRet">
@@ -194,19 +194,19 @@
                                     <div class="row">
                                         <div class="col-sm-3 col-6">
                                             <div class="description-block border-right">
-                                                <h5 class="description-header">Bultos <i class="fas fa-box-open"></i></h5>
+                                                <h5 class="description-header">Bultos <i class="fa fa-box-open"></i></h5>
                                                 <span class="description-text" id="bltsActuales"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 col-6">
                                             <div class="description-block border-right">
-                                                <h5 class="description-header">Posiciones <i class="fas fa-map-pin"></i></h5>
+                                                <h5 class="description-header">Posiciones <i class="fa fa-map-pin"></i></h5>
                                                 <span class="description-text" id="posActuales"></span>
                                             </div>
                                         </div>
                                         <div class="col-sm-3 col-6">
                                             <div class="description-block border-right">
-                                                <h5 class="description-header">Metros <i class="fas fa-map"></i></h5>
+                                                <h5 class="description-header">Metros <i class="fa fa-map"></i></h5>
                                                 <span class="description-text" id="mtsActuales"></span>
                                             </div>
                                         </div>
@@ -223,7 +223,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-info btnPreparacionSaldia" id="btnPreparaSalida" idRetiro=>Salida Bodega <i class="fas fa-door-open"></i></button>
+                    <button type="button" class="btn btn-info btnPreparacionSaldia" id="btnPreparaSalida" idRetiro=>Salida Bodega <i class="fa fa-door-open"></i></button>
                     <input type="hidden" id="hiddenidIngreso" value="">
                     <input type="hidden" id="hiddenidRetiro" value="">
                 </div>

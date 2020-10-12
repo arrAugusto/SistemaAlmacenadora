@@ -24,7 +24,7 @@
 
                     <div class="box-body">
 
-                        <table id="tablas" role="grid" class="table  dt-responsive table-sm nowrap table-striped table-bordered display" cellspacing="0" >
+                        <table id="tablasGeneral" role="grid" class="table  dt-responsive table-sm nowrap table-striped table-bordered display" cellspacing="0" >
                             <thead style="background-color: #0096d2;color: white; font-weight: bold;">       
                                 <tr>
                                     <?php

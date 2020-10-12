@@ -63,6 +63,7 @@
         <script src="vistas/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         <script src="vistas/js/bootstrap-datepicker.min.js"></script>
         <!-- js de almacenadora integrada -->
+      
         <script type="text/javascript" src="vistas/js/mapeoBodega.js"></script>
         <script src="vistas/js/dateParams.js"></script>
         <script src="vistas/js/usuario.js"></script>
@@ -96,8 +97,9 @@
         <script src="vistas/js/retiroVeh.js"></script>
         <script src="vistas/js/contabilidadRetiro.js"></script>
         <script src="vistas/js/nuevasEmpresas.js"></script>
-       <script src="vistas/js/sldDiarioContabilidad.js"></script>
-        
+        <script src="vistas/js/sldDiarioContabilidad.js"></script>
+        <script src="vistas/js/historialDeRetiros.js"></script>
+
         <!-- iCheck 1.0.1 -->
         <script src="vistas/dist/js/dataTables.bootstrap.js"></script><script src="vistas/dist/js/responsive.bootstrap.min.js"></script>
         <!-- iCheck 1.0.1 -->

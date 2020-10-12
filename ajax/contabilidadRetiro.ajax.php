@@ -53,6 +53,12 @@ class AjaxContabilidadRetiro {
         echo json_encode($respuesta);
         
     }
+    public $descarExcelRet;
+    public function ajaxRepExcelRet(){
+       $estado = $this->descagarReporteRet;  
+       $respRetiro = ControladorContabilidadDeRet::ctrRepExcelRet($estado);
+       echo json_encode($respRetiro);       
+    }
 
 }
 
@@ -86,4 +92,10 @@ if (isset($_POST["descontabilizaRet"])) {
     $descontabilizar = new AjaxContabilidadRetiro();
     $descontabilizar->descontabilizaRet = $_POST["descontabilizaRet"];
     $descontabilizar->ajaxDescontabilizaRet();
+}
+
+if (isset($_POST["descagarReporteRet"])) {
+    $descarExcelRet = new AjaxContabilidadRetiro();
+    $descarExcelRet->descagarReporteRet = $_POST["descagarReporteRet"];
+    $descarExcelRet->ajaxRepExcelRet();    
 }

@@ -160,7 +160,7 @@ $(document).on("change", "#nombrePiloto", function() {
     var texto = document.getElementById("nombrePiloto").value;
     var palabras = contar_palabras(texto);
     console.log(palabras);
-    if (palabras==1 ||  palabras==2) {
+    if (palabras==1) {
       document.getElementById("nombrePiloto").value="";
       document.getElementById("nombrePiloto").focus();
       swal({
@@ -171,7 +171,7 @@ $(document).on("change", "#nombrePiloto", function() {
           confrimButtonText: "cerrar",
           closeConfirm: true
       });
-}else if (palabras==3) {
+}else if (palabras==3 || palabras==2) {
       Swal.fire({
         title: '¿Seguro los datos registrados son correctos?',
         text: "Las personas normalmente cuentan con 2 apellidos y 2 nombres, si esta incorrecto el campo favor corrigalo.",

@@ -21,7 +21,7 @@
                             <div class="col-6 mt-4">
                                 <label>Calculado hasta :</label>
                                 <div class="input-group input-group">
-                                    <input type="text" id="dateTime" class="form-control">
+                                    <input type="text" id="dateTimeCalculo" class="form-control">
                                     <input type="hidden" id="hiddenDateTime" value="<?php
                                     date_default_timezone_set('America/Guatemala');
                                     echo date('Y-m-d H:i:s');
@@ -54,7 +54,7 @@
                             <input type="hidden" id="hiddenTipoOP" value=""/>                            
                             <input type="hidden" id="hiddenDescuento" value=""/>
                             <div class="col-12">
-                                <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                                <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                     <thead>
                                         <tr>
                                         <th style="width:3px">#</th>

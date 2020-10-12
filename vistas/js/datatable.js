@@ -1,48 +1,48 @@
 /*=============================================
-DATA TABLES
-=============================================*/
-$(document).ready(function() {
+ DATA TABLES
+ =============================================*/
+$(document).ready(function () {
     var table = $('#tablas').DataTable({
-            "language": {
+        "language": {
 
-        "sProcessing":     "Procesando...",
-        "sLengthMenu":     "Mostrar _MENU_ registros",
-        "sZeroRecords":    "No se encontraron resultados",
-        "sEmptyTable":     "Ningún dato disponible en esta tabla",
-        "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-        "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0",
-        "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-        "sInfoPostFix":    "",
-        "sSearch":         "Busqueda:",
-        "sUrl":            "",
-        "sInfoThousands":  ",",
-        "sLoadingRecords": "Cargando...",
-        "oPaginate": {
-        "sFirst":    "Primero",
-        "sLast":     "Último",
-        "sNext":     "Siguiente",
-        "sPrevious": "Anterior"
-        },
-        "oAria": {
-            "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+
         }
-
-    }
     });
 
     // Apply the search
-    table.columns().every(function() {
+    table.columns().every(function () {
         var that = this;
-        $('input', this.header()).on('keyup change', function() {
+        $('input', this.header()).on('keyup change', function () {
             if (that.search() !== this.value) {
                 that.search(this.value).draw();
             }
         });
     });
     //Add row button
-    $('.dt-add').each(function() {
-        $(this).on('click', function(evt) {
+    $('.dt-add').each(function () {
+        $(this).on('click', function (evt) {
             //Create some data and insert it
             var rowData = [];
             //Tomando el numero de fila para agregar orden
@@ -79,15 +79,15 @@ $(document).ready(function() {
         });
     });
     /*
-    $('#tablas td').attr('role', 'gridcell');
-    $('#tablas tr').attr('role', 'row');
-    $('#tablas th').attr('role', 'gridcell');
-    $('#tablas table').attr('role', 'grid');
-    $('#tablas td:nth-of-type(7)').attr('contenteditable', 'true');
-
-    $('#tablas td:nth-of-type(13)').attr('contenteditable', 'true');
-    */
-    $(document).on("click", ".btnGuardar", function() {
+     $('#tablas td').attr('role', 'gridcell');
+     $('#tablas tr').attr('role', 'row');
+     $('#tablas th').attr('role', 'gridcell');
+     $('#tablas table').attr('role', 'grid');
+     $('#tablas td:nth-of-type(7)').attr('contenteditable', 'true');
+     
+     $('#tablas td:nth-of-type(13)').attr('contenteditable', 'true');
+     */
+    $(document).on("click", ".btnGuardar", function () {
         var id = $(this).attr("id");
         var estadoUsuario = $(this).attr("estadoUsuario");
         var calculosobre = "#calculoSobre";
@@ -142,10 +142,10 @@ $(document).ready(function() {
                     contentType: false,
                     processData: false,
                     dataType: "json",
-                    success: function(respuesta) {
+                    success: function (respuesta) {
                         console.log(respuesta)
                     },
-                    error: function(respuesta) {
+                    error: function (respuesta) {
                         console.log(respuesta);
                     }
                 })
@@ -197,7 +197,7 @@ $(document).ready(function() {
             }
         }
     });
-    $(document).on("click", ".btnEliminar", function() {
+    $(document).on("click", ".btnEliminar", function () {
         Swal.fire({
             position: 'center',
             type: 'info',
@@ -207,3 +207,4 @@ $(document).ready(function() {
         })
     });
 });
+

@@ -65,11 +65,19 @@
                 <?php
                 if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
                     echo '
-                <a h    ref="#" class="dropdown-item" data-toggle="modal" data-target="#agregarConsolidado">
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarConsolidado">
                     <i class="fa fa-database mr-2"></i> Agregar Nuevo Consolidado
                 </a>';
                 }
                 ?>     
+                <?php
+                if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
+                    echo '
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNuevosServicios">
+                    <i class="fa fa-database mr-2"></i> Agregar servicio de cobro
+                </a>';
+                }
+                ?>                 
             </div>
 
 
@@ -97,7 +105,7 @@ MODAL POLIZA CONSOLIDADA
 ======================================-->
 <!-- Modal -->
 <div id="agregarNit" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lgMapa">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -109,30 +117,21 @@ MODAL POLIZA CONSOLIDADA
                 ======================================-->
                 <div class="col-md-12">
                     <!-- Horizontal Form -->
-                    <div class="card card-warning">
-                        <div class="card-header">
-                            <h3 class="card-title">Nuevo Nit <i class="fa fa-plus"></i></h3>
-                        </div>
+                    <div class="card card-info card-outline">
+
                         <!--campos formularios -->
                         <form role="form" method="post" id="divGuardaDetalle">
                             <div class="form-horizontal">
                                 <div class="card-body">
                                     <div class="row">
-                                        <div class="col-12">
-                                            <label>
-                                                Guarda los Siguientes Datos Para Continuar...
-                                            </label>
-                                            <input id="valueClientes" name="valueClientes" type="hidden" value="" />
-                                            <input id="cantVsClientes" name="cantVsClientes" type="hidden" value="0" />
 
-                                        </div>
-                                        <div class="col-12 form-group">
+                                        <div class="col-3 form-group">
                                             <label>
                                                 Nit Empresa
                                             </label>
                                             <input class="form-control is-invalid" id="nuevoNit" name="nuevoNit" placeholder="Ingrese el número de nit" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                         </div>
-                                        <div class="col-12">
+                                        <div class="col-9">
                                             <div class="form-group">
                                                 <label>
                                                     Nombre de Empresa
@@ -148,13 +147,17 @@ MODAL POLIZA CONSOLIDADA
                                                 <input class="form-control is-invalid" id="nuevaDireccion" name="nuevaDireccion" placeholder="Ingrese dirección de la empresa" type="text" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                             </div>
                                         </div>
+                                        <div class="col-12">
+                                            <iframe id="myFrameManifiesto" src="https://portal.sat.gob.gt/portal/consulta-cui-nit#constanciaRTU" title="W3Schools HTML Tutorial" height="350px" width="99%"></iframe>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
                         </form>
                         <div class="card-footer">
                             <div>
-                                <button type="button" class="btn btn-primary btn-block btnNuevaEmpresa">Guardar Cambios</button>
+                                <button type="button" class="btn btn-warning btn-block btnNuevaEmpresa">Guardar / Editar NIT de empresa</button>
                             </div>
                         </div>
                     </div>
@@ -203,9 +206,6 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
                                             </div>
                                         </div>
                                         <div class="col-6" id="empresaElegiConso">
-
-
-  
                                         </div>                                        
                                         <div class="col-12 mt-5">
                                             <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
@@ -234,6 +234,74 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
 
                             <button type="button" class="btn btn-primary btn-block btnNuevoConsolidado">Guardar Cambios</button>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>';
+}
+?>
+
+
+<!--=====================================
+MODAL POLIZA CONSOLIDADA
+======================================-->
+<!-- Modal -->
+
+<?php
+if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
+    echo '
+<div id="agregarNuevosServicios" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!--=====================================
+                INICIO FORM
+                ======================================-->
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Nuevo Consolidado <i class="fa fa-plus"></i></h3>
+                        </div>
+                        <!--campos formularios -->
+                        <form role="form" method="post">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <input type="text" id="textParamNuevoServicio" placeholder="Escriba el nombre del nuevo servicio" class="form-control is-invalid buscando" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-primary btn-block btnNuevoServicioEx"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mt-5">
+                                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                                                <thead>
+                                                    <tr>
+                                                    <th style="width:3px">#</th>
+                                                    <th>Nit</th>
+                                                    </tr>
+                                                </thead> <tbody>';
+    $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServiciosExt();
+    echo '
+                                                </tbody>
+                                            </table>
+                                        </div>                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card-footer">
+                            <button type="button" class="btn btn-primary btn-block btnNuevoConsolidado">Guardar Cambios</button>
                         </div>
                     </div>
                 </div>

@@ -27,14 +27,10 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-7">
+                            <div class="col-4">
                                 <div class="input-group input-group-sm">
-                                    <input type="hidden" id="hiddenLista" value="">
-                                    <textarea class="form-control textoQRPoliza" rows="5" ></textarea>
-                                    <span class="input-group-append">
-                                        <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
-                                    </span>
-                                </div>
+                                   <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
+                               </div>
                             </div>                        
 
                             <div class="col-7 mt-4" id="dataRetiro">
@@ -199,6 +195,12 @@
                     <div class="col-6 mt-4">
                         <input class="form-control is-invalid" type="text" id="numeroContenedorPlusUn" name="numeroContenedor" placeholder="Escriba el numero de contenedor" onkeyup="javascript:this.value = this.value.toUpperCase();">
                     </div>
+                    <div class="col-6 mt-4">
+                        <input class="form-control is-invalid" type="number" id="numeroMarchamoPlusUn" name="numeroMarchamoPlusUn" placeholder="Escriba el numero de marchamo" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                    </div>    
+                    <div class="col-12 mt-4">
+                        <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class="fa fa-barcode" style="font-size:48px;"></i></button>
+                    </div>                        
                 </div>
             </div>
             <div class="modal-footer">

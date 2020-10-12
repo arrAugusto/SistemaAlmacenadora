@@ -9,7 +9,7 @@ $(document).on("click", ".btnContabilizarRet", async function () {
             showCancelButton: true,
             confirmButtonText: 'Contabilizar',
             confirmButtonColor: '#642EFE',
-            allowOutsideClick: false,              
+            allowOutsideClick: false,
             cancelButtonColor: '#DF0101'
         }).then(async function (result) {
             console.log(result);
@@ -312,7 +312,7 @@ function formato(texto) {
     return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
 
-$(document).on("click", ".btnDescontabilizar", async function () {
+$(document).on("click", ".btnDescontabilizarRet", async function () {
     var idRet = $(this).attr("idRet");
     swal({
         title: "¿Quiere revertir el retiro contable?",
@@ -348,13 +348,146 @@ $(document).on("click", ".btnDescontabilizar", async function () {
 
 })
 $(document).on("click", "#btnReimprimeRec", async function () {
- var idret = $(this).attr("idret");
- window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idret, "_blank");
- 
+    var idret = $(this).attr("idret");
+    window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idret, "_blank");
+
 })
 $(document).on("click", "#btnReimprimeRet", async function () {
- var idret = $(this).attr("idret");
-           window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idret, "_blank");
- 
+    var idret = $(this).attr("idret");
+    window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idret, "_blank");
+
+})
+$(document).on("click", ".btnSelectMultipleRet", async function () {
+    lista = [];
+    // Guardar listaStringRet en el localstorage
+    var data = localStorage.getItem("listaStringRet", listaStringRet);
+    if (data) {
+
+
+        var data = JSON.parse(data);
+
+        if (data.length > 0) {
+            lista.push(data);
+        }
+        var idret = $(this).attr("idret");
+        data.push(idret);
+        var listaStringRet = JSON.stringify(data);
+    } else {
+
+        var idret = $(this).attr("idret");
+        lista.push(idret);
+        var listaStringRet = JSON.stringify(lista);
+    }
+    console.log(lista);
+
+
+    // Guardar listaStringRet en el localstorage
+    localStorage.setItem("listaStringRet", listaStringRet);
+
+
+    var estado = $(this).attr("estado");
+    if (estado == 0) {
+        $(this).attr("estado", 1);
+        $(this).removeClass("btn btn-outline-dark");
+        $(this).addClass("btn btn-info");
+        $(this).html('<i class="fa fa-circle"></i>');
+    } else {
+        $(this).attr("estado", 0);
+        $(this).removeClass("btn btn-outline-info");
+        $(this).addClass("btn btn-outline-dark");
+        $(this).html('<i class="fa fa-close"></i>');
+
+    }
 })
 
+$(document).on("click", ".bntReportarLoteRet", async function () {
+
+    var estado = $(".btnMatenerFecha").attr("estado");
+    if (estado == 0) {
+        Swal.fire(
+                'Fecha contabilidad!',
+                'Selecciona fecha contable y luego haz click en el boton verde!',
+                'error'
+                )
+        return false;
+    } else {
+        var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
+        Swal.fire({
+            title: '¿Desea Contabilizar?',
+            text: "El lote de retiros se contabilizaran con fecha : " + fechaCongeladaConta,
+            type: 'warning',
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            cancelButtonText: 'No, Contabilizar!',
+            confirmButtonText: 'Sí, Contabilizar!'
+        }).then(async function (result) {
+            if (result.value) {
+
+                // Guardar listaString en el localstorage
+                var data = localStorage.getItem("listaStringRet");
+                var listaIng = JSON.parse(data);
+                var contador = 0;
+                for (var i = 0; i < listaIng.length; i++) {
+                    var idRet = listaIng[i];
+                    var idRet = idRet * 1;
+                    console.log(idRet);
+
+                    var nomVar = "idRetContabilidad";
+                var resp = await funcionContabilizarRetiro(nomVar, idRet, fechaCongeladaConta);
+                if (resp[0].resp == 1) {
+                        var contador = contador + 1;
+                    }
+                }
+                if (contador == listaIng.length) {
+                    Swal.fire({
+                        title: 'Operacion Exitosa',
+                        text: "Fueron Contabilizados los retiros seleccionados",
+                        type: 'success',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Sí, Contabilizar!'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
+            }
+        })
+    }
+})
+
+$(document).on("click", ".btnDescargaExcelIngRepRet", async function () {
+    var estadoRep = $(this).attr("estadoRep");
+    Swal.fire({
+        title: 'Quiere descarga el reporte en excel?',
+        text: "Esto puede tardar unos segundos!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Descargar!'
+    }).then(async function (result) {
+        if (result.value) {
+            var descarga = estadoRep;
+            if (descarga == 4) {
+                var nombreReporte = "REPORTE DE RETIROS PENDIENTES DE CONTABILIZAR";
+            }
+            if (descarga == 5) {
+                var nombreReporte = "REPORTE DE RETIROS CONTABILIZADOS";
+            }
+
+            var nomVar = "descagarReporteRet";
+            var resp = await funcionContabilizarRetiro(nomVar, descarga);
+            console.log(resp);
+            var nombreEncabezado = "DescargaReporteExcel";
+            var nombreFile = "ReporteDeRetiros_";
+            var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
+            console.log(resp);
+        }
+    })
+})

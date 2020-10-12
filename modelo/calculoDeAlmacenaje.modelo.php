@@ -58,10 +58,10 @@ class ModeloCalculoDeAlmacenaje {
         }
     }
 
-    public static function mdlVerificacionCalculo($idPoliza) {
-        $params = array($idPoliza);
+    public static function mdlVerificacionCalculo($idIngreso, $idPoliza) {
+        $params = array(&$idIngreso, &$idPoliza);
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spVerificaCalc ?";
+        $sql = "EXECUTE spVerificaCalc ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -129,6 +129,25 @@ class ModeloCalculoDeAlmacenaje {
         }
     }
 
+        public static function ctrGenerateHistoriaIng($sp) {
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp;
+        $stmt = sqlsrv_prepare($conn, $sql);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    
     public static function mdlVerificaTarifaDosParms($idIngreso, $idCalc, $sp) {
         $params = array(&$idIngreso, &$idCalc);
         $conn = Conexion::Conectar();

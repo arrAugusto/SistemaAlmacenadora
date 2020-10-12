@@ -17,7 +17,7 @@ $(document).on("click", ".btnGeneracionExcel", function () {
             var movimientos = respuesta["moviminetos"];
             var detalles = respuesta["detalles"];
             JSONToCSVConvertor(movimientos, detalles, nombreEncabezado, true);
-        }, errror: function (respuesta) {
+        }, error: function (respuesta) {
             console.log(respuesta);
         }});
 
@@ -218,7 +218,7 @@ function mostrarEdicionesBodega(valIdIng) {
             todoMenus = "Ok";
 
 
-        }, errror: function (respuesta) {
+        }, error: function (respuesta) {
             console.log(respuesta);
         }});
     return todoMenus;
@@ -275,7 +275,7 @@ function mapaEdicionUbicacion(idDet) {
             }
 
 
-        }, errror: function (respuesta) {
+        }, error: function (respuesta) {
             console.log(respuesta);
         }});
     return todoMenus;
@@ -332,7 +332,7 @@ function mapaEdicionUbicacionModificar(idDet) {
             }
 
 
-        }, errror: function (respuesta) {
+        }, error: function (respuesta) {
             console.log(respuesta);
         }});
     return todoMenus;
@@ -385,7 +385,7 @@ function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
             }else{
                     todoMenus = "Ok";
             }
-        }, errror: function (respuesta) {
+        }, error: function (respuesta) {
             console.log(respuesta);
         }});
     return todoMenus;   

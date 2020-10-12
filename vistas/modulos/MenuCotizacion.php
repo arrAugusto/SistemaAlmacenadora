@@ -55,7 +55,7 @@
 
                 echo '  </i>
                 <p class="colorBarSuper">
-                    Ingresos Pendientes
+                    Culminar Ingresos
                 <span class="badge badge-danger right">';
                 echo $respuesta[0]["cantIng"];
             }
@@ -274,7 +274,7 @@
 
                 echo '  </i>
                 <p class="colorBarSuper">
-                    Ingresos Pendientes
+                    Culminar Ingresos
                 <span class="badge badge-danger right">';
                 echo $respuesta[0]["cantIng"];
             }
@@ -453,7 +453,7 @@
 
                 echo '  </i>
                 <p class="colorBarSuper">
-                    Ingresos Pendientes
+                    Culminar Ingresos
                 <span class="badge badge-danger right">';
                 echo $respuesta[0]["cantIng"];
             }
@@ -469,6 +469,16 @@
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Historial de ingresos
+                </p>
+
+            </a>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="historiaRetirosFisacales" class="nav-link">
+                <i class="fa fa-history colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Historial de retiros
+                    <span class="right badge badge-warning">Nuevo</span>
                 </p>
 
             </a>

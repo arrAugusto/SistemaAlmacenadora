@@ -180,7 +180,7 @@ $(document).on("change", "#ClPolDua", async function () {
         var indexText = e.options[e.selectedIndex].text;
         var cartaDeCupoVal = await patternPreg(cartaDeCupo);
         console.log(cartaDeCupoVal);
-        if (indexText == "TO" || indexText == "DUT" || indexText == "FAUCA") {
+        if (indexText == "DUT" || indexText == "FAUCA") {
             var cartaDeCupoVal = 1;
             document.getElementById("hiddenClPolDua").value = 1;
             $(this).val(0);

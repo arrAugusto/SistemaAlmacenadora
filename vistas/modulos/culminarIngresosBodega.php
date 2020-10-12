@@ -45,8 +45,8 @@
 
                         </div>
                         <?php
-                           if ($_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "BAJO" || $_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
-                             echo '
+                        if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
+                            echo '
                             <div class="col-lg-3 col-xs-12" id="divAgregandoDetalles">
                                 <div class="box box-success">
                                     <div class="box-header with-border"></div>
@@ -85,7 +85,7 @@
                                     INICIO
                                     ======================-->
                           
-                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                            <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                         <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                             <tr>
                                             <th style="width:1%;">#</th>
@@ -116,7 +116,7 @@
                                     INICIO
                                     ======================-->
                           
-                              <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                              <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                       <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                             <tr>
                                             <th style="width:1%;">#</th>
@@ -222,10 +222,10 @@
                                                     <div class="col-12 mt-2  mt-4" id="divObserva">
                                                         <div class="input-group input-group-sm">
                                                             <input type="hidden" id="hiddenLista" value="" />
-                                                            <textarea class="form-control" id="descripcionMerca" name="descripcionMerca" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" >RECIBÍ : </textarea>
-                                                            <span id="cancelAudio"class="input-group-append">
-                                                                <button type="button" id="efectoGrabar" estadoAudio=0 class="btn btn-success btnAudioDescr"><i id="CancelAudio" class='fas fa-microphone-alt' style='font-size:36px;'></i></button>
-                                                            </span>
+                                                            <textarea class="form-control" id="descripcionMerca" name="descripcionMerca" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value="">OBSERVACIONES :</textarea>
+                                                            <!--<span id="cancelAudio"class="input-group-append">
+                                                                <button type="button" id="efectoGrabar" estadoAudio=0 class="btn btn-success btnAudioDescr"><i id="CancelAudio" class='fa fa-microphone' style='font-size:36px;'></i></button>
+                                                            </span>-->
                                                         </div>
                                                     </div>
                                                     <div class="col-6 mt-2" id="mdStandarTarima">
@@ -285,7 +285,7 @@
 
                     <div class="col-12">
 
-                        <button type="button" class="btn btn-success btnGuardaUbicacion"><i class="fas fa-save" style="font-size:48px">&nbsp;&nbsp;Guardar</i></button>
+                        <button type="button" class="btn btn-success btnGuardaUbicacion"><i class="fa fa-save" style="font-size:48px">&nbsp;&nbsp;Guardar</i></button>
 
                     </div>
                     <div id="mapEntrada" class="col-1 mt-4 pull-right">
@@ -320,7 +320,7 @@
                 <div class="row">
                     <div class="input-group col-6">
                         <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
                         </div>
                         <input type="text" class="form-control" value="<?php echo ($_SESSION['nombre']) . "  " . ($_SESSION['apellidos']); ?>" readOnly/>
                     </div>
@@ -364,3 +364,54 @@
         </div>
     </div>
 </div>
+
+  <!-- The Modal -->
+  <div class="modal fade" id="modalCarousel">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Modal Heading</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-6">
+
+<div class="sticky-top mb-3">
+              <div class="card">
+                <div class="card-header">
+                  <h4 class="card-title">Draggable Events</h4>
+                </div>
+                <div class="card-body">
+                  <!-- the events -->
+                  <div id="external-events">
+                    <button type="button" class="btn btn-success btn-block mt-4" id="divDetalleVehUsa">LLAVE</button>
+                    <button type="button" class="btn btn-info btn-block mt-4" id="divDetalleVehUsa">BATERIA</button>
+                    <button type="button" class="btn btn-danger btn-block mt-4" id="divDetalleVehUsa">RADIO</button>
+                    <button type="button" class="btn btn-warning btn-block mt-4" id="divDetalleVehUsa">LLANTA DE REPUESTO</button>
+                    <button type="button" class="btn btn-primary btn-block mt-4" id="divDetalleVehUsa">TRIQUE</button>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+
+            </div>
+                </div>
+                <div class="col-6" id="divDetalle">
+                    <textarea class="form-control" id="textDetalleVeh" name="textDetalleVeh" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value=""></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>

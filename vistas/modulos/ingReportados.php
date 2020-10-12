@@ -18,20 +18,28 @@
     </section>
     <div class="col-md-12">
         <div class="card card-info card-outline">
-            <div class="col-md-6 col-lg-6 col-sm-12 mt-4">
-                <button type="button" class="btn btn-outline-danger btn-block btnImprimirReporteContable" idIngReporte="<?php echo $_SESSION["idDeBodega"]; ?>">Imprimir Reporte <i class="fa fa-print"></i></button>
-            </div> 
+            <div class="card-body">
             <form role="form" method="post">
-                <div class="card-body">
+                <div clasfa fa-file-pdf-o">
                     <div class="row">
-                        <div class="col-12">
-                            <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
+                        <div class="col-6 mt-4">
+                            <button type="button" class="btn btn-success btn-lg btn-block btnDescargaExcelIngRep" estadoRep="5">DESCARGA EXCEL DE INGRESOS <i class="fa fa-file-excel-o"></i></button>
+                        </div>   
+
+                        <div class="col-6 mt-4">
+                            <button type="button" class="btn btn-outline-danger btn-block btn-lg btnImprimirReporteContable" idIngReporte="<?php echo $_SESSION["idDeBodega"]; ?>">Generar PDF&nbsp;&nbsp;&nbsp;<i class="fa fa-file-pdf-o"></i></button>
+                        </div>
+
+                        <div class="col-12 mt-4">                            
+                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>
                                     <th style="width:3px;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
-                                    <?php if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") { echo '<th>Bodega</th>'; } ?>
+                                    <?php if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+                                        echo '<th>Bodega</th>';
+                                    } ?>
                                     <th>Poliza</th>
                                     <th>Fecha</th>
                                     <th>Bultos</th>
@@ -54,8 +62,11 @@
                 </div>
             </form>
         </div>
+            </div>
     </div>
 </div>
+
+        
 <section id="divEdiciones">
     <div class="col-12">
         <div class="card card-success">
@@ -85,9 +96,9 @@
                                 </span>
                             </div>
                             <input type="hidden" id="hiddenDateTime" value="<?php
-                            date_default_timezone_set('America/Guatemala');
-                            echo date('d-m-Y');
-                            ?>"/>
+                                   date_default_timezone_set('America/Guatemala');
+                                   echo date('d-m-Y');
+                                   ?>"/>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -257,8 +268,8 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-12" id="mapeandoUbica">
-                        <?php/*
-                        $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();*/
+                        <?php /*
+                          $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles(); */
                         ?>
 
                     </div>

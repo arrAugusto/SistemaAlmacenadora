@@ -104,7 +104,7 @@ class ControladorGenerarContabilidad {
         $iBodEmpresa = $_SESSION["idDeBodega"];
         $sp = "spConsultaEmppresa";
         $respEmpresa = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $iBodEmpresa);
-        if ($respEmpresa[0]["idEmpresa"] >= 1) {
+        if ($respEmpresa[0]["idEmpresa"] > 0) {
             $idEmpresa = $respEmpresa[0]["idEmpresa"];
         } else {
             return false;
@@ -133,6 +133,8 @@ class ControladorGenerarContabilidad {
             }
 
             echo '
+            <tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">REPOTES DE INGRSESOS ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>
+            <tr><td id="saltoTD" colspan="3"></td></tr>
             <tr>
                 <th>Area Reportada<br/>&nbsp;</th>
                 <th class="highlight">
@@ -335,10 +337,17 @@ class ControladorGenerarContabilidad {
 
     public static function ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod) {
         $date = $cotabilizarFecha;
-
+        if (!empty($date)) {
+            $timestamp = strtotime($date);
+            if ($timestamp === FALSE) {
+                $timestamp = strtotime(str_replace('/', '-', $date));
+            }
+            $date = date('Y-m-d', $timestamp);
+        }
+        
         $sp = "spConsultaEmppresa";
         $respEmpresa = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
-        if ($respEmpresa[0]["idEmpresa"] >= 1) {
+        if ($respEmpresa[0]["idEmpresa"] > 0) {
 
 
             $idEmpresa = $respEmpresa[0]["idEmpresa"];
@@ -369,15 +378,12 @@ class ControladorGenerarContabilidad {
                 $idContbilidades = $value["numeroBodegaFiscal"];
                 $sp = "spMostrarDetCont";
                 $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
-
                 $sp = "spAjustesContables";
                 $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
                 $sp = "spRegistraAjustes";
                 $respRegistroAjuste = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $idContbilidades, $date);
-
-
                 if ($respAjustes != "SD") {
-                    array_push($ajustesConta, $respAjustes);
+                    array_push($ajustesConta, $respAjustes[0]);
                 }
                 $ident = $idContbilidades;
                 $empresa = $respVerDatos[0]["empresa"];
@@ -400,9 +406,8 @@ class ControladorGenerarContabilidad {
              * */
             $sp = "spNumPolizas";
             $numAsigPoliza = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $date);
-
             $numeroPolAsignado = $numAsigPoliza[0]['resp'];
-            if ($numeroPolAsignado >= 1) {
+            if ($numeroPolAsignado > 0) {
                 $numeroDepolizaAsig = $numeroPolAsignado;
             }
             /**
@@ -433,7 +438,7 @@ class ControladorGenerarContabilidad {
             $sp = "spNumPolizas";
             $numAsigPoliza = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $date);
             $numeroPolAsignado = $numAsigPoliza[0]['resp'];
-            if ($numeroPolAsignado >= 1) {
+            if ($numeroPolAsignado > 0) {
                 $numeroDepolizaAsig = $numeroPolAsignado;
             }
 
@@ -494,22 +499,19 @@ class ControladorGenerarContabilidad {
             }
             $sp = "spNumPolizas";
             $numAsigPoliza = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $date);
-
             $numeroPolAsignado = $numAsigPoliza[0]['resp'];
-            if ($numeroPolAsignado >= 1) {
+            if ($numeroPolAsignado > 0) {
                 $numeroDepolizaAsig = $numeroPolAsignado;
             }
             $ajusteValCif = 0;
             $ajusteVImpst = 0;
             $totalAjuste = 0;
-            foreach ($respAjustes as $key => $value) {
+            foreach ($ajustesConta as $key => $value) {
                 $ajusteValCif = $ajusteValCif + $value["sumCif"];
                 $ajusteVImpst = $ajusteVImpst + $value["sumImpuesto"];
             }
-  
             $totalAjuste = $ajusteValCif + $ajusteVImpst;
             if ($ajusteValCif > 0 && $ajusteVImpst > 0) {
-
                 /**
                  * SI ESTA CONDICION SE CUMPLE Y CIF E IMPUESTO SON MAYOR A 0 ENTONCES SE APLICA UNA POLIZA DE RETIRO
                  * YA QUE SE DEBE APLICAR UNA REBAJA AL TOTAL DE CIF E IMPUESTO PARA QUE REGRESE AL VALOR 0
@@ -604,6 +606,7 @@ class ControladorGenerarContabilidad {
                     $tipOperaSaldo = "RESTA";
                     $tipConcepto = "RETIRO CIF AJUSTE";
                     $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+
                     if ($respIngCif[0]["resp"] == 1) {
                         $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
                         $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
@@ -654,6 +657,7 @@ class ControladorGenerarContabilidad {
                 }
                 }
             }
+
             return true;
         }
     }

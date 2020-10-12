@@ -13,47 +13,48 @@
                     </ol>
                 </div>
             </div>
+            <div class="card card-info card-outline">
+                <form role="form" method="post">
+                    <div class="card-body">
+                        <div class="row">
+                            
+                        <div class="col-6 mt-2">
+                            <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
+                        </div>   
+                            
+                        <div class="col-12 mt-5">
+                            
+                            <table id="tableHistorialIng" role="grid" class="table dt-responsive table-hover table-sm">
+                                    <thead>
+                                     <tr>
+                                        <th style="width:3px">#</th>
+                                        <th>Nit</th>
+                                        <th>Empresa</th>
+                                        <th style="width: 20px">Poliza</th>
+                                        <th>Fecha</th>
+                                        <th>Num. Ingreso</th>
+                                        <th style="width: 20px">Bultos</th>
+                                        <th style="width: 20px">Cif</th>
+                                        <th style="width: 20px">Impuestos</th>
+                                        <th style="width: 20px">Bodega #</th>                                        
+                                        <th><center>Acciones</center></th>
+                                        </tr>
+                                    </thead> 
 
-         <div class="card card-info card-outline">
-            <form role="form" method="post">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12">
-                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
-                                <thead>
-                                    <tr>
-                                    <th style="width:3px">#</th>
-                                    <th>Nit</th>
-                                    <th>Empresa</th>
-                                    <th style="width: 20px">Poliza</th>
-                                    <th>Fecha</th>
-                                    <th style="width: 20px">Bultos</th>
-                                    <th style="width: 20px">Cif</th>
-                                    <th style="width: 20px">Impuestos</th>
-                                    <th><center>Acciones</center></th>
-                                    </tr>
-                                </thead> <tbody>
-                                    <?php
-                                    $respuesta = ControladorHistorialIngresos::ctrMostrarIngresosVigentes();
-                  
-                                    if ($respuesta !== null) {
-                                        
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+            </div>
         </div><!-- /.container-fluid -->
     </section>
-    <section id="divEdiciones">
-        <div class="col-12">
+    <div class="col-12">
+        <section id="divEdiciones">
+
             <div class="card card-success">
                 <div class="card-header">
-                    <h5 class="card-title">Parametrizar almacenajes con tarifas normales</h5>
+                    <h5 class="card-title">Edición de ingresos</h5>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -214,7 +215,8 @@
                     </div>
                 </div>
             </div>
-    </section>
+        </section>
+    </div>
 </div>
 
 <!-- The Modal -->
@@ -224,7 +226,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Modal Heading</h4>
+                <h4 class="modal-title">ANULAR INGRESO</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -251,7 +253,63 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="anulacionDefinitiva" numeroIdIngreso="" disabled="disabled" />Anular Ingreso&nbsp;&nbsp;<i class="fas fa-trash"></i></button>
             </div>
-
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalNuevosServicios" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <label>
+                            AGREGAR MAS SERVICIOS
+                        </label>
+                        </input>
+                    </div>
+                    <div class="col-6 form-group">
+                        <label>
+                            Nombre del servicio
+                        </label>
+                        <select class="form-control select2" id="selectOtrosServ"style="width: 100%;">
+                            <option selected="selected" disabled="disabled">Seleccione el servicio</option>
+                            <?php
+                            $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServicios();
+                            ?>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-12">
+                            <label>
+                                Valor Peso
+                            </label>
+                            <div class="input-group">
+                                <input class="form-control is-invalid" id="montoOtroServicio" name="montoOtroServicio" placeholder="Ingrese monto del servicio" type="number" />
+
+                                <span class="input-group-append">
+                                    <button btnagrega="0" class="btn btn-primary btn-flat btnNuevoServicios" type="button">Agregar nuevo servicio</button>
+                                </span>
+                            </div>
+                        </div>
+                        <center><label id="pesoSobregiro" style="color:red;"></label></center>
+                    </div>
+                    <div class="col-md-12" id="divOtrosServicios"></div>
+
+
+
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary btn-block bntNewRegister" tipo="0">Guardar Servicio</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

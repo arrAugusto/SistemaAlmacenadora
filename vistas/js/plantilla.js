@@ -119,3 +119,110 @@ function alertValNoAdm(mensaje, tipo) {
 }
 
 
+$(document).ready(function () {
+    $('#tablasGeneral').DataTable({
+        "language": {
+
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+
+        }
+    });
+
+})
+
+$(function () {
+    var today = new Date();
+    $('#dateTime').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        singleDatePicker: true,
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        maxDate: (today),
+        locale: {
+            format: 'DD-MM-YYYY hh:mm A'
+        }
+    }, function (start, end, label) {
+        var tiempo = start.format('YYYY-MM-DD hh:mm A');
+        var tiempoVal = start.format('DD-MM-YYYY');
+        document.getElementById("hiddenDateTime").value = tiempo;
+        document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+        swal({
+            type: "success",
+            title: "Fecha Seleccionada",
+            text: "Hora de ingreso " + tiempo,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+});
+
+$(function () {
+
+    $('#dateTimeCalculo').daterangepicker({
+        timePicker: true,
+        startDate: moment().startOf('hour'),
+        singleDatePicker: true,
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        
+        locale: {
+            format: 'DD-MM-YYYY hh:mm A'
+        }
+    }, function (start, end, label) {
+        var tiempo = start.format('YYYY-MM-DD hh:mm A');
+        var tiempoVal = start.format('DD-MM-YYYY');
+        document.getElementById("hiddenDateTime").value = tiempo;
+        document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+        swal({
+            type: "success",
+            title: "Fecha Seleccionada",
+            text: "Hora de ingreso " + tiempo,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Aceptar'
+        });
+    });
+});
+
+
+$(document).ready(function () {
+toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-bottom-full-width",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "15000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+Command: toastr["warning"]('Revise finalizaciones de descarga!&nbsp;&nbsp;&nbsp;')
+})

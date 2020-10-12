@@ -12,10 +12,9 @@ class ModeloRegIngBod {
         $sp = "spVerificaVehNew";
         $revisionVeh = ModeloRegIngBod::mdlRevisionVehNuevo($sp, $numeroIdIng);
         if ($revisionVeh[0]["resp"] == 1) {
-                $spDetalles  = "spMstDetalles";
-                $mostrarDetalle = ModeloRegIngBod::mdlRevisionVehNuevo($spDetalles, $numeroIdIng);
-                return $mostrarDetalle; 
-
+            $spDetalles = "spMstDetalles";
+            $mostrarDetalle = ModeloRegIngBod::mdlRevisionVehNuevo($spDetalles, $numeroIdIng);
+            return $mostrarDetalle;
         }
         if ($revisionVeh[0]["resp"] == 0) {
 
@@ -132,13 +131,10 @@ class ModeloRegIngBod {
                                 $idDetalle = $datos['idDetalle'];
                                 $paramsIngreso = array(&$datos["idOrdenIng"], &$idDetalle, &$usuarioOp);
 
-                                $sql = "EXECUTE spUpdateEstadoDet ?, ?, ?";
+                                $sql = "EXECUTE spUpdateEstadoDet  ?, ?, ?";
                                 $stmt = sqlsrv_prepare($conn, $sql, $paramsIngreso);
                                 $idIngreso = $datos['idOrdenIng'];
                                 if (sqlsrv_execute($stmt) == true) {
-
-
-
                                     $montacarga = $datos["montacarga"];
                                     $montacargaLista = json_decode($montacarga, true);
                                     foreach ($montacargaLista as $key => $value) {
@@ -160,7 +156,6 @@ class ModeloRegIngBod {
                             return sqlsrv_errors();
                         }
                     } else {
-
                         date_default_timezone_set('America/Guatemala');
                         $time = date('Y-m-d H:i:s');
                         $estado = 1;
@@ -173,7 +168,6 @@ class ModeloRegIngBod {
                             &$estado,
                             &$usuarioOp
                         );
-
                         $sql = "EXECUTE spIngIncidencias  ?, ?, ?, ?, ?, ?, ?";
                         $stmt = sqlsrv_prepare($conn, $sql, $params);
                         if (sqlsrv_execute($stmt) == true) {
@@ -656,7 +650,7 @@ class ModeloRegIngBod {
         }
     }
 
-    public static function  mdlConsultaDosParam($Ingreso, $sp, $usuarioOp) {
+    public static function mdlConsultaDosParam($Ingreso, $sp, $usuarioOp) {
 
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?";

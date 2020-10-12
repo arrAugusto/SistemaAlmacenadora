@@ -26,7 +26,7 @@
                                     INICIO
                                     ======================-->
 
-                                    <table id="tablas" role="grid" class="table  dt-responsive nowrap table-striped table-bordered display tableIngFail table-sm" cellspacing="0" >
+                                    <table id="tablasGeneral" role="grid" class="table  dt-responsive nowrap table-striped table-bordered display tableIngFail table-sm" cellspacing="0" >
                                         <thead style="background-color: #1e88e5;color: white; font-weight: bold;">
                                             <tr>
                                             <th style="whidth:5px">#</th>
@@ -44,6 +44,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+
                             </form>
 
                         </div>
@@ -95,6 +96,7 @@ MODAL POLIZA CONSOLIDADA
 
                                                 <input id="valueClientes" name="valueClientes" type="hidden" value="" />
                                                 <input id="cantVsClientes" name="cantVsClientes" type="hidden" value="0" />
+                                                <input id="hiddCopy" name="hiddCopy" type="hidden" value="0" />
 
 
 

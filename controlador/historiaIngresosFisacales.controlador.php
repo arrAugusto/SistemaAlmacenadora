@@ -4,48 +4,98 @@ class ControladorHistorialIngresos {
 
     public static function ctrMostrarIngresosVigentes() {
         $valor = $_SESSION["idDeBodega"];
-        $respuesta = ModeloHistorialIngresos::mdlMostrarIngresosVigentes($valor);
+        $sp = "spHisIngTodoSuper";
+        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta == "SD") {
                 
             } else {
-
+                $contador = 0;
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
                     if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
-
                         if ($value["accionEstado"] == 3) {
-                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><div class="btn-group"></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            if ($_SESSION["niveles"] == "BAJO") {
+                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            }
+                            if ($_SESSION["niveles"] == "MEDIO") {
+                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            }
                         } else {
-                            if ($value["accionEstado"] == 1) {
-                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-success btnEditOp" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
-                            } else if ($value["accionEstado"] == 2) {
+                            if ($_SESSION["niveles"] == "BAJO") {
+                                if ($value["accionEstado"] == 1) {
+                                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-success btnEditOp" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-warning-gradient btnImprimirInforme btn-sm">Info . <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                } else if ($value["accionEstado"] == 2) {
 
-                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><div class="btn-group"></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
-                            } else if ($value["accionEstado"] == 4 || $value["accionEstado"] == 5) {
-                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-dark btnEditOp" estado=3 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button></div>';
-                            } else if ($value["accionEstado"] == -1) {
-                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-dark" disabled>Anulado&nbsp;&nbsp;<i class="fas fa-ban"></i></button></div>';
+                                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-warning-gradient btnImprimirInforme btn-sm">Info . <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                } else if ($value["accionEstado"] >= 4) {
+                                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-warning-gradient btnImprimirInforme btn-sm">Info . <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                } else if ($value["accionEstado"] == -1) {
+                                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-dark" disabled>Anulado&nbsp;&nbsp;<i class="fa fa-ban"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-warning-gradient btnImprimirInforme btn-sm">Info . <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                }
+                            } else if ($_SESSION["niveles"] == "MEDIO") {
+                                if ($value["accionEstado"] == 1) {
+                                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-success btnEditOp" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                                } else if ($value["accionEstado"] == 2) {
+                                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                                } else if ($value["accionEstado"] >= 4) {
+                                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-dark btnEditOp" estado=3 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button></div>';
+                                } else if ($value["accionEstado"] == -1) {
+                                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-dark" disabled>Anulado&nbsp;&nbsp;<i class="fa fa-ban"></i></button></div>';
+                                }
                             }
                         }
                     } else {
-                        $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i> </button><div class="btn-group"></div>';
+                        if ($_SESSION["departamentos"] == "Bodegas Fiscales") {
+
+
+                            if ($value["accionEstado"] == 3) {
+                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp" estado=2 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            }
+                            if ($value["accionEstado"] == 1) {
+                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            } else if ($value["accionEstado"] == 2) {
+                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
+                            } else if ($value["accionEstado"] >= 4) {
+                            if ($_SESSION["niveles"] == "MEDIO") {
+                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient btnImprimirDet">Ing. <i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                            }else{
+                                $botoneraAcciones = '<div class="btn-group"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir btn-sm">Ing. <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                            }
+                            } else if ($value["accionEstado"] == -1) {
+                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-dark" disabled>Anulado&nbsp;&nbsp;<i class="fa fa-ban"></i></button></div>';
+                            } else {
+                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i></div>';
+                            }
+                        } else {
+                            $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir btn-sm">Ing. <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-warning-gradient btnImprimirInforme btn-sm">Info . <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                        }
                     }
-
-
                     $fecha_actual = new DateTime();
                     $cadena_fecha_actual = $value["fechaIngreso"]->format("d-m-Y");
-
+                    if ($value["numeroAsignado"] == 0) {
+                        $ingreso = "Sin Ingreso";
+                    } else {
+                        $ingreso = $value["numeroAsignado"];
+                    }
+                    $cif = number_format($value["cif"], 2);
+                    $impuesto = number_format($value["impuesto"], 2);
+                    $identBodega = $value["identBodega"];
+                    $bodega = '<span class="right badge badge-success">Bodega_' . $identBodega . '</span>';
+                    $contador = $contador + 1;
                     echo '
                         <tr>
-                            <td>' . ($key + 1) . '</td>
+                            <td>' . ($contador) . '</td>
                             <td>' . ($respuesta[$key]["nit"]) . '</td>
                             <td>' . ($value["empresa"]) . '</td>
                             <td>' . ($value["poliza"]) . '</td>
                             <td>' . ($cadena_fecha_actual) . '</td>
+                            <td>' . ($ingreso) . '</td>
                             <td>' . ($value["blts"]) . '</td>
-                            <td>' . ($value["cif"]) . '</td>
-                            <td>' . ($value["impuesto"]) . '</td>
+                            <td>' . ($cif) . '</td>
+                            <td>' . ($impuesto) . '</td>
+                            <td>' . ($bodega) . '</td>                                
                             <td><center>' . $botoneraAcciones . '</center></td>
                         </tr>';
                 }
@@ -85,25 +135,85 @@ class ControladorHistorialIngresos {
         return array("respuestaClientes" => $respuestaClientes);
     }
 
-    public static function ctrAnularIngreso($idIngresoAnulacion) {
-        $respuestaVal = ModeloHistorialIngresos::mdlAnularIngresoValidacion($idIngresoAnulacion);
-
-        if ($respuestaVal[0]["ingreso"] == 0 || $respuestaVal[0]["movimientosIngreso"] >= 1) {
-            return "SinAnulacion";
+    public static function ctrAnularIngreso($idIngresoAnulacion, $usuario, $departamento, $nivel, $motivoAnula) {
+        if ($departamento == "Bodegas Fiscales" && $nivel == "MEDIO") {
+            date_default_timezone_set('America/Guatemala');
+            $time = date('Y-m-d H:i:s');
+            $hasing = hash('md5', $time . $usuario);
+            $sp = "spAutAnulaIng";
+            $estado = 1;
+            $respuestaVal = ModeloHistorialIngresos::mdlAnulaIngBod($idIngresoAnulacion, $hasing, $time, $motivoAnula, $usuario, $estado);
+        }
+        if ($departamento == "Operaciones Fiscales" && $nivel == "MEDIO") {
+            $respuestaVal = ModeloHistorialIngresos::mdlAnularIngresoValidacion($idIngresoAnulacion);
         }
 
-        if ($respuestaVal[0]["ingreso"] == 1 && $respuestaVal[0]["movimientosIngreso"] == 0) {
-            $respuestaAnulada = ModeloHistorialIngresos::mdlAnularIngreso($idIngresoAnulacion);
-            return $respuestaAnulada;
-        }
+
+
+        return $respuestaVal;
     }
 
     public static function ctrMostrarPuertos() {
 
         $respuesta = ModeloHistorialIngresos::mdlMostrarPuertos();
         foreach ($respuesta as $key => $value) {
-            echo '<option>' . $value["clave"] . " - " . $value["origen"] . '</option>';
+            echo '<option value=' . $value["clave"] . '>' . $value["clave"] . " - " . $value["origen"] . '</option>';
         }
     }
 
+    public static function ctrInsertNuevoServicio($nuevoServicio, $usuario) {
+        $sp = "spNewServicio";
+        $respuestaVal = ModeloHistorialIngresos::mdlInsertNuevoServicio($nuevoServicio, $usuario, $sp);
+        return $respuestaVal;
+    }
+
+    public static function ctrNewServicioIng($usuario, $idIngSerOtr, $listaServOtr, $tipoOpera) {
+        $otrosExtraArray = json_decode($listaServOtr, true);
+
+        foreach ($otrosExtraArray as $key => $value) {
+            $idServ = $value["serviciosOtros"];
+            $valorOtros = $value["valorOtros"];
+            if ($tipoOpera == 1) {
+                $comentario = 'TODOS LOS CLIENTES';
+            } else {
+                $comentario = 'UN CLIENTE';
+            }
+            $estado = 1;
+            $sp = "spNewServicios";
+            $respuesta = ModeloHistorialIngresos::mdlNewServicioIng($idIngSerOtr, $idServ, $valorOtros, $comentario, $usuario, $estado, $tipoOpera, $sp);
+            return $respuesta;
+        }
+    }
+
+    public static function ctrMostrarServicioExtra($verCobrado) {
+        $sp = "spMostrarSerAcuse";
+        $tipo = 1;
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($verCobrado, $tipo, $sp);
+        return $revIngRev;
+    }
+
+    public static function ctrEliminarServicio($eliminarServicio) {
+        $sp = "spDeleteServicioDesc";
+        $estado = 0;
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($estado, $eliminarServicio, $sp);
+        return $revIngRev;
+    }
+
+    public static function ctrGenerateHistoriaIng($generateHistoriaIng) {
+        $sp = "spHIstoriaTodosIng";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;
+    }
+
+    public static function ctrGenerateHistoriaRec($generateRecHistoria) {
+        $sp = "spHistoriaRec";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;
+    }
+public static function ctrGenerateHistoriaRet($generateRetHistoria){
+        $sp = "spHistoriaRet";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;
+    
+}
 }

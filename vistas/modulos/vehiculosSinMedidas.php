@@ -24,7 +24,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4">
-                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                            <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>
                                     <th style="width:3px;">#</th>
@@ -82,7 +82,8 @@
                             </div>
                         </div>
                     </div>
-            </form>
+ 
         </div>
+                           </form>
     </div>
 </div>

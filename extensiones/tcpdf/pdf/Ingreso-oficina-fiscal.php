@@ -15,6 +15,7 @@ class imprimirIngresoBodega {
         $codigo = $this->codigo;
 
         $repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($codigo);
+
         $cadena = ControladorRegistroBodega::ctrCadenaVinculo($codigo);
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
@@ -31,11 +32,12 @@ class imprimirIngresoBodega {
             $repuestaBod = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
             $nomBod = $repuestaBod[0]["nombres"];
             $apellBod = $repuestaBod[0]["apellidos"];
-
+            $estado = $repuestaOperaciones[0]["estadoIngreso"];
             $titulo = "mercadería en bodega fiscal";
         }
         $tipo = "Ingreso";
         $repuestaUnidades = ControladorRegistroBodega::ctrTraerDatosUnidades($codigo, $tipo);
+  
         $area = $repuestaOperaciones[0]["area"];
         $numeroArea = $repuestaOperaciones[0]["numeroArea"];
         $nombreEmpresa = $repuestaOperaciones[0]["empresa"];
@@ -94,9 +96,8 @@ class imprimirIngresoBodega {
         </table><br/><br/>
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
-
 //-------------------------------------------------------------------------------------------------------
-        $bloque2 = <<<EOF
+$bloque2 = <<<EOF
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
                 <tr>
                     <td style="width:75px;"><b>Empresa :</b></td><td style="width:250px;">$nombreEmpresa&nbsp;&nbsp;</td>
@@ -121,6 +122,24 @@ EOF;
    </table>	
 EOF;
         $pdf->writeHTML($bloque2, false, false, false, false, '');
+//-------------------------------------------------------------------------------------------------------
+        if ($estado==-1) {
+            
+        
+        $bloque2 = <<<EOF
+	<table>
+                <tr>
+   <td style="width:200px;"></td>
+   <td style="width:160px;"><img src="images/anulado.png"></td>                    
+
+
+   <td style="width:200px;"></td>
+                    
+   </tr>
+   </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');        
+     }   
 //-------------------------------------------------------------------------------------------------------
 
         if ($servicio == "VEHICULOS NUEVOS") {
@@ -191,6 +210,7 @@ EOF;
 
 //-------------------------------------------------------------------------------------------------------
             $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);
+            
             if (count($repuestaDetalles) <= 3) {
                 $fontLetra = "font-size:7px";
             } else if (count($repuestaDetalles) >= 4) {

@@ -87,6 +87,7 @@ class ModeloControladorOpB {
             &$comentario,
             &$datos["idUs"]
         );
+
         $sql = "EXECUTE spNuevoIngOPe   ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?,  ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -158,7 +159,6 @@ class ModeloControladorOpB {
     }
 
     public static function mdlRegistroUnidades($dato, $datos, $tipoOperacion) {
-
         $conn = Conexion::Conectar();
         /*
          *
@@ -194,10 +194,6 @@ class ModeloControladorOpB {
                 } else {
                     $idPiloto = $results[0]["idLicencia"];
                 }
-
-
-
-
                 if ($results[0]["respPlaca"] == 0) {
                     $paramPlaca = array(&$datos['numeroPlaca']);
                     $sql = "EXECUTE  spNuevaPlaca ?";
@@ -217,8 +213,6 @@ class ModeloControladorOpB {
                 } else {
                     $idPlaca = $results[0]["idPlaca"];
                 }
-
-
                 if ($results[0]["respContenedor"] == 0) {
                     $paramPlaca = array(&$datos['numeroContenedor']);
                     $sql = "EXECUTE  spNuevoContenedor ?";
@@ -238,8 +232,6 @@ class ModeloControladorOpB {
                 } else {
                     $idContenedor = $results[0]["idContenedor"];
                 }
-
-
                 if ($idPiloto >= 1 && $idPlaca >= 1 && $idContenedor >= 1) {
                     $paramPlaca = array(&$dato, &$idPiloto, &$idPlaca, &$idContenedor, &$tipoOperacion, &$datos['numeroMarchamo']);
                     $sql = "EXECUTE  spInsUnidades ?, ?, ?, ?, ?, ?";

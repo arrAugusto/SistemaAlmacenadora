@@ -1,8 +1,6 @@
 $(document).on("click", ".btnAgregarDetalles", function () {
     var tipoIng = $(this).attr("tipoing");
-
     var hiddenIngV = '<input type="hidden" id="hiddenTipoIng" value="' + tipoIng + '" />';
-
     var numeroIdIng = $(this).attr("numeroOrden");
     var numeroButton = $(this).attr("numeroButton");
     var numeroCliente = $(this).attr("cliente");
@@ -26,11 +24,8 @@ $(document).on("click", ".btnAgregarDetalles", function () {
                     <div class="card-body">
                         <div class="row">
                                 <div class="col-md-3 col-sm-6 col-12" id="montacargas">
-
-
                             </div>
                         <div class="col-12" id="divContenidoDetalle">
-
                         </div>
                     </div>
                 </div>
@@ -38,7 +33,6 @@ $(document).on("click", ".btnAgregarDetalles", function () {
 });
 $(document).on("click", ".btnVerDetalles", async function () {
     var tipoIng = document.getElementById("hiddenTipoIng").value;
-
     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
         if ($("#proTarima").length >= 1) {
             var promedioPorTarima = document.getElementById("proTarima").value;
@@ -58,7 +52,6 @@ $(document).on("click", ".btnVerDetalles", async function () {
                         $(".btnPromedioTarima").addClass("btn-danger");
                         document.getElementById("btnPromedioTarima").focus();
                     }
-
                 })
             } else {
                 Swal.fire({
@@ -71,8 +64,6 @@ $(document).on("click", ".btnVerDetalles", async function () {
                 }).then((result) => {
                     if (result.value) {
                         if ($("#hiddenTipoIng").length >= 1) {
-
-
                             var tipoIng = document.getElementById("hiddenTipoIng").value;
                             if (tipoIng == "VEHICULOS NUEVOS") {
                                 document.getElementById("datoEmpresa").innerHTML = "";
@@ -122,11 +113,9 @@ $(document).on("click", ".btnVerDetalles", async function () {
                 $(".btnVerDetalles").attr("estado", 1);
             } else if (estado == 1) {
                 if ($("#hiddenTipoIng").length == 0) {
-
                     document.getElementById("cantidadPosiciones").innerHTML = "";
                     document.getElementById("Metraje").innerHTML = "";
                 }
-
             }
         }
     } else {
@@ -136,6 +125,7 @@ $(document).on("click", ".btnVerDetalles", async function () {
                 document.getElementById("proTarima").readOnly = true;
                 document.getElementById("btnPromedioTarima").remove();
                 document.getElementById("cantidadPosiciones").readOnly = true;
+                document.getElementById("chasisVeh").innerHTML = '<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalCarousel">Detalles Vehiculos <i class="fa fa-briefcase"></i></button>';
             }
             if (tipoIng == "VEHICULOS NUEVOS") {
                 var tipoIng = document.getElementById("hiddenTipoIng").value;
@@ -176,12 +166,9 @@ $(document).on("click", ".btnVerDetalles", async function () {
     }
 
     var indexValue = document.getElementById("personaSeleccionada").value;
-
     if (tipoIng == "VEHICULOS NUEVOS" || tipoIng == "vehiculoUsado") {
         indexValue = 1;
     }
-
-
     if (indexValue >= 1) {
         document.getElementById("tableMercaderia").innerHTML = '';
         document.getElementById("tableMercaderia").innerHTML = '<table id="tableDetallesMerca" class="table table-hover table-sm"></table>';
@@ -248,20 +235,20 @@ $(document).on("click", ".btnVerDetalles", async function () {
                     var lista = [];
                     var numero = 0;
                     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-                        
+
                         for (var i = 0; i < respuesta[0].length; i++) {
                             var numero = numero + 1;
                             var numeroLabel = '<label>' + numero + '</label>'
                             var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
                             var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
                             var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
                             lista.push([numeroLabel, empresa, bultos, peso, acciones]);
                         }
                     } else {
                         for (var i = 0; i < respuesta[0].length; i++) {
-                            
+
                             var numero = numero + 1;
                             var numeroLabel = '<label>' + numero + '</label>'
                             var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
@@ -340,7 +327,7 @@ $(document).on("click", ".btnUsarFila", async function () {
         var respPredios = await funcionRevVehUsados(nomVar, idUsarFila);
         $("#selectUbicacion").append('<option selected="selected" disabled="disabled">Seleccione Ubicación</option>');
         for (var i = 0; i < respPredios.length; i++) {
-            $("#selectUbicacion").append('<option value=' + respPredios[i].id + '> Vehiculo Usado   Predio '+respPredios[i].numeroIdentidad+'</option>');
+            $("#selectUbicacion").append('<option value=' + respPredios[i].id + '> Vehiculo Usado   Predio ' + respPredios[i].numeroIdentidad + '</option>');
         }
 
     }
@@ -439,7 +426,7 @@ $(document).on("click", ".btnPaseDeSalidaVacio", function () {
 
 
 
-    $(document).on("click", ".btnPromedioTarima", function () {
+$(document).on("click", ".btnPromedioTarima", function () {
     var promedioTarima = document.getElementById("proTarima").value;
     /*Guardando los datos en el LocalStorage*/
     localStorage.setItem("promedioTarima", promedioTarima);
@@ -605,6 +592,10 @@ $(document).on("click", ".btnConsCadena", async function () {
     var operacion = $(this).attr("idunidadcadena");
     var cadena = $(this).attr("cadena");
     var tipo = $(this).attr("estado");
+    console.log(operacion);
+    console.log(tipo);
+    console.log(cadena);
+
     var respuesta = await guardarPaseVacio(operacion, tipo, cadena);
     console.log(respuesta);
     if (respuesta == "creado") {
@@ -670,9 +661,6 @@ $(document).on("click", ".btnConsCadena", async function () {
 
 
 function guardarPaseVacio(operacion, tipo, cadena) {
-    console.log(operacion);
-    console.log(tipo);
-    console.log(cadena);
     let todoMenus;
     var datos = new FormData();
     datos.append("operacionOpPs", operacion);
@@ -714,7 +702,6 @@ $(document).on("click", ".bntSalidaRapida", function () {
             document.getElementById("tablePilotos").innerHTML = '';
             document.getElementById("tablePilotos").innerHTML = '<table id="tablePilotosSalida" class="table dt-responsive table-hover table-sm" style="width: 100%"></table>';
             listaPilotos = [];
-            console.log("ewsto");
             for (var i = 0; i < respuesta.length; i++) {
                 var cadenaPase = respuesta[i]["cadenaPase"];
                 var numero = i + 1;
@@ -725,11 +712,10 @@ $(document).on("click", ".bntSalidaRapida", function () {
                 var placa = respuesta[i]["placa"];
                 var contenedor = respuesta[i]["contenedor"];
                 var estado = respuesta[i].estadoOperacion;
-                console.log(respuesta[i].cadenaPase);
                 if (respuesta[i].cadenaPase >= 1) {
 
                     if (respuesta[i].estadoOperacion == 1 && respuesta[i].unidad >= 1) {
-                        console.log("dsf");
+
                         if ($(".btnRecarga").length >= 1) {
                             document.getElementById("recargaBtn").disabled = false;
                         }
@@ -745,7 +731,7 @@ $(document).on("click", ".bntSalidaRapida", function () {
                         }
                         var accion = '<button type="button" class="btn btn-outline-info btnImpAutorizado" idUnidadCadena=' + operacion + ' ingreso=' + idCliente + ' estado="1">Autorizado</button>';
                     } else {
-                        var accion = '<button type="button" class="btn btn-outline-danger btnConsCadena" idUnidadCadena=' + operacion + ' ingreso=' + idCliente + ' estado="1">Generar Pase  <i class="fa fa-print"></i></button>';
+                        var accion = '<button type="button" class="btn btn-outline-danger btnConsCadena" idUnidadCadena=' + operacion + ' ingreso=' + idCliente + ' cadena="0" estado="1">Generar Pase  <i class="fa fa-print"></i></button>';
                     }
                 }
                 listaPilotos.push([numero, licencia, piloto, placa, contenedor, marchamo, accion]);
@@ -1112,66 +1098,66 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
             if (respuesta[1] != "SD") {
 
                 if (respuesta[0] != "finDetalle") {
-                    
-            
-                if (respuesta[0] != "UpdateHis") {
 
-                    var lista = [];
-                    console.log(respuesta);
-                    for (var i = 0; i < respuesta[0].length; i++) {
-                        var numero = i + 1;
-                        var numeroLabel = '<label>' + numero + '</label>'
-                        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
-                        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
-                        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                        lista.push([numeroLabel, empresa, bultos, peso]);
-                    }
-                    $('#tableDiffBodMan').DataTable({
-                        "language": {
-                            "sProcessing": "Procesando...",
-                            "sLengthMenu": "Mostrar _MENU_ registros",
-                            "sZeroRecords": "No se encontraron resultados",
-                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                            "sInfoPostFix": "",
-                            "sSearch": "Busqueda:",
-                            "sUrl": "",
-                            "sInfoThousands": ",",
-                            "sLoadingRecords": "Cargando...",
-                            "oPaginate": {
-                                "sFirst": "Primero",
-                                "sLast": "Último",
-                                "sNext": "Siguiente",
-                                "sPrevious": "Anterior"
+
+                    if (respuesta[0] != "UpdateHis") {
+
+                        var lista = [];
+                        console.log(respuesta);
+                        for (var i = 0; i < respuesta[0].length; i++) {
+                            var numero = i + 1;
+                            var numeroLabel = '<label>' + numero + '</label>'
+                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                            lista.push([numeroLabel, empresa, bultos, peso]);
+                        }
+                        $('#tableDiffBodMan').DataTable({
+                            "language": {
+                                "sProcessing": "Procesando...",
+                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                "sZeroRecords": "No se encontraron resultados",
+                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                "sInfoPostFix": "",
+                                "sSearch": "Busqueda:",
+                                "sUrl": "",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando...",
+                                "oPaginate": {
+                                    "sFirst": "Primero",
+                                    "sLast": "Último",
+                                    "sNext": "Siguiente",
+                                    "sPrevious": "Anterior"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                }
                             },
-                            "oAria": {
-                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                            }
-                        },
-                        data: lista,
-                        columns: [{
-                                title: "#"
-                            }, {
-                                title: "Empresa"
-                            }, {
-                                title: "Bultos"
-                            }, {
-                                title: "Peso"
-                            }]
-                    });
-                }
-                    }else{
-                        
-                Swal.fire(
-                        'Ingreso sin detalle',
-                        'El ingreso no tiene detalle por mostrar',
-                        'info'
-                        )
-                $(".close").click();
+                            data: lista,
+                            columns: [{
+                                    title: "#"
+                                }, {
+                                    title: "Empresa"
+                                }, {
+                                    title: "Bultos"
+                                }, {
+                                    title: "Peso"
+                                }]
+                        });
                     }
+                } else {
+
+                    Swal.fire(
+                            'Ingreso sin detalle',
+                            'El ingreso no tiene detalle por mostrar',
+                            'info'
+                            )
+                    $(".close").click();
+                }
             } else {
 
                 Swal.fire(
@@ -1186,3 +1172,132 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
         }})
 })
 
+$(document).on("click", ".spanCopyVinc", async function () {
+    var idIngCons = $(this).attr("idingcons");
+    var vinculo = $(this).attr("vinculo");
+    document.getElementById("hiddCopy").value = idIngCons;
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 8000,
+        timerProgressBar: true,
+        onOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        type: 'success',
+        title: 'Vinculo copiado : ' + vinculo
+    })
+});
+
+
+$(document).on("click", ".spanVincular", async function () {
+    var hiddCopy = document.getElementById("hiddCopy").value;
+    var hiddCopy = parseInt(hiddCopy);
+    var idIngPaste = $(this).attr("idingcons");
+    if (hiddCopy >= 1) {
+        Swal.fire({
+            title: 'Quiere asociar o vincular?',
+            text: "Vincular ingresos consolidados por poliza!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            confirmButtonText: 'Si, Vincular!'
+        }).then(async function (result) {
+            if (result.value) {
+                var resp = await funcCambioVinculo(hiddCopy, idIngPaste);
+                if (resp[0].resp == 1) {
+                    Swal.fire({
+                        title: 'Vinculo Guardado',
+                        text: "Se vinculo con éxito ambos ingresos!",
+                        type: 'success',
+                        confirmButtonColor: '#3085d6',
+                        allowOutsideClick: false,
+                        confirmButtonText: 'Ok!'
+                    }).then(async function (result) {
+                        if (result.value) {
+                            location.reload();
+
+                        }
+                    })
+                }
+            }
+        })
+
+
+    } else {
+        Swal.fire({
+            title: 'No se puede cambiar vinculo',
+            text: "No copio el vinculo del ingreso",
+            type: 'error',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            confirmButtonText: 'OK'
+        })
+
+    }
+}
+)
+
+
+
+function funcCambioVinculo(hiddCopy, idIngPaste) {
+    let estado;
+    var datos = new FormData();
+    datos.append("hiddCopy", hiddCopy);
+    datos.append("idIngPaste", idIngPaste);
+    $.ajax({
+        async: false,
+        url: "ajax/registroIngresoBodega.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            estado = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return estado;
+}
+
+
+$(document).on("click", "#divDetalleVehUsa", async function () {
+    var data = $(this).text();
+    $(this).attr('disabled', true);
+    data.trim();
+    Swal.fire({
+        title: 'TRAE ' + data + '?',
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si trae',
+        cancelButtonText: 'No trae'
+    }).then((result) => {
+        data.replace(" ", "");
+        var dataText = data;
+        if (result.value) {
+            document.getElementById("textDetalleVeh").innerHTML += 'TRAE ' + data + ', ';
+        } else {
+            document.getElementById("textDetalleVeh").innerHTML += 'NO TRAE ' + data + ', ';
+        }
+        var dataDescr = document.getElementById("textDetalleVeh").value;
+        var cant = dataDescr.length;
+        var dataResp = dataDescr.substring(0, cant-2);
+        document.getElementById("descripcionMerca").value = "OBSERVACIONES : " + dataResp;
+
+    })
+
+})

@@ -66,7 +66,8 @@ class AjaxPasesDeSalida {
             "valDescuentoGdRec" => $valDescuentoGdRec = $this->valDescuentoGdRec,
             "hiddenDescuentoGdRec" => $hiddenDescuentoGdRec = $this->hiddenDescuentoGdRec,
             "hiddenDateTimeValRecEle" => $hiddenDateTimeValRecEle = $this->hiddenDateTimeValRecEle,
-            "usuarioOp" => $usuarioOp);
+            "usuarioOp" => $usuarioOp,
+            "idNitFact"=>$idNitFact = $this->idNitFact);
         $respuesta = ControladorPasesDeSalida::ctrGuardarNuevoRecibo($datos);
         echo json_encode($respuesta);
     }
@@ -87,7 +88,7 @@ class AjaxPasesDeSalida {
         $revExtrasPol = $this->revExtrasPol;
         $idRet = 0;
         $respuesta = ControladorPasesDeSalida::ctrMostrarSerExtra($revExtrasPol, $idRet);
-        echo json_encode($revExtrasPol);
+        echo json_encode($respuesta);
     }
 
     public $mostrarRetValidacion;
@@ -132,6 +133,19 @@ class AjaxPasesDeSalida {
        $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
         echo json_encode($respuesta);
     }
+    
+    public $objIdRetPreImp;
+    public function ajaxDatosPreImpreso(){
+        $idretPreImp = $this->idretPreImp;
+        $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($idretPreImp);
+        echo json_encode($respRet);
+    }
+    public $objRetData;
+    public function ajaxExcelRetFiscal(){
+        $idRetFEx = $this->idRetFEx;
+        $respRet = ControladorRetiroOpe::ctrExcelRetFiscal($idRetFEx);
+        echo json_encode($respRet);        
+    }
 
 }
 
@@ -165,6 +179,8 @@ if (isset($_POST["idRetGdRec"])) {
     $guardarRecAlm->valDescuentoGdRec = $_POST["valDescuentoGdRec"];
     $guardarRecAlm->hiddenDescuentoGdRec = $_POST["hiddenDescuentoGdRec"];
     $guardarRecAlm->hiddenDateTimeValRecEle = $_POST["hiddenDateTimeValRecEle"];
+    $guardarRecAlm->idNitFact = $_POST["idNitFact"];
+    
     $guardarRecAlm->ajaxGuardarNuevoRecibo();
 }
 
@@ -196,4 +212,18 @@ if (isset($_POST["valorDollReplace"])) {
     $replaceDataRet->pesoReplace = $_POST["pesoReplace"];
     $replaceDataRet->idNumRetConsultReplace=$_POST["idNumRetConsultReplace"];
     $replaceDataRet->ajaxReplaceDataRet();
+}
+
+
+if (isset($_POST["idretPreImp"])) {
+    $objIdRetPreImp = new AjaxPasesDeSalida();
+    $objIdRetPreImp->idretPreImp = $_POST["idretPreImp"];
+    $objIdRetPreImp->ajaxDatosPreImpreso();    
+}
+
+
+if (isset($_POST["idRetFEx"])) {
+    $objRetData = new AjaxPasesDeSalida();
+    $objRetData->idRetFEx = $_POST["idRetFEx"];
+    $objRetData->ajaxExcelRetFiscal();    
 }

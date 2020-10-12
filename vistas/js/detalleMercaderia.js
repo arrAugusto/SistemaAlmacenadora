@@ -7,8 +7,6 @@ $(document).on("click", ".btnADetalle", function () {
 
     var selectUbicacion = $("#selectUbicacion").val();
     if (selectUbicacion >= 1 || selectUbicacion =='Piso' || selectUbicacion =='Rack') {
-
-
         var empresa = document.getElementById("nombreEmpresa").value;
         var bultos = document.getElementById("cantidadBultos").value;
         var pesoKg = document.getElementById("pesoKg").value;
@@ -555,17 +553,7 @@ $(document).on("click", ".btnGuardaUbicacion", function () {
     $(".close").click();
     $('.btnVerDetalles').click();
 })
-$(document).on("click", ".btnAudioDescr", function () {
-    swal({
-        title: 'Iniciando!',
-        text: 'Se iniciara la grabacion, escuchando',
-        imageUrl: 'vistas/img/plantilla/logos/micro.jpg',
-        imageWidth: 400,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-        animation: true
-    }).then(async function (result) {
-        if (result) {
+$(document).on("click", ".btnAudioDescr", async function () {
             let rec;
             if (!("webkitSpeechRecognition" in window)) {
                 alert("Su navegador no soporta, la api.")
@@ -574,19 +562,19 @@ $(document).on("click", ".btnAudioDescr", function () {
                 rec.lang = "es-GT";
                 rec.continuos = true;
                 rec.interim = true;
-                rec.addEventListener(iniciar("result"));
+                rec.addEventListener("result", iniciar);
 
             }
             function iniciar(event) {
                 for (i = event.resultIndex; i < event.results.length; i++) {
                     var cadenaAudio = event.results[i][0].transcript;
-                    document.getElementById('descripcionMerca').innerHTML = "OBSERVACIONES : " + cadenaAudio.toUpperCase();
+                    console.log(cadenaAudio);
+                    document.getElementById('descripcionMerca').value = "OBSERVACIONES : " + cadenaAudio.toUpperCase();
                 }
             }
             rec.start();
-        }
+       
     })
-})
 function comprovarValorcasilla(casilla) {
     var intro = document.getElementById(casilla);
     intro.style.backgroundColor = '#d1c4e9';

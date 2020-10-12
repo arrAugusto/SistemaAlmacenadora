@@ -171,7 +171,7 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
         if (respUltimaDate != "SD") {
             var fechaMaxima = respUltimaDate;
         } else {
-            var fechaMaxima = new Date('YYYY-MM-DD');
+            var fechaMaxima = new Date('DD-MM-YYYY');
         }
         console.log(respUltimaDate);
         Swal.fire({
@@ -191,7 +191,7 @@ $(document).on("click", ".btnGenerarPolizaContable", async function () {
                     endDate: moment().startOf('hour').add(32, 'hour'),
                     minDate: (fechaMaxima),
                     locale: {
-                        format: 'YYYY-MM-DD'
+                        format: 'DD-MM-YYYY'
                     }
                 });
             },
@@ -314,7 +314,7 @@ $(document).on("click", ".btnViewAjustes", async function () {
 
         var cifNumber = new Intl.NumberFormat("en-GT").format(saldoValorCif);
         var impuestoNumber = new Intl.NumberFormat("en-GT").format(saldoValorImpuesto);
-        var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + idIng + '><i class="fa fa-file-pdf"></i></button>';
+        var button = '<button type="button" class="btn btn-danger btn-sm btnPrintIng" idIngPrint=' + idIng + '><i class="fa fa-file-pdf-o"></i></button>';
         var area = respDataAjustes[i].empresa + ' ' + respDataAjustes[i].areasAutorizadas + ' ' + respDataAjustes[i].numeroIdentidad;
         listaAjustesDB.push([numero, numeroPoliza, fechaSet, nitEmpresa, nombreEmpresa, area, saldoValorCif, saldoValorImpuesto, button]);
 

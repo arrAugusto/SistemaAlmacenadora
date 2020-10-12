@@ -176,7 +176,13 @@ class AjaxRegistroIngBodega {
         $respuesta = ControladorRegistroBodega::ctrMostrarOPrediosVehUsados($prediosVehUsados);
         echo json_encode($respuesta);        
     }
-
+    public $cambioVinculo;   
+    public function ajaxCambioVinculoCons(){
+    $hiddCopy = $this->hiddCopy;
+    $idIngPaste = $this->idIngPaste;
+        $respuesta = ControladorRegistroBodega::ctrCambioVinculoCons($hiddCopy, $idIngPaste);
+        echo json_encode($respuesta);            
+    }
 }
 
 if (isset($_POST["razonSocial"])) {
@@ -302,4 +308,11 @@ if (isset($_POST["prediosVehUsados"])) {
     $mostPrediosVUsados = new AjaxRegistroIngBodega();
     $mostPrediosVUsados->prediosVehUsados = $_POST["prediosVehUsados"];
     $mostPrediosVUsados->ajaxMostrarOPrediosVehUsados();
+}
+
+if (isset($_POST["hiddCopy"])) {
+    $cambioVinculo = new AjaxRegistroIngBodega();
+    $cambioVinculo->hiddCopy = $_POST["hiddCopy"];
+    $cambioVinculo->idIngPaste = $_POST["idIngPaste"];    
+    $cambioVinculo->ajaxCambioVinculoCons();    
 }

@@ -88,7 +88,6 @@ class ControladorOpB {
                 } else {
 
                     $respuesta = ModeloControladorOpB::mdlRegistrarIngresoOperacion($datos);
-
                     if ($respuesta["resp"]) {
                         $idSer = $datos["servicioTarifa"];
                         $sp = "spServicio";
@@ -137,16 +136,20 @@ class ControladorOpB {
                                         $resp = 2;
                                     }
                                 }
-                                $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
-                                $tipoOperacion = 1;
-                                $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
+                                if ($datos["sel2"] != "Cliente individual" || $datos["sel2"] != "Cliente consolidado poliza") {
 
+
+
+                                    $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
+                                    $tipoOperacion = 1;
+                                    $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
+                                }
                                 return $respuesta["dataTxt"][0];
                             }
                         }
                         return $respuestaCltIndividual;
                     } else {
-                        return "ErrorDB";
+                        return $respuesta;
                     }
                 }
             } else {
@@ -275,21 +278,20 @@ class ControladorOpB {
 
     public static function ctrRevisionPoliza($numPolRev) {
         $respuesta = ModeloControladorOpB::mdlRevisionPoliza($numPolRev);
-        if ($respuesta!="SD") {
-            
-       
-        if ($respuesta[0]["resultado"]==-1) {
-            $identIng = $respuesta[0]["identIng"];
-        $sp = "spUnidadConsPol";
-        $unidadesPlt = ModeloControladorOpB::mdlTipoNewVeh($identIng, $sp);
-        return array("datIng"=>$respuesta, "datUnidad"=>$unidadesPlt);
-            
+        if ($respuesta != "SD") {
+
+
+            if ($respuesta[0]["resultado"] == -1) {
+                $identIng = $respuesta[0]["identIng"];
+                $sp = "spUnidadConsPol";
+                $unidadesPlt = ModeloControladorOpB::mdlTipoNewVeh($identIng, $sp);
+                return array("datIng" => $respuesta, "datUnidad" => $unidadesPlt);
+            }
+            return array("datIng" => $respuesta);
+        } else {
+            $resp = array("resultado" => 0);
+            return array($resp);
         }
-        return array("datIng"=>$respuesta);
-         }else{
-             $resp = array("resultado"=>0);
-         return array($resp);   
-         }
     }
 
     public static function ctrStockBultosPeso($hiddenIdentityIngPeso, $bultosAgregados, $pesoAgregado) {
@@ -330,6 +332,25 @@ class ControladorOpB {
 
         foreach ($respuesta as $key => $value) {
             echo '<option value=' . $value["id"] . '>' . $value["consolidado"] . '</option>';
+        }
+    }
+
+    public static function ctrVerBodegasDisponibles() {
+
+
+        $valor = $_SESSION["idDeBodega"];
+        $sp = "spVerBodegas";
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($valor, $sp);
+        foreach ($respuesta as $key => $value) {
+            echo '
+                        <tr> 
+                            <td>' . ($key + 1) . '</td>
+                            <td>' . $value["areasAutorizadas"] . ' ' . $value["numeroIdentidad"] . '</td>
+                            <td>' . $value["empresa"] . '</td>                                
+                            <td><button type="button" class="btn btn-primary btnSEleccBodega" ident="' . $value["id"] . '" area="' . $value["areasAutorizadas"] . ' ' . $value["numeroIdentidad"] . '">Seleccionar Bodega</button></td>                                
+                                
+                        </tr>
+                     ';
         }
     }
 
@@ -509,5 +530,10 @@ class ControladorOpB {
         return $respInsertNuevoTipo;
     }
 
+    public static function ctrDeleteDetalleMani($deleteDetalle) {
+        $sp = "spDeleteDetalleIng";
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($deleteDetalle, $sp);
+        return $respuesta;        
+    }
 
 }

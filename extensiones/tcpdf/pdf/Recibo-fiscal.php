@@ -25,18 +25,18 @@ class imprimirIngresoBodega {
             $respuestaOtros = ControladorPasesDeSalida::ctrMostrarValExtras($retiroF);
         }
         $tipo = 0;
+        
         $respAuxiliares = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
+        
         $nombre = $respAuxiliares[0]["nombres"];
         $apellidos = $respAuxiliares[0]["apellidos"];
 
         $valEmpresas = 0;
         $idNitSal = $respRet[0]["idNitRet"];
         $idNitIng = $respRet[0]["idNitIng"];
-        $empresaSal = $respRet[0]["nombreRet"];
+        $empresaSal = $respRet[0]["empresaFact"];
         $empresaIng = $respRet[0]["nombreIng"];
-        $nitEmpresa = $respRet[0]["nitEmpresa"];
-        $nitEmpresa = $respRet[0]["nitEmpresa"];
-        $nitEmpresa = $respRet[0]["nitEmpresa"];
+        $nitEmpresa = $respRet[0]["nitFact"];
         $descProducto = $respRet[0]["descProducto"];
         $bultosSalida = $respRet[0]["bultosSalida"];
         $polRetiro = $respRet[0]["polRetiro"];
@@ -52,7 +52,8 @@ class imprimirIngresoBodega {
 
         $fechaEmision = $respRet[0]["fechaEm"]->format("d-m-Y h:i:s A");
         $numeroRecibo = $respRet[0]["numeroRecibo"];
-
+        $numeroRecibo = $respRet[0]["numeroRecibo"];
+        $fechaAsigna = $respRet[0]["fechaAsignado"]->format("d-m-Y h:i:s A");
 
         $rubroAlm = floatval($respRet[0]["cbAlmacenaje"]);
         $rubroMarchElect = floatval($respRet[0]["rubrosMarchElect"]);
@@ -124,7 +125,7 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaAsigna</td>    
                 </tr>
                 <tr>
                       <td style="width:75px"><b>Poliza de Ingreso:</b></td><td style="width:250px">$polIng&nbsp;&nbsp;</td>

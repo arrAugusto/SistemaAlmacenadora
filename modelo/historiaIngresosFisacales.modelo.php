@@ -41,11 +41,47 @@ class ModeloHistorialIngresos {
         }
     }
 
+    public static function mdlMostrarSinParams($sp) {
+
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE " . $sp;
+
+        $stmt = sqlsrv_prepare($conn, $sql);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        }
+    }
+
     public static function mdlEditarIngOperacion($idIngEditOp) {
 
         $conn = Conexion::Conectar();
         $params = array(&$idIngEditOp);
         $sql = "EXECUTE spEditIngOp ?";
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        }
+    }
+
+    public static function mdlAnulaIngBod($idIngresoAnulacion, $hasing, $time, $motivoAnula, $usuario, $estado) {
+
+        $conn = Conexion::Conectar();
+        $params = array(&$idIngresoAnulacion, &$hasing, &$time, &$motivoAnula, &$usuario, &$estado);
+        $sql = "EXECUTE spAutAnulaIng ?, ?, ?, ?, ?, ?";
 
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -78,8 +114,6 @@ class ModeloHistorialIngresos {
         }
     }
 
-
-    
     public static function mdlEditarIngresoOperacion($datos) {
 
         $params = array(&$datos['idIngresoEditado'],
@@ -138,8 +172,48 @@ class ModeloHistorialIngresos {
         } else {
             return sqlsrv_errors();
         }
-    }   
-        public static function mdlMostrarDetallesPlts($idIngClientesPlt) {
+    }
+
+    public static function mdlInsertNuevoServicio($nuevoServicio, $usuario, $sp) {
+        $estado = 1;
+        $conn = Conexion::Conectar();
+        $params = array(&$nuevoServicio, $estado);
+        $sql = 'EXECUTE ' . $sp . ' ?, ?';
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    public static function mdlNewServicioIng($idIngSerOtr, $idServ, $valorOtros, $comentario, $usuario, $estado, $tipoOpera, $sp) {
+        $conn = Conexion::Conectar();
+        $params = array(&$idIngSerOtr, &$idServ, &$valorOtros, &$comentario, &$usuario, &$estado, &$tipoOpera);
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?, ?';
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    public static function mdlMostrarDetallesPlts($idIngClientesPlt) {
         $tipo = 2;
         $conn = Conexion::Conectar();
 
@@ -164,21 +238,20 @@ class ModeloHistorialIngresos {
         }
     }
 
-public static function mdlAnularIngreso($idIngresoAnulacion){
+    public static function mdlAnularIngreso($idIngresoAnulacion) {
 
-            $conn = Conexion::Conectar();
+        $conn = Conexion::Conectar();
         $params = array(&$idIngresoAnulacion);
         $sql = "EXECUTE AnulacionDef ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
-        return "Anulado";
+            return "Anulado";
         } else {
             return sqlsrv_errors();
         }
-}
-public static function mdlAnularIngresoValidacion($idIngresoAnulacion){
-      
+    }
 
+    public static function mdlAnularIngresoValidacion($idIngresoAnulacion) {
         $conn = Conexion::Conectar();
         $params = array(&$idIngresoAnulacion);
         $sql = "EXECUTE spValAnulacion ?";
@@ -196,10 +269,10 @@ public static function mdlAnularIngresoValidacion($idIngresoAnulacion){
         } else {
             return sqlsrv_errors();
         }
-}
+    }
 
-public static function mdlMostrarPuertos(){
-      
+    public static function mdlMostrarPuertos() {
+
 
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spMstrAduana";
@@ -217,8 +290,6 @@ public static function mdlMostrarPuertos(){
         } else {
             return sqlsrv_errors();
         }
-}
+    }
 
 }
-
-

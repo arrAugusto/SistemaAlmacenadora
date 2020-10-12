@@ -62,7 +62,7 @@ class AjaxOperacionesBIngreso {
         $idNitCliente = $this->idNitCliente;
         $dependencia = $this->dependencia;
         $consolidado = $this->consolidado;
-        $hiddenIdBod = $_SESSION["idDeBodega"];
+        $hiddenIdBod = $this->etiquetaNumBod;
         $numeroLicencia = $this->numeroLicencia;
         $nombrePiloto = $this->nombrePiloto;
         $numeroPlaca = $this->numeroPlaca;
@@ -460,7 +460,12 @@ class AjaxOperacionesBIngreso {
         $respuesta = ControladorOpB::ctrUnidadesPoliza($identIngConsPol);
         echo json_encode($respuesta);      
     }
-
+    public $deleteDetalle;
+    public function ajaxDeleteDetalleMani(){
+      $deleteDetalle = $this->deleteDetalle;
+        $respuesta = ControladorOpB::ctrDeleteDetalleMani($deleteDetalle);
+        echo json_encode($respuesta);          
+    }
 }
 
 if (isset($_POST["consultaEmpresa"])) {
@@ -474,7 +479,7 @@ if (isset($_POST["consultaCodigo"])) {
     $consultaCodigo->codigo = $_POST["consultaCodigo"];
     $consultaCodigo->AjaxConsultaEmpresaPCodigo();
 }
-
+ 
 if (isset($_POST["poliza"])) {
     $registrarIngOP = new AjaxOperacionesBIngreso();
     $registrarIngOP->sel2 = $_POST["sel2"];
@@ -508,6 +513,8 @@ if (isset($_POST["poliza"])) {
     $registrarIngOP->lblEmpresa = $_POST["lblEmpresa"];
     $registrarIngOP->hiddenIdUsser = $_POST["hiddenIdUsser"];
     $registrarIngOP->busquedaConsolidadoGrd = $_POST["busquedaConsolidadoGrd"];
+    $registrarIngOP->etiquetaNumBod = $_POST["etiquetaNumBod"];
+    
     $registrarIngOP->idUs = $_POST["idUs"];
 
     $registrarIngOP->AjaxRegistrarIngresoOperacion();
@@ -764,3 +771,9 @@ if (isset($_POST["idNitConsolNew"])) {
     $newConsEmpre->ajaxNewConsolidado();
 }
 
+
+if (isset($_POST["deleteDetalle"])) {
+    $deleteDet = new AjaxOperacionesBIngreso();
+    $deleteDet->deleteDetalle = $_POST["deleteDetalle"];
+$deleteDet->ajaxDeleteDetalleMani();    
+}

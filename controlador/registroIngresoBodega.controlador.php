@@ -32,18 +32,14 @@ class ControladorRegistroBodega {
         $idIngreso = $datos['idOrdenIng'];
         $respuesta = ModeloRegIngBod::mdlGuardarDetalle($datos, $usuarioOp);
         $dataListaUbica = $datos["hiddenLista"];
-        
         if ($datos["hiddenLista"] == "vehiculoUsado") {
             $idDetalle = $datos['idDetalle'];
             $ubicacion = $datos['selectUbicacion'];
-
             $sp = "spUbicacionVehUsado";
             $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
             if ($respuestaGUbica[0]["resp"] == 2) {
                 return "finDetalle";
-                
             }
-
         } else {
 
             $dataListaUbica = json_decode($dataListaUbica, true);
@@ -155,12 +151,47 @@ class ControladorRegistroBodega {
                     }
                 }
             }
-            return $listaPilotos;
+            $resp = [];
+            foreach ($listaPilotos as $key => $value) {
+                if ($key == 0) {
+                    array_push($resp, $value);
+                }
+                if ($key >= 1) {
+                    $dupli = 0;
+                    foreach ($resp as $key => $values) {
+                        if ($values["licencia"] == $value["licencia"]) {
+                            $dupli = $dupli + 1;
+                        }
+                    }
+                    if ($dupli == 0) {
+                        array_push($resp, $value);
+                    }
+                }
+            }
+
+            return $resp;
         } else {
 
             if ($tipo == "PVacio") {
                 $respuestaPVacio = ModeloRegIngBod::mdlTraerDatosUnidades($codigo);
-
+                $resp = [];
+                foreach ($respuestaPVacio as $key => $value) {
+                    if ($key == 0) {
+                        array_push($resp, $value);
+                    }
+                    if ($key >= 1) {
+                        $dupli = 0;
+                        foreach ($resp as $key => $values) {
+                            if ($values["licencia"] == $value["licencia"]) {
+                                $dupli = $dupli + 1;
+                            }
+                        }
+                        if ($dupli == 0) {
+                            array_push($resp, $value);
+                        }
+                    }
+                }
+                $respuestaPVacio = $resp;
                 $datosPVacio = array();
                 foreach ($respuestaPVacio as $key => $value) {
                     if ($value["unidad"] >= 1) {
@@ -177,24 +208,54 @@ class ControladorRegistroBodega {
     }
 
     public static function ctrMostarPaseSalida($idClientePaseRapido) {
-
         $sp = "spPilotosCont";
         $respuestaCount = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);
-
-
         if ($respuestaCount[0]["conteoIng"] >= 1) {
-
             $sp = "spCadenaPlt";
             $respuestaCadenaPiloto = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);
-
-            return $respuestaCadenaPiloto;
-            /* foreach ($respuestaCadenaPiloto as $key => $value) {
-              $respuesta = ModeloRegIngBod::mdlTraerDatosUnidades($value[""]);
-              } */
+            if ($respuestaCadenaPiloto == "SD") {
+                $respuestaCadenaPiloto = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);
+                echo $idClientePaseRapido;
+            }
+            $resp = [];
+            foreach ($respuestaCadenaPiloto as $key => $value) {
+                if ($key == 0) {
+                    array_push($resp, $value);
+                }
+                if ($key >= 1) {
+                    $dupli = 0;
+                    foreach ($resp as $key => $values) {
+                        if ($values["licencia"] == $value["licencia"]) {
+                            $dupli = $dupli + 1;
+                        }
+                    }
+                    if ($dupli == 0) {
+                        array_push($resp, $value);
+                    }
+                }
+            }
+            return $resp;
         } else {
 
-            $respuesta = ModeloRegIngBod::mdlTraerDatosUnidades($idClientePaseRapido);
-            return $respuesta;
+            $respuestaCadenaPiloto = ModeloRegIngBod::mdlTraerDatosUnidades($idClientePaseRapido);
+            $resp = [];
+            foreach ($respuestaCadenaPiloto as $key => $value) {
+                if ($key == 0) {
+                    array_push($resp, $value);
+                }
+                if ($key >= 1) {
+                    $dupli = 0;
+                    foreach ($resp as $key => $values) {
+                        if ($values["licencia"] == $value["licencia"]) {
+                            $dupli = $dupli + 1;
+                        }
+                    }
+                    if ($dupli == 0) {
+                        array_push($resp, $value);
+                    }
+                }
+            }
+            return $resp;
         }
     }
 
@@ -203,18 +264,21 @@ class ControladorRegistroBodega {
         //creando imagen QR para pase de salida, registro de pase de salida vacio.
         // si tipo = 0 se registrara como una salida con tipo de poliza consolidado con polizas.
         if ($tipo == 0) {
-
             $respuestaInsertPase = ModeloRegIngBod::mdlInsertPaseSalida($valUnidad, $usuarioOp);
-
-
             // VERIFICANDO CUALES PILOTOS PUEDEN RETIRARSE DE BODEGA Y ASI FINALIZAR EL INGRESO SI TODOS LOS PILOTOS YA ESTAN AUTORIZADOS
-            $sp = "spVerCadena";
-            $respuestaRev = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
-            $sp = "spVerCadenaSalida";
-            $respCadenaSalida = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+            if ($cadena != 0) {
+                $sp = "spVerCadena";
+                $respuestaRev = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+                $sp = "spVerCadenaSalida";
+                $respCadenaSalida = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+            } else {
+                $sp = "spPlts";
+                $respuestaRev = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+                $sp = "spPltsCount";
+                $respCadenaSalida = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+            }
 
             $respPltSal = $respCadenaSalida[0]["cantPases"];
-            $arrayIng = array();
             $contador = 1;
             foreach ($respuestaRev as $key => $valueCont) {
                 if ($valueCont["estado"] == 1) {
@@ -224,11 +288,16 @@ class ControladorRegistroBodega {
 
             $sp = "spPilotosUnidadesIng";
             $respuestaCadena = ModeloRegIngBod::mdlConsultaUnParam($valUnidad, $sp);
+
             if ($respuestaInsertPase != "PaseYaExiste") {
+
                 $idCadena = $respuestaCadena[0]["idCadena"];
                 $respuestaRevConsPol = $valUnidad;
                 $identidad = $respuestaCadena[0]["operacion"];
-                $respuestaFinVinc = ModeloRegIngBod::mdlFinialVinculo($cadena);
+                if ($cadena != 0) {
+                    $respuestaFinVinc = ModeloRegIngBod::mdlFinialVinculo($cadena);
+                }
+
                 $idIngreso = $respuestaCadena[0]["idIngreso"];
                 $numAleatorio = mt_rand(0, 1000);
                 $numAleatorioFin = (($numAleatorio * 2) - 5 * 3);
@@ -397,7 +466,7 @@ class ControladorRegistroBodega {
                     array_push($listaRespuesta, $idData);
                     $sp = "spRevVehN";
                     $revFin = ModeloRegIngBod::mdlConsultaUnParam($idData, $sp);
-                   
+
                     if ($revFin[0]["countChas"] == 0) {
                         $estadoIng = 1;
                         $sp = "spFinalVN";
@@ -436,6 +505,12 @@ class ControladorRegistroBodega {
     public static function ctrMostrarOPrediosVehUsados($prediosVehUsados) {
         $sp = "spPredioVeUsado";
         $respuesta = ModeloRegIngBod::mdlConsultaUnParam($prediosVehUsados, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrCambioVinculoCons($hiddCopy, $idIngPaste) {
+        $sp = "spVinculoCambio";
+        $respuesta = ModeloRegIngBod::mdlConsultaDosParam($hiddCopy, $sp, $idIngPaste);
         return $respuesta;
     }
 

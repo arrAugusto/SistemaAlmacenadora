@@ -25,6 +25,7 @@ $(document).on("click", ".btnEditOp", function () {
     var datos = new FormData();
     datos.append("idIngEditOp", idIngEditOp);
     $.ajax({
+        async: false,
         url: "ajax/historiaIngresosFisacales.ajax.php",
         method: "POST",
         data: datos,
@@ -34,24 +35,24 @@ $(document).on("click", ".btnEditOp", function () {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            var cCupo = respuesta[0].cCupo;
-            var cantContenedores = respuesta[0].cantContenedores;
-            var numDua = respuesta[0].numDua;
-            var BLEmbarque = respuesta[0].BLEmbarque;
-            var numPoliza = respuesta[0].numPoliza;
-            var bultos = respuesta[0].bultos;
-            var puertoOrigen = respuesta[0].puertoOrigen;
-            var cantClientes = respuesta[0].cantClientes;
-            var tipoProducto = respuesta[0].tipoProducto;
-            var totalAduana = respuesta[0].totalAduana;
-            var totalAduana = respuesta[0].totalAduana;
-            var tCambio = respuesta[0].tCambio;
-            var valCif = respuesta[0].valCif;
-            var cantPeso = respuesta[0].cantPeso;
-            var valImpuesto = respuesta[0].valImpuesto;
-            var identReg = respuesta[0].identReg;
-            var servicioIng = respuesta[0].servicioIng;
-            var fechaIngreso = respuesta[0]["fechaRealFormat"];
+            var cCupo = respuesta["dataIng"][0].cCupo;
+            var cantContenedores = respuesta["dataIng"][0].cantContenedores;
+            var numDua = respuesta["dataIng"][0].numDua;
+            var BLEmbarque = respuesta["dataIng"][0].BLEmbarque;
+            var numPoliza = respuesta["dataIng"][0].numPoliza;
+            var bultos = respuesta["dataIng"][0].bultos;
+            var puertoOrigen = respuesta["dataIng"][0].puertoOrigen;
+            var cantClientes = respuesta["dataIng"][0].cantClientes;
+            var tipoProducto = respuesta["dataIng"][0].tipoProducto;
+            var totalAduana = respuesta["dataIng"][0].totalAduana;
+            var totalAduana = respuesta["dataIng"][0].totalAduana;
+            var tCambio = respuesta["dataIng"][0].tCambio;
+            var valCif = respuesta["dataIng"][0].valCif;
+            var cantPeso = respuesta["dataIng"][0].cantPeso;
+            var valImpuesto = respuesta["dataIng"][0].valImpuesto;
+            var identReg = respuesta["dataIng"][0].identReg;
+            var servicioIng = respuesta["dataIng"][0].servicioIng;
+            var fechaIngreso = respuesta["dataIng"][0]["fechaRealFormat"];
             document.getElementById("regimenPolizaEditOp").value = identReg;
             document.getElementById("dateTimes").value = fechaIngreso;
             document.getElementById("hiddenDateTime").value = fechaIngreso;
@@ -71,7 +72,18 @@ $(document).on("click", ".btnEditOp", function () {
             document.getElementById("totalValorCifEditOp").value = valCif;
             document.getElementById("valorImpuestoEditOp").value = valImpuesto;
             document.getElementById("hiddenTipoCalcelDate").value = 1;
-            document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fas fa-edit"></i></button></div>';
+            let tipoOpcion = respuesta.tipo;
+            var objTipo = new Object();
+            objTipo.objTipoOpcion = tipoOpcion;
+
+            if (objTipo.objTipoOpcion == 0) {
+                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button></div>';
+
+            }
+            if (objTipo.objTipoOpcion == 1) {
+                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button><button type="button" class="btn btn-success btnMasRubrosIngGeneral" data-toggle="modal" data-target="#modalNuevosServicios" idIngresoExtra=' + idIngEditOp + '>Servicio Extra</button></div>';
+
+            }
         }, error: function (respuesta) {
             console.log(respuesta);
         }
@@ -83,6 +95,7 @@ $(document).on("click", ".btnEditOp", function () {
         var datos = new FormData();
         datos.append("idIngClientesPlt", idIngEditOp);
         $.ajax({
+            async: false,
             url: "ajax/historiaIngresosFisacales.ajax.php",
             method: "POST",
             data: datos,
@@ -96,22 +109,53 @@ $(document).on("click", ".btnEditOp", function () {
                 document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
                 var lista = [];
                 console.log(respuesta);
-                for (var i = 0; i < respuesta["respuestaClientes"].length; i++) {
+                let tipoOpcion = respuesta.tipo;
+                var objTipo = new Object();
+                objTipo.objTipoOpcion = tipoOpcion;
+
+                for (var i = 0; i < respuesta["dataDet"]["respuestaClientes"].length; i++) {
                     var numero = i + 1;
-                    var identi = respuesta["respuestaClientes"][i].identi;
-                    var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
-                    var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
-                    var cantPeso = '<input type="text" class="form-control" value="' + respuesta["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
-                    if (valEstaod<=2) {
-                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="'+identi+'" numbtneliminar="'+identi+'"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
-                    }else{
-                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
-                        
+                    var identi = respuesta["dataDet"]["respuestaClientes"][i].identi;
+                    var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
+                    var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["dataDet"]["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
+                    var cantPeso = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
+                    if (valEstaod <= 2) {
+                        if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
+                            if (objTipo.objTipoOpcion == 0) {
+                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+
+                            }
+                            if (objTipo.objTipoOpcion == 1) {
+                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button></div>';
+
+                            }
+                        } else {
+                            var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+
+                        }
+
+                    } else {
+                        if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
+                            if (objTipo.objTipoOpcion == 0) {
+                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button></div>';
+
+                            }
+                            if (objTipo.objTipoOpcion == 1) {
+                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button> </div>';
+
+                            }
+                        } else {
+                            var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button></div>';
+                        }
+
+
+
                     }
-                    
-                    
+
+
                     lista.push([numero, nombreEmpresa, cantBultos, cantPeso, accion]);
                 }
+
 
                 $('#tableClientesEdit').DataTable({
                     "language": {
@@ -162,7 +206,7 @@ $(document).on("click", ".btnEditOp", function () {
                  var placa = respuesta["respuestaPiloto"][i].placa;
                  var contenedor = respuesta["respuestaPiloto"][i].contenedor;
                  var marchamoIng = respuesta["respuestaPiloto"][i].marchamoIng;
-                 var accion = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-close"></i></button></div>';
+                 var accion = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-close"></i></button></div>';
                  
                  listaPilotos.push([numero, piloto, licencia, placa, contenedor, marchamoIng, accion]);
                  }
@@ -411,8 +455,13 @@ $(document).ready(function () {
 
 $(document).on("click", ".btnAnularIngreso", function () {
     var idIngresoAnulacion = $(this).attr("numeroIdIngreso");
+    var textMotivo = document.getElementById("textMotivoAnulacion").value;
+    var motivoAnula = textMotivo.substr(19, textMotivo.length);
+    console.log(motivoAnula);
     var datos = new FormData();
     datos.append("idIngresoAnulacion", idIngresoAnulacion);
+    datos.append("motivoAnula", motivoAnula);
+
 
     $.ajax({
         url: "ajax/historiaIngresosFisacales.ajax.php",
@@ -424,17 +473,7 @@ $(document).on("click", ".btnAnularIngreso", function () {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            if (respuesta == "SinAnulacion") {
-                swal({
-                    type: "error",
-                    title: "Ingreso no anulado",
-                    text: "Para anular comuniquese con bodega...",
-                    showConfirmButton: true,
-                    confrimButtonText: "cerrar",
-                    closeConfirm: true
-                });
-            } else if (respuesta == "Anulado") {
-
+            if (respuesta[0]["resp"] == 1) {
                 swal({
                     title: "Anulado",
                     text: "El ingreso se anulo correctamente",
@@ -478,35 +517,292 @@ $(document).on("keyup", "#textMotivoAnulacion", function () {
     $(this).val(MotivoMayusc);
     var lenghtMotivo = Motivo.length;
     var totalCaracteres = (lenghtMotivo - 20);
-     var caracteresMostrado = carateres - totalCaracteres;
-       
-    if (totalCaracteres <= -1) {
+    var caracteresMostrado = carateres - totalCaracteres;
 
+    if (totalCaracteres <= -1) {
         $(this).removeClass("is-valid");
         $(this).addClass("is-invalid");
         $(this).val("SE ANULO DEBIDO A :");
         $("#anulacionDefinitiva").removeClass("btnAnularIngreso");
         $("#anulacionDefinitiva").addClass("btnPendiente");
-       document.getElementById("anulacionDefinitiva").disabled = true;
+        document.getElementById("anulacionDefinitiva").disabled = true;
     } else if (totalCaracteres >= 5) {
 
         document.getElementById("conteoCaracteres").innerHTML = caracteresMostrado;
         $(this).removeClass("is-invalid");
         $(this).addClass("is-valid");
         $("#anulacionDefinitiva").addClass("btnAnularIngreso");
-       document.getElementById("anulacionDefinitiva").disabled = false;
+        document.getElementById("anulacionDefinitiva").disabled = false;
     } else if (totalCaracteres <= 4) {
         $(this).removeClass("is-valid");
         $(this).addClass("is-invalid");
         $("#anulacionDefinitiva").removeClass("btnAnularIngreso");
         $("#anulacionDefinitiva").addClass("btnPendiente");
-       document.getElementById("anulacionDefinitiva").disabled = true;
+        document.getElementById("anulacionDefinitiva").disabled = true;
+    }
+});
+
+
+$(document).on("click", ".btnMasRubrosIngGeneral", async function () {
+    document.getElementById("divOtrosServicios").innerHTML = "";
+    var idingresoextra = $(this).attr("idingresoextra");
+    $(".bntNewRegister").attr("tipo", 1);
+    $(".bntNewRegister").attr("idingresoextra", idingresoextra);
+    var nomVar = "verCobrado";
+    var respuesta = await insertNuevoServicio(nomVar, idingresoextra);
+    if (respuesta == "SD") {
+        Swal.fire({
+            title: 'Sin servicios Agregados',
+            text: "No tiene declarado ningun servicio extra por cobrar!",
+            type: 'info',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            confirmButtonText: 'Ok'
+        })
+    } else {
+        //divOtrosServicios
+
+        for (var i = 0; i < respuesta.length; i++) {
+            var selectOtrosServ = respuesta[i].idServicio;
+            var idCobro = respuesta[i].id;
+            var selected = respuesta[i].otrosServicios;
+            var montoOtroServicio = respuesta[i].montoExtra;
+            $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"><div class="input-group-prepend"><button type="button" class="btn btn-info btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + idCobro + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+
+        }
+    }
+
+});
+$(document).on("click", ".btnNuevoServicioEx", async function () {
+    var nomVar = "nuevoServicio";
+    var nuevoServicio = document.getElementById("textParamNuevoServicio").value;
+    var resp = await insertNuevoServicio(nomVar, nuevoServicio);
+    if (resp[0].resp == 1) {
+        Swal.fire({
+            title: 'Transacción satisfactoria',
+            text: "Se guardo con éxito el nuevo servicio!",
+            type: 'success',
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            confirmButtonText: 'Ok'
+        }).then((result) => {
+            if (result.value) {
+                location.reload();
+            }
+        });
+    }
+});
+
+function insertNuevoServicio(nomVar, listaValidacion) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append(nomVar, listaValidacion);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+$(document).on("click", ".bntNewRegister", async function () {
+    var idingresoextra = $(this).attr("idingresoextra");
+    var tipo = $(this).attr("tipo");
+//Otros servicios
+    var listaOtr = await leerServiciosExtras();
+    if (listaOtr != 0) {
+        listaOtros = JSON.stringify(listaOtr);
+
+        var respuesta = await nuevosServiciosIng(idingresoextra, listaOtros, tipo);
+        if (respuesta[0].resp == 1) {
+            Swal.fire({
+                title: 'Operación éxitosa',
+                text: "Se guardo exitosamente el servicio extra",
+                type: 'success',
+                confirmButtonColor: '#3085d6',
+                allowOutsideClick: false,
+                confirmButtonText: 'Ok'
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
+                }
+            })
+        }
+
+    }
+
+});
+
+
+function nuevosServiciosIng(idIng, listaServicios, tipo) {
+    let respFunc;
+    console.log(listaServicios);
+    var datos = new FormData();
+    datos.append("idIngSerOtr", idIng);
+    datos.append("listaServOtr", listaServicios);
+    datos.append("tipoOpera", tipo);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+function leerServiciosExtras() {
+    //Otros servicios
+    var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
+    listaOtros = [];
+    listaServiciosDefault = [];
+    var otrosValores = 0;
+    if (paragraphs.length == 0) {
+        var otrosValores = 1;
+        return otrosValores;
+    } else {
+        for (var i = 0; i < paragraphs.length; i++) {
+            var servicioOtro = paragraphs[i].attributes.idvalue.value;
+            var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
+            listaOtros.push({
+                "serviciosOtros": servicioOtro,
+                "valorOtros": valOtro
+            });
+        }
+        console.log(listaOtros);
+        return listaOtros;
+    }
+
+}
+
+
+$(document).on("click", ".btnNewServDeta", function () {
+    var idingresoextra = $(this).attr("buttonservdet");
+    $(".bntNewRegister").attr("tipo", 2);
+    $(".bntNewRegister").attr("idingresoextra", idingresoextra);
+
+});
+
+$(document).on("click", ".btnEliminarOtroServ", async function () {
+    var identify = $(this).attr("idvalue");
+    var button = $(this);
+    Swal.fire({
+        title: 'Seguro quiere eliminar el servicio?',
+        showDenyButton: true,
+        showCancelButton: true,
+        confirmButtonText: `Eliminar`,
+    }).then(async function (result) {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.value) {
+
+            if ($(".bntNewRegister").length == 0) {
+
+                var id = "montoServicioText" + identify;
+                var val = $("#" + id).val();
+                var val = val * 1;
+                var val = parseFloat(val).toFixed(2);
+                var totalOtros = document.getElementById("hiddenOtros").value;
+                var totalOtros = totalOtros * 1;
+                var totalOtros = parseFloat(totalOtros).toFixed(2);
+                var totalOtr = totalOtros - val;
+                document.getElementById("hiddenOtros").value = totalOtr;
+                document.getElementById("spanOtro").innerHTML = totalOtr;
+                document.getElementById("detalleOtros").innerHTML = totalOtr;
+                var valCalculado = await totalCobrar();
+                button.parent().parent().parent().remove();
+            } else {
+                var nomVar = "eliminarServicio";
+                var respuesta = await insertNuevoServicio(nomVar, identify);
+                if (respuesta[0]["resp"] == 1) {
+                    button.parent().parent().parent().remove();
+                    Swal.fire(
+                            'Eliminado!',
+                            'El servicio fue eliminado correctamente!',
+                            'success'
+                            )
+                } else {
+                    Swal.fire(
+                            'Error interno!',
+                            'Intente anular nuevamente!',
+                            'success'
+                            )
+                }
+
+            }
+        }
+    })
+})
+
+
+
+$(document).on("click", ".btnHistoriaExcelIngRep", async function () {
+    Swal.fire({
+        title: 'Quiere descarga el reporte en excel?',
+        text: "Esto puede tardar unos segundos!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Descargar!'
+    }).then(async function (result) {
+        if (result.value) {
+            var tipoOp = 1;
+
+            var nomVar = "generateHistoriaIng";
+            var resp = await insertNuevoServicio(nomVar, tipoOp);
+            var nombreReporte = 'HISTORIAL DE RETIROS, ESTADOS DE INGRESO: "-1 ANULADO :: 1 REGISTRADO OPERACIONES :: 2,3 PENDIENTE CULMINAR BODEGA :: 4 FINALIZADO CON NUMERO CORRELATIVO Y PENDIENTE DE CONTABILIZAR :: 5 POR CONTABILIZAR EN EL REPORTE :: 6 CONTABILIZADO"';
+            var nombreEncabezado = "DescargaReporteExcel";
+            var nombreFile = "ReporteDeIngresos_";
+            var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
+            console.log(resp);
+        }
+    })
+})
+
+$(document).on("click", ".btnImprimirDet", function () {
+    var buttonid = $(this).attr("buttonid");
+    window.open("extensiones/tcpdf/pdf/Detalle-Ingreso-fiscal.php?codigo=" + buttonid, "_blank");
+})
+
+
+$(document).on("click", ".btnImprimirInforme", async function () {
+    var buttonid = $(this).attr("buttonid");
+    window.open("extensiones/tcpdf/pdf/Informe-Ingreso-fiscal.php?codigo=" + buttonid, "_blank");
+
+})
+//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
+$.ajax({
+    url: "ajax/datatableHistorialIng.ajax.php",
+    success: function (respuesta) {
+        console.log(respuesta);
     }
 })
-$(document).on("keyup", ".btnPendiente", function () {
-    var mensaje = "No puede anular hasta que ponga una descripcion valida";
-    var tipo = "error";
-    alertaToast(mensaje, tipo);
 
-})
-
+$(document).ready(function() {
+    $('#tableHistorialIng').DataTable( {
+        "ajax": "ajax/datatableHistorialIng.ajax.php"
+    } );
+} );

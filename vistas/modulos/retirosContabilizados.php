@@ -17,10 +17,8 @@
         </div><!-- /.container-fluid -->
     </section>
     <div class="col-md-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h5 class="card-title">Saldos Fiscales</h5>
-            </div>
+                <div class="card card-info card-outline">
+
             <div class="col-md-12">
                 <div class="input-group">
                     <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
@@ -34,12 +32,16 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-6 mt-4">
+                            <button type="button" class="btn btn-success btn-lg btn-block btnDescargaExcelIngRepRet"  estadoRep="5">DESCARGA EXCEL DE INGRESOS <i class="fa fa-file-excel-o"></i></button>
+                        </div>   
+
                         <div class="col-md-6 col-lg-6 col-sm-12 mt-4">
                             <button type="button" class="btn btn-outline-danger btn-block btnImpRepContableRet" idBodega="<?php echo $_SESSION["idDeBodega"]?>">Imprimir reporte de retiros fiscales <i class="fa fa-print"></i></button>
                         </div> 
 
                         <div class="col-12 mt-4">
-                            <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>

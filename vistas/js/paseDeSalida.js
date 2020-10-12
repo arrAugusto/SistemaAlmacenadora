@@ -1,5 +1,6 @@
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
+    document.getElementById("divOtrosServicios").innerHTML = "";
     var idRetCal = $(this).attr("idRet");
     var respRemplazoValRet = await remplazoDataRet(idRetCal);
     console.log(respRemplazoValRet);
@@ -46,7 +47,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                 processData: false,
                 dataType: "json",
                 success: function (respuestaDetalle) {
-                    console.log(respuestaDetalle);
                     var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
                     var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
                     var numeroPoliza = respuestaDetalle[0]["numPol"];
@@ -87,7 +87,29 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             var marchElectro = respuesta['marchElectro'];
                             var marchElectro = parseFloat(marchElectro).toFixed(2);
                             var fechaCorte = respuesta['fechaCorte'];
+                            var tdGTOAcuse = ""
+                            var hiddenGTOAcuse = 0;
+                            if (respuesta['serAcuse'] != "SD") {
+                                for (var i = 0; i < respuesta['serAcuse'].length; i++) {
+                                    var selectOtrosServ = respuesta['serAcuse'][i].idServicio;
+                                    var selected = respuesta['serAcuse'][i].otrosServicios;
+                                    var montoOtroServicio = respuesta['serAcuse'][i].montoExtra / respuesta['cantClientes'];
+                                    var montoOtroServicio = montoOtroServicio * 1;
+                                    var montoOtroServicio = Math.ceil(montoOtroServicio / 5) * 5;
+                                    console.log(montoOtroServicio);
+                                    var hiddenGTOAcuse = hiddenGTOAcuse + montoOtroServicio;
+                                    $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"><div class="input-group-prepend"><button type="button" class="btn btn-info btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                                }
+                                var hiddenGTOAcuse = parseFloat(hiddenGTOAcuse).toFixed(2);
+                                var tdGTOAcuse = `
+                                            <tr>
+                                            <th>Gastos de Descarga:</th>
+                                            <td id="calcGTODescarga">` + hiddenGTOAcuse + `</td>
+                                            </tr>
+                                            <tr>`;
 
+
+                            }
                             if (!isNaN(respuesta['revCuad'])) {
 
                                 var revCuad = respuesta['revCuad'];
@@ -151,6 +173,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             <td>` + revCuad + `</td>
                                             </tr>
                                             <tr>
+                                            ` + tdGTOAcuse + `
                                             <th>Otros gastos:</th>
                                               <td id="detalleOtros">0</td>
                                             </tr>
@@ -189,9 +212,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
-                                    <div class="col-sm-12 col-lg-4 mt-4">                                <div class="btn btn-primary btn-lg btn-flat" id="imprimirReciboAlmacenaje" idRet= ` + idRetCal + `>
-                                        <i class="fa fa-print fa-lg mr-2"></i>
-                                        Imprimir Recibo
+                                    <div class="col-sm-12 col-lg-4 mt-4">                                <div class="btn btn-primary btn-lg btn-flat btnVerPreImpreso"  data-toggle="modal" data-target="#modalPreImpresoRecibo" idRet= ` + idRetCal + `>
+                                        <i class="fa fa-calculator fa-lg mr-2"></i>
+                                        Iniciar Cobro
                                     </div>
                                     </div>
                         
@@ -205,9 +228,13 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
                                     Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
                                 </div>                        
-                            </div>                           
+                            </div>    
+                            <div class="col-12 mt-4">
+                                <button type="button" class="btn btn-success btn-block btnExcelRetSal" idRet= ` + idRetCal + `>Descarga Excel <i class="fa fa-file-excel-o"></i></button>
+                            </div>
                                 </div>
                         </div>`;
+                            //imprimirReciboAlmacenaje
                             $(function () {
                                 $('#dateTime').daterangepicker({
                                     singleDatePicker: true,
@@ -216,7 +243,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     }
                                 }, function (start, end, label) {
                                     var tiempo = start.format('YYYY-MM-DD hh:mm A');
-                                    var tiempoVal = start.format('YYYY-MM-DD');
+                                    var tiempoVal = start.format('DD-MM-YYYY');
                                     document.getElementById("hiddenDateTimeVal").value = tiempoVal;
 
                                     $("#dateTime").val(fechaCorte);
@@ -234,7 +261,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
                             document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
                             document.getElementById("hiddenMarchElect").value = marchElectro;
-
+                            document.getElementById("hiddenGTOAcuse").value = hiddenGTOAcuse;
 
                             formatNumber("factTNormal");
                             formatNumber("ZonaAd");
@@ -256,7 +283,8 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     $("#dateTime").val(fechaCorte);
                                     var idMasPilotos = idRetCal;
                                     var nomVar = "todasUnidades";
-                                    var respTodosPlt = await editarPiloto(nomVar, idMasPilotos);
+                                    var estado = 0;
+                                    var respTodosPlt = await verPltsRet(nomVar, idMasPilotos, estado);
                                     console.log(respTodosPlt);
                                     if (respTodosPlt != "SD") {
                                         for (var i = 0; i < respTodosPlt.length; i++) {
@@ -374,17 +402,28 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         if (revDato.servPrestados[i].tipo == 0) {
                             var contadorSer = contadorSer + 1;
                             var selected = revDato.servPrestados[i].otrosServicios;
+                            var selected = Math.ceil(selected / 5) * 5;
+                            console.log(selected);
                             var serviciosExtras = serviciosExtras + revDato.servPrestados[i].montoServicio;
+
                             $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
                         }
                         if (revDato.servPrestados[i].tipo == 1) {
                             var contador = contador + 1;
                             var selected = revDato.servPrestados[i].servicioDefault;
+                            var selected = Math.ceil(selected / 5) * 5;
+                            console.log(selected);
                             $("#divServiciosDefault").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarServDefault" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoSerDefaultText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
                             var montoDefault = montoDefault + revDato.servPrestados[i].montoServicio;
                         }
                     }
                     document.getElementById("spanServicios").innerHTML = montoDefault;
+                    var hiddenGTOAcuse = document.getElementById("hiddenGTOAcuse").value;
+                    if (hiddenGTOAcuse == "") {
+                        hiddenGTOAcuse = 0;
+                    }
+                    var hiddenGTOAcuse = hiddenGTOAcuse * 1;
+                    var serviciosExtras = serviciosExtras + hiddenGTOAcuse;
                     document.getElementById("spanOtro").innerHTML = serviciosExtras;
                     document.getElementById("thAlteracion").innerHTML = montoDefault;
                     document.getElementById("detalleOtros").innerHTML = serviciosExtras;
@@ -392,6 +431,11 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                     document.getElementById("serviciosDefTotal").value = montoDefault;
                     totalCobrar();
                 }
+            } else {
+                var hiddenGTOAcuse = document.getElementById("hiddenGTOAcuse").value;
+                var hiddenGTOAcuse = hiddenGTOAcuse * 1;
+
+                document.getElementById("spanOtro").innerHTML = hiddenGTOAcuse;
             }
         }
     }
@@ -459,8 +503,6 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
     $("#peso").removeClass('is-valid');
     $("#peso").addClass('is-invalid');
     var idNumRetConsult = $(this).attr("idret");
-
-
     var idNumIng = $(this).attr("idIngreso");
     var datos = new FormData();
     document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
@@ -508,6 +550,13 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
             document.getElementById("spanimpuestos").innerHTML = valImpts;
             document.getElementById("spanbultos").innerHTML = valBultos;
             document.getElementById("spanpeso").innerHTML = valPeso;
+
+            $("#spanvalorDoll").attr("style", "display:none;");
+            $("#spantCambio").attr("style", "display:none;");
+            $("#spancif").attr("style", "display:none;");
+            $("#spanimpuestos").attr("style", "display:none;");
+            $("#spanbultos").attr("style", "display:none;");
+            $("#spanpeso").attr("style", "display:none;");
         },
         error: function (respuesta) {
             console.log(respuesta);
@@ -1002,12 +1051,16 @@ $(document).on("click", ".btnNuevoServicios", function () {
             for (var i = 0; i < paragraphs.length; i++) {
                 var dataOtrosSum = dataOtrosSum + paragraphs[i].valueAsNumber;
             }
-            document.getElementById("spanOtro").innerHTML = dataOtrosSum;
-            document.getElementById("detalleOtros").innerHTML = dataOtrosSum;
-            document.getElementById("hiddenOtros").value = dataOtrosSum;
-            formatNumber("spanOtro");
-            formatNumber("detalleOtros");
-            totalCobrar();
+            if ($("#spanOtro").length >= 1) {
+
+
+                document.getElementById("spanOtro").innerHTML = dataOtrosSum;
+                document.getElementById("detalleOtros").innerHTML = dataOtrosSum;
+                document.getElementById("hiddenOtros").value = dataOtrosSum;
+                formatNumber("spanOtro");
+                formatNumber("detalleOtros");
+                totalCobrar();
+            }
         } else {
             Swal.fire({
                 title: 'Detalle agregado anteriormente',
@@ -1020,6 +1073,9 @@ $(document).on("click", ".btnNuevoServicios", function () {
                 confirmButtonText: 'Si, Deseo continuar!'
             }).then((result) => {
                 if (result.value) {
+
+
+
                     var agregado = document.getElementById('montoServicioText' + selectOtrosServ).value;
                     var valueTotal = (agregado * 1) + (montoOtroServicio * 1);
                     console.log(agregado);
@@ -1031,12 +1087,14 @@ $(document).on("click", ".btnNuevoServicios", function () {
                     for (var i = 0; i < paragraphs.length; i++) {
                         var dataOtrosSum = dataOtrosSum + paragraphs[i].valueAsNumber;
                     }
-                    document.getElementById("spanOtro").innerHTML = dataOtrosSum;
-                    document.getElementById("detalleOtros").innerHTML = dataOtrosSum;
-                    document.getElementById("hiddenOtros").value = dataOtrosSum;
-                    formatNumber("spanOtro");
-                    formatNumber("detalleOtros");
-                    totalCobrar();
+                    if ($("#spanOtro").length >= 1) {
+                        document.getElementById("spanOtro").innerHTML = dataOtrosSum;
+                        document.getElementById("detalleOtros").innerHTML = dataOtrosSum;
+                        document.getElementById("hiddenOtros").value = dataOtrosSum;
+                        formatNumber("spanOtro");
+                        formatNumber("detalleOtros");
+                        totalCobrar();
+                    }
                 }
             })
         }
@@ -1047,6 +1105,10 @@ $(document).on("click", ".btnNuevoServicios", function () {
 })
 
 function totalCobrar() {
+    var hiddenGTOAcuse = document.getElementById("hiddenGTOAcuse").value;
+    if (hiddenGTOAcuse == "") {
+        hiddenGTOAcuse = 0;
+    }
     var hiddenRevision = document.getElementById("hiddenRevision").value;
     var hiddenZonaAduana = document.getElementById("hiddenZonaAduana").value;
     var hiddenAlmacenaje = document.getElementById("hiddenAlmacenaje").value;
@@ -1057,8 +1119,8 @@ function totalCobrar() {
     var hiddenMarchElect = document.getElementById("hiddenMarchElect").value;
     var valDescuento = document.getElementById("valDescuento").value;
 
-    
-    var sumTotal = (hiddenRevision * 1 + hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1 + hiddenMarchElect * 1) - valDescuento;
+
+    var sumTotal = (hiddenRevision * 1 + hiddenZonaAduana * 1 + hiddenAlmacenaje * 1 + hiddenManejo * 1 + hiddenGstosAdmin * 1 + hiddenOtros * 1 + serviciosDefTotal * 1 + hiddenMarchElect * 1 + hiddenGTOAcuse * 1) - valDescuento;
     document.getElementById("spanTotalC").innerHTML = sumTotal;
     document.getElementById("totaTh").innerHTML = sumTotal;
     document.getElementById("hiddenTotalCobrar").value = sumTotal;
@@ -1219,16 +1281,17 @@ $(document).on("click", ".btnDescuento", async function () {
                 )
     }
 })
-$(document).on("click", "#imprimirReciboAlmacenaje", async function () {
+$(document).on("click", ".imprimirReciboAlmacenaje", async function () {
     //Retiro
+    var idNitFact = document.getElementById("hiddenIdNitFact").value;
+    if (idNitFact>=1) {
+        
+
     var idRet = $(this).attr("idRet");
     var nomVar = "paseSalRetVal";
-
     var resp = await AjaxUnParam(idRet, nomVar);
     console.log(resp);
     if (resp[0].cantidadPlt >= 1) {
-
-
         //Ingreso 
         var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
         //Otros servicios
@@ -1246,7 +1309,6 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
                     "valorOtros": valOtro
                 });
             }
-
             // Recorrido de listas y descuentos para mostra al cliente.
             // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
             var otrosValores = 0;
@@ -1270,7 +1332,6 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
                     "valServicios": valServicios
                 });
             }
-            console.log(listaServiciosDefault);
             // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
             var valServicio = 0;
             for (var i = 0; i < listaServiciosDefault.length; i++) {
@@ -1308,13 +1369,13 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
                 }
             });
             if (tipoDescuento) {
-                if ($("#hiddenDateTimeVal").val() == "") {
+                if ($("#dateTime").val() == "") {
                     var hiddenDateTimeVal = "NA";
                 } else {
-                    var hiddenDateTimeVal = $("#hiddenDateTimeVal").val();
+                    var hiddenDateTimeVal = $("#dateTime").val();
                 }
 
-                var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal);
+                var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal, idNitFact);
                 if (guardarRecibo == "ARegistrado") {
                     Swal.fire({
                         title: 'Recibo Creado',
@@ -1349,17 +1410,28 @@ $(document).on("click", "#imprimirReciboAlmacenaje", async function () {
 
         })
     }
+        }else{
+            document.getElementById("hiddenIdNitFact").value = "";
+                    Swal.fire({
+            title: 'Error nit',
+            text: "Intente escribir nuevamentae el numero de nit",
+            type: 'warning', allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        })
+        }
 });
 
-function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal) {
+function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal, idNitFact) {
     let gdRecibo;
     var datos = new FormData();
     console.log(listaOtros);
     console.log(listaServiciosDefault);
     console.log(valDescuento);
-    console.log(listaOtros.length);
-    console.log(listaServiciosDefault.length);
-
+    console.log(listaOtros);
+    console.log(listaServiciosDefault);
+    console.log(hiddenDateTimeVal);
+    console.log(idNitFact);
 
     datos.append("idRetGdRec", idRet);
     datos.append("hiddenresultIdIngresoGdRec", hiddenresultIdIngreso);
@@ -1368,6 +1440,7 @@ function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, lis
     datos.append("valDescuentoGdRec", valDescuento);
     datos.append("hiddenDescuentoGdRec", hiddenDescuento);
     datos.append("hiddenDateTimeValRecEle", hiddenDateTimeVal);
+    datos.append("idNitFact", idNitFact);
     $.ajax({
         async: false,
         url: "ajax/paseDeSalida.ajax.php",
@@ -1389,7 +1462,7 @@ function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, lis
         }});
     return gdRecibo;
 }
-    
+
 function totalCalculado() {
     var hiddenZonaAduana = document.getElementById("hiddenZonaAduana").value;
     var hiddenZonaAduana = hiddenZonaAduana * 1;
@@ -1405,8 +1478,8 @@ function totalCalculado() {
 
     var hiddenRevision = document.getElementById("hiddenRevision").value;
     var hiddenRevision = hiddenRevision * 1;
-    
-    var result = (hiddenZonaAduana + hiddenAlmacenaje + hiddenManejo + hiddenGstosAdmin+hiddenRevision+hiddenMarchElect);
+
+    var result = (hiddenZonaAduana + hiddenAlmacenaje + hiddenManejo + hiddenGstosAdmin + hiddenRevision + hiddenMarchElect);
     return result;
 }
 
@@ -1460,7 +1533,7 @@ $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
             confirmButtonText: 'Si, Autorizo!'
         }).then(async function (result) {
             if (result.value) {
-                resp = await guardarRetiroRegistroSal(idRet, nomVar);   
+                resp = await guardarRetiroRegistroSal(idRet, nomVar);
             }
 
 
@@ -1488,7 +1561,7 @@ async function guardarRetiroRegistroSal(idRet, nomVar) {
         Swal.fire({
             title: "¿Desea Imprimir Retiro Fiscal?",
             text: "El retiro se registro con exito, imprima PDF",
-                                    type: 'success',                        allowOutsideClick: false,
+            type: 'success', allowOutsideClick: false,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
@@ -1496,8 +1569,8 @@ async function guardarRetiroRegistroSal(idRet, nomVar) {
             confirmButtonText: 'Si, Imprimir!'
         }).then((result) => {
             if (result.value) {
-            window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRet, "_blank");
-                
+                window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRet, "_blank");
+
             }
         })
 
@@ -1629,4 +1702,152 @@ function registrarDescuentoPercent(valDescuentoQP, valServicio) {
     totalCobrar();
 }
 
+$(document).on("click", ".btnVerPreImpreso", async function () {
+    var idretPreImp = $(this).attr("idret");
+    $(".imprimirReciboAlmacenaje").attr("idret", idretPreImp);
+    var nomVar = "idretPreImp";
+    var resp = await AjaxUnParam(idretPreImp, nomVar);
+    if (resp != "SD") {
+        var nitEmpresa = resp[0].nitEmpresa;
+        var nombreRet = resp[0].nombreRet;
+        var direSal = resp[0].direSal;
+        var idNit = resp[0].idNitRet;
+        document.getElementById("tdDatosGenerales").innerHTML = ` 
+            <div class="row">
+                <div class="col-11">
+                    <input type="hidden" id="hiddenIdNitFact" value=` + idNit + ` />
+                    <p class="lead">
+                    &nbsp;Nit :  <strong style="color: #1976d2">` + nitEmpresa + `</strong><br/>
+                    &nbsp;Empresa : <strong style="color: #1976d2">` + nombreRet + `</strong><br/>
+                    &nbsp;Dirección : <strong style="color: #1976d2">` + direSal + `</strong></p>
+                </div>
+            </div>
+`;
+        //Retiro
+        var idRet = $(this).attr("idRet");
+        var nomVar = "paseSalRetVal";
+        var resp = await AjaxUnParam(idRet, nomVar);
+        console.log(resp);
+        if (resp[0].cantidadPlt >= 1) {
+            //Ingreso 
+            var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
+            //Otros servicios
+            var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
+            listaOtros = [];
+            listaServiciosDefault = [];
+            if (paragraphs.length == 0) {
+                var otrosValores = 0;
+            } else {
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var servicioOtro = paragraphs[i].attributes.idvalue.value;
+                    var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
+                    listaOtros.push({
+                        "serviciosOtros": servicioOtro,
+                        "valorOtros": valOtro
+                    });
+                }
+                // Recorrido de listas y descuentos para mostra al cliente.
+                // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
+                var otrosValores = 0;
+                for (var i = 0; i < listaOtros.length; i++) {
+                    var otrosValores = (listaOtros[i].valorOtros * 1) + otrosValores;
+                }
+                var listaOtros = JSON.stringify(listaOtros);
+            }
+            //Servicios default
+            var paragraphs = Array.from(document.querySelectorAll(".btnEliminarServDefault"));
+
+            if (paragraphs.length == 0) {
+                console.log("no hay");
+                var valServicio = 0.00;
+            } else {
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var servicioDef = paragraphs[i].attributes.idvalue.value;
+                    var valServicios = document.getElementById("montoSerDefaultText" + servicioDef).value;
+                    listaServiciosDefault.push({
+                        "serviciosDefault": servicioDef,
+                        "valServicios": valServicios
+                    });
+                }
+                // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
+                var valServicio = 0;
+                for (var i = 0; i < listaServiciosDefault.length; i++) {
+                    var valServicio = (listaServiciosDefault[i].valServicios) * 1 + valServicio;
+                }
+                var listaServiciosDefault = JSON.stringify(listaServiciosDefault);
+            }
+            //Descuento 
+            var valDescuento = document.getElementById("valDescuento").value;
+            if (valDescuento == "") {
+                var valDescuento = 0;
+            }
+            var hiddenDescuento = document.getElementById("hiddenDescuento").value;
+            // Valor calculado 
+            var valCalculado = await totalCobrar();
+            valCalculado = parseFloat(valCalculado).toFixed(2);
+            //Total a cobrar 
+            var hiddenTotalCobrar = (valCalculado + otrosValores + valServicio) - valDescuento;
+            console.log(valDescuento);
+            //Total a cobrar 
+            var hiddenTotalCobrar = document.getElementById("hiddenTotalCobrar").value;
+            // Valor calculado 
+            var valCalculado = await totalCalculado();
+            var valCalculados = parseFloat(valCalculado).toFixed(2);
+            var valCalculados = new Intl.NumberFormat("en-GT").format(valCalculados);
+
+            var valServicios = parseFloat(valServicio).toFixed(2);
+            var valServicios = new Intl.NumberFormat("en-GT").format(valServicios);
+
+            var otrosValor = parseFloat(otrosValores).toFixed(2);
+            var otrosValor = new Intl.NumberFormat("en-GT").format(otrosValor);
+
+            var valDescuento = parseFloat(valDescuento).toFixed(2);
+            var valDescuento = new Intl.NumberFormat("en-GT").format(valDescuento);
+
+            var hiddenTotalCobrar = parseFloat(hiddenTotalCobrar).toFixed(2);
+            var hiddenTotalCobrar = new Intl.NumberFormat("en-GT").format(hiddenTotalCobrar);
+            console.log("hola mundo");
+            document.getElementById("tableDetalleConsumo").innerHTML = `
+            <tr><td>1</td>
+            <td>Servicios Calculados</td>
+            <td><center>` + valCalculados + `</center></td></tr>
+            <tr><td>2</td>
+            <td>Aumento en servicios</td>
+            <td><center>` + valServicios + `</center></td></tr>
+            <tr><td>3</td>
+            <td>Otros Servicios</td>
+            <td><center>` + otrosValor + `</center></td></tr>
+            <tr><td>4</td>
+            <td>Descuento del ` + hiddenDescuento + `  % : </td>
+            <td><center>` + valDescuento + `</center></td></tr>          
+        `;
+
+            document.getElementById("totalCobro").innerHTML = '<center>' + hiddenTotalCobrar + '</center>';
+
+        } else {
+            Swal.fire({
+                title: 'Retiro sin piloto',
+                text: "No se registro ningun transporte en el retiro, registre el piloto",
+                type: 'warning', allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                $("#idbtnMasPilotos").click();
+
+            })
+        }
+    }
+});
+
+$(document).on("click", ".btnExcelRetSal", async function () {
+    var idRet = $(this).attr("idRet");
+    console.log(idRet);
+    var nomVar = "idRetFEx";
+    var respuesta = await AjaxUnParam(idRet, nomVar);
+    var nombreEncabezado = "DescargaReporteExcel";
+    var nombreFile = "datosRetiros_";
+    var nombreReporte = "RetirosFiscales";
+    var creaExcel = await JSONToCSVDescargaExcel(respuesta, nombreEncabezado, nombreReporte, nombreFile, true);
+    console.log(resp);
+})
 

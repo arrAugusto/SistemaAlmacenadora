@@ -48,26 +48,16 @@
                                     </span>
                                 </div>
                             </div>
-
-                            <div class="col-7">
-                                <div class="input-group input-group-sm">
-                                    <input type="hidden" id="hiddenLista" value="">
-                                    <textarea class="form-control textoQRPoliza" rows="5" >2330706270GTGUAG1200050160001712082020GTGUAG1                   332208 23ID10 US307.70300000000285153.97000000001112.000000000035774.74000000000653.54000000000590.28000000000000.00000000035030.22000000035030.2252HYDSG8I
-                                    </textarea>
-                                    <span class="input-group-append">
-                                        <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol"><i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
-                                    </span>
-                                </div>
-                            </div>                        
-
-                            <div class="col-7" id="dataRetiro">
+                            <div class="col-3">
+                                   <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
                             </div>
-                            <div class="col-5" id="ListaSelect">
+                            <div class="col-7 mt-4" id="dataRetiro">
+                            </div>
+                            <div class="col-5 mt-4" id="ListaSelect">
                             </div>
                             <input type="hidden" id="hiddenIdentificador" value="">
                             <input type="hidden" id="hiddeniddeingreso" value="">
                         </div>
-
                         <!--INICIO DE DATOS PARA RETIRO OPERACIONES-->
                         <div class="row">
                             <div class="col-3 mt-5">
@@ -136,7 +126,7 @@
                             <div class="col-6 mt-4">
                                 <label>Calculado hasta :</label>
                                 <div class="input-group input-group">
-                                    <input type="text" id="dateTime" class="form-control">
+                                    <input type="text" id="dateTimeCalculo" class="form-control">
                                     <input type="hidden" id="hiddenDateTime" value="<?php
                                     date_default_timezone_set('America/Guatemala');
                                     echo date('Y-m-d H:i:s');
@@ -155,6 +145,11 @@
 
                             </div>
                         </div>
+                        <input type="hidden" id="hiddenRevision" value="" /> 
+                        <input type="hidden" id="hiddenGTOAcuse" value="" /> 
+
+                        
+                        <input type="hidden" id="hiddenMarchElect" value="" /> 
                         <input type="hidden" id="hiddenZonaAduana" value="" />
                         <input type="hidden" id="hiddenAlmacenaje" value="" />
                         <input type="hidden" id="hiddenManejo" value="" />

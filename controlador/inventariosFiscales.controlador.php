@@ -3,8 +3,17 @@
 class ControladorGeneracionDeInventarios {
 
     public static function ctrMostrarSaldos() {
+        
+                $valor = $_SESSION["idDeBodega"];
+        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+            $sp = "spSaldosSuper";
+            $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        } else {
+          $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
+      }
+
+        
         $valor = $_SESSION["idDeBodega"];
-        $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
 
         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {
@@ -69,8 +78,11 @@ class ControladorGeneracionDeInventarios {
                 $Bultos = $value["bultosIng"];
                 $PesoKG = $value["ingPeso"];
                 $Regimen_Decalaracion = $value["regimenPol"];
+                $totalValorCif = $value["totalValorCif"];
+                $valorImpuesto = $value["valorImpuesto"];                
                 $datosArray = array("Tipo_Documento" => $tipo, "Nit_Razon" => $Nit_Razon, "Razon_Social" => $Razon_Social, "Documento" => $Documento, "Declaracion" => $Declaracion, "Fecha_Ingreso_Salida" => $Fecha_Ingreso_Salida,
-                    "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion);
+                    "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion,
+                    "VALOR CIF"=>$totalValorCif, "VALOR IMPUESTOS"=>$valorImpuesto);
                 array_push($jsonGenerateExcel, $datosArray);
             }
             if ($respuestaDet != "SD") {
@@ -86,7 +98,8 @@ class ControladorGeneracionDeInventarios {
                     $PesoKG = $value["pesoKG"];
                     $Regimen_Decalaracion = $value["regimenPol"];
                     $datosArray = array("Tipo_Documento" => $tipo, "Nit_Razon" => $Nit_Razon, "Razon_Social" => $Razon_Social, "Documento" => $Documento, "Declaracion" => $Declaracion, "Fecha_Ingreso_Salida" => $Fecha_Ingreso_Salida,
-                        "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion);
+                        "Fecha_Emision" => $Fecha_Emision,
+                        "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion);
                     array_push($jsonGenerateExcel, $datosArray);
                 }
                 $tipo = "";
@@ -99,6 +112,7 @@ class ControladorGeneracionDeInventarios {
                 $Bultos = $respuesta[0]["saldoBultos"];
                 $PesoKG = $respuesta[0]["pesoKgSald"];
                 $Regimen_Decalaracion = "";
+                
                 $datosArray = array("Tipo_Documento" => $tipo, "Nit_Razon" => $Nit_Razon, "Razon_Social" => $Razon_Social, "Documento" => $Documento, "Declaracion" => $Declaracion, "Fecha_Ingreso_Salida" => $Fecha_Ingreso_Salida,
                     "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion);
                 array_push($jsonGenerateExcel, $datosArray);

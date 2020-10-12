@@ -94,9 +94,9 @@ class ModeloRetiroOpe {
         date_default_timezone_set('America/Guatemala');
         $time = date('Y-m-d H:i:s');
         $estadoRet = 1;
-        if ($datos['tipoIng']=="vehUs"){
+        if ($datos['tipoIng'] == "vehUs") {
             $tipo = 1;
-        }else{
+        } else {
             $tipo = 0;
         }
         $paramsDet = array(
@@ -122,39 +122,22 @@ class ModeloRetiroOpe {
             &$datos['contenedor'],
             &$datos['usuarioOp'],
             &$tipo
-            
-                
         );
 
         $sqlDet = "EXECUTE spInsRetiro  ?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?";
         $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
-        if (sqlsrv_execute($stmt) == true) {    
+        if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
             }
-            $valIdRetiro = $results[0]['Identity'];
-            return array("exito" => "exito", "valIdRetiro" => $valIdRetiro);
-            $paramPiloto = array(&$datos['licencia'], &$datos['piloto']);
-            $sql = "EXECUTE spRetPlto ?, ?";
-            $stmtPlt = sqlsrv_prepare($conn, $sql, $paramPiloto);
-            if (sqlsrv_execute($stmtPlt) == true) {
-                if ($datos['tipoIng']=="vehUs"){
-                    return "oKk";
-
-                }else{
-                    $paramUnidad = array(&$numeroIdRet, &$datos['placa'], &$datos['contenedor']);
-                    $sql = "EXECUTE spRetUnidades   ?, ?, ?";
-                    $stmtUnidad = sqlsrv_prepare($conn, $sql, $paramUnidad);
-                    if (sqlsrv_execute($stmtUnidad) == true) {
-                        return "oKk";
-                    } else {
-                        return "errorLinea121";
-                    }
-    
-                }
+            if (!empty($results)) {
+                $valIdRetiro = $results[0]['Identity'];
+                return array("exito" => "exito", "valIdRetiro" => $valIdRetiro);
             } else {
-                return "errorLinea124";
+                return "SD";
             }
+        } else {
+            return sqlsrv_errors();
         }
     }
 
@@ -293,7 +276,14 @@ class ModeloRetiroOpe {
         $params = array(&$idIngreso);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
-            return "Ok";
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
         } else {
             return "error";
         }
@@ -409,10 +399,29 @@ class ModeloRetiroOpe {
         }
     }
 
-        public static function mdlModificacionDetallesTresParams($retiroF, $tipo, $estadoVerPlt, $sp) {
+    public static function mdlModificacionDetallesTresParams($retiroF, $tipo, $estadoVerPlt, $sp) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
         $params = array(&$retiroF, &$tipo, &$estadoVerPlt);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
+
+    public static function mdlModificacionDetallesCuatroParams($idoperacion, $usuarioOp, $motivoAnula, $idtrans, $sp) {
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE " . $sp . " ?, ?, ?, ?";
+        $params = array(&$idoperacion, &$usuarioOp, &$motivoAnula, &$idtrans);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -443,39 +452,26 @@ class ModeloRetiroOpe {
             &$datos['hiddenIdUsVeh'],
             &$datos['hiddenIdBodVeh'],
             &$estadoRet,
-            &$datos['hiddenDateTimeVeh']
+            &$datos['hiddenDateTimeVeh'],
+            &$datos['cantBultosVeh'],
+            &$datos['pesoKgVeh'],
+            &$datos['tipoCambioVeh'],
+            &$datos['valorTotalAduanaVeh'],
+            &$datos['valorCifVeh'],
+            &$datos['calculoValorImpuestoVeh'],
         );
-        $sqlDet = "EXECUTE spInsRetiroVeh  ?,	?,	?,	?,	?,	?,	?,	?,	?";
+        $sqlDet = "EXECUTE spInsRetiroVeh  ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
             }
-            $valIdRetiro = $results[0]['Identity'];
-            if (!empty($results)) {
-                $numeroIdRet = $results[0]['Identity'];
-                date_default_timezone_set('America/Guatemala');
-                $time = date('Y-m-d H:i:s');
-                /* REVISION DE SALDOS */
-                $estadoSaldo = 1;
-                $paramsBlts = array(
-                    &$datos['hiddeniddeingresoVeh'],
-                    &$valIdRetiro,
-                    &$datos['cantBultosVeh'],
-                    &$datos['pesoKgVeh'],
-                    &$datos['tipoCambioVeh'],
-                    &$datos['valorTotalAduanaVeh'],
-                    &$datos['valorCifVeh'],
-                    &$datos['calculoValorImpuestoVeh'],
-                    &$estadoSaldo
-                );
 
-                $sql = "EXECUTE spNuevoRetBlt ?, ?, ?, ?, ?, ?, ?, ?, ?";
-                $stmt = sqlsrv_prepare($conn, $sql, $paramsBlts);
-                $paramFechaAc = array(&$fechaCorte, &$datos['hiddeniddeingresoVeh']);
-                if (sqlsrv_execute($stmt) == true) {
-                    return $numeroIdRet;
-                }
+            if (!empty($results)) {
+                $valIdRetiro = $results[0]['Identity'];
+                return $valIdRetiro;
+            } else {
+                return "SD";
             }
         } else {
             return sqlsrv_errors();

@@ -91,13 +91,20 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
     var idIng = document.getElementById("hiddeniddeingreso").value;
     var hiddenDateTime = document.getElementById("hiddenDateTime").value;
     var respVehUsados = await funcionVehCalcUsado(hiddenDateTime, idIng);
+
     if (respVehUsados.respuesta == true) {
+        var totalDia = respVehUsados.totalDiasC;
         var fechaCalc = respVehUsados.fechaCalculo;
         var fechaIngreso = respVehUsados.fechaIngreso;
         var almacenaje = respVehUsados.almacenaje;
         var manejo = respVehUsados.manejo;
-        var transEle = respVehUsados.transEle;
-        var total = almacenaje + manejo + transEle;
+        var transEle = respVehUsados.revCuad;
+        var marchamoElectronico = respVehUsados.marchElectro;
+
+        var marchamoElectronico = marchamoElectronico * 1;
+
+        var total = almacenaje + manejo + transEle + marchamoElectronico;
+
 
         var almacenajeParse = parseFloat(almacenaje).toFixed(2);
         var numberAlm = new Intl.NumberFormat("en-GT").format(almacenajeParse);
@@ -109,8 +116,23 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
         var numbertransEle = new Intl.NumberFormat("en-GT").format(transEleParse);
 
         var totalParse = parseFloat(total).toFixed(2);
-        var numberTotal = new Intl.NumberFormat("en-GT").format(totalParse);
 
+        var numberTotal = new Intl.NumberFormat("en-GT").format(totalParse);
+        var marchamoElectronico = parseFloat(marchamoElectronico).toFixed(2);
+        var numberMarch = new Intl.NumberFormat("en-GT").format(marchamoElectronico);
+
+        var tdMarch = "";
+        if (marchamoElectronico > 0) {
+            var tdMarch = `
+                    
+                                                            <tr>
+                                        <th>Marchamo Electronico:</th>
+                                        <td>Q.:  ` + numberMarch + `</td>
+                                        </tr>
+                                        <tr>`;
+
+        }
+        var numbMarchElec = new Intl.NumberFormat("en-GT").format(marchamoElectronico);
 
         var empresa = respVehUsados.datosIngInfo[0].nombreEmpresa;
         var numeroPoliza = respVehUsados.datosIngInfo[0].numeroPoliza;
@@ -140,6 +162,7 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                                         <th>Trans. Electronica:</th>
                                         <td>Q.:  ` + numbertransEle + `</td>
                                         </tr>
+        ` + tdMarch + `
                                         <tr>
                                         <th>Total:</th>
                                         <td>Q.: ` + numberTotal + `</td>
@@ -160,7 +183,9 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                                             Póliza ingreso : ` + numeroPoliza + `<br/>
                                             Regimen Póliza : ` + regimen + `<br/>
                                             Fecha Ingreso :  ` + fechaIngreso + `<br/>
-                                        Calculo al : ` + fechaCalc + `
+                                        Calculo al : ` + fechaCalc + `<br/>
+                                        Dias Calculados : ` + totalDia + `
+
                                         </address>
                                     </center>
         </div>
@@ -275,9 +300,35 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                             var AlmNormalCalculo = respuesta["datosCalculo"]["datos"].almaMSuperior;
                             var calcmanejoCalculo = respuesta["datosCalculo"]["datos"].calculoManejo;
                             var calcGstAdminCalculo = respuesta["datosCalculo"]["datos"].gtoAdminMSuperior;
+                            var marchamoElectro = respuesta["datosCalculo"]["datos"].marchamoElectro;
+                            var marchamoElectro = marchamoElectro * 1;
+                            var marchamoElectro = parseFloat(marchamoElectro).toFixed(2);
+                            var cantidadCliente = respuesta["datosCalculo"]["datos"].cantidadCliente;
+                            var gastosAcuse = respuesta["datosCalculo"]["datos"].serviciosAcuse;
+                            var gastosAcuse = gastosAcuse * 1;
+                            var gastosAcuse = parseFloat(gastosAcuse).toFixed(2);
+
+                            var marchElecTD = "";
+                            console.log(marchamoElectro);
+                            if (marchamoElectro > 0) {
+                                var marchElecTD = `
+                                    <tr>
+                                        <th>Marchamo Electrónico : </th>
+                                        <td id="calcMarchElCalculo">` + marchamoElectro + `</td>
+                                    </tr>`;
+                            }
+                            var gtAcuse = "";
+                            if (gastosAcuse > 0) {
+                                var gtAcuse = `
+                                    <tr>
+                                        <th>Gastos de descarga:</th>
+                                        <td id="calcGTOAcuse">` + gastosAcuse + `</td>
+                                    </tr>`;
+                            }
+
                             var fechaRetiro = respuesta["datosCalculo"]["respuestaData"].fechaRetiro;
                             var total = respuesta["datosCalculo"]["datos"].cobrar;
-
+                            document.getElementById("hiddenMarchElect").value = respuesta["datosCalculo"]["datos"].marchamoElectro;
                             document.getElementById("hiddenZonaAduana").value = respuesta["datosCalculo"]["datos"].zonaAduanMSuperior;
                             document.getElementById("hiddenAlmacenaje").value = respuesta["datosCalculo"]["datos"].almaMSuperior;
                             document.getElementById("hiddenManejo").value = respuesta["datosCalculo"]["datos"].calculoManejo;
@@ -322,10 +373,11 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
 
                                                     <div class="col-7 mt-4">
                                                     <p><div id="divAlerta"></div></p>
-                                                    <p class="lead">Detalle de calculo de almacenaje <br>
-                                                            Nit :  ` + nit + `<br>
-                                                            Empresa: ` + empresa + `<br>
-                                                            Poliza ingreso: ` + polizaIng + `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Poliza retiro : ` + calculoPolizaRetiro + `<br>
+                                                    <p class="lead">Detalle de calculo de almacenaje <br />
+                                                            Nit :  ` + nit + `<br />
+                                                            Empresa: ` + empresa + `<br />
+                                                            Poliza ingreso: ` + polizaIng + `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Poliza retiro : ` + calculoPolizaRetiro + `<br />
+                                                            Cantidad de clientes: ` + cantidadCliente + `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br />                                                            
                                                             <b style="color: #1E66BD;">Fecha ingreso : ` + fechaIng + ` &nbsp;&nbsp;&nbsp;&nbsp;Calculo hasta :  ` + fechaRetiro + `&nbsp;&nbsp; ` + tiempo + `&nbsp;dias</b>
                                                         </p>
                                                         <p>
@@ -355,6 +407,7 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                                                                     <td id="calcmanejoCalculo">` + calcmanejoCalculo + `</td>
                                                                     </tr>
                                                                     <tr>
+                                                                    ` + marchElecTD + `
                                                                     <th>Gastos administrativos:</th>
                                                                     <td id="calcGstAdminCalculo">` + calcGstAdminCalculo + `</td>
                                                                     </tr>
@@ -362,6 +415,7 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                                                                     <th>Otros gastos:</th>
                                                                     <td id="detalleOtros"></td>
                                                                     </tr>
+                                                                    ` + gtAcuse + `
                                                                     <tr>
                                                                     <th>Alteración de servicios :</th>
                                                                     <td id="thAlteracion"></td>
@@ -383,6 +437,7 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
         `;
                         }
 
+                        formatNumber("calcMarchElCalculo");
 
                         formatNumber("ZonaAdCalculo");
                         formatNumber("AlmNormalCalculo");
@@ -459,12 +514,38 @@ $(document).on("click", ".btnCalcularAlmacenaje", async function () {
                                         var montoDefault = montoDefault + respuesta.servPrestados[i].montoServicio;
                                     }
                                 }
+
+                                console.log(gastosAcuse);
+                                var gtoDescarga = 0;
+                                if (gastosAcuse > 0) {
+                                    for (var i = 0; i < respuesta["datosCalculo"].respGTODescarga.length; i++) {
+                                        var idServicioSer = respuesta["datosCalculo"].respGTODescarga[i].id;
+                                        var selectedServicioDefault = respuesta["datosCalculo"].respGTODescarga[i].otrosServicios;
+                                        var montoOtroServicio = respuesta["datosCalculo"].respGTODescarga[i].montoExtra / cantidadCliente;
+                                        var montoOtroServicio = Math.ceil(montoOtroServicio);
+                                        var gtoDescarga = gtoDescarga + montoOtroServicio;
+
+                                        if (respuesta["datosCalculo"].respGTODescarga[i].estado == 1) {
+                                            $("#divOtrosServicios").append('<div id="divNumeroDefatult" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnGTODescarga" id="valueGTODescarga' + idServicioSer + '" idValue="' + idServicioSer + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control textPlusServicios" readOnly="readOnly" value="' + selectedServicioDefault + '" /><input type="number"  class="form-control textDefaultSer" id="montoSerDefaultText' + idServicioSer + '" value="' + montoOtroServicio + '" /></div></div>');
+
+                                        }
+                                    }
+                                }
+
+                                var montoDefault = parseFloat(montoDefault).toFixed(2);
+                                var serviciosExtras = parseFloat(serviciosExtras).toFixed(2);
+
                                 document.getElementById("spanServicios").innerHTML = montoDefault;
-                                document.getElementById("spanOtro").innerHTML = serviciosExtras;
+
+                                document.getElementById("spanOtro").innerHTML = gtoDescarga;
+
                                 document.getElementById("thAlteracion").innerHTML = montoDefault;
+
                                 document.getElementById("detalleOtros").innerHTML = serviciosExtras;
+
                                 document.getElementById("hiddenOtros").value = serviciosExtras;
                                 document.getElementById("serviciosDefTotal").value = montoDefault;
+                                document.getElementById("hiddenGTOAcuse").value = gtoDescarga;
 
                             }
                         }
@@ -1063,6 +1144,6 @@ function guardarDataRubrosExtras(listaOtrosJSON, listaServiciosDefaultJSON, hidd
         }, error: function (respuesta) {
             console.log(respuesta);
         }
-    })
+    });
     return respFunc;
 }

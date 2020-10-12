@@ -29,16 +29,19 @@ class ControladorRetiroOpe {
         }
         $respuestaGuardar = ModeloRetiroOpe::ctrGuardarDataRet($datos);
         $estado = 0;
-        foreach ($listaVeh as $key => $value) {
-            $sp = "spUpdateChasis";
-            $valor = 2;
-            $respuesta = ModeloRetiroOpe::mdlUpdateUnParam($value[0] * 1, $respuestaGuardar, $sp);
-            if ($respuesta == false) {
-                $estado = 1;
-            }
-        }
-        return array("tipoResp" => true, "idRet" => $respuestaGuardar);
+        if ($respuestaGuardar != 0) {
 
+
+            foreach ($listaVeh as $key => $value) {
+                $sp = "spUpdateChasis";
+                $valor = 2;
+                $respuesta = ModeloRetiroOpe::mdlUpdateUnParam($value[0] * 1, $respuestaGuardar, $sp);
+                if ($respuesta == false) {
+                    $estado = 1;
+                }
+            }
+            return array("tipoResp" => true, "idRet" => $respuestaGuardar);
+        }
 
 //        return array("resRet"=>true, "data"=>true);
     }
@@ -72,14 +75,17 @@ class ControladorRetiroOpe {
         }
         if ($estadoTransaRebaja == count($arrayDetalles)) {
             $idIngreso = $datos["hiddeniddeingreso"];
-            $cantBultos = $datos["cantBultos"];
-            $valorCif = $datos["valorCif"];
-            $calculoValorImpuesto = $datos["calculoValorImpuesto"];
-            $valorTotalAduana = $datos["valorTotalAduana"];
-            $pesoKg = $datos["pesoKg"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
-            $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
-            return $respuesta;
+            if ($respuesta != "SD") {
+                $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+                if ($respuestaActStockGen[0]["resp"] == 1) {
+                    return $respuesta;
+                } else {
+                    return "denegado";
+                }
+            } else {
+                return "denegado";
+            }
         }
     }
 
@@ -330,6 +336,11 @@ class ControladorRetiroOpe {
         $respEdVeh = ModeloRetiroOpe::mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo);
         return $respEdVeh;
     }
+    public static function ctrExcelRetFiscal($idRetFEx) {
+        $sp = "spDataRetExcel";
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetFEx, $sp);
+        return $respuesta;      
+    }
 
     public static function ctrDatosRetirosGenerardos($retiroFs) {
         $sp = "spDataRet";
@@ -448,8 +459,18 @@ class ControladorRetiroOpe {
     public static function ctrMostrarSaldosAF($saldosAF) {
         $sp = "spVerSaldAF";
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($saldosAF, $sp);
-        return $respuesta;  
+        return $respuesta;
     }
+
+    public static function ctrAnularTransaccion($idtrans, $idoperacion, $motivoAnula, $usuarioOp) {
+        //ANULACION RECIBO
+        $sp = "spAnulacion";
+        //ENVIANDO DATOS A MODELO DE RECEPCION TRES PARAMETROS
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetallesCuatroParams($idoperacion, $usuarioOp, $motivoAnula, $idtrans, $sp);
+        return $respuesta;
+    }
+
+
 
 }
 

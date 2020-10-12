@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Inventarios Fiscales</h1>
+                    <h1>Contabilización de retiro</h1>
                 </div>
                 <div class="col-sm-6">
 
@@ -17,10 +17,8 @@
         </div><!-- /.container-fluid -->
     </section>
     <div class="col-md-12">
-        <div class="card card-primary">
-            <div class="card-header">
-                <h5 class="card-title">Saldos Fiscales</h5>
-            </div>
+        <div class="card card-info card-outline">
+
             <div class="col-md-12">
                 <div class="input-group">
                     <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
@@ -35,9 +33,11 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-4 mt-4">
-                            <button type="button" class="btn btn-outline-success btn-lg bntReportarLote">Reportar Lote Seleccionado</button>
+                            <button type="button" class="btn btn-success btn-lg btn-block btnDescargaExcelIngRepRet"  estadoRep="4">DESCARGA EXCEL DE INGRESOS <i class="fa fa-file-excel-o"></i></button>
+                        </div>   
+                        <div class="col-4 mt-4">
+                            <button type="button" class="btn btn-outline-primary btn-lg btn-block btn-lg bntReportarLoteRet">Reportar Lote Seleccionado</button>
                         </div>
-
                         <div class="col-4 mt-4">
                             <label>Calculado hasta :</label>
                             <div class="input-group input-group">
@@ -48,7 +48,7 @@
                                 ?>">
                                 <input type="hidden" id="hiddenDateTimeVal" value="" />
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-success btnMatenerFecha">Congelar Fecha</button>
+                                    <button type="button" class="btn btn-success btnMatenerFecha" estado="0">Congelar Fecha</button>
                                 </span>
 
                             </div>
@@ -56,14 +56,14 @@
                         <div class="col-3 mt-4">
 
                         </div>                        <div class="col-12 mt-4">
-                            <table id="tablas" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
-                                    <th>Poliza</th>
-                                    <th>Fecha</th>
+                                    <th>Poliza Ing</th>
+                                    <th>Poliza Ret</th>
                                     <th>Bultos</th>
                                     <th>Cif</th>
                                     <th>Impuestos</th>
@@ -72,7 +72,7 @@
                                 </thead> <tbody>
                                     <?php
                                     $tipo = 4;
-                                            $NavegaNumB = $_SESSION["NavegaNumB"];
+                                    $NavegaNumB = $_SESSION["NavegaNumB"];
                                     $respuesta = ControladorContabilidadDeRet::ctrListarRetiros($tipo, $NavegaNumB);
                                     if ($respuesta !== null) {
                                         

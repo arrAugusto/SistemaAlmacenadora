@@ -22,7 +22,7 @@
                     INICIO
                     ======================-->
                     <div class="box-body">
-                        <table id="tablas" role="grid" class="table dt-responsive nowrap table-striped table-bordered display table-sm tb-responsive" cellspacing="0" >
+                        <table id="tablasGeneral" role="grid" class="table dt-responsive nowrap table-striped table-bordered display table-sm tb-responsive" cellspacing="0" >
                             <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                 <tr>
                                 <th style="whidth:5px">#</th>

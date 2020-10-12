@@ -31,7 +31,7 @@
                     </div>
                     <div class="col-12">
 
-                        <table id="tablas" role="grid" class="table  dt-responsive nowrap table-striped table-bordered display table-sm" cellspacing="0" >
+                        <table id="tablasGeneral" role="grid" class="table  dt-responsive nowrap table-striped table-bordered display table-sm" cellspacing="0" >
                             <thead>
                                 <tr>
                                 <th style="whidth:5px">#</th>

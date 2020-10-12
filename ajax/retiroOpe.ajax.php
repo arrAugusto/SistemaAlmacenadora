@@ -14,6 +14,9 @@ require_once "../modelo/ingresosPendientes.modelo.php";
 
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
+//PASE DE SALIDA PARA PODER ACCEDER A METODOS DE ESTE FICHERO
+require_once "../controlador/paseDeSalida.controlador.php";
+require_once "../modelo/paseDeSalida.modelo.php";
 
 class AjaxUbicacionOpe {
 
@@ -276,12 +279,25 @@ class AjaxUbicacionOpe {
         $datosUnidades = ControladorRetiroOpe::ctrTrasladoZAAF($idIngTrasladar);
         echo json_encode($datosUnidades);
     }
-    
-    public $verSaldosAF; 
-    public function ajaxMostrarSaldosAF(){
+
+    public $verSaldosAF;
+
+    public function ajaxMostrarSaldosAF() {
         $saldosAF = $this->saldosAF;
         $respSaldAF = ControladorRetiroOpe::ctrMostrarSaldosAF($saldosAF);
-        echo json_encode($respSaldAF);        
+        echo json_encode($respSaldAF);
+    }
+
+    public $anulacionOperaciones;
+
+    public function ajaxAnularOperaciones() {
+        session_start();
+        $usuarioOp = $_SESSION["id"];
+        $idtrans = $this->idtrans;
+        $idoperacion = $this->idoperacion;
+        $motivoAnula = $this->motivoAnula;
+        $anularOperaciones = ControladorRetiroOpe::ctrAnularTransaccion($idtrans, $idoperacion, $motivoAnula, $usuarioOp);
+        echo json_encode($anularOperaciones);
     }
 
 }
@@ -502,4 +518,13 @@ if (isset($_POST["saldosAF"])) {
     $verSaldosAF = new AjaxUbicacionOpe();
     $verSaldosAF->saldosAF = $_POST["saldosAF"];
     $verSaldosAF->ajaxMostrarSaldosAF();
+}
+
+
+if (isset($_POST["idtrans"])) {
+    $anulacionOperaciones = new AjaxUbicacionOpe();
+    $anulacionOperaciones->idtrans = $_POST["idtrans"];
+    $anulacionOperaciones->idoperacion = $_POST["idoperacion"];
+    $anulacionOperaciones->motivoAnula = $_POST["motivoAnula"];
+    $anulacionOperaciones->ajaxAnularOperaciones();
 }

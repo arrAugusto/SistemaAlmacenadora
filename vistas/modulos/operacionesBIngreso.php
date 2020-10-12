@@ -96,16 +96,16 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-2" id="divNitNuevo">
+                        <div class="col-md-6 col-lg-4 col-sm-4" id="divNitNuevo">
 
                             <div class="form-group">
-                                <label>Número de Nit del Cliente</label>
+                                <label>Nit del Cliente</label>
                                 <input class="form-control is-invalid" type="text" placeholder="Ingrese el número de nit" id="txtNitEmpresa" />
                             </div>
 
                         </div>
-                        <div class="col-2">
-                            <label>Fecha Real de Ingreso</label>
+                        <div class="col-md-6 col-lg-4 col-sm-4">
+                            <label>Fecha Real de Ing</label>
                             <input type="text" id="dateTime" class="form-control">
                             <input type="hidden" id="hiddenDateTime" value="<?php
                             date_default_timezone_set('America/Guatemala');
@@ -116,20 +116,19 @@
                             echo date('d-m-Y');
                             ?>">                 
                         </div>
-                        <div class="col-2">
-                            <label>Ver Tipos de Consolidados</label><br/>
+                        <div class="col-md-6 col-lg-4 col-sm-4">
+                            <label>Consolidados</label><br/>
                             <button type="button" class="btn btn-primary" id="buttonMostrarCons" data-toggle="modal" data-target="#exampleModalCenter">
                                 Mostrar consolidados&nbsp;&nbsp;<i class="fa fa-database"></i>
                             </button>
                         </div>
-                        <div class="col-3">
-                            <div class="input-group input-group-sm">
-
-                                    <button type="button" id="capturarQRPol" class="btn btn-dark btnCapturarQRPol btn-block" style="font-size:35px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;color:white'></i></button>
-
-                            </div>
-                       </div>                        
-                        <div class="col-md-12 mt-2" id="individualGlobal">
+                        <div class="col-md-6 col-lg-6 col-sm-12 mt-4">
+                            <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
+                        </div>    
+                        <div class="col-md-6 col-lg-6 col-sm-12 mt-4">
+                            <button type="button" id="manifiestosSat" class="btn btn-outline-success btn-block" data-toggle="modal" data-target="#verManifiestosSat" style="font-size:25px">MANIFIESTOS&nbsp;&nbsp;&nbsp;<i class='fa fa-external-link-square' style='font-size:48px;'></i></button>
+                        </div>                            
+                        <div class="col-md-12 mt-4" id="individualGlobal">
                             <div class="col-md-12" id="imprimirCotizacion">
 
                                 <div class="row invoice-info">
@@ -255,10 +254,9 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
-                                            <div class="col-4" id="divSeleccionDeServicios">
+                                            <div class="col-md-4" id="divSeleccionDeServicios">
                                                 <label>Selecciona Servicio</label>
                                                 <select class="form-control is-invalid" id="servicioTarifa" name="servicioTarifa"></select>
-
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
@@ -269,7 +267,6 @@
                                                         $respuesta = ControladorHistorialIngresos::ctrMostrarRegimenes();
                                                         ?>
                                                     </select>
-
                                                 </div>
                                             </div>
                                             <div class="col-md-4" id="divCartaCupo">
@@ -452,9 +449,9 @@
                                             </div>
                                             <div class="col-4 mt-4" id="divAccionesValidacion">
                                             </div>
-                                            <div class="col-4" id="divRelleno">
+                                            <div class="col-md-4" id="divRelleno">
                                             </div>
-                                            <div class="col-4" id="divAccionesVehiculos">
+                                            <div class="col-md-4" id="divAccionesVehiculos">
                                                 <div class="small-box bg-danger" id="colorDiv">
                                                     <div class="inner">
                                                         <h3 id="contadorH3">0</h3>
@@ -470,16 +467,19 @@
                                     </div>
                                     <div class="card-footer">
                                         <div class="row">
+
                                             <div class="col-12">
                                                 <div id="divAcciones">
 
                                                     <?php
+                                                    //btnIngresoSinTarifa
                                                     if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
-                                                        echo '<button type="button" class="btn btn-primary btn-block btnIngresoSinTarifa">Guardar Cambios</button>';
+                                                        echo '<button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#verPrediosBodegas">Iniciar </button>';
                                                     }
                                                     ?>
                                                 </div>
-                                            </div> 
+                                            </div>
+
                                             <div class="col-6" id="divMasButtons">
                                             </div>    
                                         </div>
@@ -573,9 +573,10 @@ MODAL POLIZA CONSOLIDADA
                 ======================================-->
                 <div class="col-md-12">
                     <!-- Horizontal Form -->
-                    <div class="card card-info">
+                    <div class="card card-dark">
                         <div class="card-header">
-                            <h3 class="card-title" id="divBtnPlusNit">Ingrese Pólizas del Consolidado</h3>
+                            <h3 class="card-title" id="divBtnPlusNit">Ingrese Pólizas del Consolidado</h3><br/>
+                            <button type="button" class="btn btn-warning btn-block btnDuplicaCons" estado="0">Duplicar Poliza</button>
                         </div>
                         <!--campos formularios -->
                         <form role="form" method="post" id="divGuardaDetalle">
@@ -643,14 +644,18 @@ MODAL POLIZA CONSOLIDADA
                                         </div>
 
                                     </div>
+                                    <div class="modal-footer" id="divButtonPase">
+                                        <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class="fa fa-barcode" style="font-size:48px;"></i></button>
+                                    </div>
                                     <br/><br/>
                                     <div id="divEmpresasAgregadas">
                                     </div>
                                 </div>
                             </div>
+                        </form>
                     </div>
                 </div>
-                </form>
+
             </div>
         </div>
     </div>
@@ -921,11 +926,13 @@ MODAL POLIZA CONSOLIDADA
                     <div class="col-6 mt-4">
                         <input class="form-control is-invalid" type="number" id="numeroMarchamoPlusUn" name="numeroMarchamo" placeholder="Escriba el numero de marchamo" onkeyup="javascript:this.value = this.value.toUpperCase();">
                     </div>
+                    <div class="col-12 mt-4">
+                        <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class="fa fa-barcode" style="font-size:48px;"></i></button>
+                    </div>                      
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-info btn-flat btn-sm btnGuardaNuevaUnidadPlus" id="btnGuardaNuevaUnidad">Guardar Nueva Unidad</button>
-
             </div>
         </div>
     </div>
@@ -964,8 +971,6 @@ MODAL POLIZA CONSOLIDADA
         </div>
     </div>
 </div>
-
-
 
 <div id="verChasisNoEncon" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -1006,16 +1011,11 @@ MODAL POLIZA CONSOLIDADA
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mt-4" id="divCompararChasis">
-
-
                                                 </div>
                                                 <div class="col-12 mt-4" id="divButtonsCompara">
-
-
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                     <div class="card-footer mt-4">
                                         <div class="col-12">
@@ -1032,3 +1032,78 @@ MODAL POLIZA CONSOLIDADA
     </div>
 </div>
 
+
+
+<!-- The Modal CAPTURA UBICACIONES -->
+
+<div class="modal fade" id="verManifiestosSat">
+    <div class="modal-dialog modal-lgMapa">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Manifiestos SAT</h4>
+                <button type="button" class="close" id="buttonMin1" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <iframe id="myFrameManifiesto" src="https://portal.sat.gob.gt/portal/documentos-manifiesto#form1" title="W3Schools HTML Tutorial" height="750px" width="99%"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- The Modal CAPTURA UBICACIONES -->
+<div class="modal fade" id="verPrediosBodegas">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Clasificación de bodega</h4>
+                <button type="button" class="close" id="buttonMin1" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-map-pin"></i></span>
+
+                            <div class="info-box-content">
+                                <input type="hidden" id ="numBodIdent" value="<?php echo $_SESSION["NavegaNumB"]; ?>">
+                                <span class="info-box-text"><?php echo $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp'; ?></span>
+                                <span class="info-box-number" id="idBodegEmpresa"><?php echo '<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>'; ?></span>
+                                <span class="info-box-number"><button type="button" class="btn btn-success btn-block btnIngresoSinTarifa">Guardar Ingreso</button></span>
+
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <table id="tablasGeneral" role="grid" class="table dt-responsive table-hover table-sm">
+                            <thead>
+                                <tr>
+                                <th style="width:3px">#</th>
+                                <th>Area</th>
+                                <th>Empresa</th>
+                                <th><center>Acciones</center></th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                <?php
+                                $respuesta = ControladorOpB::ctrVerBodegasDisponibles();
+
+                                if ($respuesta !== null) {
+                                    
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

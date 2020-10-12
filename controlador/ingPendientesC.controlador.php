@@ -11,10 +11,9 @@ class ControladorGeneracionDeContabilidad {
      */
 
     public static function ctrIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp) {
-        if (is_numeric($idContabilizar)) {
-            $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp);
-            return $respuesta;
-        }
+
+        $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp);
+        return $respuesta;
     }
 
     public static function ctrMostrarSaldos($estado) {
@@ -25,25 +24,26 @@ class ControladorGeneracionDeContabilidad {
             if ($respuesta == "SD") {
                 
             } else {
-                
+
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
 
-                        
-                   
+
+
                     if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
                         if ($key % 2 != 0) {
                             $spanBodega = '<span class="right badge badge-success">Bodega_' . ($value["numeroIdentidad"]) . '</span>';
                         } else {
                             $spanBodega = '<span class="right badge badge-primary">Bodega_' . ($value["numeroIdentidad"]) . '</span>';
                         }
-}
-                        $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-dark btnSelectMultiple btn-sm" estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-danger btn-sm btnContabilizar"><i class="fa fa-thumbs-down"></i></button></div>';
-                        $fecha_actual = new DateTime();
-                        $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
-                        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+                    }
+                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-dark btnSelectMultiple btn-sm" estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-danger btn-sm btnContabilizar"><i class="fa fa-thumbs-down"></i></button></div>';
+                    $fecha_actual = new DateTime();
+                    $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
 
-                            echo '
+                    if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+
+                        echo '
                         <tr>
                             <td>' . ($key + 1) . '</td>
                             <td>' . ($respuesta[$key]["nit"]) . '</td>
@@ -54,10 +54,10 @@ class ControladorGeneracionDeContabilidad {
                             <td>' . ($value["blts"]) . '</td>
                             <td>' . ($value["cif"]) . '</td>
                             <td>' . ($value["impuesto"]) . '</td>
-                            <td><center>' . $botoneraAcciones . '</center></td>
+                            <td id="tbAcciones"><center>' . $botoneraAcciones . '</center></td>
                         </tr>';
-                        } else {
-                    if ($value["numeroIdentidad"] == $valor) {
+                    } else {
+                        if ($value["numeroIdentidad"] == $valor) {
                             echo '
                         <tr>
                             <td>' . ($key + 1) . '</td>
@@ -70,11 +70,11 @@ class ControladorGeneracionDeContabilidad {
                             <td>' . ($value["impuesto"]) . '</td>
                             <td><center>' . $botoneraAcciones . '</center></td>
                         </tr>';
-                        
-                 }   
+                        }
+                    }
                 }
             }
-        } }
+        }
     }
 
     public static function ctrReporteIngContabilizado($tipoReporte, $entidad) {
@@ -141,6 +141,13 @@ class ControladorGeneracionDeContabilidad {
         $sp = "spDescontabilizaIng";
         $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $descontabilizaIng, $usuarioOp);
         return $respuesta;
+    }
+
+    public static function ctrDescargaRepExcel($idBod, $estadoDescarga) {
+        $sp = "spDescExcelIng";
+        $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $idBod, $estadoDescarga);
+        return $respuesta;
+        
     }
 
 }

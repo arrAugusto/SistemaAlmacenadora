@@ -10,29 +10,37 @@ class ControladorIngresosPendientes {
     public static function ctrMostrarIngresosPendientes() {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $respuesta = ModeloIngresosPendientes::mdlMostrarIngresosPendientes($llaveIngresosPen);
+
 // ARRAY : LISTA TEMPORAL PARA GUARDAR, LAS POLIZAS YA MAQUETADAS EN EL TABLE
         date_default_timezone_set('America/Guatemala');
         $timeActual = date('d-m-Y H:i:s');
         if ($respuesta != "SD") {
-            $contador = 0;
+            $contadorFila = 0;
             foreach ($respuesta as $key => $value) {
-
-                //revision si esta cuadrado
                 $idIng = $value["numeroOrden"];
+                //revision si esta cuadrado
                 $consPol = 0;
+                $estadoInCon = 0;
                 $cantidadClientes = $value["cantidadClientes"];
                 if ($value["vinculo"] != "NoAplica") {
                     $sp = "spCantCadenasConsolidado";
                     $respConsoPol = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
+                    $sp = "spUpdateIngCons";
+                    $respEstadoCons = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
+
+                    if ($respEstadoCons[0]["resp"]==1) {
+                        $estadoInCon = 1;
+                    }
                     if ($respConsoPol[0]["cantCadenas"] != $cantidadClientes) {
-                    $consPol = 1;
-                    $sp = "spRevertirCons";
-                    $estado = 1;
-                    $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
-                    var_dump($respuestaRevCon);               
+                        $consPol = 1;
+                        $sp = "spRevertirCons";
+                        $estado = 1;
+                        $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
                     }
                 }
-                if ($consPol == 0) {
+
+                if ($consPol == 0 && $estadoInCon==0) {
+                    
                     $sp = "spRevertirIng";
                     $respuestaRevert = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
                     $spVeh = "spIngVehUsados";
@@ -43,7 +51,9 @@ class ControladorIngresosPendientes {
                     } else {
                         $usados = 'ZA';
                     }
+
                     if ($respuestaRevert[0]["resp"] == 1) {
+
                         $fEmision = new DateTime();
                         $fEmision = $value["emisionOperacion"]->format("d-m-Y H:i:s");
                         $horaInicio = new DateTime($fEmision);
@@ -56,16 +66,17 @@ class ControladorIngresosPendientes {
                         }
                         $verPase = $value["numeroOrden"];
                         $respuestaPase = ControladorRegistroBodega::ctrMostarPaseSalida($verPase);
-                        if ($respuestaPase != "SD") {
 
+                        if ($respuestaPase != "SD") {
 
                             $contador = 0;
                             $contadorEstadoTres = 0;
                             foreach ($respuestaPase as $keys => $valueUnidad) {
-                                if ($valueUnidad["unidad"] >= 1) {
+                                if ($valueUnidad["unidad"] == 1) {
                                     $contador = $contador + 1;
                                 }
                                 if ($valueUnidad["unidad"] == 0 && $valueUnidad["estadoIngreso"] == 3) {
+
                                     $contadorEstadoTres = $contadorEstadoTres + 1;
                                 }
 
@@ -76,9 +87,12 @@ class ControladorIngresosPendientes {
                                     $contadorEstadoTres = 0;
                                 }
                             }
+
                             if ($valueUnidad["estadoIngreso"] == 3 && $valueUnidad["unidad"] >= 1 && $valueUnidad["diferencia"] == 0) {
                                 
                             } else {
+
+                                
                                 /*   if ($valueUnidad["estadoIngreso"] == 3 && $valueUnidad["diferencia"] == 0) {
                                   $sp = "spUpdateIngEstado";
                                   $ingreso = $verPase;
@@ -133,23 +147,25 @@ class ControladorIngresosPendientes {
                                         }
                                     }
                                 }
+
                                 if ($value["vinculo"] != "NoAplica") {
                                     $empresaCons = $respuesta[$key]["empresa"] . ' / <strong style="color:blue;">' . $respuesta[$key]["consolidadoEmpresa"] . '<strong>  ';
                                 } else {
                                     $empresaCons = $respuesta[$key]["empresa"];
                                 }
 
-                                if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas") {
+                                if ($_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas") {
                                     $botonera = '<button type="button" class="btn btn-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                                 }
-                                $contador = $contador+1;
+                                
+                                $contadorFila = $contadorFila + 1;
                                 echo '
                       <tr>
-                        <td>' . ($contador) . '</td>
-                        <td>' . '<label id="lblEmpresa' . ($contador) . '">' . $empresaCons . '</label></td>
-                        <td>' . '<label id="lblNit' . ($contador) . '">' . $respuesta[$key]["nit"] . '</label></td>
-                        <td>' . '<label id="lblBultos' . ($contador) . '">' . $respuesta[$key]["bultos"] . '</label></td>
-                        <td>' . '<label id="lblPoliza' . ($contador) . '">' . $respuesta[$key]["poliza"] . '</label></td>
+                        <td>' . ($contadorFila) . '</td>
+                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
+                        <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
+                        <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
+                        <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>
                         <td>' . $fEmision . '</td>                                
                         <td>' . $button . '</td>';
                                 echo '<td>' . '<center><div class="btn-group">' . $botonera . '</div></center></td>';
@@ -165,8 +181,8 @@ class ControladorIngresosPendientes {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $sp = "spIngPendientesFail";
         $respuesta = ModeloIngresosPendientes::mdlTransaccionesPendientes($llaveIngresosPen, $sp);
-
-        if ($respuesta != "SD") {
+       
+            if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {                //revision si esta cuadrado
                 $idIng = $value["numeroOrden"];
                 $consPol = 0;
@@ -174,59 +190,29 @@ class ControladorIngresosPendientes {
                 if ($value["vinculo"] != "NoAplica") {
                     $sp = "spCantCadenasConsolidado";
                     $respConsoPol = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
-                    if ($respConsoPol[0]["cantCadenas"] == $cantidadClientes) {
-                    $consPol = 1;
-                    $sp = "spRevertirCons";
-                    $estado = 2;
-                    $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
-                    var_dump($respuestaRevCon);               
+                     if ($respConsoPol[0]["cantCadenas"] == $cantidadClientes) {
+                        $consPol = 1;
+                        $sp = "spRevertirCons";
+                        $estado = 2;
+                        $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
                     }
                 }
                 if ($consPol == 0) {
-                
-                
-                $botonera = "";
-                $vehNV = 0;
-                if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
-                    $sp = "spCountChas";
-                    $idIng = $value["numeroOrden"];
-                    $respuestaTran = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
-                    if ($respuestaTran[0]["countChas"] >= 1) {
-                        $vehNV = 1;
-                    }
-                    $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
-
-                    $botonera = '<button type="button" class="btn btn-primary btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
-                    $empresaCons = $respuesta[$key]["empresa"];
-                    echo '
-                      <tr>
-                        <td>' . ($key + 1) . '</td>
-                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
-                        <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
-                        <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
-                        <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
-                    echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
-                } else {
 
 
+                    $botonera = "";
+                    $vehNV = 0;
+                    if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
+                        $sp = "spCountChas";
+                        $idIng = $value["numeroOrden"];
+                        $respuestaTran = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
+                        if ($respuestaTran[0]["countChas"] >= 1) {
+                            $vehNV = 1;
+                        }
+                        $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
 
-
-                    if ($value["servicioFis"] == "VEHICULOS USADOS") {
-                        $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
-                    } else {
-                        $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
-                        $vehNV = 1;
-                    }
-
-                    if ($value["vinculo"] != "NoAplica") {
-                        $empresaCons = $respuesta[$key]["empresa"] . ' / <strong style="color:blue;">' . $respuesta[$key]["consolidadoEmpresa"] . '<strong>  ';
-                        $botonera = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso">Manifiesto</button>';
-
-                        } else {
+                        $botonera = '<button type="button" class="btn btn-primary btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
                         $empresaCons = $respuesta[$key]["empresa"];
-                    }
-                    $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
-                    if ($vehNV == 1) {
                         echo '
                       <tr>
                         <td>' . ($key + 1) . '</td>
@@ -235,9 +221,33 @@ class ControladorIngresosPendientes {
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
                         echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
+                    } else {
+                        if ($value["servicioFis"] == "VEHICULOS USADOS") {
+                            $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                        } else {
+                            $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
+                            $vehNV = 1;
+                        }
+
+                        if ($value["vinculo"] != "NoAplica") {
+                            $empresaCons = $respuesta[$key]["empresa"] . ' / <strong style="color:blue;">' . $respuesta[$key]["vinculo"] . '&nbsp;&nbsp;<span class="right badge badge-danger spanCopyVinc" idIngCons=' . $value["numeroOrden"] . ' vinculo=' . $respuesta[$key]["vinculo"] . '>Copy</span>&nbsp;&nbsp;<span class="right badge badge-success spanVincular" idIngCons=' . $value["numeroOrden"] . ' vinculo=' . $respuesta[$key]["vinculo"] . '>Vincular</span><strong>';
+                            $botonera = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso">Manifiesto</button>';
+                        } else {
+                            $empresaCons = $respuesta[$key]["empresa"];
+                        }
+                        $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
+                        if ($vehNV == 1) {
+                            echo '
+                      <tr>
+                        <td>' . ($key + 1) . '</td>
+                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
+                        <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
+                        <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
+                        <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
+                            echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
+                        }
                     }
                 }
-            }
             }
         }
     }
