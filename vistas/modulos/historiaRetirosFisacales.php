@@ -40,7 +40,7 @@
                         </div>
 
                         <div class="col-12 mt-5">
-                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                            <table id="tablasHistRetiro" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>
@@ -53,16 +53,8 @@
                                     <th>Impuestos</th>
                                     <th><center>Acciones</center></th>
                                     </tr>
-                                </thead> <tbody>
-                                    <?php
-                                    $tipo = 4;
-                                    $NavegaNumB = $_SESSION["NavegaNumB"];
-                                    $respuesta = ControladorContabilidadDeRet::ctrListarRetirosHistoria($tipo, $NavegaNumB);
-                                    if ($respuesta !== null) {
-                                        
-                                    }
-                                    ?>
-                                </tbody>
+                                </thead> 
+              
                             </table>
                         </div>
                     </div>

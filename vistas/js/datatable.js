@@ -3,6 +3,7 @@
  =============================================*/
 $(document).ready(function () {
     var table = $('#tablas').DataTable({
+        "deferRender": true,
         "language": {
 
             "sProcessing": "Procesando...",

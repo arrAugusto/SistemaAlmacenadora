@@ -24,7 +24,7 @@
                             
                         <div class="col-12 mt-5">
                             
-                            <table id="tableHistorialIng" role="grid" class="table dt-responsive table-hover table-sm">
+                            <table id="tableHistorialIng" class="table dt-responsive table-hover table-sm">
                                     <thead>
                                      <tr>
                                         <th style="width:3px">#</th>

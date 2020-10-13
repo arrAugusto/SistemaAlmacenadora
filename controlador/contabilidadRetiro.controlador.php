@@ -70,7 +70,7 @@ class ControladorContabilidadDeRet {
                     if ($tipo == 5) {
                         $botoneraAcciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnExcelRetSal" idRet= '. $identRet . '><i class="fa fa-file-excel-o"></i></button><button type="button" class="btn btn-outline-primary btn-sm" id="btnReimprimeRec" idRet="' . $identRet . '">Rec.</button></button><button type="button" class="btn btn-outline-info btn-sm" id="btnReimprimeRet" idRet="' . $identRet . '">Ret.</button><button type="button"  class="btn btn-outline-danger btnAnularOperacion btn-sm" disabled="disabled" data-toggle="modal" data-target="#AnulacionRetiro" idPoliza=' . $value["polRet"] . ' idRet=' . $value["identificaRet"] . ' estado=0><i class="fa fa-close"></i></button><div class="btn-group"></div>';
                     }
-                } else {
+                } else {    
                     $botoneraAcciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnExcelRetSal" idRet= '. $identRet .'><i class="fa fa-file-excel-o"></i></button><button type="button" class="btn btn-warning btn-sm">Pendiente&nbsp;</button><button type="button"  class="btn btn-outline-danger btnAnularOperacion btn-sm" disabled="disabled" data-toggle="modal" data-target="#AnulacionRetiro" idPoliza=' . $value["polRet"] . ' idRet=' . $value["identificaRet"] . ' estado=0><i class="fa fa-close"></i></button><div class="btn-group"></div>';
                 }
                 echo '
