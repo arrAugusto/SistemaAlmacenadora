@@ -98,6 +98,15 @@
                 </p>
             </a>
         </li>
+                        <li class="nav-item has-treeview">
+            <a href="paseSalidaVehNuevo" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Pases Vehículos N
+                    <span class="right badge badge-primary">Nuevo</span>
+                </p>
+            </a>
+        </li>
         <li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
   
         <li class="nav-item has-treeview">
@@ -317,6 +326,15 @@
                 </p>
             </a>
         </li>
+                        <li class="nav-item has-treeview">
+            <a href="paseSalidaVehNuevo" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Pases Vehículos N
+                    <span class="right badge badge-primary">Nuevo</span>
+                </p>
+            </a>
+        </li>
         <li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
 
         
@@ -478,7 +496,6 @@
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Historial de retiros
-                    <span class="right badge badge-warning">Nuevo</span>
                 </p>
 
             </a>
@@ -535,6 +552,8 @@
                 </p>
             </a>
         </li>
+
+
         <li class="nav-item has-treeview">
             <a href="paseDeSalida" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
@@ -543,7 +562,15 @@
                 </p>
             </a>
         </li>
-
+                <li class="nav-item has-treeview">
+            <a href="paseSalidaVehNuevo" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Pases Vehículos N
+                    <span class="right badge badge-primary">Nuevo</span>
+                </p>
+            </a>
+        </li>
         <li class="nav-item has-treeview">
             <a href="inventariosFiscales" class="nav-link">
                 <i class="fa fa-clipboard colorBarSuper"></i>
@@ -769,7 +796,17 @@
                     Pases de salida
                 </p>
             </a>
-        </li>';
+        </li>
+                <li class="nav-item has-treeview">
+            <a href="paseSalidaVehNuevo" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Pases Vehículos N
+                    <span class="right badge badge-primary">Nuevo</span>
+                </p>
+            </a>
+        </li>        
+';
 
                                         if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
                 echo '

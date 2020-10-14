@@ -795,7 +795,7 @@ $(document).on("click", ".btnImprimirInforme", async function () {
 })
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 $(document).ready(function () {
-     if ($(".btnHistoriaExcelIngRep").length >= 1) {
+    if ($(".btnHistoriaExcelIngRep").length >= 1) {
         $.ajax({
             url: "ajax/datatableHistorialIng.ajax.php",
             success: function (respuesta) {

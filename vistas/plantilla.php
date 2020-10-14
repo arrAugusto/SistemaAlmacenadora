@@ -87,6 +87,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "retiroPendienteC" ||
                         $_GET["ruta"] == "vehiculosSinMedidas" ||
                         $_GET["ruta"] == "retirosContabilizados" ||
+                        $_GET["ruta"] == "paseSalidaVehNuevo" ||                        
                         $_GET["ruta"] == "salir") {
                     /*
                       Include para hacer URL amigables.
@@ -124,6 +125,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "retirosContabilizados" ||
                         $_GET["ruta"] == "historialCalculos" ||
                         $_GET["ruta"] == "vehiculosSinMedidas" ||
+                        $_GET["ruta"] == "paseSalidaVehNuevo" ||
                         $_GET["ruta"] == "ingReportados") {
                     /*
                       Include para hacer URL amigables.

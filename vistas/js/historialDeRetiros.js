@@ -193,17 +193,13 @@ $(document).on("click", ".btnHistoriaExcelRet", async function () {
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 
 $(document).ready(function () {
-    if ($(".btnHistoriaExcelRec").length >= 1) {
-        var datos = new FormData();
-        datos.append("tipo", 1);
+    
+    if ($("#tablasHistRetiro").length >= 1) {
+
         $.ajax({
-            async: false,
-            url: "ajax/datatableHistorialRetiros.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
+ 
+        url: "ajax/datatableHistorialRetiros.ajax.php",
+
             success: function (respuesta) {
                 console.log(respuesta);
             }
@@ -213,8 +209,9 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-    if ($(".btnHistoriaExcelRec").length >= 1) {
+    if ($("#tablasHistRetiro").length >= 1) {
         $('#tablasHistRetiro').DataTable({
+            
             "bProcessing": true,
             "sAjaxSource": "ajax/datatableHistorialRetiros.ajax.php",
             "language": {

@@ -109,9 +109,9 @@ class ModeloContabilidadDeRet {
         public static function mdlListarRetPendientesHistorial($ident) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-        $params = array(&$ident);
-        $sql = "EXECUTE spRetirosHistorial ?";
-        $stmt = sqlsrv_prepare($conn, $sql, $params);
+
+        $sql = "EXECUTE spRetirosHistorial";
+        $stmt = sqlsrv_prepare($conn, $sql);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;

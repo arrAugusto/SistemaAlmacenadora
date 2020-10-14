@@ -207,7 +207,7 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                                     </tr>
                                 </thead> <tbody>
                                     <?php
-                                    $tipo = 1;
+                                    $tipo = 0;
                                     $respuesta = ControladorPasesDeSalida::ctrListarRetiros($tipo);
                                     ?>
                                 </tbody>
@@ -274,6 +274,10 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                         <input type="number" class="form-control is-invalid" id="bultos" placeholder="Ejemplo : 5" value=""/>
                         <span class="badge bg-danger pull-right" id="spanbultos" style="display: none;"></span>                        
                     </div>
+                    
+                    <div class="col-12 mt-4" id="tableVehUsados">
+                        
+                    </div>                     
                     <div class="col-12 mt-4">
                         <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
                     </div>                    
@@ -598,7 +602,6 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                         </table>
                     </div>
                 </div>
-                <div class="col-lg-12" id="divTableMenuAperitivos"></div>
             </div>
         </div>
     </div>

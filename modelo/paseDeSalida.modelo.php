@@ -4,10 +4,10 @@ require_once "cone.php";
 
 class ModeloPasesDeSalida {
 
-    public static function mdlListarRetiros() {
+    public static function mdlListarRetiros($sp) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spPaseSalidaCalc";
+        $sql = "EXECUTE ".$sp;
         $stmt = sqlsrv_prepare($conn, $sql);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

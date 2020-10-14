@@ -28,8 +28,9 @@ class ControladorRetiroOpe {
             }
         }
         $respuestaGuardar = ModeloRetiroOpe::ctrGuardarDataRet($datos);
+
         $estado = 0;
-        if ($respuestaGuardar != 0) {
+        if ($respuestaGuardar >= 1) {
 
 
             foreach ($listaVeh as $key => $value) {
@@ -336,10 +337,11 @@ class ControladorRetiroOpe {
         $respEdVeh = ModeloRetiroOpe::mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo);
         return $respEdVeh;
     }
+
     public static function ctrExcelRetFiscal($idRetFEx) {
         $sp = "spDataRetExcel";
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetFEx, $sp);
-        return $respuesta;      
+        return $respuesta;
     }
 
     public static function ctrDatosRetirosGenerardos($retiroFs) {
@@ -470,7 +472,11 @@ class ControladorRetiroOpe {
         return $respuesta;
     }
 
-
+    public static function ctrDetalleVehN($idRetVehN) {
+         $sp = "spChasisVNuevo";
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetVehN, $sp);
+        return $respuesta;       
+    }
 
 }
 

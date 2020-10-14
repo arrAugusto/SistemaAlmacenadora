@@ -36,11 +36,14 @@ class ControladorIngresosPendientes {
                         $sp = "spRevertirCons";
                         $estado = 1;
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
+                        if ($respuestaRevCon[0]["resp"]==2) {
+                         $consPol = 0;   
+                        }
                     }
                 }
 
+
                 if ($consPol == 0 && $estadoInCon==0) {
-                    
                     $sp = "spRevertirIng";
                     $respuestaRevert = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
                     $spVeh = "spIngVehUsados";
@@ -181,7 +184,7 @@ class ControladorIngresosPendientes {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $sp = "spIngPendientesFail";
         $respuesta = ModeloIngresosPendientes::mdlTransaccionesPendientes($llaveIngresosPen, $sp);
-       
+
             if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {                //revision si esta cuadrado
                 $idIng = $value["numeroOrden"];
@@ -195,8 +198,12 @@ class ControladorIngresosPendientes {
                         $sp = "spRevertirCons";
                         $estado = 2;
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
+                        if ($respuestaRevCon[0]["resp"]==2) {
+                            $consPol = 0;
+                        }
                     }
                 }
+
                 if ($consPol == 0) {
 
 

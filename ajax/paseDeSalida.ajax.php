@@ -146,7 +146,12 @@ class AjaxPasesDeSalida {
         $respRet = ControladorRetiroOpe::ctrExcelRetFiscal($idRetFEx);
         echo json_encode($respRet);        
     }
-
+    public $objRetDataVehN;
+    public function ajaxDetalleVehN(){
+        $idRetVehN = $this->idRetVehN;
+        $respRet = ControladorRetiroOpe::ctrDetalleVehN($idRetVehN);
+        echo json_encode($respRet);           
+    }
 }
 
 if (isset($_POST["idRetCal"])) {
@@ -226,4 +231,10 @@ if (isset($_POST["idRetFEx"])) {
     $objRetData = new AjaxPasesDeSalida();
     $objRetData->idRetFEx = $_POST["idRetFEx"];
     $objRetData->ajaxExcelRetFiscal();    
+}
+
+if (isset($_POST["idRetVehN"])) {
+    $objRetDataVehN = new AjaxPasesDeSalida();
+    $objRetDataVehN->idRetVehN = $_POST["idRetVehN"];
+    $objRetDataVehN->ajaxDetalleVehN();    
 }

@@ -504,8 +504,10 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
     $("#peso").addClass('is-invalid');
     var idNumRetConsult = $(this).attr("idret");
     var idNumIng = $(this).attr("idIngreso");
-    var datos = new FormData();
+
     document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
+
+    var datos = new FormData();
     datos.append("idNumRetConsult", idNumRetConsult);
     $.ajax({
         url: "ajax/paseDeSalida.ajax.php",
@@ -1284,142 +1286,142 @@ $(document).on("click", ".btnDescuento", async function () {
 $(document).on("click", ".imprimirReciboAlmacenaje", async function () {
     //Retiro
     var idNitFact = document.getElementById("hiddenIdNitFact").value;
-    if (idNitFact>=1) {
-        
+    if (idNitFact >= 1) {
 
-    var idRet = $(this).attr("idRet");
-    var nomVar = "paseSalRetVal";
-    var resp = await AjaxUnParam(idRet, nomVar);
-    console.log(resp);
-    if (resp[0].cantidadPlt >= 1) {
-        //Ingreso 
-        var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
-        //Otros servicios
-        var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
-        listaOtros = [];
-        listaServiciosDefault = [];
-        if (paragraphs.length == 0) {
-            var otrosValores = 0;
-        } else {
-            for (var i = 0; i < paragraphs.length; i++) {
-                var servicioOtro = paragraphs[i].attributes.idvalue.value;
-                var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
-                listaOtros.push({
-                    "serviciosOtros": servicioOtro,
-                    "valorOtros": valOtro
-                });
-            }
-            // Recorrido de listas y descuentos para mostra al cliente.
-            // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
-            var otrosValores = 0;
-            for (var i = 0; i < listaOtros.length; i++) {
-                var otrosValores = (listaOtros[i].valorOtros * 1) + otrosValores;
-            }
-            var listaOtros = JSON.stringify(listaOtros);
-        }
-        //Servicios default
-        var paragraphs = Array.from(document.querySelectorAll(".btnEliminarServDefault"));
 
-        if (paragraphs.length == 0) {
-            console.log("no hay");
-            var valServicio = 0.00;
-        } else {
-            for (var i = 0; i < paragraphs.length; i++) {
-                var servicioDef = paragraphs[i].attributes.idvalue.value;
-                var valServicios = document.getElementById("montoSerDefaultText" + servicioDef).value;
-                listaServiciosDefault.push({
-                    "serviciosDefault": servicioDef,
-                    "valServicios": valServicios
-                });
-            }
-            // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
-            var valServicio = 0;
-            for (var i = 0; i < listaServiciosDefault.length; i++) {
-                var valServicio = (listaServiciosDefault[i].valServicios) * 1 + valServicio;
-            }
-            var listaServiciosDefault = JSON.stringify(listaServiciosDefault);
-        }
-        //Descuento 
-        var valDescuento = document.getElementById("valDescuento").value;
-        var hiddenDescuento = document.getElementById("hiddenDescuento").value;
-        // Valor calculado 
-        var valCalculado = await totalCobrar();
-        valCalculado = parseFloat(valCalculado).toFixed(2);
-        //Total a cobrar 
-        var hiddenTotalCobrar = (valCalculado + otrosValores + valServicio) - valDescuento;
-        console.log(valDescuento);
-        //Total a cobrar 
-        var hiddenTotalCobrar = document.getElementById("hiddenTotalCobrar").value;
-        // Valor calculado 
-        var valCalculado = await totalCalculado();
-        if (valCalculado > 0) {
-            const {
-                value: tipoDescuento
-            } = await Swal.fire({
-                type: 'info',
-                allowOutsideClick: false,
-                title: '¿Desea guardar cambios?',
-                html: '<strong>¡Se generara un pdf con el recibo de almacenaje!</strong><br/><br/><b>Servicios Calculado : </b>Q. ' + valCalculado + '<br/><b>Aumento en servicios : </b>Q. ' + valServicio + '<br/><b>Otros Servicios :</b>Q. ' + otrosValores + '<br/><b>Descuento del ' + hiddenDescuento + ' % : </b>Q. ' + valDescuento + '<br/>___________________________________<br/><br/><strong>Total a Facutrar Q. ' + hiddenTotalCobrar + '</strong>',
-                showCancelButton: true,
-                inputValidator: (value) => {
-                    console.log(value);
-                    return new Promise((resolve) => {
-                        resolve();
+        var idRet = $(this).attr("idRet");
+        var nomVar = "paseSalRetVal";
+        var resp = await AjaxUnParam(idRet, nomVar);
+        console.log(resp);
+        if (resp[0].cantidadPlt >= 1) {
+            //Ingreso 
+            var hiddenresultIdIngreso = document.getElementById("hiddenresultIdIngreso").value;
+            //Otros servicios
+            var paragraphs = Array.from(document.querySelectorAll(".btnEliminarOtroServ"));
+            listaOtros = [];
+            listaServiciosDefault = [];
+            if (paragraphs.length == 0) {
+                var otrosValores = 0;
+            } else {
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var servicioOtro = paragraphs[i].attributes.idvalue.value;
+                    var valOtro = document.getElementById("montoServicioText" + servicioOtro).value;
+                    listaOtros.push({
+                        "serviciosOtros": servicioOtro,
+                        "valorOtros": valOtro
                     });
                 }
-            });
-            if (tipoDescuento) {
-                if ($("#dateTime").val() == "") {
-                    var hiddenDateTimeVal = "NA";
-                } else {
-                    var hiddenDateTimeVal = $("#dateTime").val();
+                // Recorrido de listas y descuentos para mostra al cliente.
+                // Recorrido otros servicios Ejemplo: Tomas electricas, fotocopias, desechos de madera, tiempos extraOrdinarios, etc...
+                var otrosValores = 0;
+                for (var i = 0; i < listaOtros.length; i++) {
+                    var otrosValores = (listaOtros[i].valorOtros * 1) + otrosValores;
                 }
+                var listaOtros = JSON.stringify(listaOtros);
+            }
+            //Servicios default
+            var paragraphs = Array.from(document.querySelectorAll(".btnEliminarServDefault"));
 
-                var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal, idNitFact);
-                if (guardarRecibo == "ARegistrado") {
-                    Swal.fire({
-                        title: 'Recibo Creado',
-                        text: "¿Desea Imprimir?",
-                        type: 'warning', allowOutsideClick: false,
-                        allowOutsideClick: false,
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, Imprimir'
-                    }).then((result) => {
-                        if (result.value) {
-                            window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
-
-                        }
+            if (paragraphs.length == 0) {
+                console.log("no hay");
+                var valServicio = 0.00;
+            } else {
+                for (var i = 0; i < paragraphs.length; i++) {
+                    var servicioDef = paragraphs[i].attributes.idvalue.value;
+                    var valServicios = document.getElementById("montoSerDefaultText" + servicioDef).value;
+                    listaServiciosDefault.push({
+                        "serviciosDefault": servicioDef,
+                        "valServicios": valServicios
                     });
-                } else if (guardarRecibo === "ok") {
-                    window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+                }
+                // Recorrido de aumento a servicios base: Zona aduanera, Almacenaje, Manejo, Gastos administrativos...
+                var valServicio = 0;
+                for (var i = 0; i < listaServiciosDefault.length; i++) {
+                    var valServicio = (listaServiciosDefault[i].valServicios) * 1 + valServicio;
+                }
+                var listaServiciosDefault = JSON.stringify(listaServiciosDefault);
+            }
+            //Descuento 
+            var valDescuento = document.getElementById("valDescuento").value;
+            var hiddenDescuento = document.getElementById("hiddenDescuento").value;
+            // Valor calculado 
+            var valCalculado = await totalCobrar();
+            valCalculado = parseFloat(valCalculado).toFixed(2);
+            //Total a cobrar 
+            var hiddenTotalCobrar = (valCalculado + otrosValores + valServicio) - valDescuento;
+            console.log(valDescuento);
+            //Total a cobrar 
+            var hiddenTotalCobrar = document.getElementById("hiddenTotalCobrar").value;
+            // Valor calculado 
+            var valCalculado = await totalCalculado();
+            if (valCalculado > 0) {
+                const {
+                    value: tipoDescuento
+                } = await Swal.fire({
+                    type: 'info',
+                    allowOutsideClick: false,
+                    title: '¿Desea guardar cambios?',
+                    html: '<strong>¡Se generara un pdf con el recibo de almacenaje!</strong><br/><br/><b>Servicios Calculado : </b>Q. ' + valCalculado + '<br/><b>Aumento en servicios : </b>Q. ' + valServicio + '<br/><b>Otros Servicios :</b>Q. ' + otrosValores + '<br/><b>Descuento del ' + hiddenDescuento + ' % : </b>Q. ' + valDescuento + '<br/>___________________________________<br/><br/><strong>Total a Facutrar Q. ' + hiddenTotalCobrar + '</strong>',
+                    showCancelButton: true,
+                    inputValidator: (value) => {
+                        console.log(value);
+                        return new Promise((resolve) => {
+                            resolve();
+                        });
+                    }
+                });
+                if (tipoDescuento) {
+                    if ($("#dateTime").val() == "") {
+                        var hiddenDateTimeVal = "NA";
+                    } else {
+                        var hiddenDateTimeVal = $("#dateTime").val();
+                    }
 
+                    var guardarRecibo = await guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal, idNitFact);
+                    if (guardarRecibo == "ARegistrado") {
+                        Swal.fire({
+                            title: 'Recibo Creado',
+                            text: "¿Desea Imprimir?",
+                            type: 'warning', allowOutsideClick: false,
+                            allowOutsideClick: false,
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Si, Imprimir'
+                        }).then((result) => {
+                            if (result.value) {
+                                window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+
+                            }
+                        });
+                    } else if (guardarRecibo === "ok") {
+                        window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRet, "_blank");
+
+                    }
                 }
             }
+        } else {
+            Swal.fire({
+                title: 'Retiro sin piloto',
+                text: "No se registro ningun transporte en el retiro, registre el piloto",
+                type: 'warning', allowOutsideClick: false,
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                $("#idbtnMasPilotos").click();
+
+            })
         }
     } else {
+        document.getElementById("hiddenIdNitFact").value = "";
         Swal.fire({
-            title: 'Retiro sin piloto',
-            text: "No se registro ningun transporte en el retiro, registre el piloto",
-            type: 'warning', allowOutsideClick: false,
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok!'
-        }).then((result) => {
-            $("#idbtnMasPilotos").click();
-
-        })
-    }
-        }else{
-            document.getElementById("hiddenIdNitFact").value = "";
-                    Swal.fire({
             title: 'Error nit',
             text: "Intente escribir nuevamentae el numero de nit",
             type: 'warning', allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok!'
         })
-        }
+    }
 });
 
 function  guardarRecibosAlmacenaje(idRet, hiddenresultIdIngreso, listaOtros, listaServiciosDefault, valDescuento, hiddenDescuento, hiddenDateTimeVal, idNitFact) {
@@ -1849,5 +1851,67 @@ $(document).on("click", ".btnExcelRetSal", async function () {
     var nombreReporte = "RetirosFiscales";
     var creaExcel = await JSONToCSVDescargaExcel(respuesta, nombreEncabezado, nombreReporte, nombreFile, true);
     console.log(resp);
+})
+
+$(document).on("click", "#btnVehNew", async function () {
+        document.getElementById("tableVehUsados").innerHTML = "";
+        document.getElementById("tableVehUsados").innerHTML = '<table id="tablaMerRetiroVeh" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
+
+    var idRet = $(this).attr("idRet");
+    var nomVar = "idRetVehN";
+    var respuesta = await AjaxUnParam(idRet, nomVar);    
+    listVeh = [];
+    for (var i = 0; i < respuesta.length; i++) {
+        var idChas = respuesta[i].id;
+        var nombreEmpresa = respuesta[i].nombreEmpresa;
+        var polizaRetiro = respuesta[i].polizaRetiro;
+        var chasis = respuesta[i].chasis;
+        var tipoVehiculo = respuesta[i].tipoVehiculo;
+        var linea = respuesta[i].linea;
+        var predio = respuesta[i].predio;
+        var descripcion = respuesta[i].descripcion;
+        listVeh.push([nombreEmpresa, chasis, tipoVehiculo, linea, predio, descripcion]);
+        
+    }
+                        $('#tablaMerRetiroVeh').DataTable({
+                            "language": {
+                                "sProcessing": "Procesando...",
+                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                "sZeroRecords": "No se encontraron resultados",
+                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                "sInfoPostFix": "",
+                                "sSearch": "Busqueda:",
+                                "sUrl": "",
+                                "sInfoThousands": ",",
+                                "sLoadingRecords": "Cargando...",
+                                "oPaginate": {
+                                    "sFirst": "Primero",
+                                    "sLast": "Último",
+                                    "sNext": "Siguiente",
+                                    "sPrevious": "Anterior"
+                                },
+                                "oAria": {
+                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                }
+                            },
+                            data: listVeh,
+                            columns: [{
+                                    title: "Nombre de empresa"
+                                }, {
+                                    title: "Chasis"
+                                }, {
+                                    title: "Tipo Vehiculo"
+                                }, {
+                                    title: "Linea"
+                                }, {
+                                    title: "Predio"
+                                }, {
+                                    title: "Desc. Predio"
+                                }]
+                        });
 })
 

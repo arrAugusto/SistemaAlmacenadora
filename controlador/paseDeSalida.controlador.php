@@ -2,21 +2,35 @@
 
 class ControladorPasesDeSalida {
 
-    public static function ctrListarRetiros() {
-        $respuesta = ModeloPasesDeSalida::mdlListarRetiros();
+    public static function ctrListarRetiros($tipo) {
+        if ($tipo == 1) {
+            $sp = "spPaseSalidaCalc";
+            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp);
+        }
+        if ($tipo == 0) {
+            $sp = "spPaseSalidaVehN";
+            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp);
+        }
 
-        if ($respuesta != "SD") {   
+        if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
-                    if ($value["retAsignado"] == 0 && $value["reciboAsignado"] >= 1) {
-                        $bottonera = '<div class="btn-group"><button type="button" class="btn btn-success btnConsultDataConfirm btn-sm" reciboAsignado=' . $value["reciboAsignado"] . ' retiroAsignado=0 correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Retiro&nbsp;<i class="fa fa-print"></i></button></div>';
-                    }
-                    if ($value["reciboAsignado"] == 0 && $value["retAsignado"] >= 1) {
-                        $bottonera = '<div class="btn-group"><button type="button" class="btn btn-warning btnConsultDataConfirm btn-sm" reciboAsignado=0 retiroAsignado=' . $value["retAsignado"] . ' correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Recibo&nbsp;<i class="fa fa-print"></i></button></div>';
-                    }
-                    if ($value["reciboAsignado"] == 0 && $value["retAsignado"] == 0) {
-                        $bottonera = '<div class="btn-group"><button type="button" class="btn btn-danger btnConsultDataConfirm btn-sm" reciboAsignado=0 retiroAsignado=0 polizaSal="' . $value["numPolIng"] . '" correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Pendiente &nbsp;<i class="fa fa-print"></i></button></div>';
-                    }
-                    echo '
+                if ($tipo == 1) {
+                    
+              
+                if ($value["retAsignado"] == 0 && $value["reciboAsignado"] >= 1) {
+                    $bottonera = '<div class="btn-group"><button type="button" class="btn btn-success btnConsultDataConfirm btn-sm" reciboAsignado=' . $value["reciboAsignado"] . ' retiroAsignado=0 correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Retiro&nbsp;<i class="fa fa-print"></i></button></div>';
+                }
+                if ($value["reciboAsignado"] == 0 && $value["retAsignado"] >= 1) {
+                    $bottonera = '<div class="btn-group"><button type="button" class="btn btn-warning btnConsultDataConfirm btn-sm" reciboAsignado=0 retiroAsignado=' . $value["retAsignado"] . ' correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Recibo&nbsp;<i class="fa fa-print"></i></button></div>';
+                }
+                if ($value["reciboAsignado"] == 0 && $value["retAsignado"] == 0) {
+                    $bottonera = '<div class="btn-group"><button type="button" class="btn btn-danger btnConsultDataConfirm btn-sm" reciboAsignado=0 retiroAsignado=0 polizaSal="' . $value["numPolIng"] . '" correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Pendiente &nbsp;<i class="fa fa-print"></i></button></div>';
+                }
+                  }
+                  if ($tipo == 0) {
+                      $bottonera = '<div class="btn-group"><button type="button" class="btn btn-danger btnConsultDataConfirm btn-sm" id="btnVehNew" reciboAsignado=0 retiroAsignado=0 polizaSal="' . $value["numPolIng"] . '" correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">RETIRO VEHICULOS &nbsp;<i class="fa fa-print"></i></button></div>';
+                  }
+                echo '
                     <tr>
                         <td>' . ($key + 1) . '</td>
                         <td>' . $value["numNit"] . '</td>
@@ -26,12 +40,11 @@ class ControladorPasesDeSalida {
                         <td>' . $value["bultosRet"] . '</td>
                         <td>' . $value["pesoRet"] . '</td>
                         <td>' . $value["tipoServicio"] . '</td>';
-                    if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
-                        echo '    <td>' . $bottonera . '</td>';
-                    }
-                    echo '   
+                if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
+                    echo '    <td>' . $bottonera . '</td>';
+                }
+                echo '   
                     </tr>';
-              
             }
         }
     }
@@ -51,7 +64,7 @@ class ControladorPasesDeSalida {
                 return $respuesta;
             }
             $tiempoTotal = $respuesta["totalDiasC"];
-            $datos = array("revCuad" => $respuesta["revCuad"], "almaMSuperior" => $respuesta["almacenaje"], "zonaAduanMSuperior" => 0, "calculoManejo" => $respuesta["manejo"], "gtoAdminMSuperior" => $respuesta["transEle"], "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $respuesta["fechaIngreso"], "fechaCorte" => $respuesta["fechaCalculo"], "marchElectro" => $respuesta["marchElectro"], "serAcuse"=>"SD");
+            $datos = array("revCuad" => $respuesta["revCuad"], "almaMSuperior" => $respuesta["almacenaje"], "zonaAduanMSuperior" => 0, "calculoManejo" => $respuesta["manejo"], "gtoAdminMSuperior" => $respuesta["transEle"], "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $respuesta["fechaIngreso"], "fechaCorte" => $respuesta["fechaCalculo"], "marchElectro" => $respuesta["marchElectro"], "serAcuse" => "SD");
             return $datos;
         } else {
 
@@ -83,6 +96,7 @@ class ControladorPasesDeSalida {
             echo '<option value=' . $value["servicio"] . '>' . $value["otrosServicios"] . '</option>';
         }
     }
+
     public static function ctrMostrarOtrosServiciosExt() {
         $sp = "spMuestraOtrosServicios";
         $respuesta = ModeloPasesDeSalida::mdlMostrarOtrosServicios($sp);
@@ -90,16 +104,15 @@ class ControladorPasesDeSalida {
         foreach ($respuesta as $key => $value) {
             echo '
                 <tr>
-                <td>'.($key+1).'</td>
-                <td>'.($value["otrosServicios"]).'</td>
+                <td>' . ($key + 1) . '</td>
+                <td>' . ($value["otrosServicios"]) . '</td>
                     
                 </tr>
 
 ';
-                
-
         }
     }
+
     public static function ctrMostrarServiciosDefault() {
         $sp = "spServicioDefault";
         $respuesta = ModeloPasesDeSalida::mdlMostrarOtrosServicios($sp);
@@ -119,7 +132,7 @@ class ControladorPasesDeSalida {
         $hiddenDescuento = $datos["hiddenDescuentoGdRec"];
         $valCalculado = $datos["valDescuentoGdRec"];
         $idNitFact = $datos["idNitFact"];
-        
+
         if ($hiddenDateTimeVal == "NA") {
             $hiddenDateTimeVal = date('d-m-Y');
         }
@@ -145,7 +158,7 @@ class ControladorPasesDeSalida {
             $revCuad = $respuesta["revCuad"];
             $marchElectro = $respuesta["marchElectro"];
         } else {
-            
+
             $sp = "spMostrarPoliza";
             $hiddenTipoOP = 3;
             $mostrarPoliza = ModeloPasesDeSalida::mdlValidacionCobro($sp, $idRetCal);
@@ -257,9 +270,9 @@ class ControladorPasesDeSalida {
     public static function ctrAuxiliares($retiroF, $tipo) {
         $sp = "spCltDataRet";
         $mostrarPoliza = ModeloPasesDeSalida::mdlAuxiliares($retiroF, $tipo, $sp);
-        if ($mostrarPoliza=="SD") {
-        $tipo = 2;
-        $mostrarPoliza = ModeloPasesDeSalida::mdlAuxiliares($retiroF, 2, $sp);            
+        if ($mostrarPoliza == "SD") {
+            $tipo = 2;
+            $mostrarPoliza = ModeloPasesDeSalida::mdlAuxiliares($retiroF, 2, $sp);
         }
         return $mostrarPoliza;
     }
