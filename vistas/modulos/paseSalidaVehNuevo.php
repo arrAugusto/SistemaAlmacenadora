@@ -188,7 +188,7 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                         }
                         ?>
                         <div class="col-12 mt-4">
-                            <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                            <table id="tableVeh" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>
                                     <th style="whidth:5px">#</th>

@@ -92,7 +92,7 @@ class ControladorIngresosPendientes {
                             }
 
                             if ($valueUnidad["estadoIngreso"] == 3 && $valueUnidad["unidad"] >= 1 && $valueUnidad["diferencia"] == 0) {
-                                
+
                             } else {
 
                                 

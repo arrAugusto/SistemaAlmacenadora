@@ -477,6 +477,14 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetVehN, $sp);
         return $respuesta;       
     }
+    
+    public static function ctrRetiroVehN($retiroVehN, $usuarioOp){
+        $sp = "spEstadoRetVehN";
+        $estado = 4;
+        $asignar = 1;
+        $respuesta = ModeloRetiroOpe::mdlRetiroVehN($retiroVehN, $estado, $asignar, $usuarioOp, $sp);
+        return $respuesta;         
+    }
 
 }
 

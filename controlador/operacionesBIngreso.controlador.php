@@ -119,7 +119,7 @@ class ControladorOpB {
                                     $fechaIngFormat = date("d-m-Y", strtotime($datos['hiddenDateTime']));
                                     $numeroLicencia = $datos['numeroLicencia'];
                                     $tipoConsolidadoPol = $datos["sel2"];
-                                    $concatLlave = ($idBodega . $paramPlaca . $numeroMarchamo . $paramContenedor . $fechaIngFormat . $numeroLicencia);
+                                    $concatLlave = ($idBodega . $fechaIngFormat . $numeroLicencia);
                                     $llaveConsolidadoPoliza = md5($concatLlave);
                                     $tipoOperacion = 1;
                                     $busquedaConsolidadoGrd = $datos["busquedaConsolidadoGrd"];
