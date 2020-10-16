@@ -1,6 +1,4 @@
 function alertaToast(mensaje, tipo) {
-
-
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -19,13 +17,9 @@ function alertaToast(mensaje, tipo) {
         "hideMethod": "fadeOut"
     }
     Command: toastr[tipo](mensaje);
-
-
 }
 
 function alertaToastConfi(mensaje, tipo, posicion) {
-
-
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -44,34 +38,25 @@ function alertaToastConfi(mensaje, tipo, posicion) {
         "hideMethod": "fadeOut"
     }
     Command: toastr[tipo](mensaje);
-
-
 }
 
 function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones, metros, idDetalle, Idincidencia, idSpan, tipo) {
     console.log(idSpan);
     var paragraphs = Array.from(document.querySelectorAll(".noBodega"));
-
     if (paragraphs.length >= 1) {
         var btnCambiaUbica = "";
         Command: toastr["success"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros);
-
     } else {
-
-
         btnCambiaUbica = '<button type="button" class="btn btn-primary bntCambioUbN">Cambiar Ubicaciones</button>';
         if (tipo == 1) {
             var btnCambiaUbica =
-                    `
-
+               `
         <div class="btn-group btn-group-sm">
   <button type="button" class="btn btn-warning btnModificarUbica" idDetModificar="` + idDetalle + `" Idincidencia="` + Idincidencia + `">Agregar <i class="fa fa-plus"></i></button>
   <button type="button" class="btn btn-danger btnEliminarUbicacion" idDetallElim=` + idDetalle + `" Idincidencia="` + Idincidencia + `" dataId="` + idSpan + `">Eliminar <i class="fa fa-trash"></i></button>
   
 </div>`;
         }
-
-
         toastr.options = {
             "closeButton": true,
             "debug": false,
@@ -90,10 +75,8 @@ function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones,
             "hideMethod": "fadeOut",
             "tapToDismiss": false
         }
-
         Command: toastr["info"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros + "<br/><strong>Opciones de Ubicación</strong>" + btnCambiaUbica);
-
-    }
+   }
 }
 
 function alertValNoAdm(mensaje, tipo) {
@@ -115,12 +98,10 @@ function alertValNoAdm(mensaje, tipo) {
         "hideMethod": "fadeOut"
     }
     Command: toastr[tipo](mensaje);
-
 }
 $(document).ready(function () {
     $('#tablasGeneral').DataTable({
         "language": {
-
             "sProcessing": "Procesando...",
             "sLengthMenu": "Mostrar _MENU_ registros",
             "sZeroRecords": "No se encontraron resultados",
@@ -143,42 +124,8 @@ $(document).ready(function () {
                 "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
-
         }
     });
-
-})
-
-$(document).ready(function () {
-    $('#tableVeh').DataTable({
-        "language": {
-
-            "sProcessing": "Procesando...",
-            "sLengthMenu": "Mostrar _MENU_ registros",
-            "sZeroRecords": "No se encontraron resultados",
-            "sEmptyTable": "Ningún dato disponible en esta tabla",
-            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix": "",
-            "sSearch": "Busqueda:",
-            "sUrl": "",
-            "sInfoThousands": ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst": "Primero",
-                "sLast": "Último",
-                "sNext": "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-
-        }
-    });
-
 })
 
 $(function () {

@@ -547,6 +547,8 @@ $(document).on("click", ".btnListaSelect", async function () {
             }
         });
     } else {
+        document.getElementById("descMercaderia").value = "VEHICULOS NUEVOS";
+        $("#descMercaderia").trigger('change');
         document.getElementById("hiddeniddeingreso").value = idIngSelectDet;
         document.getElementById("hiddenIdentificador").value = idIngOpDet;
         console.log(servicio.dataRetiro);
@@ -772,8 +774,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var calculoValorImpuesto = parseFloat(calculoValorImpuesto).toFixed(2);
                         
                         var respSaldImptSld = (respSaldImpt - calculoValorImpuesto);
-                        console.log(respSaldImptSld);
-                        
                         
                         var respSaldCif = respSaldos[0].saldoValorCif * 1;
                         var respSaldCif = parseFloat(respSaldCif).toFixed(2);
@@ -782,7 +782,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var valorCif = parseFloat(valorCif).toFixed(2);
                         
                         var respSaldCifSld = (respSaldCif - valorCif);
-                        console.log(respSaldCifSld);
                         //condicion si se liquida
                         if (respSaldos[0].saldoBultos == bultsResp) {
                             var bltsSaldo = 1;

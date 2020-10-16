@@ -211,9 +211,9 @@ $(document).ready(function () {
 $(document).ready(function () {
     if ($("#tablasHistRetiro").length >= 1) {
         $('#tablasHistRetiro').DataTable({
-            
             "bProcessing": true,
             "sAjaxSource": "ajax/datatableHistorialRetiros.ajax.php",
+            "deferRender": true,            
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

@@ -22,7 +22,24 @@ class ModeloHistorialIngresos {
             }
         }
     }
+    public static function mdlMostrarTableIngHistoria($sp, $param) {
 
+        $conn = Conexion::Conectar();
+        $params = array(&$param);
+        $sql = "EXECUTE ".$sp." ?";
+
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        }
+    }
     public static function mdlMostrarServiciosEdit() {
 
         $conn = Conexion::Conectar();

@@ -145,6 +145,7 @@
                         <input type="hidden" id="hidenPilotosPlus" value="" />
                         <input type="hidden" id="hiddenIdentity" value="" />                        
                     </div>
+                </form>
             </div>
         </div>
     </section>

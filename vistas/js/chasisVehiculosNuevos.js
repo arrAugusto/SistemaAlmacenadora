@@ -16,6 +16,7 @@ $(document).ready(function () {
         $('#tablasChasisNew').DataTable({
             "bProcessing": true,
             "sAjaxSource": "ajax/chasisVehiculosNuevos.ajax.php",
+            "deferRender": true,
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

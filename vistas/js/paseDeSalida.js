@@ -439,40 +439,42 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
 
                         document.getElementById("spanOtro").innerHTML = hiddenGTOAcuse;
                     }
-                } else {
-                    Swal.fire({
-                        title: 'Desea imprimir?',
-                        text: "Se generará una forma de retiro de vehículos nuevos!",
-                        type: 'info',
-                        showCancelButton: true,
-                        allowOutsideClick: false,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Si, imprimir',
-                        cancelButtonText: 'No, cancelar'
-                    }).then(async function (result) {
-                        if (result.value) {
-                            var nomVar = "retiroVehN";
-                            var resp = await AjaxUnParam(idRetCal, nomVar);
-                            if (resp[0]["resp"] == 1) {
-                                Swal.fire({
-                                    title: 'Desea imprimir retiro?',
-                                    text: "Se generará un PDF!",
-                                    type: 'success',
-                                    showCancelButton: true,
-                                    confirmButtonColor: '#3085d6',
-                                    cancelButtonColor: '#d33',
-                                    confirmButtonText: 'Yes, delete it!'
-                                }).then((result) => {
-                                    if (result.value) {
-                                        window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idRetCal, "_blank");
-
-                                    }
-                                })
-                            }
-                        }
-                    })
                 }
+            } else {
+
+                /*
+                 Swal.fire({
+                 title: 'Desea imprimir?',
+                 text: "Se generará una forma de retiro de vehículos nuevos!",
+                 type: 'info',
+                 showCancelButton: true,
+                 allowOutsideClick: false,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Si, imprimir',
+                 cancelButtonText: 'No, cancelar'
+                 }).then(async function (result) {
+                 if (result.value) {
+                 var nomVar = "retiroVehN";
+                 var resp = await AjaxUnParam(idRetCal, nomVar);
+                 if (resp[0]["resp"] == 1) {
+                 Swal.fire({
+                 title: 'Desea imprimir retiro?',
+                 text: "Se generará un PDF!",
+                 type: 'success',
+                 showCancelButton: true,
+                 confirmButtonColor: '#3085d6',
+                 cancelButtonColor: '#d33',
+                 confirmButtonText: 'Yes, delete it!'
+                 }).then((result) => {
+                 if (result.value) {
+                 window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRetCal, "_blank");
+                 
+                 }
+                 })
+                 }
+                 }
+                 })*/
             }
         }
     }
@@ -1893,16 +1895,20 @@ $(document).on("click", "#btnVehNew", async function () {
     var nomVar = "idRetVehN";
     var respuesta = await AjaxUnParam(idRet, nomVar);
     listVeh = [];
+
     for (var i = 0; i < respuesta.length; i++) {
         var idChas = respuesta[i].id;
-        var nombreEmpresa = respuesta[i].nombreEmpresa;
         var polizaRetiro = respuesta[i].polizaRetiro;
         var chasis = respuesta[i].chasis;
         var tipoVehiculo = respuesta[i].tipoVehiculo;
         var linea = respuesta[i].linea;
         var predio = respuesta[i].predio;
-        var descripcion = respuesta[i].descripcion;
-        listVeh.push([nombreEmpresa, chasis, tipoVehiculo, linea, predio, descripcion]);
+        var aduanaV = '<input type="number" class="form-control form-control-sm is-invalid textValAduana" id="textValAd' + i + '" idNum=' + i + ' value="" />';
+        var cif = '<input type="number" class="form-control form-control-sm is-invalid textTCambio" id="textValTcambio' + i + '" idNum=' + i + ' value="" />';
+        var impuesto = '<input type="number" class="form-control form-control-sm is-invalid textImpuesto" id="textValImpt' + i + '" idNum=' + i + ' value="" />';
+        var total = '<input type="number" class="form-control form-control-sm is-invalid valTextTotal" id="textValTotal' + i + '" idNum=' + i + ' value="" />';
+
+        listVeh.push([chasis, tipoVehiculo, linea, predio, aduanaV, cif, impuesto, total]);
 
     }
     $('#tablaMerRetiroVeh').DataTable({
@@ -1932,8 +1938,6 @@ $(document).on("click", "#btnVehNew", async function () {
         },
         data: listVeh,
         columns: [{
-                title: "Nombre de empresa"
-            }, {
                 title: "Chasis"
             }, {
                 title: "Tipo Vehiculo"
@@ -1942,8 +1946,112 @@ $(document).on("click", "#btnVehNew", async function () {
             }, {
                 title: "Predio"
             }, {
-                title: "Desc. Predio"
+                title: "Val. Aduana"
+            }, {
+                title: "CIF"
+            }, {
+                title: "Impuestos"
+            }, {
+                title: "Total Vehiculo"
             }]
     });
 })
 
+$(document).on("change", ".textValAduana", async function () {
+    var idNum = $(this).attr("idNum");
+    var costeo = await valTotalCosteo(idNum);
+    var textValTotal = "textValTotal" + idNum;
+    document.getElementById(textValTotal).value = costeo;
+    $("#textValAd" + idNum).removeClass("is-invalid");
+    $("#textValAd" + idNum).addClass("is-valid");
+    if (costeo > 0) {
+        $("#valTextTotal" + idNum).removeClass("is-invalid");
+        $("#valTextTotal" + idNum).addClass("is-valid");
+    }
+
+})
+
+$(document).on("change", ".textTCambio", async function () {
+    var idNum = $(this).attr("idNum");
+    var costeo = await valTotalCosteo(idNum);
+    var textValTotal = "textValTotal" + idNum;
+    document.getElementById(textValTotal).value = costeo;
+    $("#textValTcambio" + idNum).removeClass("is-invalid");
+    $("#textValTcambio" + idNum).addClass("is-valid");
+    if (costeo > 0) {
+        $("#textValTotal" + idNum).removeClass("is-invalid");
+        $("#textValTotal" + idNum).addClass("is-valid");
+    }
+})
+
+$(document).on("change", ".textImpuesto", async function () {
+    var idNum = $(this).attr("idNum");
+    var costeo = await valTotalCosteo(idNum);
+    var textValTotal = "textValTotal" + idNum;
+    document.getElementById(textValTotal).value = costeo;
+    $("#textValImpt" + idNum).removeClass("is-invalid");
+    $("#textValImpt" + idNum).addClass("is-valid");
+    if (costeo > 0) {
+        $("#textValTotal" + idNum).removeClass("is-invalid");
+        $("#textValTotal" + idNum).addClass("is-valid");
+    }
+})
+
+
+
+function valTotalCosteo(idNum) {
+    var textValAd = "textValAd" + idNum;
+    var textValTcambio = "textValTcambio" + idNum;
+    var textValImpt = "textValImpt" + idNum;
+
+    var valDol = document.getElementById(textValAd).value;
+    var valDol = Number.parseFloat(valDol).toFixed(5);
+    var valDol = valDol * 1;
+
+
+    var valTcambio = document.getElementById(textValTcambio).value;
+    var valTcambio = Number.parseFloat(valTcambio).toFixed(4);
+    var valTcambio = valTcambio * 1;
+
+    var valImpuesto = document.getElementById(textValImpt).value;
+    var valImpuesto = Number.parseFloat(valImpuesto).toFixed(2);
+    var valImpuesto = valImpuesto * 1;
+
+    var total = (valDol * valTcambio) + valImpuesto;
+    var total = Number.parseFloat(total).toFixed(2);
+    var total = total * 1;
+    if (total > 0) {
+        $("#textValTotal" + idNum).removeClass("is-invalid");
+        $("#textValTotal" + idNum).addClass("is-valid");
+    }
+    return total;
+
+}
+
+$(document).on("click", ".btnTomarDatRet", async function () {
+    var paragraphs = Array.from(document.querySelectorAll(".valTextTotal"));
+    if (paragraphs.length == 1) {
+        var valorDoll = document.getElementById("valorDoll").value;
+        var tCambio = document.getElementById("tCambio").value;
+        var cif = document.getElementById("cif").value;
+        var impuestos = document.getElementById("impuestos").value;
+        var peso = document.getElementById("peso").value;
+        var bultos = document.getElementById("bultos").value;
+        if (valorDoll > 0 && tCambio > 0 && cif > 0 && impuestos > 0 && peso > 0 && bultos > 0) {
+            document.getElementById("textValAd0").value = valorDoll;
+            $("#textValAd0").trigger('change');
+
+            document.getElementById("textValTcambio0").value = tCambio;
+            $("#textValTcambio0").trigger('change');
+
+            document.getElementById("textValImpt0").value = impuestos;
+            $("#textValImpt0").trigger('change');
+
+            document.getElementById("textValTotal0").value = valorDoll;
+            $("#textValTotal0").trigger('change');
+
+        }
+    }
+
+
+})

@@ -795,7 +795,7 @@ $(document).on("click", ".btnImprimirInforme", async function () {
 })
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 $(document).ready(function () {
-    if ($(".btnHistoriaExcelIngRep").length >= 1) {
+    if ($("#tableHistorialIng").length >= 1) {
         $.ajax({
             url: "ajax/datatableHistorialIng.ajax.php",
             success: function (respuesta) {
@@ -807,10 +807,11 @@ $(document).ready(function () {
 })
 
 $(document).ready(function () {
-    if ($(".btnHistoriaExcelIngRep").length >= 1) {
+    if ($("#tableHistorialIng").length >= 1) {
         $('#tableHistorialIng').DataTable({
             "bProcessing": true,
             "sAjaxSource": "ajax/datatableHistorialIng.ajax.php",
+            "deferRender": true,
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

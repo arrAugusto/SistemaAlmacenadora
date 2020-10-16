@@ -148,7 +148,7 @@ $(document).on("change", "#consultaNit", async function () {
 $(document).on("click", ".btnAct", function () {
     window.location = "activarOtrosServicios";
 });
-
+/*
 $(document).ready(function () {
     var datos = new FormData();
     datos.append("idNit", 0);
@@ -166,7 +166,7 @@ $(document).ready(function () {
             console.log(respuesta);
         }
     })
-})
+})*/
 //AJAX BUSCA DATA
 function dataNitCliente(idDato) {
     let respuestaFunc;

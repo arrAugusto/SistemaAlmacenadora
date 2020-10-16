@@ -31,26 +31,28 @@
             </div>
             <form role="form" method="post">
                 <div class="card-body">
-                    <div class="row">
+                    <div class="row"><!--
                         <div class="col-lg-6 col-sm-12 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelRec"  estadoRep="4">GENERAR HISTORIAL DE RECIBOS EXCEL <i class="fa fa-file-excel-o"></i></button>
                         </div>
                         <div class="col-lg-6 col-sm-12 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelRet"  estadoRep="4">GENERAR HISTORIAL DE RETIROS EXCEL <i class="fa fa-file-excel-o"></i></button>
-                        </div>
+                        </div>-->
 
                         <div class="col-12 mt-5">
                             <table id="tablasChasisNew" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>
-                                    <th>Nit</th>
                                     <th>Empresa</th>
-                                    <th>Poliza Ing</th>
-                                    <th>Poliza Ret</th>
-                                    <th>Bultos</th>
-                                    <th>Cif</th>
-                                    <th>Impuestos</th>
+                                    <th>Póliza</th>
+                                    <th>Régimen</th>
+                                    <th>Fecha Ingreso</th>                                    
+                                    <th>Chasis Veh.</th>
+                                    <th>Tipo Veh.</th>
+                                    <th>Linea Veh.</th>
+                                    <th>Predio</th>
+                                    <th>Estado</th>
                                     <th><center>Acciones</center></th>
                                     </tr>
                                 </thead> 

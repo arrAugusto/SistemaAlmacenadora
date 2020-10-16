@@ -222,7 +222,7 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
 </div>
 <!-- Modal -->
 <div class="modal fade responsive" id="modalPaseSalida" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog modal-lgMapa">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -274,7 +274,9 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                         <input type="number" class="form-control is-invalid" id="bultos" placeholder="Ejemplo : 5" value=""/>
                         <span class="badge bg-danger pull-right" id="spanbultos" style="display: none;"></span>                        
                     </div>
-                    
+                    <div class="col-6 mt-4">
+                        <button type="button" class="btn btn-outline-info btn-block btn-sm btnTomarDatRet">Tomar datos de retiro <i class="fa fa-recycle"></i></button>
+                    </div>        
                     <div class="col-12 mt-4" id="tableVehUsados">
                         
                     </div>                     

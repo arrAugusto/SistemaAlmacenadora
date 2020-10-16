@@ -58,11 +58,11 @@ class ControladorHistorialIngresos {
                             } else if ($value["accionEstado"] == 2) {
                                 $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-danger-gradient" disabled="disabled"><i class="fa fa-print"></i> </button></div>';
                             } else if ($value["accionEstado"] >= 4) {
-                            if ($_SESSION["niveles"] == "MEDIO") {
-                                $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient btnImprimirDet">Ing. <i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
-                            }else{
-                                $botoneraAcciones = '<div class="btn-group"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir btn-sm">Ing. <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
-                            }
+                                if ($_SESSION["niveles"] == "MEDIO") {
+                                    $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnAnularMostModal"  data-toggle="modal" data-target="#AnulacionIngreso"><i class="fa fa-window-close"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient btnImprimirDet">Ing. <i class="fa fa-print"></i> </button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                } else {
+                                    $botoneraAcciones = '<div class="btn-group"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir btn-sm">Ing. <i class="fa fa-print"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-success-gradient btnImprimirDet btn-sm">Det . <i class="fa fa-print"></i></button></div>';
+                                }
                             } else if ($value["accionEstado"] == -1) {
                                 $botoneraAcciones = '<div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn bg-info-gradient bntImprimir"><i class="fa fa-print"></i><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-dark" disabled>Anulado&nbsp;&nbsp;<i class="fa fa-ban"></i></button></div>';
                             } else {
@@ -210,10 +210,17 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;
     }
-public static function ctrGenerateHistoriaRet($generateRetHistoria){
+
+    public static function ctrGenerateHistoriaRet($generateRetHistoria) {
         $sp = "spHistoriaRet";
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;
-    
-}
+    }
+
+    public static function ctrMostrarTableIngHistoria($param) {
+        $sp = "spRepChasisNew";
+        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $param);
+        return $respuesta;
+    }
+
 }
