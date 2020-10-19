@@ -67,7 +67,7 @@ class AjaxPasesDeSalida {
             "hiddenDescuentoGdRec" => $hiddenDescuentoGdRec = $this->hiddenDescuentoGdRec,
             "hiddenDateTimeValRecEle" => $hiddenDateTimeValRecEle = $this->hiddenDateTimeValRecEle,
             "usuarioOp" => $usuarioOp,
-            "idNitFact"=>$idNitFact = $this->idNitFact);
+            "idNitFact" => $idNitFact = $this->idNitFact);
         $respuesta = ControladorPasesDeSalida::ctrGuardarNuevoRecibo($datos);
         echo json_encode($respuesta);
     }
@@ -102,66 +102,85 @@ class AjaxPasesDeSalida {
     public $replaceDataRet;
 
     public function ajaxReplaceDataRet() {
-        $replaceDataRet=$this->idNumRetConsultReplace;
-        $replaceDataRet=intval($replaceDataRet);        
+        $replaceDataRet = $this->idNumRetConsultReplace;
+        $replaceDataRet = intval($replaceDataRet);
         $valorDollReplace = $this->valorDollReplace;
         $valorDollReplace = round($valorDollReplace, 2);
-        
-        $tCambioReplace=$this->tCambioReplace;
-        $tCambioReplace=round($tCambioReplace, 5);
-        
+
+        $tCambioReplace = $this->tCambioReplace;
+        $tCambioReplace = round($tCambioReplace, 5);
+
         $cifReplace = $this->cifReplace;
         $cifReplace = round($cifReplace, 2);
-        
+
         $impuestosReplace = $this->impuestosReplace;
         $impuestosReplace = round($impuestosReplace, 2);
-        
+
         $bultosReplace = $this->bultosReplace;
         $bultosReplace = round($bultosReplace, 2);
-        
+
         $pesoReplace = $this->pesoReplace;
         $pesoReplace = round($pesoReplace, 2);
-        
+
         $datos = array(
-            "valorDollReplace"=>$valorDollReplace,
-            "tCambioReplace"=>$tCambioReplace,
-            "cifReplace"=>$cifReplace,
-            "impuestosReplace"=>$impuestosReplace,
-            "bultosReplace"=>$bultosReplace,
-            "pesoReplace"=>$pesoReplace);
-        
-       $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
+            "valorDollReplace" => $valorDollReplace,
+            "tCambioReplace" => $tCambioReplace,
+            "cifReplace" => $cifReplace,
+            "impuestosReplace" => $impuestosReplace,
+            "bultosReplace" => $bultosReplace,
+            "pesoReplace" => $pesoReplace);
+
+        $respuesta = ControladorPasesDeSalida::ctrReplaceDataRet($datos, $replaceDataRet);
         echo json_encode($respuesta);
     }
-    
+
     public $objIdRetPreImp;
-    public function ajaxDatosPreImpreso(){
+
+    public function ajaxDatosPreImpreso() {
         $idretPreImp = $this->idretPreImp;
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($idretPreImp);
         echo json_encode($respRet);
     }
+
     public $objRetData;
-    public function ajaxExcelRetFiscal(){
+
+    public function ajaxExcelRetFiscal() {
         $idRetFEx = $this->idRetFEx;
         $respRet = ControladorRetiroOpe::ctrExcelRetFiscal($idRetFEx);
-        echo json_encode($respRet);        
+        echo json_encode($respRet);
     }
+
     public $objRetDataVehN;
-    public function ajaxDetalleVehN(){
+
+    public function ajaxDetalleVehN() {
         $idRetVehN = $this->idRetVehN;
         $respRet = ControladorRetiroOpe::ctrDetalleVehN($idRetVehN);
-        echo json_encode($respRet);           
+        echo json_encode($respRet);
     }
+
     public $objRetGDVehN;
-    public function ajaxRetiroVehN(){
+
+    public function ajaxRetiroVehN() {
         $retiroVehN = $this->retiroVehN;
-        $retiroVehN = $retiroVehN*1;
-session_start();
+        $retiroVehN = $retiroVehN * 1;
+        session_start();
         $usuarioOp = $_SESSION["id"];
-                
+
         $respRet = ControladorRetiroOpe::ctrRetiroVehN($retiroVehN, $usuarioOp);
-        echo json_encode($respRet);          
+        echo json_encode($respRet);
     }
+
+    public $objRegChasis;
+
+    public function ajaxRegistrarChasisGeneral() {
+        $idRetChas = $this->idRetChas;
+        $listaChasis = $this->listaChasis;
+        session_start();
+        $usuarioOp = $_SESSION["id"];        
+        $respRet = ControladorRetiroOpe::ctrRegistrarChasisGeneral($idRetChas, $listaChasis, $usuarioOp);
+        echo json_encode($respRet);        
+    }
+
 }
 
 if (isset($_POST["idRetCal"])) {
@@ -195,7 +214,7 @@ if (isset($_POST["idRetGdRec"])) {
     $guardarRecAlm->hiddenDescuentoGdRec = $_POST["hiddenDescuentoGdRec"];
     $guardarRecAlm->hiddenDateTimeValRecEle = $_POST["hiddenDateTimeValRecEle"];
     $guardarRecAlm->idNitFact = $_POST["idNitFact"];
-    
+
     $guardarRecAlm->ajaxGuardarNuevoRecibo();
 }
 
@@ -225,7 +244,7 @@ if (isset($_POST["valorDollReplace"])) {
     $replaceDataRet->impuestosReplace = $_POST["impuestosReplace"];
     $replaceDataRet->bultosReplace = $_POST["bultosReplace"];
     $replaceDataRet->pesoReplace = $_POST["pesoReplace"];
-    $replaceDataRet->idNumRetConsultReplace=$_POST["idNumRetConsultReplace"];
+    $replaceDataRet->idNumRetConsultReplace = $_POST["idNumRetConsultReplace"];
     $replaceDataRet->ajaxReplaceDataRet();
 }
 
@@ -233,24 +252,31 @@ if (isset($_POST["valorDollReplace"])) {
 if (isset($_POST["idretPreImp"])) {
     $objIdRetPreImp = new AjaxPasesDeSalida();
     $objIdRetPreImp->idretPreImp = $_POST["idretPreImp"];
-    $objIdRetPreImp->ajaxDatosPreImpreso();    
+    $objIdRetPreImp->ajaxDatosPreImpreso();
 }
 
 
 if (isset($_POST["idRetFEx"])) {
     $objRetData = new AjaxPasesDeSalida();
     $objRetData->idRetFEx = $_POST["idRetFEx"];
-    $objRetData->ajaxExcelRetFiscal();    
+    $objRetData->ajaxExcelRetFiscal();
 }
 
 if (isset($_POST["idRetVehN"])) {
     $objRetDataVehN = new AjaxPasesDeSalida();
     $objRetDataVehN->idRetVehN = $_POST["idRetVehN"];
-    $objRetDataVehN->ajaxDetalleVehN();    
+    $objRetDataVehN->ajaxDetalleVehN();
 }
 
 if (isset($_POST["retiroVehN"])) {
     $objRetGDVehN = new AjaxPasesDeSalida();
     $objRetGDVehN->retiroVehN = $_POST["retiroVehN"];
-    $objRetGDVehN->ajaxRetiroVehN();    
+    $objRetGDVehN->ajaxRetiroVehN();
+}
+
+if (isset($_POST["idRetChas"])) {
+    $objRegChasis = new AjaxPasesDeSalida();
+    $objRegChasis->idRetChas = $_POST["idRetChas"];
+    $objRegChasis->listaChasis = $_POST["listaChasis"];
+    $objRegChasis->ajaxRegistrarChasisGeneral();
 }

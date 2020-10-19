@@ -1,14 +1,78 @@
+function ajaxGuardarChasisVeh(idRetCal, listaJson) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("idRetChas", idRetCal);
+    datos.append("listaChasis", listaJson);    
+    $.ajax({
+        async: false,
+        url: "ajax/paseDeSalida.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+
+            console.log(respuesta);
+            if (respuesta != "SD") {
+                respFunc = respuesta;
+            } else {
+                respFunc = false;
+            }
+
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return respFunc;
+}
+
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
+    
     document.getElementById("divOtrosServicios").innerHTML = "";
     var button = $(this);
+    
+    if ($(".btnTomarDatRet").length>=1) {
+        
+  
+    var valTotalCif = document.getElementById("cif").value;
+    var valTotalCif = Number.parseFloat(valTotalCif).toFixed(2);
+    var valTotalCif = valTotalCif * 1;
 
+    var impuestos = document.getElementById("impuestos").value;
+    var impuestos = Number.parseFloat(impuestos).toFixed(2);
+    var impuestos = impuestos * 1;
+
+    var total = valTotalCif + impuestos;
+    var total = Number.parseFloat(total).toFixed(2);
+    var total = total * 1;
+    listaChasis = [];
+    if ($(".valTextTotal").length >= 1) {
+        var paragraphsTotal = Array.from(document.querySelectorAll(".valTextTotal"));
+        for (var i = 0; i < paragraphsTotal.length; i++) {
+            var idDom = paragraphsTotal[i].id;
+            var idChasis = $("#" + idDom).attr("idchasis");
+            var valTotal = document.getElementById(idDom).value;
+            var valTotal = Number.parseFloat(valTotal).toFixed(2);
+            var valTotal = valTotal * 1;
+            listaChasis.push({"idChasis": idChasis, "valTotal": valTotal});
+        }
+    }
+    console.log(listaChasis);
+    if (total == valTotal) {
+        var idRetCal = button.attr("idRet");
+        var listaJson = JSON.stringify(listaChasis);
+        var GDchasisGeneral = await ajaxGuardarChasisVeh(idRetCal, listaJson);
+    }
+
+}
     if ($("#hiddenDateTimeVal").length >= 1 && $("#hiddenDateTimeVal").val() != "") {
         var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
     } else {
         var hiddenDateTimeVal = "NA";
     }
-    console.log(hiddenDateTimeVal);
     var hiddenvalorDoll = document.getElementById("hiddenvalorDoll").value;
     var hiddentCambio = document.getElementById("hiddentCambio").value;
     var hiddencif = document.getElementById("hiddencif").value;
@@ -439,10 +503,10 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
 
                         document.getElementById("spanOtro").innerHTML = hiddenGTOAcuse;
                     }
-                }
+                
             } else {
 
-                /*
+
                  Swal.fire({
                  title: 'Desea imprimir?',
                  text: "Se generará una forma de retiro de vehículos nuevos!",
@@ -474,9 +538,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                  })
                  }
                  }
-                 })*/
+                 })
             }
-        }
+        }}
     }
 
 });
@@ -1906,7 +1970,7 @@ $(document).on("click", "#btnVehNew", async function () {
         var aduanaV = '<input type="number" class="form-control form-control-sm is-invalid textValAduana" id="textValAd' + i + '" idNum=' + i + ' value="" />';
         var cif = '<input type="number" class="form-control form-control-sm is-invalid textTCambio" id="textValTcambio' + i + '" idNum=' + i + ' value="" />';
         var impuesto = '<input type="number" class="form-control form-control-sm is-invalid textImpuesto" id="textValImpt' + i + '" idNum=' + i + ' value="" />';
-        var total = '<input type="number" class="form-control form-control-sm is-invalid valTextTotal" id="textValTotal' + i + '" idNum=' + i + ' value="" />';
+        var total = '<input type="number" class="form-control form-control-sm is-invalid valTextTotal" idChasis =' + idChas + '  id="textValTotal' + i + '" idNum=' + i + ' value="" />';
 
         listVeh.push([chasis, tipoVehiculo, linea, predio, aduanaV, cif, impuesto, total]);
 

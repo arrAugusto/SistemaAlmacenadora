@@ -473,17 +473,29 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrDetalleVehN($idRetVehN) {
-         $sp = "spChasisVNuevo";
+        $sp = "spChasisVNuevo";
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetVehN, $sp);
-        return $respuesta;       
+        return $respuesta;
     }
-    
-    public static function ctrRetiroVehN($retiroVehN, $usuarioOp){
+
+    public static function ctrRetiroVehN($retiroVehN, $usuarioOp) {
         $sp = "spEstadoRetVehN";
         $estado = 4;
         $asignar = 1;
         $respuesta = ModeloRetiroOpe::mdlRetiroVehN($retiroVehN, $estado, $asignar, $usuarioOp, $sp);
-        return $respuesta;         
+        return $respuesta;
+    }
+
+    public static function ctrRegistrarChasisGeneral($idRetChas, $listaChasis, $usuarioOp) {
+        $listaVeh = json_decode($listaChasis, true);
+
+        foreach ($listaVeh as $key => $value) {
+            $idChas = $value["idChasis"];
+            $valTotal = $value["valTotal"];
+            $sp = "spTrasladoVeh";
+            $respuesta = ModeloRetiroOpe::mdlRetiroVehN($idRetChas, $idChas, $valTotal, $usuarioOp, $sp);
+        }
+        return true;
     }
 
 }
