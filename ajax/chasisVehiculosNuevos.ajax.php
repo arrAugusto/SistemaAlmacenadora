@@ -12,7 +12,8 @@ class historialIngresosFiscales {
     public function ajaxMostrarTableIngHistoria() {
         session_start();
         $valor = $_SESSION["idDeBodega"];
-
+        $respuesta = ControladorHistorialIngresos::ctrMostrarTableIngHistoria($valor);
+        
         $respuesta = ControladorHistorialIngresos::ctrMostrarTableIngHistoria($valor);
         if ($respuesta != "SD") {
             $contador = 0;
@@ -40,7 +41,8 @@ class historialIngresosFiscales {
                 }
                 if ($idRet >= 1) {
                     $estado = "Liquidado";
-                    $buttonRet = "<button type='button' class='btn btn-outline-primary btn-sm'>Ret. <i class='fa fa-file-pdf-o'></i></button>";
+                    
+                    $buttonRet = "<button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRet' idret='".$idRet."'>Ret. <i class='fa fa-print'></i></button>";
                 }
                 $buttons = "<div class='btn-group btn-sm'>" . $buttonIng . $buttonRet . "</div>";
                 $datoJsonChasisNew = '[

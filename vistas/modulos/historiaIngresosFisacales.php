@@ -17,41 +17,55 @@
                 <form role="form" method="post">
                     <div class="card-body">
                         <div class="row">
-                            
                         <div class="col-6 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
                         </div>   
-                            
                         <div class="col-12 mt-5">
-                            
-                            <table id="tableHistorialIng" class="table dt-responsive table-hover table-sm">
+                            <table id="tableHistorialIng" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>
                                      <tr>
-                                        <th style="width:3px">#</th>
+                                        <th style="width:3px;">#</th>
                                         <th>Nit</th>
-                                        <th>Empresa</th>
-                                        <th style="width: 20px">Poliza</th>
+                                        <th style="width:500px;">Empresa</th>
+                                        <th>Poliza</th>
                                         <th>Fecha</th>
                                         <th>Num. Ingreso</th>
-                                        <th style="width: 20px">Bultos</th>
-                                        <th style="width: 20px">Cif</th>
-                                        <th style="width: 20px">Impuestos</th>
-                                        <th style="width: 20px">Bodega #</th>                                        
+                                        <th>Bultos</th>
+                                        <th>Cif</th>
+                                        <th>Impuestos</th>
+                                        <th>Bodega #</th>                                        
                                         <th><center>Acciones</center></th>
                                         </tr>
                                     </thead> 
-
                                 </table>
                             </div>
+                        <div class="col-6 mt-5">
+                            <table id="tableHistorialDataExtra" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                                    <thead>
+                                     <tr>
+                                        <th style="width:3px;">#</th>
+                                        <th>Nit</th>
+                                        <th style="width:500px;">Empresa</th>
+                                        <th>Poliza</th>
+                                        <th>bl</th>
+                                        <th>C. cupo</th>
+                                        <th>Num. Ingreso</th>
+                                        <th>Producto</th>
+                                        <th>Peso</th>
+                                        <th><center>Acciones</center></th>
+                                        </tr>
+                                    </thead> 
+                                </table>
+                            </div>  
+                            
                         </div>
                     </div>
                 </form>
             </div>
         </div><!-- /.container-fluid -->
-    </section>
+    </section><br/><br/><br/><br/>
     <div class="col-12">
         <section id="divEdiciones">
-
             <div class="card card-success">
                 <div class="card-header">
                     <h5 class="card-title">Edición de ingresos</h5>

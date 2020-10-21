@@ -2,7 +2,7 @@ function ajaxGuardarChasisVeh(idRetCal, listaJson) {
     let respFunc;
     var datos = new FormData();
     datos.append("idRetChas", idRetCal);
-    datos.append("listaChasis", listaJson);    
+    datos.append("listaChasis", listaJson);
     $.ajax({
         async: false,
         url: "ajax/paseDeSalida.ajax.php",
@@ -30,44 +30,38 @@ function ajaxGuardarChasisVeh(idRetCal, listaJson) {
 
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
-    
     document.getElementById("divOtrosServicios").innerHTML = "";
     var button = $(this);
-    
-    if ($(".btnTomarDatRet").length>=1) {
-        
-  
-    var valTotalCif = document.getElementById("cif").value;
-    var valTotalCif = Number.parseFloat(valTotalCif).toFixed(2);
-    var valTotalCif = valTotalCif * 1;
-
-    var impuestos = document.getElementById("impuestos").value;
-    var impuestos = Number.parseFloat(impuestos).toFixed(2);
-    var impuestos = impuestos * 1;
-
-    var total = valTotalCif + impuestos;
-    var total = Number.parseFloat(total).toFixed(2);
-    var total = total * 1;
-    listaChasis = [];
-    if ($(".valTextTotal").length >= 1) {
-        var paragraphsTotal = Array.from(document.querySelectorAll(".valTextTotal"));
-        for (var i = 0; i < paragraphsTotal.length; i++) {
-            var idDom = paragraphsTotal[i].id;
-            var idChasis = $("#" + idDom).attr("idchasis");
-            var valTotal = document.getElementById(idDom).value;
-            var valTotal = Number.parseFloat(valTotal).toFixed(2);
-            var valTotal = valTotal * 1;
-            listaChasis.push({"idChasis": idChasis, "valTotal": valTotal});
+    if ($(".btnTomarDatRet").length >= 1) {
+        var valTotalCif = document.getElementById("cif").value;
+        var valTotalCif = Number.parseFloat(valTotalCif).toFixed(2);
+        var valTotalCif = valTotalCif * 1;
+        var impuestos = document.getElementById("impuestos").value;
+        var impuestos = Number.parseFloat(impuestos).toFixed(2);
+        var impuestos = impuestos * 1;
+        var total = valTotalCif + impuestos;
+        var total = Number.parseFloat(total).toFixed(2);
+        var total = total * 1;
+        listaChasis = [];
+        if ($(".valTextTotal").length >= 1) {
+            var paragraphsTotal = Array.from(document.querySelectorAll(".valTextTotal"));
+            for (var i = 0; i < paragraphsTotal.length; i++) {
+                var idDom = paragraphsTotal[i].id;
+                var idChasis = $("#" + idDom).attr("idchasis");
+                var valTotal = document.getElementById(idDom).value;
+                var valTotal = Number.parseFloat(valTotal).toFixed(2);
+                var valTotal = valTotal * 1;
+                listaChasis.push({"idChasis": idChasis, "valTotal": valTotal});
+            }
         }
-    }
-    console.log(listaChasis);
-    if (total == valTotal) {
-        var idRetCal = button.attr("idRet");
-        var listaJson = JSON.stringify(listaChasis);
-        var GDchasisGeneral = await ajaxGuardarChasisVeh(idRetCal, listaJson);
-    }
+        console.log(listaChasis);
+        if (total == valTotal) {
+            var idRetCal = button.attr("idRet");
+            var listaJson = JSON.stringify(listaChasis);
+            var GDchasisGeneral = await ajaxGuardarChasisVeh(idRetCal, listaJson);
+        }
 
-}
+    }
     if ($("#hiddenDateTimeVal").length >= 1 && $("#hiddenDateTimeVal").val() != "") {
         var hiddenDateTimeVal = document.getElementById("hiddenDateTimeVal").value;
     } else {
@@ -97,7 +91,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         var respRemplazoValRet = await remplazoDataRet(idRetCal);
         if (respRemplazoValRet[0]["resp"] == 1) {
             if ($contador == 0) {
-                if ($("#tableVeh").length == 0) {
+                if ($("#tablasVehiculos").length == 0) {
                     document.getElementById("divCalculoHistoria").innerHTML = ``;
                     var idIngresoCal = $(this).attr("idIngreso");
                     var datos = new FormData();
@@ -113,6 +107,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         processData: false,
                         dataType: "json",
                         success: function (respuestaDetalle) {
+                            console.log(respuestaDetalle);  
                             var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
                             var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
                             var numeroPoliza = respuestaDetalle[0]["numPol"];
@@ -135,6 +130,88 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 dataType: "json",
                                 success: async function (respuesta) {
                                     console.log(respuesta);
+                                    if (respuesta=="tarifaEspecial") {
+                                   
+                                    document.getElementById("divCalculoHistoria").innerHTML = `
+                        <div class="col-4">
+                                <div class="row"">
+                                    <div class="col-12">
+                                        <p class="lead">Detalle de calculo de almacenaje <br/>
+                                                Nit :  ` + nitEmpresa + `</br>
+                                            Empresa: ` + empresaIngreso + `</br>
+                                            Poliza ingreso: ` + numeroPoliza + `&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Poliza retiro : ` + polizaRetiro + `</br>
+                                            Fecha ingreso : ` + fechaIng + `
+                                    <div class="input-group input-group">
+                                    <input type="text" id="dateTime" class="form-control">
+                                    <span class="input-group-append">
+                                       <button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idret="` + idRetCal + `" idingreso="` + idIngresoCal + `">Fecha retiro fiscal </button>
+                                        
+                                    </span>
+                                    <input type="hidden" id="hiddenDateTimeVal" value="" />
+                                    
+                                    <input type="hidden" id="hiddenNumeroPoliza" value="" />
+                                    
+                                    </p>
+
+                                </div>
+                                    
+                                        </p>
+                                    </div>
+                                </div>
+                                </div>        
+                            <div class="col-8">
+                                <div class="card card-widget widget-user-2">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header bg-success-gradient">
+                                        <h3 class="widget-user-username">Datos de Retiros Fiscales</h3>
+                                        <h5 class="widget-user-desc">Piloto(s) y Unidad(es)</h5>
+                                    </div>
+                                    <div class="card-footer p-0">
+                                    <div class="card-body" id="ListaSelect">
+                            
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusOtrosServicios">Otros : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanOtro"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
+                                    <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
+
+                        
+                                    <div class="col-sm-12 col-lg-4 mt-4">
+                                 <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
+                                    <i class="fa fa-print fa-lg mr-2"></i>
+                                    Imprimir Retiro
+                                </div>  
+                                </div>
+                                <div class="col-sm-12 col-lg-4 mt-4">
+                                <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
+                                    Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
+                                </div>                        
+                            </div>    
+                            <div class="col-12 mt-4">
+                                <button type="button" class="btn btn-success btn-block btnExcelRetSal" idRet= ` + idRetCal + `>Descarga Excel <i class="fa fa-file-excel-o"></i></button>
+                            </div>
+                                </div>
+                        </div>`;
+    //imprimirReciboAlmacenaje
+                                    $(function () {
+                                        $('#dateTime').daterangepicker({
+                                            singleDatePicker: true,
+                                            locale: {
+                                                format: 'DD-MM-YYYY'
+                                            }
+                                        }, function (start, end, label) {
+                                            var tiempo = start.format('YYYY-MM-DD hh:mm A');
+                                            var tiempoVal = start.format('DD-MM-YYYY');
+                                            document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+
+                                            $("#dateTime").val(fechaCorte);
+                                        });
+                                    });
+                                    }else{
+            
                                     if (respuesta == "SD") {
                                         Swal.fire(
                                                 'Cliente sin tarifa',
@@ -260,6 +337,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     </tbody></table>
                                 </div>
                             </div>
+                                        
                             <div class="col-8">
                                 <div class="card card-widget widget-user-2">
                                     <!-- Add the bg color to the header using any of the bg-* classes -->
@@ -320,7 +398,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                         $("#dateTime").val(fechaCorte);
                                     }, 1000);
                                     document.getElementById("hiddenRevision").value = revCuad;
-
                                     document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
                                     document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
                                     document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
@@ -328,7 +405,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
                                     document.getElementById("hiddenMarchElect").value = marchElectro;
                                     document.getElementById("hiddenGTOAcuse").value = hiddenGTOAcuse;
-
                                     formatNumber("factTNormal");
                                     formatNumber("ZonaAd");
                                     formatNumber("AlmNormal");
@@ -378,6 +454,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             }
                                         }
                                     })
+                                    }
                                 },
                                 error: function (respuesta) {
                                     console.log(respuesta);
@@ -503,44 +580,54 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
 
                         document.getElementById("spanOtro").innerHTML = hiddenGTOAcuse;
                     }
-                
-            } else {
+
+                } else {
 
 
-                 Swal.fire({
-                 title: 'Desea imprimir?',
-                 text: "Se generará una forma de retiro de vehículos nuevos!",
-                 type: 'info',
-                 showCancelButton: true,
-                 allowOutsideClick: false,
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Si, imprimir',
-                 cancelButtonText: 'No, cancelar'
-                 }).then(async function (result) {
-                 if (result.value) {
-                 var nomVar = "retiroVehN";
-                 var resp = await AjaxUnParam(idRetCal, nomVar);
-                 if (resp[0]["resp"] == 1) {
-                 Swal.fire({
-                 title: 'Desea imprimir retiro?',
-                 text: "Se generará un PDF!",
-                 type: 'success',
-                 showCancelButton: true,
-                 confirmButtonColor: '#3085d6',
-                 cancelButtonColor: '#d33',
-                 confirmButtonText: 'Yes, delete it!'
-                 }).then((result) => {
-                 if (result.value) {
-                 window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRetCal, "_blank");
-                 
-                 }
-                 })
-                 }
-                 }
-                 })
+                    Swal.fire({
+                        title: 'Desea imprimir?',
+                        text: "Se generará una forma de retiro de vehículos nuevos!",
+                        type: 'info',
+                        showCancelButton: true,
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Si, imprimir',
+                        cancelButtonText: 'No, cancelar'
+                    }).then(async function (result) {
+                        if (result.value) {
+                            var nomVar = "retiroVehN";
+                            var resp = await AjaxUnParam(idRetCal, nomVar);
+                            if (resp[0]["resp"] == 1) {
+                                Swal.fire({
+                                    title: 'Desea imprimir retiro?',
+                                    text: "Se generará un PDF!",
+                                    type: 'success',
+                                    showCancelButton: true,
+                                    confirmButtonColor: '#3085d6',
+                                    cancelButtonColor: '#d33',
+                                    confirmButtonText: 'Si, Generar PDF'
+                                }).then((result) => {
+                                    if (result.value) {
+                                        window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRetCal, "_blank");
+                                        Swal.fire({
+                                            title: 'Retiro creado correctamente',
+                                            type: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ok'
+                                        }).then((result) => {
+                                            if (result.isConfirmed) {
+                                                location.reload();
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    })
+                }
             }
-        }}
+        }
     }
 
 });
@@ -2118,4 +2205,32 @@ $(document).on("click", ".btnTomarDatRet", async function () {
     }
 
 
+})
+$(document).ready(function () {
+    $('#tablasVehiculos').DataTable({
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        }
+    });
 })

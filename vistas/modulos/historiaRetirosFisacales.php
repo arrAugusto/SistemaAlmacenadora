@@ -43,7 +43,7 @@
                             <table id="tablasHistRetiro" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
-                                    <th style="whidth:3px;">#</th>
+                                    <th style="width:auto;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
                                     <th>Poliza Ing</th>

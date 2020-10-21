@@ -365,8 +365,6 @@ class ControladorGenerarContabilidad {
              * SOLICITAR VALORES DE INGRESO PARA GENERAR POLIZA DE INGRESOS
              * DE CAJON CUENTAS A UTILIZAR 
              * */
-
-
             $sp = "spIndentIngresos";
             $respIng = ModeloGenerarContabilidad::mdlMostrarIng($sp);
             $ajustesConta = [];

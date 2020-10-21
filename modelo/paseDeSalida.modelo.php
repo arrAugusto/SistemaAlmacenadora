@@ -121,7 +121,11 @@ class ModeloPasesDeSalida {
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     }
                 }
-
+                if ($respuestaVerifica[0]["tarifaEspecial"]==1) {
+                    return "tarifaEspecial";
+                }else{
+                    
+                
                 if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1  && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0) {
                     
                     $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje);
@@ -262,10 +266,12 @@ class ModeloPasesDeSalida {
                     $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch);
                     return $datos;
                 }
+                }
             }
         } else {
             return sqlsrv_errors();
         }
+        
     }
 
     public static function mdlConsultDatosRet($idNumRetConsult) {
