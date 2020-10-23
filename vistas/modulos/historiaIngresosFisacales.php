@@ -39,25 +39,7 @@
                                     </thead> 
                                 </table>
                             </div>
-                        <div class="col-6 mt-5">
-                            <table id="tableHistorialDataExtra" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
-                                    <thead>
-                                     <tr>
-                                        <th style="width:3px;">#</th>
-                                        <th>Nit</th>
-                                        <th style="width:500px;">Empresa</th>
-                                        <th>Poliza</th>
-                                        <th>bl</th>
-                                        <th>C. cupo</th>
-                                        <th>Num. Ingreso</th>
-                                        <th>Producto</th>
-                                        <th>Peso</th>
-                                        <th><center>Acciones</center></th>
-                                        </tr>
-                                    </thead> 
-                                </table>
-                            </div>  
-                            
+ 
                         </div>
                     </div>
                 </form>

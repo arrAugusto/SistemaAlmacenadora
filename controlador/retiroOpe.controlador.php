@@ -78,7 +78,26 @@ class ControladorRetiroOpe {
             $idIngreso = $datos["hiddeniddeingreso"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
             if ($respuesta != "SD") {
-                $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+                if ($datos['jsonStringDR'] != "SD") {
+                    $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
+                    foreach ($jsonDecodeDR as $key => $value) {
+                        $poliza = $value["poliza"];
+                        $idRet = $respuesta["valIdRetiro"]; 
+                        $bltsSumFinal = $value["bltsSumFinal"];
+                        $valDolSumFinal = $value["valDolSumFinal"];
+                        $cifFinal = $value["cifFinal"];
+                        $impuestoFinal = $value["impuestoFinal"];                        
+                        $sp = "spValContaRet";
+                        $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
+                        
+                    }
+                    
+                    return "data 88";
+                } else {
+                    $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+                return "data 90";
+                    
+                }
                 if ($respuestaActStockGen[0]["resp"] == 1) {
                     return $respuesta;
                 } else {

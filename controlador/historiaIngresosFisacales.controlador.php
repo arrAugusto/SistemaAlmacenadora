@@ -223,4 +223,10 @@ class ControladorHistorialIngresos {
         return $respuesta;
     }
 
+    public static function ctrGenerateHistoriaChasis($generateHistoriaChasis) {
+        $sp = "spHistDataExtraIngExcel";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;      
+    }
+
 }

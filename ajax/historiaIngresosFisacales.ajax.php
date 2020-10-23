@@ -142,6 +142,14 @@ class AjaxAccionesIngresos {
         echo json_encode($repuesta);
     }
 
+    public $historiaChasis;
+
+    public function ajaxGenerateHistoriaChasis() {
+        $generateHistoriaChasis = $this->generateHistoriaChasis;
+        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaChasis($generateHistoriaChasis);
+        echo json_encode($repuesta);        
+    }
+
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -230,4 +238,10 @@ if (isset($_POST["generateRetHistoria"])) {
     $historiaRet = new AjaxAccionesIngresos();
     $historiaRet->generateRetHistoria = $_POST["generateRetHistoria"];
     $historiaRet->ajaxGenerateHistoriaRet();
+}
+
+if (isset($_POST["generateHistoriaChasis"])) {
+    $historiaChasis = new AjaxAccionesIngresos();
+    $historiaChasis->generateHistoriaChasis = $_POST["generateHistoriaChasis"];
+    $historiaChasis->ajaxGenerateHistoriaChasis();
 }

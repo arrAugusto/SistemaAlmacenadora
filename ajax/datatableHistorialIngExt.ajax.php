@@ -8,12 +8,12 @@ require_once "../controlador/usuario.controlador.php";
 require_once "../controlador/calculoDeAlmacenaje.controlador.php";
 require_once "../modelo/calculoDeAlmacenaje.modelo.php";
 
-class historialIngresosFiscales {
+class historialIngresosFiscalesEx {
 
-    public function ajaxMostrarTableIngHistoria() {
+    public function ajaxMostrarTableIngHistEx() {
         session_start();
-        $valor = $_SESSION["idDeBodega"];
-        
+
+
         $sp = "spHistDataExtraIng";
 
         $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
@@ -21,29 +21,43 @@ class historialIngresosFiscales {
             if ($respuesta == "SD") {
                 
             } else {
+
+
+
+
+
                 $contador = 0;
-                                    $cabeza = '{
+                $cabeza = '{
                             "data": [';
-                                    echo $cabeza;
+                echo $cabeza;
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
-                   $contador = $contador+1;
-                                
-                                $datoJsonIngHis ='[
-                                    "'.$contador.'",
-                                    "'.$value["nitEmpresa"].'",
-                                    "'.$value["nombreEmpresa"].'",
-                                    "'.$value["numeroPoliza"].'",
-                                    "'.$value["bl"].'",
-                                    "'.$value["idCartaCupo"].'",
-                                    "'.$value["producto"].'",
-                                    "'.$value["peso"].'"
+                    if ($value["estadoIngreso"] >= 4) {
+                        $botoneraAcciones = "<button type='button' buttonId=" . $value['idIngreso'] . " class='btn btn-info btn-sm bntImprimir btn-sm'>Ing. <i class='fa fa-print'></i></button>";
+                    } else {
+                        $botoneraAcciones = "<button type='button' buttonId=" . $value['idIngreso'] . " class='btn btn-warning btn-sm btn-sm'>Pend.</button>";
+                    }
+                    $contador = $contador + 1;
+                    $fechaGaritaFormat = date("d-m-Y", strtotime($value["fechaIngReal"]));
+                    $pesoNumber = number_format($value["peso"], 2);
+                    $datoJsonIngHis = '[
+                                    "' . $contador . '",
+                                    "' . $value["nitEmpresa"] . '",
+                                    "' . $value["nombreEmpresa"] . '",
+                                    "' . $fechaGaritaFormat . '",
+                                    "' . $value["numeroPoliza"] . '",
+                                    "' . $value["bultos"] . '",
+                                    "' . $pesoNumber . '",                                        
+                                    "' . $value["chasis"] . '",                                        
+                                    "' . $value["descVeh"] . '",
+
+                                    "' . $botoneraAcciones . '"
     ],';
-                                
-       
-                                if ($key+1!=count($respuesta)) {
-                                 echo $datoJsonIngHis;   
-                                }
+
+
+                    if ($key + 1 != count($respuesta)) {
+                        echo $datoJsonIngHis;
+                    }
                 }
                 $pie = substr($datoJsonIngHis, 0, -1);
                 $pie .= ']}';
@@ -53,6 +67,7 @@ class historialIngresosFiscales {
     }
 
 }
+
 //ACTIVAR HISTORIAL DE INGRESO DATATABLE
-$activarHistorial = new historialIngresosFiscales();
-$activarHistorial->ajaxMostrarTableIngHistoria();
+$activarHistorial = new historialIngresosFiscalesEx();
+$activarHistorial->ajaxMostrarTableIngHistEx();

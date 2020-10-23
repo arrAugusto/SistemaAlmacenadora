@@ -478,61 +478,87 @@ $(document).on("click", ".btnListaSelect", async function () {
                                 dataType: "json",
                                 success: function (respuesta) {
                                     console.log(respuesta);
-                                    lista = [];
-                                    for (var i = 0; i < respuesta["respuestaDetalle"].length; i++) {
-                                        var empresa = respuesta["respuestaDetalle"][i].empresa;
-                                        var descripcion = respuesta["respuestaDetalle"][i].descripcionMercaderia;
-                                        var bultos = respuesta["respuestaDetalle"][i].bultos;
-                                        var peso = respuesta["respuestaDetalle"][i].peso + ' kg';
-                                        var accion = '<div class="input-group input-group-sm"><input type="text" class="form-control" id="textDetalle' + respuesta["respuestaDetalle"][i].identificadorDet + '" value=""/><span class="input-group-append"><button type="button" class="btn btn-info btn-flat btnAceptaDetalle" id="btnAceptarDet' + respuesta["respuestaDetalle"][i].identificadorDet + '" idDetalle=' + respuesta["respuestaDetalle"][i].identificadorDet + '  idIngSelectDet=' + respuesta["respuestaDetalle"][i].identificadorIng + '>Ok!</button></span></div>';
-                                        lista.push([empresa, descripcion, bultos, peso, accion]);
-                                    }
-                                    if (respuesta["respuestaStock"][0].nombreConsolidado == 0) {
-                                        var corte = "Sin ningun recibo emitido";
-                                    } else {
-                                        var corte = "Ultimo recibo Facturado   " + respuesta["respuestaStock"][0].numCorte;
-                                    }
-                                    document.getElementById("hiddenStockIngreso").value = respuesta["respuestaStock"][0].stock;
-                                    document.getElementById("modalRebajaMercaOpStock").innerHTML = '<h5>' + empresa + '&nbsp;&nbsp;Saldo de poliza : &nbsp;&nbsp;' + respuesta["respuestaStock"][0].stock + '&nbsp;&nbsp; bultos   &nbsp;&nbsp;' + corte + '</h5>';
-                                    $('#tablaMostrarEmpresa').DataTable({
-                                        "language": {
-                                            "sProcessing": "Procesando...",
-                                            "sLengthMenu": "Mostrar _MENU_ registros",
-                                            "sZeroRecords": "No se encontraron resultados",
-                                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                                            "sInfoPostFix": "",
-                                            "sSearch": "Busqueda:",
-                                            "sUrl": "",
-                                            "sInfoThousands": ",",
-                                            "sLoadingRecords": "Cargando...",
-                                            "oPaginate": {
-                                                "sFirst": "Primero",
-                                                "sLast": "Último",
-                                                "sNext": "Siguiente",
-                                                "sPrevious": "Anterior"
-                                            },
-                                            "oAria": {
-                                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                    var polizaDRRev = 0;
+                                    var revDR = 0;
+                                    if ("listaDR" in localStorage) {
+                                        var revDR = 1;
+                                        var polizaIngSelect = respuesta["respuestaDetalle"][0].numeroPoliza;
+                                        var jsonStorageDR = localStorage.getItem("listaDR");
+                                        var jsonStorageDR = JSON.parse(jsonStorageDR);
+                                        for (var i = 0; i < jsonStorageDR.length; i++) {
+                                            if (jsonStorageDR[i].poliza == polizaIngSelect) {
+                                                var polizaDRRev = 1;
                                             }
-                                        },
-                                        data: lista,
-                                        columns: [{
-                                                title: "Empresa"
-                                            }, {
-                                                title: "Descripción"
-                                            }, {
-                                                title: "Bultos"
-                                            }, {
-                                                title: "Peso"
-                                            }, {
-                                                title: "Seleccionar"
-                                            }]
-                                    });
-                                    ;
+                                        }
+
+                                    } else {
+                                        alert('no');
+                                    }
+                                    if (polizaDRRev == 0 && revDR == 0 || polizaDRRev == 1 && revDR == 1) {
+                                        lista = [];
+                                        for (var i = 0; i < respuesta["respuestaDetalle"].length; i++) {
+                                            var polizaIngSelect = respuesta["respuestaDetalle"][i].numeroPoliza;
+
+                                            var empresa = respuesta["respuestaDetalle"][i].empresa;
+                                            var descripcion = respuesta["respuestaDetalle"][i].descripcionMercaderia;
+                                            var bultos = respuesta["respuestaDetalle"][i].bultos;
+                                            var peso = respuesta["respuestaDetalle"][i].peso + ' kg';
+                                            var accion = '<div class="input-group input-group-sm"><input type="text" class="form-control" id="textDetalle' + respuesta["respuestaDetalle"][i].identificadorDet + '" value=""/><span class="input-group-append"><button type="button" class="btn btn-info btn-flat btnAceptaDetalle" id="btnAceptarDet' + respuesta["respuestaDetalle"][i].identificadorDet + '" idDetalle=' + respuesta["respuestaDetalle"][i].identificadorDet + '  idIngSelectDet=' + respuesta["respuestaDetalle"][i].identificadorIng + ' idPolIng=' + polizaIngSelect + '>Ok!</button></span></div>';
+                                            lista.push([empresa, descripcion, bultos, peso, accion]);
+                                        }
+                                        if (respuesta["respuestaStock"][0].nombreConsolidado == 0) {
+                                            var corte = "Sin ningun recibo emitido";
+                                        } else {
+                                            var corte = "Ultimo recibo Facturado   " + respuesta["respuestaStock"][0].numCorte;
+                                        }
+                                        document.getElementById("hiddenStockIngreso").value = respuesta["respuestaStock"][0].stock;
+                                        document.getElementById("modalRebajaMercaOpStock").innerHTML = '<h5>' + empresa + '&nbsp;&nbsp;Saldo de poliza : &nbsp;&nbsp;' + respuesta["respuestaStock"][0].stock + '&nbsp;&nbsp; bultos   &nbsp;&nbsp;' + corte + '</h5>';
+                                        $('#tablaMostrarEmpresa').DataTable({
+                                            "language": {
+                                                "sProcessing": "Procesando...",
+                                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                                "sZeroRecords": "No se encontraron resultados",
+                                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                                "sInfoPostFix": "",
+                                                "sSearch": "Busqueda:",
+                                                "sUrl": "",
+                                                "sInfoThousands": ",",
+                                                "sLoadingRecords": "Cargando...",
+                                                "oPaginate": {
+                                                    "sFirst": "Primero",
+                                                    "sLast": "Último",
+                                                    "sNext": "Siguiente",
+                                                    "sPrevious": "Anterior"
+                                                },
+                                                "oAria": {
+                                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                                }
+                                            },
+                                            data: lista,
+                                            columns: [{
+                                                    title: "Empresa"
+                                                }, {
+                                                    title: "Descripción"
+                                                }, {
+                                                    title: "Bultos"
+                                                }, {
+                                                    title: "Peso"
+                                                }, {
+                                                    title: "Seleccionar"
+                                                }]
+                                        });
+                                    } else {
+                                        Swal.fire({
+                                            type: 'error',
+                                            title: 'Póliza DA',
+                                            text: 'La poliza seleccinada no concide con ninguna del detalle de pólizas DR!',
+
+                                        })
+                                    }
                                 },
                                 error: function (respuesta) {
                                     console.log(respuesta);
@@ -757,65 +783,67 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     }
 
                     if (verSaldo == 1) {
-
                         var bultsResp = totalBultos * 1;
                         var bultsResp = parseInt(totalBultos);
-                        
                         var parseBlts = respSaldos[0].saldoBultos * 1;
                         var parseBlts = parseInt(parseBlts);
-                        
                         var bultsRespSld = (parseBlts - bultsResp);
                         console.log(bultsRespSld);
-                        
                         var respSaldImpt = respSaldos[0].saldoValorImpuesto * 1;
                         var respSaldImpt = parseFloat(respSaldImpt).toFixed(2);
-
-                        var calculoValorImpuesto = calculoValorImpuesto*1;
+                        var calculoValorImpuesto = calculoValorImpuesto * 1;
                         var calculoValorImpuesto = parseFloat(calculoValorImpuesto).toFixed(2);
-                        
                         var respSaldImptSld = (respSaldImpt - calculoValorImpuesto);
-                        
                         var respSaldCif = respSaldos[0].saldoValorCif * 1;
                         var respSaldCif = parseFloat(respSaldCif).toFixed(2);
-                        
                         var valorCif = valorCif * 1;
                         var valorCif = parseFloat(valorCif).toFixed(2);
-                        
                         var respSaldCifSld = (respSaldCif - valorCif);
                         //condicion si se liquida
                         if (respSaldos[0].saldoBultos == bultsResp) {
                             var bltsSaldo = 1;
                             if (respSaldCif == 0 || respSaldImpt == 0) {
-
                                 var condicion = 1;
                             }
-
                         } else {
                             if (bultsRespSld > 0 && respSaldCifSld > 0 && respSaldImptSld > 0) {
                                 var bltsSaldo = 2;
                                 var condicion = 2;
                             }
-
                         }
                     }
                     console.log(bltsSaldo);
-                    
                     console.log(condicion);
                     if (verSaldo == 0 || verSaldo == 1) {
-
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
-                                    console.log(cantBultos);
-                                    console.log(valorTotalAduana);
-                                    console.log(valorCif);
-                                    console.log(calculoValorImpuesto);
+var jsonStringDR = "SD";
+    if ("listaDR" in localStorage) {
+        var revDR = 1;
+        var bltsSumFinal = 0; 
+        var jsonStorageDR = localStorage.getItem("listaDR");
+        var jsonStorageDR = JSON.parse(jsonStorageDR);
+        for (var i = 0; i < jsonStorageDR.length; i++) {
+            var bltsSumFinal = bltsSumFinal+jsonStorageDR[i].bltsSumFinal;
+        }
+        var jsonStringDR = JSON.stringify(jsonStorageDR);
+    }
+                                    if (bltsSumFinal==totalBultos) {
+                                        
+                      console.log(jsonStringDR);
                                     var guardarRetMerca = await guardarRetiroMercaderia(
                                             listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
                                             valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
-                                            hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng);
-                          
-                                } else {
+                                            hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng, jsonStringDR);
+                                            }else{
+                                              Swal.fire(
+  'Bultos póliza DR?',
+  'La cantidadde bultos del detalle póliza DR, no coincide con la cantidad de bultos total',
+  'error'
+)  
+                                            }
+                                        } else {
                                     var guardaRetVeh = await guardarRetVehehiculos(
                                             hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
                                             valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
@@ -830,8 +858,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                     } else {
                                         Swal.fire('Retiro', 'No se guardo correctamente', 'error');
                                     }
-
-
                                 }
                             } else {
                                 Swal.fire('Diferencia bultos', 'En el formulario declaro ' + cantBultos + ' bultos y en detalles ud declaro ' + totalBultos + ' bultos.', 'error');
@@ -942,8 +968,9 @@ function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetir
 function guardarRetiroMercaderia(
         listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
         valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
-        hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng) {
+        hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng, jsonStringDR) {
     let respuestaFun;
+
     var datos = new FormData();
     datos.append("listaDetalles", listaDetalles);
     datos.append("hiddeniddeingreso", hiddeniddeingreso);
@@ -966,6 +993,8 @@ function guardarRetiroMercaderia(
     datos.append("hiddenIdentificador", hiddenIdentificador);
     datos.append("hiddenDateTime", hiddenDateTime);
     datos.append("tipoIng", tipoIng);
+    datos.append("jsonStringDR", jsonStringDR);
+    
     console.log(tipoIng);
     $.ajax({
         url: "ajax/retiroOpe.ajax.php",
@@ -976,7 +1005,7 @@ function guardarRetiroMercaderia(
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-            console.log(respuesta.exito);
+            console.log(respuesta);
             if (respuesta.exito == "exito") {
                 var tipo = 0;
                 desbloqueBloque(tipo);
@@ -1004,40 +1033,58 @@ function guardarRetiroMercaderia(
 
 $(document).on("click", ".btnAceptaDetalle", function () {
     var idIngOpDet = $(this).attr("idIngSelectdet");
-    console.log(idIngOpDet);
+    var idPoling = $(this).attr("idpoling");
     var idDetalle = $(this).attr("idDetalle");
     var valTextDet = document.getElementById("textDetalle" + idDetalle).value;
-    var datos = new FormData();
-    datos.append("textoValDet", valTextDet);
-    datos.append("idOpDetTraer", idDetalle);
-    $.ajax({
-        url: "ajax/retiroOpe.ajax.php",
-        method: "POST",
-        data: datos,
-        cache: false,
-        contentType: false,
-        processData: false,
-        dataType: "json",
-        success: function (respuesta) {
-            console.log(respuesta);
-            if (respuesta == "SinSaldo") {
-                alert("no existe saldo del dato");
-            } else if (respuesta == "Denegado") {
-                alert("su operacion sobregira el stock");
-            } else if (respuesta != "Denegado") {
 
-                if (isNaN(valTextDet) || valTextDet == "") {
-                    Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
-                } else {
+    var polizaDRRev = 0;
+    var revDR = 0;
+    if ("listaDR" in localStorage) {
+        var revDR = 1;
+        var polizaIngSelect = idPoling;
+        var jsonStorageDR = localStorage.getItem("listaDR");
+        var jsonStorageDR = JSON.parse(jsonStorageDR);
+        for (var i = 0; i < jsonStorageDR.length; i++) {
+            if (jsonStorageDR[i].poliza == polizaIngSelect) {
+                if (jsonStorageDR[i].bltsSumFinal == valTextDet) {
+                    var polizaDRRev = 1;
+                }
+            }
+        }
+    }
+    if (polizaDRRev == 0 && revDR == 0 || polizaDRRev == 1 && revDR == 1) {
 
-                    if ($("#numeroPlaca").length == 0) {
-                        document.getElementById("descMercaderia").value = 'VEHICULO USADO  ' + respuesta[0].empresa;
-                        $("#descMercaderia").removeClass("is-invalid");
-                        $("#descMercaderia").addClass("is-valid");
-                    }
-                    document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
-                    document.getElementById("textDetalle" + idDetalle).readOnly = true;
-                    document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+        var datos = new FormData();
+        datos.append("textoValDet", valTextDet);
+        datos.append("idOpDetTraer", idDetalle);
+        $.ajax({
+            url: "ajax/retiroOpe.ajax.php",
+            method: "POST",
+            data: datos,
+            cache: false,
+            contentType: false,
+            processData: false,
+            dataType: "json",
+            success: function (respuesta) {
+                console.log(respuesta);
+                if (respuesta == "SinSaldo") {
+                    alert("no existe saldo del dato");
+                } else if (respuesta == "Denegado") {
+                    alert("su operacion sobregira el stock");
+                } else if (respuesta != "Denegado") {
+
+                    if (isNaN(valTextDet) || valTextDet == "") {
+                        Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
+                    } else {
+
+                        if ($("#numeroPlaca").length == 0) {
+                            document.getElementById("descMercaderia").value = 'VEHICULO USADO  ' + respuesta[0].empresa;
+                            $("#descMercaderia").removeClass("is-invalid");
+                            $("#descMercaderia").addClass("is-valid");
+                        }
+                        document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
+                        document.getElementById("textDetalle" + idDetalle).readOnly = true;
+                        document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         <button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>
@@ -1047,13 +1094,20 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />
                       <input type="numeric" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
                     </div>`;
+                    }
                 }
+            },
+            error: function (respuesta) {
+                console.log(respuesta);
             }
-        },
-        error: function (respuesta) {
-            console.log(respuesta);
-        }
-    })
+        });
+    } else {
+        Swal.fire(
+                'Diferencia de bultos?',
+                'La cantidad de bultos de la poliza no es igual al declarado en el detalle de póliza DR!',
+                'error'
+                )
+    }
 });
 /*
  $(document).on("change", "#cantBultos", function () {
@@ -2569,4 +2623,218 @@ $(document).on("click", "#btnPolizasDR", async function () {
         })
     }
 
+})
+
+$(document).on("click", ".btnPolizaDR", async function () {
+    const {value: text} = await Swal.fire({
+        input: 'textarea',
+        html:
+                `
+ <div class="container">
+ <h2>Validación y registro de pólizas DR</h2>
+ <p>En el siguiente campo, tiene que ingresar cada uno de los chasis delimitados por el simbolo pai " | "</p>
+ <div class="form-group">`
+        ,
+        inputPlaceholder: '2670706243|260219.55|1|260219.55|74943.2304',
+        inputAttributes: {
+            'aria-label': 'Type your message here'
+        },
+        showCancelButton: true
+    })
+
+    if (text) {
+        console.log(text);
+        var iteraciones = 5;
+        var chasisDelimitados = text;
+        var chasisTrim = chasisDelimitados.trim();
+        var sin_salto = chasisTrim.split("\n").join("");
+        var cadenaArray = sin_salto.split("|");
+        var validacion = cadenaArray.length;
+
+        var validarIter = (validacion / iteraciones);
+        var validarIterInt = parseInt(validarIter);
+        if (validarIter == validarIterInt) {
+            var lista = [];
+            var denegacion = 0;
+            var numFila = 0;
+            for (var i = 0; i < cadenaArray.length; i++) {
+                var numFila = numFila + 1;
+                var polizaDA = cadenaArray[i];
+                var valDol = cadenaArray[i + 1];
+                var tCambio = cadenaArray[i + 2];
+                var cif = cadenaArray[i + 3];
+                var impuesto = cadenaArray[i + 4];
+                var i = (i + 4);
+                if (numFila == "" || polizaDA == "" || valDol == "" || tCambio == "" || cif == "" || impuesto == "") {
+                    Swal.fire(
+                            'No pueden existir campos vacios!',
+                            'Revisar los datos ingresados!',
+                            'error'
+                            )
+                    var lista = [];
+                    var denegacion = 1;
+                    break;
+                } else {
+                    lista.push([numFila, polizaDA, valDol, tCambio, cif, impuesto]);
+                }
+            }
+
+            if (denegacion == 0) {
+                var valDolSum = 0;
+                var cif = 0;
+                var impuesto = 0;
+                var formValDol = document.getElementById("valorTAduana").value;
+                var formValDol = Number.parseFloat(formValDol).toFixed(2);
+                var formValDol = formValDol * 1;
+
+                var valorCif = document.getElementById("valorCif").value;
+                var valorCif = Number.parseFloat(valorCif).toFixed(2);
+                var valorCif = valorCif * 1;
+
+                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+                var calculoValorImpuesto = calculoValorImpuesto * 1;
+
+                console.log(lista);
+                for (var i = 0; i < lista.length; i++) {
+                    var valDolLis = lista[i][2];
+                    var valDolLis = Number.parseFloat(valDolLis).toFixed(2);
+                    var valDolLis = valDolLis * 1;
+                    var valDolSum = valDolSum + valDolLis;
+
+                    var cifList = lista[i][4];
+                    var cifList = Number.parseFloat(cifList).toFixed(2);
+                    var cifList = cifList * 1;
+                    var cif = cif + cifList;
+
+                    var impstList = lista[i][5];
+                    var impstList = Number.parseFloat(impstList).toFixed(2);
+                    var impstList = impstList * 1;
+                    var impuesto = impuesto + impstList;
+
+                }
+
+
+                if (formValDol == valDolSum
+                        && valorCif == cif
+                        && calculoValorImpuesto == impuesto
+                        ) {
+                    console.log(calculoValorImpuesto);
+                    console.log(impuesto);
+                    listaDef = [];
+                    for (var i = 0; i < lista.length; i++) {
+                        var poliza = lista[i][1];
+
+                        if (i == 0) {
+                            listaDef.push({poliza});
+                        }
+                        if (i >= 1) {
+                            var tipoRev = 0;
+                            for (var j = 0; j < listaDef.length; j++) {
+                                if (listaDef[j].poliza == poliza) {
+                                    var tipoRev = 1;
+                                }
+                            }
+                            if (tipoRev == 0) {
+                                listaDef.push({poliza});
+                            }
+                        }
+                    }
+                    listaFinDef = [];
+                    var listaFinDefJS = [];
+
+                    console.log(lista);
+                    for (var j = 0; j < listaDef.length; j++) {
+                        var bltsSum = 0;
+                        var valDolSum = 0;
+                        var cif = 0;
+                        var impuesto = 0;
+
+                        var bltsSumFinal = 0;
+                        var valDolSumFinal = 0;
+                        var cifFinal = 0;
+                        var impuestoFinal = 0;
+                        var poliza = listaDef[j].poliza;
+                        for (var i = 0; i < lista.length; i++) {
+                            if (lista[i][1] == poliza) {
+
+                                var valDolSum = lista[i][2];
+                                var valDolSum = Number.parseFloat(valDolSum).toFixed(2);
+                                var valDolSum = valDolSum * 1;
+                                var valDolSumFinal = valDolSumFinal + valDolSum;
+
+                                var cif = lista[i][4];
+                                var cif = Number.parseFloat(cif).toFixed(2);
+                                var cif = cif * 1;
+                                var cifFinal = cifFinal + cif;
+
+                                var impuesto = lista[i][5];
+                                var impuesto = Number.parseFloat(impuesto).toFixed(2);
+                                var impuesto = impuesto * 1;
+                                var impuestoFinal = impuestoFinal + impuesto;
+
+                                var bltsSum = lista[i][3];
+                                var bltsSum = Number.parseFloat(bltsSum).toFixed(2);
+                                var bltsSum = bltsSum * 1;
+                                var bltsSumFinal = bltsSumFinal + bltsSum;
+
+
+                            }
+                        }
+                        listaFinDef.push([poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal]);
+                        listaFinDefJS.push({poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal});
+                    }
+                    console.log(listaFinDefJS);
+                    // Guardar listaStringRet en el localstorage
+                    var listaJSONDR = JSON.stringify(listaFinDefJS);
+                    localStorage.setItem("listaDR", listaJSONDR);
+
+                    document.getElementById("divPolizasDR").innerHTML = "";
+                    document.getElementById("divPolizasDR").innerHTML = '<table id="tablePolizasDR" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
+                    $('#tablePolizasDR').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Busqueda:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        data: listaFinDef,
+                        columns: [{
+                                title: "Poliza"
+                            }, {
+                                title: "Bultos"
+                            }, {
+                                title: "Valor Dolares"
+                            }, {
+                                title: "Valor Cif"
+                            }, {
+                                title: "Valor Impuestos"
+                            }]
+                    });
+                }
+            }
+        }
+    }
+})
+
+$(document).ready(function () {
+    localStorage.removeItem("listaDR");
 })

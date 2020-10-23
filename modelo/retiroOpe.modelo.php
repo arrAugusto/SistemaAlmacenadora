@@ -33,7 +33,24 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
-
+    public static function mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp) {
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE ".$sp." ?, ?, ?, ?, ?, ?";
+        $params = array(&$poliza, &$idRet, &$bltsSumFinal, &$valDolSumFinal, &$cifFinal, &$impuestoFinal);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
     public static function mdlMostrarBusqueda($datoSearch) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNitSalida ?";
@@ -158,6 +175,7 @@ class ModeloRetiroOpe {
         }
     }
 
+    
     public static function mdlMostrarSaldosConta($idIngOpDet) {
 
         $conn = Conexion::Conectar();

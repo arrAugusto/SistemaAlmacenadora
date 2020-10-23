@@ -71,7 +71,8 @@ class AjaxUbicacionOpe {
             "hiddenDateTime" => $hiddenDateTime = $this->hiddenDateTime,
             "listaDetalles" => $listaDetalles = $this->listaDetalles,
             "usuarioOp" => $usuarioOp,
-            "tipoIng" => $tipoIng = $this->tipoIng);
+            "tipoIng" => $tipoIng = $this->tipoIng,
+            "jsonStringDR"=>$jsonStringDR=$this->jsonStringDR);
 
         $respuesta = ControladorRetiroOpe::ctrInsertRetiroOpe($datos);
         echo json_encode($respuesta);
@@ -344,6 +345,8 @@ if (isset($_POST["hiddeniddeingreso"])) {
     $insertRetiroOpe->hiddenDateTime = $_POST["hiddenDateTime"];
     $insertRetiroOpe->listaDetalles = $_POST["listaDetalles"];
     $insertRetiroOpe->tipoIng = $_POST["tipoIng"];
+    $insertRetiroOpe->jsonStringDR = $_POST["jsonStringDR"];
+    
 
     $insertRetiroOpe->ajaxInsertRetiroOpe();
 }

@@ -799,7 +799,7 @@ $(document).ready(function () {
         $.ajax({
             url: "ajax/datatableHistorialIng.ajax.php",
             success: function (respuesta) {
-                console.log(respuesta);
+
             }
 
         })
@@ -845,7 +845,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     if ($("#tableHistorialDataExtra").length >= 1) {
         $.ajax({
-            url: "ajax/datatableHistorialIngExt.ajax",
+            url: "ajax/datatableHistorialIngExt.ajax.php",
             success: function (respuesta) {
                 console.log(respuesta);
             }
@@ -858,7 +858,7 @@ $(document).ready(function () {
     if ($("#tableHistorialDataExtra").length >= 1) {
         $('#tableHistorialDataExtra').DataTable({
             "bProcessing": true,
-            "sAjaxSource": "ajax/datatableHistorialIngExt.ajax",
+            "sAjaxSource": "ajax/datatableHistorialIngExt.ajax.php",
             "deferRender": true,
             "language": {
                 "sProcessing": "Procesando...",

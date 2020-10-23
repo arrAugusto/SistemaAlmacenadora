@@ -27,12 +27,17 @@
                                     </span>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <div class="input-group input-group-sm">
-                                   <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
-                               </div>
+                                    <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnCapturarQRPol btn-block" style="font-size:25px">Codigo de Barras&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:48px;'></i></button>
+                                </div>
                             </div>                        
-
+                            <div class="col-3">
+                                <div class="input-group input-group-sm">
+                                    <button type="button" id="capturarQRPol" class="btn btn-outline-secondary btnPolizaDR btn-block" style="font-size:25px">Póliza DR&nbsp;&nbsp;&nbsp;<i class='fa fa-list-ol' style='font-size:48px;'></i></button>
+                                </div>
+                            </div>
+                            
                             <div class="col-7 mt-4" id="dataRetiro">
                             </div>
                             <div class="col-5 mt-4" id="ListaSelect">
@@ -130,6 +135,8 @@
                             </div>
                             <div class="col-6 mt-4" id="divListaDetalles">
                             </div>
+                            <div class="col-6 mt-4" id="divPolizasDR">
+                            </div>                            
                         </div>
                         <div class="card-footer mt-4" id="divBottoneraAccion">
                             <div class="btn-group">

@@ -31,6 +31,24 @@
 
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                </p>
+
+            </a>
+        </li>
+                                <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                </p>
+            </a>
+        </li>
+
 
 
 <li class="nav-item has-treeview">
@@ -268,7 +286,23 @@
 
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                </p>
 
+            </a>
+        </li>
+                                <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                </p>
+            </a>
+        </li>
 
 <li class="nav-item has-treeview">
             <a href="culminarIngresosBodega" class="nav-link">';
@@ -340,7 +374,7 @@
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Pases Vehículos N
-                    <span class="right badge badge-primary">Nuevo</span>
+                    
                 </p>
             </a>
         </li>
@@ -500,6 +534,25 @@
 
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                </p>
+
+            </a>
+        </li>
+                                <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                </p>
+            </a>
+        </li>
+
+
         <li class="nav-item has-treeview">
             <a href="historiaRetirosFisacales" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
@@ -576,19 +629,11 @@
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Pases Vehículos N
-                    <span class="right badge badge-primary">Nuevo</span>
+                    
                 </p>
             </a>
         </li>
-                <li class="nav-item has-treeview">
-            <a href="chasisVehiculosNuevos" class="nav-link">
-                <i class="fa fa-truck colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Chasis Veh. Nuevos
-                    <span class="right badge badge-success">Nuevo</span>
-                </p>
-            </a>
-        </li>  
+
         <li class="nav-item has-treeview">
             <a href="inventariosFiscales" class="nav-link">
                 <i class="fa fa-clipboard colorBarSuper"></i>
@@ -781,6 +826,24 @@
 
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                </p>
+
+            </a>
+        </li>
+                                <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                </p>
+            </a>
+        </li>
+
 
         <li class="nav-item has-treeview">
             <a href="UbicacionBodega" class="nav-link">
