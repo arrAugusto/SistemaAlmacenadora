@@ -72,7 +72,7 @@ class AjaxUbicacionOpe {
             "listaDetalles" => $listaDetalles = $this->listaDetalles,
             "usuarioOp" => $usuarioOp,
             "tipoIng" => $tipoIng = $this->tipoIng,
-            "jsonStringDR"=>$jsonStringDR=$this->jsonStringDR);
+            "jsonStringDR" => $jsonStringDR = $this->jsonStringDR);
 
         $respuesta = ControladorRetiroOpe::ctrInsertRetiroOpe($datos);
         echo json_encode($respuesta);
@@ -301,6 +301,17 @@ class AjaxUbicacionOpe {
         echo json_encode($anularOperaciones);
     }
 
+    public $verSaldosDR;
+
+    public function ajaxRevisionDePolDR() {
+        $polizaIngDR = $this->polizaIngDR;
+        $bltsDR = $this->bltsDR;
+        $cifDR = $this->cifDR;
+        $imptDR = $this->imptDR;
+        $respuesta = ControladorRetiroOpe::ctrRevisionDePolDR($polizaIngDR, $bltsDR, $cifDR, $imptDR);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["datoSearchPol"])) {
@@ -346,7 +357,7 @@ if (isset($_POST["hiddeniddeingreso"])) {
     $insertRetiroOpe->listaDetalles = $_POST["listaDetalles"];
     $insertRetiroOpe->tipoIng = $_POST["tipoIng"];
     $insertRetiroOpe->jsonStringDR = $_POST["jsonStringDR"];
-    
+
 
     $insertRetiroOpe->ajaxInsertRetiroOpe();
 }
@@ -530,4 +541,14 @@ if (isset($_POST["idtrans"])) {
     $anulacionOperaciones->idoperacion = $_POST["idoperacion"];
     $anulacionOperaciones->motivoAnula = $_POST["motivoAnula"];
     $anulacionOperaciones->ajaxAnularOperaciones();
+}
+
+
+if (isset($_POST["polizaIngDR"])) {
+    $verSaldosDR = new AjaxUbicacionOpe();
+    $verSaldosDR->polizaIngDR = $_POST["polizaIngDR"];
+    $verSaldosDR->bltsDR = $_POST["bltsDR"];
+    $verSaldosDR->cifDR = $_POST["cifDR"];
+    $verSaldosDR->imptDR = $_POST["imptDR"];
+    $verSaldosDR->ajaxRevisionDePolDR();
 }

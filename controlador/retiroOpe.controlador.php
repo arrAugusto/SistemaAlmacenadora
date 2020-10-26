@@ -82,21 +82,16 @@ class ControladorRetiroOpe {
                     $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
                     foreach ($jsonDecodeDR as $key => $value) {
                         $poliza = $value["poliza"];
-                        $idRet = $respuesta["valIdRetiro"]; 
+                        $idRet = $respuesta["valIdRetiro"];
                         $bltsSumFinal = $value["bltsSumFinal"];
                         $valDolSumFinal = $value["valDolSumFinal"];
                         $cifFinal = $value["cifFinal"];
-                        $impuestoFinal = $value["impuestoFinal"];                        
+                        $impuestoFinal = $value["impuestoFinal"];
                         $sp = "spValContaRet";
                         $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
-                        
                     }
-                    
-                    return "data 88";
                 } else {
                     $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
-                return "data 90";
-                    
                 }
                 if ($respuestaActStockGen[0]["resp"] == 1) {
                     return $respuesta;
@@ -368,7 +363,11 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($retiroFs, $sp);
         return $respuesta;
     }
-
+    public static function ctrValoresDRRetiro($retiroFs) {
+        $sp = "spValoresDRRet";
+        $respuesta = ModeloRetiroOpe::mdlDetUnParametro($retiroFs, $sp);
+        return $respuesta;
+    }
     public static function ctrDatosPilotos($retiroF, $estadoVerPlt) {
         $sp = "spConsultaRetUnidad";
         $tipo = 2;
@@ -515,6 +514,14 @@ class ControladorRetiroOpe {
             $respuesta = ModeloRetiroOpe::mdlRetiroVehN($idRetChas, $idChas, $valTotal, $usuarioOp, $sp);
         }
         return true;
+    }
+
+    public static function ctrRevisionDePolDR($polizaIngDR, $bltsDR, $cifDR, $imptDR) {
+        //SALDO DE POLIZA DA
+        $sp = "spSaldosDR";
+        //ENVIANDO DATOS A MODELO
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetallesCuatroParams($polizaIngDR, $bltsDR, $cifDR, $imptDR, $sp);
+        return $respuesta;
     }
 
 }

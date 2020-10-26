@@ -818,32 +818,32 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
-var jsonStringDR = "SD";
-    if ("listaDR" in localStorage) {
-        var revDR = 1;
-        var bltsSumFinal = 0; 
-        var jsonStorageDR = localStorage.getItem("listaDR");
-        var jsonStorageDR = JSON.parse(jsonStorageDR);
-        for (var i = 0; i < jsonStorageDR.length; i++) {
-            var bltsSumFinal = bltsSumFinal+jsonStorageDR[i].bltsSumFinal;
-        }
-        var jsonStringDR = JSON.stringify(jsonStorageDR);
-    }
-                                    if (bltsSumFinal==totalBultos) {
-                                        
-                      console.log(jsonStringDR);
-                                    var guardarRetMerca = await guardarRetiroMercaderia(
-                                            listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
-                                            valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
-                                            hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng, jsonStringDR);
-                                            }else{
-                                              Swal.fire(
-  'Bultos póliza DR?',
-  'La cantidadde bultos del detalle póliza DR, no coincide con la cantidad de bultos total',
-  'error'
-)  
-                                            }
-                                        } else {
+                                    var jsonStringDR = "SD";
+                                    if ("listaDR" in localStorage) {
+                                        var revDR = 1;
+                                        var bltsSumFinal = 0;
+                                        var jsonStorageDR = localStorage.getItem("listaDR");
+                                        var jsonStorageDR = JSON.parse(jsonStorageDR);
+                                        for (var i = 0; i < jsonStorageDR.length; i++) {
+                                            var bltsSumFinal = bltsSumFinal + jsonStorageDR[i].bltsSumFinal;
+                                        }
+                                        var jsonStringDR = JSON.stringify(jsonStorageDR);
+                                    }
+                                    if (bltsSumFinal == totalBultos) {
+
+                                        console.log(jsonStringDR);
+                                        var guardarRetMerca = await guardarRetiroMercaderia(
+                                                listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
+                                                valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
+                                                hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia, tipoIng, jsonStringDR);
+                                    } else {
+                                        Swal.fire(
+                                                'Bultos póliza DR?',
+                                                'La cantidadde bultos del detalle póliza DR, no coincide con la cantidad de bultos total',
+                                                'error'
+                                                )
+                                    }
+                                } else {
                                     var guardaRetVeh = await guardarRetVehehiculos(
                                             hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
                                             valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
@@ -994,7 +994,7 @@ function guardarRetiroMercaderia(
     datos.append("hiddenDateTime", hiddenDateTime);
     datos.append("tipoIng", tipoIng);
     datos.append("jsonStringDR", jsonStringDR);
-    
+
     console.log(tipoIng);
     $.ajax({
         url: "ajax/retiroOpe.ajax.php",
@@ -1036,7 +1036,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
     var idPoling = $(this).attr("idpoling");
     var idDetalle = $(this).attr("idDetalle");
     var valTextDet = document.getElementById("textDetalle" + idDetalle).value;
-
+    var btnDR = 0;
     var polizaDRRev = 0;
     var revDR = 0;
     if ("listaDR" in localStorage) {
@@ -1048,6 +1048,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
             if (jsonStorageDR[i].poliza == polizaIngSelect) {
                 if (jsonStorageDR[i].bltsSumFinal == valTextDet) {
                     var polizaDRRev = 1;
+                    var btnDR = 1;
                 }
             }
         }
@@ -1082,13 +1083,21 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                             $("#descMercaderia").removeClass("is-invalid");
                             $("#descMercaderia").addClass("is-valid");
                         }
+                        if (btnDR == 0) {
+                            var buttonDR = ``;
+
+                        } else {
+                            var buttonDR = `<button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>`;
+
+                        }
+
                         document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
                         document.getElementById("textDetalle" + idDetalle).readOnly = true;
                         document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
-                        <button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>
-                        <button type="button" class="btn btn-warning" id="btnPolizasDR" estado=0>DR</button>                    
+                        ` + buttonDR + `
+                        <button type="button" class="btn btn-warning" estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />
@@ -2661,11 +2670,21 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 var numFila = numFila + 1;
                 var polizaDA = cadenaArray[i];
                 var valDol = cadenaArray[i + 1];
-                var tCambio = cadenaArray[i + 2];
+                var valDol = Number.parseFloat(valDol).toFixed(2);
+                var valDol = valDol * 1;
+
+                var bultos = cadenaArray[i + 2];
+
                 var cif = cadenaArray[i + 3];
+                var cif = Number.parseFloat(cif).toFixed(2);
+                var cif = cif * 1;
+
                 var impuesto = cadenaArray[i + 4];
+                var impuesto = Number.parseFloat(impuesto).toFixed(2);
+                var impuesto = impuesto * 1;
+
                 var i = (i + 4);
-                if (numFila == "" || polizaDA == "" || valDol == "" || tCambio == "" || cif == "" || impuesto == "") {
+                if (numFila == "" || polizaDA == "" || valDol == "" || bultos == "" || cif == "" || impuesto == "") {
                     Swal.fire(
                             'No pueden existir campos vacios!',
                             'Revisar los datos ingresados!',
@@ -2675,7 +2694,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                     var denegacion = 1;
                     break;
                 } else {
-                    lista.push([numFila, polizaDA, valDol, tCambio, cif, impuesto]);
+                    lista.push([numFila, polizaDA, valDol, bultos, cif, impuesto]);
                 }
             }
 
@@ -2683,6 +2702,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 var valDolSum = 0;
                 var cif = 0;
                 var impuesto = 0;
+                var bultos = 0;
                 var formValDol = document.getElementById("valorTAduana").value;
                 var formValDol = Number.parseFloat(formValDol).toFixed(2);
                 var formValDol = formValDol * 1;
@@ -2695,30 +2715,59 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
                 var calculoValorImpuesto = calculoValorImpuesto * 1;
 
+                var cantBultos = document.getElementById("cantBultos").value;
+                var cantBultos = Number.parseInt(cantBultos);
+                var cantBultos = cantBultos * 1;
+
+
                 console.log(lista);
                 for (var i = 0; i < lista.length; i++) {
                     var valDolLis = lista[i][2];
                     var valDolLis = Number.parseFloat(valDolLis).toFixed(2);
                     var valDolLis = valDolLis * 1;
                     var valDolSum = valDolSum + valDolLis;
+                    var valDolSum = Number.parseFloat(valDolSum).toFixed(2);
+                    var valDolSum = valDolSum * 1;
 
                     var cifList = lista[i][4];
                     var cifList = Number.parseFloat(cifList).toFixed(2);
                     var cifList = cifList * 1;
                     var cif = cif + cifList;
+                    var cif = Number.parseFloat(cif).toFixed(2);
+                    var cif = cif * 1;
+
 
                     var impstList = lista[i][5];
                     var impstList = Number.parseFloat(impstList).toFixed(2);
                     var impstList = impstList * 1;
                     var impuesto = impuesto + impstList;
+                    var impuesto = Number.parseFloat(impuesto).toFixed(2);
+                    var impuesto = impuesto * 1;
 
+                    var bltsList = lista[i][3];
+                    var bltsList = Number.parseInt(bltsList);
+                    var bltsList = bltsList * 1;
+                    var bultos = bultos + bltsList;
                 }
+
+                console.log(formValDol);
+                console.log(valDolSum);
+
+                console.log(valorCif);
+                console.log(cif);
+
+                console.log(calculoValorImpuesto);
+                console.log(impuesto);
+
+                console.log(cantBultos);
+                console.log(bultos);
+
 
 
                 if (formValDol == valDolSum
                         && valorCif == cif
                         && calculoValorImpuesto == impuesto
-                        ) {
+                        && cantBultos == bultos) {
                     console.log(calculoValorImpuesto);
                     console.log(impuesto);
                     listaDef = [];
@@ -2781,10 +2830,36 @@ $(document).on("click", ".btnPolizaDR", async function () {
 
                             }
                         }
-                        listaFinDef.push([poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal]);
-                        listaFinDefJS.push({poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal});
+
+                        var respuesta = await saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal);
+                        var bultosSld = respuesta[0].bultos;
+                        var cifSld = respuesta[0].cif;
+                        var idIngDR = respuesta[0].idIngDR;
+                        var tipoServ = respuesta[0].tipo;
+                        var saldoImptsSld = respuesta[0].saldoImpts;
+                        if (respuesta == "SD") {
+                            return false;
+                        }
+                        if (bultosSld >= 0) {
+                            if (tipoServ != 0) {
+                                if (bultosSld == 0) {
+                                    if (cifSld > 0 && saldoImptsSld > 0) {
+                                        return false;
+                                    }
+                                }
+                                var span = '<span class="right badge badge-success">Almacen Fiscal</span>';
+                            } else {
+                                var span = '<span class="right badge badge-danger">Zona Aduanera</span>';
+
+                            }
+                            var divicion = '<button type="button" class="btn btn-outline-info btn-sm btnRevisionDet" idIng=' + idIngDR + ' bultosDRDet=' + bltsSumFinal + '>::-> SALDOS F.</button>';
+                            var buttonDR = '<div class="btn-group"><button type="button" buttonid=' + idIngDR + ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonid=' + idIngDR + ' class="btn btn-primary btn-sm bntImprimir"><i class="fa fa-print"></i> </button><button type="button" buttonPol=' + poliza + ' class="btn btn-outline-info btn-sm btnBsqPolDADR">Poliza DA<i class="fa fa-search"></i> </button></div>';
+
+                            listaFinDef.push([poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal, divicion, bultosSld, cifSld, saldoImptsSld, span, buttonDR]);
+                            listaFinDefJS.push({poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal});
+
+                        }
                     }
-                    console.log(listaFinDefJS);
                     // Guardar listaStringRet en el localstorage
                     var listaJSONDR = JSON.stringify(listaFinDefJS);
                     localStorage.setItem("listaDR", listaJSONDR);
@@ -2827,8 +2902,26 @@ $(document).on("click", ".btnPolizaDR", async function () {
                                 title: "Valor Cif"
                             }, {
                                 title: "Valor Impuestos"
+                            }, {
+                                title: ""
+                            }, {
+                                title: "Saldo bultos"
+                            }, {
+                                title: "Saldo cif"
+                            }, {
+                                title: "Saldo impuestos"
+                            }, {
+                                title: "Regimen"
+                            }, {
+                                title: "Acciones"
                             }]
                     });
+                } else {
+                    Swal.fire(
+                            'Error de costeo',
+                            'Los bultos, Valor en aduana total, CIF o Impuesto no cuadra contra poliza DR',
+                            'error'
+                            )
                 }
             }
         }
@@ -2838,3 +2931,43 @@ $(document).on("click", ".btnPolizaDR", async function () {
 $(document).ready(function () {
     localStorage.removeItem("listaDR");
 })
+
+
+function saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal) {
+    let todoMenus;
+    var datos = new FormData();
+    datos.append("polizaIngDR", poliza);
+    datos.append("bltsDR", bltsSumFinal);
+    datos.append("cifDR", cifFinal);
+    datos.append("imptDR", impuestoFinal);
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            todoMenus = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return todoMenus;
+}
+
+$(document).on("click", ".btnBsqPolDADR", async function () {
+    var buttonPol = $(this).attr("buttonPol");
+    document.getElementById("textParamBusqRet").value=buttonPol;
+    $("#textParamBusqRet").trigger('change');
+    $(".btnBuscaRetiro").click();
+    
+    $(this).removeClass("btn-outline-info");
+    $(this).addClass("btn-secondary");
+    $(this).attr("disabled", "disabled");
+    
+    
+});

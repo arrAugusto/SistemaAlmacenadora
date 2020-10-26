@@ -135,7 +135,7 @@
                             </div>
                             <div class="col-6 mt-4" id="divListaDetalles">
                             </div>
-                            <div class="col-6 mt-4" id="divPolizasDR">
+                            <div class="col-9 mt-4" id="divPolizasDR">
                             </div>                            
                         </div>
                         <div class="card-footer mt-4" id="divBottoneraAccion">

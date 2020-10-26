@@ -6,7 +6,7 @@ $(document).ready(function () {
 $(document).on("click", ".btnADetalle", function () {
 
     var selectUbicacion = $("#selectUbicacion").val();
-    if (selectUbicacion >= 1 || selectUbicacion =='Piso' || selectUbicacion =='Rack') {
+    if (selectUbicacion >= 1 || selectUbicacion == 'Piso' || selectUbicacion == 'Rack') {
         var empresa = document.getElementById("nombreEmpresa").value;
         var bultos = document.getElementById("cantidadBultos").value;
         var pesoKg = document.getElementById("pesoKg").value;
@@ -232,6 +232,14 @@ $(document).on("click", ".btnADetalle", function () {
                 }
                 /***/
                 document.getElementById("ubicacionesSelect").innerHTML = "";
+                document.getElementById("textDetalleVeh").value = "";
+                document.getElementById("textDetalleVeh").innerHTML = "";
+
+                $(".divDetalleVehUsaLlave").removeAttr("disabled");
+                $(".divDetalleVehUsaBat").removeAttr("disabled");
+                $(".divDetalleVehUsaRad").removeAttr("disabled");
+                $(".divDetalleVehUsaLlanta").removeAttr("disabled");
+                $(".divDetalleVehUsaTr").removeAttr("disabled");
                 $("#btnUbica").attr("estado", 0);
                 var mensaje = "Detalle Registrado Correctamente";
                 var tipo = "success";
@@ -554,27 +562,27 @@ $(document).on("click", ".btnGuardaUbicacion", function () {
     $('.btnVerDetalles').click();
 })
 $(document).on("click", ".btnAudioDescr", async function () {
-            let rec;
-            if (!("webkitSpeechRecognition" in window)) {
-                alert("Su navegador no soporta, la api.")
-            } else {
-                rec = new webkitSpeechRecognition();
-                rec.lang = "es-GT";
-                rec.continuos = true;
-                rec.interim = true;
-                rec.addEventListener("result", iniciar);
+    let rec;
+    if (!("webkitSpeechRecognition" in window)) {
+        alert("Su navegador no soporta, la api.")
+    } else {
+        rec = new webkitSpeechRecognition();
+        rec.lang = "es-GT";
+        rec.continuos = true;
+        rec.interim = true;
+        rec.addEventListener("result", iniciar);
 
-            }
-            function iniciar(event) {
-                for (i = event.resultIndex; i < event.results.length; i++) {
-                    var cadenaAudio = event.results[i][0].transcript;
-                    console.log(cadenaAudio);
-                    document.getElementById('descripcionMerca').value = "OBSERVACIONES : " + cadenaAudio.toUpperCase();
-                }
-            }
-            rec.start();
-       
-    })
+    }
+    function iniciar(event) {
+        for (i = event.resultIndex; i < event.results.length; i++) {
+            var cadenaAudio = event.results[i][0].transcript;
+            console.log(cadenaAudio);
+            document.getElementById('descripcionMerca').value = "OBSERVACIONES : " + cadenaAudio.toUpperCase();
+        }
+    }
+    rec.start();
+
+})
 function comprovarValorcasilla(casilla) {
     var intro = document.getElementById(casilla);
     intro.style.backgroundColor = '#d1c4e9';
@@ -641,8 +649,8 @@ $(document).on("change", "#personaSeleccionada", async function () {
         var telefono = respMontarga[0]["telefono"];
         var foto = respMontarga[0]["foto"];
         var idMontarcaga = respMontarga[0]["idMontarcaga"];
-        if (foto=="") {
-          var foto = 'vistas/img/usuarios/default/anonymous.png'; 
+        if (foto == "") {
+            var foto = 'vistas/img/usuarios/default/anonymous.png';
         }
         console.log(nombre);
         $("#montacargas").append(

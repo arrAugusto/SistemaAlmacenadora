@@ -491,7 +491,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
             if (guardDet == "sobreGirara") {
                 Swal.fire(
                         'Transacción Interrumpida',
-                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                        'Error en Metros y Posiciones, Verifique el Saldo Actual y Continue...',
                         'error'
                         );
             }

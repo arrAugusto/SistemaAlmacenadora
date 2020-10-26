@@ -515,7 +515,7 @@ class ModeloRetiroOpe {
 
     public static function mdlEditarPilotoUn($licEdit, $nombreEdit, $numeroPlacaEdit, $numeroContEdit, $numeroMarchEdit, $hiddenIdentEdit, $hiddenTipEdit, $identiUnidad, $sp) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE " . $sp . " ?,	?,	?,	?,	?,	?,	?,	?";
+        $sql = "EXECUTE " . $sp . " ?, ?, ?, ?, ?, ?, ?, ?";
         $params = array(&$licEdit, &$nombreEdit, &$numeroPlacaEdit, &$numeroContEdit, &$numeroMarchEdit, &$hiddenIdentEdit, &$hiddenTipEdit, &$identiUnidad);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {

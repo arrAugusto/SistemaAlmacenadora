@@ -365,53 +365,53 @@
     </div>
 </div>
 
-  <!-- The Modal -->
-  <div class="modal fade" id="modalCarousel">
+<!-- The Modal -->
+<div class="modal fade" id="modalCarousel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-      
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h4 class="modal-title">Modal Heading</h4>
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-        </div>
-        
-        <!-- Modal body -->
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-6">
 
-<div class="sticky-top mb-3">
-              <div class="card">
-                <div class="card-header">
-                  <h4 class="card-title">Draggable Events</h4>
-                </div>
-                <div class="card-body">
-                  <!-- the events -->
-                  <div id="external-events">
-                    <button type="button" class="btn btn-success btn-block mt-4" id="divDetalleVehUsa">LLAVE</button>
-                    <button type="button" class="btn btn-info btn-block mt-4" id="divDetalleVehUsa">BATERIA</button>
-                    <button type="button" class="btn btn-danger btn-block mt-4" id="divDetalleVehUsa">RADIO</button>
-                    <button type="button" class="btn btn-warning btn-block mt-4" id="divDetalleVehUsa">LLANTA DE REPUESTO</button>
-                    <button type="button" class="btn btn-primary btn-block mt-4" id="divDetalleVehUsa">TRIQUE</button>
-                  </div>
-                </div>
-                <!-- /.card-body -->
-              </div>
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Configuración detalles vehiculos usados</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
 
-            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+
+                        <div class="sticky-top mb-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h4 class="card-title">Detalles de vehículos</h4>
+                                </div>
+                                <div class="card-body">
+                                    <!-- the events -->
+                                    <div id="external-events">
+                                        <button type="button" class="btn btn-success btn-block mt-4 divDetalleVehUsaLlave" id="divDetalleVehUsa">LLAVE</button>
+                                        <button type="button" class="btn btn-info btn-block mt-4 divDetalleVehUsaBat" id="divDetalleVehUsa">BATERIA</button>
+                                        <button type="button" class="btn btn-danger btn-block mt-4 divDetalleVehUsaRad" id="divDetalleVehUsa">RADIO</button>
+                                        <button type="button" class="btn btn-warning btn-block mt-4 divDetalleVehUsaLlanta" id="divDetalleVehUsa">LLANTA DE REPUESTO</button>
+                                        <button type="button" class="btn btn-primary btn-block mt-4 divDetalleVehUsaTr" id="divDetalleVehUsa">TRIQUE</button>
+                                    </div>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-6" id="divDetalle">
+                        <textarea class="form-control" id="textDetalleVeh" name="textDetalleVeh" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value=""></textarea>
+                    </div>
                 </div>
-                <div class="col-6" id="divDetalle">
-                    <textarea class="form-control" id="textDetalleVeh" name="textDetalleVeh" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value=""></textarea>
-                </div>
             </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
         </div>
-        
-        <!-- Modal footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-        </div>
-        
-      </div>
     </div>
-  </div>
+</div>

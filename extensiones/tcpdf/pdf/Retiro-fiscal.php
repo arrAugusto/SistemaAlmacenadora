@@ -14,9 +14,13 @@ class imprimirIngresoBodega {
     public function pdfDatosRetiro() {
 // TRAER DATOS DE INGRESO
         $retiroF = $this->retiroF;
-        
+
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
-        
+        $detDR = ControladorRetiroOpe::ctrValoresDRRetiro($retiroF);
+        $tipoDR = 0;
+        if ($detDR != "SD") {
+            $tipoDR = 1;
+        }
         $estado = 0;
         $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($retiroF, $estado);
         $tipo = 1;
@@ -26,7 +30,7 @@ class imprimirIngresoBodega {
         $tipo = 2;
         $respAuxRetiro = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombreRetiro = $respAuxRetiro[0]["nombres"];
-        $apellidosRetiro = $respAuxRetiro[0]["apellidos"];        
+        $apellidosRetiro = $respAuxRetiro[0]["apellidos"];
         $valEmpresas = 0;
         $idNitSal = $respRet[0]["idNitRet"];
         $idNitIng = $respRet[0]["idNitIng"];
@@ -94,7 +98,35 @@ EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 
 //-------------------------------------------------------------------------------------------------------
-        $bloque2 = <<<EOF
+        if ($tipoDR==1) {
+                     $bloque2 = <<<EOF
+	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
+		<tr><br/><br/>
+                    <td style="width:75px"><b>Consignatario :</b></td><td style="width:600px">$empresaSal&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                    <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
+                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                </tr>
+                <tr>
+                <td style="width:75px"><b>Poliza de Retiro:</b></td><td style="width:250px">$polRetiro&nbsp;&nbsp;</td>
+                    <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
+                </tr>
+                <tr>
+   <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+                             
+   <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                </tr>    
+        </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');
+
+        }else{
+            
+         $bloque2 = <<<EOF
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
 		<tr><br/><br/>
                     <td style="width:75px"><b>Consignatario :</b></td><td style="width:600px">$empresaSal&nbsp;&nbsp;</td>
@@ -118,13 +150,14 @@ EOF;
         </table>	
 EOF;
         $pdf->writeHTML($bloque2, false, false, false, false, '');
+       }
 
-        if ($respRet[0]["cantChasN"]>=1) {
-         $sp = "spChasisVNuevo";
-        $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);
-        
-                    
-$bloque3 = <<<EOF
+        if ($respRet[0]["cantChasN"] >= 1) {
+            $sp = "spChasisVNuevo";
+            $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);
+
+
+            $bloque3 = <<<EOF
 <table style="font-size:8px;">
  		<tr>
                  <br/>
@@ -137,23 +170,23 @@ $bloque3 = <<<EOF
 </tr>
 </table>	
 EOF;
-$pdf->writeHTML($bloque3, false, false, false, false, '');            
-$cant = 0; 
-foreach ($dataChasNew as $key => $value) {
-        $chasis = $value["chasis"];
-        $tipoVehiculo = $value["tipoVehiculo"];
-        $linea = $value["linea"];
-        $predio = $value["predio"];
-        $cantidad = 1;
-        $cant = $cant+1;
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
+            $cant = 0;
+            foreach ($dataChasNew as $key => $value) {
+                $chasis = $value["chasis"];
+                $tipoVehiculo = $value["tipoVehiculo"];
+                $linea = $value["linea"];
+                $predio = $value["predio"];
+                $cantidad = 1;
+                $cant = $cant + 1;
 
-$fontLetra = "font-size:7px";
-$tdChasis = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:190px; ' . $fontLetra . ' text-align:left;">' . $chasis . '</td>';
-$tdTipo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $tipoVehiculo . '</td>';
-$tdLinea = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $linea . '</td>';
-$tdPredio = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $predio . '</td>';
-$tdCantidad = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:70px; ' . $fontLetra . ' ">' . $cantidad . '</td>';
-$bloque4 = <<<EOF
+                $fontLetra = "font-size:7px";
+                $tdChasis = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:190px; ' . $fontLetra . ' text-align:left;">' . $chasis . '</td>';
+                $tdTipo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $tipoVehiculo . '</td>';
+                $tdLinea = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $linea . '</td>';
+                $tdPredio = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $predio . '</td>';
+                $tdCantidad = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:70px; ' . $fontLetra . ' ">' . $cantidad . '</td>';
+                $bloque4 = <<<EOF
 <table style="padding: 2px 5px; text-align:center;">
         <tr>
             $tdChasis
@@ -164,9 +197,9 @@ $bloque4 = <<<EOF
         </tr>
 </table>	
 EOF;
-$pdf->writeHTML($bloque4, false, false, false, false, '');
-}
-                    $bloque3 = <<<EOF
+                $pdf->writeHTML($bloque4, false, false, false, false, '');
+            }
+            $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:center;">
  		<tr>
                     <th style="border: 1px solid #030505; background-color:white; width:490px;"><strong>TOTAL VEHICULOS RETIRADOS</strong></th>
@@ -174,15 +207,13 @@ $pdf->writeHTML($bloque4, false, false, false, false, '');
 		</tr>
 	</table>	
 EOF;
-                    $pdf->writeHTML($bloque3, false, false, false, false, '');
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
+        } else {
 
 
-}else{
-            
-                
 //INICIO DETALLE MERCADERIA
 //-------------------------------------------------------------------------------------------------------        
-        $bloque3 = <<<EOF
+            $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:center;">
  		<tr>
                  <br/>
@@ -191,12 +222,12 @@ EOF;
 		</tr>
 	</table>	
 EOF;
-        $pdf->writeHTML($bloque3, false, false, false, false, '');
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
 //-------------------------------------------------------------------------------------------------------        
-        $fontLetra = "font-size:7px";
-        $tdDetalle = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:500px; ' . $fontLetra . ' text-align:left;">' . $descProducto . '</td>';
-        $tdCantidad = '<td style="text-align:center; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:62px; ' . $fontLetra . '">' . $bultosSalida . '</td>';
-        $bloque4 = <<<EOF
+            $fontLetra = "font-size:7px";
+            $tdDetalle = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:500px; ' . $fontLetra . ' text-align:left;">' . $descProducto . '</td>';
+            $tdCantidad = '<td style="text-align:center; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:62px; ' . $fontLetra . '">' . $bultosSalida . '</td>';
+            $bloque4 = <<<EOF
 	<table style="padding: 2px 5px">
 		<tr>
         		$tdDetalle
@@ -204,9 +235,9 @@ EOF;
 		</tr>
 	</table>	
 EOF;
-        $pdf->writeHTML($bloque4, false, false, false, false, '');
+            $pdf->writeHTML($bloque4, false, false, false, false, '');
 //-------------------------------------------------------------------------------------------------------
-        $bloque5 = <<<EOF
+            $bloque5 = <<<EOF
 	<table style="font-size:8px;">
             <tr>
                 <th style="border: 1px solid #030505; background-color:white; width:500px; text-align:center"><strong>TOTAL DE BULTOS RETIRADOS</strong></th>
@@ -216,12 +247,109 @@ EOF;
 
 EOF;
 
-        $pdf->writeHTML($bloque5, false, false, false, false, '');
+            $pdf->writeHTML($bloque5, false, false, false, false, '');
 //FIN DETALLE MERCADERIA
-
 //-------------------------------------------------------------------------------------------------------
 
-        $bloque3 = <<<EOF
+            if ($tipoDR == 1) {
+                //-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr>
+            <th style="width:562px; text-align:center;"></th>
+   </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//-------------------------------------------------------------------------------------------------------
+                $bloque5 = <<<EOF
+	<table style="font-size:9px;">
+            <tr><br/><br/>
+                <th style="border-bottom: 1px solid #030505; width:562px; text-align:center"><strong>REBAJA DE BULTOS PÓLIZA DR</strong></th>
+            </tr>
+	</table>	
+
+EOF;
+
+                $pdf->writeHTML($bloque5, false, false, false, false, '');
+                //-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr><br/>
+            <th style="border: 1px solid #030505; background-color:white; width:60px; text-align:center;"><strong>Nit</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:230px; text-align:center;"><strong>Empresa</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:80px; text-align:center;"><strong>Ingreso</strong></th>                
+            <th style="border: 1px solid #030505; background-color:white; width:80px; text-align:center;"><strong>Poliza</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:50px; text-align:center;"><strong>Regimen</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:62px; text-align:center;"><strong>Bultos</strong></th>
+   </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+
+                $totalBultos = 0;
+                foreach ($detDR as $key => $value) {
+                    $totalBultos = $totalBultos + $value["bultos"];
+                    //-------------------------------------------------------------------------------------------------------
+                    $tdNit = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:60px; text-align:center;">' . $value["nitEmpresa"] . '</td>';
+                    $tdEmpresa = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:230px; text-align:center;">' . $value["nombreEmpresa"] . '</td>';
+                    $tdIng = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:80px; text-align:center;">' . $value["numeroIngreso"] . '</td>';
+                    $tdPol = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:80px; text-align:center;">' . $value["numeroPoliza"] . '</td>';
+                    $tdRegimen = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:50px; text-align:center;">' . $value["regimen"] . '</td>';
+                    $tdbultos = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:62px; text-align:center;">' . $value["bultos"] . '</td>';
+
+                    $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr>
+            $tdNit
+            $tdEmpresa
+            $tdIng  
+            $tdPol   
+            $tdRegimen
+            $tdbultos
+   </tr>
+	</table>	
+EOF;
+
+                    $pdf->writeHTML($bloque3, false, false, false, false, '');
+                }
+                //-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr>
+            <th style="border: 1px solid #030505; background-color:white; width:500px; text-align:center;"><strong>TOTAL REBAJA DE BULTOS PÓLIZA DR</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:62px; text-align:center;"><strong>$totalBultos</strong></th>
+   </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+                //-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr>
+            <th style="width:562px; text-align:center;"></th>
+   </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//------------------------------------------------------------------------------------------------------- 
+            }
+//-------------------------------------------------------------------------------------------------------
+
+            $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
@@ -235,28 +363,28 @@ EOF;
 	</table>	
 EOF;
 
-        $pdf->writeHTML($bloque3, false, false, false, false, '');
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
-        foreach ($datosUnidades as $key => $value) {
-            if ($value["estadoUnidad"] != 0) {
-                
+            foreach ($datosUnidades as $key => $value) {
+                if ($value["estadoUnidad"] != 0) {
 
-                $nombrePiloto = $value["nombrePiloto"];
-                $licPiloto = $value["licPiloto"];
-                $placaUnidad = $value["placaUnidad"];
-                $contenedorUnidad = $value["contenedorUnidad"];
-                $numMarchamo = $value["numMarchamo"];
 
-                if ($numMarchamo==0) {
-                    $numMarchamo = "NO APLICA";
-                }
+                    $nombrePiloto = $value["nombrePiloto"];
+                    $licPiloto = $value["licPiloto"];
+                    $placaUnidad = $value["placaUnidad"];
+                    $contenedorUnidad = $value["contenedorUnidad"];
+                    $numMarchamo = $value["numMarchamo"];
 
-                $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
-                $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
-                $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
-                $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
-                $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
-                $bloque6 = <<<EOF
+                    if ($numMarchamo == 0) {
+                        $numMarchamo = "NO APLICA";
+                    }
+
+                    $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                    $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                    $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                    $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                    $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                    $bloque6 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -267,12 +395,12 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-                $pdf->writeHTML($bloque6, false, false, false, false, '');
+                    $pdf->writeHTML($bloque6, false, false, false, false, '');
+                }
             }
         }
-}
 //-------------------------------------------------------------------------------------------------------
-$bloque7 = <<<EOF
+        $bloque7 = <<<EOF
 <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
     <tbody>
     <tr><br/><br/><br/><br/><br/><br/>
