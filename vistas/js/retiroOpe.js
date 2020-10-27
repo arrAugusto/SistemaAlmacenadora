@@ -491,9 +491,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                             }
                                         }
 
-                                    } else {
-                                        alert('no');
-                                    }
+                                    } 
                                     if (polizaDRRev == 0 && revDR == 0 || polizaDRRev == 1 && revDR == 1) {
                                         lista = [];
                                         for (var i = 0; i < respuesta["respuestaDetalle"].length; i++) {
@@ -819,7 +817,9 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
                                     var jsonStringDR = "SD";
+                                    var valDR = 0;
                                     if ("listaDR" in localStorage) {
+                                        var valDR = 1;
                                         var revDR = 1;
                                         var bltsSumFinal = 0;
                                         var jsonStorageDR = localStorage.getItem("listaDR");
@@ -829,7 +829,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                         }
                                         var jsonStringDR = JSON.stringify(jsonStorageDR);
                                     }
-                                    if (bltsSumFinal == totalBultos) {
+                                    if (bltsSumFinal == totalBultos || valDR==0) {
 
                                         console.log(jsonStringDR);
                                         var guardarRetMerca = await guardarRetiroMercaderia(
@@ -1097,7 +1097,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
-                        <button type="button" class="btn btn-warning" estado=0>Pól. ` + idPoling + `</button>                    
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=`+idDetalle+` estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />

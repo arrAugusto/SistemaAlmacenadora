@@ -6118,6 +6118,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                     var barcodeclaveDespacho = barcodePolizaIng.substring(38, 45);
                     var barcodenit = barcodePolizaIng.substring(45, 70);
                     var barcoderegimen = barcodePolizaIng.substring(70, 75);
+                    
                     var barcodeclase = barcodePolizaIng.substring(75, 78);
                     var barcodepaisProcede = barcodePolizaIng.substring(78, 80);
                     var barcodetipoTransportes = barcodePolizaIng.substring(80, 81);
@@ -6142,7 +6143,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                     var polizaIng = barcodeclaveAduana + barcodecorrelativoPol;
                     var duca = barcodedua;
 
-                    var RegimenDat = barcoderegimen;
+                    var RegimenDat = barcoderegimen.trim();
                     var RegimenDat = RegimenDat.replace(/[0-9]+/g, '');
 
 

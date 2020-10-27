@@ -137,9 +137,6 @@ class ControladorOpB {
                                     }
                                 }
                                 if ($datos["sel2"] != "Cliente individual" || $datos["sel2"] != "Cliente consolidado poliza") {
-
-
-
                                     $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                                     $tipoOperacion = 1;
                                     $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
