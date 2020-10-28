@@ -45,7 +45,7 @@ class controladorServicios {
                                                                </td>
                                                                <td>
                                                                <div class="btn-group">
-                                                               <button type="button"  class="btn btn-outline-success btnGuardar"  servicioAlmacenaje="' . $value["servicio"] . '" idServicio="' . $value["id"] . '"estadoUsuario="' . ($key + 1) . '"> <i class="fas fa-upload"></i></button>
+                                                               <button type="button"  class="btn btn-outline-success btnGuardar"  servicioAlmacenaje="' . $value["servicio"] . '" idServicio="' . $value["id"] . '"estadoUsuario="' . ($key + 1) . '"> <i class="fa fa-upload"></i></button>
                                                                  </div>
                                                                </td>
                                                            </tr>';
