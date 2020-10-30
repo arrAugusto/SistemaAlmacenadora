@@ -6,7 +6,7 @@ class controladorServicios {
         $tabla = "SERVICIOS";
         $valor = "";
         $envia = ModeloServicios::mdlMostrarServicios($tabla, $valor);
-        
+
         foreach ($envia as $key => $value) {
             echo '
                                                             <tr>
