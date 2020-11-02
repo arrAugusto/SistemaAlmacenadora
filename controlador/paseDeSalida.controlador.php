@@ -13,18 +13,8 @@ class ControladorPasesDeSalida {
         }
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
-                $revEspecial = 0;
-                if ($value["estadoRet"] == 3) {
-                    $sp = "spEstadoTar";
-                    $revEspecial = 1;
-                    $revision = ModeloPasesDeSalida::mdlRevisionRetEstado($value["identRet"], $sp);
-                }
-                if ($revEspecial == 0) {
-
 
                     if ($tipo == 1) {
-
-
                         if ($value["retAsignado"] == 0 && $value["reciboAsignado"] >= 1) {
                             $bottonera = '<div class="btn-group"><button type="button" class="btn btn-success btnConsultDataConfirm btn-sm" reciboAsignado=' . $value["reciboAsignado"] . ' retiroAsignado=0 correlInicio =' . $value["inicioCorrelativo"] . ' idRet =' . $value["identRet"] . ' idNitIng=' . $value["nitIngreso"] . ' servicio=' . $value["numId"] . ' idIngreso=' . $value["idIngOp"] . ' data-toggle="modal" data-target="#modalPaseSalida">Retiro&nbsp;<i class="fa fa-print"></i></button></div>';
                         }
@@ -53,7 +43,7 @@ class ControladorPasesDeSalida {
                     }
                     echo '   
                     </tr>';
-                }
+       
             }
         }
     }

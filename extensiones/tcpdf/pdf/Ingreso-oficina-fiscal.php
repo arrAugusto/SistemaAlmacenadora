@@ -49,7 +49,6 @@ class imprimirIngresoBodega {
 
         $cadenaEmision = $repuestaOperaciones[0]["fechaOperacion"];
         $cadenaEmisionFormat = date("d/m/Y H:i:s A", strtotime($cadenaEmision));
-
         $numAsigIng = $repuestaOperaciones[0]["numAsigIng"];
         $origen = $repuestaOperaciones[0]["origen"];
         $bill = $repuestaOperaciones[0]["bill"];
@@ -90,8 +89,8 @@ class imprimirIngresoBodega {
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
                 
-                <td style="width:490px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Ingreso de $titulo</td>
-                <td style="background-color:white; width:70px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
+                <td style="width:420px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Ingreso de $titulo</td>
+                <td style="background-color:white; width:140px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
             </tr>
         </table><br/><br/>
 EOF;
