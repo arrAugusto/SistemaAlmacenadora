@@ -21,7 +21,7 @@ class ControladorRetirosBodega {
                 } else if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
                     $bottonera = '<div class="btn-group" role="group">
         <button type="button" class="btn btn-success btnDetalleRetBod btn-sm" id="buttonDetalleRet" idRetiro=' . $value["idRetiro"] . '  idIngreso=' . $value["idIngreso"] . ' data-toggle="modal" data-target="#modalRebajaMerca"><i class="fa fa-eye"></i></button>
-        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" tipoIng=' . $vehiUsado . '  idRetiro=' . $value["idRetiro"] . '  ><i class="fa fa-rocket"></i></button>
+        <button type="button" class="btn btn-primary btnSalidaBodega btn-sm" id="idBtnSalidaBodega" tipoIng=' . $vehiUsado . '  idRetiro=' . $value["idRetiro"] . ' idIngreso=' . $value["idIngreso"] . ' polizaRetiro='.$value["polizaRetiro"].'><i class="fa fa-rocket"></i></button>
 </div>';
                 }
                 echo '
@@ -117,9 +117,12 @@ class ControladorRetirosBodega {
         if ($respuesta != "SD") {
             $arrayDetalle = json_decode($respuesta[0]["detallesRebajados"], true);
             $arrayNuevoDetalle = [];
+
             foreach ($arrayDetalle as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $respuestaDetalle = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
+                $bultsStock = $respuestaDetalle[0]["stock"];
+                $numeroPoliza = $respuestaDetalle[0]["numeroPoliza"];
                 $sp = "spUsuarioOP";
                 $respUsuario = ModeloRetiroOpe::mdlDetUnParametro($valIdRet, $sp);
                 $estado = 0;
@@ -132,9 +135,9 @@ class ControladorRetirosBodega {
                 if ($value["estadoDet"] == 0) {
                     $cantPos = $value["cantPos"];
                     $cantMts = $value["cantMts"];
-                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "cantPos" => $cantPos, "cantMts" => $cantMts, "estadoDet" => $value["estadoDet"]);
+                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "cantPos" => $cantPos, "cantMts" => $cantMts, "estadoDet" => $value["estadoDet"], "estockBults"=>$bultsStock, "numeroPoliza"=>$numeroPoliza);
                 } else {
-                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "estadoDet" => $value["estadoDet"]);
+                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "estadoDet" => $value["estadoDet"], "estockBults"=>$bultsStock, "numeroPoliza"=>$numeroPoliza);
                 }
                 array_push($arrayNuevoDetalle, $detalles);
             }
@@ -144,12 +147,14 @@ class ControladorRetirosBodega {
 
     public static function ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp) {
         $respuestaDetalle = ModeloRetiroOpe::mdlConsultarDetalle($idDeta);
+  
         if ($respuestaDetalle != "SD") {
             $stockPos = $respuestaDetalle[0]["stockPos"];
             $nuevoSaldo = $stockPos - $valPosSalida;
             $stockMts = $respuestaDetalle[0]["stockMts"];
             $nuevoSaldoMts = $stockMts - $valMtsSalida;
             $stockCondicional = $respuestaDetalle[0]["stock"];
+                 
             if ($respuestaDetalle[0]["stock"] == 0 && $nuevoSaldo == 0 && $nuevoSaldoMts == 0 ||
                     $respuestaDetalle[0]["stock"] > 0 && $nuevoSaldo > 0 && $nuevoSaldoMts > 0) {
 
@@ -158,6 +163,7 @@ class ControladorRetirosBodega {
                 $tipoEditG = 0;
                 $respuesta = ControladorRetirosBodega::ctrAccionDetalle($tipoEditG, $idRet, $idDeta, $valPosSalida, $valMtsSalida, $usuarioOp);
 
+                /*
                 $arrayDetalleDB = json_decode($respuestaDetalle[0]["detallesRebajados"], true);
                 $nuevoDetalleDB = [];
                 foreach ($arrayDetalleDB as $key => $value) {
@@ -176,19 +182,23 @@ class ControladorRetirosBodega {
                     }
                 }
                 $arrayNuevoDetalle = json_encode($nuevoDetalleDB, false);
-                $respuestaUpdate = ModeloRetirosBodega::mdlUpdateDetalle($idRet, $arrayNuevoDetalle, $usuarioOp);
+*/
+                $respuestaUpdate = ModeloRetirosBodega::mdlUpdateDetalle($idRet, $usuarioOp);
                 if ($respuestaUpdate[0]["resp"] >= 1 && $stockCondicional > 0) {
                     return "puedeEditar";
                 } else {
                     return "exito";
                 }
+ 
             } else {
+                
                 return "sobreGirara";
             }
         }
     }
 
     public static function ctrAccionDetalle($tipoEditG, $idRetEdit, $idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit, $usuarioOp) {
+        
         if ($tipoEditG == 1) {
             $respuesta = ModeloRetirosBodega::mdlAccionDetalleEditar($tipoEditG, $idRetEdit, $idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit);
             if ($respuesta) {
@@ -200,9 +210,11 @@ class ControladorRetirosBodega {
                     $respuestaEditEstock = ModeloRetirosBodega::mdlAccionDetalleEditar($idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit, $saldoAnteriorPos, $saldoAnteriorMts);
                 }
             }
-        } else if ($tipoEditG == 0) {
-
+        } 
+        if ($tipoEditG == 0) {
+            //OBTENIENDO EL ARRAY DEL DETALLE DE REBAJAS DEL RETIRO
             $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRetEdit);
+            
             $arrayDetalle = json_decode($respuestaDetalle[0]["detallesRebajados"], true);
             $nuevoArrayDetalle = [];
             foreach ($arrayDetalle as $key => $value) {

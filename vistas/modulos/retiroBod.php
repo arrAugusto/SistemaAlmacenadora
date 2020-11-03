@@ -1,3 +1,123 @@
+<style>
+    
+    #tableSalidaBodega td:nth-child(5){
+
+        border: 1px solid #f57f17;
+        font-weight: normal;
+        text-align: center;
+       
+    }
+    #tableSalidaBodega td:nth-child(6){
+
+        border: 1px solid #f57f17;
+        font-weight: normal;
+        text-align: center;
+       
+    }
+    
+    #tableSalidaBodega td:nth-child(7){
+
+        border: 1px solid #f57f17;
+        font-weight: normal;
+        text-align: center;
+       
+    }
+    #tableSalidaBodega td:nth-child(8){
+
+        border: 1px solid #f57f17;
+        font-weight: normal;
+        text-align: center;
+       
+    }
+    
+        
+    
+    #tableSalidaBodega th:nth-child(1){
+        background-color: #0d47a1;
+        border: 1px solid #0d47a1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }
+    #tableSalidaBodega th:nth-child(2){
+        background-color: #0d47a1;
+        border: 1px solid #0d47a1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }
+    #tableSalidaBodega th:nth-child(3){
+        background-color: #0d47a1;
+        border: 1px solid #0d47a1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }
+    #tableSalidaBodega th:nth-child(4){
+        background-color: #0d47a1;
+        border: 1px solid #0d47a1;
+        font-weight: normal;
+        text-align: center;
+        color: white;          
+    }
+    #tableSalidaBodega th:nth-child(5){
+        background-color: #1d96b2;
+        border: 1px solid #1d96b2;
+        font-weight: normal;
+        text-align: center;
+        color: white;       
+    }
+    #tableSalidaBodega th:nth-child(6){
+        background-color: #1d96b2;
+        border: 1px solid #1d96b2;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }
+    #tableSalidaBodega th:nth-child(7){
+        background-color: #1d96b2;
+        border: 1px solid #1d96b2;
+        font-weight: normal;
+        text-align: center;
+        color: white;   
+    }  
+    #tableSalidaBodega th:nth-child(8){
+        background-color: #1d96b2;
+        border: 1px solid #1d96b2;
+        font-weight: normal;
+        text-align: center;
+        color: white;         
+    }  
+    #tableSalidaBodega th:nth-child(9){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }      
+    #tableSalidaBodega th:nth-child(10){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }      #tableSalidaBodega th:nth-child(11){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }  
+    #tableSalidaBodega th:nth-child(12){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }  
+</style>
+
+
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -74,17 +194,21 @@
             </div>
             <div class="card-body">
                 <div class="row">
-
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4" id="divTableRetiraBodega">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1">
+<div class="alert alert-warning">
+  <strong>Cambios en este modulo!</strong> Borra tu historial de navegación para recargar esta nueva función, las columnas turquesas remarcadas con color Naranja los saldos actuales del sistema.
+</div>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4" id="divTableRetiraBodega">
 
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4" id="divTablePilotos">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4" id="divTablePilotos">
 
                     </div>
 <div class="col-12 mt-4">
      
                         
-                        <div class="form-group col-3" id="divRetiroOperacion">
+                        <div class="form-group col-xs-12 col-sm-12 col-md-12 col-lg-6 mt-4" id="divRetiroOperacion">
       
 
 

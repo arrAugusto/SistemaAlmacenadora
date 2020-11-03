@@ -141,6 +141,7 @@ $(document).on("click", ".btnDetalleRetBod", function () {
     });
 });
 $(document).on("click", ".btnGdCambiosRet", function () {
+    
     Swal.fire({
         title: '¿Quiere guardar cambios?',
         text: "Se registrara el retiro, como valido y sus datos se utilizaran para cobro de Almacenaje",
@@ -215,7 +216,7 @@ $(document).on("click", ".btnPreparacionSaldia", async function () {
 })
 
 
-function ajaxSolicInfo(valIdRet, tipoing) {
+function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
     let todoMenus;
     var datos = new FormData();
     datos.append("valIdRet", valIdRet);
@@ -334,6 +335,9 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                     var num = i + 1;
                     var empresa = respuesta[1][i].empresa;
                     var bultos = respuesta[1][i].bultos;
+                    var inventarioExecel = '<button type="button" buttonid="'+idIngreso+'" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
+                    var estockBults = respuesta[1][i].estockBults;
+                    var numeroPoliza = respuesta[1][i].numeroPoliza;
                     var stockPos = respuesta[1][i].pos;
                     var stockMts = respuesta[1][i].mts;
                     var idDetalle = respuesta[1][i].idDetalle;
@@ -341,15 +345,13 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                     if (respuesta[1][i].estadoDet == 0) {
                         var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [i] + '" value="' + stockPos + '" readOnly="readOnly" /></div>';
                         var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [i] + '" value="' + stockMts + '" readOnly="readOnly"  /></div>';
-                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [i] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Editar <i class="fa fa-edit"></i></button></div>';
+                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [i] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Editar <i class="fa fa-edit"></i></button></div>';
                         listaSalidaBodega.push([num, empresa, bultos, stockPos, stockMts, textPos, textBultos, botonera]);
-
                     } else if (respuesta[1][i].estadoDet == 1) {
                         var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [i] + '" value="" /></div>';
                         var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [i] + '" value="" /></div>';
-                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' idFila=' + [i] + '>Guardar <i class="fafa-save"></i></button></div>';
-                        listaSalidaBodega.push([num, empresa, bultos, stockPos, stockMts, textPos, textBultos, botonera]);
-
+                        var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Guardar <i class="fa fa-save"></i></button>'+inventarioExecel+'</div>';
+                        listaSalidaBodega.push([num, empresa, numeroPoliza, polizaretiro, bultos, estockBults, stockPos, stockMts, textPos, textBultos, botonera]);
                     }
                 }
                 $('#tableSalidaBodega').DataTable({
@@ -383,7 +385,13 @@ function ajaxSolicInfo(valIdRet, tipoing) {
                         }, {
                             title: "Empresa"
                         }, {
-                            title: "Bultos"
+                            title: "Poliza Ingreso"
+                        }, {
+                            title: "Poliza Retiro"
+                        }, {
+                            title: "Bultos Retiro"
+                        }, {
+                            title: "Stock Bultos"
                         }, {
                             title: "Stock Posiciones"
                         }, {
@@ -411,9 +419,11 @@ function ajaxSolicInfo(valIdRet, tipoing) {
 $(document).on("click", ".btnSalidaBodega", async function () {
     document.getElementById("divRetiroOperacion").innerHTML = "";
     var valIdRet = $(this).attr("idRetiro");
+    var polizaretiro = $(this).attr("polizaretiro"); 
     var tipoing = $(this).attr("tipoing");
+    var idIngreso = $(this).attr("idIngreso");
     console.log("cargando el ajax");
-    var respuesta = await ajaxSolicInfo(valIdRet, tipoing);
+    var respuesta = await ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso);
 
     console.log("esperandoRespuesta");
     if (respuesta == "Ok") {
@@ -425,19 +435,92 @@ $(document).on("click", ".btnSalidaBodega", async function () {
 $(document).on("click", ".btnGuardarCambioDet", async function () {
     var button = $(this);
     var idfila = $(this).attr("idFila");
+    console.log(idfila);
     var idRet = $(this).attr("idRet");
     var idDeta = $(this).attr("idDeta");
     var idRetitera = $(this).attr("idRetitera");
     var valPosSalida = document.getElementById("posDet" + idfila).value;
     var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
-    if (valPosSalida == "" || valMtsSalida == "" || valPosSalida <= 0 || valMtsSalida <= 0) {
+        if (valPosSalida == "" || valMtsSalida == "" || valPosSalida < 0 || valMtsSalida < 0) {
         Swal.fire(
                 'Sin Posiciones o Metros',
                 'Agregue Metros o Posiciones de Esta Rebaja',
                 'error'
                 )
+}else if (valPosSalida ==0 || valMtsSalida == 0) {
+Swal.fire({
+  title: 'Metros y posiciones es igual a 0',
+  text: "Esta seguro de continuar!",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Si, continuar!'
+}).then(async function (result) {
+  if (result.value) {
+            $("#posDet" + idRet).removeClass("is-invalid");
+            $("#posDet" + idRet).addClass("is-valid");
+            $("#mtsDet" + idRet).removeClass("is-invalid");
+            $("#mtsDet" + idRet).addClass("is-valid");
+            var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
+            console.log(guardDet);
+            if (guardDet == "puedeEditar") {
+                button.removeClass("btnGuardarCambioDet");
+                button.addClass("btnEditarDetallePosM");
+                button.removeClass("btn-info");
+                button.addClass("btn-warning");
+                button.html("Editar");
+                $("#posDet" + idfila).removeClass("is-invalid");
+                $("#posDet" + idfila).addClass("is-valid");
+                $("#mtsDet" + idfila).removeClass("is-invalid");
+                $("#mtsDet" + idfila).addClass("is-valid");
+                Swal.fire(
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                        )
+            }
+            if (guardDet == "exito") {
+
+                button.removeClass("btnGuardarCambioDet");
+                button.addClass("btnEditarDetallePosM");
+
+                button.removeClass("btn-info");
+                button.addClass("btn-success");
+
+                button.html("Guardado");
+
+
+                $("#posDet" + idfila).removeClass("is-invalid");
+                $("#posDet" + idfila).addClass("is-valid");
+
+                $("#mtsDet" + idfila).removeClass("is-invalid");
+                $("#mtsDet" + idfila).addClass("is-valid");
+
+                button.attr("disabled", "disabled");
+                $("#mtsDet" + idfila).attr("readOnly", true);
+                $("#posDet" + idfila).attr("readOnly", true);
+
+                Swal.fire(
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                        )
+
+            }
+            if (guardDet == "sobreGirara") {
+                Swal.fire(
+                        'Sobregira Metros y Posiciones',
+                        'Saldo de bultos en bodega es cero, tiene que rebajar las posiciones a cero también',
+                        'error'
+                        );
+            }
+
+            console.log("esperando...");
+  }
+})
     } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
-        if (valPosSalida >= 1 && valMtsSalida >= 1) {
+        
             $("#posDet" + idRet).removeClass("is-invalid");
             $("#posDet" + idRet).addClass("is-valid");
             $("#mtsDet" + idRet).removeClass("is-invalid");
@@ -490,89 +573,14 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
             }
             if (guardDet == "sobreGirara") {
                 Swal.fire(
-                        'Transacción Interrumpida',
+                        'Sobregira Metros y Posiciones',
                         'Error en Metros y Posiciones, Verifique el Saldo Actual y Continue...',
                         'error'
                         );
             }
 
             console.log("esperando...");
-            /*  if (respuestaAjax == "Ok") {
-             console.log("entrando...");
-             var tipo = 0;
-             var respuestaActualStock = await ajaxEditPosMts(tipo, idDeta, idRet, valPosSalida, valMtsSalida);
-             console.log(respuestaActualStock);
-             if (respuestaActualStock == "OkReb") {
-             Swal.fire({
-             title: 'Operacion Exitosa',
-             text: "Se rebajo exitosamente, todo el ingreso.",
-             icon: 'info',
-             showCancelButton: true,
-             confirmButtonColor: '#3085d6',
-             confirmButtonText: 'Si, es correcto',
-             canceButtonColor: '#3085d6',
-             cancelButtonColor: '#d33',
-             cancelButtonText: '¡Cancelar, Incorrecta!'
-             }).then((result) => {
-             if (result.value) {
-             swal({
-             title: "Guardado",
-             text: "Tu dato sera utilizado para cobros de almacenaje",
-             type: "success"
-             }).then(okay => {
-             if (okay) {
-             Swal.fire(
-             'Agregue Marchamos A los vehiculos',
-             'success'
-             )
-             }
-             });
-             } else {
-             swal({
-             title: "Modificación",
-             text: "Modifica las posiciones y metros para luego guardar.",
-             type: "info"
-             }).then(okay => {
-             if (okay) {
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
-             
-             }
-             });
-             
-             }
-             })
-             /*idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + [i] + ' */
-
-
-            /*     } else if (respuestaActualStock == "UnoPendiente") {
-             
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
-             document.getElementById("posDet" + idfila).readOnly = true;
-             document.getElementById("mtsDet" + idfila).readOnly = true;
-             
-             
-             Swal.fire(
-             'Rebaja pendiente',
-             'Rebaje la ultima opearción',
-             'info'
-             )
-             } else if (respuestaActualStock == "faltanDetalles") {
-             document.getElementById("botoneraPosMts").innerHTML = '<button type="button" class="btn btn-warning btnEditarDetallePosM" id="btnEditarDetallePos">Editar <i class="fa fa-edit"></i></button>';
-             document.getElementById("posDet" + idfila).readOnly = true;
-             document.getElementById("mtsDet" + idfila).readOnly = true;
-             
-             
-             Swal.fire(
-             'Rebajas pendientes',
-             'Tiene mas de 2 rebajas pendientes',
-             'info'
-             )
-             }
-             
-             }*/
-        } else {
-
-        }
+      
     }
 
 })
@@ -581,10 +589,10 @@ function ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida) {
     console.log(idRet);
     let todoMenus;
     var datos = new FormData();
-    datos.append("idRet", idRet);
-    datos.append("idDeta", idDeta);
-    datos.append("valPosSalida", valPosSalida);
-    datos.append("valMtsSalida", valMtsSalida);
+    datos.append("idRetGD", idRet);
+    datos.append("idDetaGD", idDeta);
+    datos.append("valPosSalidaGD", valPosSalida);
+    datos.append("valMtsSalidaGD", valMtsSalida);
     $.ajax({
         async: false,
         url: "ajax/retiroBod.ajax.php",
@@ -607,6 +615,7 @@ function ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida) {
 $(document).on("click", ".btnEditarDetallePosM", async function () {
     var button = $(this);
     var idfila = $(this).attr("idFila");
+    console.log("hola mundo");
     console.log(idfila);
     var idRetEdit = $(this).attr("dRet");
     var idDeta = $(this).attr("idDeta");
@@ -614,10 +623,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
     if (estado == 0) {
         var valPosSalida = document.getElementById("posDet" + idfila).value;
         var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
-        $(this).removeClass("btn-warning");
-        $(this).addClass("btn-primary");
-        $(this).html('Guaradar <i class="fafa-save"></i>');
-        $(this).attr("estado", 1);
+        button.removeClass("btn-warning");
+        button.addClass("btn-primary");
+        button.html('Guaradar <i class="fa fa-save"></i>');
+        button.attr("estado", 1);
         document.getElementById("posDet" + idRetEdit).readOnly = false;
         document.getElementById("mtsDet" + idRetEdit).readOnly = false;
     } else if (estado == 1) {
@@ -628,7 +637,7 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
         if (valPosSalida == "" || valMtsSalida == "") {
         } else if (isNaN(valPosSalida) || isNaN(valMtsSalida)) {
         } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
-            if (valPosSalida >= 1 && valMtsSalida >= 1) {
+            
                 $("#posDet" + idRetEdit).removeClass("is-invalid");
                 $("#posDet" + idRetEdit).addClass("is-valid");
                 $("#mtsDet" + idRetEdit).removeClass("is-invalid");
@@ -637,9 +646,10 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                 $(this).addClass("btn-warning");
                 $(this).html('Editar <i class="fa fa-edit"></i>');
                 $(this).attr("estado", 1);
-                var guardDet = await ajaxGuadarDet(idDeta, idRetEdit, valPosSalida, valMtsSalida);
+                var guardDet = await ajaxEditPosMts(idDeta, idRetEdit, valPosSalida, valMtsSalida);
                 console.log(guardDet);
                 if (guardDet == "puedeEditar") {
+                    
                     $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
                     $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
                     $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
@@ -657,13 +667,13 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                             )
 
                 }
-                if (guardDet == "puedeEditar") {
+               /* if (guardDet == "puedeEditar") {
                     $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
                     $("#btnGuardarCambioDet" + idfila).addClass("btn-primary");
                     $("#btnGuardarCambioDet" + idfila).html("Guardado");
                     $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
 
-                }
+                }*/
                 if (guardDet == "sobreGirara") {
                     Swal.fire(
                             'Transacción Interrumpida',
@@ -672,20 +682,8 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
                             );
                 }
                 console.log(guardDet);
-                /*if (guardDet == "Ok") {
-                 console.log("entrando...");
-                 var tipo = 1;
-                 var respuestaActualStock = await ajaxEditPosMts(tipo, idDeta, idRetEdit, valPosSalida, valMtsSalida);
-                 console.log(respuestaActualStock);
-                 console.log("finalizado.")
-                 }*/
-            } else {
-                $("#posDet" + idRetEdit).removeClass("is-valid");
-                $("#posDet" + idRetEdit).addClass("is-invalid");
 
-                $("#mtsDet" + idRetEdit).removeClass("is-valid");
-                $("#mtsDet" + idRetEdit).addClass("is-invalid");
-            }
+           
         }
     }
 

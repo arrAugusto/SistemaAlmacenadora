@@ -369,6 +369,7 @@ class ModeloPasesDeSalida {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?, ?";
         $params = array(&$idRetAutorizado, &$estado, &$asignar, &$usuarioOp);
+      
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

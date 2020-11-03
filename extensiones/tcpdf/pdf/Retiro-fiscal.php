@@ -89,8 +89,8 @@ class imprimirIngresoBodega {
 	</table>
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
-                <td style="width:490px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Retiro de Almacen Fiscal</td>
-                <td style="background-color:white; width:70px; text-align:center; color:red; text-align:rigth; font-size:10px;">Retiro No.<br/>$numeroRetiro</td>
+                <td style="width:420px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Retiro de Almacen Fiscal</td>
+                <td style="background-color:white; width:140px; text-align:center; color:red; text-align:rigth; font-size:10px;">Retiro No.<br/>$numeroRetiro</td>
             </tr>
                 
 	</table>

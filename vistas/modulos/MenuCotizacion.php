@@ -35,7 +35,7 @@
             <a href="historialChasisVehUsados" class="nav-link">
                  <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                    Chasis Veh. Usados &nbsp;&nbsp;
                 </p>
 
             </a>
@@ -44,7 +44,7 @@
             <a href="chasisVehiculosNuevos" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                    Chasis Veh. Nuevos &nbsp;&nbsp;
                 </p>
             </a>
         </li>
@@ -121,7 +121,7 @@
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Pases Veh. Nuevos
-                    <span class="right badge badge-success">Nuevo</span>
+                    
                 </p>
             </a>
         </li>
@@ -130,7 +130,7 @@
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Chasis Veh. Nuevos
-                    <span class="right badge badge-success">Nuevo</span>
+                    
                 </p>
             </a>
         </li>        
@@ -290,7 +290,7 @@
             <a href="historialChasisVehUsados" class="nav-link">
                  <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                    Chasis Veh. Usados &nbsp;&nbsp;
                 </p>
 
             </a>
@@ -299,7 +299,7 @@
             <a href="chasisVehiculosNuevos" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                    Chasis Veh. Nuevos &nbsp;&nbsp;
                 </p>
             </a>
         </li>
@@ -535,25 +535,6 @@
             </a>
         </li>
                 <li class="nav-item has-treeview">
-            <a href="historialChasisVehUsados" class="nav-link">
-                 <i class="fa fa-truck colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
-                </p>
-
-            </a>
-        </li>
-                                <li class="nav-item has-treeview">
-            <a href="chasisVehiculosNuevos" class="nav-link">
-                <i class="fa fa-truck colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
-                </p>
-            </a>
-        </li>
-
-
-        <li class="nav-item has-treeview">
             <a href="historiaRetirosFisacales" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
@@ -562,6 +543,26 @@
 
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;
+                </p>
+
+            </a>
+        </li>
+                                <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Nuevos &nbsp;&nbsp;
+                </p>
+            </a>
+        </li>
+
+
+
 
         <li class="nav-item has-treeview">
             <a href="UbicacionBodega" class="nav-link">
@@ -830,7 +831,7 @@
             <a href="historialChasisVehUsados" class="nav-link">
                  <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Usados &nbsp;&nbsp;<span class="right badge badge-primary">Nuevo</span>
+                    Chasis Veh. Usados &nbsp;&nbsp;
                 </p>
 
             </a>
@@ -839,7 +840,7 @@
             <a href="chasisVehiculosNuevos" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Nuevos &nbsp;&nbsp;<span class="right badge badge-success">Nuevo</span>
+                    Chasis Veh. Nuevos &nbsp;&nbsp;
                 </p>
             </a>
         </li>

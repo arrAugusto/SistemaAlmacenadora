@@ -1716,7 +1716,8 @@ $(document).on("click", "#imprimirRetiroAlmacenaje", async function () {
         Swal.fire({
             title: '¿Desea Autorizar Salida?',
             text: "Si autoriza el retiro el piloto podra salir de la almacenadora",
-            type: 'warning', allowOutsideClick: false,
+            type: 'warning',
+            allowOutsideClick: false,
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',

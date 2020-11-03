@@ -58,11 +58,11 @@ class AjaxRetiroBodega {
     public $guardarDetalleSalida;
 
     public function ajaxGuardarDetalleSalida() {
-        $idRet = $this->idRet;
-        $idDeta = $this->idDeta;
-        $valPosSalida = $this->valPosSalida;
-        $valMtsSalida = $this->valMtsSalida;
-                session_start();
+        $idRet = $this->idRetGD;
+        $idDeta = $this->idDetaGD;
+        $valPosSalida = $this->valPosSalidaGD;
+        $valMtsSalida = $this->valMtsSalidaGD;
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $respuesta = ControladorRetirosBodega::ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp);
         echo json_encode($respuesta);
@@ -145,7 +145,7 @@ echo json_encode($estado);
                 $estado = true;
             }
         }
-            echo json_encode($estado);
+            echo json_encode($respRev);
        
         
     }
@@ -188,12 +188,12 @@ if (isset($_POST["valIdRet"])) {
     $detallesSalidaMerca->ajaxDetallesSalidaMerca();
 }
 
-if (isset($_POST["idRet"])) {
+if (isset($_POST["idRetGD"])) {
     $guardarDetalleSalida = new AjaxRetiroBodega();
-    $guardarDetalleSalida->idRet = $_POST["idRet"];
-    $guardarDetalleSalida->valPosSalida = $_POST["valPosSalida"];
-    $guardarDetalleSalida->valMtsSalida = $_POST["valMtsSalida"];
-    $guardarDetalleSalida->idDeta = $_POST["idDeta"];
+    $guardarDetalleSalida->idRetGD = $_POST["idRetGD"];
+    $guardarDetalleSalida->valPosSalidaGD = $_POST["valPosSalidaGD"];
+    $guardarDetalleSalida->valMtsSalidaGD = $_POST["valMtsSalidaGD"];
+    $guardarDetalleSalida->idDetaGD = $_POST["idDetaGD"];
     $guardarDetalleSalida->ajaxGuardarDetalleSalida();
 }
 
