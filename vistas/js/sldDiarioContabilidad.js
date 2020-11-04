@@ -5,6 +5,7 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
     var idEmpresa = $(this).attr("btnverhistoria");
     var nomVar = "viewHistorialCif";
     var respHistoriaCif = await funcionHistorial(nomVar, idEmpresa);
+    console.log(respHistoriaCif);
     var numero = 0;
     listaCif = [];
     for (var i = 0; i < respHistoriaCif.length; i++) {
@@ -191,7 +192,7 @@ function funcionHistorial(nomVar, idEmpresa) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-
+            console.log(respuesta);
             respHistorial = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);

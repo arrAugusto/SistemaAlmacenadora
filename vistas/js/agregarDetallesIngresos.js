@@ -315,7 +315,6 @@ $(document).on("click", ".btnUsarFila", async function () {
     var idUsarFila = $(this).attr("buttonusarid");
     var nomVar = "verIdDetVehUsados";
     var resp = await funcionRevVehUsados(nomVar, idUsarFila);
-
     if (resp[0].vehiUSado >= 1) {
         var select = document.getElementById("selectUbicacion");
         var length = select.options.length;

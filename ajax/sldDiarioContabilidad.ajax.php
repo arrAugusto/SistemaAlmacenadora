@@ -13,7 +13,6 @@ class AjaxHistorialDeSaldos {
     public $mostrarHistorialCif;
 
     public function ajaxMostrarHistorial() {
-        $viewHistorialCif = $this->viewHistorialCif;
         session_start();
         $viewHistorialCif = $_SESSION["idDeBodega"];
         $respuesta = ControladorSaldosContables::ctrMostrarHistorial($viewHistorialCif);
@@ -23,7 +22,6 @@ class AjaxHistorialDeSaldos {
     public $mostrarHistorialImpts;
 
     public function ajaxMostrarHistorialImpts() {
-        $viewHistorialImpts = $this->viewHistorialImpts;
         session_start();
         $viewHistorialImpts = $_SESSION["idDeBodega"];
         $respuesta = ControladorSaldosContables::ctrMostrarHistorialImpts($viewHistorialImpts);
@@ -33,7 +31,6 @@ class AjaxHistorialDeSaldos {
     public $cortePendiente;
 
     public function ajaxCortesPendientesContables() {
-        $cortesPendientes = $this->cortesPendientes;
         session_start();
         $cortesPendiente = $_SESSION["idDeBodega"];
         $respuesta = ControladorSaldosContables::ctrCortesPendientesContables($cortesPendiente);

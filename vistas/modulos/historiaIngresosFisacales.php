@@ -20,6 +20,7 @@
                         <div class="col-6 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
                         </div>   
+                            <input type="text" id="campoNombre">
                         <div class="col-12 mt-5">
                             <table id="tableHistorialIng" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>

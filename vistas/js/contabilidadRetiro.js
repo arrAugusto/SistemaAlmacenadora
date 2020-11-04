@@ -307,7 +307,6 @@ $(document).on("click", ".btnViewPDFRet", async function () {
     window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idRetPrint, "_blank");
 })
 
-
 function formato(texto) {
     return texto.replace(/^(\d{4})-(\d{2})-(\d{2})$/g, '$3/$2/$1');
 }
@@ -341,31 +340,23 @@ $(document).on("click", ".btnDescontabilizarRet", async function () {
                     }
                 })
             }
-
         }
     })
-
-
 })
 $(document).on("click", "#btnReimprimeRec", async function () {
     var idret = $(this).attr("idret");
     window.open("extensiones/tcpdf/pdf/Recibo-fiscal.php?codigo=" + idret, "_blank");
-
 })
 $(document).on("click", "#btnReimprimeRet", async function () {
     var idret = $(this).attr("idret");
     window.open("extensiones/tcpdf/pdf/Retiro-fiscal.php?codigo=" + idret, "_blank");
-
 })
 $(document).on("click", ".btnSelectMultipleRet", async function () {
     lista = [];
     // Guardar listaStringRet en el localstorage
     var data = localStorage.getItem("listaStringRet", listaStringRet);
     if (data) {
-
-
         var data = JSON.parse(data);
-
         if (data.length > 0) {
             lista.push(data);
         }
@@ -373,18 +364,12 @@ $(document).on("click", ".btnSelectMultipleRet", async function () {
         data.push(idret);
         var listaStringRet = JSON.stringify(data);
     } else {
-
         var idret = $(this).attr("idret");
         lista.push(idret);
         var listaStringRet = JSON.stringify(lista);
     }
-    console.log(lista);
-
-
     // Guardar listaStringRet en el localstorage
     localStorage.setItem("listaStringRet", listaStringRet);
-
-
     var estado = $(this).attr("estado");
     if (estado == 0) {
         $(this).attr("estado", 1);
@@ -396,7 +381,6 @@ $(document).on("click", ".btnSelectMultipleRet", async function () {
         $(this).removeClass("btn btn-outline-info");
         $(this).addClass("btn btn-outline-dark");
         $(this).html('<i class="fa fa-close"></i>');
-
     }
 })
 
@@ -480,14 +464,11 @@ $(document).on("click", ".btnDescargaExcelIngRepRet", async function () {
             if (descarga == 5) {
                 var nombreReporte = "REPORTE DE RETIROS CONTABILIZADOS";
             }
-
             var nomVar = "descagarReporteRet";
             var resp = await funcionContabilizarRetiro(nomVar, descarga);
-            console.log(resp);
             var nombreEncabezado = "DescargaReporteExcel";
             var nombreFile = "ReporteDeRetiros_";
             var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
-            console.log(resp);
         }
     })
 })

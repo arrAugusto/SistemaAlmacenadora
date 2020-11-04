@@ -695,4 +695,17 @@ function mostrarMontarguistasCuliminar(montarcarguista) {
 }
 
 
-//            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
+$(document).on("keyup", "#descripcionMerca", function () {
+    for (var i = 0; i < 350; i++) {
+        var e = $(this).val();
+        let contenido = e;
+        $(this).val(contenido.toUpperCase().replace("  ", " "));
+    }
+})
+$(document).on("change", "#descripcionMerca", function () {
+    for (var i = 0; i < 350; i++) {
+        var e = $(this).val();
+        let contenido = e;
+        $(this).val(contenido.toUpperCase().replace("  ", " "));
+    }
+})

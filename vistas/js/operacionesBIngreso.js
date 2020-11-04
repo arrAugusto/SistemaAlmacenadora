@@ -6144,9 +6144,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                     var duca = barcodedua;
 
                     var RegimenDat = barcoderegimen.trim();
-                    var RegimenDat = RegimenDat.replace(/[0-9]+/g, '');
-
-
+                    var RegimenDat = RegimenDat.toUpperCase().replace(" ", "");
                     var valDolares = barcodecif / barcodecambio;
                     var valDolares = valDolares * 1;
                     var valDolares = parseFloat(valDolares).toFixed(2);
