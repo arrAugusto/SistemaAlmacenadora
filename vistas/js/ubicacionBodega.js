@@ -398,6 +398,7 @@ function ajaxGuardarListaModificada(idDet, Idincidencia) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+			console.log(respuesta);
             if (respuesta == "fin") {
                 todoMenus = "Ok";
             } else {

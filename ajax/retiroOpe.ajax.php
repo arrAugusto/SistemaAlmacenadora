@@ -312,6 +312,20 @@ class AjaxUbicacionOpe {
         echo json_encode($respuesta);
     }
 
+    public $dataEditRetOp;
+    public function ajaxDataEditRetOp(){
+        $tipoConsulRet = $this->tipoConsulRet;
+        $idRetConsul = $this->idRetConsul;    
+        $respuesta = ControladorRetiroOpe::ctrDataEditRetOp($tipoConsulRet, $idRetConsul);
+        echo json_encode($respuesta);
+    }
+    public $objDetalleM;
+    public function ajaxVerDataDetalleEditRet(){
+        $idDetRevEd = $this->idDetRevEd;
+        $respuesta = ControladorRetiroOpe::ctrVerDataDetalleEditRet($idDetRevEd);
+        echo json_encode($respuesta);
+        
+    }
 }
 
 if (isset($_POST["datoSearchPol"])) {
@@ -319,6 +333,7 @@ if (isset($_POST["datoSearchPol"])) {
     $MostrarUbicaUnicas->datoSearchPol = $_POST["datoSearchPol"];
     $MostrarUbicaUnicas->AjaxMostrarUbUnitaria();
 }
+
 
 if (isset($_POST["txtNitSalida"])) {
     $mostrarNitRetiro = new AjaxUbicacionOpe();
@@ -551,4 +566,18 @@ if (isset($_POST["polizaIngDR"])) {
     $verSaldosDR->cifDR = $_POST["cifDR"];
     $verSaldosDR->imptDR = $_POST["imptDR"];
     $verSaldosDR->ajaxRevisionDePolDR();
+}
+
+if (isset($_POST["tipoConsulRet"])) {
+    $dataEditRetOp = new AjaxUbicacionOpe();
+    $dataEditRetOp->tipoConsulRet = $_POST["tipoConsulRet"];
+    $dataEditRetOp->idRetConsul = $_POST["idRetConsul"];
+    $dataEditRetOp->ajaxDataEditRetOp();
+}
+
+if (isset($_POST["idDetRevEd"])) {
+    $objDetalleM = new AjaxUbicacionOpe();
+    $objDetalleM->idDetRevEd = $_POST["idDetRevEd"];
+    $objDetalleM->ajaxVerDataDetalleEditRet();
+    
 }

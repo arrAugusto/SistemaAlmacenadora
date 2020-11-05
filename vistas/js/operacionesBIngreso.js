@@ -7,7 +7,7 @@ async function validacionParaGuardar() {
         $("#regimenPoliza").removeClass("is-valid");
         $("#regimenPoliza").addClass("is-invalid");
         return false;
-    }
+    }b
     var cartaDeCupo = document.getElementById("cartaDeCupo").value;
     var cantContenedores = document.getElementById("cantContenedores").value;
     var dua = document.getElementById("dua").value;
@@ -16,7 +16,6 @@ async function validacionParaGuardar() {
     if (poliza == "" || poliza == 0) {
         $("#poliza").removeClass("is-valid");
         $("#poliza").addClass("is-invalid");
-
         return false;
     }
     var bultosIngreso = document.getElementById("bultosIngreso").value;
@@ -28,22 +27,18 @@ async function validacionParaGuardar() {
             showConfirmButton: false,
             timer: 3000
         })
-
         return false;
     }
     var puertoOrigen = document.getElementById("puertoOrigen").value;
     if (puertoOrigen == "" || puertoOrigen == 0) {
         $("#puertoOrigen").removeClass("is-valid");
         $("#puertoOrigen").addClass("is-invalid");
-
-
         return false;
     }
     var cantClientes = document.getElementById("cantClientes").value;
     if (cantClientes == 0 || cantClientes == "") {
         $("#cantClientes").removeClass("is-valid");
         $("#cantClientes").addClass("is-invalid");
-
         return false;
     }
     var producto = document.getElementById("producto").value;
@@ -6095,7 +6090,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                 console.log('4 Fecha de aceptación ', barcodePolizaIng.substring(30, 38));
                 console.log('5 Clave de aduana despacho / destino ', barcodePolizaIng.substring(38, 45));
                 console.log('6 NIT de importador / exportador ', barcodePolizaIng.substring(45, 70));
-                console.log('7 Régimen ', barcodePolizaIng.substring(70, 75));
+                console.log('7 Régimen ', barcodePolizaIng.substring(73, 75));
                 console.log('8 Clase ', barcodePolizaIng.substring(75, 78));
                 console.log('9 País de procedencia / destino ', barcodePolizaIng.substring(78, 80));
                 console.log('10 Modo de transporte ', barcodePolizaIng.substring(80, 81));
@@ -6109,7 +6104,6 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                 console.log('18 Total a liquidar (efectivo) ', barcodePolizaIng.substring(180, 195));
                 console.log('19 Total general ', barcodePolizaIng.substring(195, 210));
                 console.log('20 Firma electrónica ', barcodePolizaIng.substring(210, 219));
-
                 if (barcodePolizaIng.length > 0) {
                     var barcodeclaveAduana = barcodePolizaIng.substring(0, 3);
                     var barcodecorrelativoPol = barcodePolizaIng.substring(3, 10);
@@ -6117,12 +6111,10 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                     var barcodefechaAceptacion = barcodePolizaIng.substring(30, 38);
                     var barcodeclaveDespacho = barcodePolizaIng.substring(38, 45);
                     var barcodenit = barcodePolizaIng.substring(45, 70);
-                    var barcoderegimen = barcodePolizaIng.substring(70, 75);
-                    
+                    var barcoderegimen = barcodePolizaIng.substring(73, 75);
                     var barcodeclase = barcodePolizaIng.substring(75, 78);
                     var barcodepaisProcede = barcodePolizaIng.substring(78, 80);
                     var barcodetipoTransportes = barcodePolizaIng.substring(80, 81);
-
                     var barcodecambio = barcodePolizaIng.substring(81, 89);
                     var barcodecif = barcodecambio.trim();
                     var barcodecambio = barcodecif * 1;
@@ -6142,7 +6134,6 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                     var barcodefirmaElectro = barcodePolizaIng.substring(210, 219);
                     var polizaIng = barcodeclaveAduana + barcodecorrelativoPol;
                     var duca = barcodedua;
-
                     var RegimenDat = barcoderegimen.trim();
                     var RegimenDat = RegimenDat.toUpperCase().replace(" ", "");
                     var valDolares = barcodecif / barcodecambio;
@@ -6187,9 +6178,9 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                 document.getElementById("poliza").value = polizaIng;
                 $("#poliza").trigger('change');
                 var regimen = document.getElementById("regimenPoliza");
-                var RegimenDat = RegimenDat.trim();
-                console.log(RegimenDat);
-                alert(RegimenDat);
+            var regimen = regimen.toUpperCase().replace(" ", "");    
+            var RegimenDat = RegimenDat.trim();
+            var RegimenDat =  RegimenDat.toUpperCase().replace(" ", "");
                 // recorremos todos los valores del select
                 var estadoReg = 0;
                 for (var i = 1; i < regimen.length; i++) {
@@ -6287,14 +6278,6 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
 $(document).on("click", ".btnEliminarDetalleIng", async function () {
     $(this).parent().parent().parent().remove();
 })
-
-
-/*
- var tipoBusqueda = document.getElementById("tipoBusqueda").value;
- var bultosAgregados = document.getElementById("bultosAgregados").value;
- var bultosAgregados = parseInt(bultosAgregados);
- var pesoAgregado = document.getElementById("pesoAgregado").value;
- */
 
 $(document).on("mouseover", "#nomEmpresa", async function () {
     $(this).attr('readOnly', false);

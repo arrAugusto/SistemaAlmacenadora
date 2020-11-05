@@ -466,3 +466,11 @@ div:hover.tooltips span {
     font-size:20px;
 }
 
+.divOculto{
+    display: none;  
+}
+
+.visuallyHidden {
+  opacity: 0;
+  @include transform(translate3d(0, -2em, 0));
+}

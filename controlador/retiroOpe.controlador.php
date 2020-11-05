@@ -363,11 +363,13 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($retiroFs, $sp);
         return $respuesta;
     }
+
     public static function ctrValoresDRRetiro($retiroFs) {
         $sp = "spValoresDRRet";
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($retiroFs, $sp);
         return $respuesta;
     }
+
     public static function ctrDatosPilotos($retiroF, $estadoVerPlt) {
         $sp = "spConsultaRetUnidad";
         $tipo = 2;
@@ -521,6 +523,25 @@ class ControladorRetiroOpe {
         $sp = "spSaldosDR";
         //ENVIANDO DATOS A MODELO
         $respuesta = ModeloRetiroOpe::mdlModificacionDetallesCuatroParams($polizaIngDR, $bltsDR, $cifDR, $imptDR, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrDataEditRetOp($tipoConsulRet, $idRetConsul) {
+
+
+        if ($tipoConsulRet == "Retiro") {
+            $sp = "spDatosRetOp";
+        }
+        if ($tipoConsulRet == "Recibo") {
+            $sp = "spSaldosDR";
+        }
+        $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrVerDataDetalleEditRet($idDetRevEd) {
+        $sp = "spDetalleDeBod";
+        $respuesta = ModeloRetiroOpe::mdlDetUnParametro($idDetRevEd, $sp);
         return $respuesta;
     }
 
