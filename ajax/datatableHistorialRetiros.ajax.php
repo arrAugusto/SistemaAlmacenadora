@@ -22,14 +22,26 @@ class historialIngresosFiscalesRet {
                 $botoneraAcciones = "";
                 $contador = $contador + 1;
                 $identRet = $value['identRet'];
-                if ($value['estadoRet'] == 2 || $value['estadoRet'] == 1) {
-                    $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" . $identRet . ">Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" . $identRet . ">Ret.</button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . " idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
-                }
-                if ($value['estadoRet'] >= 4) {
-                    $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" . $identRet . "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" . $identRet . "'>Ret.</button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . "' idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
-                }
-                if ($value['estadoRet'] == 3) {
-                    $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . "' idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
+                if ($value['saldoBultos'] == 0) {
+                    if ($value['estadoRet'] == 2 || $value['estadoRet'] == 1) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-danger btn-sm'><i class='fa fa-ban'></i></button></div>";
+                    }
+                    if ($value['estadoRet'] >= 4) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" . $identRet . "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" . $identRet . "'>Ret.</button><button type='button' class='btn btn-outline-danger btn-sm'><i class='fa fa-ban'></i></button></div>";
+                    }
+                    if ($value['estadoRet'] == 3) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button' class='btn btn-outline-danger btn-sm'><i class='fa fa-ban'></i></button></div>";
+                    }
+                } else {
+                    if ($value['estadoRet'] == 2 || $value['estadoRet'] == 1) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . "' idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
+                    }
+                    if ($value['estadoRet'] >= 4) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" . $identRet . "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" . $identRet . "'>Ret.</button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . "' idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
+                    }
+                    if ($value['estadoRet'] == 3) {
+                        $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button'  class='btn btn-outline-danger btnAnularOperacion btn-sm' data-toggle='modal' data-target='#AnulacionRetiro' idPoliza='" . $value['polRet'] . "' idRet='" . $value['identificaRet'] . "' estado=0><i class='fa fa-eraser'></i></button></div>";
+                    }
                 }
                 $datoJsonRetHis = '[
                     "' . $contador . '",
@@ -51,6 +63,7 @@ class historialIngresosFiscalesRet {
             echo $pie;
         }
     }
+
 }
 
 //ACTIVAR HISTORIAL DE INGRESO DATATABLE

@@ -62,15 +62,11 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                 $("#textParamBusqRet").trigger('change');   
                 $(".btnBuscaRetiro").click(); 
                 
-                 
                 setTimeout(function(){ $("#buttonDisparoDetalle").click(); }, 2000);
                 var json = JSON.parse(respuesta[0].detallesRebajados);
-
                 console.log(json);
-                document.getElementById("divBottoneraAccion").innerHTML = `
-         <div class="btn-group">
-         <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${idret} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
-         </div>`;
+
+
                 for (var i = 0; i < json.length; i++) {
                     var idDetalle = json[i].idDetalles;
                     var nomVar = "idDetRevEd";
@@ -81,6 +77,28 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                     var valTextDet = json[i].cantBultos;
                     var empresa = respuesta[0].empresa;
                     var idPoling = respuesta[0].numeroPoliza;
+                    var valPosSalidaEdit = json[i].valPosSalidaEdit;
+                    var valMtsSalidaEdit = json[i].valMtsSalidaEdit;
+                    var estadoDet = 0;
+                    if (json[i].estadoDet==2) {
+                        var estadoDet = estadoDet+1;
+                        document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
+                        ` + buttonDR + `
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=`+idDetalle+` estado=0>Pól. ` + idPoling + `</button>                    
+                      </div>
+                      <!-- /btn-group -->
+                   
+                      <input type="text" class="form-control" id="texToEmpresaVal" value="` + empresa + `" readOnly="readOnly" />
+                        <span class="badge bg-danger pull-right" style="display:block;">BLTS</span>
+                      <input type="number" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
+                        <span class="badge bg-danger pull-right" style="display:block;">POS.</span>
+                      <input type="number" class="form-control" id="textPosEdit" value="` + valPosSalidaEdit + `" />
+                        <span class="badge bg-danger pull-right" style="display:block;">MTS.</span>
+                      <input type="number" class="form-control" id="textMtsEdit" value="` + valMtsSalidaEdit + `" />
+                    </div>`;                        
+                    }else{
                         document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
@@ -90,8 +108,16 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + empresa + `" readOnly="readOnly" />
                       <input type="numeric" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
-                    </div>`;
+                    </div>`;                        
+                    }
+                    
+
                 }
+                                document.getElementById("divBottoneraAccion").innerHTML = `
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret+ ` estadoDetalles=` + estadoDet+ `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` +idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
+                     </div>`;
             }
         }
         Swal.fire({html: `Selecciono : ${tipoAnulacion}`})
@@ -289,15 +315,10 @@ $(document).on("click", ".btnHistoriaExcelRet", async function () {
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 
 $(document).ready(function () {
-
     if ($("#tablasHistRetiro").length >= 1) {
-
         $.ajax({
-
             url: "ajax/datatableHistorialRetiros.ajax.php",
-
             success: function (respuesta) {
-                console.log(respuesta);
             }
 
         })
@@ -338,3 +359,5 @@ $(document).ready(function () {
         });
     }
 });
+
+//textMtsEdit

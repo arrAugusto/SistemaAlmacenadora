@@ -491,7 +491,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                             }
                                         }
 
-                                    } 
+                                    }
                                     if (polizaDRRev == 0 && revDR == 0 || polizaDRRev == 1 && revDR == 1) {
                                         lista = [];
                                         for (var i = 0; i < respuesta["respuestaDetalle"].length; i++) {
@@ -699,12 +699,16 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
             var estado = 0;
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
                 var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
-                var paragraphsCantidades = Array.from(document.querySelectorAll("#texToBultosVal"));
                 listaIdButton = [];
                 for (var i = 0; i < paragraphsButton.length; i++) {
                     var estadoDet = 1;
-                    idButton = paragraphsButton[i].attributes.numorigen.textContent;
-                    cantBultos = paragraphsCantidades[i].value;
+                    var idButton = paragraphsButton[i].attributes.numorigen.textContent;
+                    var cantBultos = document.getElementById("texToBultosVal"+idButton).value;
+                    console.log(cantBultos);
+                    var textPosEdit = document.getElementById("textPosEdit"+idButton).value;
+                    console.log(textPosEdit);
+                    var textPosEdit = document.getElementById("textMtsEdit"+idButton).value;
+                    console.log(textPosEdit);
                     listaIdButton.push({
                         "idDetalles": idButton,
                         "cantBultos": cantBultos,
@@ -829,7 +833,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                         }
                                         var jsonStringDR = JSON.stringify(jsonStorageDR);
                                     }
-                                    if (bltsSumFinal == totalBultos || valDR==0) {
+                                    if (bltsSumFinal == totalBultos || valDR == 0) {
 
                                         console.log(jsonStringDR);
                                         var guardarRetMerca = await guardarRetiroMercaderia(
@@ -1032,6 +1036,8 @@ function guardarRetiroMercaderia(
 }
 
 $(document).on("click", ".btnAceptaDetalle", function () {
+    var estadoDetalles = $("#editRetiroF").attr("estadodetalles");
+
     var idIngOpDet = $(this).attr("idIngSelectdet");
     var idPoling = $(this).attr("idpoling");
     var idDetalle = $(this).attr("idDetalle");
@@ -1090,19 +1096,34 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                             var buttonDR = `<button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>`;
 
                         }
-
                         document.getElementById("btnAceptarDet" + idDetalle).disabled = true;
                         document.getElementById("textDetalle" + idDetalle).readOnly = true;
-                        document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+                        if (estadoDetalles > 0) {
+                            document.getElementById("divListaDetalles").innerHTML += `
+                    <div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
-                        <button type="button" class="btn btn-warning btnPolUbica" idDet=`+idDetalle+` estado=0>Pól. ` + idPoling + `</button>                    
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=` + idDetalle + ` estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />
-                      <input type="numeric" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
+                      <input type="number" class="form-control" id="texToBultosVal` + idDetalle + `" value="` + valTextDet + `">
+                      <input type="number" class="form-control" id="textPosEdit` + idDetalle + `" value="" placeholder="Posiciones">
+                      <input type="number" class="form-control" id="textMtsEdit` + idDetalle + `" value="" placeholder="Metros">
                     </div>`;
+                        } else {
+                            document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
+                        ` + buttonDR + `
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=` + idDetalle + ` estado=0>Pól. ` + idPoling + `</button>                    
+                      </div>
+                      <!-- /btn-group -->
+                      <input type="text" class="form-control" id="texToEmpresaVal" value="` + respuesta[0].empresa + `" readOnly="readOnly" />
+                      <input type="number" class="form-control" id="texToBultosVal` + idDetalle + `" value="` + valTextDet + `" />
+                    </div>`;
+                        }
                     }
                 }
             },
@@ -1364,8 +1385,15 @@ function desbloquear() {
     document.getElementById("pesoKg").readOnly = false;
     document.getElementById("cantBultos").readOnly = false;
     document.getElementById("descMercaderia").readOnly = false;
-    document.getElementById("numeroLicencia").readOnly = false;
-    document.getElementById("nombrePiloto").readOnly = false;
+
+    if ($("#numeroLicencia").length > 0) {
+        document.getElementById("numeroLicencia").readOnly = false;
+    }
+    if ($("#nombrePiloto").length > 0) {
+        document.getElementById("nombrePiloto").readOnly = false;
+    }
+
+
     if ($("#numeroPlaca").length > 0) {
         document.getElementById("numeroPlaca").readOnly = false;
     }
@@ -1406,27 +1434,61 @@ $(document).on("click", "#editRetiroF", async function () {
 
 async function editarRetiroOpFis(idRetiroBtn) {
     let todoMenus;
-    console.log(idRetiroBtn);
+    var estadodetalles = $("#editRetiroF").attr("estadodetalles");
+
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
     if (tipoIng == "vehM" || tipoIng == "vehUs") {
 
 
         var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
         var paragraphsCantidades = Array.from(document.querySelectorAll("#texToBultosVal"));
+        var paragraphsPos = Array.from(document.querySelectorAll("#textPosEdit"));
+        var paragraphsMts = Array.from(document.querySelectorAll("#textMtsEdit"));
+
         console.log(paragraphsCantidades);
+        console.log(paragraphsPos);
+        console.log(paragraphsMts);
+
         listaIdButton = [];
         for (var i = 0; i < paragraphsButton.length; i++) {
             var estadoDet = 0;
-            idButton = paragraphsButton[i].attributes.numorigen.textContent;
-            cantBultos = paragraphsCantidades[i].value;
-            console.log(cantBultos);
+            var idButton = paragraphsButton[i].attributes.numorigen.textContent;
+                    var estadoDet = 1;
+                    var idButton = paragraphsButton[i].attributes.numorigen.textContent;
+                    var cantBultos = document.getElementById("texToBultosVal"+idButton).value;
+                    console.log(cantBultos);
+                    var textPosEdit = document.getElementById("textPosEdit"+idButton).value;
+                    console.log(textPosEdit);
+                    var textMtsEdit = document.getElementById("textMtsEdit"+idButton).value;
+                    console.log(textPosEdit);
             listaIdButton.push({
                 "idDetalles": idButton,
                 "cantBultos": cantBultos,
                 "estadoDet": estadoDet
             });
-        }
 
+            if (estadodetalles > 0) {
+                if (textPosEdit=="" || textMtsEdit=="") {
+                      Swal.fire(
+  'Error!',
+  'Las posiciones y metros del detalle no son validos, si no rebajará posiciones y ubicaciones coloque cero en los campos solicitados!',
+  'error'
+)
+return false;
+                 
+                }
+                if (textPosEdit==0 || textMtsEdit==0) {
+                    Swal.fire(
+  'Guardar Nuevo Detalle!',
+  'Esta seguro quiere guardar este detalle!',
+  'info'
+)
+                } 
+            }
+
+
+        }
+        return false;
         if (listaIdButton.length == 0) {
             alert("no selecciono ningun cliente");
         } else if (listaIdButton.length > 0) {
@@ -1474,12 +1536,21 @@ async function editarRetiroOpFis(idRetiroBtn) {
         if ($("#contenedor").length > 0) {
             var contenedor = document.getElementById("contenedor").value;
         }
+        var licencia = 0;
+        var piloto = 0;
 
-        var licencia = document.getElementById("numeroLicencia").value;
-        var piloto = document.getElementById("nombrePiloto").value;
+        if ($("#numeroLicencia").length > 0) {
+            var licencia = document.getElementById("numeroLicencia").value;
+        }
+        if ($("#nombrePiloto").length > 0) {
+            var piloto = document.getElementById("nombrePiloto").value;
+        }
+
+
+
         var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-        console.log(totalBultos);
+
         if (totalBultos == cantBultos) {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
                 var respuestaEdita = await funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro,
@@ -1809,11 +1880,15 @@ $(document).on("click", "#buttonTrashVeh", async function () {
 $(document).on("click", "#buttonTrash", async function () {
     var numOrigen = $(this).attr("numOrigen");
     $(this).parent().parent().remove();
-    document.getElementById("textDetalle" + numOrigen).readOnly = false;
-    document.getElementById("textDetalle" + numOrigen).value = "";
-    $("#textDetalle" + numOrigen).removeClass("is-invalid");
-    $("#textDetalle" + numOrigen).addClass("is-valid");
-    document.getElementById("btnAceptarDet" + numOrigen).disabled = false;
+    if ($("#textDetalle" + numOrigen).length > 0) {
+
+
+        document.getElementById("textDetalle" + numOrigen).readOnly = false;
+        document.getElementById("textDetalle" + numOrigen).value = "";
+        $("#textDetalle" + numOrigen).removeClass("is-invalid");
+        $("#textDetalle" + numOrigen).addClass("is-valid");
+        document.getElementById("btnAceptarDet" + numOrigen).disabled = false;
+    }
 })
 
 $(document).on("click", ".btnEditarRetiroVeh", async function () {
@@ -2961,13 +3036,10 @@ function saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal) {
 
 $(document).on("click", ".btnBsqPolDADR", async function () {
     var buttonPol = $(this).attr("buttonPol");
-    document.getElementById("textParamBusqRet").value=buttonPol;
+    document.getElementById("textParamBusqRet").value = buttonPol;
     $("#textParamBusqRet").trigger('change');
     $(".btnBuscaRetiro").click();
-    
     $(this).removeClass("btn-outline-info");
     $(this).addClass("btn-secondary");
     $(this).attr("disabled", "disabled");
-    
-    
 });

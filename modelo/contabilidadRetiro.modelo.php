@@ -109,7 +109,6 @@ class ModeloContabilidadDeRet {
         public static function mdlListarRetPendientesHistorial($ident) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-
         $sql = "EXECUTE spRetirosHistorial";
         $stmt = sqlsrv_prepare($conn, $sql);
         if (sqlsrv_execute($stmt) == true) {
@@ -131,35 +130,9 @@ class ModeloContabilidadDeRet {
                         array_push($data, $values);
                     }
                 }
-                foreach ($data as $key => $values) {
-                    $resultsData = [];
-                    $idIngreso = $values["idIngOp"];
-                    $identificaRet = $values["identificaRet"];
-                           $data = array(
-                                "nitIngreso" => $nitIngreso = $values["nitIngreso"],
-                                "nitRet" => $nitRet = $values["nitRet"],
-                                "numNit" => $numNit = $values["numNit"],
-                                "empresa" => $empresa = $values["empresa"],
-                                "numPolIng" => $numPolIng = $values["numPolIng"],
-                                "polRet" => $polRet = $values["polRet"],
-                                "pesoRet" => $pesoRet = $values["pesoRet"],
-                                "bultosRet" => $bultosRet = $values["bultosRet"],
-                                "tipoServicio" => $tipoServicio = $values["tipoServicio"],
-                                "numId" => $numId = $values["numId"],
-                                "identRet" => $identRet = $values["identRet"],
-                                "idIngOp" => $idIngOp = $values["idIngOp"],
-                                "valorEstadoRet" => $valorEstadoRet = $values["valorEstadoRet"],
-                                "totalValorCif" => $totalValorCif = $values["totalValorCif"],
-                                "valorImpuesto" => $valorImpuesto = $values["valorImpuesto"],
-                                "numeroRetiro" => $numeroRetiro = $values["numeroRetiro"],
-                                "numeroIngreso" => $numeroIngreso = $values["numeroIngreso"],
-                                "fecha" => $fecha = $values["fecha"],
-                                "identificaRet" => $identificaRet = $values["identificaRet"],
-                               "estadoRet" => $estadoRet = $values["estadoRet"]);
-                            array_push($dataArray, $data);
-                        }
+
                  
-                return $dataArray;
+                return $data;
             } else {
                 return "SD";
             }

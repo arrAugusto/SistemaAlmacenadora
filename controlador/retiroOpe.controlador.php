@@ -178,7 +178,6 @@ class ControladorRetiroOpe {
             $mostrarDetalleStock = ModeloRetiroOpe::mdlModificacionDetalles($idDetalle, $sp);
             $sp = "spConsultRetDet";
             $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetalles($idRetiroBtn, $sp);
-
             $arrayDetallesReb = json_decode($mostrarDetRebajado[0]["detallesRebajados"], true);
             if ($idDetalle == $arrayDetallesReb[0]["idDetalles"]) {
                 $saldoActual = $mostrarDetalleStock[0]["bultosDetalle"];
@@ -194,12 +193,12 @@ class ControladorRetiroOpe {
                 $stock = $respuesta[0]["stock"];
                 $valARebajar = $value["cantBultos"];
                 $nuevoStock = $stock - $valARebajar;
-                if ($nuevoStock > 0) {
+                if ($nuevoStock >= 0) {
                     $contador = $contador + 1;
                 }
             }
         }
-
+        
         if (count($RevDetRebajados) == $contador) {
             //reversion de detalles mercaderia
             $count = 0;
@@ -213,8 +212,6 @@ class ControladorRetiroOpe {
                 }
             }
             if ($count == count($arrayDetallesReb)) {
-
-
                 foreach ($RevDetRebajados as $key => $value) {
                     $idDetalle = $value["idDetalles"];
                     $bultos = $value["cantBultos"];
