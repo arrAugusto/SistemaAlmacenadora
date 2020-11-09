@@ -7,7 +7,7 @@ async function validacionParaGuardar() {
         $("#regimenPoliza").removeClass("is-valid");
         $("#regimenPoliza").addClass("is-invalid");
         return false;
-    }b
+    }
     var cartaDeCupo = document.getElementById("cartaDeCupo").value;
     var cantContenedores = document.getElementById("cantContenedores").value;
     var dua = document.getElementById("dua").value;
@@ -6178,8 +6178,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                 document.getElementById("poliza").value = polizaIng;
                 $("#poliza").trigger('change');
                 var regimen = document.getElementById("regimenPoliza");
-            var regimen = regimen.toUpperCase().replace(" ", "");    
-            var RegimenDat = RegimenDat.trim();
+
             var RegimenDat =  RegimenDat.toUpperCase().replace(" ", "");
                 // recorremos todos los valores del select
                 var estadoReg = 0;

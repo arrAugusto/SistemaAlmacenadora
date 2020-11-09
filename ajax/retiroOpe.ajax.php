@@ -11,6 +11,9 @@ require_once "../modelo/retiroOpe.modelo.php";
 
 require_once "../controlador/ingresosPendientes.controlador.php";
 require_once "../modelo/ingresosPendientes.modelo.php";
+//TOMAR OBJETOS DE POSICIONES Y METROS RETIROS DE BODEGA
+require_once "../controlador/retiroBod.controlador.php";
+require_once "../modelo/retiroBod.modelo.php";
 
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
@@ -140,7 +143,9 @@ class AjaxUbicacionOpe {
             "hiddenIdentificadorEdit" => $hiddenIdentificadorEdit = $this->hiddenIdentificadorEdit,
             "hiddenDateTimeEdit" => $hiddenDateTimeEdit = $this->hiddenDateTimeEdit
         );
-        $respuesta = ControladorRetiroOpe::ctrEditarRetiroOpF($datos, $idRetiroBtn);
+                session_start();
+        $usuarioOp = $_SESSION["id"];
+        $respuesta = ControladorRetiroOpe::ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp);
         echo json_encode($respuesta);
     }
 
@@ -427,8 +432,6 @@ if (isset($_POST["idRetiroBtn"])) {
     $editarRetiroOpF->cantBultosEdit = $_POST["cantBultosEdit"];
     $editarRetiroOpF->hiddenIdentificadorEdit = $_POST["hiddenIdentificadorEdit"];
     $editarRetiroOpF->hiddenDateTimeEdit = $_POST["hiddenDateTimeEdit"];
-
-
     $editarRetiroOpF->ajaxEditarRetiroOpF();
 }
 

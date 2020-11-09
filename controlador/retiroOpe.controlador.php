@@ -168,7 +168,7 @@ class ControladorRetiroOpe {
         }
     }
 
-    public static function ctrEditarRetiroOpF($datos, $idRetiroBtn) {
+    public static function ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp) {
         $RevDetRebajados = json_decode($datos['listaDetallesEdit'], true);
         $contador = 0;
         foreach ($RevDetRebajados as $key => $value) {
@@ -195,22 +195,33 @@ class ControladorRetiroOpe {
                 $nuevoStock = $stock - $valARebajar;
                 if ($nuevoStock >= 0) {
                     $contador = $contador + 1;
+                    
                 }
             }
         }
-        
         if (count($RevDetRebajados) == $contador) {
             //reversion de detalles mercaderia
             $count = 0;
+
             foreach ($arrayDetallesReb as $key => $value) {
                 $idDetalles = $value["idDetalles"];
+             
                 $cantidadBultos = $value["cantBultos"];
                 $sp = "spModStockAnterior";
                 $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetallesDosParams($idDetalles, $cantidadBultos, $sp);
                 if ($mostrarDetRebajado[0]["resp"] == 1) {
+                    
                     $count = $count + 1;
+                    if ($value["estadoDet"]==2) {
+                        $sp = "spStockPosMts";
+                        $pos = $value["valPosSalidaEdit"];
+                        $mts = $value["valMtsSalidaEdit"];   
+                        $reversion = ModeloRetiroOpe::mdlModificacionDetallesTresParams($idDetalles, $pos, $mts, $sp);
+                      
+                    }
                 }
             }
+
             if ($count == count($arrayDetallesReb)) {
                 foreach ($RevDetRebajados as $key => $value) {
                     $idDetalle = $value["idDetalles"];
@@ -228,13 +239,13 @@ class ControladorRetiroOpe {
                         if ($nuevosBultosRebajado == 0 || $nuevosBultosRebajado >= 1) {
                             $sp = "spModStock";
                             $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetallesDosParams($idDetalle, $nuevosBultosRebajado, $sp);
-                            if ($mostrarDetRebajado == "editado") {
-                                //editandoValores
-                                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $nuevosBultosRebajado);
-                            }
                         }
                     } else {
                         $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $bultos);
+                                $valPosSalida = $value["valPosSalidaEdit"];
+                                $valMtsSalida = $value["valMtsSalidaEdit"];
+                                $respPosMts = ControladorRetirosBodega::ctrGuardarDetalleSalida($idDetalle, $idRetiroBtn, $valPosSalida, $valMtsSalida, $usuarioOp);
+ 
                     }
                 }
             }

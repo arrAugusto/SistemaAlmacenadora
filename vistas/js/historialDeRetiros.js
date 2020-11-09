@@ -28,24 +28,41 @@ $(document).on("click", ".btnAnularOperacion", async function () {
         if (tipoAnulacion == "Retiro") {
             $("#divEdicionRetiro").removeClass("divOculto");
             $("#divEdicionRetiro").removeClass("visuallyHidden");
+            if ($("#divDataPiloto").length > 0) {
+                $("#divDataPiloto").remove();
+            }
+
+            if ($("#divDataLic").length > 0) {
+                $("#divDataLic").remove();
+            }
+
+            if ($("#divPlaca").length > 0) {
+                $("#divPlaca").remove();
+            }
+
+            if ($("#divCont").length > 0) {
+                $("#divCont").remove();
+            }
+
             var consulta = "Retiro";
             var respuesta = await ajaxEdicionRetiroOpe(consulta, idret);
-            if (respuesta!="SD") {
+            console.log(respuesta);
+            if (respuesta != "SD") {
                 document.getElementById("txtNitSalida").value = respuesta[0].nitEmpresa;
                 $("#txtNitSalida").trigger('change');
-                
+
                 document.getElementById("polizaRetiro").value = respuesta[0].polizaRetiro;
                 $("#polizaRetiro").trigger('change');
-                
+
                 document.getElementById("regimen").value = respuesta[0].regimenSalida;
                 $("#regimen").trigger('change');
-                
+
                 document.getElementById("valorTAduana").value = respuesta[0].valorTotalAduana;
                 $("#valorTAduana").trigger('change');
-                
+
                 document.getElementById("cambio").value = respuesta[0].tipoCambio;
                 $("#cambio").trigger('change');
-                
+
                 document.getElementById("calculoValorImpuesto").value = respuesta[0].valorTotalAduana;
                 $("#calculoValorImpuesto").trigger('change');
 
@@ -56,13 +73,15 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                 $("#cantBultos").trigger('change');
 
                 document.getElementById("descMercaderia").value = respuesta[0].descripcion;
-                $("#descMercaderia").trigger('change');           
-                
+                $("#descMercaderia").trigger('change');
+
                 document.getElementById("textParamBusqRet").value = respuesta[0].numeroPoliza;
-                $("#textParamBusqRet").trigger('change');   
-                $(".btnBuscaRetiro").click(); 
-                
-                setTimeout(function(){ $("#buttonDisparoDetalle").click(); }, 2000);
+                $("#textParamBusqRet").trigger('change');
+                $(".btnBuscaRetiro").click();
+
+                setTimeout(function () {
+                    $("#buttonDisparoDetalle").click();
+                }, 2000);
                 var json = JSON.parse(respuesta[0].detallesRebajados);
                 console.log(json);
 
@@ -80,13 +99,13 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                     var valPosSalidaEdit = json[i].valPosSalidaEdit;
                     var valMtsSalidaEdit = json[i].valMtsSalidaEdit;
                     var estadoDet = 0;
-                    if (json[i].estadoDet==2) {
-                        var estadoDet = estadoDet+1;
+                    if (json[i].estadoDet == 2) {
+                        var estadoDet = estadoDet + 1;
                         document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
-                        <button type="button" class="btn btn-warning btnPolUbica" idDet=`+idDetalle+` estado=0>Pól. ` + idPoling + `</button>                    
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=` + idDetalle + ` estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
                    
@@ -97,26 +116,26 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                       <input type="number" class="form-control" id="textPosEdit" value="` + valPosSalidaEdit + `" />
                         <span class="badge bg-danger pull-right" style="display:block;">MTS.</span>
                       <input type="number" class="form-control" id="textMtsEdit" value="` + valMtsSalidaEdit + `" />
-                    </div>`;                        
-                    }else{
+                    </div>`;
+                    } else {
                         document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
-                        <button type="button" class="btn btn-warning btnPolUbica" idDet=`+idDetalle+` estado=0>Pól. ` + idPoling + `</button>                    
+                        <button type="button" class="btn btn-warning btnPolUbica" idDet=` + idDetalle + ` estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal" value="` + empresa + `" readOnly="readOnly" />
                       <input type="numeric" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
-                    </div>`;                        
+                    </div>`;
                     }
-                    
+
 
                 }
-                                document.getElementById("divBottoneraAccion").innerHTML = `
+                document.getElementById("divBottoneraAccion").innerHTML = `
                     <div class="btn-group">
-                        <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret+ ` estadoDetalles=` + estadoDet+ `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` +idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret + ` estadoDetalles=` + estadoDet + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
                      </div>`;
             }
         }
@@ -359,5 +378,3 @@ $(document).ready(function () {
         });
     }
 });
-
-//textMtsEdit

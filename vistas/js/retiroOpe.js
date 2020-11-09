@@ -703,12 +703,14 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                 for (var i = 0; i < paragraphsButton.length; i++) {
                     var estadoDet = 1;
                     var idButton = paragraphsButton[i].attributes.numorigen.textContent;
-                    var cantBultos = document.getElementById("texToBultosVal"+idButton).value;
+                    var cantBultos = document.getElementById("texToBultosVal" + idButton).value;
                     console.log(cantBultos);
-                    var textPosEdit = document.getElementById("textPosEdit"+idButton).value;
-                    console.log(textPosEdit);
-                    var textPosEdit = document.getElementById("textMtsEdit"+idButton).value;
-                    console.log(textPosEdit);
+                    if ($("#textPosEdit" + idButton).length > 0) {
+                        var textPosEdit = document.getElementById("textPosEdit" + idButton).value;
+                        console.log(textPosEdit);
+                        var textPosEdit = document.getElementById("textMtsEdit" + idButton).value;
+                        console.log(textPosEdit);
+                    }
                     listaIdButton.push({
                         "idDetalles": idButton,
                         "cantBultos": cantBultos,
@@ -1254,7 +1256,7 @@ async function validarFormRet() {
             return false;
         }
         var valorTAduana = document.getElementById("valorTAduana").value;
-        if (valorTAduana >= 0.001) {
+        if (valorTAduana > 0) {
             var valorTAduanaAwait = await patternPregNum(valorTAduana);
             if (valorTAduanaAwait == 0) {
                 invalidar("valorTAduana");
@@ -1265,7 +1267,7 @@ async function validarFormRet() {
             return false;
         }
         var cambio = document.getElementById("cambio").value;
-        if (cambio >= 0.001) {
+        if (cambio > 0) {
             var cambioAwait = await patternPregNum(cambio);
             console.log(cambioAwait);
             if (cambioAwait == 0) {
@@ -1277,7 +1279,7 @@ async function validarFormRet() {
             return false;
         }
         var valorCif = document.getElementById("valorCif").value;
-        if (valorCif >= 0.001) {
+        if (valorCif > 0) {
             var valorCifAwait = await patternPregNum(valorCif);
             if (valorCifAwait == 0) {
                 invalidar("valorCif");
@@ -1288,7 +1290,7 @@ async function validarFormRet() {
             return false;
         }
         var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
-        if (calculoValorImpuesto >= 0.001) {
+        if (calculoValorImpuesto > 0) {
             var calculoValorImpuestoAwait = await patternPregNum(valorCif);
             if (calculoValorImpuestoAwait == 0) {
                 invalidar("calculoValorImpuesto");
@@ -1299,7 +1301,7 @@ async function validarFormRet() {
             return false;
         }
         var pesoKg = document.getElementById("pesoKg").value;
-        if (pesoKg >= 0.001) {
+        if (pesoKg > 0) {
             var pesoKgAwait = await patternPregNum(pesoKg);
             if (pesoKgAwait == 0) {
                 invalidar("pesoKg");
@@ -1441,54 +1443,64 @@ async function editarRetiroOpFis(idRetiroBtn) {
 
 
         var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
-        var paragraphsCantidades = Array.from(document.querySelectorAll("#texToBultosVal"));
-        var paragraphsPos = Array.from(document.querySelectorAll("#textPosEdit"));
-        var paragraphsMts = Array.from(document.querySelectorAll("#textMtsEdit"));
-
-        console.log(paragraphsCantidades);
-        console.log(paragraphsPos);
-        console.log(paragraphsMts);
+        console.log(paragraphsButton);
 
         listaIdButton = [];
         for (var i = 0; i < paragraphsButton.length; i++) {
-            var estadoDet = 0;
+
             var idButton = paragraphsButton[i].attributes.numorigen.textContent;
-                    var estadoDet = 1;
-                    var idButton = paragraphsButton[i].attributes.numorigen.textContent;
-                    var cantBultos = document.getElementById("texToBultosVal"+idButton).value;
-                    console.log(cantBultos);
-                    var textPosEdit = document.getElementById("textPosEdit"+idButton).value;
-                    console.log(textPosEdit);
-                    var textMtsEdit = document.getElementById("textMtsEdit"+idButton).value;
-                    console.log(textPosEdit);
-            listaIdButton.push({
-                "idDetalles": idButton,
-                "cantBultos": cantBultos,
-                "estadoDet": estadoDet
-            });
+            console.log(idButton);
+
+            var idButton = paragraphsButton[i].attributes.numorigen.textContent;
+            var idButton = Number.parseInt(idButton);
+
+            var cantBultos = document.getElementById("texToBultosVal" + idButton).value;
+
+            var textPosEdit = document.getElementById("textPosEdit" + idButton).value;
+
+            var textMtsEdit = document.getElementById("textMtsEdit" + idButton).value;
+
+            if (estadodetalles == 0) {
+                listaIdButton.push({
+                    "idDetalles": idButton,
+                    "cantBultos": cantBultos,
+                    "estadoDet": 1,
+                    "tipoDet": estadodetalles
+                });
+            }
+            if (estadodetalles > 0) {
+                listaIdButton.push({
+                    "idDetalles": idButton,
+                    "cantBultos": cantBultos,
+                    "valPosSalidaEdit": textPosEdit,
+                    "valMtsSalidaEdit": textMtsEdit,
+                    "estadoDet": 2,
+                    "tipoDet": estadodetalles
+                });
+            }
+
 
             if (estadodetalles > 0) {
-                if (textPosEdit=="" || textMtsEdit=="") {
-                      Swal.fire(
-  'Error!',
-  'Las posiciones y metros del detalle no son validos, si no rebajará posiciones y ubicaciones coloque cero en los campos solicitados!',
-  'error'
-)
-return false;
-                 
-                }
-                if (textPosEdit==0 || textMtsEdit==0) {
+                if (textPosEdit == "" || textMtsEdit == "") {
                     Swal.fire(
-  'Guardar Nuevo Detalle!',
-  'Esta seguro quiere guardar este detalle!',
-  'info'
-)
-                } 
+                            'Error!',
+                            'Las posiciones y metros del detalle no son validos, si no rebajará posiciones y ubicaciones coloque cero en los campos solicitados!',
+                            'error'
+                            )
+                    return false;
+
+                }
+                if (textPosEdit == 0 || textMtsEdit == 0) {
+                    Swal.fire(
+                            'Guardar Nuevo Detalle!',
+                            'Esta seguro quiere guardar este detalle!',
+                            'info'
+                            )
+                }
             }
 
 
         }
-        return false;
         if (listaIdButton.length == 0) {
             alert("no selecciono ningun cliente");
         } else if (listaIdButton.length > 0) {
@@ -2001,7 +2013,7 @@ $(document).on("change", "#cambio", function () {
             $(this).addClass("is-valid");
         }
 
-        if ($("#valorTAduana").val() >= 0.001) {
+        if ($("#valorTAduana").val() > 0) {
             var valCalculo = $("#valorTAduana").val();
             var conversion = parseFloat(dato * valCalculo).toFixed(2);
             document.getElementById("valorCif").value = conversion;
