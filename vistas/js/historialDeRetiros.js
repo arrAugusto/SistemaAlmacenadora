@@ -12,7 +12,7 @@ $(document).on("click", ".btnAnularOperacion", async function () {
     })
 
     const {value: tipoAnulacion} = await Swal.fire({
-        title: 'Tipo de Anulacion',
+        title: 'Tipo de edición',
         input: 'radio',
         inputOptions: inputOptions,
         allowOutsideClick: false,
@@ -24,8 +24,12 @@ $(document).on("click", ".btnAnularOperacion", async function () {
     })
 
     if (tipoAnulacion) {
-        console.log(tipoAnulacion);
         if (tipoAnulacion == "Retiro") {
+            document.getElementById("divListaDetalles").innerHTML = "";
+            setTimeout(function () {
+                $("#buttonDisparoDetalle").click();
+            }, 2500);
+            
             $("#divEdicionRetiro").removeClass("divOculto");
             $("#divEdicionRetiro").removeClass("visuallyHidden");
             if ($("#divDataPiloto").length > 0) {
@@ -79,9 +83,7 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                 $("#textParamBusqRet").trigger('change');
                 $(".btnBuscaRetiro").click();
 
-                setTimeout(function () {
-                    $("#buttonDisparoDetalle").click();
-                }, 2000);
+
                 var json = JSON.parse(respuesta[0].detallesRebajados);
                 console.log(json);
 
@@ -109,13 +111,13 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                       </div>
                       <!-- /btn-group -->
                    
-                      <input type="text" class="form-control" id="texToEmpresaVal" value="` + empresa + `" readOnly="readOnly" />
+                      <input type="text" class="form-control" id="texToEmpresaVal` + idDetalle + `" value="` + empresa + `" readOnly="readOnly" />
                         <span class="badge bg-danger pull-right" style="display:block;">BLTS</span>
-                      <input type="number" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
+                      <input type="number" class="form-control" id="texToBultosVal` + idDetalle + `" value="` + valTextDet + `" />
                         <span class="badge bg-danger pull-right" style="display:block;">POS.</span>
-                      <input type="number" class="form-control" id="textPosEdit" value="` + valPosSalidaEdit + `" />
+                      <input type="number" class="form-control" id="textPosEdit` + idDetalle + `" value="` + valPosSalidaEdit + `" />
                         <span class="badge bg-danger pull-right" style="display:block;">MTS.</span>
-                      <input type="number" class="form-control" id="textMtsEdit" value="` + valMtsSalidaEdit + `" />
+                      <input type="number" class="form-control" id="textMtsEdit` + idDetalle + `" value="` + valMtsSalidaEdit + `" />
                     </div>`;
                     } else {
                         document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
@@ -125,8 +127,8 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                         <button type="button" class="btn btn-warning btnPolUbica" idDet=` + idDetalle + ` estado=0>Pól. ` + idPoling + `</button>                    
                       </div>
                       <!-- /btn-group -->
-                      <input type="text" class="form-control" id="texToEmpresaVal" value="` + empresa + `" readOnly="readOnly" />
-                      <input type="numeric" class="form-control" id="texToBultosVal" value="` + valTextDet + `" />
+                      <input type="text" class="form-control" id="texToEmpresaVal` + idDetalle + `" value="` + empresa + `" readOnly="readOnly" />
+                      <input type="numeric" class="form-control" id="texToBultosVal` + idDetalle + `" value="` + valTextDet + `" />
                     </div>`;
                     }
 
@@ -139,7 +141,24 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                      </div>`;
             }
         }
-        Swal.fire({html: `Selecciono : ${tipoAnulacion}`})
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-center',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            type: 'success',
+            title: 'Espere unos segundos'
+        })
+
+
     }
 })
 

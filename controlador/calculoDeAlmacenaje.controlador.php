@@ -271,7 +271,7 @@ class calculoDeAlmacenaje {
                         }
                     }
                 }
-
+                $montoReturn = 0;
                 $respMarcha = ceil($respMarcha);
                 $monto = 0;
                 if ($revIngRev != "SD") {
@@ -362,7 +362,7 @@ class calculoDeAlmacenaje {
                         }
                     }
                 }
-
+                $montoReturn = 0;
                 $respMarcha = ceil($respMarcha);
                 $monto = 0;
                 if ($revIngRev != "SD") {

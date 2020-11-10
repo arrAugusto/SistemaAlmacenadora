@@ -1039,7 +1039,6 @@ function guardarRetiroMercaderia(
 
 $(document).on("click", ".btnAceptaDetalle", function () {
     var estadoDetalles = $("#editRetiroF").attr("estadodetalles");
-
     var idIngOpDet = $(this).attr("idIngSelectdet");
     var idPoling = $(this).attr("idpoling");
     var idDetalle = $(this).attr("idDetalle");
@@ -1086,7 +1085,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                         Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
                     } else {
 
-                        if ($("#numeroPlaca").length == 0) {
+                        if (document.getElementById("hiddenGdVehMerc").value== "vehUs") {
                             document.getElementById("descMercaderia").value = 'VEHICULO USADO  ' + respuesta[0].empresa;
                             $("#descMercaderia").removeClass("is-invalid");
                             $("#descMercaderia").addClass("is-valid");
@@ -1267,6 +1266,8 @@ async function validarFormRet() {
             return false;
         }
         var cambio = document.getElementById("cambio").value;
+        var cambio = Number.parseFloat(cambio).toFixed(5);
+        var cambio = cambio*1;
         if (cambio > 0) {
             var cambioAwait = await patternPregNum(cambio);
             console.log(cambioAwait);
@@ -1426,7 +1427,6 @@ $(document).on("click", "#editRetiroF", async function () {
         $(this).attr("estado", 0);
         var validarForm = await validarFormRet();
         if (validarForm) {
-            console.log("hola mundo");
             var tipoEdicion = "Merca";
             var dataEdit = await editarRetiroOpFis(idRetiroBtn);
             console.log(dataEdit);

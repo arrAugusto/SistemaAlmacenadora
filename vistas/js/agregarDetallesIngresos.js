@@ -1300,3 +1300,8 @@ $(document).on("click", "#divDetalleVehUsa", async function () {
     })
 
 })
+$(document).on("change", ".montacarguista", function () {
+    $("#divMontarguist").removeClass('has-error');
+    $("#divMontarguist").addClass('has-success');    
+})
+

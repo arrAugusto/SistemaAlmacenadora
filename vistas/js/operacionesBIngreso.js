@@ -1649,152 +1649,152 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                 console.log(val);
                 if (val) {
                     var selectSucces = $("#puertoOrigen").val();
-                    if (selectSucces!="") {
-                    var guardar = await guardarSinTarifa(tipo);
-                    console.log(guardar);
-                    if (guardar == true) {
-                        swal({
-                            title: "Guardado Correctamente",
-                            text: "El ingreso fue guardado exitosamente...",
-                            type: "success"
-                        }).then(okay => {
-                            if (okay) {
-                                document.getElementById("cartaDeCupo").readOnly = true;
-                                document.getElementById("cantContenedores").readOnly = true;
-                                document.getElementById("dua").readOnly = true;
-                                document.getElementById("bl").readOnly = true;
-                                document.getElementById("poliza").readOnly = true;
-                                document.getElementById("bultosIngreso").readOnly = true;
-                                document.getElementById("puertoOrigen").disabled = true;
-                                document.getElementById("cantClientes").readOnly = true;
-                                document.getElementById("producto").readOnly = true;
-                                document.getElementById("pesoIng").readOnly = true;
-                                document.getElementById("valorTotalAduana").readOnly = true;
-                                document.getElementById("tipoDeCambio").readOnly = true;
-                                document.getElementById("totalValorCif").readOnly = true;
-                                document.getElementById("valorImpuesto").readOnly = true;
-                                document.getElementById("dateTime").readOnly = true;
-                                document.getElementById("sel2").disabled = true;
-                                document.getElementById("servicioTarifa").disabled = true;
-                                document.getElementById("regimenPoliza").disabled = true;
-                                document.getElementById("numeroLicencia").readOnly = true;
-                                document.getElementById("numeroMarchamo").readOnly = true;
-                                document.getElementById("nombrePiloto").readOnly = true;
-                                document.getElementById("numeroPlaca").readOnly = true;
-                                document.getElementById("numeroContenedor").readOnly = true;
-                                document.getElementById("txtNitEmpresa").readOnly = true;
+                    if (selectSucces != "") {
+                        var guardar = await guardarSinTarifa(tipo);
+                        console.log(guardar);
+                        if (guardar == true) {
+                            swal({
+                                title: "Guardado Correctamente",
+                                text: "El ingreso fue guardado exitosamente...",
+                                type: "success"
+                            }).then(okay => {
+                                if (okay) {
+                                    document.getElementById("cartaDeCupo").readOnly = true;
+                                    document.getElementById("cantContenedores").readOnly = true;
+                                    document.getElementById("dua").readOnly = true;
+                                    document.getElementById("bl").readOnly = true;
+                                    document.getElementById("poliza").readOnly = true;
+                                    document.getElementById("bultosIngreso").readOnly = true;
+                                    document.getElementById("puertoOrigen").disabled = true;
+                                    document.getElementById("cantClientes").readOnly = true;
+                                    document.getElementById("producto").readOnly = true;
+                                    document.getElementById("pesoIng").readOnly = true;
+                                    document.getElementById("valorTotalAduana").readOnly = true;
+                                    document.getElementById("tipoDeCambio").readOnly = true;
+                                    document.getElementById("totalValorCif").readOnly = true;
+                                    document.getElementById("valorImpuesto").readOnly = true;
+                                    document.getElementById("dateTime").readOnly = true;
+                                    document.getElementById("sel2").disabled = true;
+                                    document.getElementById("servicioTarifa").disabled = true;
+                                    document.getElementById("regimenPoliza").disabled = true;
+                                    document.getElementById("numeroLicencia").readOnly = true;
+                                    document.getElementById("numeroMarchamo").readOnly = true;
+                                    document.getElementById("nombrePiloto").readOnly = true;
+                                    document.getElementById("numeroPlaca").readOnly = true;
+                                    document.getElementById("numeroContenedor").readOnly = true;
+                                    document.getElementById("txtNitEmpresa").readOnly = true;
 
-                                var valTipoConso = $("#sel2 option:selected").text();
-                                if (valTipoConso == "Cliente consolidado") {
-                                    document.getElementById("divAcciones").innerHTML = '';
-                                    document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                                    var valTipoConso = $("#sel2 option:selected").text();
+                                    if (valTipoConso == "Cliente consolidado") {
+                                        document.getElementById("divAcciones").innerHTML = '';
+                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
 
-                                    document.getElementById("gDetalles").click();
-                                }
-                                if (valTipoConso == "Cliente consolidado poliza") {
+                                        document.getElementById("gDetalles").click();
+                                    }
+                                    if (valTipoConso == "Cliente consolidado poliza") {
 
-                                    if (tipo == 0) {
-                                        var lblNit = document.getElementById("lblNit").innerHTML;
-                                        var lblEmpresa = document.getElementById("lblEmpresa").innerHTML;
-                                        document.getElementById("divPlusClientes").innerHTML = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso"><i class="fa fa-plus"></i></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button>';
-                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></div>';
-                                        document.getElementById("hiddenContadorPolizas").value = 1;
-                                        if ($(".tableIngFail").length == 0) {
-                                            $("#divAccionesValidacion").removeClass("col-4");
-                                            $("#divAccionesValidacion").addClass("col-8");
-                                            $("#divRelleno").removeClass("col-4");
-                                            $("#divRelleno").addClass("col-0");
-                                        }
+                                        if (tipo == 0) {
+                                            var lblNit = document.getElementById("lblNit").innerHTML;
+                                            var lblEmpresa = document.getElementById("lblEmpresa").innerHTML;
+                                            document.getElementById("divPlusClientes").innerHTML = '<button type="button" class="btn btn-primary btnAgregarPoliza" id="btnPlusEmpresas" data-toggle="modal" data-target="#gdarEmpresasPolConso"><i class="fa fa-plus"></i></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button>';
+                                            document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></div>';
+                                            document.getElementById("hiddenContadorPolizas").value = 1;
+                                            if ($(".tableIngFail").length == 0) {
+                                                $("#divAccionesValidacion").removeClass("col-4");
+                                                $("#divAccionesValidacion").addClass("col-8");
+                                                $("#divRelleno").removeClass("col-4");
+                                                $("#divRelleno").addClass("col-0");
+                                            }
 
 
-                                        document.getElementById("divAccionesValidacion").innerHTML = `
+                                            document.getElementById("divAccionesValidacion").innerHTML = `
               <table id="tableConsolidadoPoliza" class="table table-hover table-sm">
             </table>
               <input type="hidden" id="hiddenListaDeta" value="">`;
-                                        var numero = 1;
-                                        var contadorH3 = document.getElementById("contadorH3").innerHTML;
-                                        var contadorH3 = contadorH3 + 1;
-                                        document.getElementById("contadorH3").innerHTML = "";
-                                        document.getElementById("contadorH3").innerHTML = contadorH3;
-                                        document.getElementById("contadorClientes").innerHTML = "";
-                                        document.getElementById("contadorClientes").innerHTML = cantVsClientes;
-                                        var idIdenty = document.getElementById("hiddenIdentity").value;
-                                        var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
-                                        var listaDataPoliza = [];
-                                        var poliza = document.getElementById("poliza").value;
-                                        var pesoIng = document.getElementById("pesoIng").value;
-                                        var bultosIngreso = document.getElementById("bultosIngreso").value;
-                                        listaDataPoliza.push([numero, poliza, lblNit, lblEmpresa, bultosIngreso, pesoIng, acciones]);
+                                            var numero = 1;
+                                            var contadorH3 = document.getElementById("contadorH3").innerHTML;
+                                            var contadorH3 = contadorH3 + 1;
+                                            document.getElementById("contadorH3").innerHTML = "";
+                                            document.getElementById("contadorH3").innerHTML = contadorH3;
+                                            document.getElementById("contadorClientes").innerHTML = "";
+                                            document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+                                            var idIdenty = document.getElementById("hiddenIdentity").value;
+                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                                            var listaDataPoliza = [];
+                                            var poliza = document.getElementById("poliza").value;
+                                            var pesoIng = document.getElementById("pesoIng").value;
+                                            var bultosIngreso = document.getElementById("bultosIngreso").value;
+                                            listaDataPoliza.push([numero, poliza, lblNit, lblEmpresa, bultosIngreso, pesoIng, acciones]);
 
-                                        $('#tableConsolidadoPoliza').DataTable({
-                                            "language": {
-                                                "sProcessing": "Procesando...",
-                                                "sLengthMenu": "Mostrar _MENU_ registros",
-                                                "sZeroRecords": "No se encontraron resultados",
-                                                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                                                "sInfoPostFix": "",
-                                                "sSearch": "Busqueda:",
-                                                "sUrl": "",
-                                                "sInfoThousands": ",",
-                                                "sLoadingRecords": "Cargando...",
-                                                "oPaginate": {
-                                                    "sFirst": "Primero",
-                                                    "sLast": "Último",
-                                                    "sNext": "Siguiente",
-                                                    "sPrevious": "Anterior"
+                                            $('#tableConsolidadoPoliza').DataTable({
+                                                "language": {
+                                                    "sProcessing": "Procesando...",
+                                                    "sLengthMenu": "Mostrar _MENU_ registros",
+                                                    "sZeroRecords": "No se encontraron resultados",
+                                                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                                    "sInfoPostFix": "",
+                                                    "sSearch": "Busqueda:",
+                                                    "sUrl": "",
+                                                    "sInfoThousands": ",",
+                                                    "sLoadingRecords": "Cargando...",
+                                                    "oPaginate": {
+                                                        "sFirst": "Primero",
+                                                        "sLast": "Último",
+                                                        "sNext": "Siguiente",
+                                                        "sPrevious": "Anterior"
+                                                    },
+                                                    "oAria": {
+                                                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                                    }
                                                 },
-                                                "oAria": {
-                                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                                                }
-                                            },
-                                            data: listaDataPoliza,
-                                            columns: [{
-                                                    title: "#"
-                                                }, {
-                                                    title: "Poliza"
-                                                }, {
-                                                    title: "Nit"
-                                                }, {
-                                                    title: "Empresa"
-                                                }, {
-                                                    title: "Bultos"
-                                                }, {
-                                                    title: "Peso kg"
-                                                }, {
-                                                    title: "Acciones"
-                                                }]
-                                        });
-                                        document.getElementById("divAccionesVehiculos").innerHTML = '';
+                                                data: listaDataPoliza,
+                                                columns: [{
+                                                        title: "#"
+                                                    }, {
+                                                        title: "Poliza"
+                                                    }, {
+                                                        title: "Nit"
+                                                    }, {
+                                                        title: "Empresa"
+                                                    }, {
+                                                        title: "Bultos"
+                                                    }, {
+                                                        title: "Peso kg"
+                                                    }, {
+                                                        title: "Acciones"
+                                                    }]
+                                            });
+                                            document.getElementById("divAccionesVehiculos").innerHTML = '';
+                                        }
+                                    }
+                                    if (valTipoConso == "Cliente individual") {
+                                        $("#sel2").removeClass("is-valid");
+                                        $("#sel2").addClass("is-invalid");
+                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
+                                        Swal.fire({
+                                            type: 'info',
+                                            title: 'Transacción exitosa',
+                                            text: 'Se guardo de manera exitosa el ingreso, operación finalizada',
+                                            footer: '<a href="operacionesBIngreso">ElaborarNuevo Ingreso</a>'
+                                        })
                                     }
                                 }
-                                if (valTipoConso == "Cliente individual") {
-                                    $("#sel2").removeClass("is-valid");
-                                    $("#sel2").addClass("is-invalid");
-                                    document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
-                                    Swal.fire({
-                                        type: 'info',
-                                        title: 'Transacción exitosa',
-                                        text: 'Se guardo de manera exitosa el ingreso, operación finalizada',
-                                        footer: '<a href="operacionesBIngreso">ElaborarNuevo Ingreso</a>'
-                                    })
-                                }
-                            }
 
+                            });
+                        }
+                    } else {
+                        swal({
+                            type: "error",
+                            title: "Formulario no valido",
+                            text: "Puerto de origen no seleccionado",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
                         });
-                    }
-                    } else{
-                                   swal({
-                        type: "error",
-                        title: "Formulario no valido",
-                        text: "Puerto de origen no seleccionado",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });         
                     }
                 } else {
                     swal({
@@ -4908,7 +4908,6 @@ $(document).on("change", "#numeroPlaca", async function () {
     }
 })
 
-
 $(document).on("change", "#puertoOrigen", async function () {
     $("#selectSucces").removeClass('has-error');
     $("#selectSucces").addClass('has-success');
@@ -6179,7 +6178,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
                 $("#poliza").trigger('change');
                 var regimen = document.getElementById("regimenPoliza");
 
-            var RegimenDat =  RegimenDat.toUpperCase().replace(" ", "");
+                var RegimenDat = RegimenDat.toUpperCase().replace(" ", "");
                 // recorremos todos los valores del select
                 var estadoReg = 0;
                 for (var i = 1; i < regimen.length; i++) {
@@ -6725,4 +6724,3 @@ $(document).on("click", ".btnSEleccBodega", async function () {
     })
 
 })
-

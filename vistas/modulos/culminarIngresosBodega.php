@@ -1,3 +1,12 @@
+<style>
+    .has-error .select2-selection {
+        border-color: rgb(185, 74, 72) !important;
+    }
+
+    .has-success .select2-selection {
+        border-color: #00AA0D !important;
+    }
+</style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -58,11 +67,10 @@
                                            <div class="col-12">';
                             ($_SESSION['nombre']) . "  " . ($_SESSION['apellidos']);
                             echo '</label><br/>
-
-                                            </div>
-                                            <div class="col-12" id="divMontarguist" style="display: none;">
+|                                            </div>
+                                            <div class="col-12 has-error" id="divMontarguist" style="display: none;">
                                                 <label id="idMontacarguista">Montacarguista:&nbsp;&nbsp;     </label>
-                                                <select class="form-control is-invalid" style="width: 100%;" id="personaSeleccionada" name="personaSeleccionada" required="">
+                                                <select class="select2 form-control is-invalid montacarguista" style="width: 100%;" id="personaSeleccionada" name="personaSeleccionada" required="">
                                                 <option selected="selected" disabled="disabled">Seleccione Montacarguista</option>';
                             $tipoTercero = "Bodega";
                             $bodega = $_SESSION["idDeBodega"];
