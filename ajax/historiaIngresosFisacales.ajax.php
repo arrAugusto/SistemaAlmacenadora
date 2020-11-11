@@ -60,7 +60,6 @@ class AjaxAccionesIngresos {
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
             $rubros = 1;
         }
-
         $idIngClientesPlt = $this->idIngClientesPlt;
         $repuesta = ControladorHistorialIngresos::ctrMostrarDetallesClientesPlts($idIngClientesPlt);
         $data = array("dataDet" => $repuesta, "tipo" => $rubros);
@@ -133,7 +132,7 @@ class AjaxAccionesIngresos {
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRec($generateRecHistoria);
         echo json_encode($repuesta);
     }
-
+    
     public $historiaRet;
 
     public function ajaxGenerateHistoriaRet() {
@@ -149,7 +148,12 @@ class AjaxAccionesIngresos {
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaChasis($generateHistoriaChasis);
         echo json_encode($repuesta);        
     }
-
+    public $historiaRecEx;
+    public function ajaxGenerateHistoriaRecEx(){
+        $generateRecExHistoria = $this->generateRecExHistoria;
+        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRecEx($generateRecExHistoria);
+        echo json_encode($repuesta);        
+    }
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -244,4 +248,10 @@ if (isset($_POST["generateHistoriaChasis"])) {
     $historiaChasis = new AjaxAccionesIngresos();
     $historiaChasis->generateHistoriaChasis = $_POST["generateHistoriaChasis"];
     $historiaChasis->ajaxGenerateHistoriaChasis();
+}
+
+if (isset($_POST["generateRecExHistoria"])) {
+    $historiaRecEx = new AjaxAccionesIngresos();
+    $historiaRecEx->generateRecExHistoria = $_POST["generateRecExHistoria"];
+    $historiaRecEx->ajaxGenerateHistoriaRecEx();
 }

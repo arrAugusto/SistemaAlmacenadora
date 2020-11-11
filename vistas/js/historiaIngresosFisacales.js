@@ -105,157 +105,214 @@ $(document).on("click", ".btnEditOp", function () {
             dataType: "json",
             success: function (respuesta) {
                 console.log(respuesta);
-                document.getElementById("divEdicionClientes").innerHTML = '';
-                document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
-                var lista = [];
-                console.log(respuesta);
-                let tipoOpcion = respuesta.tipo;
-                var objTipo = new Object();
-                objTipo.objTipoOpcion = tipoOpcion;
+                if (respuesta.dataDet.tipoDet == "Vehiculos") {
+                    document.getElementById("divEdicionClientes").innerHTML = '';
+                    document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
+                    var lista = [];
+                    var numero = 0;
+                    for (var i = 0; i < respuesta.dataDet.respuestaClientes.length; i++) {
+                        var numero = numero + 1;
+                        var idChas = respuesta.dataDet.respuestaClientes[i].id;
+                        var chasis = respuesta.dataDet.respuestaClientes[i].chasis;
+                        var tipoVehiculo = respuesta.dataDet.respuestaClientes[i].tipoVehiculo;
+                        var linea = respuesta.dataDet.respuestaClientes[i].linea;
+                        var accion = '<button type="button" class="btn btn-warning btn-block btnEditChasis" idChasis=' + idChas + '><i class="fa fa-edit"></i></button>';
+                        lista.push([numero, chasis, tipoVehiculo, linea, accion]);
 
-                for (var i = 0; i < respuesta["dataDet"]["respuestaClientes"].length; i++) {
-                    var numero = i + 1;
-                    var identi = respuesta["dataDet"]["respuestaClientes"][i].identi;
-                    var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
-                    var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["dataDet"]["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
-                    var cantPeso = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
-                    if (valEstaod <= 2) {
-                        if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
-                            if (objTipo.objTipoOpcion == 0) {
+                    }
+                    console.log(lista);
+                    $('#tableClientesEdit').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Busqueda:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
+                        },
+                        data: lista,
+                        columns: [{
+                                title: "#"
+                            }, {
+                                title: "Chasis"
+                            }, {
+                                title: "Tipo vehículo"
+                            }, {
+                                title: "Linea Vehículo"
+                            }, {
+                                title: "Edición"
+                            }]
+                    });
+                    return 0;
+                }
+                if (respuesta.dataDet.tipoDet == "Mercaderia") {
+                    document.getElementById("divEdicionClientes").innerHTML = '';
+                    document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
+                    var lista = [];
+                    console.log(respuesta);
+                    let tipoOpcion = respuesta.tipo;
+                    var objTipo = new Object();
+                    objTipo.objTipoOpcion = tipoOpcion;
+
+                    for (var i = 0; i < respuesta["dataDet"]["respuestaClientes"].length; i++) {
+                        var numero = i + 1;
+                        var identi = respuesta["dataDet"]["respuestaClientes"][i].identi;
+                        var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
+                        var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["dataDet"]["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
+                        var cantPeso = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
+                        if (valEstaod <= 2) {
+                            if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
+                                if (objTipo.objTipoOpcion == 0) {
+                                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+
+                                }
+                                if (objTipo.objTipoOpcion == 1) {
+                                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button></div>';
+
+                                }
+                            } else {
                                 var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
 
                             }
-                            if (objTipo.objTipoOpcion == 1) {
-                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button></div>';
 
-                            }
                         } else {
-                            var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numerobuttontrash="' + identi + '" numbtneliminar="' + identi + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button> </div>';
+                            if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
+                                if (objTipo.objTipoOpcion == 0) {
+                                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button></div>';
 
-                        }
+                                }
+                                if (objTipo.objTipoOpcion == 1) {
+                                    var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button> </div>';
 
-                    } else {
-                        if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
-                            if (objTipo.objTipoOpcion == 0) {
+                                }
+                            } else {
                                 var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button></div>';
-
                             }
-                            if (objTipo.objTipoOpcion == 1) {
-                                var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button><button type="button" class="btn btn-success btnNewServDeta" data-toggle="modal" data-target="#modalNuevosServicios" buttonServDet=' + identi + '>Servicio Extra</button> </div>';
 
-                            }
-                        } else {
-                            var accion = '<div class="input-group-prepend"><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + idIngEditOp + ' numbtneditar=' + identi + ' btnestadoedicion="0"><i class="fa fa-edit" aria-hidden="true"></i></button></div>';
+
+
                         }
 
 
-
+                        lista.push([numero, nombreEmpresa, cantBultos, cantPeso, accion]);
                     }
 
 
-                    lista.push([numero, nombreEmpresa, cantBultos, cantPeso, accion]);
-                }
-
-
-                $('#tableClientesEdit').DataTable({
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Busqueda:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
+                    $('#tableClientesEdit').DataTable({
+                        "language": {
+                            "sProcessing": "Procesando...",
+                            "sLengthMenu": "Mostrar _MENU_ registros",
+                            "sZeroRecords": "No se encontraron resultados",
+                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix": "",
+                            "sSearch": "Busqueda:",
+                            "sUrl": "",
+                            "sInfoThousands": ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst": "Primero",
+                                "sLast": "Último",
+                                "sNext": "Siguiente",
+                                "sPrevious": "Anterior"
+                            },
+                            "oAria": {
+                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                            }
                         },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    },
-                    data: lista,
-                    columns: [{
-                            title: "#"
-                        }, {
-                            title: "nombreEmpresa"
-                        }, {
-                            title: "cantBultos"
-                        }, {
-                            title: "cantPeso"
-                        }, {
-                            title: "accion"
-                        }]
-                });
-                /*
-                 document.getElementById("divEdicionUnidades").innerHTML = '';
-                 document.getElementById("divEdicionUnidades").innerHTML = '<table id="tablePilotoEdit" class="table dt-responsive table-sm table-hover">';
-                 var listaPilotos = [];
-                 /*       for (var i = 0; i < respuesta["respuestaPiloto"].length; i++) {
-                 var numero = i+1;
-                 var piloto = respuesta["respuestaPiloto"][i].piloto;
-                 var licencia = respuesta["respuestaPiloto"][i].licencia;
-                 var placa = respuesta["respuestaPiloto"][i].placa;
-                 var contenedor = respuesta["respuestaPiloto"][i].contenedor;
-                 var marchamoIng = respuesta["respuestaPiloto"][i].marchamoIng;
-                 var accion = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-close"></i></button></div>';
-                 
-                 listaPilotos.push([numero, piloto, licencia, placa, contenedor, marchamoIng, accion]);
-                 }
-                 
-                 
-                 $('#tablePilotoEdit').DataTable({
-                 "language": {
-                 "sProcessing": "Procesando...",
-                 "sLengthMenu": "Mostrar _MENU_ registros",
-                 "sZeroRecords": "No se encontraron resultados",
-                 "sEmptyTable": "Ningún dato disponible en esta tabla",
-                 "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                 "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                 "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                 "sInfoPostFix": "",
-                 "sSearch": "Busqueda:",
-                 "sUrl": "",
-                 "sInfoThousands": ",",
-                 "sLoadingRecords": "Cargando...",
-                 "oPaginate": {
-                 "sFirst": "Primero",
-                 "sLast": "Último",
-                 "sNext": "Siguiente",
-                 "sPrevious": "Anterior"
-                 },
-                 "oAria": {
-                 "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                 }
-                 },
-                 data: listaPilotos,
-                 columns: [{
-                 title: "#"
-                 }, {
-                 title: "piloto"
-                 }, {
-                 title: "licencia"
-                 }, {
-                 title: "placa"
-                 }, {
-                 title: "contenedor"
-                 }, {
-                 title: "marchamoIng"
-                 }, {
-                 title: "Acciones"
-                 }]
-                 });
-                 */
-
+                        data: lista,
+                        columns: [{
+                                title: "#"
+                            }, {
+                                title: "nombreEmpresa"
+                            }, {
+                                title: "cantBultos"
+                            }, {
+                                title: "cantPeso"
+                            }, {
+                                title: "accion"
+                            }]
+                    });
+                    /*
+                     document.getElementById("divEdicionUnidades").innerHTML = '';
+                     document.getElementById("divEdicionUnidades").innerHTML = '<table id="tablePilotoEdit" class="table dt-responsive table-sm table-hover">';
+                     var listaPilotos = [];
+                     /*       for (var i = 0; i < respuesta["respuestaPiloto"].length; i++) {
+                     var numero = i+1;
+                     var piloto = respuesta["respuestaPiloto"][i].piloto;
+                     var licencia = respuesta["respuestaPiloto"][i].licencia;
+                     var placa = respuesta["respuestaPiloto"][i].placa;
+                     var contenedor = respuesta["respuestaPiloto"][i].contenedor;
+                     var marchamoIng = respuesta["respuestaPiloto"][i].marchamoIng;
+                     var accion = '<div class="btn-group"><button type="button" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></button><button type="button" class="btn btn-danger btn-sm"><i class="fa fa-close"></i></button></div>';
+                     
+                     listaPilotos.push([numero, piloto, licencia, placa, contenedor, marchamoIng, accion]);
+                     }
+                     
+                     
+                     $('#tablePilotoEdit').DataTable({
+                     "language": {
+                     "sProcessing": "Procesando...",
+                     "sLengthMenu": "Mostrar _MENU_ registros",
+                     "sZeroRecords": "No se encontraron resultados",
+                     "sEmptyTable": "Ningún dato disponible en esta tabla",
+                     "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                     "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                     "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                     "sInfoPostFix": "",
+                     "sSearch": "Busqueda:",
+                     "sUrl": "",
+                     "sInfoThousands": ",",
+                     "sLoadingRecords": "Cargando...",
+                     "oPaginate": {
+                     "sFirst": "Primero",
+                     "sLast": "Último",
+                     "sNext": "Siguiente",
+                     "sPrevious": "Anterior"
+                     },
+                     "oAria": {
+                     "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                     "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                     }
+                     },
+                     data: listaPilotos,
+                     columns: [{
+                     title: "#"
+                     }, {
+                     title: "piloto"
+                     }, {
+                     title: "licencia"
+                     }, {
+                     title: "placa"
+                     }, {
+                     title: "contenedor"
+                     }, {
+                     title: "marchamoIng"
+                     }, {
+                     title: "Acciones"
+                     }]
+                     });
+                     */
+                }
             }, error: function (respuesta) {
                 console.log(respuesta);
 
@@ -803,7 +860,7 @@ $(document).ready(function () {
             }
 
         })
- }   
+    }
 })
 
 $(document).ready(function () {
@@ -851,7 +908,7 @@ $(document).ready(function () {
             }
 
         })
- }   
+    }
 })
 
 $(document).ready(function () {
@@ -889,3 +946,7 @@ $(document).ready(function () {
     }
 });
 
+$(document).on("click", ".btnEditChasis", async function () {
+    var idchasis = $(this).attr("idchasis");
+    alert(idchasis);
+});

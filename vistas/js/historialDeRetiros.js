@@ -293,10 +293,17 @@ $(document).on("click", ".btnHistoriaExcelRec", async function () {
         if (result.value) {
             var nomVar = "generateRecHistoria";
             var resp = await reporteRecibosExcel(nomVar, estadoRet);
-            var nombreReporte = 'HISTORIAL DE RETIROS, ESTADOS DE INGRESO: "-1 ANULADO :: 1 REGISTRADO OPERACIONES :: 2,3 PENDIENTE CULMINAR BODEGA :: 4 FINALIZADO CON NUMERO CORRELATIVO Y PENDIENTE DE CONTABILIZAR :: 5 POR CONTABILIZAR EN EL REPORTE :: 6 CONTABILIZADO"';
+            var nombreReporte = 'HISTORIAL DE CORRELATIVO, ESTADOS DE INGRESO: "-1 ANULADO :: 1 REGISTRADO OPERACIONES :: 2,3 PENDIENTE CULMINAR BODEGA :: 4 FINALIZADO CON NUMERO CORRELATIVO Y PENDIENTE DE CONTABILIZAR :: 5 POR CONTABILIZAR EN EL REPORTE :: 6 CONTABILIZADO"';
             var nombreEncabezado = "DescargaReporteExcel";
-            var nombreFile = "ReporteDeIngresos_";
+            var nombreFile = "ReporteDeCorrelativo_";
             var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
+            var nomVar = "generateRecExHistoria";
+            var respEx = await reporteRecibosExcel(nomVar, estadoRet);   
+            var nombreReporte = 'HISTORIAL DE RECIBOS COBROS DE SERVICIOS EXTRAS FISCALES';
+            var nombreEncabezado = "DescargaReporteExcel";
+            var nombreFile = "ReporteDeRecSerExtra_";
+            var creaExcel = await JSONToCSVDescargaExcel(respEx, nombreEncabezado, nombreReporte, nombreFile, true);
+            
         }
     })
 })

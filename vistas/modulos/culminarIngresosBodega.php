@@ -67,7 +67,7 @@
                                            <div class="col-12">';
                             ($_SESSION['nombre']) . "  " . ($_SESSION['apellidos']);
                             echo '</label><br/>
-|                                            </div>
+                                            </div>
                                             <div class="col-12 has-error" id="divMontarguist" style="display: none;">
                                                 <label id="idMontacarguista">Montacarguista:&nbsp;&nbsp;     </label>
                                                 <select class="select2 form-control is-invalid montacarguista" style="width: 100%;" id="personaSeleccionada" name="personaSeleccionada" required="">

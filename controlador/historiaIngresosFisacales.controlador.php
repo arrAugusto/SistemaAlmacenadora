@@ -128,11 +128,19 @@ class ControladorHistorialIngresos {
     }
 
     public static function ctrmostrarDetallesClientesPlts($idIngClientesPlt) {
+        $sp = "spRevChasis";
+        $revChasis = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $idIngClientesPlt);
 
+        if ($revChasis!="SD") {
+            return array("respuestaClientes" => $revChasis, "tipoDet"=>"Vehiculos");  
+        }else{
+            
+        
         $respuestaClientes = ModeloHistorialIngresos::mdlMostrarDetallesClientesPlts($idIngClientesPlt);
         //      $respuestaPiloto =  ModeloHistorialIngresos::mdlMostrarDetallesPlts($idIngClientesPlt );
 
-        return array("respuestaClientes" => $respuestaClientes);
+        return array("respuestaClientes" => $respuestaClientes, "tipoDet"=>"Mercaderia");
+        }
     }
 
     public static function ctrAnularIngreso($idIngresoAnulacion, $usuario, $departamento, $nivel, $motivoAnula) {
@@ -228,5 +236,9 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;      
     }
-
+    public static function ctrGenerateHistoriaRecEx($generateRecExHistoria){
+        $sp = "spServExtraCorrel";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;        
+    }
 }

@@ -4008,8 +4008,11 @@ $(document).on("change", "#numeroLicenciaPlus", async function () {
         if (consCui == "Ok") {
             $("#numeroLicenciaPlus").removeClass("is-invalid");
             $("#numeroLicenciaPlus").addClass("is-valid");
-            if ($("#hiddenIdentity").length >= 1) {
+            if ($("#hiddenIdentity").length > 0) {
                 var hiddenIdentityRevPlt = document.getElementById("hiddenIdentity").value;
+            }
+            if ($("#imprimirRetiroAlmacenaje").length > 0) {
+                var hiddenIdentityRevPlt = $("#imprimirRetiroAlmacenaje").attr("idret");
             }
             var nombrePilotoPlusUn = document.getElementById("numeroLicenciaPlus").value;
             var valRespuesta = await revisionNuevoPilotos(nombrePilotoPlusUn, hiddenIdentityRevPlt);
@@ -4349,7 +4352,6 @@ function revisionForm(numeroLicenciaPlus, nombrePilotoPlusUn, numeroPlacaPlusUn,
             } else {
                 todoMenus = "Duplicate";
             }
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
@@ -4410,15 +4412,15 @@ function crearValFob(valorFob) {
 
 $(document).on("click", ".btnNuevaEmpresa", async function () {
     var nuevoNit = document.getElementById("nuevoNit").value;
+    var nuevoNit = nuevoNit.trim();
     var nuevaEmpresa = document.getElementById("nuevaEmpresa").value;
+    var nuevaEmpresa = nuevaEmpresa.trim()
     var nuevaDireccion = document.getElementById("nuevaDireccion").value;
+    var nuevaDireccion = nuevaDireccion.trim();
     var valNit = validar_nit(nuevoNit);
     if (valNit) {
         var respuestaEmpresa = ajaxNuevaEmpresa(nuevoNit, nuevaEmpresa, nuevaDireccion);
     }
-
-
-
 })
 
 
@@ -4428,7 +4430,6 @@ function ajaxNuevaEmpresa(nuevoNit, nuevaEmpresa, nuevaDireccion) {
     datos.append("nuevoNit", nuevoNit);
     datos.append("nuevaEmpresa", nuevaEmpresa);
     datos.append("nuevaDireccion", nuevaDireccion);
-
     $.ajax({
         async: false,
         url: "ajax/operacionesBIngreso.ajax.php",
