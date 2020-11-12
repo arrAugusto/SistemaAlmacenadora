@@ -793,11 +793,13 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         var parseBlts = parseInt(parseBlts);
                         var bultsRespSld = (parseBlts - bultsResp);
                         console.log(bultsRespSld);
+
                         var respSaldImpt = respSaldos[0].saldoValorImpuesto * 1;
                         var respSaldImpt = parseFloat(respSaldImpt).toFixed(2);
                         var calculoValorImpuesto = calculoValorImpuesto * 1;
                         var calculoValorImpuesto = parseFloat(calculoValorImpuesto).toFixed(2);
                         var respSaldImptSld = (respSaldImpt - calculoValorImpuesto);
+
                         var respSaldCif = respSaldos[0].saldoValorCif * 1;
                         var respSaldCif = parseFloat(respSaldCif).toFixed(2);
                         var valorCif = valorCif * 1;
@@ -806,7 +808,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         //condicion si se liquida
                         if (respSaldos[0].saldoBultos == bultsResp) {
                             var bltsSaldo = 1;
-                            if (respSaldCif == 0 || respSaldImpt == 0) {
+                            if (respSaldCifSld == 0 || respSaldImptSld == 0) {
                                 var condicion = 1;
                             }
                         } else {
@@ -892,8 +894,8 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                         var impuesto = respSaldos[0].saldoValorImpuesto;
                                         var impuesto = parseFloat(impuesto).toFixed(2);
                                         var impuesto = impuesto * 1;
-                                        document.getElementById("cambio").value = cambio;
-                                        document.getElementById("valorTAduana").value = dol;
+                                        document.getElementById("cambio").value = 1;
+                                        document.getElementById("valorTAduana").value = cif;
                                         document.getElementById("valorCif").value = cif;
                                         document.getElementById("calculoValorImpuesto").value = impuesto;
                                         $("#cambio").trigger('change');
@@ -1085,7 +1087,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                         Swal.fire('Error cantidad de bultos', 'Para seleccionar tiene que especificar la cantidad de bultos, no puede dejar vacio el campo', 'error')
                     } else {
 
-                        if (document.getElementById("hiddenGdVehMerc").value== "vehUs") {
+                        if (document.getElementById("hiddenGdVehMerc").value == "vehUs") {
                             document.getElementById("descMercaderia").value = 'VEHICULO USADO  ' + respuesta[0].empresa;
                             $("#descMercaderia").removeClass("is-invalid");
                             $("#descMercaderia").addClass("is-valid");
@@ -1267,7 +1269,7 @@ async function validarFormRet() {
         }
         var cambio = document.getElementById("cambio").value;
         var cambio = Number.parseFloat(cambio).toFixed(5);
-        var cambio = cambio*1;
+        var cambio = cambio * 1;
         if (cambio > 0) {
             var cambioAwait = await patternPregNum(cambio);
             console.log(cambioAwait);

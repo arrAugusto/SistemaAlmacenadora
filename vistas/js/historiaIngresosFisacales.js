@@ -116,9 +116,8 @@ $(document).on("click", ".btnEditOp", function () {
                         var chasis = respuesta.dataDet.respuestaClientes[i].chasis;
                         var tipoVehiculo = respuesta.dataDet.respuestaClientes[i].tipoVehiculo;
                         var linea = respuesta.dataDet.respuestaClientes[i].linea;
-                        var accion = '<button type="button" class="btn btn-warning btn-block btnEditChasis" idChasis=' + idChas + '><i class="fa fa-edit"></i></button>';
+                        var accion = '<button type="button" class="btn btn-warning btn-block btnEditChasis" data-toggle="modal" data-target="#modalChasisEdit" idChasis=' + idChas + ' chasis=' + chasis + ' tipoV=' + tipoVehiculo + ' linea=' + linea + '><i class="fa fa-edit"></i></button>';
                         lista.push([numero, chasis, tipoVehiculo, linea, accion]);
-
                     }
                     console.log(lista);
                     $('#tableClientesEdit').DataTable({
@@ -947,6 +946,104 @@ $(document).ready(function () {
 });
 
 $(document).on("click", ".btnEditChasis", async function () {
-    var idchasis = $(this).attr("idchasis");
-    alert(idchasis);
+    var idChasis = $(this).attr("idChasis");
+    var chasis = $(this).attr("chasis");
+    var tipov = $(this).attr("tipov");
+    var linea = $(this).attr("linea");
+
+    document.getElementById("chasisVeh").value = chasis;
+    document.getElementById("chasisModificado").value = chasis;
+    document.getElementById("tipoVeh").value = tipov;
+    document.getElementById("lineaVeh").value = linea;
+    $(".btnModificaVehiculo").attr("chasis", chasis);
+    $(".btnModificaVehiculo").attr("chasis", chasis);
+    $(".btnModificaVehiculo").attr("tipov", tipov);
+    $(".btnModificaVehiculo").attr("idChasis", idChasis);
+
 });
+
+
+$(document).on("change", ".selectChasisEdit", async function () {
+    $("#chasisModificado").removeClass("is-invalid");
+    $("#chasisModificado").addClass("is-valid");
+
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 6000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    })
+
+    Toast.fire({
+        type: 'success',
+        title: 'Haga click en modificar si esta seguro de hacer el cambio'
+    })
+})
+
+
+
+$(document).on("click", ".btnModificaVehiculo", async function () {
+    var idChasis = $(this).attr("idChasis");
+    var chasis = document.getElementById("chasisModificado").value;
+    var selectChasisEdit = $(".selectChasisEdit").val();
+    if (selectChasisEdit > 0) {
+        Swal.fire({
+            title: 'Desea editar?',
+            text: "Editara chasis tipo y linea del vehiculo!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Editar!'
+        }).then(async function (result) {
+            if (result.value) {
+                var dataResp = await editarChasisVeh(idChasis, chasis, selectChasisEdit);
+                Swal.fire(
+                        'Edición exitosa!',
+                        'Se edito de manera correcta los datos del vehículo!',
+                        'success\n\
+                '
+                        )
+            }
+        })
+    } else {
+        Swal.fire(
+                'Error Selección!',
+                'No selecciono el tipo y linea del vehículo!',
+                'error'
+                )
+    }
+
+
+})
+
+function editarChasisVeh(idChasis, chasis, selectChasisEdit) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("idChasEdit", idChasis);
+    datos.append("chasisNewEdt", chasis);
+    datos.append("tipoLineaVeh", selectChasisEdit);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}

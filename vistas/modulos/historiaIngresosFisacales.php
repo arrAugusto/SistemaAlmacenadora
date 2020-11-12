@@ -17,13 +17,13 @@
                 <form role="form" method="post">
                     <div class="card-body">
                         <div class="row">
-                        <div class="col-6 mt-2">
-                            <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
-                        </div>   
-                        <div class="col-12 mt-5">
-                            <table id="tableHistorialIng" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                            <div class="col-6 mt-2">
+                                <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
+                            </div>   
+                            <div class="col-12 mt-5">
+                                <table id="tableHistorialIng" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>
-                                     <tr>
+                                        <tr>
                                         <th style="width:3px;">#</th>
                                         <th>Nit</th>
                                         <th style="width:500px;">Empresa</th>
@@ -39,7 +39,7 @@
                                     </thead> 
                                 </table>
                             </div>
- 
+
                         </div>
                     </div>
                 </form>
@@ -309,3 +309,46 @@
 </div>
 
 
+
+<!-- Modal -->
+<div class="modal fade" id="modalChasisEdit" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="chasisVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="tipoVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="lineaVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <input type="text" class="form-control is-invalid" id="chasisModificado" value="" />
+                </div>  
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <select class="form-control select2 selectChasisEdit" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
+                        <?php
+                        $respuesta = ControladorHistorialIngresos::ctrMostrarLineasTpVeh();
+                        ?>
+                    </select>
+                </div> 
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <button type="button" class="btn btn-success btn-block btnModificaVehiculo">Hacer modificaciones al chasis</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

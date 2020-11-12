@@ -120,6 +120,15 @@ class ControladorHistorialIngresos {
         }
     }
 
+    public static function ctrMostrarLineasTpVeh() {
+        $sp = "spTipoVeh";
+        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        echo '<option selected="selected">Seleccionen tipo y linea del vehículo</option>';
+        foreach ($respuesta as $key => $value) {
+            echo '<option value=' . $value["id"] . '>' . $value["tipoVehiculo"] . ' ' . $value["linea"] . '</option>';
+        }
+    }
+
     public static function ctrMostrarRegimenes() {
         $respuesta = ModeloHistorialIngresos::mdlMostrarRegimenes();
         foreach ($respuesta as $key => $value) {
@@ -131,15 +140,15 @@ class ControladorHistorialIngresos {
         $sp = "spRevChasis";
         $revChasis = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $idIngClientesPlt);
 
-        if ($revChasis!="SD") {
-            return array("respuestaClientes" => $revChasis, "tipoDet"=>"Vehiculos");  
-        }else{
-            
-        
-        $respuestaClientes = ModeloHistorialIngresos::mdlMostrarDetallesClientesPlts($idIngClientesPlt);
-        //      $respuestaPiloto =  ModeloHistorialIngresos::mdlMostrarDetallesPlts($idIngClientesPlt );
+        if ($revChasis != "SD") {
+            return array("respuestaClientes" => $revChasis, "tipoDet" => "Vehiculos");
+        } else {
 
-        return array("respuestaClientes" => $respuestaClientes, "tipoDet"=>"Mercaderia");
+
+            $respuestaClientes = ModeloHistorialIngresos::mdlMostrarDetallesClientesPlts($idIngClientesPlt);
+            //      $respuestaPiloto =  ModeloHistorialIngresos::mdlMostrarDetallesPlts($idIngClientesPlt );
+
+            return array("respuestaClientes" => $respuestaClientes, "tipoDet" => "Mercaderia");
         }
     }
 
@@ -234,11 +243,24 @@ class ControladorHistorialIngresos {
     public static function ctrGenerateHistoriaChasis($generateHistoriaChasis) {
         $sp = "spHistDataExtraIngExcel";
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
-        return $revIngRev;      
+        return $revIngRev;
     }
-    public static function ctrGenerateHistoriaRecEx($generateRecExHistoria){
+
+    public static function ctrGenerateHistoriaRecEx($generateRecExHistoria) {
         $sp = "spServExtraCorrel";
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
-        return $revIngRev;        
+        return $revIngRev;
+    }
+
+    public static function ctrMostrarChasisVh($EditChasisVh) {
+        $sp = "spServExtraCorrel";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;
+    }
+    public static function ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh){
+        $sp = "spRevChasisVehN";
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idChasEdit, $chasisNewEdt, $tipoLineaVeh, $sp);
+        return $revIngRev;
+        
     }
 }

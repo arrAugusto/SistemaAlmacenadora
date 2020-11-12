@@ -132,7 +132,7 @@ class AjaxAccionesIngresos {
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRec($generateRecHistoria);
         echo json_encode($repuesta);
     }
-    
+
     public $historiaRet;
 
     public function ajaxGenerateHistoriaRet() {
@@ -146,14 +146,35 @@ class AjaxAccionesIngresos {
     public function ajaxGenerateHistoriaChasis() {
         $generateHistoriaChasis = $this->generateHistoriaChasis;
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaChasis($generateHistoriaChasis);
-        echo json_encode($repuesta);        
+        echo json_encode($repuesta);
     }
+
     public $historiaRecEx;
-    public function ajaxGenerateHistoriaRecEx(){
+
+    public function ajaxGenerateHistoriaRecEx() {
         $generateRecExHistoria = $this->generateRecExHistoria;
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRecEx($generateRecExHistoria);
+        echo json_encode($repuesta);
+    }
+
+    public $chasisVeh;
+
+    public function ajaxMostrarChasisVh() {
+        $EditChasisVh = $this->EditChasisVh;
+        $repuesta = ControladorHistorialIngresos::ctrMostrarChasisVh($EditChasisVh);
+        echo json_encode($repuesta);
+    }
+
+    public $chasisVehEdt;
+
+    public function ajaxEdicionVehEdit() {
+        $idChasEdit = $this->idChasEdit;
+        $chasisNewEdt = $this->chasisNewEdt;
+        $tipoLineaVeh = $this->tipoLineaVeh;
+        $repuesta = ControladorHistorialIngresos::ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh);
         echo json_encode($repuesta);        
     }
+
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -254,4 +275,17 @@ if (isset($_POST["generateRecExHistoria"])) {
     $historiaRecEx = new AjaxAccionesIngresos();
     $historiaRecEx->generateRecExHistoria = $_POST["generateRecExHistoria"];
     $historiaRecEx->ajaxGenerateHistoriaRecEx();
+}
+if (isset($_POST["EditChasisVh"])) {
+    $chasisVeh = new AjaxAccionesIngresos();
+    $chasisVeh->EditChasisVh = $_POST["EditChasisVh"];
+    $chasisVeh->ajaxMostrarChasisVh();
+}
+
+if (isset($_POST["idChasEdit"])) {
+    $chasisVehEdt = new AjaxAccionesIngresos();
+    $chasisVehEdt->idChasEdit = $_POST["idChasEdit"];
+    $chasisVehEdt->chasisNewEdt = $_POST["chasisNewEdt"];
+    $chasisVehEdt->tipoLineaVeh = $_POST["tipoLineaVeh"];
+    $chasisVehEdt->ajaxEdicionVehEdit();
 }

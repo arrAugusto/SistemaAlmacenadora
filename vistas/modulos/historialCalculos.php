@@ -13,7 +13,6 @@
                     </ol>
                 </div>
             </div>
-
             <div class="card card-info card-outline">
                 <form role="form" method="post">
                     <div class="card-body">
@@ -28,21 +27,15 @@
                                     ?>">
                                     <span class="input-group-append">
                                         <button type="button" class="btn btn-success btnRecalculaHistoria">Recalcular <i class="fas fa-calculator"></i></button>
-
                                         <input type="hidden" id="hiddenDateTimeVal" value="1"/>
-
-
                                     </span>
                                 </div>
                             </div>  
                             <div class="col-12 divCalculoHistoria mt-4" id="divCalculoDetalle">                
                             </div>      
-
-
                             <input type="hidden" id="retRecalcRet" value="" />
                             <input type="hidden" id="retRecalcIng" value="" />
                             <input type="hidden" id="retPoliza" value="" />
-
                             <input type="hidden" id="hiddenZonaAduana" value="" />
                             <input type="hidden" id="hiddenAlmacenaje" value="" />
                             <input type="hidden" id="hiddenManejo" value="" />
@@ -77,10 +70,7 @@
                                         ?>
                                     </tbody>
                                 </table>
-
-
                             </div>
-
                         </div>
                     </div>
                 </form>
@@ -228,20 +218,14 @@
                         <div class="col-5">
                             <div class="card">
                                 <center><h3>Lista de cliente(s)</h3></center>
-
                                 <div id="divEdicionClientes">
-
-
                                 </div>
                             </div>
                         </div>
                         <div class="col-7">
                             <div class="card">
                                 <center><h3>Unidades de ingreso</h3></center>
-
                                 <div id="divEdicionUnidades">
-
-
                                 </div>
                             </div>
                         </div>
@@ -265,11 +249,9 @@
                 <h4 class="modal-title">Modal Heading</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
-
                     <div class="col-6">
                         <label>
                             Numero de Ingreso
@@ -278,41 +260,30 @@
                     </div>
                     <div class="col-12">
                         Motivo de anulación &nbsp;&nbsp;Palabras Aceptadas <strong id="conteoCaracteres">150</strong>
-
-
                         <textarea class="form-control is-invalid" rows="3" id="textMotivoAnulacion" name="text">SE ANULO DEBIDO A : </textarea>
                     </div>                    
                 </div>
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="anulacionDefinitiva" numeroIdIngreso="" disabled="disabled" />Anular Ingreso&nbsp;&nbsp;<i class="fas fa-trash"></i></button>
             </div>
-
         </div>
     </div>
 </div>
-
-
-
-
 
 <!-- The Modal -->
 <div class="modal fade" id="modalCalculo">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Modal Heading</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
-
                     <div class="col-12 mt-4">
                         <label>Calculado hasta :</label>
                         <div class="input-group input-group">
@@ -323,10 +294,7 @@
                             ?>">
                             <span class="input-group-append">
                                 <button type="button" class="btn btn-danger btnCalcularAlmacenaje"><i class="fas fa-calculator"></i></button>
-
                                 <input type="hidden" id="hiddenDateTimeVal" value="1"/>
-
-
                             </span>
                         </div>
                     </div>
@@ -334,17 +302,13 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-
         </div>
     </div>
 </div>
-
-
 
 <!-- Modal -->
 <div class="modal fade" id="plusOtrosServicios" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -421,5 +385,3 @@
         </div>
     </div>
 </div>
-
-
