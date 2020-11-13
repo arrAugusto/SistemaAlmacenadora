@@ -2,7 +2,6 @@
     .has-error .select2-selection {
         border-color: rgb(185, 74, 72) !important;
     }
-
     .has-success .select2-selection {
         border-color: #00AA0D !important;
     }
@@ -23,12 +22,10 @@
             </div>
         </div><!-- /.container-fluid -->
         <div class="card card-info card-outline">
-
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-12">
-
                             <?php
                             if ($_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "BAJO" || $_SESSION["departamentos"] == "Bodegas Fiscales" && $_SESSION["niveles"] == "MEDIO" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
                                 echo '
@@ -49,9 +46,6 @@
                             }
                             ;
                             ?>
-
-
-
                         </div>
                         <?php
                         if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales") {
@@ -122,8 +116,7 @@
                                 <div class="card-body">
                                     <!--- =======================
                                     INICIO
-                                    ======================-->
-                          
+                                    ======================-->                         
                               <table id="tablasGeneral" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
                                       <thead style="background-color: #81BEF7;color: white; font-weight: bold;">
                                             <tr>
@@ -138,24 +131,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>';
-                            $respuesta = ControladorIngresosPendientes::ctrMostrarIngresosPendientes();
-
-                            echo '</tbody>
+                                    $respuesta = ControladorIngresosPendientes::ctrMostrarIngresosPendientes();
+                                    echo '</tbody>
                                     </table>
                                 </div>
-                            
                             </div>
                             ';
                         }
                         ?>
-
                     </div>
                     <div class="col-12" id="divDetallesMerca">
                     </div>
                 </div>
             </form>
         </div>
-
     </section>
 </div>
 
@@ -189,7 +178,6 @@
                                         <div class="card">
                                             <div class="card-body">
                                                 <div class="row">
-
                                                     <div class="col-6" id="datoEmpresa">
                                                         <div class="form-group tooltips">
                                                             <label>Empresa</label>
@@ -217,7 +205,6 @@
                                                                 <option selected="selected">Selecione Ubicación</option>
                                                                 <option>Piso</option>
                                                                 <option>Rack</option>
-
                                                             </select>
                                                         </div>
                                                     </div>
@@ -226,14 +213,10 @@
                                                     <div class="col-7 mt-4"  id="ubicacionesSelect">
                                                     </div>
                                                     <div class="col-12 mt-4" id="chasisVeh"></div>
-
                                                     <div class="col-12 mt-2  mt-4" id="divObserva">
                                                         <div class="input-group input-group-sm">
                                                             <input type="hidden" id="hiddenLista" value="" />
                                                             <textarea class="form-control" id="descripcionMerca" name="descripcionMerca" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value="">OBSERVACIONES :</textarea>
-                                                            <!--<span id="cancelAudio"class="input-group-append">
-                                                                <button type="button" id="efectoGrabar" estadoAudio=0 class="btn btn-success btnAudioDescr"><i id="CancelAudio" class='fa fa-microphone' style='font-size:36px;'></i></button>
-                                                            </span>-->
                                                         </div>
                                                     </div>
                                                     <div class="col-6 mt-2" id="mdStandarTarima">
@@ -244,14 +227,12 @@
                                                                 <button type="button" class="btn btn-info btnPromedioTarima" id="btnPromedioTarima">Guardar promedio de tarima</button>
                                                             </span>
                                                         </div>
-
                                                     </div>
                                                     <div class="col-6 mt-2"></div>
                                                     <div class="col-6 mt-2" id="divTarPrivar"></div>        
                                                     <div class="col-6 mt-2" id="divTarPrivarMts"></div>
                                                     <div class="col-12">
                                                         <!-- /btn-group -->
-
                                                         <div class="input-group" id="newTxtBtn">
                                                             <input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control" placeholder="Cantidad de posiciones" style="text-align: center;" value="" />
                                                             <input type="number" id="Metraje" name="Metraje" class="form-control" placeholder="Cantidad de Metros" style="text-align: center;" value="" />
@@ -276,9 +257,7 @@
     </div>
 </div>
 
-
 <!-- The Modal CAPTURA UBICACIONES -->
-
 <div class="modal fade" id="MyagrUbicacion">
     <div class="modal-dialog modal-lgMapa">
         <div class="modal-content">
@@ -290,16 +269,12 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div id="mapaGenerado" class="row">
-
                     <div class="col-12">
-
                         <button type="button" class="btn btn-success btnGuardaUbicacion"><i class="fa fa-save" style="font-size:48px">&nbsp;&nbsp;Guardar</i></button>
-
                     </div>
                     <div id="mapEntrada" class="col-1 mt-4 pull-right">
                         <center>Entrada De :<?php echo '&nbsp;&nbsp;&nbsp;&nbsp' . $_SESSION["NavegaBod"] . '&nbsp;&nbsp' . $_SESSION["NavegaNumB"]; ?></center>
                     </div>
-
                     <div id="mapeandoUbicaciones" class="col-10 mt-4">
                     </div>
                     <div id="mapEntrada" class="col-1 mt-4 pull-right">
@@ -312,7 +287,6 @@
         </div>
     </div>
 </div>
-
 
 <!-- The Modal CAPTURA DE INFORMACION INGRESO -->
 <div class="modal fade" id="modalSalidaRapida">
@@ -340,21 +314,15 @@
     </div>
 </div>
 
-
-
-
-
 <!-- The Modal -->
 <div class="modal fade" id="mdlDepDiffBodega">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Manifiesto de la poliza</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
@@ -363,12 +331,10 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
-
         </div>
     </div>
 </div>
@@ -377,18 +343,15 @@
 <div class="modal fade" id="modalCarousel">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-
             <!-- Modal Header -->
             <div class="modal-header">
                 <h4 class="modal-title">Configuración detalles vehiculos usados</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
-
                         <div class="sticky-top mb-3">
                             <div class="card">
                                 <div class="card-header">
@@ -406,7 +369,6 @@
                                 </div>
                                 <!-- /.card-body -->
                             </div>
-
                         </div>
                     </div>
                     <div class="col-6" id="divDetalle">
@@ -414,12 +376,10 @@
                     </div>
                 </div>
             </div>
-
             <!-- Modal footer -->
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
-
         </div>
     </div>
 </div>
