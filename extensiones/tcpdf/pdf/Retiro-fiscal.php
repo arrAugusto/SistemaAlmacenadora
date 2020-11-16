@@ -52,7 +52,7 @@ class imprimirIngresoBodega {
         $valCif = number_format($respRet[0]["valCif"], 2);
         $valImpuesto = number_format($respRet[0]["valImpuesto"], 2);
 
-
+        $concatenarConsultImagen = "../../imagenesQRCreadasRet/qrCodeRet".$retiroF.".png";
 
         $fechaEmision = $respRet[0]["fechaEm"]->format("d-m-Y h:i:s A");
         $numeroRetiro = $respRet[0]["numeroRetiro"];
@@ -424,8 +424,9 @@ EOF;
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
 		</tr>
-		<tr><br/>
-			<td colspan="2" style="width:480px; text-align:left;"><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+		<tr>
+			<td colspan="2" style="width:480px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+ 			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
 

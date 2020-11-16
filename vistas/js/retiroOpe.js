@@ -686,7 +686,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
             var verSaldo = 1;
         }
     }
-
     var numPolizaRev = $("#polizaRetiro").val();
     var revPoliza = await revPolizasIngreso(numPolizaRev);
     if (revPoliza == "Duplicada" && estado == 0) {

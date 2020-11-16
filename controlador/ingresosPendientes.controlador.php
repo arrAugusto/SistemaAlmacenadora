@@ -214,6 +214,7 @@ class ControladorIngresosPendientes {
 
                     $botonera = "";
                     $vehNV = 0;
+
                     if ($value["servicioFis"] == "VEHICULOS NUEVOS") {
                         $sp = "spCountChas";
                         $idIng = $value["numeroOrden"];
@@ -225,6 +226,7 @@ class ControladorIngresosPendientes {
 
                         $botonera = '<button type="button" class="btn btn-primary btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
                         $empresaCons = $respuesta[$key]["empresa"];
+
                         echo '
                       <tr>
                         <td>' . ($key + 1) . '</td>
@@ -234,11 +236,11 @@ class ControladorIngresosPendientes {
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
                         echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
                     } else {
+
                         if ($value["servicioFis"] == "VEHICULOS USADOS") {
                             $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
                         } else {
                             $botonera = '<button type="button" class="btn btn-primary btnCgrDetallePorFail" idIngOp="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Manifiesto</button>';
-                            $vehNV = 1;
                         }
 
                         if ($value["vinculo"] != "NoAplica") {
@@ -248,16 +250,15 @@ class ControladorIngresosPendientes {
                             $empresaCons = $respuesta[$key]["empresa"];
                         }
                         $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
-                        if ($vehNV == 1) {
-                            echo '
+
+                        echo '
                       <tr>
                         <td>' . ($key + 1) . '</td>
                         <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
                         <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
-                            echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
-                        }
+                        echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
                     }
                 }
             }

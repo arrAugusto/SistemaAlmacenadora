@@ -6314,6 +6314,7 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
 
     var totalBultos = 0;
     var totalPeso = 0;
+
     var paragraphsPesoIng = Array.from(document.querySelectorAll("#TextpesoIng"));
 
     if (paragraphsPesoIng.length >= 1) {

@@ -709,3 +709,5 @@ $(document).on("change", "#descripcionMerca", function () {
         $(this).val(contenido.toUpperCase().replace("  ", " "));
     }
 })
+
+

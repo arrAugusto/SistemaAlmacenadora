@@ -101,6 +101,7 @@
         <script src="vistas/js/historialDeRetiros.js"></script>
         <script src="vistas/js/chasisVehiculosNuevos.js"></script>
         <script src="vistas/js/chasisVehUsados.js"></script>
+        <script src="vistas/js/controlDeIngPersonas.js"></script>
 
         <!-- iCheck 1.0.1 -->
         <script src="vistas/dist/js/dataTables.bootstrap.js"></script><script src="vistas/dist/js/responsive.bootstrap.min.js"></script>

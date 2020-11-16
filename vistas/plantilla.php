@@ -14,44 +14,13 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
             include "modulos/" . $_GET["ruta"] . ".php";
         } else if ($_SESSION["niveles"] == "ADMINISTRADOR") {
             if ($_GET["ruta"] == "Inicio" ||
-                    $_GET["ruta"] == "parametrizarAlmacenaje" ||
-                    $_GET["ruta"] == "salir" ||
-                    $_GET["ruta"] == "consultas" ||
-                    $_GET["ruta"] == "operacionesBIngreso" ||
-                    $_GET["ruta"] == "ingBodHistorial" ||
-                    $_GET["ruta"] == "cartera" ||
-                    $_GET["ruta"] == "ingresosPendientes" ||
-                    $_GET["ruta"] == "culminarIngresosBodega" ||
-                    $_GET["ruta"] == "historiaIngresosFisacales" ||
-                    $_GET["ruta"] == "mapeoBodega" ||
-                    $_GET["ruta"] == "detallesTarifa" ||
-                    $_GET["ruta"] == "activarOtrosServicios" ||
                     $_GET["ruta"] == "crearUsuarios" ||
                     $_GET["ruta"] == "crearClientes" ||
                     $_GET["ruta"] == "gestorUsuarios" ||
-                    $_GET["ruta"] == "panelDeTarifas" ||
                     $_GET["ruta"] == "gestorClientes" ||
-                    $_GET["ruta"] == "miperfil" ||
-                    $_GET["ruta"] == "gestorDeTarifas" ||
-                    $_GET["ruta"] == "parametrizarTarifaNormal" ||
-                    $_GET["ruta"] == "panelDeControl" ||
-                    $_GET["ruta"] == "UbicacionBodega" ||
-                    $_GET["ruta"] == "subir-tarifa" ||
-                    $_GET["ruta"] == "retiroBod" ||
-                    $_GET["ruta"] == "calcAlmacenajeF" ||
-                    $_GET["ruta"] == "paseDeSalida" ||
-                    $_GET["ruta"] == "medidasVehiculos" ||
-                    $_GET["ruta"] == "agregarServicios" ||
-                    $_GET["ruta"] == "inventariosFiscales" ||
-                    $_GET["ruta"] == "clientesSinTarifa" ||
-                    $_GET["ruta"] == "calculosDeAlmacenaje" ||
-                    $_GET["ruta"] == "ingPendientesC" ||
-                    $_GET["ruta"] == "polizasDiarias" ||
-                    $_GET["ruta"] == "ingReportados" ||
-                    $_GET["ruta"] == "vehiculosSinMedidas" ||
-                    $_GET["ruta"] == "retiroVeh" ||
-                    $_GET["ruta"] == "historialCalculos" ||
-                    $_GET["ruta"] == "retiroOpe") {
+                    $_GET["ruta"] == "miperfil"||
+                    $_GET["ruta"] == "salir"
+                    ) {
                 /*
                   Include para hacer URL amigables.
                  */
@@ -222,6 +191,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
         } else if ($_SESSION["departamentos"] == "Seguridad Interna") {
             if ($_GET["ruta"] == "Inicio" ||
                     $_GET["ruta"] == "controlDeIngPersonas" ||
+                    $_GET["ruta"] == "miperfil" ||
                     $_GET["ruta"] == "salir") {
                 /*
                   Include para hacer URL amigables.

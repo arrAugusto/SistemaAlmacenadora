@@ -198,6 +198,7 @@
                 $style = 'colorBarSuper';
             }
             echo '
+                
                 <li class="nav-item has-treeview">
                     <a class="nav-link">
                 <i class="fa fa-circle colorBarSuperVill"></i>
@@ -448,14 +449,22 @@
                 </p>
             </a>
         </li>  
-            </ul>
+        <li class="nav-item">
+            <a href="mapeoBodega" class="nav-link">
+                <i class="fa fa-map-pin colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Menu Mapas
+                </p>
+            </a>
         </li>
-        
+        </ul>
+        </li>
+
 
 ';
         }
 
-        if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales" || $_SESSION["niveles"] == "BAJO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
+        if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales" || $_SESSION["niveles"] == "BAJO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
             echo '      
             <li class="nav-item">
                             <a href="gestorDeTarifas" class="nav-link">
@@ -882,7 +891,7 @@
  
 ';
 
-                                        if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
+           if ($_SESSION["niveles"] == "ADMINISTRADOR" || $_SESSION["niveles"] == "MEDIO") {
                 echo '
 <ul class="nav nav-treeview">
                 <li class="nav-item">
@@ -940,36 +949,9 @@
 ';
         }
 
-        if ($_SESSION["niveles"] == "ADMINISTRADOR") {
-            echo '        <li class="nav-item has-treeview">
-            <a href="vehiculosSinMedidas" class="nav-link">
-                <i class="fa fa-sort-numeric-asc colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Vehículos sin medida
-                </p>
 
-            </a>
-        </li>';
-        }
         if ($_SESSION["niveles"] == "ADMINISTRADOR") {
             echo '
-        <li class="nav-item">
-            <a href="mapeoBodega" class="nav-link">
-                <i class="fa fa-map-pin colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Menu Mapas
-                </p>
-            </a>
-        </li>
-        
-        <li class="nav-item has-treeview">
-            <a href="agregarServicios" class="nav-link">
-                <i class="fa fa-cart-plus colorBarSuper"></i>
-                <p class="colorBarSuper">
-                    Agregar Servicios
-                </p>
-            </a>
-        </li>
         <li class="nav-item has-treeview">
             <a href="#" class="nav-link">
                 <i class="fa fa-user colorBarSuper"></i>

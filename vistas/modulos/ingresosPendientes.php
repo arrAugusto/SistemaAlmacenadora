@@ -294,13 +294,13 @@ MODAL POLIZA CONSOLIDADA
                                             <button type="button" class="btn btn-info btnValidarChasis" id="buttonChasis" estado="0">Validar Chasis <i class="fa fa-wrench" aria-hidden="true"></i></button>
                                         </div> 
                                     </div>
-                                    </div>
+                                </div>
                                 <div class="col-7 mt-4" id="divRelleno">
 
                                 </div>
                                 <input type="hidden" id="hiddenJsonVehiculos" value="" />
                                 <input type="hidden" id="hiddenGuardarDB" value="" />
-                                            <input type="hidden" id="parseRepuesta" value="">
+                                <input type="hidden" id="parseRepuesta" value="">
 
                                 <input type="hidden" id="bultosIngreso" value="" />
 

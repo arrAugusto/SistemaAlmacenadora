@@ -89,16 +89,14 @@
 
 
     </head>
-
     <body class="hold-transition login-page">
         <div class="login-box">
-            <div class="login-logo">
-
-                <img src="vistas/img/plantilla/ai.png" class="img-responsive" style="padding: 10px 200px 0px 100px">
+            <div class="login-logo" style="background-color: #5f5f5f; padding: 15px 0px 15px 0px; border-radius: 5px; opacity: 0.87;">
+                <img src="vistas/img/plantilla/ai.png" class="img-responsive" style="padding: 0px 200px 0px 100px">
             </div>
             <!-- /.login-logo -->
             <div>
-                  <div class="login-box-body" style="background-color:rgba(1,21,14,0.8); color: white;">
+                  <div class="login-box-body" style="background-color: rgba(19, 178, 255, 0.85); color: white; border-radius: 5px; opacity: 0.9;">
                     
                     <p class="login-box-msg"><b>Ingresa Tu usuario y contraseña</b></p>
 
@@ -125,7 +123,7 @@
                         <div class="row">
                             <!-- /.col -->
                             <div class="col-12">
-                                <button type="submit" class="btn btn-block btn-primary">Aceptar</button>
+                                <button type="submit" class="btn btn-block btn-outline-light" style="border-style: solid; border-color: #FFFFFF;"><i class="fa fa-sign-in"></i> Iniciar sesión</button>
                             </div>
     </div>
                 
@@ -137,9 +135,10 @@
                     </form>
 
                     </br>
-                    <div class="col-8">
-
-                        <a href="#myModal" data-dismiss="modal" data-toggle="modal">Olvide mi contraseña</a>
+                    <div class="col-12">
+                        <center>
+                        <a href="#myModal" data-dismiss="modal" data-toggle="modal" style="color: #FFFFFF; text-decoration-line: underline;">Olvide mi contraseña</a>
+                        </center>
                     </div>
                 </div>
 

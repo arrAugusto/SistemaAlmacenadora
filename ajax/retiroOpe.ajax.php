@@ -14,7 +14,8 @@ require_once "../modelo/ingresosPendientes.modelo.php";
 //TOMAR OBJETOS DE POSICIONES Y METROS RETIROS DE BODEGA
 require_once "../controlador/retiroBod.controlador.php";
 require_once "../modelo/retiroBod.modelo.php";
-
+//REQUIRE CREATOR QR 
+require_once "../extensiones/qrCodeCreate/vendor/autoload.php";
 //SESSION DE USUARIO PARA MANEJAR BITACORA
 require_once "../controlador/usuario.controlador.php";
 //PASE DE SALIDA PARA PODER ACCEDER A METODOS DE ESTE FICHERO

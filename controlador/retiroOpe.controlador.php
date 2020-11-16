@@ -1,5 +1,7 @@
 <?php
 
+use Endroid\QrCode\QrCode;
+
 class ControladorRetiroOpe {
 
     public static function ctrMostrarNitRetiro($txtNitSalida) {
@@ -28,7 +30,7 @@ class ControladorRetiroOpe {
             }
         }
         $respuestaGuardar = ModeloRetiroOpe::ctrGuardarDataRet($datos);
-
+        $arrayDataImagen = json_encode(array("retiroCod"=>$respuestaGuardar, "numeroPoliza"=>$datos['polizaRetiroVeh']));        
         $estado = 0;
         if ($respuestaGuardar >= 1) {
 
@@ -41,6 +43,15 @@ class ControladorRetiroOpe {
                     $estado = 1;
                 }
             }
+                $direccion = "../extensiones/imagenesQRCreadasRet/";
+                if (!file_exists($direccion)) {
+                    mkdir($direccion);
+                }
+                $codigoQR = new QrCode($arrayDataImagen, 'H', 5, 1);
+                // La ruta en donde se guardará el código
+                $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet".$respuestaGuardar.".png");
+                // Escribir archivo,
+                $codigoQR->writeFile($nombreArchivoParaGuardar);       
             return array("tipoResp" => true, "idRet" => $respuestaGuardar);
         }
 
@@ -77,6 +88,7 @@ class ControladorRetiroOpe {
         if ($estadoTransaRebaja == count($arrayDetalles)) {
             $idIngreso = $datos["hiddeniddeingreso"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
+            $arrayDataImagen = json_encode(array("retiroCod"=>$respuesta["valIdRetiro"], "numeroPoliza"=>$datos['polizaRetiro']));
             if ($respuesta != "SD") {
                 if ($datos['jsonStringDR'] != "SD") {
                     $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
@@ -93,6 +105,16 @@ class ControladorRetiroOpe {
                 } else {
                     $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
                 }
+                $direccion = "../extensiones/imagenesQRCreadasRet/";
+                if (!file_exists($direccion)) {
+                    mkdir($direccion);
+                }
+                $codigoQR = new QrCode($arrayDataImagen, 'H', 5, 1);
+                // La ruta en donde se guardará el código
+                $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet".$respuesta["valIdRetiro"].".png");
+                // Escribir archivo,
+                $codigoQR->writeFile($nombreArchivoParaGuardar);    
+                
                 if ($respuestaActStockGen[0]["resp"] == 1) {
                     return $respuesta;
                 } else {
