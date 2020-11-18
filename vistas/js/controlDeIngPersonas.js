@@ -26,9 +26,34 @@ $(document).on("click", "#btnCapturarQRCtrPersonal", async function () {
                 text: 'Revise los datos del formulario',
                 confirmButtonText: 'Ok!'
             })
+            console.log(barcodeLic);
             console.log(barcodeLic.length);
+
             if (barcodeLic.length >= 85 && barcodeLic.length <= 120) {
-                alert("dpi");
+                var cantidadLlaves = 0;
+                for (var i = 0; i < barcodeLic.length; i++) {
+                    if (barcodeLic.charAt(i) == ";") {
+                        var cantidadLlaves = cantidadLlaves + 1;
+                    }
+                }
+                var codeLic = barcodeLic.trim();
+                var sin_salto = codeLic.split("\n").join("");
+                var cadenaArray = sin_salto.split(";");
+                console.log(cadenaArray);
+                var dpi = cadenaArray[0];
+                var dpi = dpi.trim();
+                var dpiSub = dpi.substring(5, 14);
+                var dpiSub1 = dpi.substring(15, 19);
+                var licPilotoCodbar = dpiSub+dpiSub1;
+                console.log(licPilotoCodbar);
+                var nombre = cadenaArray[7];
+                var apellido = cadenaArray[5];
+                var upperStrNombre = nombre.toUpperCase().replace(/\d/g, "");
+                
+                var upperStrApellido = apellido.toUpperCase().replace(/\d/g, "");
+                var nombrePiloto = upperStrNombre+' '+upperStrApellido;
+                $("#datosDeVisitantes").append('<div class="input-group-prepend mt-4"><input type="text" class="form-control classNVistas" id="' + licPilotoCodbar + '" value="' + licPilotoCodbar + '" /><input type="text" class="form-control" id="nombre' + licPilotoCodbar + '" value="' + nombrePiloto + '" /></div>');
+                
             }
             if (barcodeLic.length >= 121) {
 
@@ -43,6 +68,8 @@ $(document).on("click", "#btnCapturarQRCtrPersonal", async function () {
                             var cantidadLlaves = cantidadLlaves + 1;
                         }
                     }
+
+
                     console.log(barcodeLic);
                     if (cantidadLlaves == 10) {
                         var codeLic = barcodeLic.trim();
@@ -84,9 +111,9 @@ $(document).on("click", "#btnCapturarQRCtrPersonal", async function () {
     })
 })
 $(document).on("click", ".gdVisitaExterna", async function () {
-    var procedencia = document.getElementById("procedencia");
-    var destino = document.getElementById("destino");
-    var placa = document.getElementById("placa");
+    var procedencia = document.getElementById("procedencia").value;
+    var destino = document.getElementById("destino").value;
+    var placa = document.getElementById("placa").value;
 
     var datosVisitantes = Array.from(document.querySelectorAll(".classNVistas"));
     listaVistantes = [];
@@ -120,11 +147,136 @@ $(document).on("click", ".gdVisitaExterna", async function () {
         if (result.value) {
             var barcodeGafete = result.value[0];
             var respGDVisita = ajaxGuardarVisita(procedencia, destino, placa, listaVistantes, barcodeGafete);
+            if (respGDVisita == "Exito") {
+
+                Swal.fire({
+                    title: 'Visita creada con éxito!',
+                    text: 'Entrega el gafete No. ' + barcodeGafete,
+                    type: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        location.reload();
+                    }
+                })
+            }
 
         }
     })
 })
+$(document).on("click", "#btnCapturarQRCtrPersonalDPI", async function () {
+    $(".swal2-input").focus();
+    Swal.mixin({
+        input: 'text',
+        confirmButtonText: 'Siguiente &rarr;',
+        progressSteps: ['1']
+    }).queue([
+        {
+            title: 'Datos DPI',
+            text: 'Escaneé el codigo marcado con color rojo del dpi',
+            imageUrl: 'vistas/img/plantilla/renapDPI.png',
+            imageWidth: 400,
+            imageHeight: 200,
+            allowOutsideClick: false,
+            imageAlt: 'Custom image',
 
+        }
+    ]).then(async function (result) {
+        if (result.value) {
+            var barcodeLic = result.value[0];
+            var answers = JSON.stringify(result.value);
+            Swal.fire({
+                title: 'Codigos Escaneados!',
+                allowOutsideClick: false,
+                type: 'success',
+                text: 'Revise los datos del formulario',
+                confirmButtonText: 'Ok!'
+            })
+            console.log(barcodeLic);
+            console.log(barcodeLic.length);
+
+            if (barcodeLic.length >= 85 && barcodeLic.length <= 120) {
+                var cantidadLlaves = 0;
+                for (var i = 0; i < barcodeLic.length; i++) {
+                    if (barcodeLic.charAt(i) == ";") {
+                        var cantidadLlaves = cantidadLlaves + 1;
+                    }
+                }
+                var codeLic = barcodeLic.trim();
+                var sin_salto = codeLic.split("\n").join("");
+                var cadenaArray = sin_salto.split(";");
+                console.log(cadenaArray);
+                var dpi = cadenaArray[0];
+                var dpi = dpi.trim();
+                var dpiSub = dpi.substring(5, 14);
+                var dpiSub1 = dpi.substring(15, 19);
+                var licPilotoCodbar = dpiSub+dpiSub1;
+                console.log(licPilotoCodbar);
+                var nombre = cadenaArray[7];
+                var apellido = cadenaArray[5];
+                var upperStrNombre = nombre.toUpperCase().replace(/\d/g, "");
+                
+                var upperStrApellido = apellido.toUpperCase().replace(/\d/g, "");
+                var nombrePiloto = upperStrNombre+' '+upperStrApellido;
+                $("#datosDeVisitantes").append('<div class="input-group-prepend mt-4"><input type="text" class="form-control classNVistas" id="' + licPilotoCodbar + '" value="' + licPilotoCodbar + '" /><input type="text" class="form-control" id="nombre' + licPilotoCodbar + '" value="' + nombrePiloto + '" /></div>');
+                
+            }
+            if (barcodeLic.length >= 121) {
+
+                alert("licencia");
+
+                if (barcodeLic.length > 0) {
+
+
+                    var cantidadLlaves = 0;
+                    for (var i = 0; i < barcodeLic.length; i++) {
+                        if (barcodeLic.charAt(i) == "]") {
+                            var cantidadLlaves = cantidadLlaves + 1;
+                        }
+                    }
+
+
+                    console.log(barcodeLic);
+                    if (cantidadLlaves == 10) {
+                        var codeLic = barcodeLic.trim();
+                        var sin_salto = codeLic.split("\n").join("");
+                        var cadenaArray = sin_salto.split("]");
+                        console.log(cadenaArray);
+                        var licPilotoCodbar = cadenaArray[8];
+                        var prNombre = cadenaArray[2];
+                        var sgNombre = cadenaArray[3];
+                        var prApellido = cadenaArray[4];
+                        var sgApellido = cadenaArray[5];
+                        var nombrePiloto = prNombre + ' ' + sgNombre + ' ' + prApellido + ' ' + sgApellido;
+                    }
+                    if (cantidadLlaves == 9) {
+                        var codeLic = barcodeLic.trim();
+                        var sin_salto = codeLic.split("\n").join("");
+                        var cadenaArray = sin_salto.split("]");
+                        console.log(cadenaArray);
+                        var licPilotoCodbar = cadenaArray[8];
+                        var prNombre = cadenaArray[2];
+                        var prApellido = cadenaArray[3];
+                        var sgApellido = cadenaArray[4];
+                        var nombrePiloto = prNombre + ' ' + prApellido + ' ' + sgApellido;
+                    }
+                    if (cantidadLlaves == 8) {
+                        var codeLic = barcodeLic.trim();
+                        var sin_salto = codeLic.split("\n").join("");
+                        var cadenaArray = sin_salto.split("]");
+                        var licPilotoCodbar = cadenaArray[8];
+                        var prNombre = cadenaArray[2];
+                        var sgApellido = cadenaArray[3];
+                        var nombrePiloto = prNombre + ' ' + sgApellido;
+                    }
+                    var nombrePiloto = nombrePiloto.toLocaleUpperCase();
+                    $("#datosDeVisitantes").append('<div class="input-group-prepend mt-4"><input type="text" class="form-control classNVistas" id="' + licPilotoCodbar + '" value="' + licPilotoCodbar + '" /><input type="text" class="form-control" id="nombre' + licPilotoCodbar + '" value="' + nombrePiloto + '" /></div>');
+                }
+            }
+        }
+    })
+})
 
 function ajaxGuardarVisita(procedencia, destino, placa, listaVistantes, barcodeGafete) {
     let respFunc;
@@ -136,7 +288,7 @@ function ajaxGuardarVisita(procedencia, destino, placa, listaVistantes, barcodeG
     datos.append("gafete", barcodeGafete);
     $.ajax({
         async: false,
-        url: "ajax/operacionesBIngreso.ajax.php",
+        url: "ajax/controlDeIngPersonas.ajax.php",
         method: "POST",
         data: datos,
         cache: false,

@@ -21,16 +21,15 @@
                     <div class="row">
                         <div class="col-6 mt-5">                       
                             <div class="col-12 mt-5">
-                                <button type="button" id="btnCapturarQRCtrPersonal" class="btn btn-secondary btnCapturarQRPol btn-block" style="font-size:35px">ESCANEAR PÓLIZA&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:68px;'></i></button>
+                                <button type="button" id="btnCapturarQRCtrPersonal" class="btn btn-secondary btnCapturarQRPol btn-block" style="font-size:35px">ESCANEAR LICENCIA&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:68px;'></i></button>
                             </div>
                         </div>
 
-                        <div class="col-6 mt-5">
-
-                            <div class="col-12 mt-5 mt-4">
-                                <button type="button" id="manifiestosSat" class="btn btn-success btn-block" data-toggle="modal" data-target="#nitPersonas" style="font-size:35px">INGRESO DE PERSONAS&nbsp;&nbsp;&nbsp;<i class='fa fa-external-link-square' style='font-size:68px;'></i></button>
+                        <div class="col-6 mt-5">                       
+                            <div class="col-12 mt-5">
+                                <button type="button" id="btnCapturarQRCtrPersonalDPI" class="btn btn-secondary btnCapturarQRPol btn-block" style="font-size:35px">ESCANEAR DPI&nbsp;&nbsp;&nbsp;<i class='fa fa-barcode' style='font-size:68px;'></i></button>
                             </div>
-                        </div>    
+                        </div>
                         <div class="col-4 mt-5 mt-4">
                             <input type="text" class="form-control" placeholder="Procedencía" id="procedencia" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                         </div>

@@ -42,7 +42,7 @@ require_once "controlador/historialCalculos.controlador.php";
 require_once "controlador/contabilidadRetiro.controlador.php";
 require_once "controlador/nuevasEmpresas.controlador.php";
 require_once "controlador/sldDiarioContabilidad.controlador.php";
-
+require_once "controlador/controlDeIngPersonas.controlador.php";
 
 require_once "modelo/plantilla.modelo.php";
 require_once "modelo/cartera.modelo.php";
@@ -83,7 +83,7 @@ require_once "modelo/historialCalculos.modelo.php";
 require_once "modelo/contabilidadRetiro.modelo.php";
 require_once "modelo/nuevasEmpresas.modelo.php";
 require_once "modelo/sldDiarioContabilidad.modelo.php";
-
+require_once "modelo/controlDeIngPersonas.modelo.php";
 
 require_once "modelo/logicaDeCalculos.php";
 

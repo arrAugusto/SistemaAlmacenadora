@@ -88,6 +88,7 @@ class ControladorRetiroOpe {
         if ($estadoTransaRebaja == count($arrayDetalles)) {
             $idIngreso = $datos["hiddeniddeingreso"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
+            return $respuesta;
             $arrayDataImagen = json_encode(array("retiroCod"=>$respuesta["valIdRetiro"], "numeroPoliza"=>$datos['polizaRetiro']));
             if ($respuesta != "SD") {
                 if ($datos['jsonStringDR'] != "SD") {
