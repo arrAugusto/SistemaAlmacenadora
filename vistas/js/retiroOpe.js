@@ -677,6 +677,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
         var estado = document.getElementById("hiddenDR").value;
     }
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
+    console.log(tipoIng);
     var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
     var respSaldos = await funcRevSaldosAF(hiddeniddeingreso);
     console.log(respSaldos);

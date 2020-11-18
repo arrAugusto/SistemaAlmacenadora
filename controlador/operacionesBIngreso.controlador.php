@@ -144,7 +144,7 @@ class ControladorOpB {
                                 return $respuesta["dataTxt"][0];
                             }
                         }
-                        return $respuestaCltIndividual;
+                        return 149;
                     } else {
                         return $respuesta;
                     }

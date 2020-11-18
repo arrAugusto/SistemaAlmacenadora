@@ -12170,7 +12170,6 @@ label:not(.form-check-label):not(.custom-file-label) {
 .login-page,
 .register-page{
 height: 100vh;
-background: url(../../img/plantilla/AtitlanAi.jpg);
 background-size: cover;
 overflow: hidden;
 

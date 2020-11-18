@@ -18,18 +18,14 @@ class ControladorGeneracionDeContabilidad {
 
     public static function ctrMostrarSaldos($estado) {
         $valor = $_SESSION["idDeBodega"];
-        
         $respuesta = ModeloContabilidadRegistrada::mdlPolizasReportadasDia($valor, $estado);
-        if ($respuesta !== null) {
+        if ($respuesta != null) {
             if ($respuesta == "SD") {
                 
             } else {
 
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
-
-
-
                     if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
                         if ($key % 2 != 0) {
                             $spanBodega = '<span class="right badge badge-success">Bodega_' . ($value["numeroIdentidad"]) . '</span>';

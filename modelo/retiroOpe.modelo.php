@@ -140,7 +140,6 @@ class ModeloRetiroOpe {
             &$datos['usuarioOp'],
             &$tipo
         );
-
         $sqlDet = "EXECUTE spInsRetiro  ?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?";
         $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
         if (sqlsrv_execute($stmt) == true) {

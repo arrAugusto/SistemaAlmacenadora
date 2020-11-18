@@ -22,15 +22,19 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-4 mt-4">
+                        <div class="col-3 mt-4">
                             <button type="button" class="btn btn-success btn-lg btn-block btnDescargaExcelIngRep"  estadoRep="4">DESCARGA EXCEL DE INGRESOS <i class="fa fa-file-excel-o"></i></button>
                         </div>   
+                        
+                        <div class="col-3 mt-4">
+                            <button type="button" class="btn btn-outline-info btn-lg btn-block btnCargaMasiva"  estadoRep="4">REPORTAR PÓLIZAS <i class="fa fa-level-up"></i></button>
+                        </div>   
 
-                        <div class="col-4 mt-4">
+                        <div class="col-3 mt-4">
                             <button type="button" class="btn btn-outline-primary btn-lg  btn-block bntReportarLote">Reportar Lote Seleccionado</button>
                         </div>
 
-                        <div class="col-4 mt-4">
+                        <div class="col-3 mt-4">
                             <label>Fecha Contabilidad :</label>
                             <div class="input-group input-group">
                                 <input type="text" id="dateTime" class="form-control">
@@ -74,10 +78,10 @@
                                         $fechaFinal = null;
                                     }
                                 
-                                        $estado = 4;
+                                    $estado = 4;
                                 
                                     $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarSaldos($estado);
-                                    if ($respuesta !== null) {
+                                    if ($respuesta != null) {
                                         
                                     }
                                     ?>

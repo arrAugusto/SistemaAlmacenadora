@@ -1,4 +1,4 @@
-    $(document).on("click", ".btnContabilizar", async function () {
+$(document).on("click", ".btnContabilizar", async function () {
     var estado = $(".btnMatenerFecha").attr("estado");
     if (estado == 0) {
         Swal.fire(
@@ -404,3 +404,6 @@ function JSONToCSVDescargaExcel(JSONData, ReportTitle, nombreReporte, nombreFile
     document.body.removeChild(link);
 }
 
+$(document).on("click", ".btnCargaMasiva", async function () {
+    alert("hola mundo");
+});
