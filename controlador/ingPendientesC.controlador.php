@@ -145,5 +145,10 @@ class ControladorGeneracionDeContabilidad {
         return $respuesta;
         
     }
-
+    public static function ctrMostrarIdIngMasiva($idIngMasivo){
+        $sp = "spIdPoliza";
+        $tipo = 0;
+        $repContabilidad = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $idIngMasivo, $tipo);
+        return $repContabilidad;
+    }
 }

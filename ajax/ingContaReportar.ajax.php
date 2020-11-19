@@ -29,10 +29,18 @@ class AjaxContabilidadFiscalRegistro {
 
     public function ajaxDescargaRepExcel() {
         $estadoDescarga = $this->descagarReporte;
-         session_start();
+        session_start();
         $idBod = $_SESSION["idDeBodega"];
         $respuesta = ControladorGeneracionDeContabilidad::ctrDescargaRepExcel($idBod, $estadoDescarga);
-        echo json_encode($respuesta);        
+        echo json_encode($respuesta);
+    }
+
+    public $idIngMasiva;
+
+    public function ajaxMostrarIdIngMasiva() {
+        $idIngMasivo = $this->idIngMasivo;
+        $respuesta = ControladorGeneracionDeContabilidad::ctrMostrarIdIngMasiva($idIngMasivo);
+        echo json_encode($respuesta);
     }
 
 }
@@ -53,4 +61,10 @@ if (isset($_POST["descagarReporte"])) {
     $descargaRepIng = new AjaxContabilidadFiscalRegistro();
     $descargaRepIng->descagarReporte = $_POST["descagarReporte"];
     $descargaRepIng->ajaxDescargaRepExcel();
+}
+
+if (isset($_POST["idIngMasivo"])) {
+    $idIngMasiva = new AjaxContabilidadFiscalRegistro();
+    $idIngMasiva->idIngMasivo = $_POST["idIngMasivo"];
+    $idIngMasiva->ajaxMostrarIdIngMasiva();
 }

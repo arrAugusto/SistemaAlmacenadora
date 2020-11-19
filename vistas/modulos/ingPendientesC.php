@@ -27,7 +27,7 @@
                         </div>   
                         
                         <div class="col-3 mt-4">
-                            <button type="button" class="btn btn-outline-info btn-lg btn-block btnCargaMasiva"  estadoRep="4">REPORTAR PÓLIZAS <i class="fa fa-level-up"></i></button>
+                            <button type="button" class="btn btn-outline-info btn-lg btn-block btnCargaMasiva" id="btnMasivo" estadoRep="4">REPORTAR PÓLIZAS <i class="fa fa-level-up"></i></button>
                         </div>   
 
                         <div class="col-3 mt-4">

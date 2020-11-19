@@ -46,8 +46,10 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
             var saldo = new Intl.NumberFormat("en-GT").format(saldoInicial);
 
 
+
         }
-        listaCif.push([numero, fechaMov, debe, haber, saldo]);
+        var accion = '<button type="button" class="btn btn-outline-danger btnVerPoliza btn-sm" fechareporte="' + fechaMov + '" entidad="1">Pól<i class="fa fa-file-pdf-o"></i></button>';
+        listaCif.push([numero, fechaMov, debe, haber, saldo, accion]);
     }
 
 
@@ -87,6 +89,8 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
                 title: "Haber"
             }, {
                 title: "Saldo"
+            }, {
+                title: "Acciones"
             }]
     });
 
@@ -131,7 +135,9 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
 
 
         }
-        listaImpts.push([numero, fechaMov, debe, haber, saldo]);
+        var accion = '<button type="button" class="btn btn-outline-danger btnVerPoliza btn-sm" fechareporte="' + fechaMov + '" entidad="1">Pól<i class="fa fa-file-pdf-o"></i></button>';
+
+        listaImpts.push([numero, fechaMov, debe, haber, saldo, accion]);
     }
     $('#tableSaldosImpts').DataTable({
         "language": {
@@ -169,6 +175,8 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
                 title: "Haber"
             }, {
                 title: "Saldo"
+            }, {
+                title: "Acciones"
             }]
     });
 
@@ -760,7 +768,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                         </tr>
                                     </thead>
                 <tbody id="tableAjustePol">
-
 `;
                             var respsCuentas = await funcionHistorial(nomVar, tipoCuenta);
                             var tipo = 0;
@@ -901,7 +908,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right"></h8></td>
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right">` + montoParse2 + `</h8></td>
                                 </tr>                        
-
                                 <tr>
                                     <th scope="row"></th>
                                     <td>    ` + conceptoRegularizacion + `</td>
@@ -955,7 +961,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right">` + montoParse1 + `</h8></td>
                                     <td></td>
                                 </tr>
-
 `;
                                 }
 
@@ -977,7 +982,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left"></h8><h8 class="float-right">` + montoParse1 + `</h8></td>
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right"></h8></td>
                                 </tr>
-
 `;
                                 }
 
@@ -1039,7 +1043,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left"></h8><h8 class="float-right"></h8></td>
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right">` + montoParse1 + `</h8></td>
                                 </tr>
-
 `;
                                 }
                                 if (estadoRetCif == 1) {
@@ -1057,7 +1060,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left"></h8><h8 class="float-right"></h8></td>
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right">` + montoParse1 + `</h8></td>
                                 </tr>
-
 `;
 
                                 }
@@ -1080,7 +1082,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                     <td><h8 class="float-left"></h8><h8 class="float-right"></h8></td>
                                     <td><h8 class="float-left">Q.</h8><h8 class="float-right">` + montoParse2 + `</h8></td>
                                 </tr>
-
 `;
                                 }
 
@@ -1114,7 +1115,6 @@ $(document).on("click", ".btnGenerarPolizaConta", async function () {
                                 </tr>     
                                 </tbody>
                                 </table>
-
 `;
 
                                 // SI ES UNA POLIZA DE INGRESO EN AJUSTE FIN DE FUNCION

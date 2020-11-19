@@ -152,34 +152,32 @@ EOF;
                 $totalPoliza = floatval($sumaPoliza[0]["sumaMonto"]);
                 $totalPoliza = number_format($totalPoliza, 2);
                 $bloque1 = <<<EOF
-        <table style="padding:3px; border: none; padding: none; margin: none;border: none;">
-            <tr>
-                <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-left: 1px solid #030505;"></td>
-                <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;">$explicacion</td>
-                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><strong>$totalPoliza</strong></td>
-                <td style="width:90px; text-align:right; font-size:9px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><strong>$totalPoliza</strong>&nbsp;&nbsp;&nbsp;</td>
-            </tr>
-            <tr>
-                <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></td>
-                <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro';"></td>
-                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro';"></td>
-                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;"></td>
-            </tr>    
-            <tr>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; ">CUENTA</th>
-                <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">NOMBRE DE CUENTA</th>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">POLIZA NO.</th>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505; ">$salto</th>
-            </tr>     
-            <tr>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; "></th>
-                <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
-                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;"></th>
-            </tr>     
-
-   </table>
-
+<table style="padding:3px; border: none; padding: none; margin: none;border: none;">
+    <tr>
+        <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-left: 1px solid #030505;"></td>
+        <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;">$explicacion</td>
+        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><div style="border-style: double; border-width: 1px; border-bottom: double;">$totalPoliza</div></td>
+        <td style="width:90px; text-align:right; font-size:9px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><div style="border-style: double; border-width: 1px;">$totalPoliza</div>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    <tr>
+        <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></td>
+        <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro';"></td>
+        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro';"></td>
+        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;"></td>
+    </tr>    
+    <tr>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; ">CUENTA</th>
+        <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">NOMBRE DE CUENTA</th>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">POLIZA NO.</th>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505; ">$salto</th>
+    </tr>     
+    <tr>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; "></th>
+        <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
+        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;"></th>
+    </tr>     
+</table>
 EOF;
                 $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
             } else if (empty($salto)) {

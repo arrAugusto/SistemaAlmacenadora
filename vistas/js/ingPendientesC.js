@@ -9,7 +9,6 @@ $(document).on("click", ".btnContabilizar", async function () {
         return false;
     } else {
         var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
-
         Swal.fire({
             title: '¿Desea Contabilizar?',
             text: "El ingreso Contabilizado, se reportara con fecha, " + fechaCongeladaConta,
@@ -73,6 +72,8 @@ function contabilizar(buttonid, fechaCongeladaConta) {
 
 
 $(document).on("click", ".btnSelectMultiple", async function () {
+    document.getElementById("btnMasivo").disabled = true;
+
     lista = [];
     // Guardar listaString en el localstorage
     var data = localStorage.getItem("listaString", listaString);
@@ -98,7 +99,40 @@ $(document).on("click", ".btnSelectMultiple", async function () {
 
     // Guardar listaString en el localstorage
     localStorage.setItem("listaString", listaString);
+    listaLocal = [];
+    // obtener listaString en el localstorage
+    var data = localStorage.getItem("listaString");
+    var jsonData = JSON.parse(data);
+    console.log(jsonData.length);
+    for (var i = 0; i < jsonData.length; i++) {
+        var idIng = jsonData[i];
+        var idIng = Number.parseInt(idIng);
+        if (i == 0) {
+            listaLocal.push(idIng);
+        }
+        if (i > 0) {
+            console.log(listaLocal.length);
+            var contador = 0;
+            for (var j = 0; j < listaLocal.length; j++) {
+                var idIngJ = Number.parseInt(listaLocal[j]);
 
+                if (idIng == idIngJ) {
+                    var contador = contador + 1;
+                }
+            }
+            if (contador == 0) {
+                listaLocal.push(idIng);
+            }
+        }
+    }
+    var listaLocal = JSON.stringify(listaLocal);
+    localStorage.removeItem("listaString");
+    // Guardar listaString en el localstorage
+    localStorage.setItem("listaString", listaLocal);
+    // obtener listaString en el localstorage
+    var data = localStorage.getItem("listaString");
+    var jsonData = JSON.parse(data);
+    console.log(jsonData);
 
     var estado = $(this).attr("estado");
     if (estado == 0) {
@@ -405,5 +439,80 @@ function JSONToCSVDescargaExcel(JSONData, ReportTitle, nombreReporte, nombreFile
 }
 
 $(document).on("click", ".btnCargaMasiva", async function () {
-    alert("hola mundo");
+    var data = localStorage.getItem("listaString");
+    console.log(data);
+    if (data) {
+        listaLocal = [];
+        // obtener listaString en el localstorage
+        var jsonData = JSON.parse(data);
+        console.log(jsonData);
+        for (var i = 0; i < jsonData.length; i++) {
+            var idIng = jsonData[i];
+            var idIng = Number.parseInt(idIng);
+            if (i == 0) {
+                listaLocal.push(idIng);
+            }
+            if (i > 0) {
+                var contador = 0;
+                for (var j = 0; j < listaLocal.length; j++) {
+                    var idIngJ = Number.parseInt(listaLocal[j]);
+                    if (idIng == idIngJ) {
+                        var contador = contador + 1;
+                    }
+                }
+                if (contador == 0) {
+                    listaLocal.push(idIng);
+                }
+            }
+        }
+        var listaLocal = JSON.stringify(listaLocal);
+        localStorage.removeItem("listaString");
+        // Guardar listaString en el localstorage
+        localStorage.setItem("listaString", listaLocal);
+        // obtener listaString en el localstorage
+        var data = localStorage.getItem("listaString");
+        var jsonData = JSON.parse(data);
+    } else {
+        $(this).attr("disabled", "disabled");
+    }
+    const {value: text} = await Swal.fire({
+        input: 'textarea',
+        inputLabel: 'Message',
+        inputPlaceholder: 'Ingrese las polizas que quiere reportar',
+        inputAttributes: {
+            'aria-label': 'Type your message here'
+        },
+        showCancelButton: true
+    })
+//spIdPoliza
+    if (text) {
+        var polizas = text.trim();
+        var sin_salto = polizas.split("\n").join("");
+        var cadenaArray = sin_salto.split("|");
+        lista = [];
+        for (var i = 0; i < cadenaArray.length; i++) {
+            var nomVar = "idIngMasivo";
+            var numeroPoliza = cadenaArray[i];
+            
+            var respuesta = await contabilizarReportes(nomVar, numeroPoliza);
+
+            // Guardar listaString en el localstorage
+            var data = localStorage.getItem("listaString");
+
+            if (data) {
+                var data = JSON.parse(data);
+                lista.push(data);
+            } else {
+                var idIng = respuesta[0].id;
+                lista.push(idIng);
+
+                var listaString = JSON.stringify(lista);
+            }
+        }
+        console.log(listaString);
+        // Guardar listaString en el localstorage
+        localStorage.setItem("listaString", listaString);
+
+    }
 });
+
