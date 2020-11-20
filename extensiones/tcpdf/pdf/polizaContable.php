@@ -71,9 +71,7 @@ EOF;
                 <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-top: 1px solid #030505;"></th>
                 <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-top: 1px solid #030505; border-right: 1px solid #030505;"></th>
             </tr>
-
    </table>
-
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 //---------------------------------------------------------------------------------------------------
@@ -85,7 +83,6 @@ EOF;
                 $bloque1 = <<<EOF
         
         <table style="padding:3px; border: none; padding: none; margin: none;border: none;">
-
             <tr>
                 <th style="width:100px; text-align:center; font-size:9px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;">CUENTA</th>
                 <th style="width:262px; text-align:center; font-size:9px; font-family: 'Source Sans Pro';">NOMBRE DE CUENTA</th>
@@ -93,11 +90,12 @@ EOF;
                 <th style="width:100px; text-align:center; font-size:9px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;">$numPoliza</th>
             </tr>     
             <tr>
-                   <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; "></th>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></th>
                 <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
                 <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
                 <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;"></th>
             </tr> 
+                        
         </table>
 EOF;
                 $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
@@ -122,7 +120,6 @@ EOF;
                 <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;"></td>
             </tr>
    </table>
-
 EOF;
                 $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
             } else {
@@ -136,7 +133,6 @@ EOF;
                 <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;">$monto&nbsp;&nbsp;&nbsp;</td>
             </tr>
    </table>
-
 EOF;
                 $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
             }
@@ -151,59 +147,135 @@ EOF;
                 $sumaPoliza = ControladorGenerarContabilidad::ctrTotalPolizaContable($numeroRealPol);
                 $totalPoliza = floatval($sumaPoliza[0]["sumaMonto"]);
                 $totalPoliza = number_format($totalPoliza, 2);
-                $bloque1 = <<<EOF
-<table style="padding:3px; border: none; padding: none; margin: none;border: none;">
-    <tr>
-        <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-left: 1px solid #030505;"></td>
-        <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;">$explicacion</td>
-        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><div style="border-style: double; border-width: 1px; border-bottom: double;">$totalPoliza</div></td>
-        <td style="width:90px; text-align:right; font-size:9px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><div style="border-style: double; border-width: 1px;">$totalPoliza</div>&nbsp;&nbsp;&nbsp;</td>
-    </tr>
-    <tr>
-        <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></td>
-        <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro';"></td>
-        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro';"></td>
-        <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;"></td>
-    </tr>    
-    <tr>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; ">CUENTA</th>
-        <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">NOMBRE DE CUENTA</th>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; ">POLIZA NO.</th>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505; ">$salto</th>
-    </tr>     
-    <tr>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505; "></th>
-        <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
-        <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;"></th>
-    </tr>     
-</table>
-EOF;
-                $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
-            } else if (empty($salto)) {
-                                $sumaPoliza = ControladorGenerarContabilidad::ctrTotalPolizaContable($numeroRealPol);
-                $totalPoliza = floatval($sumaPoliza[0]["sumaMonto"]);
-                $totalPoliza = number_format($totalPoliza, 2);
 
-                $bloque1 = <<<EOF
+
+                $html = <<<EOF
+<!-- EXAMPLE OF CSS STYLE -->
+<style>
+    div.test {
+
+        font-size: 1.5pt;
+        
+        border-style: solid solid solid solid;
+        border-width: .2px 0px .2px 0px;
+        border-color: black white black white;
+
+    }
+    div.testUpper {
+
+        font-size: 0pt;
+        
+        border-style: solid solid solid solid;
+        border-width: .2px 0px 0px 0px;
+        border-color: black white black white;
+
+    }        
+        
+  
+</style>
+
+
+
+
         <table style="padding:3px; border: none; padding: none; margin: none;border: none;">
             <tr>
                 <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-left: 1px solid #030505;"></td>
                 <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;">$explicacion</td>
-                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><strong>$totalPoliza</strong></td>
-                <td style="width:90px; text-align:right; font-size:9px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><strong>$totalPoliza</strong>&nbsp;&nbsp;&nbsp;</td>
+                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><div class="testUpper">
+        
+        
+</div><strong>$totalPoliza</strong><div class="test">
+        
+        
+</div></td>
+                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><div class="testUpper">
+        
+        
+</div><strong>$totalPoliza</strong>&nbsp;&nbsp;<div class="test">
+        
+        
+</div></td>
             </tr>
- 
+            <tr>
+                <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></td>
+                <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro';"></td>
+                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro';"></td>
+                <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-right: 1px solid #030505;"></td>
+            </tr>    
+            <tr>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;">CUENTA</th>
+                <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';">NOMBRE DE CUENTA</th>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';">POLIZA NO.</th>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;">$salto</th>
+            </tr>     
+            <tr>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro'; border-left: 1px solid #030505;"></th>
+                <th style="width:262px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';"></th>
+                <th style="width:100px; text-align:center; font-size:8px; font-family: 'Source Sans Pro';border-right: 1px solid #030505;"></th>
+            </tr>     
    </table>
 
 EOF;
-                $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
+
+// output the HTML content
+                $pdf->writeHTML($html, false, false, false, false, '');
+            } else if (empty($salto)) {
+                $sumaPoliza = ControladorGenerarContabilidad::ctrTotalPolizaContable($numeroRealPol);
+                $totalPoliza = floatval($sumaPoliza[0]["sumaMonto"]);
+                $totalPoliza = number_format($totalPoliza, 2);
+
+                $html = <<<EOF
+<!-- EXAMPLE OF CSS STYLE -->
+<style>
+    div.test {
+
+        font-size: 1.5pt;
+        
+        border-style: solid solid solid solid;
+        border-width: .2px 0px .2px 0px;
+        border-color: black white black white;
+
+    }
+    div.testUpper {
+
+        font-size: 0pt;
+        
+        border-style: solid solid solid solid;
+        border-width: .2px 0px 0px 0px;
+        border-color: black white black white;
+
+    }        
+        
+  
+</style>
+                        
+        <table style="padding:3px; border: none; padding: none; margin: none; border: none;">
+            <tr>
+            <td style="width:100px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-left: 1px solid #030505;"></td>
+            <td style="width:282px; text-align:left; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;">$explicacion</td>
+            <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505;"><div class="testUpper">
+                        
+            </div><strong>$totalPoliza</strong><div class="test">
+                        
+            </div></td>
+            <td style="width:90px; text-align:right; font-size:8px; font-family: 'Source Sans Pro'; border-bottom: 1px solid #030505; border-right: 1px solid #030505;"><div class="testUpper">
+            
+   </div><strong>$totalPoliza</strong>&nbsp;&nbsp;<div class="test">
+                        
+            </div></td>
+        </tr>
+ 
+   </table>
+EOF;
+
+// output the HTML content
+                $pdf->writeHTML($html, false, false, false, false, '');
             }
         }
 
 //-------------------------------------------------------------------------------------------------------
         $bloque7 = <<<EOF
-
         <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
             <tbody>
                 <tr><br/><br/><br/><br/><br/><br/>
@@ -231,7 +303,3 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 $fechaPoliza->traerDatosIngreso();
 ?>
-
-
-
-

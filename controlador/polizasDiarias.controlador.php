@@ -109,7 +109,6 @@ class ControladorGenerarContabilidad {
         } else {
             return false;
         }
-
         $sp = "spIndentIngresos";
         $respIng = ModeloGenerarContabilidad::mdlMostrarIng($sp);
         if ($respIng != "SD") {
