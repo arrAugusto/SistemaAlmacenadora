@@ -257,10 +257,37 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;
     }
-    public static function ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh){
+
+    public static function ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh) {
         $sp = "spRevChasisVehN";
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idChasEdit, $chasisNewEdt, $tipoLineaVeh, $sp);
         return $revIngRev;
-        
     }
+
+    public static function ctrEditarBltsIng($idIngEditCuadreBlts, $totalBultosPol, $listaDetallesBltsPso) {
+        $bultosPesoArray = json_decode($listaDetallesBltsPso, true);
+        $totalBlts = 0;
+        foreach ($bultosPesoArray as $key => $value) {
+            $bultos = $value[1];
+            $totalBlts = $totalBlts + $bultos;
+        }
+        if ($totalBlts == $totalBultosPol) {
+            foreach ($bultosPesoArray as $keys => $values) {
+                $idDetalle = $values[0];
+                $bultos = $values[1];
+                $peso = $values[2];
+                $sp = "spUpdateBltsDetIng";
+                $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idDetalle, $bultos, $peso, $sp);
+            }
+            if ($revIngRev[0]["resp"] == $totalBultosPol) {
+                $sp = "spUpdateBltsIng";
+                $respBltsINg = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idIngEditCuadreBlts, $totalBultosPol, $sp);
+                
+                return array($respBltsINg, $respuesta);
+            }else{
+                return false;
+            }
+        }
+    }
+
 }

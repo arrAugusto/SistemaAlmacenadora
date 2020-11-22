@@ -352,3 +352,46 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="modalEditarBultosCuadres" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="chasisVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="tipoVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                        <input type="text" class="form-control" id="lineaVeh" placeholder="Chasis" value="" readOnly="true" />
+                    </div>
+
+                </div>
+
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <input type="text" class="form-control is-invalid" id="chasisModificado" value="" />
+                </div>  
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <select class="form-control select2 selectChasisEdit" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
+                        <?php
+                        $respuesta = ControladorHistorialIngresos::ctrMostrarLineasTpVeh();
+                        ?>
+                    </select>
+                </div> 
+                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
+                    <button type="button" class="btn btn-success btn-block btnModificaVehiculo">Hacer modificaciones al chasis</button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

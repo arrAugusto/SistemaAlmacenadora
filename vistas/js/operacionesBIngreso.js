@@ -1394,6 +1394,7 @@ $(document).on("click", ".btnEliminarDetalle", function () {
     });
 });
 $(document).on("click", ".btnEditar", function () {
+
     var estadobuttonedit = $(this).attr("btnEstadoEdicion");
     var llaveConsultaEdit = document.getElementById("hiddenIdentity").value;
     var botonGuardar = $(this).attr("numbtneditar");
@@ -1413,6 +1414,9 @@ $(document).on("click", ".btnEditar", function () {
         $(this).addClass('btn-warning');
         $(this).html('<i class="fa fa-edit"></i>');
         $(this).attr('btnEstadoEdicion', 0);
+            if ($("#divEdiciones").length==0) {
+        
+    
         var textnomEmpresa = document.getElementById(nomEmpresa).value;
         var textbltsEmpresa = document.getElementById(bltsEmpresa).value;
         var textpesoEmpresa = document.getElementById(pesoEmpresa).value;
@@ -1547,6 +1551,7 @@ $(document).on("click", ".btnEditar", function () {
                 console.log(respuesta);
             }
         })
+    }
     }
 })
 $(document).on("click", ".btnConsolidado", function () {

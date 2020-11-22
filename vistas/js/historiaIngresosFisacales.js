@@ -11,7 +11,6 @@ $(document).on("click", ".btnEditOp", function () {
     document.getElementById("duaEditOp").value = '';
     document.getElementById("blEditOp").value = '';
     document.getElementById("polizaEditOp").value = '';
-    document.getElementById("bultosEditOp").value = '';
     document.getElementById("puertoOrigenEditOp").value = '';
     document.getElementById("cantClientesEditOp").value = '';
     document.getElementById("productoEditOp").value = '';
@@ -78,11 +77,9 @@ $(document).on("click", ".btnEditOp", function () {
 
             if (objTipo.objTipoOpcion == 0) {
                 document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button></div>';
-
             }
             if (objTipo.objTipoOpcion == 1) {
-                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button><button type="button" class="btn btn-success btnMasRubrosIngGeneral" data-toggle="modal" data-target="#modalNuevosServicios" idIngresoExtra=' + idIngEditOp + '>Servicio Extra</button></div>';
-
+                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button><button type="button" class="btn btn-success btnMasRubrosIngGeneral" data-toggle="modal" data-target="#modalNuevosServicios" idIngresoExtra=' + idIngEditOp + '>Servicio Extra</button><button type="button" class="btn btn-danger btnEditBultosCuadres" estado="0" idIngEditCuadreBlts=' + idIngEditOp + '>Editar Bultos <i class="fa fa-warning"></i></button></div>';
             }
         }, error: function (respuesta) {
             console.log(respuesta);
@@ -173,7 +170,7 @@ $(document).on("click", ".btnEditOp", function () {
                         var numero = i + 1;
                         var identi = respuesta["dataDet"]["respuestaClientes"][i].identi;
                         var nombreEmpresa = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].nombreEmpresa + '" id=nomEmpresa' + identi + ' readonly="readOnly">';
-                        var cantBultos = '<input type="text" class="form-control"  value="' + respuesta["dataDet"]["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
+                        var cantBultos = '<input type="text" class="form-control txtEditarBltsDet"  value="' + respuesta["dataDet"]["respuestaClientes"][i].cantBultos + '" id=bltsEmpresa' + identi + ' readonly="readOnly">';
                         var cantPeso = '<input type="text" class="form-control" value="' + respuesta["dataDet"]["respuestaClientes"][i].cantPeso + '" id="pesoEmpresa' + identi + '" readonly="readOnly">';
                         if (valEstaod <= 2) {
                             if (respuesta["dataDet"]["respuestaClientes"].length >= 2) {
@@ -369,7 +366,6 @@ $(document).on("click", ".btnCambiarFecha", function () {
 });
 
 $(document).on("click", ".btnEdicionIngreso", function () {
-
     var estado = $(this).attr("estado");
     var idIngresoEditado = $(this).attr("idIngresoEditado");
     if (estado == 0) {
@@ -384,7 +380,6 @@ $(document).on("click", ".btnEdicionIngreso", function () {
         document.getElementById("duaEditOp").readOnly = false;
         document.getElementById("blEditOp").readOnly = false;
         document.getElementById("polizaEditOp").readOnly = false;
-        document.getElementById("bultosEditOp").readOnly = false;
         document.getElementById("puertoOrigenEditOp").readOnly = false;
         document.getElementById("cantClientesEditOp").readOnly = false;
         document.getElementById("productoEditOp").readOnly = false;
@@ -462,7 +457,6 @@ $(document).on("click", ".btnEdicionIngreso", function () {
                             document.getElementById("duaEditOp").readOnly = true;
                             document.getElementById("blEditOp").readOnly = true;
                             document.getElementById("polizaEditOp").readOnly = true;
-                            document.getElementById("bultosEditOp").readOnly = true;
                             document.getElementById("puertoOrigenEditOp").readOnly = true;
                             document.getElementById("cantClientesEditOp").readOnly = true;
                             document.getElementById("productoEditOp").readOnly = true;
@@ -1028,6 +1022,85 @@ function editarChasisVeh(idChasis, chasis, selectChasisEdit) {
     datos.append("idChasEdit", idChasis);
     datos.append("chasisNewEdt", chasis);
     datos.append("tipoLineaVeh", selectChasisEdit);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+$(document).on("click", ".btnEditBultosCuadres", async function () {
+    var idIngEditCuadreBlts = $(this).attr("idIngEditCuadreBlts");
+    var estado = $(this).attr("estado");
+    
+    if (estado == 0) {
+        $(this).removeClass("btn-danger");
+        $(this).addClass("btn-primary");
+        $(this).html("Guardar Bultos <i class='fa fa-save'></i>");
+        $(this).attr("estado", 1);
+        $("#bultosEditOp").attr("readOnly", false);
+    }
+    if (estado == 1) {
+        //DETALLES BULTOS
+        var paragraphs = Array.from(document.querySelectorAll(".btnEditar"));
+        console.log(paragraphs);
+        var totalBultos = document.getElementById("bultosEditOp").value;
+        var totalBultos = Number.parseInt(totalBultos);
+        var totalBultos = totalBultos * 1;
+        var detalleBlts = 0;
+        listaDetalles = [];
+        for (var i = 0; i < paragraphs.length; i++) {
+            var idDetalle = paragraphs[i].attributes[3].value;
+            console.log(idDetalle);
+            var bltsDetalle = document.getElementById("bltsEmpresa" + idDetalle).value;
+            var bltsDetalle = Number.parseInt(bltsDetalle);
+            var bltsDetalle = bltsDetalle * 1;
+            var detalleBlts = detalleBlts + bltsDetalle;
+            var pesoEmpresa = document.getElementById("pesoEmpresa"+idDetalle).value;
+            var pesoEmpresa = Number.parseFloat(pesoEmpresa).toFixed(2);
+            var pesoEmpresa = pesoEmpresa * 1;
+            listaDetalles.push([idDetalle, bltsDetalle, pesoEmpresa]);
+        }
+        var listaDetalles = JSON.stringify(listaDetalles);
+        if (detalleBlts != totalBultos) {
+            Swal.fire(
+                    'Error en edición!',
+                    'Los bultos declarados en el manifiesto no cuadran reivse!',
+                    'error'
+                    )
+        }
+        if (detalleBlts == totalBultos) {
+            alert("edicion exitosa");
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-danger");
+            $(this).html("Editar Bultos <i class='fa fa-warning'></i>");
+            $(this).attr("estado", 0);
+            var resp = await editarBultosIngresos(idIngEditCuadreBlts, totalBultos, listaDetalles);
+        }
+    }
+
+})
+
+function editarBultosIngresos(idIngEditCuadreBlts, totalBultos, listaDetalles) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("idIngEditCuadreBlts", idIngEditCuadreBlts);
+    datos.append("totalBultosPol", totalBultos);
+    datos.append("listaDetallesBltsPso", listaDetalles);
+
     $.ajax({
         async: false,
         url: "ajax/historiaIngresosFisacales.ajax.php",

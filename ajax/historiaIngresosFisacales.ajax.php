@@ -172,7 +172,17 @@ class AjaxAccionesIngresos {
         $chasisNewEdt = $this->chasisNewEdt;
         $tipoLineaVeh = $this->tipoLineaVeh;
         $repuesta = ControladorHistorialIngresos::ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh);
-        echo json_encode($repuesta);        
+        echo json_encode($repuesta);
+    }
+
+    public $editarBltsIng;
+
+    public function ajaxEditarBltsIng() {
+        $idIngEditCuadreBlts = $this->idIngEditCuadreBlts;
+        $totalBultosPol = $this->totalBultosPol;
+        $listaDetallesBltsPso = $this->listaDetallesBltsPso;
+        $repuesta = ControladorHistorialIngresos::ctrEditarBltsIng($idIngEditCuadreBlts, $totalBultosPol, $listaDetallesBltsPso);
+        echo json_encode($repuesta);
     }
 
 }
@@ -289,3 +299,13 @@ if (isset($_POST["idChasEdit"])) {
     $chasisVehEdt->tipoLineaVeh = $_POST["tipoLineaVeh"];
     $chasisVehEdt->ajaxEdicionVehEdit();
 }
+
+if (isset($_POST["idIngEditCuadreBlts"])) {
+    $editarBltsIng = new AjaxAccionesIngresos();
+    $editarBltsIng->idIngEditCuadreBlts = $_POST["idIngEditCuadreBlts"];
+    $editarBltsIng->totalBultosPol = $_POST["totalBultosPol"];
+    $editarBltsIng->listaDetallesBltsPso = $_POST["listaDetallesBltsPso"];
+    $editarBltsIng->ajaxEditarBltsIng();
+}
+
+
