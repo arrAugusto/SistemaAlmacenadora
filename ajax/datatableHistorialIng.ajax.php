@@ -13,19 +13,16 @@ class historialIngresosFiscales {
     public function ajaxMostrarTableIngHistoria() {
         session_start();
         $valor = $_SESSION["idDeBodega"];
-        
-        $sp = "spHistDataExtraIng";
-        $respuestaExtra = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+
         $sp = "spHisIngTodoSuper";
         $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
         if ($respuesta !== null || $respuesta !== NULL) {
-            if ($respuesta == "SD") {
-                
-            } else {
+            if ($respuesta != "SD") {
+
                 $contador = 0;
-                                    $cabeza = '{
+                $cabeza = '{
                             "data": [';
-                                    echo $cabeza;
+                echo $cabeza;
                 foreach ($respuesta as $key => $value) {
                     // Con objetos
                     if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
@@ -96,29 +93,28 @@ class historialIngresosFiscales {
                     $cif = number_format($value["cif"], 2);
                     $impuesto = number_format($value["impuesto"], 2);
                     $identBodega = $value["identBodega"];
-                    $bod = 
-                    $bodega = "<span class='right badge badge-success'>Bodega_" . $identBodega . "</span>";
+                    $bod = $bodega = "<span class='right badge badge-success'>Bodega_" . $identBodega . "</span>";
                     $contador = $contador + 1;
 
-                                
-                                $datoJsonIngHis ='[
-                                    "'.$contador.'",
-                                    "'.$respuesta[$key]["nit"].'",
-                                    "'.$value["empresa"].'",
-                                    "'.$value["poliza"].'",
-                                    "'.$cadena_fecha_actual.'",
-                                    "'.$ingreso.'",
-                                    "'.$value["blts"].'",
-                                    "'.$cif.'",
-                                    "'.$impuesto.'",
-                                    "'.$bodega.'",
-                                    "'.$botoneraAcciones.'"
+
+                    $datoJsonIngHis = '[
+                                    "' . $contador . '",
+                                    "' . $respuesta[$key]["nit"] . '",
+                                    "' . $value["empresa"] . '",
+                                    "' . $value["poliza"] . '",
+                                    "' . $cadena_fecha_actual . '",
+                                    "' . $ingreso . '",
+                                    "' . $value["blts"] . '",
+                                    "' . $cif . '",
+                                    "' . $impuesto . '",
+                                    "' . $bodega . '",
+                                    "' . $botoneraAcciones . '"
     ],';
-                                
-       
-                                if ($key+1!=count($respuesta)) {
-                                 echo $datoJsonIngHis;   
-                                }
+
+
+                    if ($key + 1 != count($respuesta)) {
+                        echo $datoJsonIngHis;
+                    }
                 }
                 $pie = substr($datoJsonIngHis, 0, -1);
                 $pie .= ']}';
@@ -128,6 +124,7 @@ class historialIngresosFiscales {
     }
 
 }
+
 //ACTIVAR HISTORIAL DE INGRESO DATATABLE
 $activarHistorial = new historialIngresosFiscales();
 $activarHistorial->ajaxMostrarTableIngHistoria();

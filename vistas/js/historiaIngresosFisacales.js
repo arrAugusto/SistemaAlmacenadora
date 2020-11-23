@@ -848,8 +848,8 @@ $(document).ready(function () {
     if ($("#tableHistorialIng").length >= 1) {
         $.ajax({
             url: "ajax/datatableHistorialIng.ajax.php",
+            "bServerSide": true,
             success: function (respuesta) {
-
             }
 
         })

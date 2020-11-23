@@ -49,6 +49,20 @@
                 ?></span>
             </a>
         </li>-->
+        <li class="nav-item dropdown show newData">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="fa fa-bell colorBarSuper"></i>
+                <span class="badge badge-danger navbar-badge"><strong style="color: white;">1</strong></span>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
+                <span class="dropdown-item dropdown-header">Agregar Nuevos Datos</span>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNit">
+                    <i class="fa fa-database mr-2"></i> Agregar Nuevo Nit
+                </a>
+            </div>
+        </li>
 
         <li class="nav-item dropdown show newData">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
@@ -79,8 +93,6 @@
                 }
                 ?>                 
             </div>
-
-
         </li>
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown">

@@ -282,8 +282,7 @@ class ControladorHistorialIngresos {
             if ($revIngRev[0]["resp"] == $totalBultosPol) {
                 $sp = "spUpdateBltsIng";
                 $respBltsINg = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idIngEditCuadreBlts, $totalBultosPol, $sp);
-                
-                return array($respBltsINg, $respuesta);
+                return array($respBltsINg);
             }else{
                 return false;
             }

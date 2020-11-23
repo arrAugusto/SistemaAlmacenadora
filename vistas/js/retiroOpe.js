@@ -673,6 +673,36 @@ function funcRevSaldosAF(tipoIng) {
     return todoMenus;
 }
 $(document).on("click", ".btnGuardarRetiro", async function () {
+    var valorCif = document.getElementById("valorCif").value;
+    var valorCif = Number.parseFloat(valorCif).toFixed(2);
+    var valorCif = valorCif * 1;
+
+    var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+    var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+    var calculoValorImpuesto = calculoValorImpuesto * 1;
+    var totalValCarta = calculoValorImpuesto + valorCif;
+    console.log(totalValCarta);
+    if (totalValCarta >= 500000) {
+        nomVar = "SolicitarCarta";
+        Swal.fire({
+            title: 'Solicitar carta membretada',
+            text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
+            type: 'warning',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+    }).then(async function (result) {
+        if (result.value) {
+                Swal.fire(
+                        'Notificación!',
+                        'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
+                        'success'
+                        )
+            }
+        })
+
+    }
+    
+    return false;
     if ($("#hiddenDR").length > 0) {
         var estado = document.getElementById("hiddenDR").value;
     }
