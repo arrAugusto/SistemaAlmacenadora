@@ -1045,7 +1045,7 @@ function editarChasisVeh(idChasis, chasis, selectChasisEdit) {
 $(document).on("click", ".btnEditBultosCuadres", async function () {
     var idIngEditCuadreBlts = $(this).attr("idIngEditCuadreBlts");
     var estado = $(this).attr("estado");
-    
+
     if (estado == 0) {
         $(this).removeClass("btn-danger");
         $(this).addClass("btn-primary");
@@ -1069,7 +1069,7 @@ $(document).on("click", ".btnEditBultosCuadres", async function () {
             var bltsDetalle = Number.parseInt(bltsDetalle);
             var bltsDetalle = bltsDetalle * 1;
             var detalleBlts = detalleBlts + bltsDetalle;
-            var pesoEmpresa = document.getElementById("pesoEmpresa"+idDetalle).value;
+            var pesoEmpresa = document.getElementById("pesoEmpresa" + idDetalle).value;
             var pesoEmpresa = Number.parseFloat(pesoEmpresa).toFixed(2);
             var pesoEmpresa = pesoEmpresa * 1;
             listaDetalles.push([idDetalle, bltsDetalle, pesoEmpresa]);
@@ -1083,12 +1083,32 @@ $(document).on("click", ".btnEditBultosCuadres", async function () {
                     )
         }
         if (detalleBlts == totalBultos) {
-            alert("edicion exitosa");
+
             $(this).removeClass("btn-primary");
             $(this).addClass("btn-danger");
             $(this).html("Editar Bultos <i class='fa fa-warning'></i>");
             $(this).attr("estado", 0);
             var resp = await editarBultosIngresos(idIngEditCuadreBlts, totalBultos, listaDetalles);
+            if (resp == false) {
+                Swal.fire({
+                    title: 'No se puede editar',
+                    html: "<b>El ingreso no tiene saldo por: <br/>1. Por falta de saldo en el detalle que agrego o resto bultos.<br/>2. Por que no tiene saldo el ingreso.",
+                    type: 'error',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                })
+
+            }
+            if (resp[0]["resp"] == 1) {
+                Swal.fire({
+                    title: 'Editado con exito',
+                    text: "La edición del ingreso fue exitosa!",
+                    type: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                })
+            }
+
         }
     }
 
@@ -1112,7 +1132,6 @@ function editarBultosIngresos(idIngEditCuadreBlts, totalBultos, listaDetalles) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-
             respFunc = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);

@@ -33,8 +33,6 @@ class ControladorRetiroOpe {
         $arrayDataImagen = json_encode(array("retiroCod" => $respuestaGuardar, "numeroPoliza" => $datos['polizaRetiroVeh']));
         $estado = 0;
         if ($respuestaGuardar >= 1) {
-
-
             foreach ($listaVeh as $key => $value) {
                 $sp = "spUpdateChasis";
                 $valor = 2;

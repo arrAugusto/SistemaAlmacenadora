@@ -673,36 +673,8 @@ function funcRevSaldosAF(tipoIng) {
     return todoMenus;
 }
 $(document).on("click", ".btnGuardarRetiro", async function () {
-    var valorCif = document.getElementById("valorCif").value;
-    var valorCif = Number.parseFloat(valorCif).toFixed(2);
-    var valorCif = valorCif * 1;
 
-    var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
-    var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
-    var calculoValorImpuesto = calculoValorImpuesto * 1;
-    var totalValCarta = calculoValorImpuesto + valorCif;
-    console.log(totalValCarta);
-    if (totalValCarta >= 500000) {
-        nomVar = "SolicitarCarta";
-        Swal.fire({
-            title: 'Solicitar carta membretada',
-            text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
-            type: 'warning',
-            confirmButtonColor: '#3085d6',
-            confirmButtonText: 'Ok!'
-    }).then(async function (result) {
-        if (result.value) {
-                Swal.fire(
-                        'Notificación!',
-                        'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
-                        'success'
-                        )
-            }
-        })
 
-    }
-    
-    return false;
     if ($("#hiddenDR").length > 0) {
         var estado = document.getElementById("hiddenDR").value;
     }
@@ -888,7 +860,48 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                             hiddenDateTime, listaVehiculos, descMercaderia,
                                             );
                                     if (guardaRetVeh["tipoResp"]) {
-                                        Swal.fire('Retiro', 'Guardado éxitosamente', 'success');
+
+                                        Swal.fire({
+                                            title: 'Guardado correctamente',
+                                            type: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ok!'
+                                        }).then(async function (result) {
+                                            if (result.value) {
+                                                var valorCif = document.getElementById("valorCif").value;
+                                                var valorCif = Number.parseFloat(valorCif).toFixed(2);
+                                                var valorCif = valorCif * 1;
+
+                                                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                                                var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+                                                var calculoValorImpuesto = calculoValorImpuesto * 1;
+                                                var totalValCarta = calculoValorImpuesto + valorCif;
+                                                console.log(totalValCarta);
+                                                if (totalValCarta >= 500000) {
+                                   
+                                                    Swal.fire({
+                                                        title: 'Solicitar carta membretada',
+                                                        allowOutsideClick: false,
+                                                        text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
+                                                        type: 'warning',
+                                                        confirmButtonColor: '#3085d6',
+                                                        confirmButtonText: 'Ok!'
+                                                    }).then(async function (result) {
+                                                        if (result.value) {
+                                                            Swal.fire(
+                                                                    'Notificación!',
+                                                                    'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
+                                                                    'success'
+                                                                    )
+                                                        }
+                                                    })
+
+                                                }
+                                            }
+                                        })
+
+
+
                                         document.getElementById("divBottoneraAccion").innerHTML = `
          <div class="btn-group">
          <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${guardaRetVeh["idRet"]} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
@@ -952,9 +965,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                 }
             }
         }
-    }/*else{
-     
-     }*/
+    }
 });
 
 
@@ -1047,7 +1058,45 @@ function guardarRetiroMercaderia(
             if (respuesta.exito == "exito") {
                 var tipo = 0;
                 desbloqueBloque(tipo);
-                Swal.fire('Guardado exitosamente', 'El retiro fue guardado con exito', 'success');
+                                        Swal.fire({
+                                            title: 'Guardado correctamente',
+                                            type: 'success',
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ok!'
+                                        }).then(async function (result) {
+                                            if (result.value) {
+                                                var valorCif = document.getElementById("valorCif").value;
+                                                var valorCif = Number.parseFloat(valorCif).toFixed(2);
+                                                var valorCif = valorCif * 1;
+
+                                                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                                                var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+                                                var calculoValorImpuesto = calculoValorImpuesto * 1;
+                                                var totalValCarta = calculoValorImpuesto + valorCif;
+                                                console.log(totalValCarta);
+                                                if (totalValCarta >= 500000) {
+                                   
+                                                    Swal.fire({
+                                                        title: 'Solicitar carta membretada',
+                                                        allowOutsideClick: false,
+                                                        text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
+                                                        type: 'warning',
+                                                        confirmButtonColor: '#3085d6',
+                                                        confirmButtonText: 'Ok!'
+                                                    }).then(async function (result) {
+                                                        if (result.value) {
+                                                            Swal.fire(
+                                                                    'Notificación!',
+                                                                    'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
+                                                                    'success'
+                                                                    )
+                                                        }
+                                                    })
+
+                                                }
+                                            }
+                                        })
+                
                 document.getElementById("divBottoneraAccion").innerHTML = `
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + respuesta["valIdRetiro"] + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
@@ -3087,3 +3136,4 @@ $(document).on("click", ".btnBsqPolDADR", async function () {
     $(this).addClass("btn-secondary");
     $(this).attr("disabled", "disabled");
 });
+

@@ -52,15 +52,18 @@
         <li class="nav-item dropdown show newData">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
                 <i class="fa fa-bell colorBarSuper"></i>
-                <span class="badge badge-danger navbar-badge"><strong style="color: white;">1</strong></span>
+                <?php
+                $respuesta = ControladorOpB::ctrCartaDeMedioMillonCant();
+                ?>
             </a>
 
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
-                <span class="dropdown-item dropdown-header">Agregar Nuevos Datos</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNit">
-                    <i class="fa fa-database mr-2"></i> Agregar Nuevo Nit
-                </a>
+                <span class="dropdown-item dropdown-header">Tareas Pendientes Por retiro</span>
+                <?php
+                $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
+                ?>
+
+
             </div>
         </li>
 
@@ -83,8 +86,7 @@
                     <i class="fa fa-database mr-2"></i> Agregar Nuevo Consolidado
                 </a>';
                 }
-                ?>     
-                <?php
+
                 if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
                     echo '
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNuevosServicios">

@@ -77,10 +77,39 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
     var valorDoll = document.getElementById("valorDoll").value;
     var tCambio = document.getElementById("tCambio").value;
     var cif = document.getElementById("cif").value;
-    var cif = parseFloat(cif).toFixed(2);
+    var cif = Number.parseFloat(cif).toFixed(2);
     var impuestos = document.getElementById("impuestos").value;
     var bultos = document.getElementById("bultos").value;
     var peso = document.getElementById("peso").value;
+    document.getElementById("divAlerta").innerHTML = '';
+    var cif = cif * 1;
+    var impuestos = Number.parseFloat(impuestos).toFixed(2);
+    var impuestos = impuestos * 1;
+    var totalValores = cif + impuestos;
+    if (totalValores >= 500000) {
+        document.getElementById("divAlerta").innerHTML = `
+       <div class="alert alert-warning">
+    <strong>Carta de autorización ! </strong> El valor de esta mercaderia excede el monto de Q. 500,000.00, Solicite carta de autorización .
+</div>
+`;
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-center',
+            showConfirmButton: false,
+            timer: 10000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            type: 'error',
+            html: '&nbsp;&nbsp;&nbsp;&nbsp;<b>Por favor solicite la carta de autorización de salida,<br />El valor de mercaderia excede los Q. 500,000.00</b>'
+        })
+    }
+
     if (valorDoll > 0 && cif > 0 && impuestos > 0 && bultos > 0 && peso > 0) {
         var $contador = 0;
     } else {
@@ -107,7 +136,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         processData: false,
                         dataType: "json",
                         success: function (respuestaDetalle) {
-                            console.log(respuestaDetalle);  
+                            console.log(respuestaDetalle);
                             var empresaIngreso = respuestaDetalle[0]["nombreEmpresa"];
                             var nitEmpresa = respuestaDetalle[0]["nitEmpresaIng"];
                             var numeroPoliza = respuestaDetalle[0]["numPol"];
@@ -130,9 +159,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 dataType: "json",
                                 success: async function (respuesta) {
                                     console.log(respuesta);
-                                    if (respuesta=="tarifaEspecial") {
-                                   
-                                    document.getElementById("divCalculoHistoria").innerHTML = `
+                                    if (respuesta == "tarifaEspecial") {
+
+                                        document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
                                     <div class="col-12">
@@ -195,56 +224,56 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             </div>
                                 </div>
                         </div>`;
-    //imprimirReciboAlmacenaje
-                                    $(function () {
-                                        $('#dateTime').daterangepicker({
-                                            singleDatePicker: true,
-                                            locale: {
-                                                format: 'DD-MM-YYYY'
-                                            }
-                                        }, function (start, end, label) {
-                                            var tiempo = start.format('YYYY-MM-DD hh:mm A');
-                                            var tiempoVal = start.format('DD-MM-YYYY');
-                                            document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+                                        //imprimirReciboAlmacenaje
+                                        $(function () {
+                                            $('#dateTime').daterangepicker({
+                                                singleDatePicker: true,
+                                                locale: {
+                                                    format: 'DD-MM-YYYY'
+                                                }
+                                            }, function (start, end, label) {
+                                                var tiempo = start.format('YYYY-MM-DD hh:mm A');
+                                                var tiempoVal = start.format('DD-MM-YYYY');
+                                                document.getElementById("hiddenDateTimeVal").value = tiempoVal;
 
-                                            $("#dateTime").val(fechaCorte);
+                                                $("#dateTime").val(fechaCorte);
+                                            });
                                         });
-                                    });
-                                    }else{
-            
-                                    if (respuesta == "SD") {
-                                        Swal.fire(
-                                                'Cliente sin tarifa',
-                                                'Este cliente no tiene tarifa especial!',
-                                                'error'
-                                                );
-                                        return false;
-                                    }
-                                    var respValRet = await funcGuardarValRet();
-                                    listaPushDefault = [];
-                                    var tiempoTotal = respuesta['tiempoTotal'];
-                                    var zonaAduana = respuesta['zonaAduanMSuperior'];
-                                    var almacenaje = respuesta['almaMSuperior'];
-                                    var manejo = respuesta['calculoManejo'];
-                                    var gstosAdmin = respuesta['gtoAdminMSuperior'];
-                                    var marchElectro = respuesta['marchElectro'];
-                                    var marchElectro = parseFloat(marchElectro).toFixed(2);
-                                    var fechaCorte = respuesta['fechaCorte'];
-                                    var tdGTOAcuse = ""
-                                    var hiddenGTOAcuse = 0;
-                                    if (respuesta['serAcuse'] != "SD") {
-                                        for (var i = 0; i < respuesta['serAcuse'].length; i++) {
-                                            var selectOtrosServ = respuesta['serAcuse'][i].idServicio;
-                                            var selected = respuesta['serAcuse'][i].otrosServicios;
-                                            var montoOtroServicio = respuesta['serAcuse'][i].montoExtra / respuesta['cantClientes'];
-                                            var montoOtroServicio = montoOtroServicio * 1;
-                                            var montoOtroServicio = Math.ceil(montoOtroServicio / 5) * 5;
-                                            console.log(montoOtroServicio);
-                                            var hiddenGTOAcuse = hiddenGTOAcuse + montoOtroServicio;
-                                            $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"><div class="input-group-prepend"><button type="button" class="btn btn-info btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                                    } else {
+
+                                        if (respuesta == "SD") {
+                                            Swal.fire(
+                                                    'Cliente sin tarifa',
+                                                    'Este cliente no tiene tarifa especial!',
+                                                    'error'
+                                                    );
+                                            return false;
                                         }
-                                        var hiddenGTOAcuse = parseFloat(hiddenGTOAcuse).toFixed(2);
-                                        var tdGTOAcuse = `
+                                        var respValRet = await funcGuardarValRet();
+                                        listaPushDefault = [];
+                                        var tiempoTotal = respuesta['tiempoTotal'];
+                                        var zonaAduana = respuesta['zonaAduanMSuperior'];
+                                        var almacenaje = respuesta['almaMSuperior'];
+                                        var manejo = respuesta['calculoManejo'];
+                                        var gstosAdmin = respuesta['gtoAdminMSuperior'];
+                                        var marchElectro = respuesta['marchElectro'];
+                                        var marchElectro = parseFloat(marchElectro).toFixed(2);
+                                        var fechaCorte = respuesta['fechaCorte'];
+                                        var tdGTOAcuse = ""
+                                        var hiddenGTOAcuse = 0;
+                                        if (respuesta['serAcuse'] != "SD") {
+                                            for (var i = 0; i < respuesta['serAcuse'].length; i++) {
+                                                var selectOtrosServ = respuesta['serAcuse'][i].idServicio;
+                                                var selected = respuesta['serAcuse'][i].otrosServicios;
+                                                var montoOtroServicio = respuesta['serAcuse'][i].montoExtra / respuesta['cantClientes'];
+                                                var montoOtroServicio = montoOtroServicio * 1;
+                                                var montoOtroServicio = Math.ceil(montoOtroServicio / 5) * 5;
+                                                console.log(montoOtroServicio);
+                                                var hiddenGTOAcuse = hiddenGTOAcuse + montoOtroServicio;
+                                                $("#divOtrosServicios").append('<div id="divNumero" class="col-12"><div class="input-group mb-3"><div class="input-group-prepend"><button type="button" class="btn btn-info btnEliminarOtroServ" id="valueCombo' + selectOtrosServ + '" idValue="' + selectOtrosServ + '"><i class="fa fa-trash"></i></button></div><input type="text" class="form-control" readOnly="readOnly" value="' + selected + '" /><input type="number"  class="form-control textOtros" id="montoServicioText' + selectOtrosServ + '" value="' + montoOtroServicio + '" /></div></div>');
+                                            }
+                                            var hiddenGTOAcuse = parseFloat(hiddenGTOAcuse).toFixed(2);
+                                            var tdGTOAcuse = `
                                             <tr>
                                             <th>Gastos de Descarga:</th>
                                             <td id="calcGTODescarga">` + hiddenGTOAcuse + `</td>
@@ -252,19 +281,19 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                             <tr>`;
 
 
-                                    }
-                                    if (!isNaN(respuesta['revCuad'])) {
+                                        }
+                                        if (!isNaN(respuesta['revCuad'])) {
 
-                                        var revCuad = respuesta['revCuad'];
-                                        var revCuad = parseFloat(revCuad).toFixed(2);
-                                        var revCuad = new Intl.NumberFormat("en-GT").format(revCuad);
+                                            var revCuad = respuesta['revCuad'];
+                                            var revCuad = parseFloat(revCuad).toFixed(2);
+                                            var revCuad = new Intl.NumberFormat("en-GT").format(revCuad);
 
-                                    } else {
-                                        var revCuad = 0;
-                                    }
+                                        } else {
+                                            var revCuad = 0;
+                                        }
 
-                                    var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'] + revCuad;
-                                    document.getElementById("divCalculoHistoria").innerHTML = `
+                                        var total = respuesta['zonaAduanMSuperior'] + respuesta['almaMSuperior'] + respuesta['calculoManejo'] + respuesta['gtoAdminMSuperior'] + revCuad;
+                                        document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
                                     <div class="col-12">
@@ -378,71 +407,71 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                             </div>
                                 </div>
                         </div>`;
-                                    //imprimirReciboAlmacenaje
-                                    $(function () {
-                                        $('#dateTime').daterangepicker({
-                                            singleDatePicker: true,
-                                            locale: {
-                                                format: 'DD-MM-YYYY'
-                                            }
-                                        }, function (start, end, label) {
-                                            var tiempo = start.format('YYYY-MM-DD hh:mm A');
-                                            var tiempoVal = start.format('DD-MM-YYYY');
-                                            document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+                                        //imprimirReciboAlmacenaje
+                                        $(function () {
+                                            $('#dateTime').daterangepicker({
+                                                singleDatePicker: true,
+                                                locale: {
+                                                    format: 'DD-MM-YYYY'
+                                                }
+                                            }, function (start, end, label) {
+                                                var tiempo = start.format('YYYY-MM-DD hh:mm A');
+                                                var tiempoVal = start.format('DD-MM-YYYY');
+                                                document.getElementById("hiddenDateTimeVal").value = tiempoVal;
 
-                                            $("#dateTime").val(fechaCorte);
+                                                $("#dateTime").val(fechaCorte);
+                                            });
                                         });
-                                    });
 
-                                    setTimeout(function () {
-                                        $("#dateTime").val(fechaCorte);
-                                    }, 1000);
-                                    document.getElementById("hiddenRevision").value = revCuad;
-                                    document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
-                                    document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
-                                    document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
-                                    document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
-                                    document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
-                                    document.getElementById("hiddenMarchElect").value = marchElectro;
-                                    document.getElementById("hiddenGTOAcuse").value = hiddenGTOAcuse;
-                                    formatNumber("factTNormal");
-                                    formatNumber("ZonaAd");
-                                    formatNumber("AlmNormal");
-                                    formatNumber("calcmanejo");
-                                    formatNumber("calcGstAdmin");
-                                    $('.select2').select2();
-                                    totalCobrar();
-                                    $(".close").click();
-                                    Swal.fire({
-                                        title: "Asignacion Fecha Hoy",
-                                        text: "¡Cambie de fecha si necesita hacerlo !",
-                                        type: 'warning',
-                                        allowOutsideClick: false,
-                                        confirmButtonColor: '#3085d6',
-                                        confirmButtonText: 'Ok',
-                                    }).then(async function (result) {
-                                        if (result.value) {
+                                        setTimeout(function () {
                                             $("#dateTime").val(fechaCorte);
-                                            var idMasPilotos = idRetCal;
-                                            var nomVar = "todasUnidades";
-                                            var estado = 0;
-                                            var respTodosPlt = await verPltsRet(nomVar, idMasPilotos, estado);
-                                            console.log(respTodosPlt);
-                                            if (respTodosPlt != "SD") {
-                                                for (var i = 0; i < respTodosPlt.length; i++) {
-                                                    var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
-                                                    var numeroLicenciaPlus = respTodosPlt[i].licPiloto;
-                                                    var numeroPlacaPlusUn = respTodosPlt[i].placaUnidad;
-                                                    var numeroContenedorPlusUn = respTodosPlt[i].contenedorUnidad;
-                                                    console.log(respTodosPlt[i].Identity);
-                                                    if (respTodosPlt[i].estadoUnidad == 0) {
-                                                        var button = '<button type="button" class="btn btn-dark btnInactivo" numIdentUn="' + respTodosPlt[i].Identity + '" >Eliminado</button>';
-                                                    }
-                                                    if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1 || respTodosPlt[i].estadoUnidad == 2) {
-                                                        var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
+                                        }, 1000);
+                                        document.getElementById("hiddenRevision").value = revCuad;
+                                        document.getElementById("hiddenZonaAduana").value = respuesta['zonaAduanMSuperior'];
+                                        document.getElementById("hiddenAlmacenaje").value = respuesta['almaMSuperior'];
+                                        document.getElementById("hiddenManejo").value = respuesta['calculoManejo'];
+                                        document.getElementById("hiddenGstosAdmin").value = respuesta['gtoAdminMSuperior'];
+                                        document.getElementById("hiddenresultIdIngreso").value = idIngresoCal;
+                                        document.getElementById("hiddenMarchElect").value = marchElectro;
+                                        document.getElementById("hiddenGTOAcuse").value = hiddenGTOAcuse;
+                                        formatNumber("factTNormal");
+                                        formatNumber("ZonaAd");
+                                        formatNumber("AlmNormal");
+                                        formatNumber("calcmanejo");
+                                        formatNumber("calcGstAdmin");
+                                        $('.select2').select2();
+                                        totalCobrar();
+                                        $(".close").click();
+                                        Swal.fire({
+                                            title: "Asignacion Fecha Hoy",
+                                            text: "¡Cambie de fecha si necesita hacerlo !",
+                                            type: 'warning',
+                                            allowOutsideClick: false,
+                                            confirmButtonColor: '#3085d6',
+                                            confirmButtonText: 'Ok',
+                                        }).then(async function (result) {
+                                            if (result.value) {
+                                                $("#dateTime").val(fechaCorte);
+                                                var idMasPilotos = idRetCal;
+                                                var nomVar = "todasUnidades";
+                                                var estado = 0;
+                                                var respTodosPlt = await verPltsRet(nomVar, idMasPilotos, estado);
+                                                console.log(respTodosPlt);
+                                                if (respTodosPlt != "SD") {
+                                                    for (var i = 0; i < respTodosPlt.length; i++) {
+                                                        var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
+                                                        var numeroLicenciaPlus = respTodosPlt[i].licPiloto;
+                                                        var numeroPlacaPlusUn = respTodosPlt[i].placaUnidad;
+                                                        var numeroContenedorPlusUn = respTodosPlt[i].contenedorUnidad;
+                                                        console.log(respTodosPlt[i].Identity);
+                                                        if (respTodosPlt[i].estadoUnidad == 0) {
+                                                            var button = '<button type="button" class="btn btn-dark btnInactivo" numIdentUn="' + respTodosPlt[i].Identity + '" >Eliminado</button>';
+                                                        }
+                                                        if (respTodosPlt[i].estadoUnidad == -1 || respTodosPlt[i].estadoUnidad == 1 || respTodosPlt[i].estadoUnidad == 2) {
+                                                            var button = `<button type="button" class="btn btn-danger btn-sm" id="btnTrashPiloto" idRet=` + respTodosPlt[i].Identity + `  idUniDetTrash="` + respTodosPlt[i].Identity + `"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btn-sm" id="btnEditPiloto" idRet=` + respTodosPlt[i].Identity + ` idUniDetEdit="` + respTodosPlt[i].Identity + `"  data-toggle="modal" data-target="#plusPilotos"><i class="fa fa-edit" data-toggle="modal" data-target="#plusPilotos"></i></button>`;
 
-                                                    }
-                                                    $("#ListaSelect").append(`
+                                                        }
+                                                        $("#ListaSelect").append(`
                 <div class="input-group mb-3" id="divUnidadExt` + respTodosPlt[0].Identity + `">
                 <div class="input-group-prepend">
            ` + button + `
@@ -450,10 +479,10 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                   <!-- /btn-group -->
                   <input type="text" class="form-control" id="texToEmpresaVal` + respTodosPlt[0].Identity + `" value="` + nombrePilotoPlusUn + ` - ` + numeroLicenciaPlus + ` - ` + numeroPlacaPlusUn + ` - ` + numeroContenedorPlusUn + `" />
                 </div>`);
+                                                    }
                                                 }
                                             }
-                                        }
-                                    })
+                                        })
                                     }
                                 },
                                 error: function (respuesta) {

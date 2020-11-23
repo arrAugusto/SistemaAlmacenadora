@@ -77,6 +77,8 @@ class ModeloPasesDeSalida {
         $tipo = 2;
         // $revCalcRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalc, $tipo, $sp);
         $respuestaVerifica = ModeloCalculoDeAlmacenaje::mdlVerificarMostrarTarifa($idIngresoCal, $identRet);
+        
+
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spDatosCalculo ?,  ?";
         $params = array(&$idIngresoCal, &$idRetCal);
@@ -112,20 +114,19 @@ class ModeloPasesDeSalida {
                     }
                     
                     $tiempoTotal = funcionesDeCalculo::dias($nuevafechaInicio, $fechaCorte);
-
                     if ($tiempoTotal >= $results[0]["delZA"]) {
-                        $diaAlmacenaje = ($tiempoTotal - $results[0]["delZA"]) + 1;
+                        $diaAlmacenaje = ($tiempoTotal - $results[0]["delZA"]);
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     } else if ($tiempoTotal < $results[0]["delZA"]) {
                         $diaAlmacenaje = 0;
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     }
                 }
+
                 if ($respuestaVerifica[0]["tarifaEspecial"]==1) {
                     return "tarifaEspecial";
                 }else{
-                if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1  && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0 || $respuestaVerifica[0]["estadoTarifa"] == 1) {
-                    
+                if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1  && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0) {
                     $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje);
                     $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera);
                     $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo);
@@ -145,7 +146,6 @@ class ModeloPasesDeSalida {
                         $zonaAduaneraCalc = ceil($respuestaZonaAduanera);
                         $zonaAduanMSuperior = $zonaAduaneraCalc + $defaultCopias;
                         $zonaAduanMSuperior = ceil($zonaAduanMSuperior / 5) * 5;
-
                         if ($zonaAduanMSuperior <= $minZonaAduanera) {
                             $zonaAduanMSuperior = $minZonaAduanera + $defaultCopias;
                         }
@@ -157,7 +157,6 @@ class ModeloPasesDeSalida {
                         $fecha1 = new DateTime($fechaIngAlmacen);
                         $fecha2 = new DateTime($apartirFecha);
                         $tiempoMarch = funcionesDeCalculo::dias($fechaIngAlmacen, $apartirFecha);
-
                         if ($fecha1 >= $fecha2) {
                             $TarifaMarcElect = $results[0]["marchamoElectronico"];
                             $minimoMarch = $results[0]["minimoMarch"];
@@ -169,12 +168,10 @@ class ModeloPasesDeSalida {
                         }
                     }
                     $respMarcha = ceil($respMarcha);
-
                     $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch);
                     return $datos;
                 } else {
-
-//OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
+                    //OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
                     $sp = "spDataCalculo";
                     $datosIngCalculo = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngresoCal, $sp);
                     /*
@@ -207,17 +204,17 @@ class ModeloPasesDeSalida {
                     $fechaSalida = $fechaCorte; // FECHA DE SALIDA DE LA MERCADERIA
                     $fechaIngreso = $nuevafechaInicio; // FECHA DE INGRESO
                     $tiempoTotal = funcionesDeCalculo::dias($fechaIngreso, $fechaSalida); // DIAS TOTAL EN ALMACENADORA                     
-
+            
                     if ($tiempoTotal >= $datosIngCalculo[0]["delZA"]) {
-                        $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"]) + 1;
+                        $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"]);
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     } else if ($tiempoTotal < $datosIngCalculo[0]["delZA"]) {
                         $diaAlmacenaje = 0;
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     }
+      
                     $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                     $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
-
                     $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
                     $respuestaGastosAdmin = calculosRubros::gastosAdminCalculo($TarifaGtsAdmin, $cantClientes, $minGastosAdministracion); // OBJETO CALCULA GASTOS ADMIN
                     $gtoAdminMSuperior = ceil($respuestaGastosAdmin / 10) * 10;
@@ -247,9 +244,7 @@ class ModeloPasesDeSalida {
                         $fecha1 = new DateTime($fechaIngAlmacen);
                         $fecha2 = new DateTime($apartirFecha);
                         $tiempoMarch = funcionesDeCalculo::dias($fechaIngAlmacen, $apartirFecha);
-
                         if ($fecha1 >= $fecha2) {
-
                             $TarifaMarcElect = $results[0]["marchamoElectronico"];
                             $minimoMarch = $results[0]["minimoMarch"];
                             $respMarcha = calculosRubros::gastosAdminCalculo($TarifaMarcElect, $cantClientes, $minimoMarch);
@@ -268,7 +263,6 @@ class ModeloPasesDeSalida {
         } else {
             return sqlsrv_errors();
         }
-        
     }
 
     public static function mdlConsultDatosRet($idNumRetConsult) {

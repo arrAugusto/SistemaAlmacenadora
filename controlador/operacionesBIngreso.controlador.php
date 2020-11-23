@@ -530,7 +530,63 @@ class ControladorOpB {
     public static function ctrDeleteDetalleMani($deleteDetalle) {
         $sp = "spDeleteDetalleIng";
         $respuesta = ModeloControladorOpB::mdlTipoNewVeh($deleteDetalle, $sp);
-        return $respuesta;        
+        return $respuesta;
+    }
+
+    public static function ctrCartaDeMedioMillonCant() {
+        $sp = "spCartaDeMillonCount";
+        $fecha = date('Y-m-d');
+        $fechaRango = date("Y-m-d", strtotime($fecha . "- 2 days"));
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($fechaRango, $sp);
+
+        if ($respuesta[0]["cantidadMedioM"] >= 1) {
+            echo '<span class="badge badge-danger navbar-badge"><strong style="color: white;">' . $respuesta[0]["cantidadMedioM"] . '</strong></span>';
+        }
+    }
+
+    public static function ctrCartaDeMedioMillon() {
+
+
+        $sp = "spCartaDeMillon";
+        $fecha = date('Y-m-d');
+        $fechaRango = date("Y-m-d", strtotime($fecha . "- 2 days"));
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($fechaRango, $sp);
+        if ($respuesta != "SD") {
+
+
+            foreach ($respuesta as $key => $value) {
+                if ($value["foto"] == "NA") {
+                    $foto = "vistas/img/usuarios/default/anonymous.png";
+                } else {
+                    $foto = $value["foto"];
+                }
+                $nombres = $value["nombres"];
+                $cadena_fecha_Garita = $value["fechaEmision"];
+                $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
+// ARRAY : LISTA TEMPORAL PARA GUARDAR, LAS POLIZAS YA MAQUETADAS EN EL TABLE
+                date_default_timezone_set('America/Guatemala');
+                $timeActual = date('d-m-Y H:i:s');
+
+                echo '   
+                <a href="#" class="dropdown-item">
+                    <!-- Message Start -->
+                    <div class="media">
+                        <img src="' . $foto . '" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                                ' . $nombres . '
+                                <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
+                            </h3>
+                            <p class="text-sm">Solicite la carta de medio millon ala empresa ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Día ' . $fechaGaritaFormat . '</p>
+                        </div>
+                    </div>
+                    <!-- Message End -->
+                </a>        
+        
+        ';
+            }
+        }
     }
 
 }
