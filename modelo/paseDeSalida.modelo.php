@@ -63,7 +63,6 @@ class ModeloPasesDeSalida {
     }
 
     public static function mdlMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal) {
-
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
         if ($respuestaRevertVeh[0]["resp"] == 1) {
@@ -77,8 +76,6 @@ class ModeloPasesDeSalida {
         $tipo = 2;
         // $revCalcRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idCalc, $tipo, $sp);
         $respuestaVerifica = ModeloCalculoDeAlmacenaje::mdlVerificarMostrarTarifa($idIngresoCal, $identRet);
-        
-
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spDatosCalculo ?,  ?";
         $params = array(&$idIngresoCal, &$idRetCal);
@@ -112,7 +109,16 @@ class ModeloPasesDeSalida {
                     } else {
                         $fechaCorte = $results[0]["fechaRet"];
                     }
-                    
+                    $fecha_actual1 = strtotime(date('Y-m-d'));
+                    $fecha_entrada2 = strtotime($fechaCorte);
+                    /*
+                     *  VALIDANDO SI LA FECHA ESTA DENTRO DEL DIA DE COBRO
+                     */
+                    if ($fecha_actual1==$fecha_entrada2) {
+                        $tipoCalc = true;
+                    }else{
+                        $tipoCalc = false;
+                    }
                     $tiempoTotal = funcionesDeCalculo::dias($nuevafechaInicio, $fechaCorte);
                     if ($tiempoTotal >= $results[0]["delZA"]) {
                         $diaAlmacenaje = ($tiempoTotal - $results[0]["delZA"]);
@@ -168,7 +174,7 @@ class ModeloPasesDeSalida {
                         }
                     }
                     $respMarcha = ceil($respMarcha);
-                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch);
+                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch, "tipoCalc"=>$tipoCalc);
                     return $datos;
                 } else {
                     //OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
@@ -212,7 +218,6 @@ class ModeloPasesDeSalida {
                         $diaAlmacenaje = 0;
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     }
-      
                     $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                     $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
                     $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
@@ -255,7 +260,7 @@ class ModeloPasesDeSalida {
                         }
                     }
                     $respMarcha = ceil($respMarcha);
-                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch);
+                    $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch, "tipoCalc"=>$tipoCalc);
                     return $datos;
                 }
                 }

@@ -42,23 +42,37 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         var total = valTotalCif + impuestos;
         var total = Number.parseFloat(total).toFixed(2);
         var total = total * 1;
+        var valTotalAcum = 0;
         listaChasis = [];
         if ($(".valTextTotal").length >= 1) {
             var paragraphsTotal = Array.from(document.querySelectorAll(".valTextTotal"));
             for (var i = 0; i < paragraphsTotal.length; i++) {
                 var idDom = paragraphsTotal[i].id;
                 var idChasis = $("#" + idDom).attr("idchasis");
-                var valTotal = document.getElementById(idDom).value;
+                
+                var valTotal = document.getElementById("textValTotal" + i).value;
                 var valTotal = Number.parseFloat(valTotal).toFixed(2);
                 var valTotal = valTotal * 1;
-                listaChasis.push({"idChasis": idChasis, "valTotal": valTotal});
+
+                var cif = document.getElementById("textValAd"+i).value;
+                var cif = Number.parseFloat(cif).toFixed(2);
+                var cif = cif*1;
+                var impts = document.getElementById("textValImpt"+i).value;
+                var impts = Number.parseFloat(impts).toFixed(2);
+                var impts = impts*1;         
+                var valTotalAcum = valTotalAcum+impts+cif;
+                listaChasis.push({"idChasis": idChasis, "cif":cif, "impts":impts, "valTotal": valTotal});
             }
         }
         console.log(listaChasis);
-        if (total == valTotal) {
+        console.log(valTotalAcum);
+        console.log(total);
+
+        if (total == valTotalAcum) {
             var idRetCal = button.attr("idRet");
             var listaJson = JSON.stringify(listaChasis);
             var GDchasisGeneral = await ajaxGuardarChasisVeh(idRetCal, listaJson);
+            console.log(GDchasisGeneral);
         }
 
     }
@@ -248,6 +262,26 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                                     'error'
                                                     );
                                             return false;
+                                        }
+                                        if (respuesta["tipoCalc"] == false) {
+                                            toastr.options = {
+                                                "closeButton": false,
+                                                "debug": false,
+                                                "newestOnTop": false,
+                                                "progressBar": false,
+                                                "positionClass": "toast-bottom-full-width",
+                                                "preventDuplicates": false,
+                                                "onclick": null,
+                                                "showDuration": "300",
+                                                "hideDuration": "1000",
+                                                "timeOut": "10000",
+                                                "extendedTimeOut": "1000",
+                                                "showEasing": "swing",
+                                                "hideEasing": "linear",
+                                                "showMethod": "fadeIn",
+                                                "hideMethod": "fadeOut"
+                                            }
+                                            Command: toastr["error"]("Este retiro es de un día anterior, cambie la fecha de cobro si es necesario!")
                                         }
                                         var respValRet = await funcGuardarValRet();
                                         listaPushDefault = [];
@@ -2211,13 +2245,17 @@ function valTotalCosteo(idNum) {
 
 $(document).on("click", ".btnTomarDatRet", async function () {
     var paragraphs = Array.from(document.querySelectorAll(".valTextTotal"));
-    if (paragraphs.length == 1) {
         var valorDoll = document.getElementById("valorDoll").value;
+        var valorDoll = Number.parseFloat(valorDoll).toFixed(2);
+        var valorDoll = valorDoll*1;
+        
         var tCambio = document.getElementById("tCambio").value;
         var cif = document.getElementById("cif").value;
         var impuestos = document.getElementById("impuestos").value;
         var peso = document.getElementById("peso").value;
-        var bultos = document.getElementById("bultos").value;
+        var bultos = document.getElementById("bultos").value;    
+    if (paragraphs.length == 1) {
+
         if (valorDoll > 0 && tCambio > 0 && cif > 0 && impuestos > 0 && peso > 0 && bultos > 0) {
             document.getElementById("textValAd0").value = valorDoll;
             $("#textValAd0").trigger('change');
@@ -2228,10 +2266,66 @@ $(document).on("click", ".btnTomarDatRet", async function () {
             document.getElementById("textValImpt0").value = impuestos;
             $("#textValImpt0").trigger('change');
 
-            document.getElementById("textValTotal0").value = valorDoll;
-            $("#textValTotal0").trigger('change');
 
         }
+    }else{
+        var cifInd = Number.parseFloat(cif/paragraphs.length).toFixed(2);
+        var impuestosInd = Number.parseFloat(impuestos/paragraphs.length).toFixed(2);
+        var cifAcumulado = 0;
+        var impuestosAcumulado = 0;
+        
+        for (var i = 0; i < paragraphs.length; i++) {
+ 
+            if (paragraphs.length==i+1) {
+                var cifAcumulado = Number.parseFloat(cifInd).toFixed(2);
+                var cifAcumulado = cifAcumulado*1;
+                var cifAcumulado = (cifAcumulado*i);
+                var valCifUltimo = Number.parseFloat(cif-cifAcumulado).toFixed(2);
+                var valCifUltimo = valCifUltimo*1;
+
+                var impuestosAcumulado = Number.parseFloat(impuestosInd).toFixed(2);
+                var impuestosAcumulado = impuestosAcumulado*1;
+                var impuestosAcumulado = (impuestosAcumulado*i);
+                var valImptUltimo = Number.parseFloat(impuestos-impuestosAcumulado).toFixed(2);
+                var valImptUltimo = valImptUltimo*1;
+                
+                console.log(valImptUltimo);
+                document.getElementById("textValAd"+i).value = valCifUltimo;
+                $("#textValAd"+i).trigger('change');
+                
+                document.getElementById("textValTcambio"+i).value = 1;
+                $("#textValTcambio"+i).trigger('change');
+                
+                document.getElementById("textValImpt"+i).value = valImptUltimo;
+                $("#textValImpt"+i).trigger('change');            
+                return false;
+                
+            }
+            if (paragraphs.length!=i+1){
+            
+            document.getElementById("textValAd"+i).value = cifInd;
+            $("#textValAd"+i).trigger('change');
+
+            document.getElementById("textValTcambio"+i).value = 1;
+            $("#textValTcambio"+i).trigger('change');
+
+            document.getElementById("textValImpt"+i).value = impuestosInd;
+            $("#textValImpt"+i).trigger('change');
+          
+            }
+            /*
+           var cifAcumulado = cifAcumulado+valorDollInd;  
+           var cifAcumulado = Number.parseFloat(cifAcumulado).toFixed(2);
+           var cifAcumulado = cifAcumulado*1;
+           console.log(cifAcumulado);*/
+         /*  var cifAcumulado = cifAcumulado+cifInd;
+           var cifAcumulado = Number.parseFloat(cifAcumulado).toFixed(2);
+           var cifAcumulado  =cifAcumulado*1;
+           var impuestosAcumulado = impuestosAcumulado+impuestosInd;
+           var impuestosAcumulado = Number.parseFloat(impuestosAcumulado).toFixed(2);
+           var impuestosAcumulado = impuestosAcumulado*1;  */
+        }
+        
     }
 
 

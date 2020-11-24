@@ -49,6 +49,7 @@ class ControladorPasesDeSalida {
     }
 
     public static function ctrMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal) {
+
         if ($hiddenDateTimeVal == "NA") {
             $hiddenDateTimeVal = date('d-m-Y');
         }
@@ -99,7 +100,6 @@ class ControladorPasesDeSalida {
                 <tr>
                 <td>' . ($key + 1) . '</td>
                 <td>' . ($value["otrosServicios"]) . '</td>
-                    
                 </tr>
 
 ';
@@ -116,7 +116,6 @@ class ControladorPasesDeSalida {
     }
 
     public static function ctrGuardarNuevoRecibo($datos) {
-
         $otros = $datos["listaOtrosGdRec"];
         $serviciosExt = $datos["listaServiciosDefaultGdRec"];
         $idRetCal = $datos["idRetGdRec"];
@@ -125,15 +124,11 @@ class ControladorPasesDeSalida {
         $hiddenDescuento = $datos["hiddenDescuentoGdRec"];
         $valCalculado = $datos["valDescuentoGdRec"];
         $idNitFact = $datos["idNitFact"];
-
         if ($hiddenDateTimeVal == "NA") {
             $hiddenDateTimeVal = date('d-m-Y');
         }
-
-
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
-
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $sp = "spMostrarPoliza";
             $hiddenTipoOP = 3;

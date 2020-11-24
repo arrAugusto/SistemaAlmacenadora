@@ -553,12 +553,14 @@ class ControladorRetiroOpe {
 
     public static function ctrRegistrarChasisGeneral($idRetChas, $listaChasis, $usuarioOp) {
         $listaVeh = json_decode($listaChasis, true);
-
         foreach ($listaVeh as $key => $value) {
             $idChas = $value["idChasis"];
             $valTotal = $value["valTotal"];
+            $cif = $value["cif"];
+            $impts = $value["impts"];
             $sp = "spTrasladoVeh";
-            $respuesta = ModeloRetiroOpe::mdlRetiroVehN($idRetChas, $idChas, $valTotal, $usuarioOp, $sp);
+            $respuesta = ModeloRetiroOpe::mdlRetiroVehNGdValores($idRetChas, $idChas, $cif, $impts, $valTotal, $usuarioOp, $sp);
+   
         }
         return true;
     }
