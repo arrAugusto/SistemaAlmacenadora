@@ -63,7 +63,7 @@
         <script src="vistas/plugins/datatables/dataTables.bootstrap4.min.js"></script>
         <script src="vistas/js/bootstrap-datepicker.min.js"></script>
         <!-- js de almacenadora integrada -->
-      
+
         <script type="text/javascript" src="vistas/js/mapeoBodega.js"></script>
         <script src="vistas/js/dateParams.js"></script>
         <script src="vistas/js/usuario.js"></script>
@@ -79,7 +79,7 @@
         <script src="vistas/js/agregarDetallesIngresos.js"></script>
         <script src="vistas/js/historiaIngresosFisacales.js"></script>
         <script src="vistas/js/historialCalculos.js"></script>
-       <script src="vistas/js/configuracion.js"></script>
+        <script src="vistas/js/configuracion.js"></script>
         <script src="vistas/js/activarTarifa.js"></script>
         <script src="vistas/js/ubicacionBodega.js"></script>
         <script src="vistas/js/retiroOpe.js"></script>
@@ -102,6 +102,8 @@
         <script src="vistas/js/chasisVehiculosNuevos.js"></script>
         <script src="vistas/js/chasisVehUsados.js"></script>
         <script src="vistas/js/controlDeIngPersonas.js"></script>
+        <script src="vistas/js/historialRetChasisVehN.js"></script>
+
 
         <!-- iCheck 1.0.1 -->
         <script src="vistas/dist/js/dataTables.bootstrap.js"></script><script src="vistas/dist/js/responsive.bootstrap.min.js"></script>
@@ -114,16 +116,16 @@
         <script type="text/javascript" src='vistas/dist/js/bootstrap-datetimepicker.min.js'></script>
         <script type="text/javascript" src='vistas/dist/js/jquerynumber.min.js'></script>
         <script type="text/javascript" src='vistas/dist/js/bootstrapValidator.min.js'></script>
-        
+
         <script type="text/javascript" src="vistas/dist/js/toastr.min.js"></script>
         <!--
         SCRIPT DESCATADOS PORQUE CONSUMEN INTERNET EN EL SERVIDOR
         <script type="text/javascript" src='vistas/dist/js/kit.fontawesome.js'></script>
        
         <script type="text/javascript" src="vistas/dist/js/font-awesome.js"></script> 
-       -->
-        
-        
+        -->
+
+
     </head>
     <body class="hold-transition sidebar-collapse sidebar-mini">
         <div class="wrapper">

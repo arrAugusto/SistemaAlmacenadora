@@ -48,8 +48,7 @@ class AjaxAccionesIngresos {
             "fechaIngEditOp" => $fechaIngEditOp = $this->fechaIngEditOp,
             "serviciosEditOp" => $serviciosEditOp = $this->serviciosEditOp
         );
-        $respuesta = ControladorHistorialIngresos::ctrEditarIngresoOperacion($datos);
-        echo json_encode($respuesta);
+ 
     }
 
     public $mostrarDetallesClientesPlts;

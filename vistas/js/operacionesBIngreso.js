@@ -1944,6 +1944,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                     if (chasisErroneo >= 1) {
                         listaDataRevNoEn = [];
                         listaDBNoEnc = [];
+                        console.log(listaEstado);
                         for (chasisNoEn = 0; chasisNoEn < listaEstado.length; chasisNoEn++) {
                             var numeralChasis = chasisNoEn + 1;
                             var tipo = listaEstado[chasisNoEn][1];
@@ -1952,7 +1953,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             if (estado == 0) {
                                 var buttton = '<button type="button" class="btn btn-danger btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fa fa-close"></i></button>';
                             }
-                            if (estado == 1) {
+                            if (estado == 1 || estado == 2) {
                                 var buttton = '<button type="button" class="btn btn-warning btnVeirfLinea" tipoLinea="' + tipo + ' - ' + linea + '" tipoVeh=' + tipo + ' lineaVeh=' + linea + '><i class="fa fa-close"></i></button>';
                             }
                             if (chasisNoEn == 0) {
