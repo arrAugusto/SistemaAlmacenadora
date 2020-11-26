@@ -4,6 +4,8 @@ require_once "../controlador/retiroVeh.controlador.php";
 require_once "../modelo/retiroVeh.modelo.php";
 //CASTEO DE DATA
 require_once "../controlador/revisionDeData.controlador.php";
+//REQUIRE CREATOR QR 
+require_once "../extensiones/qrCodeCreate/vendor/autoload.php";
 
 class AjaxAccionesVehiculosNuevos {
 
@@ -28,6 +30,22 @@ class AjaxAccionesVehiculosNuevos {
         }
     }
 
+    public $chasisCorreo;
+
+    public function ajaxPreparCorreo() {
+        $chasisCorreo = $this->chasisCorreo;
+        $respuesta = ControladorRetirosRebajados::ctrPreparCorreo($chasisCorreo);
+        echo json_encode($respuesta);
+    }
+
+    public $gdCorreoChas;
+
+    public function ajaxGuardarVehCorreo() {
+        $guardarCorreo = $this->guardarCorreo;
+        $respuesta = ControladorRetirosRebajados::ctrGuardarVehCorreo($guardarCorreo);
+        echo json_encode($respuesta);        
+    }
+
 }
 
 if (isset($_POST["estado"])) {
@@ -43,4 +61,15 @@ if (isset($_POST["idNewChas"])) {
     $reversionChasis->idNewChas = $_POST["idNewChas"];
     $reversionChasis->idAntChasis = $_POST["idAntChasis"];
     $reversionChasis->ajaxReversionChasis();
+}
+if (isset($_POST["chasisCorreo"])) {
+    $chasisCorreo = new AjaxAccionesVehiculosNuevos();
+    $chasisCorreo->chasisCorreo = $_POST["chasisCorreo"];
+    $chasisCorreo->ajaxPreparCorreo();
+}
+
+if (isset($_POST["guardarCorreo"])) {
+    $gdCorreoChas = new AjaxAccionesVehiculosNuevos();
+    $gdCorreoChas->guardarCorreo = $_POST["guardarCorreo"];
+    $gdCorreoChas->ajaxGuardarVehCorreo();
 }

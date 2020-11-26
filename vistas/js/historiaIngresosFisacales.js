@@ -105,6 +105,7 @@ $(document).on("click", ".btnEditOp", function () {
                 if (respuesta.dataDet.tipoDet == "Vehiculos") {
                     document.getElementById("divEdicionClientes").innerHTML = '';
                     document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
+                    document.getElementById("divEdicionClientes").innerHTML = '<table id="tableClientesEdit" class="table dt-responsive table-sm table-hover">';
                     var lista = [];
                     var numero = 0;
                     for (var i = 0; i < respuesta.dataDet.respuestaClientes.length; i++) {

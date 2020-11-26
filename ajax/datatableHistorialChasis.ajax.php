@@ -16,7 +16,7 @@ class historialIngresosFiscales {
 
         $sp = "spConsultaChasSalida";
         $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
-        var_dump($respuesta);
+
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta != "SD") {
 
@@ -25,36 +25,31 @@ class historialIngresosFiscales {
                             "data": [';
                 echo $cabeza;
                 foreach ($respuesta as $key => $value) {
+                    $contador = $contador+1;
                     // Con objetos
-                    if ($value["estado"]==0) {
-                        $button = '<button type="button" class="btn btn-primary"><i class="fa fa-check"></i></button>';
-                    }
+            
+                        $button = "<button type='button' class='btn btn-primary'><i class='fa fa-check'></i></button>";
+           
                     $fecha_actual = new DateTime();
-                    $cadena_fecha_actual = $value["fechaRealIng"]->format("d-m-Y");
+                    $fecha_actual = $value["fechaRealIng"]->format("d-m-Y");
                     if ($value["numeroAsig"] == 0) {
                         $ingreso = "Sin Ingreso";
                     } else {
                         $ingreso = $value["numeroAsig"];
-                    }
-                    $chasis = $value["chasis"];
-                    $linea = $value["linea"];
-                    $tipoV = $value["tipoVehiculo"];
-                    $cif = $value["cif"];
-                    $impuesto = $value["impuesto"];
+                    }         
                    
 
                     $datoJsonIngHis = '[
                                     "' . $contador . '",
-                                    "' . $respuesta[$key]["nit"] . '",
-                                    "' . $value["empresa"] . '",
-                                    "' . $value["poliza"] . '",
-                                    "' . $cadena_fecha_actual . '",
-                                    "' . $ingreso . '",
-                                    "' . $value["blts"] . '",
-                                    "' . $cif . '",
-                                    "' . $impuesto . '",
-                                    "' . $bodega . '",
-                                    "' . $botoneraAcciones . '"
+                                    "' . $value["nitEmpresa"] . '",
+                                    "' . $value["nombreEmpresa"] . '",
+                                    "' . $value["numeroPoliza"] . '",                                        
+                                    "' . $value["chasis"] . '",
+                                    "' . $value["linea"] . '",
+                                    "' . $value["tipoVehiculo"] . '",
+                                    "' . $value["cif"] . '",
+                                    "' . $value["impuesto"] . '",
+                                    "' . $button . '"
     ],';
 
 

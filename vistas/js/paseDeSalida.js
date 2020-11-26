@@ -13,21 +13,18 @@ function ajaxGuardarChasisVeh(idRetCal, listaJson) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-
             console.log(respuesta);
             if (respuesta != "SD") {
                 respFunc = respuesta;
             } else {
                 respFunc = false;
             }
-
         }, error: function (respuesta) {
             console.log(respuesta);
         }
     });
     return respFunc;
 }
-
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
     document.getElementById("divOtrosServicios").innerHTML = "";
@@ -48,12 +45,10 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
             var paragraphsTotal = Array.from(document.querySelectorAll(".valTextTotal"));
             for (var i = 0; i < paragraphsTotal.length; i++) {
                 var idDom = paragraphsTotal[i].id;
-                var idChasis = $("#" + idDom).attr("idchasis");
-                
+                var idChasis = $("#" + idDom).attr("idchasis");               
                 var valTotal = document.getElementById("textValTotal" + i).value;
                 var valTotal = Number.parseFloat(valTotal).toFixed(2);
                 var valTotal = valTotal * 1;
-
                 var cif = document.getElementById("textValAd"+i).value;
                 var cif = Number.parseFloat(cif).toFixed(2);
                 var cif = cif*1;
@@ -67,7 +62,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         console.log(listaChasis);
         console.log(valTotalAcum);
         console.log(total);
-
         if (total == valTotalAcum) {
             var idRetCal = button.attr("idRet");
             var listaJson = JSON.stringify(listaChasis);
@@ -117,7 +111,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                 toast.addEventListener('mouseleave', Swal.resumeTimer)
             }
         })
-
         Toast.fire({
             type: 'error',
             html: '&nbsp;&nbsp;&nbsp;&nbsp;<b>Por favor solicite la carta de autorización de salida,<br />El valor de mercaderia excede los Q. 500,000.00</b>'
@@ -174,7 +167,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 success: async function (respuesta) {
                                     console.log(respuesta);
                                     if (respuesta == "tarifaEspecial") {
-
                                         document.getElementById("divCalculoHistoria").innerHTML = `
                         <div class="col-4">
                                 <div class="row"">
@@ -188,16 +180,11 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     <input type="text" id="dateTime" class="form-control">
                                     <span class="input-group-append">
                                        <button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idret="` + idRetCal + `" idingreso="` + idIngresoCal + `">Fecha retiro fiscal </button>
-                                        
                                     </span>
                                     <input type="hidden" id="hiddenDateTimeVal" value="" />
-                                    
                                     <input type="hidden" id="hiddenNumeroPoliza" value="" />
-                                    
                                     </p>
-
                                 </div>
-                                    
                                         </p>
                                     </div>
                                 </div>
@@ -220,8 +207,6 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark"  data-toggle="modal" data-target="#plusServiciosDefalult">Servicios : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanServicios"></b></span></button></div>
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-dark btnDescuento">Descuentos : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanDescuentos"></b></span></button></div>
                                     <div class="col-sm-12 col-lg-3"><button type="button" class="btn btn-outline-danger">Total : <span class="badge badge-primary" style="font-size: 15px;"><b>Q&nbsp;&nbsp;</b><b id="spanTotalC"></b></span></button></div>
-
-                        
                                     <div class="col-sm-12 col-lg-4 mt-4">
                                  <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
                                     <i class="fa fa-print fa-lg mr-2"></i>
@@ -229,7 +214,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                 </div>  
                                 </div>
                                 <div class="col-sm-12 col-lg-4 mt-4">
-                                <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + `   data-toggle="modal" data-target="#plusPilotos">
+                                <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + ` data-toggle="modal" data-target="#plusPilotos">
                                     Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i>
                                 </div>                        
                             </div>    

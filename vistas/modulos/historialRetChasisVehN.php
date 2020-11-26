@@ -18,8 +18,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6 mt-2">
-                                <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
-                            </div>   
+                                <button type="button" class="btn btn-outline-success btn-lg btn-block"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
+                            </div>
+                            <div class="col-6 mt-2">
+                                <button type="button" class="btn btn-outline-info btn-lg btn-block btnCorreoDeSolicitud" data-toggle="modal" data-target="#chasisVehiculosNuevos">PREPARAR SOLICITUD DE CHASIS <i class="fa fa-cogs"></i></button>
+                            </div>                            
                             <div class="col-12 mt-5">
                                 <table id="tableHistChasisVehN" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>
@@ -28,18 +31,16 @@
                                         <th>Nit</th>
                                         <th style="width:500px;">Empresa</th>
                                         <th>Poliza</th>
-                                        <th>Fecha</th>
-                                        <th>Num. Ingreso</th>
+                                        <th>Chasis</th>
+                                        <th>Linea </th>
                                         <th>Bultos</th>
                                         <th>Cif</th>
-                                        <th>Impuestos</th>
-                                        <th>Bodega #</th>                                        
+                                        <th>Impuestos</th>                                        
                                         <th><center>Acciones</center></th>
                                         </tr>
                                     </thead> 
                                 </table>
                             </div>
-
                         </div>
                     </div>
                 </form>
@@ -216,181 +217,27 @@
 </div>
 
 <!-- The Modal -->
-<div class="modal fade" id="AnulacionIngreso">
+<div class="modal fade" id="chasisVehiculosNuevos">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">ANULAR INGRESO</h4>
+                <h4 class="modal-title text-primary">DETALLE DE CORREOS DE VEHÍCULOS NUEVOS&nbsp;&nbsp<i class="fa fa-envelope"></i></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-
             <!-- Modal body -->
             <div class="modal-body">
                 <div class="row">
-
-                    <div class="col-6">
-                        <label>
-                            Numero de Ingreso
-                        </label>
-                        <input class="form-control is-invalid" id="numeroIngreso" type="text" value = "" readonly="readonly" />
+                    <div class="col-12" id="tableChasisCorreoPreVisual">
+                        
                     </div>
-                    <div class="col-12">
-                        Motivo de anulación &nbsp;&nbsp;Palabras Aceptadas <strong id="conteoCaracteres">150</strong>
-
-
-                        <textarea class="form-control is-invalid" rows="3" id="textMotivoAnulacion" name="text">SE ANULO DEBIDO A : </textarea>
-                    </div>                    
                 </div>
             </div>
 
             <!-- Modal footer -->
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="anulacionDefinitiva" numeroIdIngreso="" disabled="disabled" />Anular Ingreso&nbsp;&nbsp;<i class="fas fa-trash"></i></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalNuevosServicios" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-12">
-                        <label>
-                            AGREGAR MAS SERVICIOS
-                        </label>
-                        </input>
-                    </div>
-                    <div class="col-6 form-group">
-                        <label>
-                            Nombre del servicio
-                        </label>
-                        <select class="form-control select2" id="selectOtrosServ"style="width: 100%;">
-                            <option selected="selected" disabled="disabled">Seleccione el servicio</option>
-                            <?php
-                            $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServicios();
-                            ?>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="col-12">
-                            <label>
-                                Valor Peso
-                            </label>
-                            <div class="input-group">
-                                <input class="form-control is-invalid" id="montoOtroServicio" name="montoOtroServicio" placeholder="Ingrese monto del servicio" type="number" />
-
-                                <span class="input-group-append">
-                                    <button btnagrega="0" class="btn btn-primary btn-flat btnNuevoServicios" type="button">Agregar nuevo servicio</button>
-                                </span>
-                            </div>
-                        </div>
-                        <center><label id="pesoSobregiro" style="color:red;"></label></center>
-                    </div>
-                    <div class="col-md-12" id="divOtrosServicios"></div>
-
-
-
-
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary btn-block bntNewRegister" tipo="0">Guardar Servicio</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-<!-- Modal -->
-<div class="modal fade" id="modalChasisEdit" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="chasisVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="tipoVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="lineaVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <input type="text" class="form-control is-invalid" id="chasisModificado" value="" />
-                </div>  
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <select class="form-control select2 selectChasisEdit" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
-                        <?php
-                        $respuesta = ControladorHistorialIngresos::ctrMostrarLineasTpVeh();
-                        ?>
-                    </select>
-                </div> 
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <button type="button" class="btn btn-success btn-block btnModificaVehiculo">Hacer modificaciones al chasis</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="modalEditarBultosCuadres" role="dialog">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="chasisVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="tipoVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                        <input type="text" class="form-control" id="lineaVeh" placeholder="Chasis" value="" readOnly="true" />
-                    </div>
-
-                </div>
-
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <input type="text" class="form-control is-invalid" id="chasisModificado" value="" />
-                </div>  
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <select class="form-control select2 selectChasisEdit" data-dropdown-css-class="select2-danger" style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
-                        <?php
-                        $respuesta = ControladorHistorialIngresos::ctrMostrarLineasTpVeh();
-                        ?>
-                    </select>
-                </div> 
-                <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                    <button type="button" class="btn btn-success btn-block btnModificaVehiculo">Hacer modificaciones al chasis</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-outline-success btn-block btnGuardarCorreoChasis">Cargar correo a sistema&nbsp;&nbsp;<i class="fa fa-save"></i></button>
             </div>
         </div>
     </div>

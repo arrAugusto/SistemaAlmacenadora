@@ -1,5 +1,7 @@
 <?php
 
+use Endroid\QrCode\QrCode;
+
 class ControladorRetirosRebajados {
 
     public static function ctrRetAutorizadosSalida() {
@@ -34,7 +36,7 @@ class ControladorRetirosRebajados {
         $respIdEs = revisionData::datoEntero($estado);
         $respIdChas = revisionData::datoEntero($identChas);
         $respIdTp = revisionData::datoEntero($tipo);
-   
+
         if ($respIdEs == true && $respIdChas == true && $respIdTp == true || $respIdTp == 0) {
             if ($tipo == 1) {
                 if ($estado == 2) {
@@ -51,7 +53,6 @@ class ControladorRetirosRebajados {
                 if ($estado == 4) {
                     $nuevoEstado = 3;
                 }
-                
             }
             $sp = "spNuevoEstadoChas";
             $respuesta = ModeloRetAutorizadosSalida::ctrInsertDosParams($sp, $identChas, $nuevoEstado);
@@ -73,7 +74,7 @@ class ControladorRetirosRebajados {
         $respNew = revisionData::datoEntero($idAntChasis);
         if ($respAnt == true && $respNew) {
 
-                        $sp = "spReversionChas";
+            $sp = "spReversionChas";
             $respuesta = ModeloRetAutorizadosSalida::ctrInsertDosParams($sp, $idNewChas, $idAntChasis);
             if ($respuesta != "SD" && $respuesta["resp"] == true) {
                 return array("resp" => true, "primary" => $respuesta["data"]);
@@ -83,9 +84,42 @@ class ControladorRetirosRebajados {
             } else {
                 return array("resp" => false, "error" => "sinConcidencia");
             }
-
         } else {
             return array("resp" => false, "error" => "errorDato");
+        }
+    }
+
+    public static function ctrPreparCorreo($chasisCorreo) {
+        $arrayDetalles = json_decode($chasisCorreo, true);
+        $sp = "spConsultaChasCorreo";
+        $dataList = [];
+        foreach ($arrayDetalles as $key => $value) {
+            $chasis = $value[0];
+            $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($chasis, $sp);
+            array_push($dataList, $respuesta[0]);
+        }
+        return $dataList;
+    }
+
+    public static function ctrGuardarVehCorreo($guardarCorreo) {
+        $arrayDetalles = json_decode($guardarCorreo, true);
+
+        foreach ($arrayDetalles as $key => $value) {
+            $idChasis = $value[0];
+           $arrayData = array("codeChasis"=>$value);
+            $idDataQR = json_encode($arrayData);
+            $sp = "spCorreoPrepara";
+            $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($idChasis, $sp);
+
+            $direccion = "../extensiones/imagenesQRChasSalida/";
+            if (!file_exists($direccion)) {
+                mkdir($direccion);
+            }
+            $codigoQR = new QrCode($idDataQR, 'H', 2, 1);
+            // La ruta en donde se guardará el código
+            $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet" . $idChasis . ".png");
+            // Escribir archivo,
+            $codigoQR->writeFile($nombreArchivoParaGuardar);
         }
     }
 
