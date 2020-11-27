@@ -103,10 +103,9 @@ class ControladorRetirosRebajados {
 
     public static function ctrGuardarVehCorreo($guardarCorreo) {
         $arrayDetalles = json_decode($guardarCorreo, true);
-
         foreach ($arrayDetalles as $key => $value) {
             $idChasis = $value[0];
-           $arrayData = array("codeChasis"=>$value);
+            $arrayData = array("codeChasis" => $value);
             $idDataQR = json_encode($arrayData);
             $sp = "spCorreoPrepara";
             $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($idChasis, $sp);
@@ -121,6 +120,24 @@ class ControladorRetirosRebajados {
             // Escribir archivo,
             $codigoQR->writeFile($nombreArchivoParaGuardar);
         }
+    }
+
+    public static function ctrNewEmpresaGPO($gdEmpresaPrimary) {
+        $sp = "spCreaNewEmpresa";
+        $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($gdEmpresaPrimary, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrMostrarGrupoEmpresasVeh($idEmpresaGPO) {
+        $sp = "spGPDependienteVeh";
+        $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($idEmpresaGPO, $sp);
+        return $respuesta;
+    }
+
+    public static function ctrGuardarNewEmpresaAlGP($idNitUnion, $idEmpresaUnion) {
+        $sp = "spNuevaEmpresaGP";
+        $respuesta = ModeloRetAutorizadosSalida::ctrInsertDosParams($sp, $idNitUnion, $idEmpresaUnion);
+        return $respuesta;
     }
 
 }

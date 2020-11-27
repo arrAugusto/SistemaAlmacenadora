@@ -17,10 +17,14 @@
                 <form role="form" method="post">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-6 mt-2">
+                            <div class="col-4 mt-2">
                                 <button type="button" class="btn btn-outline-success btn-lg btn-block"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
                             </div>
-                            <div class="col-6 mt-2">
+                            <div class="col-4 mt-2">
+                                <button type="button" class="btn btn-outline-primary btn-lg btn-block btnVerFechasCorreo" data-toggle="modal" data-target="#fechasCorreo">CORREOS DE FECHAS CHASIS <i class="fa fa-calendar"></i></button>
+                            </div>                            
+
+                            <div class="col-4 mt-2">
                                 <button type="button" class="btn btn-outline-info btn-lg btn-block btnCorreoDeSolicitud" data-toggle="modal" data-target="#chasisVehiculosNuevos">PREPARAR SOLICITUD DE CHASIS <i class="fa fa-cogs"></i></button>
                             </div>                            
                             <div class="col-12 mt-5">
@@ -230,7 +234,48 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12" id="tableChasisCorreoPreVisual">
-                        
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-success btn-block btnGuardarCorreoChasis">Cargar correo a sistema&nbsp;&nbsp;<i class="fa fa-save"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="fechasCorreo">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title text-primary">DETALLE DE CORREOS DE VEHÍCULOS NUEVOS&nbsp;&nbsp<i class="fa fa-envelope"></i></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12" id="tableChasisCorreoPreVisual">
+                        <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                            <thead>
+                                <tr>
+                                <th style="width:3px">#</th>
+                                <th>Empresa Grupo</th>
+                                <th>Acciones</th>                                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php
+                                $respuesta = ControladorPasesDeSalida::ctrMostrarGrupoEmpresasCorreo();
+                                ?>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

@@ -43,7 +43,32 @@ class AjaxAccionesVehiculosNuevos {
     public function ajaxGuardarVehCorreo() {
         $guardarCorreo = $this->guardarCorreo;
         $respuesta = ControladorRetirosRebajados::ctrGuardarVehCorreo($guardarCorreo);
-        echo json_encode($respuesta);        
+        echo json_encode($respuesta);
+    }
+
+    public $gdPrimaryEmp;
+
+    public function ajaxNewEmpresaGPO() {
+        $gdEmpresaPrimary = $this->gdEmpresaPrimary;
+        $respuesta = ControladorRetirosRebajados::ctrNewEmpresaGPO($gdEmpresaPrimary);
+        echo json_encode($respuesta);
+    }
+
+    public $mostrarGrupoVeh;
+
+    public function ajaxMostrarGrupoEmpresasVeh() {
+        $idEmpresaGPO = $this->idEmpresaGPO;
+        $respuesta = ControladorRetirosRebajados::ctrMostrarGrupoEmpresasVeh($idEmpresaGPO);
+        echo json_encode($respuesta);
+    }
+
+    public $guardarNewempresa;
+
+    public function ajaxGuardarNewEmpresaAlGP() {
+        $idNitUnion = $this->idNitUnion;
+        $idEmpresaUnion = $this->idEmpresaUnion;
+        $respuesta = ControladorRetirosRebajados::ctrGuardarNewEmpresaAlGP($idNitUnion, $idEmpresaUnion);
+        echo json_encode($respuesta);
     }
 
 }
@@ -72,4 +97,23 @@ if (isset($_POST["guardarCorreo"])) {
     $gdCorreoChas = new AjaxAccionesVehiculosNuevos();
     $gdCorreoChas->guardarCorreo = $_POST["guardarCorreo"];
     $gdCorreoChas->ajaxGuardarVehCorreo();
+}
+
+if (isset($_POST["gdEmpresaPrimary"])) {
+    $gdPrimaryEmp = new AjaxAccionesVehiculosNuevos();
+    $gdPrimaryEmp->gdEmpresaPrimary = $_POST["gdEmpresaPrimary"];
+    $gdPrimaryEmp->ajaxNewEmpresaGPO();
+}
+
+if (isset($_POST["idEmpresaGPO"])) {
+    $mostrarGrupoVeh = new AjaxAccionesVehiculosNuevos();
+    $mostrarGrupoVeh->idEmpresaGPO = $_POST["idEmpresaGPO"];
+    $mostrarGrupoVeh->ajaxMostrarGrupoEmpresasVeh();
+}
+
+if (isset($_POST["idNitUnion"])) {
+    $guardarNewempresa = new AjaxAccionesVehiculosNuevos();
+    $guardarNewempresa->idNitUnion = $_POST["idNitUnion"];
+    $guardarNewempresa->idEmpresaUnion = $_POST["idEmpresaUnion"];
+    $guardarNewempresa->ajaxGuardarNewEmpresaAlGP();
 }

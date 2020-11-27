@@ -132,6 +132,7 @@ class ModeloPasesDeSalida {
                 if ($respuestaVerifica[0]["tarifaEspecial"] == 1) {
                     return "tarifaEspecial";
                 } else {
+     
                     if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1 && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0) {
                         $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje);
                         $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera);
@@ -177,10 +178,12 @@ class ModeloPasesDeSalida {
                         $datos = array("almaMSuperior" => $almaMSuperior, "zonaAduanMSuperior" => $zonaAduanMSuperior, "calculoManejo" => $respuestaManejo, "gtoAdminMSuperior" => $gtoAdminMSuperior, "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $nuevafechaInicio, "fechaCorte" => $fechaCorte, "marchElectro" => $respMarcha, "serAcuse" => $revIngRev, "cantClientes" => $cantClientes, "diasMarch" => $tiempoMarch, "tipoCalc" => $tipoCalc);
                         return $datos;
                     } else {
+                        
                         //OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
                         $sp = "spDataCalculo";
                         $datosIngCalculo = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngresoCal, $sp);
-                        /*
+                   
+                        /*  
                          *  DATOS PARA GENERAR EL RUBRO ALMACENAJES
                          */
                         $peridoAlm = $datosIngCalculo[0]["PeriodoAlmacenaje"]; // PERIODO DE ALMACENAJE
@@ -218,12 +221,25 @@ class ModeloPasesDeSalida {
                             $diaAlmacenaje = 0;
                             $diasZA = $tiempoTotal - $diaAlmacenaje;
                         }
+                        
                         $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                         $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
+
                         $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo); // OBJETO CALCULA EL VALOR MANEJO
                         $respuestaGastosAdmin = calculosRubros::gastosAdminCalculo($TarifaGtsAdmin, $cantClientes, $minGastosAdministracion); // OBJETO CALCULA GASTOS ADMIN
                         $gtoAdminMSuperior = ceil($respuestaGastosAdmin / 10) * 10;
                         $almaMSuperior = ceil($respuestaAlmacenaje / 10) * 10;
+                        if ($datosIngCalculo[0]["reglaAproximacion"] == 0) {
+                            $zonaAduaneraCalc = ceil($respuestaZonaAduanera);
+                            $zonaAduanMSuperior = $zonaAduaneraCalc + $defaultCopias;
+                            $zonaAduanMSuperior = ceil($zonaAduanMSuperior / 10) * 10;
+                            if ($zonaAduanMSuperior <= $minZonaAduanera) {
+                                $zonaAduanMSuperior = $minZonaAduanera + $defaultCopias;
+                            }
+                            
+                        }else{
+                            
+                        
                         if ($results[0]["familiaPoliza"] == 1) {
                             $zonaAduaneraCalc = ceil($respuestaZonaAduanera);
                             $zonaAduanMSuperior = $zonaAduaneraCalc + $defaultCopias;
@@ -232,6 +248,7 @@ class ModeloPasesDeSalida {
                                 $zonaAduanMSuperior = $minZonaAduanera + $defaultCopias;
                             }
                         }
+  
                         if ($results[0]["familiaPoliza"] == 2) {
                             $zonaAduaneraCalc = ceil($respuestaZonaAduanera);
                             $zonaAduanMSuperior = $zonaAduaneraCalc + $defaultCopias;
@@ -240,6 +257,8 @@ class ModeloPasesDeSalida {
                                 $zonaAduanMSuperior = $minZonaAduanera + $defaultCopias;
                             }
                         }
+                        }
+
                         $totalCobrar = ($almaMSuperior + $zonaAduanMSuperior + $respuestaManejo + $gtoAdminMSuperior);
                         $respMarcha = 0;
 

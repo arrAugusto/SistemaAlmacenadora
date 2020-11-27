@@ -62,8 +62,6 @@
                 <?php
                 $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
                 ?>
-
-
             </div>
         </li>
 
@@ -84,14 +82,18 @@
                     echo '
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarConsolidado">
                     <i class="fa fa-database mr-2"></i> Agregar Nuevo Consolidado
-                </a>';
-                }
-
-                if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
-                    echo '
+                </a>
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNuevosServicios">
                     <i class="fa fa-database mr-2"></i> Agregar servicio de cobro
-                </a>';
+                </a>
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#crearPrimary">
+                    <i class="fa fa-database mr-2"></i> Crear primaria vehículos
+                </a>
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNuevosServicios">
+                    <i class="fa fa-database mr-2"></i> Unión de empresas
+                </a>                
+'
+                    ;
                 }
                 ?>                 
             </div>
@@ -302,7 +304,7 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
                                                 <thead>
                                                     <tr>
                                                     <th style="width:3px">#</th>
-                                                    <th>Nit</th>
+                                                    <th>Servicio</th>
                                                     </tr>
                                                 </thead> <tbody>';
     $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServiciosExt();
@@ -322,5 +324,76 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
             </div>
         </div>
     </div>
-</div>';
+</div>
+
+<div id="crearPrimary" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!--=====================================
+                INICIO FORM
+                ======================================-->
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-warning">
+                        <div class="card-header">
+                            <h3 class="card-title">Nuevo Consolidado <i class="fa fa-plus"></i></h3>
+                        </div>
+                        <!--campos formularios -->
+                        <form role="form" method="post">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="input-group">
+                                                <input type="text" id="textEmpresaGPO" placeholder="Escriba el nombre del grupo" class="form-control is-invalid buscando" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                <span class="input-group-append">
+                                                    <button type="button" class="btn btn-primary btn-block btnGPOEmpresasNew"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-6 mt-5">
+                                            <table id="tablas" role="grid" class="table dt-responsive table-striped table-hover table-sm" >
+                                                <thead>
+                                                    <tr>
+                                                    <th style="width:3px">#</th>
+                                                    <th>Empresa Grupo</th>
+                                                    <th>Acciones</th>                                                    
+                                                    </tr>
+                                                </thead>
+                                                <tbody>';
+    $respuesta = ControladorPasesDeSalida::ctrMostrarGrupoEmpresas();
+    echo '
+                                                </tbody>
+                                            </table>
+                                        </div>      
+                                            <div class="col-6 mt-5">
+                                                <div class="row">
+                                                    <div class="col-12 mt-5" id="divEmpresasGPO">
+                                                    </div>
+                                                    <div class="col-12 mt-5" id="empresaGrupoVeh">
+                                                    </div>                                                    
+                                                </div>
+                                           
+                                        </div>  
+                                        <div class="col-12 mt-5" id="bntGPOEmpresa">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+';
 }?>
