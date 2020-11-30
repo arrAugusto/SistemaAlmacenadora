@@ -261,7 +261,7 @@ $(document).on("click", ".bntGPOEmpresa", async function () {
             lista.push([numero, nombreGrupo, nitEmpresa, nombreEmpresa, direccionEmpresa]);
 
         }
-
+        console.log(lista);
         $('#tableEmpresasGrupo').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
@@ -401,6 +401,6 @@ function ajaxParamsNewParam(idNitUnion, idEmpresaUnion) {
 
 $(document).on("click", ".btnVerCorreos", async function () {
     var idGrupo = $(this).attr("idbutton");
-    window.open("extensiones/tcpdf/pdf/Ingreso-Acuse-Recibo.php?Ingreso=" + idGrupo, "_blank");
+    window.open("extensiones/tcpdf/pdf/reporteCorreoVehNuevos.php?Ingreso=" + idGrupo, "_blank");
 })
 

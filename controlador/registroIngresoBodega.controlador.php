@@ -514,7 +514,12 @@ class ControladorRegistroBodega {
         $respuesta = ModeloRegIngBod::mdlConsultaDosParam($hiddCopy, $sp, $idIngPaste);
         return $respuesta;
     }
-
+    public static function ctrMostrarListadoChasis($idGrupo){
+        $sp = "spMostrarVehNewCorreo";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($idGrupo, $sp);
+        return $respuesta;
+        
+    }
 }
 
 function Randomalfa() {
