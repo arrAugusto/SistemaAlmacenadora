@@ -13,10 +13,12 @@ nav.ul.li.a.i.p{
 .colorBarSuperTitle{
     color: #E9DF0E;
 }
+.colorBarSuperVillGren{
+    color: #fdd835;
+}
 .colorBarSuperVill{
     color: #F5D608;
 }
-
 .bgNavSuper{
     background-color: #13b2ff; 
     color:#fff;

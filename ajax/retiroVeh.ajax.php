@@ -71,6 +71,15 @@ class AjaxAccionesVehiculosNuevos {
         echo json_encode($respuesta);
     }
 
+    public $gdIdChasVeh;
+
+    public function ajaxGdChasisIdVeh() {
+        $idContaChas = $this->idContaChas;
+        $fechaContableChas = $this->fechaContableChas;
+        $respuesta = ControladorRetirosRebajados::ctrGdChasisIdVeh($idContaChas, $fechaContableChas);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["estado"])) {
@@ -116,4 +125,10 @@ if (isset($_POST["idNitUnion"])) {
     $guardarNewempresa->idNitUnion = $_POST["idNitUnion"];
     $guardarNewempresa->idEmpresaUnion = $_POST["idEmpresaUnion"];
     $guardarNewempresa->ajaxGuardarNewEmpresaAlGP();
+}
+if (isset($_POST["idContaChas"])) {
+    $gdIdChasVeh = new AjaxAccionesVehiculosNuevos();
+    $gdIdChasVeh->idContaChas = $_POST["idContaChas"];
+    $gdIdChasVeh->fechaContableChas = $_POST["fechaContableChas"];
+    $gdIdChasVeh->ajaxGdChasisIdVeh();
 }

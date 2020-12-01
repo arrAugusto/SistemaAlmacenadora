@@ -78,10 +78,7 @@ $(document).on("click", ".btnSelectMultiple", async function () {
     // Guardar listaString en el localstorage
     var data = localStorage.getItem("listaString", listaString);
     if (data) {
-
-
         var data = JSON.parse(data);
-
         if (data.length > 0) {
             lista.push(data);
         }
@@ -89,14 +86,11 @@ $(document).on("click", ".btnSelectMultiple", async function () {
         data.push(idret);
         var listaString = JSON.stringify(data);
     } else {
-
         var idret = $(this).attr("buttonid");
         lista.push(idret);
         var listaString = JSON.stringify(lista);
     }
     console.log(lista);
-
-
     // Guardar listaString en el localstorage
     localStorage.setItem("listaString", listaString);
     listaLocal = [];
@@ -132,8 +126,6 @@ $(document).on("click", ".btnSelectMultiple", async function () {
     // obtener listaString en el localstorage
     var data = localStorage.getItem("listaString");
     var jsonData = JSON.parse(data);
-    console.log(jsonData);
-
     var estado = $(this).attr("estado");
     if (estado == 0) {
         $(this).attr("estado", 1);
@@ -145,7 +137,6 @@ $(document).on("click", ".btnSelectMultiple", async function () {
         $(this).removeClass("btn btn-outline-info");
         $(this).addClass("btn btn-outline-dark");
         $(this).html('<i class="fa fa-close"></i>');
-
     }
 })
 

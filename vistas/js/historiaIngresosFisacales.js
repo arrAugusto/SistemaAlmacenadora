@@ -896,6 +896,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     if ($("#tableHistorialDataExtra").length >= 1) {
         $.ajax({
+            "bServerSide": true,
             url: "ajax/datatableHistorialIngExt.ajax.php",
             success: function (respuesta) {
                 console.log(respuesta);

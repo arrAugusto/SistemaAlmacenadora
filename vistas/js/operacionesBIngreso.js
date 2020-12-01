@@ -1414,144 +1414,144 @@ $(document).on("click", ".btnEditar", function () {
         $(this).addClass('btn-warning');
         $(this).html('<i class="fa fa-edit"></i>');
         $(this).attr('btnEstadoEdicion', 0);
-            if ($("#divEdiciones").length==0) {
-        
-    
-        var textnomEmpresa = document.getElementById(nomEmpresa).value;
-        var textbltsEmpresa = document.getElementById(bltsEmpresa).value;
-        var textpesoEmpresa = document.getElementById(pesoEmpresa).value;
-        var buttonEditar = $(this).attr("numbtneditar");
-        var textbltsEmpresa = parseInt(textbltsEmpresa);
-        var textbltsEmpresa = textbltsEmpresa * 1;
-
-        var textpesoEmpresa = parseFloat(textpesoEmpresa).toFixed(2);
-        var textpesoEmpresa = textpesoEmpresa * 1;
-
-        var llaveConsultaEdit = parseInt(llaveConsultaEdit);
-        var llaveConsultaEdit = llaveConsultaEdit * 1;
-        var buttonEditar = parseInt(buttonEditar);
-        var buttonEditar = buttonEditar * 1;
-        var datos = new FormData();
-        datos.append("buttonEditar", buttonEditar);
-        datos.append("textnomEmpresa", textnomEmpresa);
-        datos.append("textbltsEmpresa", textbltsEmpresa);
-        datos.append("textpesoEmpresa", textpesoEmpresa);
-        datos.append("llaveConsultaEdit", llaveConsultaEdit);
-        $.ajax({
-            url: "ajax/operacionesBIngreso.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function (respuesta) {
-                console.log(respuesta);
-                if (respuesta[0].resp == 1) {
-                    swal({
-                        type: "success",
-                        title: "Editado satisfactoriamente",
-                        text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                    return true;
-
-                } else {
-                    swal({
-                        type: "error",
-                        title: "No se edito",
-                        text: "Hubo un error desconocido no se pudo editar",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                    return false;
-                }
-                return false;
-                if (respuesta == "conDetCorregido") {
-                    swal({
-                        type: "warning",
-                        title: "Se edito empresa y peso, bultos no se pueden editar porque bodega ya opero transacciones",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-
-                }
-                if (respuesta["Tipo"] == "ConDetalleBodega") {
-                    swal({
-                        title: "Error",
-                        text: "La edición fue Interrumpida, comuquese con bodega para editar",
-                        type: "error"
-                    }).then(okay => {
-                        if (okay) {
-                            document.getElementById(nomEmpresa).value = respuesta['datos'][0]['empresa'];
-                            document.getElementById(bltsEmpresa).value = respuesta['datos'][0]['bultos'];
-                            document.getElementById(pesoEmpresa).value = respuesta['datos'][0]['peso'];
-                            document.getElementById(nomEmpresa).readOnly = true;
-                            document.getElementById(bltsEmpresa).readOnly = true;
-                            document.getElementById(pesoEmpresa).readOnly = true;
-                        }
-                    });
-                }
-                if (respuesta == "corregido") {
-                    swal({
-                        type: "success",
-                        title: "Editado satisfactoriamente",
-                        text: "El detalle Fue Editado Con Éxito",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                } else if (respuesta == "bultosExcede") {
-                    swal({
-                        type: "error",
-                        title: "Exceso de bultos",
-                        text: "Sobre pasa el limite de los bultos detallados en el ingreso",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                }
-                if (respuesta == "corregidoFinalizarlo") {
-                    swal({
-                        type: "success",
-                        title: "Editado satisfactoriamente",
-                        text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
-                        showConfirmButton: true,
-                        confirmButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                    if ($("#divTableFail").length == 0) {
+        if ($("#divEdiciones").length == 0) {
 
 
-                        document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
-                        document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
-                        document.getElementById("gDetalles").innerHTML = "Editar Clientes";
-                        document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
+            var textnomEmpresa = document.getElementById(nomEmpresa).value;
+            var textbltsEmpresa = document.getElementById(bltsEmpresa).value;
+            var textpesoEmpresa = document.getElementById(pesoEmpresa).value;
+            var buttonEditar = $(this).attr("numbtneditar");
+            var textbltsEmpresa = parseInt(textbltsEmpresa);
+            var textbltsEmpresa = textbltsEmpresa * 1;
 
-                        //                    document.getElementById("divMasButtons").innerHTML += '<button type="button" class="btn btn-info btnPlusPilotos">Agregar mas pilotos <i class="fa fa-plus"></i></button>';
-                        var valueClientes = document.getElementById("valueClientes").value;
-                        var cantVsClientes = document.getElementById("cantVsClientes").value;
-                        cantVsClientes = parseInt(cantVsClientes) + 1;
-                        document.getElementById("contadorH3").innerHTML = cantVsClientes;
-                        document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+            var textpesoEmpresa = parseFloat(textpesoEmpresa).toFixed(2);
+            var textpesoEmpresa = textpesoEmpresa * 1;
+
+            var llaveConsultaEdit = parseInt(llaveConsultaEdit);
+            var llaveConsultaEdit = llaveConsultaEdit * 1;
+            var buttonEditar = parseInt(buttonEditar);
+            var buttonEditar = buttonEditar * 1;
+            var datos = new FormData();
+            datos.append("buttonEditar", buttonEditar);
+            datos.append("textnomEmpresa", textnomEmpresa);
+            datos.append("textbltsEmpresa", textbltsEmpresa);
+            datos.append("textpesoEmpresa", textpesoEmpresa);
+            datos.append("llaveConsultaEdit", llaveConsultaEdit);
+            $.ajax({
+                url: "ajax/operacionesBIngreso.ajax.php",
+                method: "POST",
+                data: datos,
+                cache: false,
+                contentType: false,
+                processData: false,
+                dataType: "json",
+                success: function (respuesta) {
+                    console.log(respuesta);
+                    if (respuesta[0].resp == 1) {
+                        swal({
+                            type: "success",
+                            title: "Editado satisfactoriamente",
+                            text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
+                        return true;
+
+                    } else {
+                        swal({
+                            type: "error",
+                            title: "No se edito",
+                            text: "Hubo un error desconocido no se pudo editar",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
+                        return false;
                     }
-                    $("#divEmpresasAgregadas").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
-                    document.getElementById("cantVsClientes").value = cantVsClientes;
+                    return false;
+                    if (respuesta == "conDetCorregido") {
+                        swal({
+                            type: "warning",
+                            title: "Se edito empresa y peso, bultos no se pueden editar porque bodega ya opero transacciones",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
 
-                    document.getElementById("tipoBusqueda").value = '';
-                    document.getElementById("bultosAgregados").value = '';
-                    document.getElementById("pesoAgregado").value = '';
+                    }
+                    if (respuesta["Tipo"] == "ConDetalleBodega") {
+                        swal({
+                            title: "Error",
+                            text: "La edición fue Interrumpida, comuquese con bodega para editar",
+                            type: "error"
+                        }).then(okay => {
+                            if (okay) {
+                                document.getElementById(nomEmpresa).value = respuesta['datos'][0]['empresa'];
+                                document.getElementById(bltsEmpresa).value = respuesta['datos'][0]['bultos'];
+                                document.getElementById(pesoEmpresa).value = respuesta['datos'][0]['peso'];
+                                document.getElementById(nomEmpresa).readOnly = true;
+                                document.getElementById(bltsEmpresa).readOnly = true;
+                                document.getElementById(pesoEmpresa).readOnly = true;
+                            }
+                        });
+                    }
+                    if (respuesta == "corregido") {
+                        swal({
+                            type: "success",
+                            title: "Editado satisfactoriamente",
+                            text: "El detalle Fue Editado Con Éxito",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
+                    } else if (respuesta == "bultosExcede") {
+                        swal({
+                            type: "error",
+                            title: "Exceso de bultos",
+                            text: "Sobre pasa el limite de los bultos detallados en el ingreso",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
+                    }
+                    if (respuesta == "corregidoFinalizarlo") {
+                        swal({
+                            type: "success",
+                            title: "Editado satisfactoriamente",
+                            text: "El detalle Fue Editado Con Éxito, el ingreso fue guardado exitosamente",
+                            showConfirmButton: true,
+                            confirmButtonText: "cerrar",
+                            closeConfirm: true
+                        });
+                        if ($("#divTableFail").length == 0) {
+
+
+                            document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
+                            document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
+                            document.getElementById("gDetalles").innerHTML = "Editar Clientes";
+                            document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
+
+                            //                    document.getElementById("divMasButtons").innerHTML += '<button type="button" class="btn btn-info btnPlusPilotos">Agregar mas pilotos <i class="fa fa-plus"></i></button>';
+                            var valueClientes = document.getElementById("valueClientes").value;
+                            var cantVsClientes = document.getElementById("cantVsClientes").value;
+                            cantVsClientes = parseInt(cantVsClientes) + 1;
+                            document.getElementById("contadorH3").innerHTML = cantVsClientes;
+                            document.getElementById("contadorClientes").innerHTML = cantVsClientes;
+                        }
+                        $("#divEmpresasAgregadas").append('<div id="divNumero' + respuesta["resultado"][0]["Identity"] + '" class="col-12"><div class="input-group mb-3"> <div class="input-group-prepend"><button type="button" class="btn btn-danger btnEliminarDetalle" numeroButtonTrash="' + respuesta["resultado"][0]["Identity"] + '" numBtnEliminar="' + cantVsClientes + '"><i class="fa fa-trash"></i></button><button type="button" class="btn btn-warning btnEditar" buttonEditar=' + respuesta["resultado"][0]["Identity"] + ' numBtnEditar="' + cantVsClientes + '" btnEstadoEdicion=0><i class="fa fa-edit"></i></button> </div><input type="text" class="form-control" value="' + tipoBusqueda + '" id="nomEmpresa' + cantVsClientes + '" numTxtEmpresa="' + cantVsClientes + '" readOnly="readOnly"><input type="text" class="form-control" value="' + bultosAgregados + '" id="bltsEmpresa' + cantVsClientes + '" numTxtBultos="' + cantVsClientes + '" readOnly="readOnly"><input type="text"  class="form-control" value="' + pesoAgregado + '"  id="pesoEmpresa' + cantVsClientes + '" numTxtPeso="' + cantVsClientes + '" readOnly="readOnly"></div></div>');
+                        document.getElementById("cantVsClientes").value = cantVsClientes;
+
+                        document.getElementById("tipoBusqueda").value = '';
+                        document.getElementById("bultosAgregados").value = '';
+                        document.getElementById("pesoAgregado").value = '';
+                    }
+                },
+                error: function (respuesta) {
+                    console.log(respuesta);
                 }
-            },
-            error: function (respuesta) {
-                console.log(respuesta);
-            }
-        })
-    }
+            })
+        }
     }
 })
 $(document).on("click", ".btnConsolidado", function () {
@@ -1922,15 +1922,22 @@ $(document).on("click", ".btnValidarChasis", function () {
                         var tipoVehiculo = respuesta[i].TipoVehiculo;
                         var lineaVehiculo = respuesta[i].lineaVehiculo;
                         var estado = respuesta[i].estado;
-
                         if (estado == 0) {
+                            console.log(estado);
+                            console.log(chasis);
                             var buttonEstado = '<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-window-close"></i></button>';
                             var chasisErroneo = chasisErroneo + 1;
                             listaEstado.push([chasis, tipoVehiculo, lineaVehiculo, estado]);
                         } else if (estado == 1) {
+                            console.log(estado);
+                            console.log(chasis);
+
                             var buttonEstado = '<button type="button" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></button>';
                         } else if (estado == 2) {
-                            var chasisErroneo = chasisErroneo + 1;
+                            console.log(estado);
+                            console.log(chasis);
+
+                            var chasisErroneo = 0;
                             var buttonEstado = '<button type="button" class="btn btn-warning btn-sm"><i class="fa fa-check-square"></i></button>';
                             listaEstado.push([chasis, tipoVehiculo, lineaVehiculo, estado]);
                         }
@@ -2017,6 +2024,7 @@ $(document).on("click", ".btnValidarChasis", function () {
 
                     }
                     if (denegacion == 0) {
+                        console.log(chasisErroneo);
                         if (chasisErroneo == 0) {
                             var mensaje = "Se cargo el listado exitosamente todos los vehiculos";
                             var tipo = "success";
@@ -2025,7 +2033,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             swal({
                                 type: "error",
                                 title: "Error detalle de chasis",
-                                text: "Los detalles, tipo de vehiculo o linea del vehiculo que ud. proporcionan no existen en la base de datos, revisrevise los chasis con error",
+                                text: "Los detalles, tipo de veh    iculo o linea del vehiculo que ud. proporcionan no existen en la base de datos, revisrevise los chasis con error",
                                 showConfirmButton: true,
                                 confirmButtonText: "cerrar",
                                 closeConfirm: true
@@ -6727,7 +6735,6 @@ $(document).on("click", ".btnSEleccBodega", async function () {
         if (result.value) {
             document.getElementById("idBodegEmpresa").innerHTML = area;
             document.getElementById("numBodIdent").value = idBod;
-
         }
     })
 

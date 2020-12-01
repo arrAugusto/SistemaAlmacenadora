@@ -75,7 +75,6 @@ class ModeloHistorialIngresos {
     }
 
     public static function mdlEditarIngOperacion($idIngEditOp) {
-
         $conn = Conexion::Conectar();
         $params = array(&$idIngEditOp);
         $sql = "EXECUTE spEditIngOp ?";

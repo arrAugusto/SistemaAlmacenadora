@@ -60,6 +60,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "chasisVehiculosNuevos" ||
                         $_GET["ruta"] == "historialChasisVehUsados" ||  
                         $_GET["ruta"] == "historialRetChasisVehN" ||  
+                         $_GET["ruta"] == "historialRetChasisSinConta" || 
                         
                         $_GET["ruta"] == "salir") {
                     /*
@@ -102,6 +103,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "chasisVehiculosNuevos" ||
                         $_GET["ruta"] == "historialChasisVehUsados" ||     
                         $_GET["ruta"] == "historialRetChasisVehN" || 
+                        $_GET["ruta"] == "historialRetChasisSinConta" || 
                         $_GET["ruta"] == "ingReportados") {
                     /*
                       Include para hacer URL amigables.

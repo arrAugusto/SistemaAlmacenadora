@@ -27,8 +27,7 @@ class ControladorRetirosRebajados {
                         <td>' . ($value["ret"]) . '</td>
                         <td>' . ($value["predio"]) . '</td>
                         <td>' . $botonera . '</td>                        
-
-</tr>';
+                    </tr>';
         }
     }
 
@@ -105,16 +104,15 @@ class ControladorRetirosRebajados {
         $arrayDetalles = json_decode($guardarCorreo, true);
         foreach ($arrayDetalles as $key => $value) {
             $idChasis = $value[0];
-            $arrayData = array("codeChasis" => $value);
+            $arrayData = array("codeChasis" => $idChasis);
             $idDataQR = json_encode($arrayData);
             $sp = "spCorreoPrepara";
             $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($idChasis, $sp);
-
             $direccion = "../extensiones/imagenesQRChasSalida/";
             if (!file_exists($direccion)) {
                 mkdir($direccion);
             }
-            $codigoQR = new QrCode($idDataQR, 'H', 2, 1);
+            $codigoQR = new QrCode($idDataQR . '|', 'H', 2, 1);
             // La ruta en donde se guardará el código
             $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet" . $idChasis . ".png");
             // Escribir archivo,
@@ -137,6 +135,12 @@ class ControladorRetirosRebajados {
     public static function ctrGuardarNewEmpresaAlGP($idNitUnion, $idEmpresaUnion) {
         $sp = "spNuevaEmpresaGP";
         $respuesta = ModeloRetAutorizadosSalida::ctrInsertDosParams($sp, $idNitUnion, $idEmpresaUnion);
+        return $respuesta;
+    }
+
+    public static function ctrGdChasisIdVeh($idContaChas, $fechaContableChas) {
+        $sp = "spContabilizaVeh";
+        $respuesta = ModeloRetAutorizadosSalida::mdlPreparCorreo($idContaChas, $sp);
         return $respuesta;
     }
 

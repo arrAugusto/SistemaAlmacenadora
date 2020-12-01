@@ -103,7 +103,7 @@ $(document).on("click", ".btnCorreoDeSolicitud", async function () {
             listaCorreo.push([idChasSalida]);
         }
         var listaData = JSON.stringify(listaCorreo);
-        // Guardar listaStringRet en el localstorage
+        // Guardar listaStringVehContaRet en el localstorage
         localStorage.setItem("listaCorreoChas", listaData);
         $('#tableChasPrevisual').DataTable({
             "language": {
@@ -401,6 +401,208 @@ function ajaxParamsNewParam(idNitUnion, idEmpresaUnion) {
 
 $(document).on("click", ".btnVerCorreos", async function () {
     var idGrupo = $(this).attr("idbutton");
-    window.open("extensiones/tcpdf/pdf/reporteCorreoVehNuevos.php?Ingreso=" + idGrupo, "_blank");
+    window.open("extensiones/tcpdf/pdf/reporteCorreoVehNuevos.php?idGrupo=" + idGrupo, "_blank");
 })
 
+//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
+$(document).ready(function () {
+    if ($("#tbHistChasVehSinConta").length >= 1) {
+        $.ajax({
+            url: "ajax/vehiculosSinConta.ajax.php",
+            "bServerSide": true,
+            success: function (respuesta) {
+                console.log(respuesta);
+            }
+        })
+    }
+})
+
+$(document).ready(function () {
+    if ($("#tbHistChasVehSinConta").length >= 1) {
+        $('#tbHistChasVehSinConta').DataTable({
+            "bProcessing": true,
+            "sAjaxSource": "ajax/vehiculosSinConta.ajax.php",
+            "deferRender": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+
+            }
+        });
+    }
+});
+
+$(document).on("click", ".btnContaChasTra", async function () {
+
+
+    lista = [];
+    // Guardar listaStringVehConta en el localstorage
+    var data = localStorage.getItem("listaStringVehConta", listaStringVehConta);
+    if (data) {
+
+
+        var data = JSON.parse(data);
+
+        if (data.length > 0) {
+            lista.push(data);
+        }
+        var idret = $(this).attr("idchasisconta");
+        data.push(idret);
+        var listaStringVehConta = JSON.stringify(data);
+    } else {
+
+        var idret = $(this).attr("idchasisconta");
+        lista.push(idret);
+        var listaStringVehConta = JSON.stringify(lista);
+    }
+    console.log(lista);
+
+
+    // Guardar listaStringVehConta en el localstorage
+    localStorage.setItem("listaStringVehConta", listaStringVehConta);
+    listaLocal = [];
+    // obtener listaStringVehConta en el localstorage
+    var data = localStorage.getItem("listaStringVehConta");
+    var jsonData = JSON.parse(data);
+    console.log(jsonData.length);
+    for (var i = 0; i < jsonData.length; i++) {
+        var idIng = jsonData[i];
+        var idIng = Number.parseInt(idIng);
+        if (i == 0) {
+            listaLocal.push(idIng);
+        }
+        if (i > 0) {
+            console.log(listaLocal.length);
+            var contador = 0;
+            for (var j = 0; j < listaLocal.length; j++) {
+                var idIngJ = Number.parseInt(listaLocal[j]);
+
+                if (idIng == idIngJ) {
+                    var contador = contador + 1;
+                }
+            }
+            if (contador == 0) {
+                listaLocal.push(idIng);
+            }
+        }
+    }
+    var listaLocal = JSON.stringify(listaLocal);
+    localStorage.removeItem("listaStringVehConta");
+    // Guardar listaStringVehConta en el localstorage
+    localStorage.setItem("listaStringVehConta", listaLocal);
+    // obtener listaStringVehConta en el localstorage
+    var data = localStorage.getItem("listaStringVehConta");
+    var jsonData = JSON.parse(data);
+    console.log(jsonData);
+
+    var estado = $(this).attr("estado");
+    if (estado == 0) {
+        $(this).attr("estado", 1);
+        $(this).removeClass("btn btn-outline-dark");
+        $(this).addClass("btn btn-info");
+        $(this).html('<i class="fa fa-circle"></i>');
+    } else {
+        $(this).attr("estado", 0);
+        $(this).removeClass("btn btn-outline-info");
+        $(this).addClass("btn btn-outline-dark");
+        $(this).html('<i class="fa fa-close"></i>');
+
+    }
+})
+
+
+$(document).ready(function () {
+    localStorage.removeItem("listaStringVehConta");
+})
+
+
+$(document).on("click", ".btnGuardarLoteChasisConta", async function () {
+
+    var estado = $(".btnMatenerFecha").attr("estado");
+    if (estado == 0) {
+        Swal.fire(
+                'Fecha contabilidad!',
+                'Selecciona fecha contable y luego haz click en el boton verde!',
+                'error'
+                )
+        return false;
+    } else {
+        var fechaCongeladaConta = localStorage.getItem('fechaCongeladaConta');
+        console.log(fechaCongeladaConta);
+
+        Swal.fire({
+            title: '¿Desea Contabilizar?',
+            text: "El ingreso Contabilizado, se reportara con fecha, " + fechaCongeladaConta,
+            type: 'warning',
+            showCancelButton: true,
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            allowOutsideClick: false,
+            cancelButtonText: 'No, Contabilizar!',
+            confirmButtonText: 'Sí, Contabilizar!'
+        }).then(async function (result) {
+            if (result.value) {
+
+                // Guardar listaString en el localstorage
+                var data = localStorage.getItem("listaStringVehConta");
+                var listaIng = JSON.parse(data);
+                console.log(listaIng);
+                console.log(fechaCongeladaConta);
+                var contador = 0;
+                for (var i = 0; i < listaIng.length; i++) {
+                    var buttonid = listaIng[i];
+                    var buttonid = buttonid * 1;
+                    console.log(buttonid);
+        var nomVar = "idContaChas";
+        var fecha = "fechaContableChas";
+        var respuesta = await contabilizarChas(nomVar, fecha, buttonid, fechaCongeladaConta);
+                }
+            }
+        })
+    }
+})
+
+function contabilizarChas(nomVar, fecha, buttonid, fechaCongeladaConta) {
+    let estado;
+    var datos = new FormData();
+    datos.append(nomVar, buttonid);
+    datos.append(fecha, fechaCongeladaConta);    
+    $.ajax({
+        async: false,
+        url: "ajax/retiroVeh.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            estado = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return estado;
+}

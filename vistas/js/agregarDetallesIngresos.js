@@ -828,8 +828,10 @@ $(document).on("click", ".btnImpAutorizado", function () {
 });
 $(document).on("click", ".btnMsVehiculos", async function () {
     var dependencia = document.getElementById("hiddenIdDependencia").value;
+    
     var listPredios = await cargarPrediosDeEmpresa(dependencia);
     console.log(listPredios);
+    
     if (listPredios != false) {
         for (var i = 0; i < listPredios.length; i++) {
             $("#vehiculosUbicaN").append('<option value=' + listPredios[i].idPredio + '> Predio ' + listPredios[i].pred + ' - ' + listPredios[i].descP + '</option>');
