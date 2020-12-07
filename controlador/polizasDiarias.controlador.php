@@ -332,6 +332,29 @@ class ControladorGenerarContabilidad {
                 }
             }
         }
+        $estado = 2;
+        $sp = "spContaVeh";
+        $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $iBodEmpresa);
+        
+        if ($respVeh!="SD") {
+                $numberSumCif = number_format($respVeh[0]["cif"], 2);
+                $numberSumImpuesto = number_format($respVeh[0]["impuesto"], 2);        
+            echo '
+                <tr>
+                    <td>
+                        <span class="ptable-title"><i class="fa fa-building-o"></i>CONTABILIDAD DE CHASIS VEHÍCULOS NUEVOS </span></td>
+                    <td>
+                        <!-- Icon -->
+                        <span class="badge bg-danger">CIF : Q ' . $numberSumCif . '</span><br/>
+                        <span class="badge bg-danger">IMPUESTOS : Q ' . $numberSumImpuesto . '</span>
+                    </td>
+                    <td>
+                        <!-- Icon -->
+                        <i class="fa fa-eye green"></i>
+                        <div class="btn-group"><button type="button" class="btn btn-success btnViewAjustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
+                </tr>
+                '; 
+        }
     }
 
     public static function ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod) {

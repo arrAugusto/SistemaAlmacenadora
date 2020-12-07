@@ -704,7 +704,7 @@
             </ul>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="historialRetChasisSinConta" class="nav-link">
+                    <a href="historialRetChasisContable" class="nav-link">
                         <i class="fa fa-calendar-check-o colorBarSuper"></i>
                         <p class="colorBarSuper">
                             Veh. Reportados &nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
@@ -712,8 +712,6 @@
                     </a>
                 </li>
             </ul>
-
-
             ';
             if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
                 echo '
@@ -766,6 +764,15 @@
                 <p class="colorBarSuper">
                     Chasis Veh. Nuevos &nbsp;&nbsp;
                 </p>
+            </a>
+        </li>
+                        <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;
+                </p>
+
             </a>
         </li>
         <li class="nav-item has-treeview">

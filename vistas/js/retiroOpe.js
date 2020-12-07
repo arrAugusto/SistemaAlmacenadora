@@ -35,10 +35,11 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                             var datblts = respuesta[i].blts;
                             var datdimPeso = respuesta[i].pesokg + " kg";
                             if (respuesta[i].familiaPoliza == 1) {
-                                if (respuesta[i].tipo == "AF") {
+                                
+                                if (respuesta[i].tipo.toUpperCase()  == "AF") {
                                     var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnVerSaldos btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
                                 }
-                                if (respuesta[i].tipo == "ZA" || respuesta[i].tipo == 1) {
+                                if (respuesta[i].tipo.toUpperCase()  == "ZA" || respuesta[i].tipo == 1) {
                                     var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
                                 }
 
@@ -338,9 +339,8 @@ $(document).on("click", ".btnListaSelect", async function () {
                         if ($("#divCont").length > 0) {
                             $("#divCont").remove();
                         }
-
-
                     }
+                    console.log(respuestaDetIng.data);
                     if (respuestaDetIng.data == "sinRet") {
                         Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
                         document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
@@ -571,14 +571,76 @@ $(document).on("click", ".btnListaSelect", async function () {
             }
         });
     } else {
+
         document.getElementById("descMercaderia").value = "VEHICULOS NUEVOS";
         $("#descMercaderia").trigger('change');
         document.getElementById("hiddeniddeingreso").value = idIngSelectDet;
         document.getElementById("hiddenIdentificador").value = idIngOpDet;
         console.log(servicio.dataRetiro);
-        if (servicio.dataRetiro == "sinRet") {
+        if (servicio.dataRetiro == "sinRet" || servicio.dataRetiro == 'undefined') {
             Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
             document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+        } else {
+            /*
+             console.log(respuesta);
+             document.getElementById("divSaldos").innerHTML = '<div class="col-4"><small class="text-success mr-1">Bultos Ingreso : &nbsp;&nbsp; ' + respuesta["sumIng"][0].bultos + '</small></div><div class="col-4"><small class="text-success mr-1">Cif Ingreso :&nbsp;&nbsp; ' + respuesta["sumIng"][0].totalValorCif + '</small></div><div class="col-4"><small class="text-success mr-1">Impuestos Ingreso : &nbsp;&nbsp; ' + respuesta["sumIng"][0].calculoValorImpuesto + '</small></div><br/>';
+             document.getElementById("divSaldosRet").innerHTML = '<div class="col-4"><small class="text-primary mr-1">Bultos Retiro : &nbsp;&nbsp; ' + respuesta["sumRet"][0].sumaBultos + '</small></div><div class="col-4"><small class="text-primary mr-1">Cif retiros :&nbsp;&nbsp; ' + respuesta["sumRet"][0].sumaCif + '</small></div><div class="col-4"><small class="text-primary mr-1">Impuestos Retiro : &nbsp;&nbsp; ' + respuesta["sumRet"][0].sumaImpts + '</small></div><br/>';
+             document.getElementById("divSaldoActual").innerHTML = '<div class="col-4"><small class="text-danger mr-1">Bultos Saldo : &nbsp;&nbsp; ' + respuesta["saldos"].sldBultos + '</small></div><div class="col-4"><small class="text-danger mr-1">Cif Saldo :&nbsp;&nbsp; ' + respuesta["saldos"].sldCif + '</small></div><div class="col-4"><small class="text-danger mr-1">Impuestos Saldo : &nbsp;&nbsp; ' + respuesta["saldos"].sldImpuesto + '</small></div><br/>';
+             */
+            document.getElementById("dataRetiro").innerHTML = "";
+            document.getElementById("dataRetiro").innerHTML = '<table id="tablaMerRetiro" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
+            console.log(servicio.dataRetiro.resHistorial);
+            listaHistorial = [];
+            for (var i = 0; i < servicio.dataRetiro.resHistorial.length; i++) {
+                var polizaRetiro = servicio.dataRetiro.resHistorial[i].polizaRetiro;
+                var regimen = servicio.dataRetiro.resHistorial[i].regimenSalida;
+                var bultos = servicio.dataRetiro.resHistorial[i].bultos;
+                var valorCif = servicio.dataRetiro.resHistorial[i].totalValorCif;
+                var calculoValorImpuesto = servicio.dataRetiro.resHistorial[i].valorImpuesto;
+                var fechaRetiro = servicio.dataRetiro.resHistorial[i].fechaRetiro;
+                listaHistorial.push([polizaRetiro, fechaRetiro, regimen, bultos, valorCif, calculoValorImpuesto]);
+            }
+            console.log(listaHistorial);
+            $('#tablaMerRetiro').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: listaHistorial,
+                columns: [{
+                        title: "polizaRetiro"
+                    }, {
+                        title: "Fecha de Retiro"
+                    }, {
+                        title: "regimen"
+                    }, {
+                        title: "bultos"
+                    }, {
+                        title: "valorCif"
+                    }, {
+                        title: "calculoValorImpuesto"
+                    }]
+            });
         }
         document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
         $("#divPlaca").append().remove();
@@ -878,7 +940,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                                 var totalValCarta = calculoValorImpuesto + valorCif;
                                                 console.log(totalValCarta);
                                                 if (totalValCarta >= 500000) {
-                                   
+
                                                     Swal.fire({
                                                         title: 'Solicitar carta membretada',
                                                         allowOutsideClick: false,
@@ -1058,45 +1120,45 @@ function guardarRetiroMercaderia(
             if (respuesta.exito == "exito") {
                 var tipo = 0;
                 desbloqueBloque(tipo);
-                                        Swal.fire({
-                                            title: 'Guardado correctamente',
-                                            type: 'success',
-                                            confirmButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ok!'
-                                        }).then(async function (result) {
-                                            if (result.value) {
-                                                var valorCif = document.getElementById("valorCif").value;
-                                                var valorCif = Number.parseFloat(valorCif).toFixed(2);
-                                                var valorCif = valorCif * 1;
+                Swal.fire({
+                    title: 'Guardado correctamente',
+                    type: 'success',
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then(async function (result) {
+                    if (result.value) {
+                        var valorCif = document.getElementById("valorCif").value;
+                        var valorCif = Number.parseFloat(valorCif).toFixed(2);
+                        var valorCif = valorCif * 1;
 
-                                                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
-                                                var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
-                                                var calculoValorImpuesto = calculoValorImpuesto * 1;
-                                                var totalValCarta = calculoValorImpuesto + valorCif;
-                                                console.log(totalValCarta);
-                                                if (totalValCarta >= 500000) {
-                                   
-                                                    Swal.fire({
-                                                        title: 'Solicitar carta membretada',
-                                                        allowOutsideClick: false,
-                                                        text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
-                                                        type: 'warning',
-                                                        confirmButtonColor: '#3085d6',
-                                                        confirmButtonText: 'Ok!'
-                                                    }).then(async function (result) {
-                                                        if (result.value) {
-                                                            Swal.fire(
-                                                                    'Notificación!',
-                                                                    'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
-                                                                    'success'
-                                                                    )
-                                                        }
-                                                    })
+                        var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                        var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+                        var calculoValorImpuesto = calculoValorImpuesto * 1;
+                        var totalValCarta = calculoValorImpuesto + valorCif;
+                        console.log(totalValCarta);
+                        if (totalValCarta >= 500000) {
 
-                                                }
-                                            }
-                                        })
-                
+                            Swal.fire({
+                                title: 'Solicitar carta membretada',
+                                allowOutsideClick: false,
+                                text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
+                                type: 'warning',
+                                confirmButtonColor: '#3085d6',
+                                confirmButtonText: 'Ok!'
+                            }).then(async function (result) {
+                                if (result.value) {
+                                    Swal.fire(
+                                            'Notificación!',
+                                            'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
+                                            'success'
+                                            )
+                                }
+                            })
+
+                        }
+                    }
+                })
+
                 document.getElementById("divBottoneraAccion").innerHTML = `
                                         <div class="btn-group">
                                             <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + respuesta["valIdRetiro"] + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>

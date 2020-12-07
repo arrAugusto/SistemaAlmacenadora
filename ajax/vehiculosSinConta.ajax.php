@@ -13,9 +13,9 @@ class historialIngresosFiscales {
     public function ajaxMostrarTableIngHistoria() {
         session_start();
         $valor = $_SESSION["idDeBodega"];
-
+        $estado = 1;
         $sp = "spConsultaChasSinConta";
-        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $estado);
 
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta != "SD") {
