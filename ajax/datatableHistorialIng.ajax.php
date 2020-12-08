@@ -1,5 +1,6 @@
 <?php
 
+
 require_once "../controlador/historiaIngresosFisacales.controlador.php";
 require_once "../modelo/historiaIngresosFisacales.modelo.php";
 //SESSION DE USUARIO PARA MANEJAR BITACORA
@@ -7,6 +8,7 @@ require_once "../controlador/usuario.controlador.php";
 //CONTROLADOR Y MODELO DE CALCULOS
 require_once "../controlador/calculoDeAlmacenaje.controlador.php";
 require_once "../modelo/calculoDeAlmacenaje.modelo.php";
+
 
 class historialIngresosFiscales {
 

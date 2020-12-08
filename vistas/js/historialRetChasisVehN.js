@@ -652,3 +652,10 @@ $(document).ready(function () {
         });
     }
 });
+
+$(document).on("click", ".btnRepVehNew", async function () {
+    var retiro = "retiro";
+    var idBodega = $(this).attr("estadorep");
+    window.open("extensiones/tcpdf/pdf/ReporteDeRetirosChasis.php?tipoReporte=" + retiro + "&idBodega=" + idBodega, "_blank");
+})
+

@@ -335,11 +335,14 @@ class ControladorGenerarContabilidad {
         $estado = 2;
         $sp = "spContaVeh";
         $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $iBodEmpresa);
-        
-        if ($respVeh!="SD") {
-                $numberSumCif = number_format($respVeh[0]["cif"], 2);
-                $numberSumImpuesto = number_format($respVeh[0]["impuesto"], 2);        
-            echo '
+
+        if ($respVeh != "SD") {
+            $numberSumCif = number_format($respVeh[0]["cif"], 2);
+            $numberSumImpuesto = number_format($respVeh[0]["impuesto"], 2);
+            if ($numberSumCif > 0) {
+
+
+                echo '
                 <tr>
                     <td>
                         <span class="ptable-title"><i class="fa fa-building-o"></i>CONTABILIDAD DE CHASIS VEHÍCULOS NUEVOS </span></td>
@@ -353,12 +356,14 @@ class ControladorGenerarContabilidad {
                         <i class="fa fa-eye green"></i>
                         <div class="btn-group"><button type="button" class="btn btn-success btnViewAjustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
                 </tr>
-                '; 
+                ';
+            }
         }
     }
 
     public static function ctrCierreContableDiario($cotabilizarFecha, $hiddenIdBod) {
         $date = $cotabilizarFecha;
+
 
         if (!empty($date)) {
             $timestamp = strtotime($date);
@@ -466,6 +471,20 @@ class ControladorGenerarContabilidad {
             $sumImpuesto = 0;
             $totalVal = 0;
             if ($respRet != "SD") {
+
+
+
+                //SUMANDO LOS VALORES DE VEHICULOS CONTABILIZADOS EN ALMACENADORA
+                $estado = 2;
+                $sp = "spContaVeh";
+                $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
+
+
+                $sumCif = $sumCif + $respVeh[0]["cif"];
+                $sumImpuesto = $sumImpuesto + $respVeh[0]["impuesto"];
+
+
+
                 $sp = "spNumPolizas";
                 $numAsigPoliza = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $date);
                 $numeroPolAsignado = $numAsigPoliza[0]['resp'];

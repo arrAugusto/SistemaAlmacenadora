@@ -2429,7 +2429,11 @@ function valConsolidados(valTipoConso, cantClientes) {
 async function guardarSinTarifa(tipo) {
     let respGST;
 
-    var btnConsolidado = $("#btnConsolidado").attr("estado");
+    if ($("#btnConsolidado").length > 0) {
+        var btnConsolidado = $("#btnConsolidado").attr("estado");
+    } else {
+        var btnConsolidado = 1;
+    }
     console.log(btnConsolidado);
     let llaveIndet;
     var valTipoConso = $("#sel2 option:selected").text();
@@ -4273,6 +4277,7 @@ $(document).on("click", ".btnGuardaNuevaUnidadPlus", async function () {
     var sumTotal = (numeroLicenciaPlusG + nombrePilotoPlusUnG + numeroPlacaPlusUnG + numeroContenedorPlusUnG + numeroMarchamoPlusUnG);
 
     if (sumTotal == 5) {
+        console.log("hola mundo");
         var revisionFormDB = await revisionForm(numeroLicenciaPlus, nombrePilotoPlusUn, numeroPlacaPlusUn, numeroContenedorPlusUn, numeroMarchamoPlusUn, hiddenIdentity, tipo);
         console.log(revisionFormDB);
         if (revisionFormDB != "Duplicate") {

@@ -712,6 +712,16 @@
                     </a>
                 </li>
             </ul>
+            <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="trasladosPendientesAF" class="nav-link">
+                        <i class="fa fa-calendar-check-o colorBarSuper"></i>
+                        <p class="colorBarSuper">
+                            Traslados AF &nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
+                        </p>
+                    </a>
+                </li>
+            </ul>            
             ';
             if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
                 echo '

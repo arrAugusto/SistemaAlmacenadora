@@ -13,15 +13,12 @@ class ModeloPasesDeSalida {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
             }
-
             if (!empty($results)) {
                 foreach ($results as $key => $values) {
                     $resultsData = [];
                     $idIngreso = $values["idIngOp"];
                     $identificaRet = $values["identificaRet"];
-
                     $params = array(&$idIngreso, &$identificaRet);
-
                     $sql = "EXECUTE spVerificaTarifa ?, ?";
                     $stmt = sqlsrv_prepare($conn, $sql, $params);
                     if (sqlsrv_execute($stmt) == true) {
@@ -101,7 +98,6 @@ class ModeloPasesDeSalida {
                 $cantClientes = $results[0]["cantClientes"];
                 $minGastosAdministracion = $results[0]["minGastosAdministracion"];
                 $defaultCopias = $results[0]["TarifaCopias"];
-
                 if ($results[0]["servicioAlm"] == "ZONA ADUANERA") {
                     $nuevafechaInicio = $results[0]["FecingAlmacen"];
                     if ($hiddenDateTimeVal != "NA") {
@@ -205,7 +201,6 @@ class ModeloPasesDeSalida {
                         /*
                          *  DATOS PARA GENERA EL RUBRO DE GASTOS ADMINISTRACIÓN
                          */
-
                         $TarifaGtsAdmin = $datosIngCalculo[0]["tarifaGastosAdministrativos"] * $results[0]["cantContenedores"]; // TARIFA GASTOS ADMINISTRACION * CANTIDAD DE CONTENEDORES
                         $minGastosAdministracion = $datosIngCalculo[0]["minGastosAdministracion"]; // MINIMO POR GASTOS DE ADMINISTRACION
                         $defaultCopias = $datosIngCalculo[0]["tarifaFotocopias"]; // FOTOCOPIAS POR CLIENTE
@@ -213,15 +208,14 @@ class ModeloPasesDeSalida {
                         $fechaSalida = $fechaCorte; // FECHA DE SALIDA DE LA MERCADERIA
                         $fechaIngreso = $nuevafechaInicio; // FECHA DE INGRESO
                         $tiempoTotal = funcionesDeCalculo::dias($fechaIngreso, $fechaSalida); // DIAS TOTAL EN ALMACENADORA                     
-
                         if ($tiempoTotal >= $datosIngCalculo[0]["delZA"]) {
-                            $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"]);
+                            $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"])+1;
                             $diasZA = $tiempoTotal - $diaAlmacenaje;
                         } else if ($tiempoTotal < $datosIngCalculo[0]["delZA"]) {
                             $diaAlmacenaje = 0;
                             $diasZA = $tiempoTotal - $diaAlmacenaje;
                         }
-                        
+
                         $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                         $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
 

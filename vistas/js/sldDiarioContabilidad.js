@@ -16,7 +16,6 @@ $(document).on("click", ".btnHistoriaSaldos", async function () {
             var debe = "";
             var haber = "";
             var saldoInicial = respHistoriaCif[i].saldo;
-
             var saldoInicial = parseFloat(saldoInicial).toFixed(2);
             var saldo = new Intl.NumberFormat("en-GT").format(saldoInicial);
 

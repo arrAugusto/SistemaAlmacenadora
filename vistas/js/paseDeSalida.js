@@ -246,6 +246,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                                     'Este cliente no tiene tarifa especial!',
                                                     'error'
                                                     );
+                                            return false;
                                         }
                                         if (respuesta["tipoCalc"] == false) {
                                             toastr.options = {

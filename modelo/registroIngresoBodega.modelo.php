@@ -674,7 +674,7 @@ class ModeloRegIngBod {
 
         $conn = Conexion::Conectar();
         $params = array(&$idIngMstV);
-        return $params;
+
         $sql = "EXECUTE spMostVeFina ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {

@@ -35,7 +35,7 @@
                             </div>
                            </div>                            
                             <div class="col-12 mt-5">
-                                <table id="tbHistoriaChasisContables" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
+                                <table id="tbTrasladosAf" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>
                                         <tr>
                                         <th style="width:3px;">#</th>

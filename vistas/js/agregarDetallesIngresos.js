@@ -842,6 +842,7 @@ $(document).on("click", ".btnMsVehiculos", async function () {
             document.getElementById("chasisVeh").innerHTML = '';
             document.getElementById("chasisVeh").innerHTML = '<table id="tableChasisVehiculos" class="table table-hover"></table>';
             var respFinVeh = await finalizarChasis(idIng);
+            console.log(respFinVeh);
             if (respFinVeh != false) {
                 listaChasis = [];
                 for (var i = 0; i < respFinVeh.length; i++) {

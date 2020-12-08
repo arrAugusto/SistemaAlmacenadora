@@ -48,12 +48,12 @@ class ControladorPasesDeSalida {
     }
 
     public static function ctrMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal) {
-
         if ($hiddenDateTimeVal == "NA") {
             $hiddenDateTimeVal = date('d-m-Y');
         }
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
+  
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($idIngresoCal, $hiddenDateTimeVal);
 
@@ -64,6 +64,7 @@ class ControladorPasesDeSalida {
             $datos = array("revCuad" => $respuesta["revCuad"], "almaMSuperior" => $respuesta["almacenaje"], "zonaAduanMSuperior" => 0, "calculoManejo" => $respuesta["manejo"], "gtoAdminMSuperior" => $respuesta["transEle"], "tiempoTotal" => $tiempoTotal, "nuevafechaInicio" => $respuesta["fechaIngreso"], "fechaCorte" => $respuesta["fechaCalculo"], "marchElectro" => $respuesta["marchElectro"], "serAcuse" => "SD");
             return $datos;
         } else {
+
             $respuesta = ModeloPasesDeSalida::mdlMostrarCalculoDatosUnidad($idRetCal, $idIngresoCal, $hiddenDateTimeVal);
             return $respuesta;
         }
