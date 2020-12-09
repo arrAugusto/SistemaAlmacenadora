@@ -16,8 +16,7 @@ class historialIngresosFiscales {
         $estado = 0;
         $sp = "spConsultaTrasladosAF";
         $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $valor);
-        var_dump($respuesta);
-        if ($respuesta !== null || $respuesta !== NULL) {
+        if ($respuesta != null || $respuesta != NULL) {
             if ($respuesta != "SD") {
 
                 $contador = 0;
@@ -29,26 +28,15 @@ class historialIngresosFiscales {
                     // Con objetos
             
                         $button = "<button type='button' class='btn btn-primary'><i class='fa fa-check'></i></button>";
-           
-                    $fecha_actual = new DateTime();
-                    $fecha_actual = $value["fechaRealIng"]->format("d-m-Y");
-                    if ($value["numeroAsig"] == 0) {
-                        $ingreso = "Sin Ingreso";
-                    } else {
-                        $ingreso = $value["numeroAsig"];
-                    }         
-                   
 
                     $datoJsonIngHis = '[
                                     "' . $contador . '",
                                     "' . $value["nitEmpresa"] . '",
                                     "' . $value["nombreEmpresa"] . '",
                                     "' . $value["numeroPoliza"] . '",                                        
-                                    "' . $value["chasis"] . '",
-                                    "' . $value["linea"] . '",
-                                    "' . $value["tipoVehiculo"] . '",
-                                    "' . $value["cif"] . '",
-                                    "' . $value["impuesto"] . '",
+                                    "' . $value["bultos"] . '",
+                                    "' . $value["totalValorCif"] . '",
+                                    "' . $value["valorImpuesto"] . '",
                                     "' . $button . '"
     ],';
 

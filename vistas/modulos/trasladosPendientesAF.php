@@ -41,10 +41,7 @@
                                         <th style="width:3px;">#</th>
                                         <th>Nit</th>
                                         <th style="width:350px;">Empresa</th>
-                                        <th>Grupo</th>
                                         <th>Poliza</th>
-                                        <th>Chasis</th>
-                                        <th>Linea </th>
                                         <th>Bultos</th>
                                         <th>Cif</th>
                                         <th>Impuestos</th>                                        
