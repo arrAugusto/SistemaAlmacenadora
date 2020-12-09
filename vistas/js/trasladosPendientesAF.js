@@ -45,3 +45,24 @@ $(document).ready(function () {
         });
     }
 });
+
+$(document).on("click", ".btnHacerTrasladoDefinitivo", async function () {
+    var idIng = $(this).attr("idIng");
+    var nomVar = "trasladoDefAf";
+    var resp = await trasladarIngFiscal(nomVar, idIng)
+    if (resp[0]["resp"] == 1) {
+        Swal.fire({
+            title: 'Traslado exitoso',
+            allowOutsideClick: false,
+            text: "El traslado a Almacen Fiscal fue exitoso!",
+            type: 'success',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        }).then((result) => {
+            if (result.value) {
+                location.reload();
+            }
+        })
+    }
+})
+

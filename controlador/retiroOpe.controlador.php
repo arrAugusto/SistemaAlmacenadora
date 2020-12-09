@@ -560,7 +560,6 @@ class ControladorRetiroOpe {
             $impts = $value["impts"];
             $sp = "spTrasladoVeh";
             $respuesta = ModeloRetiroOpe::mdlRetiroVehNGdValores($idRetChas, $idChas, $cif, $impts, $valTotal, $usuarioOp, $sp);
-   
         }
         return true;
     }
@@ -590,6 +589,12 @@ class ControladorRetiroOpe {
         $sp = "spDetalleDeBod";
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($idDetRevEd, $sp);
         return $respuesta;
+    }
+
+    public static function ctrTrasladoDefinitivoAF($trasladoDefAf) {
+          $sp = "spTrasladoFiscalDef";
+        $respuesta = ModeloRetiroOpe::mdlDetUnParametro($trasladoDefAf, $sp);
+        return $respuesta;      
     }
 
 }

@@ -144,7 +144,7 @@ class AjaxUbicacionOpe {
             "hiddenIdentificadorEdit" => $hiddenIdentificadorEdit = $this->hiddenIdentificadorEdit,
             "hiddenDateTimeEdit" => $hiddenDateTimeEdit = $this->hiddenDateTimeEdit
         );
-                session_start();
+        session_start();
         $usuarioOp = $_SESSION["id"];
         $respuesta = ControladorRetiroOpe::ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp);
         echo json_encode($respuesta);
@@ -319,18 +319,26 @@ class AjaxUbicacionOpe {
     }
 
     public $dataEditRetOp;
-    public function ajaxDataEditRetOp(){
+
+    public function ajaxDataEditRetOp() {
         $tipoConsulRet = $this->tipoConsulRet;
-        $idRetConsul = $this->idRetConsul;    
+        $idRetConsul = $this->idRetConsul;
         $respuesta = ControladorRetiroOpe::ctrDataEditRetOp($tipoConsulRet, $idRetConsul);
         echo json_encode($respuesta);
     }
+
     public $objDetalleM;
-    public function ajaxVerDataDetalleEditRet(){
+
+    public function ajaxVerDataDetalleEditRet() {
         $idDetRevEd = $this->idDetRevEd;
         $respuesta = ControladorRetiroOpe::ctrVerDataDetalleEditRet($idDetRevEd);
         echo json_encode($respuesta);
-        
+    }
+    public $trasladoAFDef;
+    public function ajaxTrasladoDefinitivoAF(){
+      $trasladoDefAf = $this->trasladoDefAf;
+        $respuesta = ControladorRetiroOpe::ctrTrasladoDefinitivoAF($trasladoDefAf);
+        echo json_encode($respuesta);      
     }
 }
 
@@ -583,5 +591,11 @@ if (isset($_POST["idDetRevEd"])) {
     $objDetalleM = new AjaxUbicacionOpe();
     $objDetalleM->idDetRevEd = $_POST["idDetRevEd"];
     $objDetalleM->ajaxVerDataDetalleEditRet();
-    
+}
+
+
+if (isset($_POST["trasladoDefAf"])) {
+    $trasladoAFDef = new AjaxUbicacionOpe();
+    $trasladoAFDef->trasladoDefAf = $_POST["trasladoDefAf"];
+    $trasladoAFDef->ajaxTrasladoDefinitivoAF();
 }

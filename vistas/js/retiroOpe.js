@@ -815,6 +815,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         }
                         $("#arrayListDetalle").val(JSON.stringify(listaIdButton));
                         var listaDetalles = document.getElementById("arrayListDetalle").value;
+                        console.log(listaDetalles);
                         var totalBultos = 0;
                         for (var i = 0; i < listaIdButton.length; i++) {
                             var bultos = listaIdButton[i].cantBultos * 1;
@@ -886,6 +887,9 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     console.log(condicion);
                     if (verSaldo == 0 || verSaldo == 1) {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
+                            console.log(totalBultos);
+                            console.log(cantBultos);
+                            
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
                                     var jsonStringDR = "SD";
@@ -1676,7 +1680,10 @@ async function editarRetiroOpFis(idRetiroBtn) {
     var hiddenIdBod = document.getElementById("hiddenIdBod").value;
     if (hiddeniddeingreso !== "" || hiddenIdUs !== "") {
         var idNit = $("#txtNitSalida").attr("dataRetiro");
+        
         var cantBultos = document.getElementById("cantBultos").value;
+        console.log(cantBultos);
+        
         var polizaRetiro = document.getElementById("polizaRetiro").value;
         var regimen = document.getElementById("regimen").value;
         var tipoCambio = document.getElementById("cambio").value;
@@ -1705,7 +1712,9 @@ async function editarRetiroOpFis(idRetiroBtn) {
 
         var hiddenIdentificador = document.getElementById("hiddenIdentificador").value;
         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
-
+        console.log(totalBultos);
+        console.log(cantBultos);
+        
         if (totalBultos == cantBultos) {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
                 var respuestaEdita = await funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro,
