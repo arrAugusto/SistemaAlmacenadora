@@ -105,6 +105,26 @@ class ModeloGenerarContabilidad {
         $conn = Conexion::Conectar();
         $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?, ?, ?, ?';
         $params = array(&$conPolDefCif, &$dependencia, &$sumaCif, &$estado, &$conceptoPoliza, &$numeroDepolizaAsig, &$debeCif, &$tipOperaSaldo, &$tipConcepto);
+ 
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }        
+    }
+    public static function mdlGuardarPolContableS($sp, $conPolDefCif, $dependencia, $sumaCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto) {
+        
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?, ?, ?, ?';
+        $params = array(&$conPolDefCif, &$dependencia, &$sumaCif, &$estado, &$conceptoPoliza, &$numeroDepolizaAsig, &$debeCif, &$tipOperaSaldo, &$tipConcepto);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

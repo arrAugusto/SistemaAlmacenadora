@@ -132,7 +132,7 @@ class ControladorGenerarContabilidad {
             }
 
             echo '
-            <tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">REPOTES DE INGRSESOS ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>
+            <tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">INGRESOS ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>
             <tr><td id="saltoTD" colspan="3"></td></tr>
             <tr>
                 <th>Area Reportada<br/>&nbsp;</th>
@@ -202,7 +202,7 @@ class ControladorGenerarContabilidad {
                 ';
                 }
             }
-            echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">REPOTES DE RETIROS ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>';
+            echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">RETIROS ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>';
             echo '<tr><td id="saltoTD" colspan="3"></td></tr>';
             echo '
             <tr>
@@ -288,7 +288,7 @@ class ControladorGenerarContabilidad {
             }
             if ($valorCif != 0 && $impuesto != 0) {
 
-                echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">REPOTES DE AJUSTES ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>';
+                echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">AJUSTES ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>';
                 echo '<tr><td id="saltoTD" colspan="3"></td></tr>';
 
 
@@ -346,6 +346,33 @@ class ControladorGenerarContabilidad {
                 <tr>
                     <td>
                         <span class="ptable-title"><i class="fa fa-building-o"></i>CONTABILIDAD DE CHASIS VEHÍCULOS NUEVOS </span></td>
+                    <td>
+                        <!-- Icon -->
+                        <span class="badge bg-danger">CIF : Q ' . $numberSumCif . '</span><br/>
+                        <span class="badge bg-danger">IMPUESTOS : Q ' . $numberSumImpuesto . '</span>
+                    </td>
+                    <td>
+                        <!-- Icon -->
+                        <i class="fa fa-eye green"></i>
+                        <div class="btn-group"><button type="button" class="btn btn-success btnViewAjustes" data-toggle="modal" data-target=".bd-example-modal-lg">Ver Reporte</button></div>
+                </tr>
+                ';
+            }
+        }
+        $tipo = "ALMFISCAL";
+        $sp = "spTrasladoAf";
+
+        $respTrasladoAF = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $tipo, $iBodEmpresa);
+        if ($respTrasladoAF != "SD") {
+            echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">TRASLADOS A ALMACEN FISCAL </h2></center></td></tr>';
+            echo '<tr><td id="saltoTD" colspan="3"></td></tr>';
+            $numberSumCif = number_format($respTrasladoAF[0]["cifTraslado"], 2);
+            $numberSumImpuesto = number_format($respTrasladoAF[0]["impuestoTraslado"], 2);
+            if ($numberSumCif > 0) {
+                echo '
+                <tr>
+                    <td>
+                        <span class="ptable-title"><i class="fa fa-building-o"></i>TRASLADO A ALMACEN FISCAL </span></td>
                     <td>
                         <!-- Icon -->
                         <span class="badge bg-danger">CIF : Q ' . $numberSumCif . '</span><br/>
@@ -707,6 +734,39 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
+
+            $tipo = "ALMFISCAL";
+            $sp = "spTrasladoAf";
+            $respTrasladoAF = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $tipo, $hiddenIdBod);
+            if ($respTrasladoAF != "SD") {
+                $sp = "spNumPolizas";
+                $numAsigPoliza = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $date);
+        
+                $numeroPolAsignado = $numAsigPoliza[0]['resp'];
+                if ($numeroPolAsignado > 0) {
+                    $numeroDepolizaAsig = $numeroPolAsignado;
+                }
+                $sumCif = $respTrasladoAF[0]["cifTraslado"]*1;
+                $sumImpuesto = $respTrasladoAF[0]["impuestoTraslado"]*1;
+                $dependencia = $respTrasladoAF[0]["dependencia"];
+                $conPolDefCif = "802103.0102"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
+                $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                $tipOperaSaldo = "RESTA";
+                $tipConcepto = "RETIRO CIF";
+                $conceptoPoliza = "TRASLADO DE CIF E IMPUESTOS DE ZONA ADUANERA A ALMACEN FISCAL";
+                $sp = "spAsientoContable";
+                $estado = 1;
+                $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContableS($sp, $conPolDefCif, $dependencia, $sumCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+     
+                if ($respIngCif[0]["resp"] == 1) {
+                    $conPolDefImpst = "801109.01"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
+                    $debeImpst = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                    $tipOperaSaldo = "RESTA";
+                    $tipConcepto = "RETIRO IMPUESTOS";
+                    $respIngImpuesto = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefImpst, $dependencia, $sumImpuesto, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeImpst, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                }
+            }
+
             return true;
         }
     }
