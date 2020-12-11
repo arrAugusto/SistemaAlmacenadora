@@ -43,7 +43,8 @@ class AjaxHistorialDeSaldos {
         $idEmpInicalConta = $this->idEmpInicalConta;
         $sldContableCif = $this->sldContableCif;
         $sldContableImpts = $this->sldContableImpts;
-        $respuesta = ControladorSaldosContables::ctrSaldosInicioConta($idEmpInicalConta, $sldContableCif, $sldContableImpts);
+        $tipoSaldoInicia = $this->tipoSaldoInicia;
+        $respuesta = ControladorSaldosContables::ctrSaldosInicioConta($idEmpInicalConta, $sldContableCif, $sldContableImpts, $tipoSaldoInicia);
         echo json_encode($respuesta);
     }
 
@@ -142,6 +143,8 @@ if (isset($_POST["idEmpInicalConta"])) {
     $inicialConta->idEmpInicalConta = $_POST["idEmpInicalConta"];
     $inicialConta->sldContableCif = $_POST["sldContableCif"];
     $inicialConta->sldContableImpts = $_POST["sldContableImpts"];
+    $inicialConta->tipoSaldoInicia = $_POST["tipoSaldoInicia"];
+
     $inicialConta->ajaxSaldosInicioConta();
 }
 

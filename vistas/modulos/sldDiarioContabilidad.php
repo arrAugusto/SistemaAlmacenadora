@@ -178,6 +178,9 @@
                                                         <table class="table">
                                                             <!-- Heading -->
                                                             <thead>
+                                                                <tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">SALDOS ZONA ADUANUANERA </h2></center></td></tr>
+                                                                <tr><td id="saltoTD" colspan="3"></td></tr>
+            
                                                                 <tr>
                                                                 <th>Empresa<br/>&nbsp;</th>
                                                                 <th class="highlight">
@@ -194,6 +197,30 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    <div class="col-12">
+                                                        <table class="table">
+                                                            <!-- Heading -->
+                                                            <thead>
+                                                                <tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-primary">SALDOS ALMACEN FISCAL </h2></center></td></tr>
+                                                                <tr><td id="saltoTD" colspan="3"></td></tr>
+            
+                                                                <tr>
+                                                                <th>Empresa<br/>&nbsp;</th>
+                                                                <th class="highlight">
+                                                                    SALDO<br/>&nbsp;
+                                                                </th>
+                                                                <th>
+                                                                    Acciones
+                                                                    <br/>&nbsp;
+                                                                </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <?php $respuesta = ControladorSaldosContables::ctrSaldoActualContabilidadAF(); ?>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>

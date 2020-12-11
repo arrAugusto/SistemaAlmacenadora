@@ -285,8 +285,34 @@ $(document).on("click", ".btnInicialFiscal", async function () {
     var cifInicial = $("#cifInicial").val();
     var impuestoInicial = $("#impuestoInicial").val();
     var btninicia = $(this).attr("btninicia");
-    if (cifInicial > 0 && impuestoInicial > 0) {
-        var respuesta = await funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial);
+    if (cifInicial >= 0 && impuestoInicial >= 0) {
+        var tipo = 0;
+        var respuesta = await funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial, tipo);
+        if (respuesta[0].resp == 1) {
+            Swal.fire({
+                title: 'Actualizado con éxito',
+                text: "Su nuevo saldo fue agregado con exito!",
+                type: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                if (result.value) {
+                    location.reload();
+                }
+            })
+        }
+    }
+
+})
+$(document).on("click", ".btnInicialFiscalAF", async function () {
+    var cifInicial = $("#cifInicial").val();
+    var impuestoInicial = $("#impuestoInicial").val();
+    var btninicia = $(this).attr("btninicia");
+    if (cifInicial >= 0 && impuestoInicial >= 0) {
+        var tipo = 1;
+        var respuesta = await funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial, tipo);
         if (respuesta[0].resp == 1) {
             Swal.fire({
                 title: 'Actualizado con éxito',
@@ -321,12 +347,14 @@ $(document).on("change", "#impuestoInicial", async function () {
 })
 
 
-function funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial) {
+function funcionNuevoSaldoContable(btninicia, cifInicial, impuestoInicial, tipo) {
     let respHistorial;
     var datos = new FormData();
     datos.append("idEmpInicalConta", btninicia);
     datos.append("sldContableCif", cifInicial);
     datos.append("sldContableImpts", impuestoInicial);
+    datos.append("tipoSaldoInicia", tipo);
+    
     $.ajax({
         async: false,
         url: "ajax/sldDiarioContabilidad.ajax.php",
