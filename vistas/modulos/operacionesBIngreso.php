@@ -700,8 +700,9 @@ MODAL POLIZA CONSOLIDADA
                                         <div class="tab-pane fade" id="product-desc" role="tabpanel" aria-labelledby="tabIngManifiesto">
                                             <div class="row">
 
-                                                <input id="valueClientes" name="valueClientes" type="hidden" value="" />
-                                                <input id="cantVsClientes" name="cantVsClientes" type="hidden" value="0" />
+                                                <input id="valueClientes" type="hidden" value="" />
+                                                <input id="cantVsClientes" type="hidden" value="" />
+                                                <input id="idIngManiElegido" type="hidden" value="" />
 
 
 

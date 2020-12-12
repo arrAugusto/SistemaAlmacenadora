@@ -760,7 +760,15 @@ $(document).on("click", ".btnCancelaCarga", function () {
 })
 
 $(document).on("click", ".btnAgregarEmpresa", async function () {
-    var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    if ($("#tableConsolidadoPoliza").length == 0) {
+        var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+
+    }
+    if ($("#tableConsolidadoPoliza").length > 0) {
+        var hiddenIdentityIngPeso = document.getElementById("idIngManiElegido").value;
+    }
+    console.log(hiddenIdentityIngPeso);
+    
     var poliza = document.getElementById("poliza").value;
 
     if ($("#tableConsolidadoPoliza").length >= 1 && $(".btnEliminarDetalleIng").length == 0) {
@@ -777,7 +785,8 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
             if (result.value) {
                 var nomVar = "deleteDetalle";
                 var respDelete = await revisarVehUsados(nomVar, hiddenIdentityIngPeso);
-                if (respDelete[0]["resp"] == 1) {
+                console.log(respDelete);
+            if (respDelete[0]["resp"] == 1) {
                     Swal.fire({
                         title: 'Eliminado con exito',
                         text: "Cuadre el nuevo manifiesto",
@@ -1692,7 +1701,7 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                     var valTipoConso = $("#sel2 option:selected").text();
                                     if (valTipoConso == "Cliente consolidado") {
                                         document.getElementById("divAcciones").innerHTML = '';
-                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetallesManifiesto">Cargar Empresas</button></div>';
 
                                         document.getElementById("gDetalles").click();
                                     }
@@ -1724,7 +1733,7 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                             document.getElementById("contadorClientes").innerHTML = "";
                                             document.getElementById("contadorClientes").innerHTML = cantVsClientes;
                                             var idIdenty = document.getElementById("hiddenIdentity").value;
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles" idIng=' + idIdenty + '>Cargar Empresas</button></div>';
                                             var listaDataPoliza = [];
                                             var poliza = document.getElementById("poliza").value;
                                             var pesoIng = document.getElementById("pesoIng").value;
@@ -2278,7 +2287,7 @@ $(document).on("click", ".bntGuardarPolCons", async function () {
             if (guardar) {
                 var idIdenty = document.getElementById("hiddenIdentity").value;
 
-                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles" idIng=' + idIdenty + '>Cargar Empresas</button></div>';
                 var tableConPol = $('#tableConsolidadoPoliza').DataTable();
                 //Create some data and insert it
                 var rowData = [];
@@ -2951,7 +2960,7 @@ function guardarSinTarifaS(tipo) {
 
 <input type="text" class="form-control" name="tipoBusqueda" id="tipoBusqueda" placeholder="Busqueda" />
 </div><div class="col-4"><div class="form-group"><label>Cantidad de bultos</label><input type="text" class="form-control" id="bultosAgregados" name="bultosAgregados" placeholder="Ingrese cantidad de bultos"></div></div><div class="col-4"><div class="form-group"><label>Valor Peso</label><input type="text" class="form-control" id="pesoAgregado" name="pesoAgregado" placeholder="Ingrese peso"></div></div> <div class="col-4"><div class="btn-group" role="group" aria-label="Basic example"><button type="button" class="btn btn-success btnAgregarEmpresa" btnAgrega=0>Agregar Empresa</button></div></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Bultos</span><h1>9000</h1></div><!-- /.info-box-content --></div><!-- /.info-box --></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Peso</span><h3>3</h3></div><!-- /.info-box-content --></div><!-- /.info-box --></div></div>`;
-                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                        document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles" idIng=' + idIdenty + '>Cargar Empresas</button></div>';
                         document.getElementById("gDetalles").click();
                     } else if (valTipoConso == "Cliente consolidado poliza") {
                         if (tipo == 0) {
@@ -5773,7 +5782,7 @@ $(document).on("change", "#poliza", async function () {
                             document.getElementById("contadorClientes").innerHTML = "";
                             document.getElementById("contadorClientes").innerHTML = cantVsClientes;
                             var idIdenty = document.getElementById("hiddenIdentity").value;
-                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles">Cargar Empresas</button></div>';
+                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btn-sm btnAcuseConsoli" id="btnConsol" idIng=' + idIdenty + '>Acuse</button><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles" idIng=' + idIdenty + '>Cargar Empresas</button></div>';
                             var listaDataPoliza = [];
                             var poliza = document.getElementById("poliza").value;
                             var pesoIng = document.getElementById("pesoIng").value;
@@ -6323,7 +6332,14 @@ $(document).on("mouseout", "#TextpesoIng", async function () {
 })
 
 $(document).on("click", "#btnGuardarDetallesIng", async function () {
-    var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    if ($("#tableConsolidadoPoliza").length == 0) {
+        var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+
+    }
+    if ($("#tableConsolidadoPoliza").length > 0) {
+        var hiddenIdentityIngPeso = document.getElementById("idIngManiElegido").value;
+    }
+
     var tipoBusqueda = document.getElementById("tipoBusqueda").value;
     var bultosAgregados = document.getElementById("bultosAgregados").value;
     var bultosAgregados = parseInt(bultosAgregados);
@@ -6432,6 +6448,18 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
                             if (result.value) {
                                 if ($("#tableConsolidadoPoliza").length == 0) {
                                     location.reload();
+                                } else {
+                                    document.getElementById("divEmpresasAgregadasMani").innerHTML = "";
+                                    document.getElementById("btnGuardarDetallesIng").disabled = true;
+                                    document.getElementById("saldoIngNblts").innerHTML = "";
+                                    document.getElementById("saldoNuevoblts").innerHTML = "";
+                                    document.getElementById("bltsRetirados").innerHTML = "";
+
+                                    document.getElementById("saldoIngNPeso").innerHTML = "";
+                                    document.getElementById("pesoNuevoblts").innerHTML = "";
+                                    document.getElementById("pesoRetirados").innerHTML = "";
+
+                                    document.getElementById("contadorClientes").innerHTML = "";
                                 }
 
                             }
@@ -6481,7 +6509,14 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
 
 function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
     let retorno;
+    console.log(llaveConsulta);
+    console.log(empresa);
+    console.log(bultos);
+    console.log(llaveConsulta);
+    
     var datos = new FormData();
+
+    
     datos.append("llaveConsulta", llaveConsulta);
     datos.append("tipoBusqueda", empresa);
     datos.append("bultosAgregados", bultos);
@@ -6507,7 +6542,13 @@ function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
 
 
 $(document).on("click", ".btnAgregarEmpresaInter", async function () {
-    var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+    if ($("#tableConsolidadoPoliza").length == 0) {
+        var hiddenIdentityIngPeso = document.getElementById("hiddenIdentity").value;
+
+    }
+    if ($("#tableConsolidadoPoliza").length > 0) {
+        var hiddenIdentityIngPeso = document.getElementById("idIngManiElegido").value;
+    }
     var bultosAgregados = document.getElementById("bultosAgregados").value;
     var pesoAgregado = document.getElementById("pesoAgregado").value;
 
@@ -6744,3 +6785,10 @@ $(document).on("click", ".btnSEleccBodega", async function () {
     })
 
 })
+
+$(document).on("click", "#gDetalles", async function () {
+    var idIngEliminar = $(this).attr("iding");
+    console.log(idIngEliminar);
+    document.getElementById("idIngManiElegido").value = idIngEliminar;
+})
+

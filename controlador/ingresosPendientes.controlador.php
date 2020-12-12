@@ -36,10 +36,10 @@ class ControladorIngresosPendientes {
                         $consPol = 1;
                         $sp = "spRevertirCons";
                         $estado = 1;
-
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
                         if ($respuestaRevCon[0]["resp"] == 2) {
                             $consPol = 0;
+                            
                         }
                     }
                 }
@@ -205,7 +205,16 @@ class ControladorIngresosPendientes {
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
                         if ($respuestaRevCon[0]["resp"] == 2) {
                             $consPol = 0;
+
                         }
+                    }else{
+                                                    echo "<script>
+                                Swal.fire(
+  'Cantidad de clientes!',
+  'Póliza ".$respuesta[$key]["poliza"]."!',
+  'error'
+)
+                        </script>    ";
                     }
                 }
 
