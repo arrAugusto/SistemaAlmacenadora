@@ -210,7 +210,7 @@ class ControladorRegistroBodega {
     public static function ctrMostarPaseSalida($idClientePaseRapido) {
         $sp = "spPilotosCont";
         $respuestaCount = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);
-
+        
         if ($respuestaCount[0]["conteoIng"] >= 1) {
             $sp = "spCadenaPlt";
             $respuestaCadenaPiloto = ModeloRegIngBod::mdlConsultaUnParam($idClientePaseRapido, $sp);

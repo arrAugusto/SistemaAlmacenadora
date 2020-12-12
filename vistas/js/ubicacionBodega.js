@@ -256,7 +256,7 @@ $(document).on("click", ".btnLimpiarPan", function () {
     location.reload();
 });
 
-$(document).on("mouseover", ".btnVista", async function () {
+$(document).on("click", ".btnVista", async function () {
     var idDetView = $(this).attr("iddetalle");
     var tipo = 0;
     var merca = $(this).attr("merca");
@@ -398,7 +398,7 @@ function ajaxGuardarListaModificada(idDet, Idincidencia) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-			console.log(respuesta);
+            console.log(respuesta);
             if (respuesta == "fin") {
                 todoMenus = "Ok";
             } else {
@@ -532,7 +532,7 @@ function funcionVerVehUsados(nomVar, tipo) {
 }
 
 $(document).on("click", ".btnVerUbicacionVhUs", async function () {
-    document.getElementById("divRecibidoVehUs").innerHTML =  '<table id="tablePosUbi" class="table table-hover table-sm"></table>';
+    document.getElementById("divRecibidoVehUs").innerHTML = '<table id="tablePosUbi" class="table table-hover table-sm"></table>';
 
     var empresa = $(this).attr("empresa");
     var chasis = $(this).attr("chasis");
@@ -561,14 +561,14 @@ $(document).on("click", ".btnVerUbicacionVhUs", async function () {
         var numero = 0;
         listaUbica = [];
         for (var i = 0; i < resp.ubicacionVehUs.length; i++) {
-            var numero = numero+1;
-           var pasXY = 'Pas '+resp.ubicacionVehUs[i].ColX +' Col '+resp.ubicacionVehUs[i].pasY;
+            var numero = numero + 1;
+            var pasXY = 'Pas ' + resp.ubicacionVehUs[i].ColX + ' Col ' + resp.ubicacionVehUs[i].pasY;
             listaUbica.push([numero, pasXY]);
         }
-        
+
         console.log(listaUbica);
         console.log(resp.ubicacionVehUs);
-                $('#tablePosUbi').DataTable({
+        $('#tablePosUbi').DataTable({
             "language": {
                 "sProcessing": "Procesando...",
                 "sLengthMenu": "Mostrar _MENU_ registros",

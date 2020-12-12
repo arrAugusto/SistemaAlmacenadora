@@ -768,7 +768,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
         var hiddenIdentityIngPeso = document.getElementById("idIngManiElegido").value;
     }
     console.log(hiddenIdentityIngPeso);
-    
+
     var poliza = document.getElementById("poliza").value;
 
     if ($("#tableConsolidadoPoliza").length >= 1 && $(".btnEliminarDetalleIng").length == 0) {
@@ -786,7 +786,7 @@ $(document).on("click", ".btnAgregarEmpresa", async function () {
                 var nomVar = "deleteDetalle";
                 var respDelete = await revisarVehUsados(nomVar, hiddenIdentityIngPeso);
                 console.log(respDelete);
-            if (respDelete[0]["resp"] == 1) {
+                if (respDelete[0]["resp"] == 1) {
                     Swal.fire({
                         title: 'Eliminado con exito',
                         text: "Cuadre el nuevo manifiesto",
@@ -6339,7 +6339,7 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
     if ($("#tableConsolidadoPoliza").length > 0) {
         var hiddenIdentityIngPeso = document.getElementById("idIngManiElegido").value;
     }
-
+    console.log(hiddenIdentityIngPeso);
     var tipoBusqueda = document.getElementById("tipoBusqueda").value;
     var bultosAgregados = document.getElementById("bultosAgregados").value;
     var bultosAgregados = parseInt(bultosAgregados);
@@ -6387,9 +6387,17 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
         console.log(saldoNuevoCrucePeso);
         console.log(saldoNuevoCruceBlts);
         if (saldoNuevoCruceBlts == 0 && saldoNuevoCrucePeso == 0) {
-            var llaveConsulta = document.getElementById("hiddenIdentity").value;
+            if ($("#tableConsolidadoPoliza").length == 0) {
+                var llaveConsulta = document.getElementById("hiddenIdentity").value;
+
+            }
+            if ($("#tableConsolidadoPoliza").length > 0) {
+                var llaveConsulta = document.getElementById("idIngManiElegido").value;
+            }
+
             var nomVar = "idIngValDet";
             var respSaldos = await revisarVehUsados(nomVar, llaveConsulta);
+            console.log(respSaldos);
             if (respSaldos != "SD") {
                 var dataIngBlt = respSaldos[0].bultos;
                 var dataIngPeso = respSaldos[0].peso;
@@ -6513,10 +6521,10 @@ function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
     console.log(empresa);
     console.log(bultos);
     console.log(llaveConsulta);
-    
+
     var datos = new FormData();
 
-    
+
     datos.append("llaveConsulta", llaveConsulta);
     datos.append("tipoBusqueda", empresa);
     datos.append("bultosAgregados", bultos);

@@ -35,11 +35,11 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                             var datblts = respuesta[i].blts;
                             var datdimPeso = respuesta[i].pesokg + " kg";
                             if (respuesta[i].familiaPoliza == 1) {
-                                
-                                if (respuesta[i].tipo.toUpperCase()  == "AF") {
+
+                                if (respuesta[i].tipo.toUpperCase() == "AF") {
                                     var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnVerSaldos btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
                                 }
-                                if (respuesta[i].tipo.toUpperCase()  == "ZA" || respuesta[i].tipo == 1) {
+                                if (respuesta[i].tipo.toUpperCase() == "ZA" || respuesta[i].tipo == 1) {
                                     var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
                                 }
 
@@ -889,7 +889,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             console.log(totalBultos);
                             console.log(cantBultos);
-                            
+
                             if (totalBultos == cantBultos) {
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
                                     var jsonStringDR = "SD";
@@ -1680,10 +1680,10 @@ async function editarRetiroOpFis(idRetiroBtn) {
     var hiddenIdBod = document.getElementById("hiddenIdBod").value;
     if (hiddeniddeingreso !== "" || hiddenIdUs !== "") {
         var idNit = $("#txtNitSalida").attr("dataRetiro");
-        
+
         var cantBultos = document.getElementById("cantBultos").value;
         console.log(cantBultos);
-        
+
         var polizaRetiro = document.getElementById("polizaRetiro").value;
         var regimen = document.getElementById("regimen").value;
         var tipoCambio = document.getElementById("cambio").value;
@@ -1714,7 +1714,7 @@ async function editarRetiroOpFis(idRetiroBtn) {
         var hiddenDateTime = document.getElementById("hiddenDateTime").value;
         console.log(totalBultos);
         console.log(cantBultos);
-        
+
         if (totalBultos == cantBultos) {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
                 var respuestaEdita = await funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro,
@@ -3207,4 +3207,9 @@ $(document).on("click", ".btnBsqPolDADR", async function () {
     $(this).addClass("btn-secondary");
     $(this).attr("disabled", "disabled");
 });
+
+$(document).on("click", ".btnPolUbica", async function () {
+    var iddet = $(this).attr("iddet");
+
+})
 
