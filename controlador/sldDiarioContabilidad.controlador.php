@@ -117,9 +117,9 @@ class ControladorSaldosContables {
         $sp = "spDatosContabilidad";
         $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idDeBodega);
 
-        $empresa = $respVerDatos[0]["empresa"];
+        $empresa = $idEmpresa;
 
-        $idDeBodega = $respEmpresa[0]["idEmpresa"];
+        $idDeBodega = $idDeBodega;
         $sp = "spsaldosContablesF";
         $respuesta = ModeloSaldosContables::mdlSaldoActualContabilidad($sp, $idDeBodega);
         if ($respuesta != "SD") {

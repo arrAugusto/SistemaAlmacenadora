@@ -220,8 +220,6 @@ class ControladorGenerarContabilidad {
         $sp = "spIndentRetiros";
         $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
         if ($respRet != "SD") {
-
-
             foreach ($respRet as $keys => $value) {
                 $identBodega = $value["identBodega"];
                 $ident = $identBodega;
@@ -229,10 +227,12 @@ class ControladorGenerarContabilidad {
                 $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $identBodega);
                 $sumCif = $respVerDatos[0]["sumCifRet"];
                 $sumImpuesto = $respVerDatos[0]["sumImpt"];
-
+                
                 $numberSumCif = number_format($sumCif, 2);
                 $numberSumImpuesto = number_format($sumImpuesto, 2);
-
+                if ($numberSumCif>0 && $numberSumImpuesto>0) {
+                    
+     
                 $sp = "spDetRetConta";
                 $datosEmpresa = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $identBodega);
 
@@ -276,6 +276,7 @@ class ControladorGenerarContabilidad {
                 </tr>
                 ';
                 }
+            }
             }
         }
 
@@ -387,17 +388,12 @@ class ControladorGenerarContabilidad {
             }
         }
 
- 
-
                 $ident = $iBodEmpresa;
-      
                 $sp = "spValoresContaRetAF";
                 $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $ident);
                 $sumCif = $respVerDatos[0]["sumCifRet"]*1;
                 $sumImpuesto = $respVerDatos[0]["sumImpt"]*1;
-                var_dump($sumImpuesto);
                 if ($sumCif > 0 && $sumImpuesto > 0) {
-                   
                     $numberSumCif = number_format($sumCif, 2);
                     $numberSumImpuesto = number_format($sumImpuesto, 2);
                     $sp = "spDetRetConta";
@@ -408,7 +404,7 @@ class ControladorGenerarContabilidad {
                         echo '
                 <tr>
                     <td>
-                        <span class="ptable-title"><i class="fa fa-building-o"></i>' . $empresa . ' ' . $area . ' ' . $bodega . '</span></td>
+                        <span class="ptable-title"><i class="fa fa-building-o"></i>RETIROS ' . $empresa . ' ' . $area . ' ' . $bodega . '</span></td>
                     <td>
                         <!-- Icon -->
                         <span class="badge bg-danger">CIF : Q ' . $numberSumCif . '</span><br/>

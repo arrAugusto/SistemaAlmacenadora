@@ -41,6 +41,9 @@ class ControladorRetiroOpe {
                     $estado = 1;
                 }
             }
+            $idIngreso = $datos['hiddeniddeingresoVeh'];
+            $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+
             $direccion = "../extensiones/imagenesQRCreadasRet/";
             if (!file_exists($direccion)) {
                 mkdir($direccion);

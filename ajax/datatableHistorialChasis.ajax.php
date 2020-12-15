@@ -15,7 +15,7 @@ class historialIngresosFiscales {
         $valor = $_SESSION["idDeBodega"];
         $estado = 0;
         $sp = "spConsultaChasSalida";
-        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $estado);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
 
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta != "SD") {

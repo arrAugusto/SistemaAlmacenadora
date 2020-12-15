@@ -129,7 +129,7 @@ class ModeloPasesDeSalida {
                     return "tarifaEspecial";
                 } else {
      
-                    if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1 && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0) {
+                    if ($respuestaVerifica[0]["tarifaEspecial"] == 0 && $respuestaVerifica[0]["tarifaNormal"] == 1 && $respuestaVerifica[0]["generalZA"] == 0 || $respuestaVerifica[0]["aplica"] == 0 || $respuestaVerifica[0]["estadoTarifa"] == 1) {
                         $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje);
                         $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera);
                         $respuestaManejo = calculosRubros::manejoCalculo($baseManejo, $tarifaManejo, $valPeso, $minimoManejo);

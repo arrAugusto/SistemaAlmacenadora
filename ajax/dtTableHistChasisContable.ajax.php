@@ -16,7 +16,7 @@ class historialIngresosFiscales {
         $estado = 2;
         $sp = "spConsultaChasSinConta";
         $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $estado);
-
+        
         if ($respuesta != null || $respuesta != NULL) {
             if ($respuesta != "SD") {
 
