@@ -564,7 +564,7 @@ class ControladorRetiroOpe {
             $sp = "spTrasladoVeh";
             $respuesta = ModeloRetiroOpe::mdlRetiroVehNGdValores($idRetChas, $idChas, $cif, $impts, $valTotal, $usuarioOp, $sp);
         }
-        return true;
+        return $respuesta;
     }
 
     public static function ctrRevisionDePolDR($polizaIngDR, $bltsDR, $cifDR, $imptDR) {

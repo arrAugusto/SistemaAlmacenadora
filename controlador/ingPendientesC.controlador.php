@@ -11,7 +11,6 @@ class ControladorGeneracionDeContabilidad {
      */
 
     public static function ctrIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp) {
-
         $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroConta($idContabilizar, $fechaCongeladaConta, $usuarioOp);
         return $respuesta;
     }

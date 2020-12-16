@@ -424,7 +424,6 @@ $(document).on("click", ".btnSalidaBodega", async function () {
     var idIngreso = $(this).attr("idIngreso");
     console.log("cargando el ajax");
     var respuesta = await ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso);
-
     console.log("esperandoRespuesta");
     if (respuesta == "Ok") {
         console.log("continuando...");

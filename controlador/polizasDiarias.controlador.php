@@ -526,6 +526,9 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
+                $sp = "spAjustesContables";
+                $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, 4);
+
             $sp = "spIndentRetiros";
             $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
             $sumCif = 0;

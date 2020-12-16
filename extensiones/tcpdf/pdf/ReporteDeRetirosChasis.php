@@ -31,10 +31,11 @@ class imprimirIngresoBodega {
             $dataReporte = [];
         } else {
             $estado = 2;
+            
             $respRepRet = ControladorContabilidadDeRet::ctrMostrarChasisRet($estado, $idBodega);
             $dataReporte = [];
         }
-        
+
         $repContabilidad = ControladorGeneracionDeContabilidad::ctrIngRegistroContaReportes($tipoReporte, $idBodega);
         $nombreAuxiliar = $repContabilidad[0]["nombres"];
         $apellidoAuxiliar = $repContabilidad[0]["apellidos"];
@@ -49,7 +50,7 @@ class imprimirIngresoBodega {
             }
             if ($key >= 1) {
                 foreach ($dataReporte as $key => $values) {
-                    if ($values["numeroRetiro"] == $value["numeroRetiro"]) {
+                    if ($values["chasis"] == $value["chasis"]) {
                         $estado = $estado + 1;
                     }
                 }

@@ -55,14 +55,19 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                 var impts = document.getElementById("textValImpt"+i).value;
                 var impts = Number.parseFloat(impts).toFixed(2);
                 var impts = impts*1;         
-                var valTotalAcum = valTotalAcum+impts+cif;
+                var valTotalAcum = valTotalAcum+valTotal;
                 listaChasis.push({"idChasis": idChasis, "cif":cif, "impts":impts, "valTotal": valTotal});
             }
         }
+        var total = Number.parseFloat(total).toFixed(2);
+        var total = total*1;
+        var valTotalAcum = Number.parseFloat(valTotalAcum).toFixed(2);
+        var valTotalAcum = valTotalAcum*1;
         console.log(listaChasis);
-        console.log(valTotalAcum);
         console.log(total);
+        console.log(valTotalAcum);
         if (total == valTotalAcum) {
+            console.log("linea 71");
             var idRetCal = button.attr("idRet");
             var listaJson = JSON.stringify(listaChasis);
             var GDchasisGeneral = await ajaxGuardarChasisVeh(idRetCal, listaJson);
@@ -2094,6 +2099,7 @@ $(document).on("click", "#btnVehNew", async function () {
     var idRet = $(this).attr("idRet");
     var nomVar = "idRetVehN";
     var respuesta = await AjaxUnParam(idRet, nomVar);
+    console.log(respuesta);
     listVeh = [];
 
     for (var i = 0; i < respuesta.length; i++) {

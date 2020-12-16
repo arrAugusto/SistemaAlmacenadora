@@ -613,6 +613,7 @@ $(document).ready(function () {
             url: "ajax/dtTableHistChasisContable.ajax.php",
             "bServerSide": true,
             success: function (respuesta) {
+                console.log(respuesta);
             }
         })
     }
