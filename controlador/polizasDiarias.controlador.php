@@ -578,7 +578,7 @@ class ControladorGenerarContabilidad {
             $estado = 2;
             $sp = "spContaVeh";
             $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
-        $dependencia = $respVeh[0]["dependencia"];
+            $dependencia = $respVeh[0]["dependencia"];
 
             $sumCif = 0;
             $sumImpuesto = 0;
@@ -590,9 +590,9 @@ class ControladorGenerarContabilidad {
 
                 if ($respVeh != "SD") {
                     $sp = "spContaVeh";
-            $estado = 2;
+                    $estado = 2;
 
-            $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
+                    $respVeh = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
 
                     $sumCif = $sumCif + $respVeh[0]["cif"];
                     $sumImpuesto = $sumImpuesto + $respVeh[0]["impuesto"];
@@ -694,7 +694,7 @@ class ControladorGenerarContabilidad {
                     $idIngAjusteVN = $value["id"];
                     $cif = $value["cif"];
                     $impuesto = $value["impuesto"];
-      
+
                     //en este metodo se requiere que el retiro sea estado 5 y el valor contabilidad quede a 0 en cif e impuestos
                     $cambiosAjustesRetVehIng = ModeloGenerarContabilidad::mdlAjusteFinalVehiculoNew($sp, $idIngAjusteVN, $cif, $impuesto, $date);
                     $cifVehAjuste = $cifVehAjuste + $value["cif"];
@@ -727,12 +727,16 @@ class ControladorGenerarContabilidad {
                 }
 
                 $totalAjuste = $ajusteValCif + $ajusteVImpst;
-   
                 /**
                  * AJUSTES CONTABLES DE RETIROS MERCADERIAS Y VEHÍCULOS
                  * 
                  * * */
-                if ($ajusteValCif > 0 && $ajusteVImpst > 0) {
+                if ($ajusteValCif < 0 && $ajusteVImpst < 0) {
+
+                    //SETENADO VARIABLES A UN NUMERO POSITIVO PARA GUARDAR EN LA POLIZA CONTABLE
+                    $ajusteValCifSet = $ajusteValCif * -1;
+                    $ajusteVImpstSet = $ajusteVImpst * -1;
+                    $totalAjuste = $ajusteValCifSet + $ajusteVImpstSet;
                     /**
                      * SI ESTA CONDICION SE CUMPLE Y CIF E IMPUESTO SON MAYOR A 0 ENTONCES SE APLICA UNA POLIZA DE RETIRO
                      * YA QUE SE DEBE APLICAR UNA REBAJA AL TOTAL DE CIF E IMPUESTO PARA QUE REGRESE AL VALOR 0
@@ -747,13 +751,13 @@ class ControladorGenerarContabilidad {
                     $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
                     $tipOperaSaldo = "SUMA";
                     $tipConcepto = "INGRESO CIF AJUSTE";
-                    $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                     if ($respIngCif[0]["resp"] == 1) {
                         $conPolDefImpts = "801109.01"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
                         $debeImpts = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
                         $tipOperaSaldo = "SUMA";
                         $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
-                        $respIngImpts = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefImpts, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeImpts, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                        $respIngImpts = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefImpts, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeImpts, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                         if ($respIngImpts[0]["resp"] == 1) {
                             $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
                             $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
@@ -762,12 +766,9 @@ class ControladorGenerarContabilidad {
                             $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $totalAjuste, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                         }
                     }
-                } else if ($ajusteValCif < 0 && $ajusteVImpst < 0) {
+                }else if ($ajusteValCif > 0 && $ajusteVImpst > 0) {
 
-                    //SETENADO VARIABLES A UN NUMERO POSITIVO PARA GUARDAR EN LA POLIZA CONTABLE
-                    $ajusteValCifSet = $ajusteValCif * -1;
-                    $ajusteVImpstSet = $ajusteVImpst * -1;
-                    $total = $ajusteValCifSet + $ajusteVImpstSet;
+
 
                     /**
                      * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
@@ -779,108 +780,112 @@ class ControladorGenerarContabilidad {
                     $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
                     $tipOperaSaldo = "CONTRAPARTIDA";
                     $tipConcepto = "RETIRO CIF AJUSTE";
-                    $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $total, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $totalAjuste, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
 
                     if ($respIngContra[0]["resp"] == 1) {
                         $conPolDefCif = "802103.0102"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
                         $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
                         $tipOperaSaldo = "RESTA";
                         $tipConcepto = "RETIRO CIF AJUSTE";
-                        $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                        $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                         if ($respIngCif[0]["resp"] == 1) {
                             $conPolDefImpst = "801109.01"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
                             $debeImpst = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
                             $tipOperaSaldo = "RESTA";
                             $tipConcepto = "RETIRO IMPUESTOS AJUSTE";
-                            $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefImpst, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeImpst, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                            $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefImpst, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeImpst, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
                         }
                     }
-                } else {
-                    if ($ajusteValCif > 0) {
-                        /**
-                         * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
-                         * */
-                        $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
-                        $conPolDefCif = "888888"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
-                        $estado = 1;
-                        $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
-                        $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                        $tipOperaSaldo = "CONTRAPARTIDA";
+                }else{
+
+
+                if ($ajusteValCif < 0) {
+                    $ajusteValCifSet = $ajusteValCif * -1;
+                    /**
+                     * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
+                     * */
+                    $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
+                    $conPolDefCif = "888888"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
+                    $estado = 1;
+                    $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
+                    $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                    $tipOperaSaldo = "CONTRAPARTIDA";
+                    $tipConcepto = "INGRESO CIF AJUSTE";
+
+                    $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    if ($respIngContra[0]["resp"] == 1) {
+                        $conPolDefCif = "802103.0102"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
+                        $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                        $tipOperaSaldo = "SUMA";
                         $tipConcepto = "INGRESO CIF AJUSTE";
-
-                        $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        if ($respIngContra[0]["resp"] == 1) {
-                            $conPolDefCif = "802103.0102"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
-                            $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                            $tipOperaSaldo = "SUMA";
-                            $tipConcepto = "INGRESO CIF AJUSTE";
-                            $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        }
-                    }
-                    if ($ajusteValCif < 0) {
-                        $ajusteValCifSet = $ajusteValCif * -1;
-                        $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
-                        $conPolDefCif = "802103.0102"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
-                        $estado = 1;
-                        $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
-                        $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                        $tipOperaSaldo = "RESTA";
-                        $tipConcepto = "RETIRO CIF AJUSTE";
                         $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-
-                        if ($respIngCif[0]["resp"] == 1) {
-                            $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
-                            $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
-                            $tipOperaSaldo = "CONTRAPARTIDA";
-                            $tipConcepto = "RETIRO CIF AJUSTE";
-                            $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $ajusteValCifSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        }
-                    }
-
-                    if ($ajusteVImpst > 0) {
-                        /**
-                         * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
-                         * */
-                        $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
-                        $conPolDefCif = "888888"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
-                        $estado = 1;
-                        $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
-                        $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                        $tipOperaSaldo = "CONTRAPARTIDA";
-                        $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
-                        $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        if ($respIngContra[0]["resp"] == 1) {
-                            $conPolDefCif = "801109.01"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
-                            $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                            $tipOperaSaldo = "SUMA";
-                            $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
-                            $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        }
-                    }
-                    if ($ajusteVImpst < 0) {
-                        $ajusteVImpstSet = $ajusteVImpst * -1;
-                        $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
-                        $conPolDefCif = "801109.01"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
-                        $estado = 1;
-
-                        $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
-                        $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
-                        $tipOperaSaldo = "RESTA";
-                        $tipConcepto = "RETIRO IMPUESTOS AJUSTE";
-                        $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        if ($respIngCif[0]["resp"] == 1) {
-                            $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
-                            $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
-                            $tipOperaSaldo = "CONTRAPARTIDA";
-                            $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
-                            $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
-                        }
                     }
                 }
-                                                $sp = "spContaVehEstado";
-$estado = 2;
+                if ($ajusteValCif > 0) {
+                    
+                    $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
+                    $conPolDefCif = "802103.0102"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
+                    $estado = 1;
+                    $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
+                    $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                    $tipOperaSaldo = "RESTA";
+                    $tipConcepto = "RETIRO CIF AJUSTE";
+                    $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
 
-            $finalizarChasis = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
+                    if ($respIngCif[0]["resp"] == 1) {
+                        $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
+                        $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
+                        $tipOperaSaldo = "CONTRAPARTIDA";
+                        $tipConcepto = "RETIRO CIF AJUSTE";
+                        $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $ajusteValCif, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    }
+                }
+
+                if ($ajusteVImpst < 0) {
+                    $ajusteVImpstSet = $ajusteVImpst * -1;
+                    /**
+                     * DECLARANDO EL ASIENTO CONTABLE POR REIROS FISCALES 
+                     * */
+                    $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
+                    $conPolDefCif = "888888"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
+                    $estado = 1;
+                    $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
+                    $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                    $tipOperaSaldo = "CONTRAPARTIDA";
+                    $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
+                    $respIngContra = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    if ($respIngContra[0]["resp"] == 1) {
+                        $conPolDefCif = "801109.01"; //CUENTA DEFAULT PARA REGISTRAR IMPUESTOS INGRESO
+                        $debeCif = "HABER"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                        $tipOperaSaldo = "SUMA";
+                        $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
+                        $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpstSet, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    }
+                }
+                if ($ajusteVImpst > 0) {
+                    
+                    $sp = "spAsientoContable"; //SP QUE CONECTA LA BASE DE DATOS Y GUARDA EL ASIENTO CONTABLE
+                    $conPolDefCif = "801109.01"; //CUENTA UTILIZA DEFAULT PARA REGISTRAR CIF DE INGRESO EN POLIZA CONTABLE
+                    $estado = 1;
+
+                    $conceptoPoliza = "REGULARIZACION EN ZONA ADUANERA POR  DIFERENCIAL CAMBIARIO"; //EXPLICACION CONTABLE
+                    $debeCif = "DEBE"; //NATURALEZA DE CUENTA CONTABLE SUMA AL LIBRO DIARIO
+                    $tipOperaSaldo = "RESTA";
+                    $tipConcepto = "RETIRO IMPUESTOS AJUSTE";
+                    $respIngCif = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $conPolDefCif, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $debeCif, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    if ($respIngCif[0]["resp"] == 1) {
+                        $haberPol = "HABER"; //NATURALEZA DE CUENTA CONTABLE QUE RESPALDA LA POLIZA
+                        $cuentaPorContra = "888888"; //CUENTA QUE CARGA A SUS ANTERIORES DOS CUENTAS DE INGRESO
+                        $tipOperaSaldo = "CONTRAPARTIDA";
+                        $tipConcepto = "INGRESO IMPUESTOS AJUSTE";
+                        $respCuentaCarga = ModeloGenerarContabilidad::mdlGuardarPolContable($sp, $cuentaPorContra, $dependencia, $ajusteVImpst, $estado, $conceptoPoliza, $numeroDepolizaAsig, $haberPol, $tipOperaSaldo, $tipConcepto); //ENVIANDO PARAMETROS A UN OBJETO EN EL MODELO
+                    }
+                }
+           }
+                            $sp = "spContaVehEstado";
+                $estado = 2;
+
+                $finalizarChasis = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $estado, $hiddenIdBod);
 
             }
 

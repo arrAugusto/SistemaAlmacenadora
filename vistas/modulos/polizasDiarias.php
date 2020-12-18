@@ -120,10 +120,10 @@
         font-size:22px;
     }
 
-.swal2-content
-{
-      z-index: 2!important;
-}
+    .swal2-content
+    {
+        z-index: 2!important;
+    }
 </style>
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -149,9 +149,9 @@
                 <div class="card-body"> 
                     <div class="row">
                         <div class="col-6 mt-4">
-                                    <button type="button" class="btn btn-outline-danger btn-block btn-flat btn-sm btnGenerarPolizaContable">Generar Poliza</button>
+                            <button type="button" class="btn btn-outline-danger btn-block btn-flat btn-sm btnGenerarPolizaContable">Generar Poliza</button>
                         </div>
-                
+
                         <div class="col-12 mt-4">
                             <div class="invoice p-3 mb-3">
                                 <!-- title row -->
@@ -181,19 +181,12 @@
                                                             $respuesta = ControladorGenerarContabilidad::ctrMostrarReportes();
                                                             ?>
                                                             </tbody>
-
                                                     </table>
                                                 </div>
                                             </div>
                                         </div>
-
-
                                     </div>
                                 </div>
-
-              
-
-                                
                             </div>
                         </div>
                     </div>

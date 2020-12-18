@@ -169,7 +169,6 @@ class ControladorIngresosPendientes {
                             if ($_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas") {
                                 $botonera = '<button type="button" class="btn btn-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                             }
-
                             $contadorFila = $contadorFila + 1;
                             echo '
                       <tr>
