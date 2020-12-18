@@ -166,7 +166,6 @@ EOF;
                     <th style="border: 1px solid #030505; background-color:white; width:100px; text-align:center;"><strong>LINEA</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:100px; text-align:center;"><strong>PREDIO</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:70px; text-align:center;"><strong>CANTIDAD</strong></th>            
-
 </tr>
 </table>	
 EOF;
@@ -244,7 +243,6 @@ EOF;
                 <th style="border: 1px solid #030505; background-color:white; width:62px; text-align:center"><strong>$bultosSalida</strong></th>
             </tr>
 	</table>	
-
 EOF;
 
             $pdf->writeHTML($bloque5, false, false, false, false, '');
@@ -271,7 +269,6 @@ EOF;
                 <th style="border-bottom: 1px solid #030505; width:562px; text-align:center"><strong>REBAJA DE BULTOS PÓLIZA DR</strong></th>
             </tr>
 	</table>	
-
 EOF;
 
                 $pdf->writeHTML($bloque5, false, false, false, false, '');
@@ -416,10 +413,8 @@ EOF;
 //-------------------------------------------------------------------------------------------------------
 
         $bloque8 = <<<EOF
-
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-
 		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
@@ -429,7 +424,6 @@ EOF;
  			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
-
         </table>
 EOF;
 
@@ -448,7 +442,4 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 $retiro->pdfDatosRetiro();
 ?>
-
-
-
 

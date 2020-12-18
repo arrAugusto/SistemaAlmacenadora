@@ -219,6 +219,7 @@ class ControladorGenerarContabilidad {
 
         $sp = "spIndentRetiros";
         $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
+        var_dump($respRet);
         if ($respRet != "SD") {
             foreach ($respRet as $keys => $value) {
                 $identBodega = $value["identBodega"];

@@ -130,8 +130,6 @@ EOF;
                 <tr>
    <td style="width:200px;"></td>
    <td style="width:160px;"><img src="images/anulado.png"></td>                    
-
-
    <td style="width:200px;"></td>
                     
    </tr>
@@ -151,7 +149,6 @@ EOF;
                     <th style="border: 1px solid #030505; background-color:white; width:100px; text-align:center;"><strong>LINEA</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:100px; text-align:center;"><strong>PREDIO</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:70px; text-align:center;"><strong>CANTIDAD</strong></th>            
-
    </tr>
 	</table>	
 EOF;
@@ -257,7 +254,6 @@ EOF;
                 <th style="border: 1px solid #030505; background-color:white; width:62px; text-align:center"><strong>$bultosTotal</strong></th>
             </tr>
 	</table>	
-
 EOF;
 
             $pdf->writeHTML($bloque5, false, false, false, false, '');
@@ -329,7 +325,6 @@ EOF;
 //-------------------------------------------------------------------------------------------------------
 
         $bloque8 = <<<EOF
-
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
 		<tr><br/>
@@ -361,7 +356,3 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 $ingreso->traerDatosIngreso();
 ?>
-
-
-
-
