@@ -90,6 +90,7 @@ class ControladorRetiroOpe {
         if ($estadoTransaRebaja == count($arrayDetalles)) {
             $idIngreso = $datos["hiddeniddeingreso"];
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
+            
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
             if ($respuesta != "SD") {
                 if ($datos['jsonStringDR'] != "SD") {
@@ -116,6 +117,7 @@ class ControladorRetiroOpe {
                 $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet" . $respuesta["valIdRetiro"] . ".png");
                 // Escribir archivo,
                 $codigoQR->writeFile($nombreArchivoParaGuardar);
+
 
                 if ($respuestaActStockGen[0]["resp"] == 1) {
                     return $respuesta;

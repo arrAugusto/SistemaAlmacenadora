@@ -2798,6 +2798,7 @@ $(document).on("click", ".btnListaSelect", async function () {
     var poliza = idBut.attr("poliza");
     var idIngSelectDet = $("#buttonDisparoDetalle").attr("idIngSelectDetOpe");
     var servicio = await functionVerServicio(idIngOpDet);
+    console.log(idIngOpDet);
     console.log(servicio);
     if (servicio.respTipo == "vehM" || servicio.respTipo == "vehUs") {
         document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
@@ -3081,6 +3082,7 @@ $(document).on("click", ".btnListaSelect", async function () {
             Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
             document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
         } else {
+            console.log("usados");
             /*
              console.log(respuesta);
              document.getElementById("divSaldos").innerHTML = '<div class="col-4"><small class="text-success mr-1">Bultos Ingreso : &nbsp;&nbsp; ' + respuesta["sumIng"][0].bultos + '</small></div><div class="col-4"><small class="text-success mr-1">Cif Ingreso :&nbsp;&nbsp; ' + respuesta["sumIng"][0].totalValorCif + '</small></div><div class="col-4"><small class="text-success mr-1">Impuestos Ingreso : &nbsp;&nbsp; ' + respuesta["sumIng"][0].calculoValorImpuesto + '</small></div><br/>';
@@ -3147,7 +3149,7 @@ $(document).on("click", ".btnListaSelect", async function () {
         $("#divCont").append().remove();
         document.getElementById("tableVeh").innerHTML = '<table id="tableVehNuevos" class="table table-hover dt-responsive table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
         listaVehN = [];
-        console.log(servicio.data[0].estado);
+        console.log(servicio.data);
         for (var i = 0; i < servicio.data.length; i++) {
             if (servicio.data[i].estado == 1) {
 

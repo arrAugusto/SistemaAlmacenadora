@@ -764,16 +764,7 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
             document.getElementById("polizaIngreso").value = respuesta[0].polIng;
             document.getElementById("polizaRetiro").value = respuesta[0].polRet;
             document.getElementById("numeroRetiro").value = respuesta[0].numRet;
-            /*
-             
-             document.getElementById("valorDoll").value = respuesta[0].valDoll;
-             document.getElementById("tCambio").value = respuesta[0].tCambio;
-             document.getElementById("cif").value = respuesta[0].cif;
-             document.getElementById("impuestos").value = respuesta[0].impts;
-             document.getElementById("bultos").value = respuesta[0].cantBultos;
-             document.getElementById("peso").value = respuesta[0].peso;
-             
-             */
+
             var valDol = parseFloat(respuesta[0].valDoll).toFixed(2);
             var valTCambio = parseFloat(respuesta[0].tCambio).toFixed(4);
             var valCif = parseFloat(respuesta[0].cif).toFixed(2);
