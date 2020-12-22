@@ -10,7 +10,7 @@ class ControladorIngresosPendientes {
     public static function ctrMostrarIngresosPendientes() {
         $llaveIngresosPen = $_SESSION["idDeBodega"];
         $respuesta = ModeloIngresosPendientes::mdlMostrarIngresosPendientes($llaveIngresosPen);
-        
+
 // ARRAY : LISTA TEMPORAL PARA GUARDAR, LAS POLIZAS YA MAQUETADAS EN EL TABLE
         date_default_timezone_set('America/Guatemala');
         $timeActual = date('d-m-Y H:i:s');
@@ -37,9 +37,9 @@ class ControladorIngresosPendientes {
                         $sp = "spRevertirCons";
                         $estado = 1;
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
+                        var_dump($respuestaRevCon);
                         if ($respuestaRevCon[0]["resp"] == 2) {
                             $consPol = 0;
-                            
                         }
                     }
                 }
@@ -163,7 +163,7 @@ class ControladorIngresosPendientes {
                             } else {
                                 $empresaCons = $respuesta[$key]["empresa"];
                             }
-                            if ($aplicaCons==1) {
+                            if ($aplicaCons == 1) {
                                 $botonera = '<button numeroOrden=' . $value["numeroOrden"] . ' type="button" class="btn btn-info btn-sm btnAgregarDetalles" tipoIng="' . $usados . '" numeroButton=' . ($key + 1) . ' >Mercadería</button><button type="button" class="btn btn-sm btn-success bntSalidaRapida" id="salidaRapida' . $value["numeroOrden"] . '" idCliente="' . $value["numeroOrden"] . '"  data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print"></i></button>';
                             }
                             if ($_SESSION["niveles"] == "ALTO" || $_SESSION["departamentos"] == "Ventas") {
@@ -202,23 +202,25 @@ class ControladorIngresosPendientes {
                     $respConsoPol = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
                     if ($respConsoPol[0]["cantCadenas"] == $cantidadClientes) {
                         $consPol = 1;
-                        $sp = "spRevertirCons";
-                        $estado = 2;
+                        $sp = "spRevertirConsFail";
+                        $estado = 0;
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
                         if ($respuestaRevCon[0]["resp"] == 2) {
                             $consPol = 0;
-
                         }
-                    }else{
-                                                    echo "<script>
+                    } else {
+
+
+                        echo "<script>
                                 Swal.fire(
   'Cantidad de clientes!',
-  'Póliza ".$respuesta[$key]["poliza"]."!',
+  'Póliza " . $respuesta[$key]["poliza"] . "!',
   'error'
 )
                         </script>    ";
                     }
                 }
+
 
                 if ($consPol == 0) {
 

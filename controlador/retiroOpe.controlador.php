@@ -67,7 +67,7 @@ class ControladorRetiroOpe {
             $idDetalle = $value["idDetalles"];
             $cantBultos = $value["cantBultos"];
             $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
-
+          
             $stock = $respuesta[0]["stock"];
             $saldoNuevo = $stock - $cantBultos;
             if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
@@ -79,7 +79,7 @@ class ControladorRetiroOpe {
             foreach ($arrayDetalles as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $cantBultos = $value["cantBultos"];
-                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $cantBultos);
+                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
                 if ($respuesta[0]["estado"] == 1) {
                     $estadoTransaRebaja = $estadoTransaRebaja + 1;
                 }

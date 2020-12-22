@@ -147,42 +147,47 @@ class ControladorRetirosBodega {
 
     public static function ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp) {
         $respuestaDetalle = ModeloRetiroOpe::mdlConsultarDetalle($idDeta);
-  
+        $sp = "spDetallesRevision";
+
+        $detallesReb = ModeloRetiroOpe::mdlDetUnParametro($idRet, $sp);
+        if ($detallesReb!="SD") {
+            
+
+        $dataDetalle = [];
+        foreach ($detallesReb as $key => $value) {
+            $json = json_decode($value["detallesRebajados"], true);
+            array_push($dataDetalle, $json);
+        }
+        $totalBlts = 0;
+        foreach ($dataDetalle as $key => $value) {
+            $bultosRebajados = $value[0]["cantBultos"];
+            $totalBlts = $totalBlts+$bultosRebajados;
+            if (count($value[0])>3) {
+               $mtsRetDet = $value[0]["valMtsSalidaEdit"];
+               $posRetDet = $value[0]["valPosSalidaEdit"];
+            }
+        }
+        }else{
+            $totalBlts = 0;
+        }
         if ($respuestaDetalle != "SD") {
+            $stockBlts = $respuestaDetalle[0]["stock"];
             $stockPos = $respuestaDetalle[0]["stockPos"];
-            $nuevoSaldo = $stockPos - $valPosSalida;
+
+            
+            $nuevoSaldoPos = $stockPos - $valPosSalida;
             $stockMts = $respuestaDetalle[0]["stockMts"];
             $nuevoSaldoMts = $stockMts - $valMtsSalida;
             $stockCondicional = $respuestaDetalle[0]["stock"];
-                 
-            if ($respuestaDetalle[0]["stock"] == 0 && $nuevoSaldo == 0 && $nuevoSaldoMts == 0 ||
-                    $respuestaDetalle[0]["stock"] > 0 && $nuevoSaldo > 0 && $nuevoSaldoMts > 0) {
-
+            if ($stockBlts == 0 && $nuevoSaldoPos == 0 && $nuevoSaldoMts == 0 ||
+                    $stockBlts> 0 && $nuevoSaldoPos > 0 && $nuevoSaldoMts > 0) {
+   
                 $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRet);
-
+ 
                 $tipoEditG = 0;
                 $respuesta = ControladorRetirosBodega::ctrAccionDetalle($tipoEditG, $idRet, $idDeta, $valPosSalida, $valMtsSalida, $usuarioOp);
 
-                /*
-                $arrayDetalleDB = json_decode($respuestaDetalle[0]["detallesRebajados"], true);
-                $nuevoDetalleDB = [];
-                foreach ($arrayDetalleDB as $key => $value) {
-                    if ($value["idDetalles"] == $idDeta) {
-                        $detalle = $value["idDetalles"];
-                        $Blts = $value["cantBultos"];
-                        $estado = 1;
-                        $arrayNuevoDetalle = array("idDetalles" => $detalle, "cantBultos" => $Blts, "estadoDet" => $estado, "cantPos" => $valPosSalida, "cantMts" => $valMtsSalida);
-                        array_push($nuevoDetalleDB, $arrayNuevoDetalle);
-                    } else {
-                        $detalle = $value["idDetalles"];
-                        $Blts = $value["cantBultos"];
-                        $estado = $value["estadoDet"];
-                        $arrayNuevoDetalle = array("idDetalles" => $detalle, "cantBultos" => $Blts, "estadoDet" => $estado, "cantPos" => $valPosSalida, "cantMts" => $valMtsSalida);
-                        array_push($nuevoDetalleDB, $arrayNuevoDetalle);
-                    }
-                }
-                $arrayNuevoDetalle = json_encode($nuevoDetalleDB, false);
-*/
+
                 $respuestaUpdate = ModeloRetirosBodega::mdlUpdateDetalle($idRet, $usuarioOp);
                 if ($respuestaUpdate[0]["resp"] >= 1 && $stockCondicional > 0) {
                     return "puedeEditar";
@@ -214,7 +219,7 @@ class ControladorRetirosBodega {
         if ($tipoEditG == 0) {
             //OBTENIENDO EL ARRAY DEL DETALLE DE REBAJAS DEL RETIRO
             $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRetEdit);
-            
+
             $arrayDetalle = json_decode($respuestaDetalle[0]["detallesRebajados"], true);
             $nuevoArrayDetalle = [];
             foreach ($arrayDetalle as $key => $value) {
