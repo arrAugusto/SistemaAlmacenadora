@@ -106,7 +106,7 @@ class ModeloContabilidadDeRet {
             }
         }
     }
-        public static function mdlListarRetPendientesHistorial($ident) {
+        public static function  mdlListarRetPendientesHistorial($ident) {
         $dataArray = [];
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spRetirosHistorial";

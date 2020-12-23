@@ -748,6 +748,9 @@ $(document).on("click", ".btnConsultDataConfirm", async function () {
     $("#peso").addClass('is-invalid');
     var idNumRetConsult = $(this).attr("idret");
     var idNumIng = $(this).attr("idIngreso");
+    console.log(idNumRetConsult);
+    console.log(idNumIng);
+    
     document.getElementById("divButtonPase").innerHTML = '<button type="button" class="btn btn-warning btnImprimirRecibo pull-left" id="btnCalculoAlm" idRet =' + idNumRetConsult + ' idIngreso=' + idNumIng + '>Calcular Almacenaje <i class="fa fa-calculator"></i></button>';
     var datos = new FormData();
     datos.append("idNumRetConsult", idNumRetConsult);
@@ -2080,7 +2083,6 @@ $(document).on("click", ".btnExcelRetSal", async function () {
     var nombreFile = "datosRetiros_";
     var nombreReporte = "RetirosFiscales";
     var creaExcel = await JSONToCSVDescargaExcel(respuesta, nombreEncabezado, nombreReporte, nombreFile, true);
-    console.log(resp);
 })
 
 $(document).on("click", "#btnVehNew", async function () {
