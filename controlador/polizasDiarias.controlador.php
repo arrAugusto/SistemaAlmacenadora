@@ -112,7 +112,7 @@ class ControladorGenerarContabilidad {
         $sp = "spIndentIngresos";
         $respIng = ModeloGenerarContabilidad::mdlMostrarIng($sp);
         if ($respIng != "SD") {
-            $ajustesConta = [];
+            $ajustesContaLote = [];
             $listaAreas = [];
             foreach ($respIng as $key => $value) {
                 $idContbilidades = $value["numeroBodegaFiscal"];
@@ -121,7 +121,7 @@ class ControladorGenerarContabilidad {
                 $sp = "spAjustesContables";
                 $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
                 if ($respAjustes != "SD") {
-                    array_push($ajustesConta, $respAjustes);
+                    array_push($ajustesContaLote, $respAjustes);
                 }
                 $ident = $idContbilidades;
                 $empresa = $respVerDatos[0]["empresa"];
@@ -219,13 +219,14 @@ class ControladorGenerarContabilidad {
 
         $sp = "spIndentRetiros";
         $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
-        var_dump($respRet);
+        
         if ($respRet != "SD") {
             foreach ($respRet as $keys => $value) {
                 $identBodega = $value["identBodega"];
                 $ident = $identBodega;
                 $sp = "spValoresContaRet";
                 $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $identBodega);
+                
                 $sumCif = $respVerDatos[0]["sumCifRet"];
                 $sumImpuesto = $respVerDatos[0]["sumImpt"];
 
@@ -315,22 +316,43 @@ class ControladorGenerarContabilidad {
 
 
         if ($respIng != "SD" || $ajusteVehiculos != "SD") {
-            $valorCif = 0;
-            $varlorImpuesto = 0;
+            $valorCifMerca = 0;
+            $impuestosMerca = 0;
 
             if ($respIng != "SD") {
+                $respAjustes = [];
+ 
+                foreach ($ajustesContaLote[0] as $key => $value) {
+                    if ($key==0) {
+                        array_push($respAjustes, $value);
+                    }
 
+                    if ($key>0) {
+                        $contador = 0;
+                        foreach ($respAjustes as $keys => $values) {
+                        
+                            if ($value["id"]==$values["id"]) {
+                               $contador = $contador+1; 
+                            }
+                        }
+                        if ($contador==0) {
+                            array_push($respAjustes, $value);
+                        }
+                    }
+                }   
+                var_dump($respAjustes);
 
                 foreach ($respAjustes as $key => $value) {
-                    $valorCif = $valorCif + $value["sumCif"];
-                    $impuesto = $varlorImpuesto + $value["sumImpuesto"];
+                    $valorCifMerca = $valorCifMerca + $value["saldoValorCif"];
+                    $impuestosMerca = $impuestosMerca + $value["saldoValorImpuesto"];
                 }
             }
             if ($ajusteVehiculos != "SD") {
-                $valorCif = $valorCif + $cifVehAjuste;
-                $impuesto = $varlorImpuesto + $impuestoVehAjuste;
+                $valorCif = $valorCifMerca + $cifVehAjuste;
+                $impuesto = $impuestosMerca + $impuestoVehAjuste;
             }
-            if ($valorCif != 0 && $impuesto != 0) {
+  
+            if ($valorCif != 0 || $impuesto != 0) {
 
                 echo '<tr><td id="saltoTD" colspan="3"><center><h2 class="text-center text-success">AJUSTES ALMACENADORA INTEGRADA, S.A.</h2></center></td></tr>';
                 echo '<tr><td id="saltoTD" colspan="3"></td></tr>';
@@ -569,9 +591,11 @@ class ControladorGenerarContabilidad {
             }
 
             //ajustesMerca
-            $sp = "spAjustesContables";
-            $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, 4);
-            //retiros de mercaderia
+                $sp = "spAjustesContables";
+                $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
+                var_dump($respAjustes);
+                echo '<br/>';
+//retiros de mercaderia
             $sp = "spIndentRetiros";
             $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
             //retiros de vehiculos nuevos

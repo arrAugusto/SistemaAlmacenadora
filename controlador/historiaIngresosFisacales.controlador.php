@@ -258,6 +258,7 @@ class ControladorHistorialIngresos {
         return $revIngRev;
     }
 
+
     public static function ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh) {
         $sp = "spRevChasisVehN";
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idChasEdit, $chasisNewEdt, $tipoLineaVeh, $sp);
@@ -283,7 +284,7 @@ class ControladorHistorialIngresos {
                 $sp = "spUpdateBltsIng";
                 $respBltsINg = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($idIngEditCuadreBlts, $totalBultosPol, $sp);
                 return $respBltsINg;
-            }else{
+            } else {
                 return false;
             }
         }
