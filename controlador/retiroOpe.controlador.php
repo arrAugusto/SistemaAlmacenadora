@@ -62,7 +62,13 @@ class ControladorRetiroOpe {
     public static function ctrInsertRetiroOpe($datos) {
 
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
+        $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
+           $estadoTransaRebaja = 0;
+        $contDetalle = 0;
         $estadoTransa = 0;
+        if ($jsonDecodeDR=="SD") {
+          
+        $contDetalle = count($arrayDetalles);
         foreach ($arrayDetalles as $key => $value) {
             $idDetalle = $value["idDetalles"];
             $cantBultos = $value["cantBultos"];
@@ -74,8 +80,9 @@ class ControladorRetiroOpe {
                 $estadoTransa = $estadoTransa + 1;
             }
         }
+ 
         if ($estadoTransa == count($arrayDetalles)) {
-            $estadoTransaRebaja = 0;
+         
             foreach ($arrayDetalles as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $cantBultos = $value["cantBultos"];
@@ -87,8 +94,10 @@ class ControladorRetiroOpe {
         } else if ($estadoTransa != count($arrayDetalles)) {
             return "denegado";
         }
-        if ($estadoTransaRebaja == count($arrayDetalles)) {
+                      }
+        if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR']!="SD") {
             $idIngreso = $datos["hiddeniddeingreso"];
+            RETURN $datos;
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
             
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));

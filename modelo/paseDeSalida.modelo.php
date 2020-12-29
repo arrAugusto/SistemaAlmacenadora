@@ -178,7 +178,7 @@ class ModeloPasesDeSalida {
                         //OBJETO UTILIZADO PARA OBTENER LOS PARAMETROS DE LA TARIFA
                         $sp = "spDataCalculo";
                         $datosIngCalculo = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIngresoCal, $sp);
-                   
+                  
                         /*  
                          *  DATOS PARA GENERAR EL RUBRO ALMACENAJES
                          */
@@ -208,14 +208,21 @@ class ModeloPasesDeSalida {
                         $fechaSalida = $fechaCorte; // FECHA DE SALIDA DE LA MERCADERIA
                         $fechaIngreso = $nuevafechaInicio; // FECHA DE INGRESO
                         $tiempoTotal = funcionesDeCalculo::dias($fechaIngreso, $fechaSalida); // DIAS TOTAL EN ALMACENADORA                     
-                        if ($tiempoTotal >= $datosIngCalculo[0]["delZA"]) {
-                            $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"])+1;
-                            $diasZA = $tiempoTotal - $diaAlmacenaje;
-                        } else if ($tiempoTotal < $datosIngCalculo[0]["delZA"]) {
+                        
+                        if ($tiempoTotal >= $datosIngCalculo[0]["alAlmacenaje"]) {
+                            $diaAlmacenaje = ($tiempoTotal - $datosIngCalculo[0]["delZA"]);
+       
+                        } else {
                             $diaAlmacenaje = 0;
-                            $diasZA = $tiempoTotal - $diaAlmacenaje;
+  
                         }
 
+                        if ($tiempoTotal>=$datosIngCalculo[0]["delZA"]) {
+                           $diasZA  = $datosIngCalculo[0]["delZA"];
+                        }else{
+                            $diasZA = $tiempoTotal;
+                        }
+         
                         $respuestaAlmacenaje = calculosRubros::almacenajeFiscalCalculo($peridoAlm, $TarifaAlm, $impuestos, $diaAlmacenaje, $minAlmacenaje); // OBJETO CALCULA ALMACENAJE EN BASE A LOS PARAMETROS.
                         $respuestaZonaAduanera = calculosRubros::zonaAduaneraCalculo($diasZA, $peridoZona, $tarifaZA, $cif, $minZonaAduanera); // OBJETO CALCULA EL RUBRO ZONA ADUANERA
 

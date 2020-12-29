@@ -340,7 +340,6 @@ class ControladorGenerarContabilidad {
                         }
                     }
                 }   
-                var_dump($respAjustes);
 
                 foreach ($respAjustes as $key => $value) {
                     $valorCifMerca = $valorCifMerca + $value["saldoValorCif"];
@@ -508,6 +507,13 @@ class ControladorGenerarContabilidad {
         }
         $sp = "spSaldosContables";
         $respSldsConta = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idEmpresa);
+       //AJUSTES CONTABLES DE INGRESOS VEHICULOS 
+        $sp = "spAjustesVehiculosNew";
+        $ajusteVehiculos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
+                   //GENERANDO VALORES PARA RETIROS DE ALMACEN FISCAL
+            $sp = "spValoresContaRetAF";
+            $valoresAFRet = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
+ 
         if ($respSldsConta[0]["countImpts"] == 0 && $respSldsConta[0]["countCif"] == 0) {
             return 0;
         } else {
@@ -522,7 +528,7 @@ class ControladorGenerarContabilidad {
             if ($respIng != "SD") {
 
 
-                $ajustesConta = [];
+                $ajustesContaLote = [];
                 $listaAreas = [];
                 $sumaCif = 0;
                 $sumaImpuesto = 0;
@@ -533,11 +539,14 @@ class ControladorGenerarContabilidad {
                     $respVerDatos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
                     $sp = "spAjustesContables";
                     $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
+                    if ($key==0) {
+                        array_push($ajustesContaLote, $respAjustes);
+                    }
                     $sp = "spRegistraAjustes";
                     $respRegistroAjuste = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $idContbilidades, $date);
-                    if ($respAjustes != "SD") {
-                        array_push($ajustesConta, $respAjustes[0]);
-                    }
+                    
+                        
+                   
                     $ident = $idContbilidades;
                     $empresa = $respVerDatos[0]["empresa"];
                     $area = $respVerDatos[0]["areasAutorizadas"];
@@ -551,6 +560,7 @@ class ControladorGenerarContabilidad {
                     $sp = "spContabilizaLoteIng";
                     $respContaLoteIng = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $idContbilidades, $date);
                 }
+
                 $sumaTotal = $sumaCif + $sumaImpuesto;
                 /**
                  * EJECUTO UN STORE PRODUCE PARA QUE ME GENERE EN CORRELATIVO DE POLIZAS
@@ -589,12 +599,9 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
+            }
 
-            //ajustesMerca
-                $sp = "spAjustesContables";
-                $respAjustes = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $idContbilidades);
-                var_dump($respAjustes);
-                echo '<br/>';
+
 //retiros de mercaderia
             $sp = "spIndentRetiros";
             $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
@@ -609,9 +616,6 @@ class ControladorGenerarContabilidad {
             $sumImpuesto = 0;
             $totalVal = 0;
             if ($respRet != "SD" || $respVeh != "SD") {
-
-
-
 
                 if ($respVeh != "SD") {
                     $sp = "spContaVeh";
@@ -685,13 +689,47 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
+            
+            
+
+            //ajustesMerca
+                $respAjustes = [];
+                         $valorCifMerca = 0;
+                        $impuestosMerca = 0;
+                foreach ($ajustesContaLote[0] as $key => $value) {
+                    if ($key==0) {
+                        array_push($respAjustes, $value);
+                    }
+
+                    if ($key>0) {
+                        $contador = 0;
+
+                        foreach ($respAjustes as $keys => $values) {
+                        
+                            if ($value["id"]==$values["id"]) {
+                               $contador = $contador+1; 
+                            }
+                        }
+                        if ($contador==0) {
+                            array_push($respAjustes, $value);
+                        }
+                    }
+                }
+
+                        
+                foreach ($respAjustes as $key => $value) {
+                    $valorCifMerca = $valorCifMerca + $value["saldoValorCif"];
+                    $impuestosMerca = $impuestosMerca + $value["saldoValorImpuesto"];
+                }   
+
+            
+            
             /*             * *
              * 
              * AJUSTE CONTABLE DE VEHÍCULOS NUEVOS
              * 
              * ** */
-            $sp = "spAjustesVehiculosNew";
-            $ajusteVehiculos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
+
             if ($ajusteVehiculos != "SD") {
                 $listaVehAjuste = [];
                 foreach ($ajusteVehiculos as $key => $value) {
@@ -722,8 +760,8 @@ class ControladorGenerarContabilidad {
 
                     //en este metodo se requiere que el retiro sea estado 5 y el valor contabilidad quede a 0 en cif e impuestos
                     $cambiosAjustesRetVehIng = ModeloGenerarContabilidad::mdlAjusteFinalVehiculoNew($sp, $idIngAjusteVN, $cif, $impuesto, $date);
-                    $cifVehAjuste = $cifVehAjuste + $value["cif"];
-                    $impuestoVehAjuste = $impuestoVehAjuste + $value["impuesto"];
+                    $cifVehAjuste = $cifVehAjuste + $cif;
+                    $impuestoVehAjuste = $impuestoVehAjuste + $impuesto;
                 }
             }
 
@@ -738,20 +776,19 @@ class ControladorGenerarContabilidad {
                 $ajusteValCif = 0;
                 $ajusteVImpst = 0;
                 $totalAjuste = 0;
-                if ($respIng != "SD") {
 
 
-                    foreach ($ajustesConta as $key => $value) {
-                        $ajusteValCif = $ajusteValCif + $value["sumCif"];
-                        $ajusteVImpst = $ajusteVImpst + $value["sumImpuesto"];
-                    }
-                }
                 if ($ajusteVehiculos != "SD") {
-                    $ajusteValCif = $ajusteValCif + $cifVehAjuste;
-                    $ajusteVImpst = $ajusteVImpst + $impuestoVehAjuste;
+                    $ajusteValCif = $valorCifMerca + $cifVehAjuste;
+                    $ajusteVImpst = $impuestosMerca + $impuestoVehAjuste;
+                }else{
+                    $ajusteValCif = $valorCifMerca;
+                    $ajusteVImpst = $impuestosMerca;
+                    
                 }
 
                 $totalAjuste = $ajusteValCif + $ajusteVImpst;
+
                 /**
                  * AJUSTES CONTABLES DE RETIROS MERCADERIAS Y VEHÍCULOS
                  * 
@@ -918,6 +955,7 @@ class ControladorGenerarContabilidad {
             $tipo = "ALMFISCAL";
             $sp = "spTrasladoAf";
             $respTrasladoAF = ModeloGenerarContabilidad::mdlMostrarRetirosFiscales($sp, $tipo, $hiddenIdBod);
+            
             if ($respTrasladoAF != "SD") {
                 $sumCif = $respTrasladoAF[0]["cifTraslado"] * 1;
                 $sumImpuesto = $respTrasladoAF[0]["impuestoTraslado"] * 1;
@@ -973,9 +1011,7 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
-            //GENERANDO VALORES PARA RETIROS DE ALMACEN FISCAL
-            $sp = "spValoresContaRetAF";
-            $valoresAFRet = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $hiddenIdBod);
+   
             if ($valoresAFRet != "SD") {
 
                 $sumCif = $valoresAFRet[0]["sumCifRet"] * 1;
@@ -1015,7 +1051,7 @@ class ControladorGenerarContabilidad {
             }
             return true;
         }
-    }
+    
 
     public static function ctrUltimaFecha() {
         $sp = "spMaxContabilidad";

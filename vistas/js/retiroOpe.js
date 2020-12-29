@@ -242,7 +242,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
     }
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
     console.log(tipoIng);
-    var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
+        var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
     var respSaldos = await funcRevSaldosAF(hiddeniddeingreso);
     console.log(respSaldos);
     var verSaldo = 0;
@@ -313,23 +313,34 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                             var placa = document.getElementById("numeroPlaca").value;
                             var contenedor = document.getElementById("contenedor").value;
                         }
+                        console.log(contenedor);
+                        var totalBultos = 0;
                         $("#arrayListDetalle").val(JSON.stringify(listaIdButton));
                         var listaDetalles = document.getElementById("arrayListDetalle").value;
-                        console.log(listaDetalles);
-                        var totalBultos = 0;
-                        for (var i = 0; i < listaIdButton.length; i++) {
-                            var bultos = listaIdButton[i].cantBultos * 1;
-                            var totalBultos = bultos + totalBultos;
+                        if (listaDetalles.length > 0) {
+
+                            for (var i = 0; i < listaIdButton.length; i++) {
+                                var bultos = listaIdButton[i].cantBultos * 1;
+                                var totalBultos = bultos + totalBultos;
+                            }
                         }
+
+
+
                     } else {
                         listaVehiculos = [];
                         var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrashVeh"));
-                        for (var i = 0; i < paragraphsButton.length; i++) {
-                            var numOrigen = paragraphsButton[i].attributes.numorigen.value;
-                            listaVehiculos.push([numOrigen]);
-                            var totalBultos = i + 1;
-                            console.log(numOrigen);
+                        if (paragraphsButton.length > 0) {
+
+
+                            for (var i = 0; i < paragraphsButton.length; i++) {
+                                var numOrigen = paragraphsButton[i].attributes.numorigen.value;
+                                listaVehiculos.push([numOrigen]);
+                                var totalBultos = i + 1;
+                                console.log(numOrigen);
+                            }
                         }
+
                         var listaVehiculos = JSON.stringify(listaVehiculos);
                     }
                     if (tipoIng == "vehUs") {
@@ -383,15 +394,28 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                             }
                         }
                     }
-                    console.log(bltsSaldo);
-                    console.log(condicion);
+
+                            if ("listaDR" in localStorage) {
+                                console.log("Hola mundo");
+                            var totalBultos = 0;
+                            var jsonStorageDR = localStorage.getItem("listaDR");
+                            var jsonStorageDR = JSON.parse(jsonStorageDR);
+                            for (var i = 0; i < jsonStorageDR.length; i++) {
+                                
+                                var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
+                            }
+
+
+                        }
+  
                     if (verSaldo == 0 || verSaldo == 1) {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             console.log(totalBultos);
                             console.log(cantBultos);
 
                             if (totalBultos == cantBultos) {
-                                if (tipoIng == "vehM" || tipoIng == "vehUs") {
+                                
+                                if (tipoIng == "vehM" || tipoIng == "vehUs" || "listaDR" in localStorage) {
                                     var jsonStringDR = "SD";
                                     var valDR = 0;
                                     if ("listaDR" in localStorage) {
@@ -405,6 +429,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                         }
                                         var jsonStringDR = JSON.stringify(jsonStorageDR);
                                     }
+                                    console.log(jsonStringDR);
                                     if (bltsSumFinal == totalBultos || valDR == 0) {
 
                                         console.log(jsonStringDR);
@@ -415,7 +440,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                     } else {
                                         Swal.fire(
                                                 'Bultos póliza DR?',
-                                                'La cantidadde bultos del detalle póliza DR, no coincide con la cantidad de bultos total',
+                                                'La cantidades bultos del detalle póliza DR, no coincide con la cantidad de bultos total',
                                                 'error'
                                                 )
                                     }
@@ -2383,7 +2408,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
  <p>En el siguiente campo, tiene que ingresar cada uno de los chasis delimitados por el simbolo pai " | "</p>
  <div class="form-group">`
         ,
-        inputPlaceholder: '2670706243|260219.55|1|260219.55|74943.2304',
+        inputPlaceholder: 'POLIZA|CIF|BULTOS|CIF|IMPUESTOS',
         inputAttributes: {
             'aria-label': 'Type your message here'
         },
@@ -2442,6 +2467,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 var cif = 0;
                 var impuesto = 0;
                 var bultos = 0;
+                
                 var formValDol = document.getElementById("valorTAduana").value;
                 var formValDol = Number.parseFloat(formValDol).toFixed(2);
                 var formValDol = formValDol * 1;
@@ -2571,6 +2597,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                         }
 
                         var respuesta = await saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal);
+                        console.log(respuesta);
                         var bultosSld = respuesta[0].bultos;
                         var cifSld = respuesta[0].cif;
                         var idIngDR = respuesta[0].idIngDR;
