@@ -71,7 +71,7 @@ class imprimirIngresoBodega {
         $pdf->setPrintFooter(false);
 // 
 //---------------------------------------------------------------------------------------------------
-        if (count($datosUnidades) >= 3) {
+        if (count($datosUnidades) >= 3 || $tipoDR==1) {
 
 
             $bloque1 = <<<EOF

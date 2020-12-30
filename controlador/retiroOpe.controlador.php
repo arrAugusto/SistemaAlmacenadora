@@ -61,45 +61,48 @@ class ControladorRetiroOpe {
 
     public static function ctrInsertRetiroOpe($datos) {
 
-        $arrayDetalles = json_decode($datos['listaDetalles'], true);
         $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
-           $estadoTransaRebaja = 0;
+        $estadoTransaRebaja = 0;
         $contDetalle = 0;
         $estadoTransa = 0;
-        if ($jsonDecodeDR=="SD") {
-          
-        $contDetalle = count($arrayDetalles);
-        foreach ($arrayDetalles as $key => $value) {
-            $idDetalle = $value["idDetalles"];
-            $cantBultos = $value["cantBultos"];
-            $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
-          
-            $stock = $respuesta[0]["stock"];
-            $saldoNuevo = $stock - $cantBultos;
-            if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
-                $estadoTransa = $estadoTransa + 1;
-            }
-        }
- 
-        if ($estadoTransa == count($arrayDetalles)) {
-         
+
+
+            $arrayDetalles = json_decode($datos['listaDetalles'], true);
+            $contDetalle = count($arrayDetalles);
             foreach ($arrayDetalles as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $cantBultos = $value["cantBultos"];
-                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
-                if ($respuesta[0]["estado"] == 1) {
-                    $estadoTransaRebaja = $estadoTransaRebaja + 1;
+                $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
+
+                $stock = $respuesta[0]["stock"];
+                $saldoNuevo = $stock - $cantBultos;
+                if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
+                    $estadoTransa = $estadoTransa + 1;
                 }
             }
-        } else if ($estadoTransa != count($arrayDetalles)) {
-            return "denegado";
-        }
-                      }
-        if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR']!="SD") {
-            $idIngreso = $datos["hiddeniddeingreso"];
-            RETURN $datos;
-            $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
+ 
+            if ($estadoTransa == count($arrayDetalles)) {
+
+                foreach ($arrayDetalles as $key => $value) {
+                    $idDetalle = $value["idDetalles"];
+                    $cantBultos = $value["cantBultos"];
+                    $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
+                    $stock = $respuesta[0]["stock"];
+                    $saldoNuevo = $stock - $cantBultos;
+                    $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
+                    if ($respuesta[0]["estado"] == 1) {
+                        $estadoTransaRebaja = $estadoTransaRebaja + 1;
+                    }
+                }
+            } else if ($estadoTransa != count($arrayDetalles)) {
+                return "denegado";
+            }
             
+
+        if ($estadoTransaRebaja == $contDetalle) {
+            $idIngreso = $datos["hiddeniddeingreso"];
+
+            $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
             if ($respuesta != "SD") {
                 if ($datos['jsonStringDR'] != "SD") {
@@ -606,9 +609,9 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrTrasladoDefinitivoAF($trasladoDefAf) {
-          $sp = "spTrasladoFiscalDef";
+        $sp = "spTrasladoFiscalDef";
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($trasladoDefAf, $sp);
-        return $respuesta;      
+        return $respuesta;
     }
 
 }

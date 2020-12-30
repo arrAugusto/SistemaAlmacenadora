@@ -242,7 +242,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
     }
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
     console.log(tipoIng);
-        var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
+    var hiddeniddeingreso = document.getElementById("hiddeniddeingreso").value;
     var respSaldos = await funcRevSaldosAF(hiddeniddeingreso);
     console.log(respSaldos);
     var verSaldo = 0;
@@ -264,29 +264,58 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
             if (tipoIng == "vehM" || tipoIng == "vehUs") {
                 var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
                 listaIdButton = [];
-                for (var i = 0; i < paragraphsButton.length; i++) {
-                    var estadoDet = 1;
-                    var idButton = paragraphsButton[i].attributes.numorigen.textContent;
-                    var cantBultos = document.getElementById("texToBultosVal" + idButton).value;
-                    console.log(cantBultos);
-                    if ($("#textPosEdit" + idButton).length > 0) {
-                        var textPosEdit = document.getElementById("textPosEdit" + idButton).value;
-                        console.log(textPosEdit);
-                        var textPosEdit = document.getElementById("textMtsEdit" + idButton).value;
-                        console.log(textPosEdit);
+                if (paragraphsButton.length == 0) {
+                    var estado = 0;
+                } else {
+
+
+                    for (var i = 0; i < paragraphsButton.length; i++) {
+                        var estadoDet = 1;
+                        var idButton = paragraphsButton[i].attributes.numorigen.textContent;
+                        var cantBultos = document.getElementById("texToBultosVal" + idButton).value;
+                        console.log(cantBultos);
+                        if ($("#textPosEdit" + idButton).length > 0) {
+                            var textPosEdit = document.getElementById("textPosEdit" + idButton).value;
+                            console.log(textPosEdit);
+                            var textPosEdit = document.getElementById("textMtsEdit" + idButton).value;
+                            console.log(textPosEdit);
+                        }
+                        listaIdButton.push({
+                            "idDetalles": idButton,
+                            "cantBultos": cantBultos,
+                            "estadoDet": estadoDet
+                        });
                     }
+                }
+                if (listaIdButton.length == 0) {
+                    estado = 1;
+                } else {
+                    estado = 2;
+
+                }
+
+            }
+         /*   if ("listaDR" in localStorage) {
+                listaIdButton = [];
+                var estadoDet = 1;
+                estado = 2;
+                var jsonStorageDR = localStorage.getItem("listaDR");
+                var jsonStorageDR = JSON.parse(jsonStorageDR);
+                console.log(jsonStorageDR);
+                for (var i = 0; i < jsonStorageDR.length; i++) {
+
+                    var cantBultos = jsonStorageDR[i].bltsSumFinal;
+                    var idButton = jsonStorageDR[i].idIngDR;
+
+
                     listaIdButton.push({
                         "idDetalles": idButton,
                         "cantBultos": cantBultos,
                         "estadoDet": estadoDet
                     });
                 }
-                if (listaIdButton.length == 0) {
-                    estado = 1;
-                } else {
-                    estado = 2;
-                }
-            }
+
+            }*/
             if (estado > 0 && estado == 1) {
                 alert("no selecciono ningun cliente");
             } else if (estado == 0 || estado == 2) {
@@ -395,26 +424,26 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         }
                     }
 
-                            if ("listaDR" in localStorage) {
-                                console.log("Hola mundo");
-                            var totalBultos = 0;
-                            var jsonStorageDR = localStorage.getItem("listaDR");
-                            var jsonStorageDR = JSON.parse(jsonStorageDR);
-                            for (var i = 0; i < jsonStorageDR.length; i++) {
-                                
-                                var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
-                            }
+                    if ("listaDR" in localStorage) {
+                        console.log("Hola mundo");
+                        var totalBultos = 0;
+                        var jsonStorageDR = localStorage.getItem("listaDR");
+                        var jsonStorageDR = JSON.parse(jsonStorageDR);
+                        for (var i = 0; i < jsonStorageDR.length; i++) {
 
-
+                            var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
                         }
-  
+
+
+                    }
+
                     if (verSaldo == 0 || verSaldo == 1) {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             console.log(totalBultos);
                             console.log(cantBultos);
 
                             if (totalBultos == cantBultos) {
-                                
+
                                 if (tipoIng == "vehM" || tipoIng == "vehUs" || "listaDR" in localStorage) {
                                     var jsonStringDR = "SD";
                                     var valDR = 0;
@@ -2467,7 +2496,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 var cif = 0;
                 var impuesto = 0;
                 var bultos = 0;
-                
+
                 var formValDol = document.getElementById("valorTAduana").value;
                 var formValDol = Number.parseFloat(formValDol).toFixed(2);
                 var formValDol = formValDol * 1;
@@ -2598,9 +2627,13 @@ $(document).on("click", ".btnPolizaDR", async function () {
 
                         var respuesta = await saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal);
                         console.log(respuesta);
+
                         var bultosSld = respuesta[0].bultos;
                         var cifSld = respuesta[0].cif;
                         var idIngDR = respuesta[0].idIngDR;
+                        document.getElementById("hiddenIdentity").value = idIngDR;
+                        document.getElementById("hiddeniddeingreso").value = idIngDR;
+                        document.getElementById("hiddenGdVehMerc").value = "vehM";
                         var tipoServ = respuesta[0].tipo;
                         var saldoImptsSld = respuesta[0].saldoImpts;
                         if (respuesta == "SD") {
@@ -2622,7 +2655,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                             var buttonDR = '<div class="btn-group"><button type="button" buttonid=' + idIngDR + ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonid=' + idIngDR + ' class="btn btn-primary btn-sm bntImprimir"><i class="fa fa-print"></i> </button><button type="button" buttonPol=' + poliza + ' class="btn btn-outline-info btn-sm btnBsqPolDADR">Poliza DA<i class="fa fa-search"></i> </button></div>';
 
                             listaFinDef.push([poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal, divicion, bultosSld, cifSld, saldoImptsSld, span, buttonDR]);
-                            listaFinDefJS.push({poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal});
+                            listaFinDefJS.push({poliza, bltsSumFinal, valDolSumFinal, cifFinal, impuestoFinal, idIngDR});
 
                         }
                     }

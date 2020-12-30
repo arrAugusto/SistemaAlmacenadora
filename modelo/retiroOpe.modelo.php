@@ -33,9 +33,10 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE ".$sp." ?, ?, ?, ?, ?, ?";
+        $sql = "EXECUTE " . $sp . " ?, ?, ?, ?, ?, ?";
         $params = array(&$poliza, &$idRet, &$bltsSumFinal, &$valDolSumFinal, &$cifFinal, &$impuestoFinal);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -51,6 +52,7 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlMostrarBusqueda($datoSearch) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNitSalida ?";
@@ -116,6 +118,7 @@ class ModeloRetiroOpe {
         } else {
             $tipo = 0;
         }
+
         $paramsDet = array(
             &$datos['hiddeniddeingreso'],
             &$datos['idNit'],
@@ -140,7 +143,7 @@ class ModeloRetiroOpe {
             &$datos['usuarioOp'],
             &$tipo
         );
-        return $paramsDet;
+
         $sqlDet = "EXECUTE spInsRetiro  ?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?,	?";
         $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
         if (sqlsrv_execute($stmt) == true) {
@@ -175,7 +178,6 @@ class ModeloRetiroOpe {
         }
     }
 
-    
     public static function mdlMostrarSaldosConta($idIngOpDet) {
 
         $conn = Conexion::Conectar();
@@ -249,9 +251,10 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlRetiroVehN($retiroVehN, $estado, $asignar, $usuarioOp, $sp) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE ".$sp." ?, ?, ?, ?";
+        $sql = "EXECUTE " . $sp . " ?, ?, ?, ?";
         $params = array(&$retiroVehN, &$estado, &$asignar, &$usuarioOp);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
@@ -267,10 +270,10 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
-    
-    public static function mdlRetiroVehNGdValores($idRetChas, $idChas, $cif, $impts, $valTotal, $usuarioOp, $sp){
+
+    public static function mdlRetiroVehNGdValores($idRetChas, $idChas, $cif, $impts, $valTotal, $usuarioOp, $sp) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE ".$sp." ?, ?, ?, ?, ?, ?";
+        $sql = "EXECUTE " . $sp . " ?, ?, ?, ?, ?, ?";
         $params = array(&$idRetChas, &$idChas, &$cif, &$impts, &$valTotal, &$usuarioOp);
 
         $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -286,8 +289,8 @@ class ModeloRetiroOpe {
         } else {
             return sqlsrv_errors();
         }
-
     }
+
     public static function mdlConsultarDetalle($idOpDetTraer) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spDetalleStock ?";

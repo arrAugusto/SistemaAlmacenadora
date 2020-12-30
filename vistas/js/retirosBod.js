@@ -141,7 +141,7 @@ $(document).on("click", ".btnDetalleRetBod", function () {
     });
 });
 $(document).on("click", ".btnGdCambiosRet", function () {
-    
+
     Swal.fire({
         title: '¿Quiere guardar cambios?',
         text: "Se registrara el retiro, como valido y sus datos se utilizaran para cobro de Almacenaje",
@@ -335,7 +335,7 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                     var num = i + 1;
                     var empresa = respuesta[1][i].empresa;
                     var bultos = respuesta[1][i].bultos;
-                    var inventarioExecel = '<button type="button" buttonid="'+idIngreso+'" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
+                    var inventarioExecel = '<button type="button" buttonid="' + idIngreso + '" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
                     var estockBults = respuesta[1][i].estockBults;
                     var numeroPoliza = respuesta[1][i].numeroPoliza;
                     var stockPos = respuesta[1][i].pos;
@@ -350,7 +350,7 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                     } else if (respuesta[1][i].estadoDet == 1) {
                         var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [i] + '" value="" /></div>';
                         var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [i] + '" value="" /></div>';
-                        var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Guardar <i class="fa fa-save"></i></button>'+inventarioExecel+'</div>';
+                        var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
                         listaSalidaBodega.push([num, empresa, numeroPoliza, polizaretiro, bultos, estockBults, stockPos, stockMts, textPos, textBultos, botonera]);
                     }
                 }
@@ -419,7 +419,7 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
 $(document).on("click", ".btnSalidaBodega", async function () {
     document.getElementById("divRetiroOperacion").innerHTML = "";
     var valIdRet = $(this).attr("idRetiro");
-    var polizaretiro = $(this).attr("polizaretiro"); 
+    var polizaretiro = $(this).attr("polizaretiro");
     var tipoing = $(this).attr("tipoing");
     var idIngreso = $(this).attr("idIngreso");
     console.log("cargando el ajax");
@@ -440,146 +440,146 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
     var idRetitera = $(this).attr("idRetitera");
     var valPosSalida = document.getElementById("posDet" + idfila).value;
     var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
-        if (valPosSalida == "" || valMtsSalida == "" || valPosSalida < 0 || valMtsSalida < 0) {
+    if (valPosSalida == "" || valMtsSalida == "" || valPosSalida < 0 || valMtsSalida < 0) {
         Swal.fire(
                 'Sin Posiciones o Metros',
                 'Agregue Metros o Posiciones de Esta Rebaja',
                 'error'
                 )
-}else if (valPosSalida ==0 || valMtsSalida == 0) {
-Swal.fire({
-  title: 'Metros y posiciones es igual a 0',
-  text: "Esta seguro de continuar!",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Si, continuar!'
-}).then(async function (result) {
-  if (result.value) {
-            $("#posDet" + idRet).removeClass("is-invalid");
-            $("#posDet" + idRet).addClass("is-valid");
-            $("#mtsDet" + idRet).removeClass("is-invalid");
-            $("#mtsDet" + idRet).addClass("is-valid");
-            var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
-            console.log(guardDet);
-            if (guardDet == "puedeEditar") {
-                button.removeClass("btnGuardarCambioDet");
-                button.addClass("btnEditarDetallePosM");
-                button.removeClass("btn-info");
-                button.addClass("btn-warning");
-                button.html("Editar");
-                $("#posDet" + idfila).removeClass("is-invalid");
-                $("#posDet" + idfila).addClass("is-valid");
-                $("#mtsDet" + idfila).removeClass("is-invalid");
-                $("#mtsDet" + idfila).addClass("is-valid");
-                Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
+    } else if (valPosSalida == 0 || valMtsSalida == 0) {
+        Swal.fire({
+            title: 'Metros y posiciones es igual a 0',
+            text: "Esta seguro de continuar!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, continuar!'
+        }).then(async function (result) {
+            if (result.value) {
+                $("#posDet" + idRet).removeClass("is-invalid");
+                $("#posDet" + idRet).addClass("is-valid");
+                $("#mtsDet" + idRet).removeClass("is-invalid");
+                $("#mtsDet" + idRet).addClass("is-valid");
+                var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
+                console.log(guardDet);
+                if (guardDet == "puedeEditar") {
+                    button.removeClass("btnGuardarCambioDet");
+                    button.addClass("btnEditarDetallePosM");
+                    button.removeClass("btn-info");
+                    button.addClass("btn-warning");
+                    button.html("Editar");
+                    $("#posDet" + idfila).removeClass("is-invalid");
+                    $("#posDet" + idfila).addClass("is-valid");
+                    $("#mtsDet" + idfila).removeClass("is-invalid");
+                    $("#mtsDet" + idfila).addClass("is-valid");
+                    Swal.fire(
+                            'Transacción Exitosa',
+                            'Se Guardo Correctamente los Metros y Posiciones',
+                            'success'
+                            )
+                }
+                if (guardDet == "exito") {
+
+                    button.removeClass("btnGuardarCambioDet");
+                    button.addClass("btnEditarDetallePosM");
+
+                    button.removeClass("btn-info");
+                    button.addClass("btn-success");
+
+                    button.html("Guardado");
+
+
+                    $("#posDet" + idfila).removeClass("is-invalid");
+                    $("#posDet" + idfila).addClass("is-valid");
+
+                    $("#mtsDet" + idfila).removeClass("is-invalid");
+                    $("#mtsDet" + idfila).addClass("is-valid");
+
+                    button.attr("disabled", "disabled");
+                    $("#mtsDet" + idfila).attr("readOnly", true);
+                    $("#posDet" + idfila).attr("readOnly", true);
+
+                    Swal.fire(
+                            'Transacción Exitosa',
+                            'Se Guardo Correctamente los Metros y Posiciones',
+                            'success'
+                            )
+
+                }
+                if (guardDet == "sobreGirara") {
+                    Swal.fire(
+                            'Sobregira Metros y Posiciones',
+                            'Saldo de bultos en bodega es cero, tiene que rebajar las posiciones a cero también',
+                            'error'
+                            );
+                }
+
+                console.log("esperando...");
             }
-            if (guardDet == "exito") {
-
-                button.removeClass("btnGuardarCambioDet");
-                button.addClass("btnEditarDetallePosM");
-
-                button.removeClass("btn-info");
-                button.addClass("btn-success");
-
-                button.html("Guardado");
-
-
-                $("#posDet" + idfila).removeClass("is-invalid");
-                $("#posDet" + idfila).addClass("is-valid");
-
-                $("#mtsDet" + idfila).removeClass("is-invalid");
-                $("#mtsDet" + idfila).addClass("is-valid");
-
-                button.attr("disabled", "disabled");
-                $("#mtsDet" + idfila).attr("readOnly", true);
-                $("#posDet" + idfila).attr("readOnly", true);
-
-                Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
-
-            }
-            if (guardDet == "sobreGirara") {
-                Swal.fire(
-                        'Sobregira Metros y Posiciones',
-                        'Saldo de bultos en bodega es cero, tiene que rebajar las posiciones a cero también',
-                        'error'
-                        );
-            }
-
-            console.log("esperando...");
-  }
-})
+        })
     } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
-        
-            $("#posDet" + idRet).removeClass("is-invalid");
-            $("#posDet" + idRet).addClass("is-valid");
-            $("#mtsDet" + idRet).removeClass("is-invalid");
-            $("#mtsDet" + idRet).addClass("is-valid");
-            var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
-            console.log(guardDet);
-            if (guardDet == "puedeEditar") {
-                $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
-                $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
-                $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
-                $("#btnGuardarCambioDet" + idfila).addClass("btn-warning");
-                $("#btnGuardarCambioDet" + idfila).html("Editar");
-                $("#posDet" + idfila).removeClass("is-invalid");
-                $("#posDet" + idfila).addClass("is-valid");
-                $("#mtsDet" + idfila).removeClass("is-invalid");
-                $("#mtsDet" + idfila).addClass("is-valid");
-                Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
-            }
-            if (guardDet == "exito") {
 
-                $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
-                $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
+        $("#posDet" + idRet).removeClass("is-invalid");
+        $("#posDet" + idRet).addClass("is-valid");
+        $("#mtsDet" + idRet).removeClass("is-invalid");
+        $("#mtsDet" + idRet).addClass("is-valid");
+        var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
+        console.log(guardDet);
+        if (guardDet == "puedeEditar") {
+            $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
+            $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
+            $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
+            $("#btnGuardarCambioDet" + idfila).addClass("btn-warning");
+            $("#btnGuardarCambioDet" + idfila).html("Editar");
+            $("#posDet" + idfila).removeClass("is-invalid");
+            $("#posDet" + idfila).addClass("is-valid");
+            $("#mtsDet" + idfila).removeClass("is-invalid");
+            $("#mtsDet" + idfila).addClass("is-valid");
+            Swal.fire(
+                    'Transacción Exitosa',
+                    'Se Guardo Correctamente los Metros y Posiciones',
+                    'success'
+                    )
+        }
+        if (guardDet == "exito") {
 
-                $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
-                $("#btnGuardarCambioDet" + idfila).addClass("btn-success");
+            $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
+            $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
 
-                $("#btnGuardarCambioDet" + idfila).html("Guardado");
+            $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
+            $("#btnGuardarCambioDet" + idfila).addClass("btn-success");
+
+            $("#btnGuardarCambioDet" + idfila).html("Guardado");
 
 
-                $("#posDet" + idfila).removeClass("is-invalid");
-                $("#posDet" + idfila).addClass("is-valid");
+            $("#posDet" + idfila).removeClass("is-invalid");
+            $("#posDet" + idfila).addClass("is-valid");
 
-                $("#mtsDet" + idfila).removeClass("is-invalid");
-                $("#mtsDet" + idfila).addClass("is-valid");
+            $("#mtsDet" + idfila).removeClass("is-invalid");
+            $("#mtsDet" + idfila).addClass("is-valid");
 
-                $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
-                $("#mtsDet" + idfila).attr("readOnly", true);
-                $("#posDet" + idfila).attr("readOnly", true);
+            $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
+            $("#mtsDet" + idfila).attr("readOnly", true);
+            $("#posDet" + idfila).attr("readOnly", true);
 
-                Swal.fire(
-                        'Transacción Exitosa',
-                        'Se Guardo Correctamente los Metros y Posiciones',
-                        'success'
-                        )
+            Swal.fire(
+                    'Transacción Exitosa',
+                    'Se Guardo Correctamente los Metros y Posiciones',
+                    'success'
+                    )
 
-            }
-            if (guardDet == "sobreGirara") {
-                Swal.fire(
-                        'Sobregira Metros y Posiciones',
-                        'Error en Metros y Posiciones, Verifique el Saldo Actual y Continue...',
-                        'error'
-                        );
-            }
+        }
+        if (guardDet == "sobreGirara") {
+            Swal.fire(
+                    'Sobregira Metros y Posiciones',
+                    'Error en Metros y Posiciones, Verifique el Saldo Actual y Continue...',
+                    'error'
+                    );
+        }
 
-            console.log("esperando...");
-      
+        console.log("esperando...");
+
     }
 
 })
@@ -636,53 +636,53 @@ $(document).on("click", ".btnEditarDetallePosM", async function () {
         if (valPosSalida == "" || valMtsSalida == "") {
         } else if (isNaN(valPosSalida) || isNaN(valMtsSalida)) {
         } else if (!isNaN(valPosSalida) || !isNaN(valMtsSalida)) {
-            
-                $("#posDet" + idRetEdit).removeClass("is-invalid");
-                $("#posDet" + idRetEdit).addClass("is-valid");
-                $("#mtsDet" + idRetEdit).removeClass("is-invalid");
-                $("#mtsDet" + idRetEdit).addClass("is-valid");
-                $(this).removeClass("btn-primary");
-                $(this).addClass("btn-warning");
-                $(this).html('Editar <i class="fa fa-edit"></i>');
-                $(this).attr("estado", 1);
-                var guardDet = await ajaxEditPosMts(idDeta, idRetEdit, valPosSalida, valMtsSalida);
-                console.log(guardDet);
-                if (guardDet == "puedeEditar") {
-                    
-                    $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
-                    $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
-                    $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
-                    $("#btnGuardarCambioDet" + idfila).addClass("btn-warning");
-                    $("#btnGuardarCambioDet" + idfila).html("Editar");
-                    $("#posDet" + idfila).removeClass("is-invalid");
-                    $("#posDet" + idfila).addClass("is-valid");
-                    $("#mtsDet" + idfila).removeClass("is-invalid");
-                    $("#mtsDet" + idfila).addClass("is-valid");
 
-                    Swal.fire(
-                            'Transacción Exitosa',
-                            'Se Guardo Correctamente los Metros y Posiciones',
-                            'success'
-                            )
+            $("#posDet" + idRetEdit).removeClass("is-invalid");
+            $("#posDet" + idRetEdit).addClass("is-valid");
+            $("#mtsDet" + idRetEdit).removeClass("is-invalid");
+            $("#mtsDet" + idRetEdit).addClass("is-valid");
+            $(this).removeClass("btn-primary");
+            $(this).addClass("btn-warning");
+            $(this).html('Editar <i class="fa fa-edit"></i>');
+            $(this).attr("estado", 1);
+            var guardDet = await ajaxEditPosMts(idDeta, idRetEdit, valPosSalida, valMtsSalida);
+            console.log(guardDet);
+            if (guardDet == "puedeEditar") {
 
-                }
-               /* if (guardDet == "puedeEditar") {
-                    $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
-                    $("#btnGuardarCambioDet" + idfila).addClass("btn-primary");
-                    $("#btnGuardarCambioDet" + idfila).html("Guardado");
-                    $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
+                $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
+                $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
+                $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
+                $("#btnGuardarCambioDet" + idfila).addClass("btn-warning");
+                $("#btnGuardarCambioDet" + idfila).html("Editar");
+                $("#posDet" + idfila).removeClass("is-invalid");
+                $("#posDet" + idfila).addClass("is-valid");
+                $("#mtsDet" + idfila).removeClass("is-invalid");
+                $("#mtsDet" + idfila).addClass("is-valid");
 
-                }*/
-                if (guardDet == "sobreGirara") {
-                    Swal.fire(
-                            'Transacción Interrumpida',
-                            'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
-                            'error'
-                            );
-                }
-                console.log(guardDet);
+                Swal.fire(
+                        'Transacción Exitosa',
+                        'Se Guardo Correctamente los Metros y Posiciones',
+                        'success'
+                        )
 
-           
+            }
+            /* if (guardDet == "puedeEditar") {
+             $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
+             $("#btnGuardarCambioDet" + idfila).addClass("btn-primary");
+             $("#btnGuardarCambioDet" + idfila).html("Guardado");
+             $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
+             
+             }*/
+            if (guardDet == "sobreGirara") {
+                Swal.fire(
+                        'Transacción Interrumpida',
+                        'Error en Metros y Posiciones, Verifique el Saldo Actualy Continue...',
+                        'error'
+                        );
+            }
+            console.log(guardDet);
+
+
         }
     }
 
