@@ -390,3 +390,8 @@ function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
         }});
     return todoMenus;   
 }
+
+$(document).on("click", ".btnGeneracionExcel", function () {
+    
+})
+

@@ -29,7 +29,11 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-6">
+                            <button type="button" class="btn btn-outline-success btn-lg btn-block btnInventarioFiscalExcel" estadorep="4">GENERAR SALDOS<i class="fa fa-file-excel-o"></i></button>
+                        </div>
+                            
+                        <div class="col-12 mt-4">
                             <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>

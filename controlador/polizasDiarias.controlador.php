@@ -281,6 +281,12 @@ class ControladorGenerarContabilidad {
                 }
             }
         }
+                    $cifVehAjuste = 0;
+            $impuestoVehAjuste = 0;
+            $valorCifMerca = 0;
+            $impuestosMerca = 0;
+$valorCif = 0;
+$impuesto= 0;
         $sp = "spAjustesVehiculosNew";
         $ajusteVehiculos = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $iBodEmpresa);
 
@@ -303,8 +309,7 @@ class ControladorGenerarContabilidad {
                     }
                 }
             }
-            $cifVehAjuste = 0;
-            $impuestoVehAjuste = 0;
+
 
             foreach ($listaVehAjuste as $key => $value) {
 
@@ -313,15 +318,14 @@ class ControladorGenerarContabilidad {
             }
         }
 
-
-
         if ($respIng != "SD" || $ajusteVehiculos != "SD") {
-            $valorCifMerca = 0;
-            $impuestosMerca = 0;
+
 
             if ($respIng != "SD") {
                 $respAjustes = [];
- 
+                if (!empty($ajustesContaLote[0])) {
+                    
+        
                 foreach ($ajustesContaLote[0] as $key => $value) {
                     if ($key==0) {
                         array_push($respAjustes, $value);
@@ -346,7 +350,9 @@ class ControladorGenerarContabilidad {
                     $impuestosMerca = $impuestosMerca + $value["saldoValorImpuesto"];
                 }
             }
-            if ($ajusteVehiculos != "SD") {
+            }
+
+            if ($ajusteVehiculos != "SD" || !empty($ajustesContaLote[0])) {
                 $valorCif = $valorCifMerca + $cifVehAjuste;
                 $impuesto = $impuestosMerca + $impuestoVehAjuste;
             }
