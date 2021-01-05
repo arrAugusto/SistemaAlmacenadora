@@ -2228,18 +2228,17 @@ function valTotalCosteo(idNum) {
 }
 
 $(document).on("click", ".btnTomarDatRet", async function () {
+    var idRet = $(this).attr("idRet");
     var paragraphs = Array.from(document.querySelectorAll(".valTextTotal"));
         var valorDoll = document.getElementById("valorDoll").value;
         var valorDoll = Number.parseFloat(valorDoll).toFixed(2);
         var valorDoll = valorDoll*1;
-        
         var tCambio = document.getElementById("tCambio").value;
         var cif = document.getElementById("cif").value;
         var impuestos = document.getElementById("impuestos").value;
         var peso = document.getElementById("peso").value;
         var bultos = document.getElementById("bultos").value;    
     if (paragraphs.length == 1) {
-
         if (valorDoll > 0 && tCambio > 0 && cif > 0 && impuestos > 0 && peso > 0 && bultos > 0) {
             document.getElementById("textValAd0").value = valorDoll;
             $("#textValAd0").trigger('change');
@@ -2259,20 +2258,17 @@ $(document).on("click", ".btnTomarDatRet", async function () {
         var impuestosAcumulado = 0;
         
         for (var i = 0; i < paragraphs.length; i++) {
- 
             if (paragraphs.length==i+1) {
                 var cifAcumulado = Number.parseFloat(cifInd).toFixed(2);
                 var cifAcumulado = cifAcumulado*1;
                 var cifAcumulado = (cifAcumulado*i);
                 var valCifUltimo = Number.parseFloat(cif-cifAcumulado).toFixed(2);
                 var valCifUltimo = valCifUltimo*1;
-
                 var impuestosAcumulado = Number.parseFloat(impuestosInd).toFixed(2);
                 var impuestosAcumulado = impuestosAcumulado*1;
                 var impuestosAcumulado = (impuestosAcumulado*i);
                 var valImptUltimo = Number.parseFloat(impuestos-impuestosAcumulado).toFixed(2);
                 var valImptUltimo = valImptUltimo*1;
-                
                 console.log(valImptUltimo);
                 document.getElementById("textValAd"+i).value = valCifUltimo;
                 $("#textValAd"+i).trigger('change');
@@ -2297,17 +2293,7 @@ $(document).on("click", ".btnTomarDatRet", async function () {
             $("#textValImpt"+i).trigger('change');
           
             }
-            /*
-           var cifAcumulado = cifAcumulado+valorDollInd;  
-           var cifAcumulado = Number.parseFloat(cifAcumulado).toFixed(2);
-           var cifAcumulado = cifAcumulado*1;
-           console.log(cifAcumulado);*/
-         /*  var cifAcumulado = cifAcumulado+cifInd;
-           var cifAcumulado = Number.parseFloat(cifAcumulado).toFixed(2);
-           var cifAcumulado  =cifAcumulado*1;
-           var impuestosAcumulado = impuestosAcumulado+impuestosInd;
-           var impuestosAcumulado = Number.parseFloat(impuestosAcumulado).toFixed(2);
-           var impuestosAcumulado = impuestosAcumulado*1;  */
+
         }
         
     }

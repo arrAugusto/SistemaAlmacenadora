@@ -640,6 +640,7 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($trasladoDefAf, $sp);
         return $respuesta;
     }
+    
 
 }
 

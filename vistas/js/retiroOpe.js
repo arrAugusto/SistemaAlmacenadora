@@ -1583,6 +1583,25 @@ $(document).on("click", ".btnSelectChasSal", async function () {
     $(this).removeClass("btn-outline-danger");
     $(this).addClass("btn-success");
     $(this).html('<i class="fa fa-check"></i>');
+    if ("listaDR" in localStorage) {
+        var polizaretiro = $(this).attr("polizaretiro");
+        var polizaretiro = $(this).attr("polizaretiro");
+        localStorage.getItem("listaChasisDR");
+        listaVehDR = [];
+        listaVehDR.push({idChas, polizaretiro});
+        var jsonStorageDRChas = localStorage.getItem("listaChasisDR");
+        if (jsonStorageDRChas==null) {
+            localStorage.setItem("listaChasisDR", JSON.stringify(listaVehDR));
+        }else{
+            var lista = JSON.parse(jsonStorageDRChas);
+
+            lista.push(lista[0]);
+            console.log(lista);
+            localStorage.setItem("listaChasisDR", JSON.stringify(lista));
+
+        }
+
+    }
 })
 
 function consultChasis(idChas) {
@@ -2749,6 +2768,8 @@ $(document).on("click", ".btnPolizaDR", async function () {
 
 $(document).ready(function () {
     localStorage.removeItem("listaDR");
+    localStorage.removeItem("listaChasisDR");    
+    
 })
 
 
@@ -3241,9 +3262,9 @@ $(document).on("click", ".btnListaSelect", async function () {
                 var predio = servicio.data[i].predio;
                 var descripcion = servicio.data[i].descripcion;
                 if ($("#divVehRegresion").length > 0) {
-                    var button = '<button type="button" class="btn btn-outline-primary btn-sm btnRegresionChas" id="btnOrigen' + idChas + '" idChas="' + idChas + '" chasisVehNew="' + chasis + '"><i class="fa fa-close"></i></button>';
+                    var button = '<button type="button" class="btn btn-outline-primary btn-sm btnRegresionChas" id="btnOrigen' + idChas + '" idChas="' + idChas + '" chasisVehNew="' + chasis + '" polizaRetiro='+poliza+'><i class="fa fa-close"></i></button>';
                 } else {
-                    var button = '<button type="button" class="btn btn-outline-danger btn-sm btnSelectChasSal" id="btnOrigen' + idChas + '" idChas="' + idChas + '"><i class="fa fa-close"></i></button>';
+                    var button = '<button type="button" class="btn btn-outline-danger btn-sm btnSelectChasSal" id="btnOrigen' + idChas + '" idChas="' + idChas + '" polizaRetiro='+poliza+'><i class="fa fa-close"></i></button>';
                 }
                 listaVehN.push([numero, chasis, tipoVehiculo, linea, predio, descripcion, button]);
             }
