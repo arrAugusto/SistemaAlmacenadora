@@ -37,7 +37,6 @@ class ControladorIngresosPendientes {
                         $sp = "spRevertirCons";
                         $estado = 1;
                         $respuestaRevCon = ModeloIngresosPendientes::mdlTransaccionesPendientesTres($idIng, $estado, $sp);
-                        var_dump($respuestaRevCon);
                         if ($respuestaRevCon[0]["resp"] == 2) {
                             $consPol = 0;
                         }

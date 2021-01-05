@@ -295,27 +295,27 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                 }
 
             }
-         /*   if ("listaDR" in localStorage) {
-                listaIdButton = [];
-                var estadoDet = 1;
-                estado = 2;
-                var jsonStorageDR = localStorage.getItem("listaDR");
-                var jsonStorageDR = JSON.parse(jsonStorageDR);
-                console.log(jsonStorageDR);
-                for (var i = 0; i < jsonStorageDR.length; i++) {
-
-                    var cantBultos = jsonStorageDR[i].bltsSumFinal;
-                    var idButton = jsonStorageDR[i].idIngDR;
-
-
-                    listaIdButton.push({
-                        "idDetalles": idButton,
-                        "cantBultos": cantBultos,
-                        "estadoDet": estadoDet
-                    });
-                }
-
-            }*/
+            /*   if ("listaDR" in localStorage) {
+             listaIdButton = [];
+             var estadoDet = 1;
+             estado = 2;
+             var jsonStorageDR = localStorage.getItem("listaDR");
+             var jsonStorageDR = JSON.parse(jsonStorageDR);
+             console.log(jsonStorageDR);
+             for (var i = 0; i < jsonStorageDR.length; i++) {
+             
+             var cantBultos = jsonStorageDR[i].bltsSumFinal;
+             var idButton = jsonStorageDR[i].idIngDR;
+             
+             
+             listaIdButton.push({
+             "idDetalles": idButton,
+             "cantBultos": cantBultos,
+             "estadoDet": estadoDet
+             });
+             }
+             
+             }*/
             if (estado > 0 && estado == 1) {
                 alert("no selecciono ningun cliente");
             } else if (estado == 0 || estado == 2) {
@@ -425,12 +425,11 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     }
 
                     if ("listaDR" in localStorage) {
-                        console.log("Hola mundo");
+
                         var totalBultos = 0;
                         var jsonStorageDR = localStorage.getItem("listaDR");
                         var jsonStorageDR = JSON.parse(jsonStorageDR);
                         for (var i = 0; i < jsonStorageDR.length; i++) {
-
                             var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
                         }
 
@@ -444,7 +443,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
 
                             if (totalBultos == cantBultos) {
 
-                                if (tipoIng == "vehM" || tipoIng == "vehUs" || "listaDR" in localStorage) {
+                                if (tipoIng == "vehM" || tipoIng == "vehUs") {
                                     var jsonStringDR = "SD";
                                     var valDR = 0;
                                     if ("listaDR" in localStorage) {
@@ -474,58 +473,78 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                                 )
                                     }
                                 } else {
-                                    var guardaRetVeh = await guardarRetVehehiculos(
-                                            hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
-                                            valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
-                                            hiddenDateTime, listaVehiculos, descMercaderia,
-                                            );
-                                    if (guardaRetVeh["tipoResp"]) {
+                                    var valDR = 0;
+                                    var jsonStorageDR = "SD";
+                                    if ("listaDR" in localStorage) {
 
-                                        Swal.fire({
-                                            title: 'Guardado correctamente',
-                                            type: 'success',
-                                            confirmButtonColor: '#3085d6',
-                                            confirmButtonText: 'Ok!'
-                                        }).then(async function (result) {
-                                            if (result.value) {
-                                                var valorCif = document.getElementById("valorCif").value;
-                                                var valorCif = Number.parseFloat(valorCif).toFixed(2);
-                                                var valorCif = valorCif * 1;
+                                        var totalBultos = 0;
+                                        var jsonStorageDR = localStorage.getItem("listaDR");
+                                        var jsonStorageDR = JSON.parse(jsonStorageDR);
+                                        for (var i = 0; i < jsonStorageDR.length; i++) {
+                                            var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
+                                        }
 
-                                                var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
-                                                var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
-                                                var calculoValorImpuesto = calculoValorImpuesto * 1;
-                                                var totalValCarta = calculoValorImpuesto + valorCif;
-                                                console.log(totalValCarta);
-                                                if (totalValCarta >= 500000) {
+                                        if (totalBultos != cantBultos) {
+                                            var valDR = 1;
+                                        }
+                                    }
+                                    console.log(jsonStorageDR);
 
-                                                    Swal.fire({
-                                                        title: 'Solicitar carta membretada',
-                                                        allowOutsideClick: false,
-                                                        text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
-                                                        type: 'warning',
-                                                        confirmButtonColor: '#3085d6',
-                                                        confirmButtonText: 'Ok!'
-                                                    }).then(async function (result) {
-                                                        if (result.value) {
-                                                            Swal.fire(
-                                                                    'Notificación!',
-                                                                    'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
-                                                                    'success'
-                                                                    )
-                                                        }
-                                                    })
+                                    if (valDR == 0) {
+                                        var jsonStorageDR = JSON.stringify(jsonStorageDR);
+                                        var guardaRetVeh = await guardarRetVehehiculos(
+                                                hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
+                                                valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
+                                                hiddenDateTime, listaVehiculos, descMercaderia, jsonStorageDR
+                                                );
+                                        if (guardaRetVeh["tipoResp"]) {
 
+                                            Swal.fire({
+                                                title: 'Guardado correctamente',
+                                                type: 'success',
+                                                confirmButtonColor: '#3085d6',
+                                                confirmButtonText: 'Ok!'
+                                            }).then(async function (result) {
+                                                if (result.value) {
+                                                    var valorCif = document.getElementById("valorCif").value;
+                                                    var valorCif = Number.parseFloat(valorCif).toFixed(2);
+                                                    var valorCif = valorCif * 1;
+
+                                                    var calculoValorImpuesto = document.getElementById("calculoValorImpuesto").value;
+                                                    var calculoValorImpuesto = Number.parseFloat(calculoValorImpuesto).toFixed(2);
+                                                    var calculoValorImpuesto = calculoValorImpuesto * 1;
+                                                    var totalValCarta = calculoValorImpuesto + valorCif;
+                                                    console.log(totalValCarta);
+                                                    if (totalValCarta >= 500000) {
+
+                                                        Swal.fire({
+                                                            title: 'Solicitar carta membretada',
+                                                            allowOutsideClick: false,
+                                                            text: "El valor de la mercaderia (Cif + Impuesto) es superior Q 500,000.00!",
+                                                            type: 'warning',
+                                                            confirmButtonColor: '#3085d6',
+                                                            confirmButtonText: 'Ok!'
+                                                        }).then(async function (result) {
+                                                            if (result.value) {
+                                                                Swal.fire(
+                                                                        'Notificación!',
+                                                                        'Se notifico a operaciones fiscales, la solicitud de dicha carta.',
+                                                                        'success'
+                                                                        )
+                                                            }
+                                                        })
+
+                                                    }
                                                 }
-                                            }
-                                        })
+                                            })
 
 
 
-                                        document.getElementById("divBottoneraAccion").innerHTML = `
+                                            document.getElementById("divBottoneraAccion").innerHTML = `
          <div class="btn-group">
          <button type="button" class="btn btn-warning btn-block btnEditarRetiroVeh" idRet=${guardaRetVeh["idRet"]} id="editRetiroFVeh" estado=0 >Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
          </div>`;
+                                        }
                                     } else {
                                         Swal.fire('Retiro', 'No se guardo correctamente', 'error');
                                     }
@@ -591,10 +610,11 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
 
 function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
         valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
-        hiddenDateTime, listaVehiculos, descMercaderia
+        hiddenDateTime, listaVehiculos, descMercaderia, jsonStorageDR
         ) {
     let guardarRetV;
     console.log(listaVehiculos);
+    console.log(jsonStorageDR);
     var datos = new FormData();
     datos.append("hiddeniddeingresoVeh", hiddeniddeingreso);
     datos.append("hiddenIdUsVeh", hiddenIdUs);
@@ -614,6 +634,8 @@ function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetir
     datos.append("hiddenDateTimeVeh", hiddenDateTime);
     datos.append("listaVehiculos", listaVehiculos);
     datos.append("descMercaderiaVeh", descMercaderia);
+    datos.append("jsonStorageDRVeh", jsonStorageDR);
+
     $.ajax({
         async: false,
         url: "ajax/retiroOpe.ajax.php",
@@ -2557,9 +2579,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                 console.log(bultos);
 
 
-
-                if (formValDol == valDolSum
-                        && valorCif == cif
+                if (valorCif == cif
                         && calculoValorImpuesto == impuesto
                         && cantBultos == bultos) {
                     console.log(calculoValorImpuesto);
@@ -2662,7 +2682,7 @@ $(document).on("click", ".btnPolizaDR", async function () {
                     // Guardar listaStringRet en el localstorage
                     var listaJSONDR = JSON.stringify(listaFinDefJS);
                     localStorage.setItem("listaDR", listaJSONDR);
-
+                    console.log(listaFinDef);
                     document.getElementById("divPolizasDR").innerHTML = "";
                     document.getElementById("divPolizasDR").innerHTML = '<table id="tablePolizasDR" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
                     $('#tablePolizasDR').DataTable({

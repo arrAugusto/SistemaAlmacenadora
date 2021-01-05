@@ -41,8 +41,30 @@ class ControladorRetiroOpe {
                     $estado = 1;
                 }
             }
-            $idIngreso = $datos['hiddeniddeingresoVeh'];
-            $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+
+
+
+            if ($datos['jsonStorageDRVeh'] != "SD") {
+                $jsonDecodeDR = json_decode($datos['jsonStorageDRVeh'], true);
+      
+                foreach ($jsonDecodeDR as $key => $value) {
+                    $poliza = $value["poliza"];
+                    $idRet = $respuestaGuardar;
+                    $bltsSumFinal = $value["bltsSumFinal"];
+                    $valDolSumFinal = $value["valDolSumFinal"];
+                    $cifFinal = $value["cifFinal"];
+                    $impuestoFinal = $value["impuestoFinal"];
+                    $sp = "spValContaRet";
+                    $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
+
+                }
+            } else {
+                $idIngreso = $datos['hiddeniddeingresoVeh'];
+                $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+            }
+
+
+
 
             $direccion = "../extensiones/imagenesQRCreadasRet/";
             if (!file_exists($direccion)) {
@@ -67,39 +89,44 @@ class ControladorRetiroOpe {
         $estadoTransa = 0;
 
 
-            $arrayDetalles = json_decode($datos['listaDetalles'], true);
-            $contDetalle = count($arrayDetalles);
+        $arrayDetalles = json_decode($datos['listaDetalles'], true);
+        $contDetalle = count($arrayDetalles);
+        foreach ($arrayDetalles as $key => $value) {
+            $idDetalle = $value["idDetalles"];
+            $cantBultos = $value["cantBultos"];
+            $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
+
+            $stock = $respuesta[0]["stock"];
+            $saldoNuevo = $stock - $cantBultos;
+            if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
+                $estadoTransa = $estadoTransa + 1;
+            }
+        }
+
+        if ($estadoTransa == count($arrayDetalles)) {
+
             foreach ($arrayDetalles as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $cantBultos = $value["cantBultos"];
                 $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
-
                 $stock = $respuesta[0]["stock"];
                 $saldoNuevo = $stock - $cantBultos;
-                if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
-                    $estadoTransa = $estadoTransa + 1;
+                if ($datos['jsonStringDR']=="SD") {
+                    
+          
+                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
+               
+                if ($respuesta[0]["estado"] == 1) {
+                    $estadoTransaRebaja = $estadoTransaRebaja + 1;
                 }
+                      }
             }
- 
-            if ($estadoTransa == count($arrayDetalles)) {
+        } else if ($estadoTransa != count($arrayDetalles)) {
+            return "denegado";
+        }
 
-                foreach ($arrayDetalles as $key => $value) {
-                    $idDetalle = $value["idDetalles"];
-                    $cantBultos = $value["cantBultos"];
-                    $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
-                    $stock = $respuesta[0]["stock"];
-                    $saldoNuevo = $stock - $cantBultos;
-                    $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
-                    if ($respuesta[0]["estado"] == 1) {
-                        $estadoTransaRebaja = $estadoTransaRebaja + 1;
-                    }
-                }
-            } else if ($estadoTransa != count($arrayDetalles)) {
-                return "denegado";
-            }
-            
 
-        if ($estadoTransaRebaja == $contDetalle) {
+        if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR']!="SD") {
             $idIngreso = $datos["hiddeniddeingreso"];
 
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);

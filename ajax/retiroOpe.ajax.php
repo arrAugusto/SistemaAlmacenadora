@@ -187,7 +187,8 @@ class AjaxUbicacionOpe {
             "hiddenIdentificadorVeh" => $hiddenIdentificadorVeh = $this->hiddenIdentificadorVeh,
             "hiddenDateTimeVeh" => $hiddenDateTimeVeh = $this->hiddenDateTimeVeh,
             "listaVehiculos" => $listaVehiculos = $this->listaVehiculos,
-            "descMercaderiaVeh" => $descMercaderiaVeh = $this->descMercaderiaVeh
+            "descMercaderiaVeh" => $descMercaderiaVeh = $this->descMercaderiaVeh,
+            "jsonStorageDRVeh"=>$jsonStorageDRVeh=$this->jsonStorageDRVeh
         );
         $respuesta = ControladorRetiroOpe::ctrGuardarRetVehiculos($datos);
         echo json_encode($respuesta);
@@ -475,6 +476,8 @@ if (isset($_POST["hiddeniddeingresoVeh"])) {
     $guardarRetVeh->hiddenDateTimeVeh = $_POST["hiddenDateTimeVeh"];
     $guardarRetVeh->listaVehiculos = $_POST["listaVehiculos"];
     $guardarRetVeh->descMercaderiaVeh = $_POST["descMercaderiaVeh"];
+    $guardarRetVeh->jsonStorageDRVeh = $_POST["jsonStorageDRVeh"];
+    
     $guardarRetVeh->ajaxGuardarRetVehiculos();
 }
 
