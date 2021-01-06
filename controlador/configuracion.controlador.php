@@ -4,6 +4,7 @@ class ControladorConfiNavega {
 
     public static function ctrInicioSesiones($txtAreaBodega, $numeroBodega, $idHiddenNavega, $idHiddenNavegaUs) {
         $respuesta = ModeloConfiNavega::mdlInicioSesiones($txtAreaBodega, $numeroBodega, $idHiddenNavega, $idHiddenNavegaUs);
+
         if ($respuesta == "errorSinData") {
             return $respuesta;
         } else {

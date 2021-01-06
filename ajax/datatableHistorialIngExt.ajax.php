@@ -13,10 +13,11 @@ class historialIngresosFiscalesEx {
     public function ajaxMostrarTableIngHistEx() {
         session_start();
 
+        $valor = $_SESSION["idDeBodega"];
 
         $sp = "spHistDataExtraIng";
 
-        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $valor);
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta == "SD") {
                 

@@ -4,10 +4,11 @@ require_once "cone.php";
 
 class ModeloRetirosBodega {
 
-    public static function mdlRebajarRetiroBod() {
+    public static function mdlRebajarRetiroBod($NavegaNumB) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spRetirosBodP";
-        $stmt = sqlsrv_prepare($conn, $sql);
+        $sql = "EXECUTE spRetirosBodP ?";
+        $params = array(&$NavegaNumB);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
@@ -170,7 +171,7 @@ class ModeloRetirosBodega {
         }
     }
 
-    public static function  mdlDetallesSalidaMerca($valIdRet) {
+    public static function mdlDetallesSalidaMerca($valIdRet) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spDataRetBod ?";
         $params = array(&$valIdRet);
@@ -247,11 +248,12 @@ class ModeloRetirosBodega {
             return sqlsrv_errors();
         }
     }
-        public static function mdlInsertMarchamoDos($value1, $value2, $value3, $sp) {
+
+    public static function mdlInsertMarchamoDos($value1, $value2, $value3, $sp) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
         $params = array(&$value1, &$value2, &$value3);
-    
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -271,7 +273,7 @@ class ModeloRetirosBodega {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
         $params = array(&$value1, $value2, $value3);
-        
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -286,5 +288,5 @@ class ModeloRetirosBodega {
             return sqlsrv_errors();
         }
     }
-    }
-    
+
+}

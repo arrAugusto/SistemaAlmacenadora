@@ -3,13 +3,16 @@
 class ControladorRetirosBodega {
 
     public static function ctrRebajarRetiroBod() {
-        $respuesta = ModeloRetirosBodega::mdlRebajarRetiroBod();
+        $NavegaNumB = $_SESSION['idDeBodega'];
+
+        $respuesta = ModeloRetirosBodega::mdlRebajarRetiroBod($NavegaNumB);
 
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
                 $idIngOpDet = $value["idIngreso"];
                 $spVeh = "spIngVehUsados";
                 $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
+                
                 $vehiUsado = 'ZA';
                 if ($respuestaRevertVeh[0]['resp'] == 1) {
                     $vehiUsado = "vehiculoUsado";

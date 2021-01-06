@@ -48,7 +48,7 @@
 
 </div>
 
-<input type="hidden" id="idHiddenNavega" value=<?php echo $_SESSION["dependencia"]; ?>>
+                    <input type="hidden" id="idHiddenNavega" value=<?php  echo $_SESSION["dependencia"]; ?>>
 <input type="hidden" id="idHiddenNavegaUs" value=<?php echo $_SESSION["id"]; ?>>
 
 

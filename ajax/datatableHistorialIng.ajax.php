@@ -13,6 +13,7 @@ class historialIngresosFiscales {
     public function ajaxMostrarTableIngHistoria() {
         session_start();
         $valor = $_SESSION["idDeBodega"];
+        
         $sp = "spIngEstadoTres";
         $ingEstadosTres = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         if ($ingEstadosTres != "SD") {
@@ -23,7 +24,7 @@ class historialIngresosFiscales {
             }
         }
         $sp = "spHisIngTodoSuper";
-        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $valor);
         if ($respuesta != "SD") {
 
             $contador = 0;

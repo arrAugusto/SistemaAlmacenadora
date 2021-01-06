@@ -3,10 +3,12 @@
 class ControladorContabilidadDeRet {
 
     public static function ctrListarRetiros($tipo, $NavegaNumB) {
+        $idDeBodega = $_SESSION["idDeBodega"];
+        
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
-            $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesGeneral($tipo);
+            $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesGeneral($tipo, $idDeBodega);
         } else {
-            $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientes($tipo, $NavegaNumB);
+            $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientes($tipo, $NavegaNumB, $idDeBodega);
         }
         if ($respuesta != "SD") {
             $dataVerif = [];

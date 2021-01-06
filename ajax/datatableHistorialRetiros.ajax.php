@@ -12,6 +12,7 @@ class historialIngresosFiscalesRet {
     public function ajaxMostrarTableIngHistoriaRet() {
         session_start();
         $NavegaNumB = $_SESSION['idDeBodega'];
+        
         $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesHistorial($NavegaNumB);
         if ($respuesta != 'SD') {
             $contador = 0;

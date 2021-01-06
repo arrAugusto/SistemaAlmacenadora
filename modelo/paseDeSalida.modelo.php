@@ -4,11 +4,12 @@ require_once "cone.php";
 
 class ModeloPasesDeSalida {
 
-    public static function mdlListarRetiros($sp) {
+    public static function mdlListarRetiros($sp, $idDeBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE " . $sp;
-        $stmt = sqlsrv_prepare($conn, $sql);
+        $sql = "EXECUTE " . $sp.' ?';
+        $params = array(&$idDeBodega);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;

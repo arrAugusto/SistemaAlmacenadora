@@ -4,10 +4,12 @@ require_once "cone.php";
 
 class ModeloHistoriaDeIngresos {
 
-    public static function mdlMostrarCalculosMes() {
+    public static function mdlMostrarCalculosMes($valor) {
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spHistoriaCalc";
-        $stmt = sqlsrv_prepare($conn, $sql);
+        $sql = "EXECUTE spHistoriaCalc ?";
+        $params = array(&$valor);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);        
+
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;

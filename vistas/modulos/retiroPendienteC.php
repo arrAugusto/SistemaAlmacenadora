@@ -280,49 +280,6 @@
             </div>
         </div>
     </section>
-    <section id="divTableUbi">
-        <div class="col-12" id="divTableUbicciones"> 
-            <div class="card card-success">
-                <div class="card-header">
-                    <h5 class="card-title">Edicion de detalles <?php
-                        if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
-                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . "Su usuario no tiene navegación configurada";
-                        } else {
-                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>';
-                        }
-                        ?></h5>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-12" id="mapeandoUbica">
-
-
-                            <?php
-                            $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();
-                            ?>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div id="mapeandoAcciones" class="col-12"></div>
-        <div class="card-footer mt-4" id="divBottoneraAccion">
-            <div class="btn-group" id="divBotonesAcciones">
-
-            </div>
-        </div>
-        <br/>
-        <br/>
-        <br/>
-        <br/><br/>
-        <br/>
-        <br/>
-        <br/>
-        <br/><br/>
-
-    </section>  
 
     <div class="tip" id="tip2">
         <div class="info-box-content">

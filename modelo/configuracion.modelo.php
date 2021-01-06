@@ -9,6 +9,7 @@ require_once "cone.php";
 
         $conn = Conexion::Conectar();
         $params = array(&$txtAreaBodega, &$numeroBodega, &$idHiddenNavega);
+        
         $sql = "EXECUTE spConfiNavega ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {

@@ -3,7 +3,8 @@
 class ControladorHistoriaDeIngresos {
 
     public static function ctrMostrarCalculosMes() {
-        $respuesta = ModeloHistoriaDeIngresos::mdlMostrarCalculosMes();
+        $valor = $_SESSION["idDeBodega"]; 
+        $respuesta = ModeloHistoriaDeIngresos::mdlMostrarCalculosMes($valor);
 
         $contador = 0;
         foreach ($respuesta as $key => $value) {

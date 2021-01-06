@@ -3,14 +3,17 @@
 class ControladorPasesDeSalida {
 
     public static function ctrListarRetiros($tipo) {
+        $idDeBodega = $_SESSION["idDeBodega"];
+        
         if ($tipo == 1) {
             $sp = "spPaseSalidaCalc";
-            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp);
+            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp, $idDeBodega);
         }
         if ($tipo == 0) {
             $sp = "spPaseSalidaVehN";
-            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp);
+            $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp, $idDeBodega);
         }
+
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
 

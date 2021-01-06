@@ -4,12 +4,12 @@ require_once "cone.php";
 
 class ModeloContabilidadDeRet {
 
-    public static function mdlListarRetPendientes($tipo, $ident) {
+    public static function mdlListarRetPendientes($tipo, $ident, $idBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
         
-        $params = array(&$tipo, &$ident);
-        $sql = "EXECUTE spRetirosPendientes ?, ?";
+        $params = array(&$tipo, &$ident, &$idBodega);
+        $sql = "EXECUTE spRetirosPendientes ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -55,12 +55,12 @@ class ModeloContabilidadDeRet {
             }
         }
     }
-    public static function mdlListarRetPendientesGeneral($tipo) {
+    public static function mdlListarRetPendientesGeneral($tipo, $idDeBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
         
-        $params = array(&$tipo);
-        $sql = "EXECUTE spRetirosPendGeneral ?";
+        $params = array(&$tipo, &$idDeBodega);
+        $sql = "EXECUTE spRetirosPendGeneral ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
