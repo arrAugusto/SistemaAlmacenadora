@@ -110,7 +110,8 @@ class ControladorGenerarContabilidad {
             return false;
         }
         $sp = "spIndentIngresos";
-        $respIng = ModeloGenerarContabilidad::mdlMostrarIng($sp);
+        $respIng = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $iBodEmpresa);
+
         if ($respIng != "SD") {
             $ajustesContaLote = [];
             $listaAreas = [];
@@ -218,7 +219,7 @@ class ControladorGenerarContabilidad {
         }
 
         $sp = "spIndentRetiros";
-        $respRet = ModeloGenerarContabilidad::mdlMostrarIng($sp);
+        $respRet = ModeloGenerarContabilidad::mdlMostrarContabilidad($sp, $iBodEmpresa);;
 
         if ($respRet != "SD") {
             foreach ($respRet as $keys => $value) {
