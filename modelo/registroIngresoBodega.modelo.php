@@ -128,6 +128,7 @@ class ModeloRegIngBod {
                                 $resultsIdent[] = $row;
                             }
                             if (!empty($resultsIdent)) {
+                  
                                 $idDetalle = $datos['idDetalle'];
                                 $paramsIngreso = array(&$datos["idOrdenIng"], &$idDetalle, &$usuarioOp);
 

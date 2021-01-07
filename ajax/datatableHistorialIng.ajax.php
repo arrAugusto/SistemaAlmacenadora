@@ -24,7 +24,7 @@ class historialIngresosFiscales {
             }
         }
         $sp = "spHisIngTodoSuper";
-        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $valor);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         if ($respuesta != "SD") {
 
             $contador = 0;

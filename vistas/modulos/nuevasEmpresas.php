@@ -40,7 +40,6 @@
                                 </thead> <tbody>
                                     <?php
                                     $respuesta = ControladorEmpresasAlmacenadoras::ctrMostrarEmpAlmacenadora();
-                                 
                                     ?>
                                 </tbody>
                             </table>
@@ -67,19 +66,23 @@
             <div class="modal-body">
                 <form role="form" method="post" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Nit Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewNit" name="txtNewNit" placeholder="Ejemplo : 37315452" value="" required  onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Nombre Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewNombre" name="txtNewNombre" placeholder="Ejemplo : MIEMPRESA, S.A." value="" required onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
+                            <label>Establecimiento</label>
+                            <input type="text" class="form-control is-invalid" id="establecimiento" name="establecimiento" placeholder="Ejemplo : ALGESA" value="" required onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
+                        </div>                        
+                        <div class="col-6 mt-4">
                             <label>Dirección Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewDireccion" name="txtNewDireccion" placeholder="Ejemplo : 5A CALLE 10-52 ZONA 7" value="" required onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Telefono Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewTelefono" name="txtNewTelefono" placeholder="555-1212" required  value="" onkeyup="javascript:this.value = this.value.toUpperCase();"  autocomplete="off" />
                         </div>
@@ -128,26 +131,30 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">EDECIÓN DE NUEVA EMPRESA</h4>
+                <h4 class="modal-title">EDCIÓN DE NUEVA EMPRESA</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <!-- Modal body -->
             <div class="modal-body">
                 <form role="form" method="post" enctype="multipart/form-data">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Nit Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewNitEdit" name="txtNewNitEdit" placeholder="Ejemplo : 37315452" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Nombre Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewNombreEdit" name="txtNewNombreEdit" placeholder="Ejemplo : MIEMPRESA, S.A." value="" onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
+                            <label>Establecimiento</label>
+                            <input type="text" class="form-control is-invalid" id="establecimientoEdit" name="establecimientoEdit" placeholder="Ejemplo : ALGESA" value="" required onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
+                        </div>                           
+                        <div class="col-6 mt-4">
                             <label>Dirección Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewDireccionEdit" name="txtNewDireccionEdit" placeholder="Ejemplo : 5A CALLE 10-52 ZONA 7" value="" onkeyup="javascript:this.value = this.value.toUpperCase();" autocomplete="off" />
                         </div>
-                        <div class="col-6">
+                        <div class="col-6 mt-4">
                             <label>Telefono Empresa</label>
                             <input type="text" class="form-control is-invalid" id="txtNewTelefonoEdit" name="txtNewTelefonoEdit" placeholder="555-1212" value="" onkeyup="javascript:this.value = this.value.toUpperCase();"  autocomplete="off" />
                         </div>
@@ -160,9 +167,7 @@
                                 <input type="email" class="form-control" placeholder="Email" name="EmailEdit" id="EmailEdit" autocomplete="off" value="" />
                                 <input type="hidden" name="hiddenFotoActual" id="hiddenFotoActual" value="" />
                                 <input type="hidden" name="hiddenIdEmpresa" id="hiddenIdEmpresa" value="" />
-                                    <div class="alert alert-info mt-4" role="alert">
-                                    ¡Las dimensiones maximas aceptadas en acho 270px y en alto 300px! 
-                                </div>
+
                             </div>
                         </div>
                         <div class="col-6 mt-4">
@@ -173,15 +178,20 @@
                                 <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
                             </div>
                         </div>  
+                        <div class="col-6 mt-4">
+                            <div class="alert alert-info mt-4" role="alert">
+                                ¡Las dimensiones maximas aceptadas en acho 270px y en alto 300px! 
+                            </div>
+                        </div>    
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-outline-warning btn-block">Editar Empresa <i class="fa fa-edit"></i></button>
                     </div>
                 </form>
-            <?php
-            $resp = ControladorEmpresasAlmacenadoras::ctrEditarEmpresa();
-            ?>
+                <?php
+                $resp = ControladorEmpresasAlmacenadoras::ctrEditarEmpresa();
+                ?>
             </div>
         </div>    
     </div>     

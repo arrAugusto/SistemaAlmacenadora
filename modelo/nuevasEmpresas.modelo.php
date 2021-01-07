@@ -28,12 +28,12 @@ class ModeloEmpresasAlmacenadoras {
         $direEmpresa = $dataNewEmpresa["direEmpresa"];
         $telefonoEmpresa = $dataNewEmpresa["telefonoEmpresa"];
         $email = $dataNewEmpresa["email"];
+        $establecimiento = $dataNewEmpresa["establecimiento"];
         $rutaFoto = $dataNewEmpresa["rutaFoto"];
-
-        $params = array(&$nitEmpresa, &$nombreEmpresa, &$direEmpresa, &$telefonoEmpresa, &$email, &$rutaFoto);
+        $params = array(&$nitEmpresa, &$nombreEmpresa, &$direEmpresa, &$telefonoEmpresa, &$email, &$rutaFoto, &$establecimiento);
 
         $conn = Conexion::Conectar();
-        $sql = 'EXECUTE spInsertNewEmpresa ?, ?, ?, ?, ?, ?';
+        $sql = 'EXECUTE spInsertNewEmpresa ?, ?, ?, ?, ?, ?, ?  ';
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -76,10 +76,12 @@ class ModeloEmpresasAlmacenadoras {
         $email = $dataNewEmpresa["email"];
         $rutaFoto = $dataNewEmpresa["rutaFoto"];
         $idEmpresa = $dataNewEmpresa["hiddenIdEmpresa"];
-        $params = array(&$nitEmpresa, &$nombreEmpresa, &$direEmpresa, &$telefonoEmpresa, &$email, &$rutaFoto, &$idEmpresa);
+        $establecimiento = $dataNewEmpresa["establecimiento"];
+
+        $params = array(&$nitEmpresa, &$nombreEmpresa, &$direEmpresa, &$telefonoEmpresa, &$email, &$rutaFoto, &$idEmpresa, &$establecimiento);
 
         $conn = Conexion::Conectar();
-        $sql = 'EXECUTE spEditarEmpresa ?, ?, ?, ?, ?, ?, ?';
+        $sql = 'EXECUTE spEditarEmpresa ?, ?, ?, ?, ?, ?, ?, ?';
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

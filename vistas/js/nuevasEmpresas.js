@@ -115,6 +115,7 @@ $(document).on("click", ".btnEditarEmpresa", async function () {
         document.getElementById("txtNewTelefonoEdit").value = respEditar[0].telefono;
         document.getElementById("hiddenFotoActual").value = respEditar[0].logo;
         document.getElementById("hiddenIdEmpresa").value = respEditar[0].id;
+        document.getElementById("establecimientoEdit").value = respEditar[0].establecimiento;
 
         $(".previsualizar").attr("src", respEditar[0].logo);
         $("#txtNewNitEdit").removeClass("is-invalid");
@@ -122,12 +123,14 @@ $(document).on("click", ".btnEditarEmpresa", async function () {
         $("#txtNewDireccionEdit").removeClass("is-invalid");
         $("#EmailEdit").removeClass("is-invalid");
         $("#txtNewTelefonoEdit").removeClass("is-invalid");
+        $("#establecimientoEdit").removeClass("is-invalid");
 
         $("#txtNewNitEdit").addClass("is-valid");
         $("#txtNewNombreEdit").addClass("is-valid");
         $("#txtNewDireccionEdit").addClass("is-valid");
         $("#EmailEdit").addClass("is-valid");
         $("#txtNewTelefonoEdit").addClass("is-valid");
+       $("#establecimientoEdit").addClass("is-valid");
 
 
     }

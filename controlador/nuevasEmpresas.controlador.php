@@ -110,6 +110,7 @@ class ControladorEmpresasAlmacenadoras {
                     "nombreEmpresa" => $_POST["txtNewNombre"],
                     "direEmpresa" => $_POST["txtNewDireccion"],
                     "telefonoEmpresa" => $_POST["txtNewTelefono"],
+                    "establecimiento"=>$_POST["establecimiento"],
                     "email" => $_POST["Email"],
                     "rutaFoto" => $ruta
                 );
@@ -252,6 +253,7 @@ tytle: "Operación exitosa",
                     "direEmpresa" => $_POST["txtNewDireccionEdit"],
                     "telefonoEmpresa" => $_POST["txtNewTelefonoEdit"],
                     "email" => $_POST["EmailEdit"],
+                    "establecimiento"=>$_POST["establecimientoEdit"],
                     "rutaFoto" => $ruta,
                     "hiddenIdEmpresa" => $_POST["hiddenIdEmpresa"]
                 );

@@ -1073,7 +1073,7 @@ MODAL POLIZA CONSOLIDADA
                             <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-map-pin"></i></span>
 
                             <div class="info-box-content">
-                                <input type="hidden" id ="numBodIdent" value="<?php echo $_SESSION["NavegaNumB"]; ?>">
+                                <input type="hidden" id ="numBodIdent" value="<?php echo $_SESSION["idDeBodega"]; ?>">
                                 <span class="info-box-text"><?php echo $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp'; ?></span>
                                 <span class="info-box-number" id="idBodegEmpresa"><?php echo '<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>'; ?></span>
                                 <span class="info-box-number"><button type="button" class="btn btn-success btn-block btnIngresoSinTarifa">Guardar Ingreso</button></span>
