@@ -93,7 +93,7 @@ class historialIngresosFiscales {
                 }
                 $fecha_actual = new DateTime();
                 $cadena_fecha_actual = $value["fechaIngreso"]->format("d-m-Y");
-                if ($value["numeroAsignado"] == 0) {
+                if ($value["numeroAsignado"] != 0) {
                     $ingreso = "Sin Ingreso";
                 } else {
                     $ingreso = $value["numeroAsignado"];

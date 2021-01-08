@@ -12,9 +12,9 @@ class historialIngresosFiscalesRet {
     public function ajaxMostrarTableIngHistoriaRet() {
         session_start();
         $NavegaNumB = $_SESSION['idDeBodega'];
-        
         $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesHistorial($NavegaNumB);
-        if ($respuesta != 'SD') {
+
+        if ($respuesta != 'SD' && $respuesta!=NULL) {
             $contador = 0;
             $cabeza = '{
             "data": [';
@@ -45,13 +45,13 @@ class historialIngresosFiscalesRet {
                                 $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" . $identRet . "' idniting = '" . $value["idIngOp"] . "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
                         }
                     }
-
                 $datoJsonRetHis = '[
                     "' . $contador . '",
                     "' . $value['numNit'] . '",
                     "' . $value['empresa'] . '",
                     "' . $value['numPolIng'] . '",
                     "' . $value['polRet'] . '",
+                    "' . $value['numeroRetiro'] . '",                        
                     "' . $value['bultosRet'] . '",
                     "' . $value['totalValorCif'] . '",
                     "' . $value['valorImpuesto'] . '",

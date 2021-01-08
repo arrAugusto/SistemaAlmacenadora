@@ -9,8 +9,8 @@ class ControladorRetiroOpe {
         return $respuesta;
     }
 
-    public static function ctrMostrarBusqueda($datoSearch) {
-        $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch);
+    public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
+        $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
         return $respuesta;
     }
 

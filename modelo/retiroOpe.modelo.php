@@ -53,7 +53,7 @@ class ModeloRetiroOpe {
         }
     }
 
-    public static function mdlMostrarBusqueda($datoSearch) {
+    public static function mdlMostrarBusqueda($datoSearch, $idDeBodega) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNitSalida ?";
         $params = array(&$datoSearch);

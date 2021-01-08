@@ -3,17 +3,15 @@
 class ControladorGeneracionDeInventarios {
 
     public static function ctrMostrarSaldos() {
-        
-                $valor = $_SESSION["idDeBodega"];
+
+        $valor = $_SESSION["idDeBodega"];
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
             $sp = "spSaldosSuper";
-            $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+            $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         } else {
-          $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
-      }
+            $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
+        }
 
-        
-        $valor = $_SESSION["idDeBodega"];
 
         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {
@@ -24,15 +22,14 @@ class ControladorGeneracionDeInventarios {
                     // Con objetos
                     if ($_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "BAJO") {
                         if ($_SESSION["departamentos"] == "Bodegas Fiscales") {
-                                         if ($value["accionEstado"] >= 4) {
-                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
-                        }    
-                        }else{
-                                             if ($value["accionEstado"] >= 4) {
-                            $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
+                            if ($value["accionEstado"] >= 4) {
+                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
+                            }
+                        } else {
+                            if ($value["accionEstado"] >= 4) {
+                                $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><a href="#divEdicionesBodega" class="btn btn-info btnEditBod btn-sm" estado=1 role="button" btnEditBod=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-danger btnGenerarPDf btn-sm"><i class="fa fa-file-pdf-o"></i></button></div>';
+                            }
                         }
-                        }
-       
                     } else {
                         $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><div class="btn-group"></div>';
                     }
@@ -79,10 +76,10 @@ class ControladorGeneracionDeInventarios {
                 $PesoKG = $value["ingPeso"];
                 $Regimen_Decalaracion = $value["regimenPol"];
                 $totalValorCif = $value["totalValorCif"];
-                $valorImpuesto = $value["valorImpuesto"];                
+                $valorImpuesto = $value["valorImpuesto"];
                 $datosArray = array("Tipo_Documento" => $tipo, "Nit_Razon" => $Nit_Razon, "Razon_Social" => $Razon_Social, "Documento" => $Documento, "Declaracion" => $Declaracion, "Fecha_Ingreso_Salida" => $Fecha_Ingreso_Salida,
                     "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion,
-                    "VALOR CIF"=>$totalValorCif, "VALOR IMPUESTOS"=>$valorImpuesto);
+                    "VALOR CIF" => $totalValorCif, "VALOR IMPUESTOS" => $valorImpuesto);
                 array_push($jsonGenerateExcel, $datosArray);
             }
             if ($respuestaDet != "SD") {
@@ -112,7 +109,7 @@ class ControladorGeneracionDeInventarios {
                 $Bultos = $respuesta[0]["saldoBultos"];
                 $PesoKG = $respuesta[0]["pesoKgSald"];
                 $Regimen_Decalaracion = "";
-                
+
                 $datosArray = array("Tipo_Documento" => $tipo, "Nit_Razon" => $Nit_Razon, "Razon_Social" => $Razon_Social, "Documento" => $Documento, "Declaracion" => $Declaracion, "Fecha_Ingreso_Salida" => $Fecha_Ingreso_Salida,
                     "Fecha_Emision" => $Fecha_Emision, "Bultos" => $Bultos, "PesoKG" => $PesoKG, "Regimen_Decalaracion" => $Regimen_Decalaracion);
                 array_push($jsonGenerateExcel, $datosArray);
@@ -237,7 +234,7 @@ class ControladorGeneracionDeInventarios {
                 }
             }
         }
-        return array("detalles"=>$listaDetalles,  "ubicacionVehUs"=>$guardarUbicacion);
+        return array("detalles" => $listaDetalles, "ubicacionVehUs" => $guardarUbicacion);
     }
 
 }

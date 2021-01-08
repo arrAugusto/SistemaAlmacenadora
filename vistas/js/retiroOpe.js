@@ -21,32 +21,77 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                 dataType: "json",
                 success: function (respuesta) {
                     console.log(respuesta);
-                    if (respuesta == "SD") {
+
+                    if (respuesta[0] == "SD") {
                         Swal.fire('Sin coincidencia', 'No se encontraron ingresos para mostrar', 'error');
                         invalidar("textParamBusqRet");
                     } else {
                         $("#textParamBusqRet").removeClass("is-invalid");
                         $("#textParamBusqRet").addClass("is-valid");
                         var lista = [];
-                        var contador = 1;
-                        for (var i = 0; i < respuesta.length; i++) {
-                            var datPoliza = respuesta[i].Poliza;
-                            var datconsolidado = respuesta[i].Empresa;
-                            var datblts = respuesta[i].blts;
-                            var datdimPeso = respuesta[i].pesokg + " kg";
-                            if (respuesta[i].familiaPoliza == 1) {
+                        var listaOtra = [];
+                        var listaCero = [];
 
-                                if (respuesta[i].tipo.toUpperCase() == "AF" || respuesta[i].tipo.toUpperCase() == "ALMACENFISCAL" || respuesta[i].tipo.toUpperCase() == "ALMFISCAL") {
-                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnVerSaldos btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
+                        var contador = 1;
+                        for (var i = 0; i < respuesta[0].length; i++) {
+
+                            var datPoliza = respuesta[0][i].Poliza;
+                            var datconsolidado = respuesta[0][i].Empresa;
+                            var datblts = respuesta[0][i].blts;
+                            var datdimPeso = respuesta[0][i].pesokg + " kg";
+                            if (respuesta[0][i].familiaPoliza == 1) {
+
+                                if (respuesta[0][i].tipo.toUpperCase() == "AF" || respuesta[0][i].tipo.toUpperCase() == "ALMACENFISCAL" || respuesta[0][i].tipo.toUpperCase() == "ALMFISCAL") {
+                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-danger btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Selec AF</button><button type="button" class="btn btn-info btnVerSaldos btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Ver Saldos</button></div>';
                                 }
-                                if (respuesta[i].tipo.toUpperCase() == "ZA" || respuesta[i].tipo == 1) {
-                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
+                                if (respuesta[0][i].tipo.toUpperCase() == "ZA" || respuesta[0][i].tipo == 1) {
+                                    var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Selec ZA</button><button type="button" class="btn btn-warning btnTrasladoFiscal btn-sm" id="trasladoFiscal" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Traslado Fiscal</button></div>';
                                 }
 
                             } else {
-                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
+                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
                             }
-                            lista.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones]);
+
+
+                            if (respuesta[0][i].empresaID != respuesta[1]) {
+                                listaOtra.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones, respuesta[0][i].empresa, respuesta[0][i].numeroIdentidad]);
+
+                            } else {
+                                if (respuesta[0][i].saldoBultos > 0) {
+                                    lista.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones]);
+
+                                } else {
+                                    listaCero.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones, respuesta[0][i].empresa, respuesta[0][i].numeroIdentidad]);
+
+                                }
+
+                            }
+                            console.log(listaOtra);
+                        }
+
+                        for (var i = 0; i < listaOtra.length; i++) {
+                            document.getElementById("ListaSelect").innerHTML += `
+
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                         <strong>Póliza : ` + listaOtra[i][0] + `</strong> Pertenece a : ` + listaOtra[i][5] + `
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+`;
+                        }
+                        for (var i = 0; i < listaCero.length; i++) {
+                            document.getElementById("ListaSelect").innerHTML += `
+
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                         <strong>Póliza : ` + listaCero[i][0] + `</strong> Saldo 0, Pertenece a : ` + listaCero[i][5] + `
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+
+`;
                         }
                         $('#tablaMerRetiro').DataTable({
                             "language": {
@@ -87,6 +132,8 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                                 }]
                         });
                     }
+
+
                 },
                 error: function (respuesta) {
                     console.log(respuesta);
@@ -94,6 +141,11 @@ $(document).on("click", ".btnBuscaRetiro", function () {
             });
         }
     }
+
+
+    /*
+     
+     **/
 });
 $(document).on("change", "#txtNitSalida", function () {
     var txtNitSalida = $(this).val();
@@ -1590,9 +1642,9 @@ $(document).on("click", ".btnSelectChasSal", async function () {
         listaVehDR = [];
         listaVehDR.push({idChas, polizaretiro});
         var jsonStorageDRChas = localStorage.getItem("listaChasisDR");
-        if (jsonStorageDRChas==null) {
+        if (jsonStorageDRChas == null) {
             localStorage.setItem("listaChasisDR", JSON.stringify(listaVehDR));
-        }else{
+        } else {
             var lista = JSON.parse(jsonStorageDRChas);
 
             lista.push(lista[0]);
@@ -2768,8 +2820,8 @@ $(document).on("click", ".btnPolizaDR", async function () {
 
 $(document).ready(function () {
     localStorage.removeItem("listaDR");
-    localStorage.removeItem("listaChasisDR");    
-    
+    localStorage.removeItem("listaChasisDR");
+
 })
 
 
@@ -3262,9 +3314,9 @@ $(document).on("click", ".btnListaSelect", async function () {
                 var predio = servicio.data[i].predio;
                 var descripcion = servicio.data[i].descripcion;
                 if ($("#divVehRegresion").length > 0) {
-                    var button = '<button type="button" class="btn btn-outline-primary btn-sm btnRegresionChas" id="btnOrigen' + idChas + '" idChas="' + idChas + '" chasisVehNew="' + chasis + '" polizaRetiro='+poliza+'><i class="fa fa-close"></i></button>';
+                    var button = '<button type="button" class="btn btn-outline-primary btn-sm btnRegresionChas" id="btnOrigen' + idChas + '" idChas="' + idChas + '" chasisVehNew="' + chasis + '" polizaRetiro=' + poliza + '><i class="fa fa-close"></i></button>';
                 } else {
-                    var button = '<button type="button" class="btn btn-outline-danger btn-sm btnSelectChasSal" id="btnOrigen' + idChas + '" idChas="' + idChas + '" polizaRetiro='+poliza+'><i class="fa fa-close"></i></button>';
+                    var button = '<button type="button" class="btn btn-outline-danger btn-sm btnSelectChasSal" id="btnOrigen' + idChas + '" idChas="' + idChas + '" polizaRetiro=' + poliza + '><i class="fa fa-close"></i></button>';
                 }
                 listaVehN.push([numero, chasis, tipoVehiculo, linea, predio, descripcion, button]);
             }
@@ -3314,8 +3366,3 @@ $(document).on("click", ".btnListaSelect", async function () {
     }
 });
 
-
-$(document).on("click", ".btnPolUbica", async function () {
-    var iddet = $(this).attr("iddet");
-
-})

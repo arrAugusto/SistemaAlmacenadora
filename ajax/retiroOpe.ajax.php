@@ -27,9 +27,12 @@ class AjaxUbicacionOpe {
     public $MostrarUbicaUnicas;
 
     public function AjaxMostrarUbUnitaria() {
+        session_start();
+        $dependencia = $_SESSION["dependencia"];
+        
         $datoSearchPol = $this->datoSearchPol;
-        $respuesta = ControladorRetiroOpe::ctrMostrarBusqueda($datoSearchPol);
-        echo json_encode($respuesta);
+        $respuesta = ControladorRetiroOpe::ctrMostrarBusqueda($datoSearchPol, $dependencia);
+        echo json_encode(array($respuesta,$dependencia));
     }
 
     public $mostrarNitRetiro;

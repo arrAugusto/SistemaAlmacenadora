@@ -69,6 +69,7 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                                     <th>Empresa</th>
                                     <th>Poliza Ing</th>
                                     <th>Poliza Ret</th>
+                                    <th>Numero Ret</th>                                    
                                     <th>Bultos</th>
                                     <th>Cif</th>
                                     <th>Impuestos</th>
