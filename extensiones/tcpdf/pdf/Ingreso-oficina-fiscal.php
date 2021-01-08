@@ -43,6 +43,13 @@ class imprimirIngresoBodega {
         $nombreEmpresa = $repuestaOperaciones[0]["empresa"];
         $numeroNit = $repuestaOperaciones[0]["numeroNit"];
         $bultosTotal = $repuestaOperaciones[0]["blts"];
+        
+                //datos de forma
+        $nit = $repuestaOperaciones[0]["nitAlm"];
+        $direccion = $repuestaOperaciones[0]["direAlm"];
+        $telefono = $repuestaOperaciones[0]["telAlm"];
+        $email = $repuestaOperaciones[0]["emailAlm"];
+        $logo = $repuestaOperaciones[0]["logoAlm"];
 
         $cadena_fecha_Garita = $repuestaOperaciones[0]["fechaRealIng"];
         $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
@@ -57,6 +64,8 @@ class imprimirIngresoBodega {
         $idIngreso = $repuestaUnidades[0]["idIngreso"];
         $poliza = $repuestaOperaciones[0]["poliza"];
         $numPlaca = $repuestaUnidades[0]["placa"];
+
+        
         require_once('tcpdf_include.php');
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage();
@@ -73,24 +82,24 @@ class imprimirIngresoBodega {
         $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            NIT: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            TELÉFONO: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            EMAIL: $email
                         </td>
 		</tr>
 	</table>
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
                 
-                <td style="width:420px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Ingreso de $titulo</td>
-                <td style="background-color:white; width:140px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
+                <td style="width:405px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Ingreso de $titulo</td>
+                <td style="background-color:white; width:155px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
             </tr>
         </table><br/><br/>
 EOF;

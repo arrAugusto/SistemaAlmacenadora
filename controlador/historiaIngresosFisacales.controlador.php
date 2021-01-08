@@ -138,7 +138,7 @@ class ControladorHistorialIngresos {
 
     public static function ctrmostrarDetallesClientesPlts($idIngClientesPlt) {
         $sp = "spRevChasis";
-        $revChasis = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $idIngClientesPlt);
+        $revChasis = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idIngClientesPlt);
 
         if ($revChasis != "SD") {
             return array("respuestaClientes" => $revChasis, "tipoDet" => "Vehiculos");
@@ -236,7 +236,7 @@ class ControladorHistorialIngresos {
 
     public static function ctrMostrarTableIngHistoria($param) {
         $sp = "spRepChasisNew";
-        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $param);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $param);
         return $respuesta;
     }
 

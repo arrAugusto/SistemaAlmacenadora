@@ -13,8 +13,7 @@ class historialIngresosFiscales {
         session_start();
         $valor = $_SESSION["idDeBodega"];
         $respuesta = ControladorHistorialIngresos::ctrMostrarTableIngHistoria($valor);
-        
-        $respuesta = ControladorHistorialIngresos::ctrMostrarTableIngHistoria($valor);
+
         if ($respuesta != "SD") {
             $contador = 0;
             $cabeza = '{

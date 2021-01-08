@@ -17,7 +17,7 @@ class historialIngresosFiscalesEx {
 
         $sp = "spHistDataExtraIng";
 
-        $respuesta = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($sp, $valor);
+        $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         if ($respuesta !== null || $respuesta !== NULL) {
             if ($respuesta == "SD") {
                 
