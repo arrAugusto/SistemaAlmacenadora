@@ -136,8 +136,11 @@ class AjaxAccionesIngresos {
     public $historiaRet;
 
     public function ajaxGenerateHistoriaRet() {
+                session_start();
+
+        $valor = $_SESSION["idDeBodega"];
         $generateRetHistoria = $this->generateRetHistoria;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRet($generateRetHistoria);
+        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRet($generateRetHistoria, $valor);
         echo json_encode($repuesta);
     }
 

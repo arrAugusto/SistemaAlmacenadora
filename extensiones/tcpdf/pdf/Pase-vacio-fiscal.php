@@ -30,6 +30,12 @@ class imprimirRetiroVacio {
         $nombreEmpresa = $repuestaOperaciones[0]["empresa"];
         $numeroNit = $repuestaOperaciones[0]["numeroNit"];
         $bultosTotal = $repuestaOperaciones[0]["blts"];
+        //datos de forma
+        $nit = $repuestaOperaciones[0]["nitAlm"];
+        $direccion = $repuestaOperaciones[0]["direAlm"];
+        $telefono = $repuestaOperaciones[0]["telAlm"];
+        $email = $repuestaOperaciones[0]["emailAlm"];
+        $logo = $repuestaOperaciones[0]["logoAlm"];
 
         $cadena_fecha_actual = $repuestaOperaciones[0]["fReal"]->format("d/m/Y");
         $ing = $repuestaOperaciones[0]["idIngreso"];
@@ -39,7 +45,7 @@ class imprimirRetiroVacio {
 
         $cif = number_format($repuestaOperaciones[0]["cif"], 2);
         $impuesto = number_format($repuestaOperaciones[0]["impuesto"], 2);
-        
+
         require_once('tcpdf_include.php');
 
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -59,16 +65,16 @@ class imprimirRetiroVacio {
         $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
@@ -78,8 +84,9 @@ class imprimirRetiroVacio {
             </tr>
 	</table>
 EOF;
-
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
+
+
 
 //-------------------------------------------------------------------------------------------------------
         $bloque2 = <<<EOF

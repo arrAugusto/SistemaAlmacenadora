@@ -42,7 +42,12 @@ class imprimirIngresoBodega {
         $valFobDolares = number_format($repuestaOperaciones[0]["valorTotalAduana"], 2);
         $bultosIngreso = $repuestaOperaciones[0]["bultosIngreso"];
 
-
+                //datos de forma
+        $nit = $repuestaOperaciones[0]["nitAlm"];
+        $direccion = $repuestaOperaciones[0]["direAlm"];
+        $telefono = $repuestaOperaciones[0]["telAlm"];
+        $email = $repuestaOperaciones[0]["emailAlm"];
+        $logo = $repuestaOperaciones[0]["logoAlm"];
         $cif = number_format($repuestaOperaciones[0]["cif"], 2);
         $impuesto = number_format($repuestaOperaciones[0]["impuesto"], 2);
 
@@ -64,33 +69,30 @@ class imprimirIngresoBodega {
         $pdf->SetMargins(6, 0, 6);
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
-// 
 //---------------------------------------------------------------------------------------------------
         $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
-                <td style="width:550px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Incidencia Recibo de acuse</td>
+                <td style="width:405px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Pase de salida vacio</td>
             </tr>
-	</table>
+        </table><br/><br/>
 EOF;
-
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
-
 
 //-------------------------------------------------------------------------------------------------------
         $bloque2 = <<<EOF

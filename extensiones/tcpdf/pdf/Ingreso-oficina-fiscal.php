@@ -85,13 +85,13 @@ class imprimirIngresoBodega {
 			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: $nit
+                            Nit: $nit
                             <br/>
                             $direccion
                             <br/>
-                            TELÉFONO: $telefono
+                            Teléfono: $telefono
                             <br/>
-                            EMAIL: $email
+                            Email: $email
                         </td>
 		</tr>
 	</table>
