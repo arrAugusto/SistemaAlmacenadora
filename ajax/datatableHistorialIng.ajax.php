@@ -101,9 +101,9 @@ class historialIngresosFiscales {
                 $cif = number_format($value["cif"], 2);
                 $impuesto = number_format($value["impuesto"], 2);
                 $identBodega = $value["identBodega"];
-                $bod = $bodega = "<span class='right badge badge-success'>Bodega_" . $identBodega . "</span>";
+                $bodegaNum = $value["numeroIdentidad"];
+                $bod = $bodega = "<span class='right badge badge-success'>Bodega_" . $bodegaNum . "</span>";
                 $contador = $contador + 1;
-
 
                 $datoJsonIngHis = '[
                                     "' . $contador . '",

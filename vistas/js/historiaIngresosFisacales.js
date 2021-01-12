@@ -79,7 +79,7 @@ $(document).on("click", ".btnEditOp", function () {
                 document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button></div>';
             }
             if (objTipo.objTipoOpcion == 1) {
-                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button><button type="button" class="btn btn-success btnMasRubrosIngGeneral" data-toggle="modal" data-target="#modalNuevosServicios" idIngresoExtra=' + idIngEditOp + '>Servicio Extra</button><button type="button" class="btn btn-danger btnEditBultosCuadres" estado="0" idIngEditCuadreBlts=' + idIngEditOp + '>Editar Bultos <i class="fa fa-warning"></i></button></div>';
+                document.getElementById("divAcciones").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-warning btnEdicionIngreso" idIngresoEditado=' + idIngEditOp + ' estado=0>Editar Ingreso&nbsp;&nbsp;<i class="fa fa-edit"></i></button><button type="button" class="btn btn-success btnMasRubrosIngGeneral" data-toggle="modal" data-target="#modalNuevosServicios" idIngresoExtra=' + idIngEditOp + '>Servicio Extra</button><button type="button" class="btn btn-danger btnEditBultosCuadres" estado="0" idIngEditCuadreBlts=' + idIngEditOp + '>Editar Bultos <i class="fa fa-warning"></i></button><button type="button" class="btn btn-secondary btnCambiarBodega" estado="0" idIngEditCuadreBlts=' + idIngEditOp + '  data-toggle="modal" data-target="#verPrediosBodegas">Cambiar de Bodega <i class="fa fa-warning"></i></button></div>';
             }
         }, error: function (respuesta) {
             console.log(respuesta);
@@ -1134,6 +1134,54 @@ function editarBultosIngresos(idIngEditCuadreBlts, totalBultos, listaDetalles) {
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+$(document).on("click", ".btnEditarUbicacioIng", async function () {
+    var numBodIdent = document.getElementById("numBodIdent").value;
+    var hiddenIdentity = document.getElementById("hiddenIdentity").value;
+    var resp = await editarUbicacionDeBodega(numBodIdent, hiddenIdentity);
+    if (resp[0].resp == 1) {
+        Swal.fire(
+                'Edición éxitosa',
+                'La ubicación de bodega fue cambiada',
+                'success'
+                )
+    } else {
+        Swal.fire(
+                'Edición erronea',
+                'La ubicación de bodega no fue cambiada porque el ingreso ya fue finalizado, puede anular y hacer el ingreso en la bodega correcta',
+                'error'
+                )
+
+    }
+
+
+})
+
+
+function editarUbicacionDeBodega(numBodIdent, hiddenIdentity) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("newBod", numBodIdent);
+    datos.append("ingNewBod", hiddenIdentity);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
             respFunc = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);

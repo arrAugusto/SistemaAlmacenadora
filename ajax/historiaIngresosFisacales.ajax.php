@@ -136,7 +136,7 @@ class AjaxAccionesIngresos {
     public $historiaRet;
 
     public function ajaxGenerateHistoriaRet() {
-                session_start();
+        session_start();
 
         $valor = $_SESSION["idDeBodega"];
         $generateRetHistoria = $this->generateRetHistoria;
@@ -186,6 +186,23 @@ class AjaxAccionesIngresos {
         $listaDetallesBltsPso = $this->listaDetallesBltsPso;
         $repuesta = ControladorHistorialIngresos::ctrEditarBltsIng($idIngEditCuadreBlts, $totalBultosPol, $listaDetallesBltsPso);
         echo json_encode($repuesta);
+    }
+
+    public $editarUbica;
+
+    public function ajaxEditUbicaBodega() {
+        $newBod = $this->newBod;
+        $ingNewBod = $this->ingNewBod;
+        $repuesta = ControladorHistorialIngresos::ctrEditUbicaBodega($newBod, $ingNewBod);
+        echo json_encode($repuesta);
+    }
+
+    public $histVehNew;
+
+    public function ajaxDescargaExelVeh() {
+        $generateExcelVehiNew = $this->generateExcelVehiNew;
+    $repuesta = ControladorHistorialIngresos::ctrDescargaExelVeh($generateExcelVehiNew);
+        echo json_encode($repuesta);        
     }
 
 }
@@ -312,3 +329,15 @@ if (isset($_POST["idIngEditCuadreBlts"])) {
 }
 
 
+if (isset($_POST["newBod"])) {
+    $editarUbica = new AjaxAccionesIngresos();
+    $editarUbica->newBod = $_POST["newBod"];
+    $editarUbica->ingNewBod = $_POST["ingNewBod"];
+    $editarUbica->ajaxEditUbicaBodega();
+}
+
+if (isset($_POST["generateExcelVehiNew"])) {
+    $histVehNew = new AjaxAccionesIngresos();
+    $histVehNew->generateExcelVehiNew = $_POST["generateExcelVehiNew"];
+    $histVehNew->ajaxDescargaExelVeh();
+}

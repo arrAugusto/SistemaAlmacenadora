@@ -396,3 +396,57 @@
         </div>
     </div>
 </div>
+
+
+<!-- The Modal CAPTURA UBICACIONES -->
+<div class="modal fade" id="verPrediosBodegas">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Clasificación de bodega</h4>
+                <button type="button" class="close" id="buttonMin1" data-dismiss="modal">&times;</button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="info-box mb-3">
+                            <span class="info-box-icon bg-danger elevation-1"><i class="fa fa-map-pin"></i></span>
+
+                            <div class="info-box-content">
+                                <input type="hidden" id ="numBodIdent" value="<?php echo $_SESSION["idDeBodega"]; ?>">
+                                <span class="info-box-text"><?php echo $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp'; ?></span>
+                                <span class="info-box-number" id="idBodegEmpresa"><?php echo '<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>'; ?></span>
+                                <span class="info-box-number"><button type="button" class="btn btn-success btn-block btnEditarUbicacioIng">Cambiar ubicación definitivamente</button></span>
+
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                    </div>
+                    <div class="col-md-12 mt-4">
+                        <table id="tablasGeneral" role="grid" class="table dt-responsive table-hover table-sm">
+                            <thead>
+                                <tr>
+                                <th style="width:3px">#</th>
+                                <th>Area</th>
+                                <th>Empresa</th>
+                                <th><center>Acciones</center></th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                <?php
+                                $respuesta = ControladorOpB::ctrVerBodegasDisponibles();
+
+                                if ($respuesta !== null) {
+                                    
+                                }
+                                ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -19,16 +19,10 @@
     <div class="col-md-12">
         <div class="card card-info card-outline">
 
-            <div class="col-md-12">
-                <div class="input-group">
-                    <!--     <button type="button" class="btn btn-default" id="daterange-btn2">
-                             <span>
-                                 <i class="fa fa-calendar"></i> Rango de fecha
-                             </span>
-                             <i class="fa fa-caret-down"></i>
-                         </button>-->
-                </div>
-            </div>
+    <div class="col-md-6 mt-4">
+        <button type="button" class="btn btn-outline-success btn-block btnDescargaExcelVehNew">Descargar excel vehículos nuevos</button>
+    </div>
+
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row"><!--

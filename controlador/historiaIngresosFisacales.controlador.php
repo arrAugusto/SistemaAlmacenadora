@@ -258,7 +258,6 @@ class ControladorHistorialIngresos {
         return $revIngRev;
     }
 
-
     public static function ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh) {
         $sp = "spRevChasisVehN";
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($idChasEdit, $chasisNewEdt, $tipoLineaVeh, $sp);
@@ -288,6 +287,18 @@ class ControladorHistorialIngresos {
                 return false;
             }
         }
+    }
+
+    public static function ctrEditUbicaBodega($newBod, $ingNewBod) {
+        $sp = "spEditUbicaIng";
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($newBod, $ingNewBod, $sp);
+        return $revIngRev;
+    }
+
+    public static function ctrDescargaExelVeh($generateExcelVehiNew) {
+        $sp = "spExcelVehNew";
+        $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
+        return $revIngRev;       
     }
 
 }
