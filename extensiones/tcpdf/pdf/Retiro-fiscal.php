@@ -397,15 +397,14 @@ EOF;
 
                         $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
-      
-	<tr>
-            $tdNit
-            $tdEmpresa
-            $tdIng  
-            $tdPol   
-            $tdRegimen
-            $tdbultos
-   </tr>
+            <tr>
+                $tdNit
+                $tdEmpresa
+                $tdIng  
+                $tdPol   
+                $tdRegimen
+                $tdbultos
+            </tr>
 	</table>	
 EOF;
 

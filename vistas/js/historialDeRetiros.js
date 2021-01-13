@@ -52,39 +52,40 @@ $(document).on("click", ".btnAnularOperacion", async function () {
             var respuesta = await ajaxEdicionRetiroOpe(consulta, idret);
             console.log(respuesta);
             if (respuesta != "SD") {
-                document.getElementById("txtNitSalida").value = respuesta[0].nitEmpresa;
+                document.getElementById("txtNitSalida").value = respuesta[0][0].nitEmpresa;
                 $("#txtNitSalida").trigger('change');
 
-                document.getElementById("polizaRetiro").value = respuesta[0].polizaRetiro;
+                document.getElementById("polizaRetiro").value = respuesta[0][0].polizaRetiro;
                 $("#polizaRetiro").trigger('change');
 
-                document.getElementById("regimen").value = respuesta[0].regimenSalida;
+                document.getElementById("regimen").value = respuesta[0][0].regimenSalida;
                 $("#regimen").trigger('change');
 
-                document.getElementById("valorTAduana").value = respuesta[0].valorTotalAduana;
+                document.getElementById("valorTAduana").value = respuesta[0][0].valorTotalAduana;
                 $("#valorTAduana").trigger('change');
 
-                document.getElementById("cambio").value = respuesta[0].tipoCambio;
+                document.getElementById("cambio").value = respuesta[0][0].tipoCambio;
                 $("#cambio").trigger('change');
 
-                document.getElementById("calculoValorImpuesto").value = respuesta[0].valorTotalAduana;
+                document.getElementById("calculoValorImpuesto").value = respuesta[0][0].valorTotalAduana;
                 $("#calculoValorImpuesto").trigger('change');
 
-                document.getElementById("pesoKg").value = respuesta[0].peso;
+                document.getElementById("pesoKg").value = respuesta[0][0].peso;
                 $("#pesoKg").trigger('change');
 
-                document.getElementById("cantBultos").value = respuesta[0].bultos;
+                document.getElementById("cantBultos").value = respuesta[0][0].bultos;
                 $("#cantBultos").trigger('change');
 
-                document.getElementById("descMercaderia").value = respuesta[0].descripcion;
+                document.getElementById("descMercaderia").value = respuesta[0][0].descripcion;
                 $("#descMercaderia").trigger('change');
 
-                document.getElementById("textParamBusqRet").value = respuesta[0].numeroPoliza;
+                document.getElementById("textParamBusqRet").value = respuesta[0][0].numeroPoliza;
                 $("#textParamBusqRet").trigger('change');
                 $(".btnBuscaRetiro").click();
+                
+                if (respuesta[1]=="SD") {
 
-
-                var json = JSON.parse(respuesta[0].detallesRebajados);
+                var json = JSON.parse(respuesta[0][0].detallesRebajados);
                 console.log(json);
 
 
@@ -134,12 +135,29 @@ $(document).on("click", ".btnAnularOperacion", async function () {
 
 
                 }
-                document.getElementById("divBottoneraAccion").innerHTML = `
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret + ` estadoDetalles=` + estadoDet + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
-                        <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
-                     </div>`;
+
+            }else{
+                for (var i = 0; i < respuesta[1].length; i++) {
+                    var idChas = respuesta[1][i].id;
+                        var dataChas = 'CHASIS : ' + respuesta[1][i].chasis + ' - ' + respuesta[1][i].tipoVehiculo + ' - ' + respuesta[1][i].linea;
+                        document.getElementById("tableMostrarEmpresa").innerHTML += `
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <button type="button" class="btn btn-danger btn-sm" id="buttonTrashVeh" numOrigen="` + idChas + `"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                </div>
+                                <!-- /btn-group -->
+                                <input type="text" class="form-control" id="textSalVeh" value="` + dataChas + `" readOnly="readOnly">
+                            </div>
+                            `;
+                 
+                        }
             }
+            document.getElementById("divBottoneraAccion").innerHTML = `
+                <div class="btn-group">
+                    <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret + ` estadoDetalles=` + estadoDet + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
+                    <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
+                </div>`;
+        }
         }
         const Toast = Swal.mixin({
             toast: true,

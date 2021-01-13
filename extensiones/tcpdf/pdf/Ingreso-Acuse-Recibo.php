@@ -88,8 +88,7 @@ class imprimirIngresoBodega {
 	</table>
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
-                <td style="width:405px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Pase de salida vacio</td>
-            </tr>
+                <td style="width:550px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Incidencia Recibo de acuse</td>            </tr>
         </table><br/><br/>
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);

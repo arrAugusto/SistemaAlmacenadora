@@ -235,6 +235,7 @@ class ControladorRetiroOpe {
 
     public static function ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp) {
         $RevDetRebajados = json_decode($datos['listaDetallesEdit'], true);
+     
         $contador = 0;
         foreach ($RevDetRebajados as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -267,7 +268,7 @@ class ControladorRetiroOpe {
         }
 
         /**
-         * REVISANDO QUE LOS DETALLES CAMBION O NO CAMBIEN
+         * REVISANDO QUE LOS DETALLES CAMBIAN O NO CAMBIEN
          * * */
         foreach ($RevDetRebajados as $key => $value) {
             foreach ($arrayDetallesReb as $keyDB => $valueDB) {
@@ -332,6 +333,7 @@ class ControladorRetiroOpe {
                 return "sobregiro";
             }
         } else {
+
             $tipo = 1;
             $respuesta = ModeloRetiroOpe::mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo);
             return $respuesta;
@@ -352,15 +354,17 @@ class ControladorRetiroOpe {
 
     public static function ctrEdicionVehN($datos) {
         //iniciando edicion
-        $sp = "spRevChasisVehN";
+        $sp = "spVerEstadoVehRet";
         $idRet = $datos["hiddenIdentificadorVEd"];
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($idRet, $sp);
+
         foreach ($respuesta as $key => $value) {
             if ($value["estado"] >= 3) {
                 return array("resp" => false, "tipo" => "fueraDeAlmacen");
             }
         }
         $listaFront = json_decode($datos["listaVehiculosVEd"], true);
+
         $arrayMayor = 0;
         if (count($listaFront) == count($respuesta)) {
             $listaRevisada = [];
@@ -626,7 +630,15 @@ class ControladorRetiroOpe {
             $sp = "spSaldosDR";
         }
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
-        return $respuesta;
+        if ($respuesta[0]["countChas"]==0) {
+            $respuestaChasis = "SD";
+            return array($respuesta, $respuestaChasis);
+        }else{
+            $sp = "spChasisVNuevo";
+            $respuestaChasis = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
+            return array($respuesta, $respuestaChasis);
+        }
+
     }
 
     public static function ctrVerDataDetalleEditRet($idDetRevEd) {

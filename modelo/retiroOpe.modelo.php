@@ -349,6 +349,7 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo) {
+
         $conn = Conexion::Conectar();
         if ($tipo == 1) {
             $paramsDet = array(
@@ -372,12 +373,13 @@ class ModeloRetiroOpe {
                 &$datos['polizaRetiroVEd'],
                 &$datos['regimenVEd'],
                 &$datos['descMercaderiaVEd'],
-                &$datos['hiddenDateTimeEdit'],
+                &$datos['hiddenDateTimeVEd'],
                 &$idRetiroBtn
             );
             $sqlDet = "EXECUTE spEditRetirosVehEd  ?,	?,	?,	?,	?,	?,	?";
 
             $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
+
         }
 
         if (sqlsrv_execute($stmt) == true) {
@@ -407,8 +409,9 @@ class ModeloRetiroOpe {
                     &$datos['calculoValorImpuestoVEd']
                 );
             }
-            $sqlBlts = "EXECUTE spEdicionValRet  ?,	?,  ?,  ?,  ?,  ?,  ?,  ?";
 
+            $sqlBlts = "EXECUTE spEdicionValRet  ?,	?,  ?,  ?,  ?,  ?,  ?,  ?";
+            
             $stmt = sqlsrv_prepare($conn, $sqlBlts, $paramsBlts);
             if (sqlsrv_execute($stmt) == true) {
                 return "Editado";

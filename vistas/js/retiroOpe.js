@@ -487,11 +487,11 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
 
 
                     }
-
-                    if (verSaldo == 0 || verSaldo == 1) {
-                        if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
                             console.log(totalBultos);
                             console.log(cantBultos);
+                    if (verSaldo == 0 || verSaldo == 1) {
+                        if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
+
 
                             if (totalBultos == cantBultos) {
 
@@ -1214,6 +1214,7 @@ async function editarRetiroOpFis(idRetiroBtn) {
     var estadodetalles = $("#editRetiroF").attr("estadodetalles");
 
     var tipoIng = document.getElementById("hiddenGdVehMerc").value;
+    console.log(tipoIng);
     if (tipoIng == "vehM" || tipoIng == "vehUs") {
 
 
@@ -1290,8 +1291,10 @@ async function editarRetiroOpFis(idRetiroBtn) {
             }
         }
     } else {
+        console.log("vehiculo 1294");
         listaVehiculos = [];
-        var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrashVeh"));
+        var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
+        
         for (var i = 0; i < paragraphsButton.length; i++) {
             var numOrigen = paragraphsButton[i].attributes.numorigen.value;
             listaVehiculos.push([numOrigen]);
@@ -1349,6 +1352,8 @@ async function editarRetiroOpFis(idRetiroBtn) {
                         regimen, tipoCambio, valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, descMercaderia,
                         licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime);
             } else {
+        var hiddenIdentificador = idRetiroBtn;        
+        console.log(idRetiroBtn);
                 var EditarVeh = await funcEditarVeh(
                         listaVehiculos, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
                         valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, licencia, piloto,
@@ -1420,7 +1425,7 @@ function funcEditRetMerca(idRetiroBtn, listaDetalles, hiddeniddeingreso, hiddenI
 function funcEditarVeh(listaVehiculos, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
         valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, licencia, piloto,
         hiddenIdBod, cantBultos, hiddenIdentificador, hiddenDateTime, descMercaderia) {
-
+            console.log("linea 1425 vehiculos");
     var datos = new FormData();
     datos.append("listaVehiculosVEd", listaVehiculos);
     datos.append("hiddeniddeingresoVEd", hiddeniddeingreso);
