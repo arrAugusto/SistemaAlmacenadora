@@ -51,6 +51,15 @@ $(document).on("click", ".btnAnularOperacion", async function () {
             var consulta = "Retiro";
             var respuesta = await ajaxEdicionRetiroOpe(consulta, idret);
             console.log(respuesta);
+            console.log(respuesta[1]);
+            document.getElementById("hiddeniddeingreso").value = respuesta[0][0].idIng;
+            if (respuesta[1]!="SD") {
+                document.getElementById("hiddenGdVehMerc").value = "vehN";
+            }else if(respuesta[0][0].countChasUsados > 0){
+                document.getElementById("hiddenGdVehMerc").value = "vehUs";                        
+            }else{
+                document.getElementById("hiddenGdVehMerc").value = "vehM";                        
+            }
             if (respuesta != "SD") {
                 document.getElementById("txtNitSalida").value = respuesta[0][0].nitEmpresa;
                 $("#txtNitSalida").trigger('change');
@@ -67,7 +76,7 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                 document.getElementById("cambio").value = respuesta[0][0].tipoCambio;
                 $("#cambio").trigger('change');
 
-                document.getElementById("calculoValorImpuesto").value = respuesta[0][0].valorTotalAduana;
+                document.getElementById("calculoValorImpuesto").value = respuesta[0][0].valorImpuesto;
                 $("#calculoValorImpuesto").trigger('change');
 
                 document.getElementById("pesoKg").value = respuesta[0][0].peso;

@@ -248,7 +248,7 @@ class ControladorOpB {
                 $lineaVehiculo = $value[2];
             }
             $respuesta = ModeloControladorOpB::mdlValidacionNuevosVehiculos($TipoVehiculo, $lineaVehiculo);
-            
+             
             $respuestaSimilar = ModeloControladorOpB::mdlSimilarNuevosVehiculos($TipoVehiculo, $lineaVehiculo);
             if ($respuesta == 0 && $respuestaSimilar == 1) {
                 $respuesta = 2;

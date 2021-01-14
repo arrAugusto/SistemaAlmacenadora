@@ -394,9 +394,9 @@ class ControladorRetiroOpe {
                 }
             }
         }
-
-        if (count($listaFront) < count($respuesta)) {
             $listaRevisada = [];
+        if (count($listaFront) < count($respuesta)) {
+
             foreach ($respuesta as $keys => $value) {
                 $rev = 0;
                 foreach ($listaFront as $key => $values) {
@@ -412,7 +412,7 @@ class ControladorRetiroOpe {
 
         if (count($listaRevisada) >= 1) {
             //$listaFront
-            // $idRet 
+
             foreach ($listaRevisada as $key => $value) {
                 $respuestaChas = ControladorRetiroOpe::ctrRevisionChasisSalida($value[0]);
                 if ($respuestaChas == "SD") {
@@ -621,7 +621,7 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrDataEditRetOp($tipoConsulRet, $idRetConsul) {
-
+            $respuestaChasis = "SD";
 
         if ($tipoConsulRet == "Retiro") {
             $sp = "spDatosRetOp";
@@ -630,8 +630,10 @@ class ControladorRetiroOpe {
             $sp = "spSaldosDR";
         }
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
+
         if ($respuesta[0]["countChas"]==0) {
-            $respuestaChasis = "SD";
+
+
             return array($respuesta, $respuestaChasis);
         }else{
             $sp = "spChasisVNuevo";

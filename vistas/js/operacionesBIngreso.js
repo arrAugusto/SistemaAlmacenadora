@@ -1947,12 +1947,10 @@ $(document).on("click", ".btnValidarChasis", function () {
 
                             var buttonEstado = '<button type="button" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></button>';
                         } else if (estado == 2) {
-                            console.log(estado);
-                            console.log(chasis);
-
-                            var chasisErroneo = 0;
+                            var chasisErroneo = chasisErroneo + 1;
                             var buttonEstado = '<button type="button" class="btn btn-warning btn-sm"><i class="fa fa-check-square"></i></button>';
                             listaEstado.push([chasis, tipoVehiculo, lineaVehiculo, estado]);
+                        
                         }
 
                         listaOkValidacion.push([numero, chasis, tipoVehiculo, lineaVehiculo, buttonEstado]);
@@ -5358,7 +5356,7 @@ $(document).on("click", ".btnCompara", async function () {
         var porcentaje = (100 / limite);
         var porcentajeCalc = (porcentaje * contador);
         var porcentajeCalc = parseFloat(porcentajeCalc).toFixed(2);
-        if (porcentajeCalc >= 90) {
+        if (porcentajeCalc >= 50) {
             Swal.fire({
                 title: '¿Desea realizar el cambio de linea al vehiculo?',
                 text: 'El vehiculo cuenta con un portaje de ' + porcentajeCalc + ' %',

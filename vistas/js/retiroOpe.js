@@ -141,12 +141,9 @@ $(document).on("click", ".btnBuscaRetiro", function () {
             });
         }
     }
-
-
-    /*
-     
-     **/
 });
+
+
 $(document).on("change", "#txtNitSalida", function () {
     var txtNitSalida = $(this).val();
     if (txtNitSalida == "") {
@@ -1293,12 +1290,12 @@ async function editarRetiroOpFis(idRetiroBtn) {
     } else {
         console.log("vehiculo 1294");
         listaVehiculos = [];
-        var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrash"));
-        
+        var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrashVeh"));
+        var totalBultos = 0;
         for (var i = 0; i < paragraphsButton.length; i++) {
             var numOrigen = paragraphsButton[i].attributes.numorigen.value;
             listaVehiculos.push([numOrigen]);
-            var totalBultos = i + 1;
+            var totalBultos = totalBultos + 1;
             console.log(numOrigen);
         }
         var listaVehiculos = JSON.stringify(listaVehiculos);
