@@ -1928,8 +1928,9 @@ $(document).on("click", ".btnValidarChasis", function () {
 
                     var listaOkRev = [];
                     var chasisNoEncontrado = 0;
+                    var chasisErroneo = 0;
                     for (var i = 0; i < respuesta.length; i++) {
-                        var chasisErroneo = 0;
+
                         var numero = (i + 1);
                         var chasis = respuesta[i].chasis;
                         var tipoVehiculo = respuesta[i].TipoVehiculo;
@@ -1948,7 +1949,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             var buttonEstado = '<button type="button" class="btn btn-success btn-sm"><i class="fa fa-check-square"></i></button>';
                         } else if (estado == 2) {
                             var chasisErroneo = chasisErroneo + 1;
-                            var buttonEstado = '<button type="button" class="btn btn-warning btn-sm"><i class="fa fa-check-square"></i></button>';
+                            var buttonEstado = '<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-window-close"></i></button>';
                             listaEstado.push([chasis, tipoVehiculo, lineaVehiculo, estado]);
                         
                         }
@@ -1991,9 +1992,9 @@ $(document).on("click", ".btnValidarChasis", function () {
                             }
                         }
                         console.log(listaDataRevNoEn);
+                        
                         document.getElementById("divChaisesNoEncontrados").innerHTML = "";
                         document.getElementById("divChaisesNoEncontrados").innerHTML = '<table id="tableChasisNoEncotrados" class="table table-hover table-sm"></table>';
-                        document.getElementById("buttonsChasis").innerHTML = '<button type="button" class="btn btn-info btnValidarChasis" id="buttonChasis" estado="0">Validar Chasis <i class="fa fa-wrench" aria-hidden="true"></i></button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verChasisNoEncon">Ver lineas no encotradas</button>'
 
                         $('#tableChasisNoEncotrados').DataTable({
                             "language": {
@@ -2044,7 +2045,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             swal({
                                 type: "error",
                                 title: "Error detalle de chasis",
-                                text: "Los detalles, tipo de veh    iculo o linea del vehiculo que ud. proporcionan no existen en la base de datos, revisrevise los chasis con error",
+                                text: "Los detalles, tipo de vehículo o linea del vehiculo que ud. proporcionan no existen en la base de datos, revisrevise los chasis con error",
                                 showConfirmButton: true,
                                 confirmButtonText: "cerrar",
                                 closeConfirm: true
@@ -2095,6 +2096,11 @@ $(document).on("click", ".btnValidarChasis", function () {
                                     title: "Estado validación"
                                 }]
                         });
+                    }
+                    
+                    if (chasisErroneo>0) {
+                        document.getElementById("buttonsChasis").innerHTML = '<button type="button" class="btn btn-info btnValidarChasis" id="buttonChasis" estado="0">Validar Chasis <i class="fa fa-wrench" aria-hidden="true"></i></button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verChasisNoEncon">Ver lineas no encotradas</button>'
+
                     }
                 },
                 error: function (respuesta) {
@@ -5975,18 +5981,19 @@ $(document).on("click", ".btnGuardarNuevasLineas", async function () {
     var listaValidacion = JSON.stringify(lista);
     var nomVar = "listaValidacion";
     var respIng = await revisarVehUsados(nomVar, listaValidacion);
+    console.log(respIng);
     var chasisNoEncontrado = [];
     for (var i = 0; i < respIng.length; i++) {
         var tipoVehiculo = respIng[i].TipoVehiculo;
         var lineaVehiculo = respIng[i].lineaVehiculo;
         var estado = respIng[i].estado;
-        if (estado == 0) {
+        if (estado == 0 || estado == 2) {
             chasisNoEncontrado.push([tipoVehiculo, lineaVehiculo]);
         }
     }
     var nomVar = "listaNoEncontrada";
     var listaNoEncontrada = JSON.stringify(chasisNoEncontrado);
-
+    console.log(listaNoEncontrada);
     var respIng = await revisarVehUsados(nomVar, listaNoEncontrada);
     if (respIng != "SD") {
         $(".btnValidarChasis").click();
