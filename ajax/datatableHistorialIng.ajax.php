@@ -20,7 +20,7 @@ class historialIngresosFiscales {
            foreach ($ingEstadosTres as $key => $value) {
                 $idIng = $value["id"];
                 $sp = "spRevisionIngEstadoCuatro";
-                $revision = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIng, $sp);
+                    $revision = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIng, $sp);
             }
         }
         $sp = "spHisIngTodoSuper";
