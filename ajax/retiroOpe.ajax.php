@@ -29,10 +29,10 @@ class AjaxUbicacionOpe {
     public function AjaxMostrarUbUnitaria() {
         session_start();
         $dependencia = $_SESSION["dependencia"];
-        
+
         $datoSearchPol = $this->datoSearchPol;
         $respuesta = ControladorRetiroOpe::ctrMostrarBusqueda($datoSearchPol, $dependencia);
-        echo json_encode(array($respuesta,$dependencia));
+        echo json_encode(array($respuesta, $dependencia));
     }
 
     public $mostrarNitRetiro;
@@ -191,7 +191,7 @@ class AjaxUbicacionOpe {
             "hiddenDateTimeVeh" => $hiddenDateTimeVeh = $this->hiddenDateTimeVeh,
             "listaVehiculos" => $listaVehiculos = $this->listaVehiculos,
             "descMercaderiaVeh" => $descMercaderiaVeh = $this->descMercaderiaVeh,
-            "jsonStorageDRVeh"=>$jsonStorageDRVeh=$this->jsonStorageDRVeh
+            "jsonStorageDRVeh" => $jsonStorageDRVeh = $this->jsonStorageDRVeh
         );
         $respuesta = ControladorRetiroOpe::ctrGuardarRetVehiculos($datos);
         echo json_encode($respuesta);
@@ -338,12 +338,26 @@ class AjaxUbicacionOpe {
         $respuesta = ControladorRetiroOpe::ctrVerDataDetalleEditRet($idDetRevEd);
         echo json_encode($respuesta);
     }
+
     public $trasladoAFDef;
-    public function ajaxTrasladoDefinitivoAF(){
-      $trasladoDefAf = $this->trasladoDefAf;
+
+    public function ajaxTrasladoDefinitivoAF() {
+        $trasladoDefAf = $this->trasladoDefAf;
         $respuesta = ControladorRetiroOpe::ctrTrasladoDefinitivoAF($trasladoDefAf);
-        echo json_encode($respuesta);      
+        echo json_encode($respuesta);
     }
+
+    public $anRetiro;
+
+    public function ajaxAnularRetiro() {
+        session_start();
+        $usuarioOp = $_SESSION["id"];        
+        $AnularRetiro = $this->AnularRetiro;
+        $motvAnulacion = $this->motvAnulacion;
+        $respuesta = ControladorRetiroOpe::ctrAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["datoSearchPol"])) {
@@ -480,7 +494,7 @@ if (isset($_POST["hiddeniddeingresoVeh"])) {
     $guardarRetVeh->listaVehiculos = $_POST["listaVehiculos"];
     $guardarRetVeh->descMercaderiaVeh = $_POST["descMercaderiaVeh"];
     $guardarRetVeh->jsonStorageDRVeh = $_POST["jsonStorageDRVeh"];
-    
+
     $guardarRetVeh->ajaxGuardarRetVehiculos();
 }
 
@@ -604,4 +618,11 @@ if (isset($_POST["trasladoDefAf"])) {
     $trasladoAFDef = new AjaxUbicacionOpe();
     $trasladoAFDef->trasladoDefAf = $_POST["trasladoDefAf"];
     $trasladoAFDef->ajaxTrasladoDefinitivoAF();
+}
+
+if (isset($_POST["AnularRetiro"])) {
+    $anRetiro = new AjaxUbicacionOpe();
+    $anRetiro->AnularRetiro = $_POST["AnularRetiro"];
+    $anRetiro->motvAnulacion = $_POST["motvAnulacion"];
+    $anRetiro->ajaxAnularRetiro();
 }

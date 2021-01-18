@@ -654,7 +654,11 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($trasladoDefAf, $sp);
         return $respuesta;
     }
-    
+    public static function ctrAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp){
+        $sp = "spAnularRetiro";
+        $respuesta = ModeloRetiroOpe::mdlAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp, $sp);
+        return $respuesta;        
+    }
 
 }
 

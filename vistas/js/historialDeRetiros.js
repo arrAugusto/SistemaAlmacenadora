@@ -1,3 +1,76 @@
+$(document).on("click", ".btnAnularRetiro_recibo", async function () {
+    var idpoliza = $(this).attr("idpoliza");
+    var idret = $(this).attr("idret");
+    /* inputOptions can be an object or Promise */
+    const inputOptions = new Promise((resolve) => {
+        setTimeout(() => {
+            resolve({
+                'Recibo': 'Recibo',
+                'Retiro': 'Retiro',
+            })
+        }, 1000)
+    })
+
+    const {value: tipoAnulacion} = await Swal.fire({
+        title: 'Tipo de anulación',
+        input: 'radio',
+        inputOptions: inputOptions,
+        allowOutsideClick: false,
+        inputValidator: (value) => {
+            if (!value) {
+                return 'No selecciono una opción!'
+            }
+        }
+    })
+
+    if (tipoAnulacion) {
+        if (tipoAnulacion == "Retiro") {
+
+            const {value: text} = await Swal.fire({
+                title: 'Motivo de anulación',
+                input: 'textarea',
+                inputLabel: 'Message',
+                inputPlaceholder: 'Ejemplo : Mala rebaja en el inventario',
+                inputAttributes: {
+                    'aria-label': 'Ejemplo : Mala rebaja en el inventario'
+                },
+                showCancelButton: true
+            })
+
+            if (text) {
+                var resp = await anulacionDeRetiro(idret, text);
+
+            }
+        }
+    }
+})
+
+function anulacionDeRetiro(idret, text) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("AnularRetiro", idret);
+    datos.append("motvAnulacion", text);    
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+
+
 $(document).on("click", ".btnAnularOperacion", async function () {
     var idpoliza = $(this).attr("idpoliza");
     var idret = $(this).attr("idret");
@@ -29,7 +102,7 @@ $(document).on("click", ".btnAnularOperacion", async function () {
             setTimeout(function () {
                 $("#buttonDisparoDetalle").click();
             }, 2500);
-            
+
             $("#divEdicionRetiro").removeClass("divOculto");
             $("#divEdicionRetiro").removeClass("visuallyHidden");
             if ($("#divDataPiloto").length > 0) {
@@ -53,12 +126,12 @@ $(document).on("click", ".btnAnularOperacion", async function () {
             console.log(respuesta);
             console.log(respuesta[1]);
             document.getElementById("hiddeniddeingreso").value = respuesta[0][0].idIng;
-            if (respuesta[1]!="SD") {
+            if (respuesta[1] != "SD") {
                 document.getElementById("hiddenGdVehMerc").value = "vehN";
-            }else if(respuesta[0][0].countChasUsados > 0){
-                document.getElementById("hiddenGdVehMerc").value = "vehUs";                        
-            }else{
-                document.getElementById("hiddenGdVehMerc").value = "vehM";                        
+            } else if (respuesta[0][0].countChasUsados > 0) {
+                document.getElementById("hiddenGdVehMerc").value = "vehUs";
+            } else {
+                document.getElementById("hiddenGdVehMerc").value = "vehM";
             }
             if (respuesta != "SD") {
                 document.getElementById("txtNitSalida").value = respuesta[0][0].nitEmpresa;
@@ -91,29 +164,29 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                 document.getElementById("textParamBusqRet").value = respuesta[0][0].numeroPoliza;
                 $("#textParamBusqRet").trigger('change');
                 $(".btnBuscaRetiro").click();
-                
-                if (respuesta[1]=="SD") {
 
-                var json = JSON.parse(respuesta[0][0].detallesRebajados);
-                console.log(json);
+                if (respuesta[1] == "SD") {
+
+                    var json = JSON.parse(respuesta[0][0].detallesRebajados);
+                    console.log(json);
 
 
-                for (var i = 0; i < json.length; i++) {
-                    var idDetalle = json[i].idDetalles;
-                    var nomVar = "idDetRevEd";
-                    var respuesta = await datosDetallesEdicionRet(nomVar, idDetalle)
-                    console.log(respuesta);
-                    var buttonDR = `<button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>`;
-                    var dataChas = "Mercaderia";
-                    var valTextDet = json[i].cantBultos;
-                    var empresa = respuesta[0].empresa;
-                    var idPoling = respuesta[0].numeroPoliza;
-                    var valPosSalidaEdit = json[i].valPosSalidaEdit;
-                    var valMtsSalidaEdit = json[i].valMtsSalidaEdit;
-                    var estadoDet = 0;
-                    if (json[i].estadoDet == 2) {
-                        var estadoDet = estadoDet + 1;
-                        document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+                    for (var i = 0; i < json.length; i++) {
+                        var idDetalle = json[i].idDetalles;
+                        var nomVar = "idDetRevEd";
+                        var respuesta = await datosDetallesEdicionRet(nomVar, idDetalle)
+                        console.log(respuesta);
+                        var buttonDR = `<button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>`;
+                        var dataChas = "Mercaderia";
+                        var valTextDet = json[i].cantBultos;
+                        var empresa = respuesta[0].empresa;
+                        var idPoling = respuesta[0].numeroPoliza;
+                        var valPosSalidaEdit = json[i].valPosSalidaEdit;
+                        var valMtsSalidaEdit = json[i].valMtsSalidaEdit;
+                        var estadoDet = 0;
+                        if (json[i].estadoDet == 2) {
+                            var estadoDet = estadoDet + 1;
+                            document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
@@ -129,8 +202,8 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                         <span class="badge bg-danger pull-right" style="display:block;">MTS.</span>
                       <input type="number" class="form-control" id="textMtsEdit` + idDetalle + `" value="` + valMtsSalidaEdit + `" />
                     </div>`;
-                    } else {
-                        document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
+                        } else {
+                            document.getElementById("divListaDetalles").innerHTML += `<div class="input-group mb-3">
                       <div class="input-group-prepend">
                         <button type="button" class="btn btn-danger" id="buttonTrash" numOrigen=` + idDetalle + `><i class="fa fa-trash"></i></button>
                         ` + buttonDR + `
@@ -140,14 +213,14 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                       <input type="text" class="form-control" id="texToEmpresaVal` + idDetalle + `" value="` + empresa + `" readOnly="readOnly" />
                       <input type="numeric" class="form-control" id="texToBultosVal` + idDetalle + `" value="` + valTextDet + `" />
                     </div>`;
+                        }
+
+
                     }
 
-
-                }
-
-            }else{
-                for (var i = 0; i < respuesta[1].length; i++) {
-                    var idChas = respuesta[1][i].id;
+                } else {
+                    for (var i = 0; i < respuesta[1].length; i++) {
+                        var idChas = respuesta[1][i].id;
                         var dataChas = 'CHASIS : ' + respuesta[1][i].chasis + ' - ' + respuesta[1][i].tipoVehiculo + ' - ' + respuesta[1][i].linea;
                         document.getElementById("tableMostrarEmpresa").innerHTML += `
                             <div class="input-group mb-3">
@@ -158,15 +231,15 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                                 <input type="text" class="form-control" id="textSalVeh" value="` + dataChas + `" readOnly="readOnly">
                             </div>
                             `;
-                 
-                        }
-            }
-            document.getElementById("divBottoneraAccion").innerHTML = `
+
+                    }
+                }
+                document.getElementById("divBottoneraAccion").innerHTML = `
                 <div class="btn-group">
                     <button type="button" class="btn btn-warning btnEditarRetiro" id="editRetiroF" estado=0 idRetiroBtn= ` + idret + ` estadoDetalles=` + estadoDet + `>Editar&nbsp;&nbsp;&nbsp;<i class="fa fa-edit" style="font-size:20px" aria-hidden="true"></i></button>
                     <button type="button" class="btn btn-info btnMasPilotos" id="idbtnMasPilotos" estado=0 idMasPilotos= ` + idret + `  data-toggle="modal" data-target="#plusPilotos">Nueva Unidad&nbsp;&nbsp;&nbsp;<i class="fa fa-plus" style="font-size:20px" aria-hidden="true"></i></button>
                 </div>`;
-        }
+            }
         }
         const Toast = Swal.mixin({
             toast: true,
@@ -325,12 +398,12 @@ $(document).on("click", ".btnHistoriaExcelRec", async function () {
             var nombreFile = "ReporteDeCorrelativo_";
             var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
             var nomVar = "generateRecExHistoria";
-            var respEx = await reporteRecibosExcel(nomVar, estadoRet);   
+            var respEx = await reporteRecibosExcel(nomVar, estadoRet);
             var nombreReporte = 'HISTORIAL DE RECIBOS COBROS DE SERVICIOS EXTRAS FISCALES';
             var nombreEncabezado = "DescargaReporteExcel";
             var nombreFile = "ReporteDeRecSerExtra_";
             var creaExcel = await JSONToCSVDescargaExcel(respEx, nombreEncabezado, nombreReporte, nombreFile, true);
-            
+
         }
     })
 })
