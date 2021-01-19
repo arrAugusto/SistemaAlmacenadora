@@ -523,9 +523,9 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                     }
                                 } else {
                                     var valDR = 0;
-                                    var jsonStorageDR = "SD";
+                                    var jsonStorageDR = 0*1;
                                     if ("listaDR" in localStorage) {
-
+                                        
                                         var totalBultos = 0;
                                         var jsonStorageDR = localStorage.getItem("listaDR");
                                         var jsonStorageDR = JSON.parse(jsonStorageDR);

@@ -30,6 +30,7 @@ $(document).on("click", ".btnAnularRetiro_recibo", async function () {
                 title: 'Motivo de anulación',
                 input: 'textarea',
                 inputLabel: 'Message',
+                allowOutsideClick: false,
                 inputPlaceholder: 'Ejemplo : Mala rebaja en el inventario',
                 inputAttributes: {
                     'aria-label': 'Ejemplo : Mala rebaja en el inventario'
@@ -39,7 +40,19 @@ $(document).on("click", ".btnAnularRetiro_recibo", async function () {
 
             if (text) {
                 var resp = await anulacionDeRetiro(idret, text);
-
+                if (resp[0]["resp"] == 1) {
+                    Swal.fire({
+                        title: 'Retiro de vehículos nuevos anulado correctamente',
+                        type: 'success',
+                        allowOutsideClick: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok!'
+                    }).then((result) => {
+                        if (result.value) {
+                            location.reload();
+                        }
+                    })
+                }
             }
         }
     }
@@ -49,7 +62,7 @@ function anulacionDeRetiro(idret, text) {
     let respFunc;
     var datos = new FormData();
     datos.append("AnularRetiro", idret);
-    datos.append("motvAnulacion", text);    
+    datos.append("motvAnulacion", text);
     $.ajax({
         async: false,
         url: "ajax/retiroOpe.ajax.php",

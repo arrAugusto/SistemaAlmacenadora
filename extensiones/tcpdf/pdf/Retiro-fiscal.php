@@ -35,7 +35,7 @@ class imprimirIngresoBodega {
         $valEmpresas = 0;
         $idNitSal = $respRet[0]["idNitRet"];
         $idNitIng = $respRet[0]["idNitIng"];
-
+        $estadoRet = $respRet[0]["estadoRet"];
         $empresaSal = $respRet[0]["nombreRet"];
         $empresaIng = $respRet[0]["nombreIng"];
 
@@ -123,6 +123,7 @@ EOF;
         </table>	
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
+                
             } else {
 
                 $bloque2 = <<<EOF
@@ -150,7 +151,23 @@ EOF;
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
-
+//-------------------------------------------------------------------------------------------------------
+        if ($estadoRet==-1) {
+            
+        
+        $bloque2 = <<<EOF
+	<table>
+                <tr>
+   <td style="width:200px;"></td>
+   <td style="width:160px;"><img src="images/anulado.png"></td>                    
+   <td style="width:200px;"></td>
+                    
+   </tr>
+   </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');        
+     }   
+//-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
                 $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);
@@ -609,7 +626,23 @@ EOF;
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
-
+//-------------------------------------------------------------------------------------------------------
+        if ($estadoRet==-1) {
+            
+        
+        $bloque2 = <<<EOF
+	<table>
+                <tr>
+   <td style="width:200px;"></td>
+   <td style="width:160px;"><img src="images/anulado.png"></td>                    
+   <td style="width:200px;"></td>
+                    
+   </tr>
+   </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');        
+     }   
+//-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
                 $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);
@@ -1066,7 +1099,23 @@ EOF;
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
-
+//-------------------------------------------------------------------------------------------------------
+        if ($estadoRet==-1) {
+            
+        
+        $bloque2 = <<<EOF
+	<table>
+                <tr>
+   <td style="width:200px;"></td>
+   <td style="width:160px;"><img src="images/anulado.png"></td>                    
+   <td style="width:200px;"></td>
+                    
+   </tr>
+   </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');        
+     }   
+//-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
                 $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);
@@ -1521,7 +1570,23 @@ EOF;
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
-
+//-------------------------------------------------------------------------------------------------------
+        if ($estadoRet==-1) {
+            
+        
+        $bloque2 = <<<EOF
+	<table>
+                <tr>
+   <td style="width:200px;"></td>
+   <td style="width:160px;"><img src="images/anulado.png"></td>                    
+   <td style="width:200px;"></td>
+                    
+   </tr>
+   </table>	
+EOF;
+        $pdf->writeHTML($bloque2, false, false, false, false, '');        
+     }   
+//-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
                 $dataChasNew = ModeloRetiroOpe::mdlModificacionDetalles($retiroF, $sp);

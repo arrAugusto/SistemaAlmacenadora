@@ -42,11 +42,17 @@ class ControladorRetiroOpe {
                 }
             }
 
-
-
-            if ($datos['jsonStorageDRVeh'] != "SD") {
+            $recorrer = 1;
+            if ($datos['jsonStorageDRVeh'] == 0) {
+                $recorrer = 0;
+            }
+            if ($recorrer==1) {
+                
+       
                 $jsonDecodeDR = json_decode($datos['jsonStorageDRVeh'], true);
-      
+                if (!emtpy($jsonDecodeDR)) {
+                    
+                
                 foreach ($jsonDecodeDR as $key => $value) {
                     $poliza = $value["poliza"];
                     $idRet = $respuestaGuardar;
@@ -57,7 +63,9 @@ class ControladorRetiroOpe {
                     $sp = "spValContaRet";
                     $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
 
+                
                 }
+                     }
             } else {
                 $idIngreso = $datos['hiddeniddeingresoVeh'];
                 $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
