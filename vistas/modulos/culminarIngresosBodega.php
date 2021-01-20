@@ -131,8 +131,8 @@
                                             </tr>
                                         </thead>
                                         <tbody>';
-                                    $respuesta = ControladorIngresosPendientes::ctrMostrarIngresosPendientes();
-                                    echo '</tbody>
+                            $respuesta = ControladorIngresosPendientes::ctrMostrarIngresosPendientes();
+                            echo '</tbody>
                                     </table>
                                 </div>
                             </div>
