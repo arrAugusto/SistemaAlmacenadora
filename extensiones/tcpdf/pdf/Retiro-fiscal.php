@@ -16,6 +16,7 @@ class imprimirIngresoBodega {
         $retiroF = $this->retiroF;
 
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
+        
         $detDR = ControladorRetiroOpe::ctrValoresDRRetiro($retiroF);
 
         $tipoDR = 0;
@@ -57,6 +58,14 @@ class imprimirIngresoBodega {
 
         $fechaEmision = $respRet[0]["fechaEm"]->format("d-m-Y h:i:s A");
         $numeroRetiro = $respRet[0]["numeroRetiro"];
+        
+                        //datos de forma
+        $nit = $respRet[0]["nitAlm"];
+        $direccion = $respRet[0]["direAlm"];
+        $telefono = $respRet[0]["telAlm"];
+        $email = $respRet[0]["emailAlm"];
+        $logo = $respRet[0]["logoAlm"];
+        
         require_once('tcpdf_include.php');
 
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -71,19 +80,20 @@ class imprimirIngresoBodega {
         if (count($datosUnidades) >= 3 || $tipoDR == 1) {
 
 
-            $bloque1 = <<<EOF
+//---------------------------------------------------------------------------------------------------
+        $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
@@ -547,19 +557,20 @@ EOF;
             $pdf->setPrintHeader(false);
             $pdf->setPrintFooter(false);
 // SEGUNDA PAGINA            
-            $bloque1 = <<<EOF
+//---------------------------------------------------------------------------------------------------
+        $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
@@ -1020,19 +1031,20 @@ EOF;
 
 // SINO SI SOLO TIENE UN PILOTO LA  
 //---------------------------------------------------------------------------------------------------
-            $bloque1 = <<<EOF
+//---------------------------------------------------------------------------------------------------
+        $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
@@ -1491,19 +1503,19 @@ EOF;
 
 // 
 //---------------------------------------------------------------------------------------------------
-            $bloque1 = <<<EOF
+        $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
-			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
+			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
                         <td style="width:432px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            Nit: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>

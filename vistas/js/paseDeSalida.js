@@ -638,7 +638,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
 
 
                     Swal.fire({
-                        title: 'Desea imprimir?',
+                        title: '¿Desea imprimir?',
                         text: "Se generará una forma de retiro de vehículos nuevos!",
                         type: 'info',
                         showCancelButton: true,
