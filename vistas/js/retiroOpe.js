@@ -2392,7 +2392,7 @@ $(document).on("click", ".trasladoZAAF", async function () {
                     confirmButtonText: 'oK'
                 }).then((result) => {
                     if (result.value) {
-                        location.reload();
+
                     }
                 })
 

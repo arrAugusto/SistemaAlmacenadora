@@ -46,26 +46,24 @@ class ControladorRetiroOpe {
             if ($datos['jsonStorageDRVeh'] == 0) {
                 $recorrer = 0;
             }
-            if ($recorrer==1) {
-                
-       
+            if ($recorrer == 1) {
+
+
                 $jsonDecodeDR = json_decode($datos['jsonStorageDRVeh'], true);
                 if (!emtpy($jsonDecodeDR)) {
-                    
-                
-                foreach ($jsonDecodeDR as $key => $value) {
-                    $poliza = $value["poliza"];
-                    $idRet = $respuestaGuardar;
-                    $bltsSumFinal = $value["bltsSumFinal"];
-                    $valDolSumFinal = $value["valDolSumFinal"];
-                    $cifFinal = $value["cifFinal"];
-                    $impuestoFinal = $value["impuestoFinal"];
-                    $sp = "spValContaRet";
-                    $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
 
-                
+
+                    foreach ($jsonDecodeDR as $key => $value) {
+                        $poliza = $value["poliza"];
+                        $idRet = $respuestaGuardar;
+                        $bltsSumFinal = $value["bltsSumFinal"];
+                        $valDolSumFinal = $value["valDolSumFinal"];
+                        $cifFinal = $value["cifFinal"];
+                        $impuestoFinal = $value["impuestoFinal"];
+                        $sp = "spValContaRet";
+                        $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
+                    }
                 }
-                     }
             } else {
                 $idIngreso = $datos['hiddeniddeingresoVeh'];
                 $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
@@ -119,29 +117,31 @@ class ControladorRetiroOpe {
                 $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
                 $stock = $respuesta[0]["stock"];
                 $saldoNuevo = $stock - $cantBultos;
-                if ($datos['jsonStringDR']=="SD") {
-                    
-          
-                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
-               
-                if ($respuesta[0]["estado"] == 1) {
-                    $estadoTransaRebaja = $estadoTransaRebaja + 1;
+                if ($datos['jsonStringDR'] == "SD") {
+
+
+                    $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
+
+                    if ($respuesta[0]["estado"] == 1) {
+                        $estadoTransaRebaja = $estadoTransaRebaja + 1;
+                    }
                 }
-                      }
             }
         } else if ($estadoTransa != count($arrayDetalles)) {
             return "denegado";
         }
 
 
-        if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR']!="SD") {
+        if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR'] != "SD") {
             $idIngreso = $datos["hiddeniddeingreso"];
 
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
-            if ($respuesta != "SD") {
-                if ($datos['jsonStringDR'] != "SD") {
+
+            if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
+                    
                     $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
+
                     foreach ($jsonDecodeDR as $key => $value) {
                         $poliza = $value["poliza"];
                         $idRet = $respuesta["valIdRetiro"];
@@ -151,8 +151,9 @@ class ControladorRetiroOpe {
                         $impuestoFinal = $value["impuestoFinal"];
                         $sp = "spValContaRet";
                         $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
-                    }
-                } else {
+                
+                     }   
+                    } else {
                     $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
                 }
                 $direccion = "../extensiones/imagenesQRCreadasRet/";
@@ -174,7 +175,7 @@ class ControladorRetiroOpe {
             } else {
                 return "denegado";
             }
-        }
+        
     }
 
     public static function ctrMostrarSelectDetOpe($idIngSelectDet) {
@@ -243,7 +244,7 @@ class ControladorRetiroOpe {
 
     public static function ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp) {
         $RevDetRebajados = json_decode($datos['listaDetallesEdit'], true);
-     
+
         $contador = 0;
         foreach ($RevDetRebajados as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -402,7 +403,7 @@ class ControladorRetiroOpe {
                 }
             }
         }
-            $listaRevisada = [];
+        $listaRevisada = [];
         if (count($listaFront) < count($respuesta)) {
 
             foreach ($respuesta as $keys => $value) {
@@ -629,7 +630,7 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrDataEditRetOp($tipoConsulRet, $idRetConsul) {
-            $respuestaChasis = "SD";
+        $respuestaChasis = "SD";
 
         if ($tipoConsulRet == "Retiro") {
             $sp = "spDatosRetOp";
@@ -639,16 +640,15 @@ class ControladorRetiroOpe {
         }
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
 
-        if ($respuesta[0]["countChas"]==0) {
+        if ($respuesta[0]["countChas"] == 0) {
 
 
             return array($respuesta, $respuestaChasis);
-        }else{
+        } else {
             $sp = "spChasisVNuevo";
             $respuestaChasis = ModeloRetiroOpe::mdlModificacionDetalles($idRetConsul, $sp);
             return array($respuesta, $respuestaChasis);
         }
-
     }
 
     public static function ctrVerDataDetalleEditRet($idDetRevEd) {
@@ -662,10 +662,11 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlDetUnParametro($trasladoDefAf, $sp);
         return $respuesta;
     }
-    public static function ctrAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp){
+
+    public static function ctrAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp) {
         $sp = "spAnularRetiro";
         $respuesta = ModeloRetiroOpe::mdlAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp, $sp);
-        return $respuesta;        
+        return $respuesta;
     }
 
 }
