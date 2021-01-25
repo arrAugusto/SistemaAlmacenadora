@@ -1701,7 +1701,12 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                     document.getElementById("txtNitEmpresa").readOnly = true;
 
                                     var valTipoConso = $("#sel2 option:selected").text();
-                                    if (valTipoConso == "Cliente consolidado") {
+                                    
+                                    var estadoIndividual = 0;
+                                    if ($("#btnCambiarEstadoIndi").length>0) {
+                                        var estadoIndividual = $("#btnCambiarEstadoIndi").attr("estado");
+                                    }
+                                    if (valTipoConso == "Cliente consolidado" || estadoIndividual==1) {
                                         document.getElementById("divAcciones").innerHTML = '';
                                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetallesManifiesto">Cargar Empresas</button></div>';
                                         if ($("#gDetalles").length>0) {
@@ -1789,7 +1794,8 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                             document.getElementById("divAccionesVehiculos").innerHTML = '';
                                         }
                                     }
-                                    if (valTipoConso == "Cliente individual") {
+
+                                    if (valTipoConso == "Cliente individual" && estadoIndividual==0) {
                                         $("#sel2").removeClass("is-valid");
                                         $("#sel2").addClass("is-invalid");
                                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
@@ -2514,7 +2520,12 @@ async function guardarSinTarifa(tipo) {
         var numeroPlaca = document.getElementById("numeroPlaca").value;
         var numeroContenedor = document.getElementById("numeroContenedor").value;
         var numeroMarchamo = document.getElementById("numeroMarchamo").value;
-
+        var estadoIndividual = 0;
+        if ($("#btnCambiarEstadoIndi").length>0) {
+            var estadoIndividual = $("#btnCambiarEstadoIndi").attr("estado");
+        }
+        console.log(estadoIndividual);
+        
         if (ClientPoltxtNitSalida != "") {
             var lblEmpresa = document.getElementById("ClientPoltxtNombreSalida").value;
             var idNitCliente = document.getElementById("hiddenNitIdenty").value;
@@ -2559,6 +2570,8 @@ async function guardarSinTarifa(tipo) {
         datos.append("busquedaConsolidadoGrd", busquedaConsolidado);
         datos.append("idUs", idUs);
         datos.append("etiquetaNumBod", etiquetaNumBod);
+        datos.append("estadoIndividual", estadoIndividual);
+        
 
 
         $.ajax({
@@ -3196,8 +3209,18 @@ $(document).on("change", "#sel2", async function () {
 
     }
     if (tipoReg == "Cliente individual") {
+        $("#divMarchamo").removeClass("col-md-4");
+        $("#divConsolidado").removeClass("col-md-4"); 
 
-        if (clientes >= 2) {
+        $("#divMarchamo").addClass("col-md-3");
+        $("#divConsolidado").addClass("col-md-3");
+        $("#divButtonIndiv").addClass("col-md-2"); 
+        $("#divButtonIndiv").html("col-md-2"); 
+                
+        document.getElementById("divButtonIndiv").innerHTML = '<button type="button" id="btnCambiarEstadoIndi" class="btn btn-warning" estado=0>Agregar detalle manualmente</button>';
+        
+
+        if (clientes >= 2 && estadoInd==0) {
             document.getElementById("sel2").selectedIndex = "Seleccione tipo de cliente";
             swal({
                 type: "error",
@@ -6821,5 +6844,21 @@ $(document).on("click", "#gDetalles", async function () {
     var idIngEliminar = $(this).attr("iding");
     console.log(idIngEliminar);
     document.getElementById("idIngManiElegido").value = idIngEliminar;
+})
+
+$(document).on("click", "#btnCambiarEstadoIndi", async function () {
+    var estado = $(this).attr("estado");
+    console.log(estado);
+    if (estado==0) {
+        $(this).attr("estado", 1);
+        $(this).removeClass("btn-warning");
+        $(this).addClass("btn-success");
+    }else{
+        $(this).attr("estado", 0)
+        $(this).removeClass("btn-success");
+        $(this).addClass("btn-warning");
+        
+    }
+        
 })
 

@@ -386,14 +386,14 @@
                                                     <input class="form-control is-invalid" type="text" placeholder="Ejemplo : CMCU850425" id="numeroContenedor" name="númeroContenedor" onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" id="divMarchamo">
                                                 <div class="form-group">
                                                     <label>Número de Marchamo</label>
                                                     <input class="form-control is-invalid" type="number" placeholder="Ejemplo : 451023" id="numeroMarchamo" name="númeroMarchamo"  onkeyup="javascript:this.value = this.value.toUpperCase();" />
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
+                                            <div class="col-md-4" id="divConsolidado">
                                                 <div class="form-group ">
                                                     <label>Tipo de Consolidado</label>
                                                     <select multiple class="form-control is-invalid" id="sel2" name="sellist2">
@@ -406,6 +406,9 @@
 
 
                                             </div>
+                                            <div id="divButtonIndiv">
+
+                                            </div>                                            
                                             <input type="hidden" id ="hiddenConsolidado" value=""> 
                                             <input type="hidden" id ="hiddenTipoTar" value=""> 
                                             <input type="hidden" id ="hidenPilotosPlus" value="">

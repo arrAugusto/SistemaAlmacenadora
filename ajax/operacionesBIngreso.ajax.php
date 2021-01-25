@@ -74,7 +74,7 @@ class AjaxOperacionesBIngreso {
         $lblEmpresa = $this->lblEmpresa;
         $hiddenIdUsser = $this->hiddenIdUsser;
         $busquedaConsolidadoGrd = $this->busquedaConsolidadoGrd;
-
+        $estadoIndividual = $this->estadoIndividual;
 
         $datos = array("sel2" => $sel2,
             "cartaDeCupo" => $cartaDeCupo,
@@ -109,7 +109,8 @@ class AjaxOperacionesBIngreso {
             "lblEmpresa" => $lblEmpresa,
             "hiddenIdUsser" => $hiddenIdUsser,
             "busquedaConsolidadoGrd" => $busquedaConsolidadoGrd,
-            "idUs" => $usuarioOp
+            "idUs" => $usuarioOp,
+            "estadoIndividual"=>$estadoIndividual
         );
         $respuesta = ControladorOpB::ctrRegistrarIngresoOperacion($datos);
         echo json_encode($respuesta);
@@ -514,6 +515,7 @@ if (isset($_POST["poliza"])) {
     $registrarIngOP->hiddenIdUsser = $_POST["hiddenIdUsser"];
     $registrarIngOP->busquedaConsolidadoGrd = $_POST["busquedaConsolidadoGrd"];
     $registrarIngOP->etiquetaNumBod = $_POST["etiquetaNumBod"];
+    $registrarIngOP->estadoIndividual = $_POST["estadoIndividual"];
     
     $registrarIngOP->idUs = $_POST["idUs"];
 

@@ -104,7 +104,7 @@ class ControladorOpB {
                             $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             if ($dato >= 1) {
                                 $resp = 0;
-                                if ($datos["sel2"] == "Cliente individual" || $datos["sel2"] == "Cliente consolidado poliza") {
+                                if ($datos["sel2"] == "Cliente individual"  && $datos["estadoIndividual"] == 0 || $datos["sel2"] == "Cliente consolidado poliza") {
                                     $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
                                     $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
                                     $tipoOperacion = 1;
@@ -136,7 +136,7 @@ class ControladorOpB {
                                         $resp = 2;
                                     }
                                 }
-                                if ($datos["sel2"] != "Cliente individual" || $datos["sel2"] != "Cliente consolidado poliza") {
+                                if ($datos["sel2"] != "Cliente individual" || $datos["sel2"] != "Cliente consolidado poliza" || $datos["estadoIndividual"] == 1) {
                                     $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                                     $tipoOperacion = 1;
                                     $respuestaUnidades = ModeloControladorOpB::mdlRegistroUnidades($dato, $datos, $tipoOperacion);
