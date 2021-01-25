@@ -63,6 +63,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "historialRetChasisSinConta" || 
                         $_GET["ruta"] == "historialRetChasisContable" || 
                         $_GET["ruta"] == "trasladosPendientesAF" ||                         
+                        $_GET["ruta"] == "datosGeneralesPolizas" ||                         
                         
                         $_GET["ruta"] == "salir") {
                     /*
@@ -108,6 +109,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "historialRetChasisSinConta" || 
                         $_GET["ruta"] == "historialRetChasisContable" || 
                         $_GET["ruta"] == "trasladosPendientesAF" || 
+                        $_GET["ruta"] == "datosGeneralesPolizas" ||                         
                         
                         $_GET["ruta"] == "ingReportados") {
                     /*
