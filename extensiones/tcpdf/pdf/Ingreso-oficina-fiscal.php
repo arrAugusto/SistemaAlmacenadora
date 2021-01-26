@@ -50,6 +50,7 @@ class imprimirIngresoBodega {
         $telefono = $repuestaOperaciones[0]["telAlm"];
         $email = $repuestaOperaciones[0]["emailAlm"];
         $logo = $repuestaOperaciones[0]["logoAlm"];
+        $empresa = $repuestaOperaciones[0]["empresa"];
 
         $cadena_fecha_Garita = $repuestaOperaciones[0]["fechaRealIng"];
         $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
@@ -342,9 +343,9 @@ EOF;
                     <td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>
 		</tr>
 		<tr>
-                    <td colspan="2" style="width:480px; text-align:left;"><strong>Nota:</strong> <br/>El ingreso de la mercadería que se describe en el presente documento, implica la aceptación por parte del su propietario de que la misma se le entregará sin responsabilidad alguna de Almacenadora Integrada, Sociedad Anónima, al portador de la respectiva póliza de importación.<br/>
+                    <td colspan="2" style="width:480px; text-align:left;"><strong>Nota:</strong> <br/>El ingreso de la mercadería que se describe en el presente documento, implica la aceptación por parte del su propietario de que la misma se le entregará sin responsabilidad alguna de $empresa, al portador de la respectiva póliza de importación.<br/>
                 La persona que ingrese la mercaderia a la Almacenadora es la responsable de obtener la autorización y aceptación del propietario para el ingreso de la misma. De no existir consentimiento del propietario, la responsabilidad sobre la mercadería recaerá en la persona que ingrese la mercaderia y en ningún caso en la Almacenadora.<br/>
-                Almacenadora Integrada, S.A. no se responsabiliza de la merma, deterioro o destrucción de las mercancías derivadas de su propia naturaleza</td>
+                $empresa no se responsabiliza de la merma, deterioro o destrucción de las mercancías derivadas de su propia naturaleza</td>
 		</tr>
 	</tbody>
         </table>

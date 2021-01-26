@@ -120,8 +120,10 @@ class AjaxAccionesIngresos {
     public $historiaIng;
 
     public function ajaxGenerateHistoriaIng() {
+        session_start();
+        $valor = $_SESSION["idDeBodega"];        
         $generateHistoriaIng = $this->generateHistoriaIng;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaIng($generateHistoriaIng);
+        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaIng($generateHistoriaIng, $valor);
         echo json_encode($repuesta);
     }
 

@@ -556,6 +556,16 @@
 
             </a>
         </li>
+        
+                <li class="nav-item has-treeview">
+            <a href="datosGeneralesPolizas" class="nav-link">
+                <i class="fa fa-history colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Acuses - Pilotos
+                </p>
+
+            </a>
+        </li>
         </ul>
         </li>
         <li class="nav-item has-treeview">
