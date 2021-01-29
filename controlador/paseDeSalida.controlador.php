@@ -4,7 +4,13 @@ class ControladorPasesDeSalida {
 
     public static function ctrListarRetiros($tipo) {
         $idDeBodega = $_SESSION["idDeBodega"];
-        
+        $sp = "spRevisionRetEstadoTres";
+        $revision = ModeloPasesDeSalida::mdlMostrarOtrosServicios($sp);
+        foreach ($revision as $key => $value) {
+            $sp = "spSuperEstadoRet";
+            $idRetSuper = $value["idRetOperacion"];
+            $cambioData = ModeloPasesDeSalida::mdlValidacionCobro($sp, $idRetSuper);
+        }
         if ($tipo == 1) {
             $sp = "spPaseSalidaCalc";
             $respuesta = ModeloPasesDeSalida::mdlListarRetiros($sp, $idDeBodega);
@@ -56,7 +62,7 @@ class ControladorPasesDeSalida {
         }
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
-  
+
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $respuesta = ControladorRetiroOpe::ctrCalcVehUsados($idIngresoCal, $hiddenDateTimeVal);
 
@@ -126,6 +132,7 @@ class ControladorPasesDeSalida {
             }
         }
     }
+
     public static function ctrMostrarGrupoEmpresasCorreo() {
         $sp = "spGruposVeh";
         $respuesta = ModeloPasesDeSalida::mdlMostrarOtrosServicios($sp);
