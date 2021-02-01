@@ -655,13 +655,18 @@ $(document).on("change", "#personaSeleccionada", async function () {
         console.log(nombre);
         $("#montacargas").append(
                 `
-    <div class="info-box bg-warning">
+    <div class="info-box bg-warning" id="idMont`+idMontarcaga+`">
+        
         <span class="info-box-icon"><img class="img-circle elevation-2 imgMontarguista" src="` + foto + `" user=` + idMontarcaga + ` alt="User Avatar"></span>
+               
         <div class="info-box-content">
             <span class="info-box-text">` + nombre + ` ` + apellidos + `</span>
             <span class="info-box-number">Correo : ` + email + `</span>
         <span class="info-box-number">Teléfono : ` + telefono + `  Montarguista</span>
         </div>
+        <button type="button" id="closeMontacarg" idMont="idMont`+idMontarcaga+`" class="closeMont" data-dismiss="alert" aria-label="Close">
+                                        <span aria-hidden="true">×</span>
+                                    </button>
     </div>
 `);
     }
@@ -708,6 +713,11 @@ $(document).on("change", "#descripcionMerca", function () {
         let contenido = e;
         $(this).val(contenido.toUpperCase().replace("  ", " "));
     }
+})
+
+$(document).on("click", "#closeMontacarg", function () {
+   var divMont = $(this).attr('idMont');
+   $("#"+divMont).remove();
 })
 
 

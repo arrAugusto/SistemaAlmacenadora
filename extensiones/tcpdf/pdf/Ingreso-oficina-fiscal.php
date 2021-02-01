@@ -50,11 +50,9 @@ class imprimirIngresoBodega {
         $telefono = $repuestaOperaciones[0]["telAlm"];
         $email = $repuestaOperaciones[0]["emailAlm"];
         $logo = $repuestaOperaciones[0]["logoAlm"];
-        $empresa = $repuestaOperaciones[0]["empresa"];
-
+        $empresa = $repuestaOperaciones[0]["empresaInterna"];
         $cadena_fecha_Garita = $repuestaOperaciones[0]["fechaRealIng"];
         $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
-
         $cadenaEmision = $repuestaOperaciones[0]["fechaOperacion"];
         $cadenaEmisionFormat = date("d/m/Y H:i:s A", strtotime($cadenaEmision));
         $numAsigIng = $repuestaOperaciones[0]["numAsigIng"];

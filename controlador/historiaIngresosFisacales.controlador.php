@@ -218,7 +218,7 @@ class ControladorHistorialIngresos {
 
     public static function ctrGenerateHistoriaIng($generateHistoriaIng, $valor){
         $sp = "spHIstoriaTodosIng";
-        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($generateHistoriaIng, $sp);
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($valor, $sp);
         return $revIngRev;
     }
 
