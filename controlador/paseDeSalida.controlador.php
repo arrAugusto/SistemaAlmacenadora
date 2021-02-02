@@ -174,6 +174,7 @@ class ControladorPasesDeSalida {
         }
         $spVeh = "spIngVehUsados";
         $respuestaRevertVeh = ModeloRetiroOpe::mdlDetUnParametro($idIngresoCal, $spVeh);
+
         if ($respuestaRevertVeh[0]["resp"] == 1) {
             $sp = "spMostrarPoliza";
             $hiddenTipoOP = 3;
