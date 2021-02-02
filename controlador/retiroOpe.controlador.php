@@ -11,7 +11,14 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
+        foreach ($respuesta as $key => $value) {
+            $sp = "spStockGeneral";
+            $idIng = $value["idIng"];
+            $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetalles($idIng, $sp);            
+        }
+        $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
         return $respuesta;
+        
     }
 
     public static function ctrMostrarEstadoDetalle($idBod) {
