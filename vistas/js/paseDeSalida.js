@@ -2041,7 +2041,7 @@ $(document).on("click", ".btnVerPreImpreso", async function () {
 
             var hiddenTotalCobrar = parseFloat(hiddenTotalCobrar).toFixed(2);
             var hiddenTotalCobrar = new Intl.NumberFormat("en-GT").format(hiddenTotalCobrar);
-            console.log("hola mundo");
+       
             document.getElementById("tableDetalleConsumo").innerHTML = `
             <tr><td>1</td>
             <td>Servicios Calculados</td>
