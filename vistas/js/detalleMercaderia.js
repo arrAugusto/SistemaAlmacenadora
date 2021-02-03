@@ -412,13 +412,36 @@ $(document).ready(function () {
     $("#selectUbicacion").change(function () {
         var ubicaTipo = $(this).val();
         if (ubicaTipo == "Piso" || ubicaTipo == "Rack") {
-            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
+            if ($("#cantidadPosiciones"+ubicaTipo).length==0) {
+            $("#rackPisoData").append(
+                    `
+                    <div class="input-group mt-2">
+                        <input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control cantidadPosiciones`+ubicaTipo+`" areaBod="`+ubicaTipo+`" placeholder="Cantidad de posiciones en `+ubicaTipo+`" style="text-align: center;" value="">
+                        <input type="number" id="Metraje" name="Metraje" class="form-control Metraje`+ubicaTipo+`" areaBod="`+ubicaTipo+`" placeholder="Cantidad de Metros `+ubicaTipo+`" style="text-align: center;" value="">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-success" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion" tipoAreaBod="`+ubicaTipo+`">Ubicación en `+ubicaTipo+`&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>           
+                            <button type="button" class="btn btn-outline-danger btnVerUbica" id="btnVerUbica`+ubicaTipo+`" estado=0 data-toggle="modal" data-target="#MyagrUbicacion">Ub de `+ubicaTipo+`&nbsp;&nbsp;<i class="fa fa-eye"></i></button>                       
+                        </div>
+                        <!-- /btn-group -->
+                    </div>
+                    `);
+               }else{
+                   Swal.fire(
+  'Area duplicada ',
+  'Esta area ya fue seleccionada una vez',
+  'error'
+)
+               }    
+                    
         } else {
             document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 idPredio=' + ubicaTipo + ' data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
         }
     })
 })
 $(document).on("click", "#btnUbica", function () {
+    var tipoAreaBod = $(this).attr("tipoAreaBod");
+
+    document.getElementById("hiddenAreaBod").value = tipoAreaBod;
     var estadoButton = $(this).attr("estado");
     if (estadoButton == 0) {
         document.getElementById("buttonMin").click();
@@ -428,6 +451,7 @@ $(document).on("click", "#btnUbica", function () {
         } else {
             var hiddenIdBod = document.getElementById("hiddenIdBod").value;
         }
+        console.log(hiddenIdBod);
 
         var datos = new FormData();
         datos.append("hiddenIdBod", hiddenIdBod);
@@ -469,13 +493,22 @@ $(document).on("click", "#btnUbica", function () {
                 document.getElementById("mapeandoUbicaciones").appendChild(tabla);   // modifica el atributo "border" de la tabla y lo fija a "2";
                 tabla.setAttribute("id", "tablaScrolling");
                 tabla.setAttribute("width", "100%");
+                console.log(respuesta);
+                if (respuesta["TCordenadasIn"]!="SD") {
+                    
+                
                 for (var i = 0; i < respuesta["TCordenadasIn"].length; i++) {
                     var pasilloY = 'P' + respuesta["TCordenadasIn"][i]["pasilloY"];
+
                     var columnaX = 'C' + respuesta["TCordenadasIn"][i]["columnaX"];
+ 
+
                     var pasColInact = pasilloY + columnaX;
+
                     document.getElementById(pasColInact).setAttribute('style', 'background-color: #424242; color: white');
                     $('#' + pasColInact).attr('estado', 2);
                     $("#btnUbica").attr("estado", 1);
+                }
                 }
             }, error: function (resepuesta) {
                 console.log(respuesta);
@@ -541,23 +574,34 @@ $(document).on("click", ".btnGuardaUbic", function () {
 
 $(document).on("click", ".btnGuardaUbicacion", function () {
     var paragraphs = Array.from(document.querySelectorAll(".resetCeldas"));
+    var hiddenAreaBod = document.getElementById("hiddenAreaBod").value;
     listaUbInactiva = [];
     for (var i = 0; i < paragraphs.length; i++) {
         var datoY = paragraphs[i].attributes.ejeY.value;
         var datoX = paragraphs[i].attributes.ejeX.value;
         listaUbInactiva.push({
+            "hiddenAreaBod": hiddenAreaBod,
             "datoY": datoY,
             "datoX": datoX
         })
     }
-
-    document.getElementById("ubicacionesSelect").innerHTML = '';
+    
+    if (hiddenAreaBod in localStorage) {  
+       localStorage.removeItem(hiddenAreaBod); 
+    }
+    var listaUbInactiva = JSON.stringify(listaUbInactiva);
+    localStorage.setItem(hiddenAreaBod, listaUbInactiva);
+    console.log("#btnVerUbica"+hiddenAreaBod);
+    $("#btnVerUbica"+hiddenAreaBod).removeClass("btn-outline-danger");
+    $("#btnVerUbica"+hiddenAreaBod).addClass("btn-info");
+    
+   /* document.getElementById("ubicacionesSelect").innerHTML = '';
     for (var i = 0; i < listaUbInactiva.length; i++) {
         var pasillo = listaUbInactiva[i]["datoY"];
         var columna = listaUbInactiva[i]["datoX"];
         var pasCol = 'P' + pasillo + 'C' + columna;
         document.getElementById("ubicacionesSelect").innerHTML += '<span id="spanUbiG" pasY=' + pasillo + ' colX=' + columna + ' class="badge badge-warning float-right">' + pasCol + '&nbsp;&nbsp;&nbsp;&nbsp;</span>';
-    }
+    }*/
     $(".close").click();
     $('.btnVerDetalles').click();
 })

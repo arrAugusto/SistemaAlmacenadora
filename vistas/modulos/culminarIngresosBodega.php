@@ -197,7 +197,7 @@
                                                             <input type="text" class="form-control"  id="pesoKg" name="pesoKg" placeholder="Numero de bultos" value="" readOnly="false" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-4 mt-4" id="divUbicacionMerc">
+                                                    <div class="col-4 mt-2" id="divUbicacionMerc">
                                                         <input type="hidden" id="hiddenUbicaciones" name="hiddenUbicaciones" value="" />
                                                         <div class="form-group">
                                                             <label>Ubicación</label>
@@ -208,17 +208,12 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-1 mt-4"  id="divFueraMotivo">
+                                                    <div class="col-1 mt-2"  id="divFueraMotivo">
                                                     </div>
+                                                    <!--
                                                     <div class="col-7 mt-4"  id="ubicacionesSelect">
                                                     </div>
-                                                    <div class="col-12 mt-4" id="chasisVeh"></div>
-                                                    <div class="col-12 mt-2  mt-4" id="divObserva">
-                                                        <div class="input-group input-group-sm">
-                                                            <input type="hidden" id="hiddenLista" value="" />
-                                                            <textarea class="form-control" id="descripcionMerca" name="descripcionMerca" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value="">OBSERVACIONES :</textarea>
-                                                        </div>
-                                                    </div>
+                                                    -->
                                                     <div class="col-6 mt-2" id="mdStandarTarima">
                                                         <label>Medida estándar por tarima</label>
                                                         <div class="input-group input-group-sm">
@@ -228,17 +223,26 @@
                                                             </span>
                                                         </div>
                                                     </div>
+                                                    
+                                                    <div class="col-12 mt-2" id="rackPisoData"></div>
+                                                    <div class="col-12 mt-2" id="chasisVeh"></div>
+                                                    <div class="col-12 mt-2  mt-2" id="divObserva">
+                                                        <div class="input-group input-group-sm">
+                                                            <input type="hidden" id="hiddenLista" value="" />
+                                                            <textarea class="form-control" id="descripcionMerca" name="descripcionMerca" rows="3" onkeyup="javascript:this.value = this.value.toUpperCase();" value="">OBSERVACIONES :</textarea>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-6 mt-2"></div>
                                                     <div class="col-6 mt-2" id="divTarPrivar"></div>        
                                                     <div class="col-6 mt-2" id="divTarPrivarMts"></div>
                                                     <div class="col-12">
                                                         <!-- /btn-group -->
                                                         <div class="input-group" id="newTxtBtn">
-                                                            <input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control" placeholder="Cantidad de posiciones" style="text-align: center;" value="" />
-                                                            <input type="number" id="Metraje" name="Metraje" class="form-control" placeholder="Cantidad de Metros" style="text-align: center;" value="" />
-                                                            <div class="input-group-append">
-                                                                <button type="button" estadoBoton=0 id="GuardarIngBod" idIngresoPB=0 idDetalle=0 class="btn btn-primary btnADetalle">Aceptar</button>
-                                                            </div>
+                                                            <!--<input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control" placeholder="Cantidad de posiciones" style="text-align: center;" value="" />
+                                                            <input type="number" id="Metraje" name="Metraje" class="form-control" placeholder="Cantidad de Metros" style="text-align: center;" value="" />-->
+                                                            <!--<div class="input-group-append">-->
+                                                                <button type="button" estadoBoton=0 id="GuardarIngBod" idIngresoPB=0 idDetalle=0 class="btn btn-outline-primary btn-block btnADetalle">Aceptar</button>
+                                                            <!--</div>-->
                                                             <!-- /btn-group -->
                                                         </div>
                                                         <!-- /input-group -->
@@ -269,9 +273,12 @@
             <!-- Modal body -->
             <div class="modal-body">
                 <div id="mapaGenerado" class="row">
-                    <div class="col-12">
+                    <div class="col-6">
                         <button type="button" class="btn btn-success btnGuardaUbicacion"><i class="fa fa-save" style="font-size:48px">&nbsp;&nbsp;Guardar</i></button>
                     </div>
+                     <div class="col-6" id="areaBodega" >
+                         <input type="hidden" id="hiddenAreaBod" value="" />
+                    </div>                    
                     <div id="mapEntrada" class="col-1 mt-4 pull-right">
                         <center>Entrada De :<?php echo '&nbsp;&nbsp;&nbsp;&nbsp' . $_SESSION["NavegaBod"] . '&nbsp;&nbsp' . $_SESSION["NavegaNumB"]; ?></center>
                     </div>

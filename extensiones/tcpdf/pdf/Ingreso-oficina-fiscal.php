@@ -17,8 +17,9 @@ class imprimirIngresoBodega {
         $repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($codigo);
 
         $cadena = ControladorRegistroBodega::ctrCadenaVinculo($codigo);
-
+        
         $servicio = $repuestaOperaciones[0]["servicioIng"];
+
         if ($servicio == "VEHICULOS NUEVOS") {
             $repuestaBodega = ControladorRegistroBodega::ctrMostrarChasis($codigo);
             $titulo = "vehículos en predios fiscales";

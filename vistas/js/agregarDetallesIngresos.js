@@ -34,10 +34,17 @@ $(document).on("click", ".btnAgregarDetalles", function () {
 $(document).on("click", ".btnVerDetalles", async function () {
     var tipoIng = document.getElementById("hiddenTipoIng").value;
     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-        if ($("#proTarima").length >= 1) {
+        var prom = 0; 
+       if ("promedioTarima" in localStorage) {  
+            var promedioLocal = localStorage.getItem("promedioTarima");; 
+            var prom = 1;
+       }
+        
+        
+
             var promedioPorTarima = document.getElementById("proTarima").value;
             console.log(promedioPorTarima);
-            if (promedioPorTarima == 0) {
+            if (prom == 0   ) {
                 Swal.fire({
                     title: "Promedio por tarima",
                     text: "Configure el promedio en tarima y guarde antes de finalizar la operación",
@@ -55,16 +62,17 @@ $(document).on("click", ".btnVerDetalles", async function () {
                 })
             } else {
                 Swal.fire({
-                    title: "Promedio de tarima configurado",
+                    title: "Promedio de tarima anterior "+promedioLocal+" MTS",
                     type: "success",
-                    showCancelButton: true,
                     confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Aceptar'
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false
+                    
                 }).then((result) => {
                     if (result.value) {
                         if ($("#hiddenTipoIng").length >= 1) {
                             var tipoIng = document.getElementById("hiddenTipoIng").value;
+                            document.getElementById("proTarima").value = promedioLocal;
                             if (tipoIng == "VEHICULOS NUEVOS") {
                                 document.getElementById("datoEmpresa").innerHTML = "";
                                 document.getElementById("datoBltsEmp").innerHTML = "";
@@ -108,16 +116,22 @@ $(document).on("click", ".btnVerDetalles", async function () {
             }
             var estado = $(this).attr("estado");
             if (estado == 0) {
+                if ($("#cantidadPosiciones").length>0){
+                    
+                
                 document.getElementById("cantidadPosiciones").innerHTML = "";
                 document.getElementById("Metraje").innerHTML = "";
-                $(".btnVerDetalles").attr("estado", 1);
-            } else if (estado == 1) {
+                
+
+                    $(".btnVerDetalles").attr("estado", 1);
+}
+                } else if (estado == 1) {
                 if ($("#hiddenTipoIng").length == 0) {
                     document.getElementById("cantidadPosiciones").innerHTML = "";
                     document.getElementById("Metraje").innerHTML = "";
                 }
             }
-        }
+ 
     } else {
         if ($("#hiddenTipoIng").length >= 1) {
             if (tipoIng == "vehiculoUsado") {
@@ -470,18 +484,20 @@ $(document).on("click", ".btnPromedioTarima", function () {
 
 
 
-$(document).on("keyup", "#cantidadPosiciones", async function () {
-
-    var respuesta = await CheckTextbox('cantidadPosiciones');
+$(document).on("change", "#cantidadPosiciones", async function () {
+    var areabod = $(this).attr("areabod");
+    console.log(areabod);
+    var respuesta = await CheckTextbox('cantidadPosiciones'+areabod);
     if (respuesta) {
 
 
-        var cantPos = $("#cantidadPosiciones").val();
+        var cantPos = $(".cantidadPosiciones"+areabod).val();
         var PromedioTarima = document.getElementById("proTarima").value;
-        var funcCalculo = await validaCalculoPosMts(cantPos, PromedioTarima);
+        var funcCalculo = await validaCalculoPosMts(cantPos, PromedioTarima, areabod);
     }
 
 });
+/*
 $(document).on("keyup", "#proTarima", async function () {
     var PromedioTarima = $(this).val();
     if ($("#cantidadPosiciones").attr("estado") == 1) {
@@ -498,9 +514,9 @@ $(document).on("keyup", "#proTarima", async function () {
     }
 
 })
+*/
 
-
-async function validaCalculoPosMts(cantPos, PromedioTarima) {
+async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
     var resNum = await patternPregNumEntero(cantPos);
     if (cantPos >= 1) {
 
@@ -511,15 +527,17 @@ async function validaCalculoPosMts(cantPos, PromedioTarima) {
             var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
             var tipo = "error";
             alertValNoAdm(mensaje, tipo);
-            document.getElementById("Metraje").value = "";
-            document.getElementById("cantidadPosiciones").value = "";
+            $(".Metraje"+areabod).val(metrosConvert);
+
+            $(".cantidadPosiciones"+areabod).val("");
         }
         if (!isNaN(cantPos)) {
             if (cantPos >= 1) {
                 if (PromedioTarima >= 0.001) {
 
                     var metrosConvert = Math.ceil(PromedioTarima * nuevoPos);
-                    document.getElementById("Metraje").value = metrosConvert;
+                    $(".Metraje"+areabod).val(metrosConvert);
+     
                 } else {
                     document.getElementById("proTarima").focus();
                     swal({
@@ -542,7 +560,8 @@ async function validaCalculoPosMts(cantPos, PromedioTarima) {
     }
 }
 
-$(document).on("keyup", "#Metraje", async function () {
+$(document).on("change", "#Metraje", async function () {
+    var areabod = $(this).attr("areabod");    
     var respuesta = await CheckTextbox('Metraje');
     if (respuesta) {
 
@@ -561,12 +580,12 @@ $(document).on("keyup", "#Metraje", async function () {
                 closeConfirm: true
             });
         } else {
-            var funcCalculoMts = await validaCalculoMts(cantMts, PromedioTarima);
+            var funcCalculoMts = await validaCalculoMts(cantMts, PromedioTarima, areabod);
         }
 
     }
 });
-async function validaCalculoMts(cantMts, PromedioTarima) {
+async function validaCalculoMts(cantMts, PromedioTarima, areabod) {
     var resNumMts = await patternPregNumEntero(cantMts);
     if (resNumMts == 1) {
         var nuevoMts = cantMts;
@@ -575,13 +594,13 @@ async function validaCalculoMts(cantMts, PromedioTarima) {
         var tipo = "success";
         alertValNoAdm(mensaje, tipo);
         var nuevoMts = Math.ceil(cantMts);
-        document.getElementById("Metraje").value = nuevoMts;
+        $(".Metraje"+areabod).val(nuevoMts);
     }
     if (!isNaN(cantMts)) {
         if (nuevoMts >= 1) {
-            if (PromedioTarima >= 0.01) {
+            if (PromedioTarima >0) {
                 var cantPos = Math.ceil(nuevoMts / PromedioTarima);
-                document.getElementById("cantidadPosiciones").value = cantPos;
+                $(".cantidadPosiciones"+areabod).val(cantPos);
             }
         }
     }
@@ -798,7 +817,7 @@ $(document).on("change", "#Metraje", function () {
     document.getElementById("GuardarIngBod").focus();
 });
 function CheckTextbox(text) {
-    var textbox = document.getElementById(text);
+    var textbox = $("."+text);
     if (textbox.readOnly) {
         // If disabled, do this 
         return false;
