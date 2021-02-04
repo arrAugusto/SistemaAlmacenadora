@@ -120,6 +120,20 @@ INSERT [dbo].[almacenajes] ([idTarifa], [idServicio], [idUsuarioCliente], [baseC
 GO
 SET IDENTITY_INSERT [dbo].[almacenajes] OFF
 GO
+SET IDENTITY_INSERT [dbo].[areasBodegas] ON 
+GO
+INSERT [dbo].[areasBodegas] ([id], [idBodega], [nombreArea], [descripcionArea], [tiempo], [fechaVencimiento]) VALUES (1, 1005, N'Rack', N'Rack de bodega para tarima', 1, NULL)
+GO
+INSERT [dbo].[areasBodegas] ([id], [idBodega], [nombreArea], [descripcionArea], [tiempo], [fechaVencimiento]) VALUES (2, 1005, N'Piso', N'Mercaderia en piso', 1, NULL)
+GO
+INSERT [dbo].[areasBodegas] ([id], [idBodega], [nombreArea], [descripcionArea], [tiempo], [fechaVencimiento]) VALUES (3, 1005, N'Bodega', N'bodega para bodega 1', 2, CAST(N'2021-04-20' AS Date))
+GO
+INSERT [dbo].[areasBodegas] ([id], [idBodega], [nombreArea], [descripcionArea], [tiempo], [fechaVencimiento]) VALUES (4, 1005, N'Quimicos', N'Provicional por el tipo de mercaderia', 1, CAST(N'2021-02-04' AS Date))
+GO
+INSERT [dbo].[areasBodegas] ([id], [idBodega], [nombreArea], [descripcionArea], [tiempo], [fechaVencimiento]) VALUES (5, 1005, N'Area Animales', N'Provicional por el tipo de mercaderia', 1, CAST(N'2021-02-04' AS Date))
+GO
+SET IDENTITY_INSERT [dbo].[areasBodegas] OFF
+GO
 SET IDENTITY_INSERT [dbo].[areasVisitada] ON 
 GO
 INSERT [dbo].[areasVisitada] ([id], [empresaVisitada]) VALUES (1, N'BODEGA 1')
@@ -956,19 +970,51 @@ INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], 
 GO
 INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (408, 123, N'Culminar Ingreso Montacarguista', 1053, CAST(N'2021-02-02T16:14:38.930' AS DateTime))
 GO
+INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (409, 144, N'Culminar Ingreso', 1040, CAST(N'2021-02-03T11:59:17.380' AS DateTime))
+GO
+INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (410, 2, N'Pase de Salida Vacio', 1050, CAST(N'2021-02-03T12:00:54.463' AS DateTime))
+GO
+INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (411, 146, N'Registrado Ingreso', 1054, CAST(N'2021-02-04T10:28:05.810' AS DateTime))
+GO
+INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (412, 147, N'Registrado Ingreso', 1054, CAST(N'2021-02-04T10:34:30.480' AS DateTime))
+GO
+INSERT [dbo].[bitacoraIngresos] ([id], [idIngreso], [transaccion], [idUsuario], [fecha]) VALUES (413, 148, N'Registrado Ingreso', 1050, CAST(N'2021-02-04T12:49:56.313' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[bitacoraIngresos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[bitacoraRetiroCalculo] ON 
 GO
-INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (1, 1, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-03T08:06:48.460' AS DateTime))
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (1, 1, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-03T09:16:18.643' AS DateTime))
 GO
-INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (2, 1, N'Rebaja POS MTS', 1050, 1, CAST(N'2021-02-03T08:06:56.203' AS DateTime))
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (2, 1, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-03T09:19:30.557' AS DateTime))
 GO
-INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (3, 146, N'Marchamo Retiro', 1, 1, CAST(N'2021-02-03T08:06:58.600' AS DateTime))
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (3, 2, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-03T09:23:00.953' AS DateTime))
 GO
-INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (4, 1, N'Recibo Fiscal', 1050, 1, CAST(N'2021-02-03T08:07:19.680' AS DateTime))
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (4, 2, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-03T09:24:05.030' AS DateTime))
 GO
-INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (5, 1, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-03T08:07:29.283' AS DateTime))
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (5, 3, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-03T09:26:23.240' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (6, 3, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-03T09:26:49.943' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (7, 4, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-03T09:28:10.843' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (8, 4, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-03T09:28:33.630' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (9, 5, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-04T10:44:15.760' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (10, 6, N'Nuevo Retiro', 1050, 1, CAST(N'2021-02-04T10:46:57.673' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (11, 5, N'Rebaja POS MTS', 1050, 1, CAST(N'2021-02-04T10:47:53.707' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (12, 6, N'Rebaja POS MTS', 1050, 1, CAST(N'2021-02-04T10:48:45.550' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (13, 5, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-04T11:11:01.233' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (14, 5, N'Recibo Fiscal', 1050, 1, CAST(N'2021-02-04T11:11:30.030' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (15, 6, N'Retiro Fiscal', 1050, 1, CAST(N'2021-02-04T11:20:43.943' AS DateTime))
+GO
+INSERT [dbo].[bitacoraRetiroCalculo] ([id], [idOpera], [transaccion], [idUsuario], [tipo], [fecha]) VALUES (16, 6, N'Recibo Fiscal', 1050, 1, CAST(N'2021-02-04T11:21:27.817' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[bitacoraRetiroCalculo] OFF
 GO
@@ -1032,7 +1078,7 @@ INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (11, 91, N'W1V907633LP222580', 9, 189, 1, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (12, 92, N'WVGZZZ5NZLM130584', 6, 89, 1, NULL, 1)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (12, 92, N'WVGZZZ5NZLM130584', 6, 89, 1, 1, 2)
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (13, 93, N'WVGZZZ5NZLM139532', 6, 89, 1, NULL, 1)
 GO
@@ -1076,7 +1122,7 @@ INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (33, 101, N'9BWBL6BF0M4020130', 6, 142, 1, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (34, 102, N'9BWJB45UXMP034645', 10, 124, 1, NULL, 1)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (34, 102, N'9BWJB45UXMP034645', 10, 124, 1, 3, 2)
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (35, 103, N'9BWBL6BF6M4032931', 6, 142, 1, NULL, 1)
 GO
@@ -1084,7 +1130,7 @@ INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (37, 104, N'9BWJB45U1MP034498', 10, 124, 1, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (38, 104, N'9BWJB45U9MP034510', 10, 124, 1, NULL, 1)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (38, 104, N'9BWJB45U9MP034510', 10, 124, 1, 4, 2)
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (39, 104, N'9BWJB45U9MP034572', 10, 124, 1, NULL, 1)
 GO
@@ -1140,7 +1186,7 @@ INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (65, 109, N'9BWJB45U7MP036921', 10, 124, 1, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (66, 109, N'9BWJB45U4MP037170', 6, 142, 1, NULL, 1)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (66, 109, N'9BWJB45U4MP037170', 6, 142, 1, 2, 2)
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (67, 110, N'9BWJB45U5MP034617', 6, 142, 1, NULL, 1)
 GO
@@ -1250,11 +1296,11 @@ INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo
 GO
 INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (120, 143, N'YV1UZ10ACM1765002', 6, 198, NULL, NULL, 0)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (121, 144, N'WMWSR310XM2N95404', 2, 200, NULL, NULL, 0)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (121, 144, N'WMWSR310XM2N95404', 2, 200, 17, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (122, 144, N'WMWXR5102M2N93870', 2, 201, NULL, NULL, 0)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (122, 144, N'WMWXR5102M2N93870', 2, 201, 17, NULL, 1)
 GO
-INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (123, 144, N'WMWXR5105M2NN95869', 2, 201, NULL, NULL, 0)
+INSERT [dbo].[chasisVehiculosNuevos] ([id], [idIngreso], [chasis], [tipoVehiculo], [lineaVehiculo], [ubicacion], [idRet], [estado]) VALUES (123, 144, N'WMWXR5105M2NN95869', 2, 201, 17, NULL, 1)
 GO
 SET IDENTITY_INSERT [dbo].[chasisVehiculosNuevos] OFF
 GO
@@ -1366,29 +1412,39 @@ INSERT [dbo].[clientesSinTarifa] ([id], [idIngreso], [identBodega], [idNit], [id
 GO
 INSERT [dbo].[clientesSinTarifa] ([id], [idIngreso], [identBodega], [idNit], [idUsuario], [comentarios], [estado], [ejecutivo]) VALUES (53, 142, 1005, 4121, 1054, NULL, 0, NULL)
 GO
+INSERT [dbo].[clientesSinTarifa] ([id], [idIngreso], [identBodega], [idNit], [idUsuario], [comentarios], [estado], [ejecutivo]) VALUES (54, 148, 1005, 51, 1050, NULL, 0, NULL)
+GO
 SET IDENTITY_INSERT [dbo].[clientesSinTarifa] OFF
 GO
 SET IDENTITY_INSERT [dbo].[cobrosGastosAdmin] ON 
 GO
-INSERT [dbo].[cobrosGastosAdmin] ([id], [idRetiro], [rubroGastosAdmin]) VALUES (1, 1, 20)
+INSERT [dbo].[cobrosGastosAdmin] ([id], [idRetiro], [rubroGastosAdmin]) VALUES (1, 5, 20)
+GO
+INSERT [dbo].[cobrosGastosAdmin] ([id], [idRetiro], [rubroGastosAdmin]) VALUES (2, 6, 20)
 GO
 SET IDENTITY_INSERT [dbo].[cobrosGastosAdmin] OFF
 GO
 SET IDENTITY_INSERT [dbo].[cobrosManejo] ON 
 GO
-INSERT [dbo].[cobrosManejo] ([id], [idRetiro], [rubrosManejos]) VALUES (1, 1, 420)
+INSERT [dbo].[cobrosManejo] ([id], [idRetiro], [rubrosManejos]) VALUES (1, 5, 210)
+GO
+INSERT [dbo].[cobrosManejo] ([id], [idRetiro], [rubrosManejos]) VALUES (2, 6, 160)
 GO
 SET IDENTITY_INSERT [dbo].[cobrosManejo] OFF
 GO
 SET IDENTITY_INSERT [dbo].[cobrosMarchElectro] ON 
 GO
-INSERT [dbo].[cobrosMarchElectro] ([id], [idRetiro], [rubrosMarchElect]) VALUES (1, 1, 25)
+INSERT [dbo].[cobrosMarchElectro] ([id], [idRetiro], [rubrosMarchElect]) VALUES (1, 5, 25)
+GO
+INSERT [dbo].[cobrosMarchElectro] ([id], [idRetiro], [rubrosMarchElect]) VALUES (2, 6, 25)
 GO
 SET IDENTITY_INSERT [dbo].[cobrosMarchElectro] OFF
 GO
 SET IDENTITY_INSERT [dbo].[cobrosZonaAduanera] ON 
 GO
-INSERT [dbo].[cobrosZonaAduanera] ([id], [idRetiro], [rubroZonaAduanera]) VALUES (1, 1, 350)
+INSERT [dbo].[cobrosZonaAduanera] ([id], [idRetiro], [rubroZonaAduanera]) VALUES (1, 5, 350)
+GO
+INSERT [dbo].[cobrosZonaAduanera] ([id], [idRetiro], [rubroZonaAduanera]) VALUES (2, 6, 350)
 GO
 SET IDENTITY_INSERT [dbo].[cobrosZonaAduanera] OFF
 GO
@@ -1702,7 +1758,15 @@ INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadCont
 GO
 INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (145, 145, 11453, 5, 5, N'1243006', 1, 1)
 GO
-INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (146, 1, 5212, 6, 0, N'11333', 2, 2)
+INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (146, 146, 13971, 6, 6, N'897856', 1, 1)
+GO
+INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (147, 147, 13972, 7, 7, N'3997839', 1, 1)
+GO
+INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (148, 5, 904, 8, 8, N'0', 2, 1)
+GO
+INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (149, 6, 904, 8, 8, N'0', 2, 1)
+GO
+INSERT [dbo].[datosUnidades] ([id], [idOp], [piloto], [unidadPlaca], [unidadContenedor], [marchamo], [tipoOp], [estado]) VALUES (150, 148, 1023, 9, 9, N'311363', 1, 1)
 GO
 SET IDENTITY_INSERT [dbo].[datosUnidades] OFF
 GO
@@ -1748,295 +1812,301 @@ SET IDENTITY_INSERT [dbo].[descuentosCalculos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[detalleDeMercaderia] ON 
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (1, 1, N'PRIME FOOD IMPORTS, S.A.', 11, 15818.21, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (1, 1, N'PRIME FOOD IMPORTS, S.A.', 11, 15818.21, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 11)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (2, 2, N'CORUFIG, S.A.', 4, 25290, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (2, 2, N'CORUFIG, S.A.', 4, 25290, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (3, 3, N'DISTRIBUIDORA INMECRO DE GUATEMALA, S.A.', 24, 9765, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (3, 3, N'DISTRIBUIDORA INMECRO DE GUATEMALA, S.A.', 24, 9765, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 24)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (4, 4, N'ECONOMICA, S.A.', 456, 16393, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (4, 4, N'ECONOMICA, S.A.', 456, 16393, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 456)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (5, 5, N'BEER VIELMANN RAUL ARTURO', 2, 1630.66, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (5, 5, N'BEER VIELMANN RAUL ARTURO', 2, 1630.66, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (6, 6, N'FRANCO BERGER BYRON ROBERTO', 10, 23760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (6, 6, N'FRANCO BERGER BYRON ROBERTO', 10, 23760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 10)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (7, 7, N'CONSULTAG, S.A.', 182, 18222, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (7, 7, N'CONSULTAG, S.A.', 182, 18222, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 182)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (8, 8, N'CONSULTAG, S.A.', 652, 18631, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (8, 8, N'CONSULTAG, S.A.', 652, 18631, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 652)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (9, 9, N'SADA PHARMA, S.A.', 13, 4340, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (9, 9, N'SADA PHARMA, S.A.', 13, 4340, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 13)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (10, 10, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 720, 25080, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (10, 10, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 720, 25080, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 720)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (11, 11, N'FITEQ, S.A.', 80, 15216.42, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (11, 11, N'FITEQ, S.A.', 80, 15216.42, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 80)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (12, 12, N'FITEQ, S.A.', 1, 25870, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (12, 12, N'FITEQ, S.A.', 1, 25870, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (13, 13, N'FITEQ, S.A.', 27, 12306.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (13, 13, N'FITEQ, S.A.', 27, 12306.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 27)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (14, 14, N'FITEQ, S.A.', 60, 10985, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (14, 14, N'FITEQ, S.A.', 60, 10985, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 60)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (15, 15, N'ITPSA CENTROAMERICA, S.A.', 6, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (15, 15, N'ITPSA CENTROAMERICA, S.A.', 6, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (16, 16, N'ITPSA CENTROAMERICA, S.A.', 6, 16480, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (16, 16, N'ITPSA CENTROAMERICA, S.A.', 6, 16480, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (17, 17, N'ITPSA CENTROAMERICA, S.A.', 9, 20520, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (17, 17, N'ITPSA CENTROAMERICA, S.A.', 9, 20520, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 9)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (18, 18, N'AGRO IBERICA, S.A.', 288, 23824, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (18, 18, N'AGRO IBERICA, S.A.', 288, 23824, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 288)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (19, 19, N'ITPSA CENTROAMERICA, S.A.', 15, 20860, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (19, 19, N'ITPSA CENTROAMERICA, S.A.', 15, 20860, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 15)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (20, 20, N'FITEQ, S.A.', 92, 14693.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (20, 20, N'FITEQ, S.A.', 92, 14693.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 92)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (21, 21, N'FITEQ, S.A.', 123, 18918.7, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (21, 21, N'FITEQ, S.A.', 123, 18918.7, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 123)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (22, 22, N'ITPSA CENTROAMERICA, S.A.', 6, 9351.47, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (22, 22, N'ITPSA CENTROAMERICA, S.A.', 6, 9351.47, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (23, 23, N'GRANOS CONTINENTALES, S.A.', 2388, 239350, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (23, 23, N'GRANOS CONTINENTALES, S.A.', 2388, 239350, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2388)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (24, 24, N'FITEQ, S.A.', 9, 18500, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (24, 24, N'FITEQ, S.A.', 9, 18500, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 9)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (25, 25, N'ITPSA CENTROAMERICA, S.A.', 384, 17484, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (25, 25, N'ITPSA CENTROAMERICA, S.A.', 384, 17484, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 384)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (26, 26, N'ITPSA CENTROAMERICA, S.A.', 2, 3090, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (26, 26, N'ITPSA CENTROAMERICA, S.A.', 2, 3090, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (27, 27, N'ITPSA CENTROAMERICA, S.A.', 11, 11700, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (27, 27, N'ITPSA CENTROAMERICA, S.A.', 11, 11700, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 11)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (28, 28, N'ITPSA CENTROAMERICA, S.A.', 6, 14630, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (28, 28, N'ITPSA CENTROAMERICA, S.A.', 6, 14630, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (29, 29, N'ITPSA CENTROAMERICA, S.A.', 5, 10650.29, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (29, 29, N'ITPSA CENTROAMERICA, S.A.', 5, 10650.29, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 5)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (30, 30, N'CONSORCIO CENTROAMERICANO DE ALIMENTOS, S.A.', 525, 16560, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (30, 30, N'CONSORCIO CENTROAMERICANO DE ALIMENTOS, S.A.', 525, 16560, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 525)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (31, 31, N'ITPSA CENTROAMERICA, S.A.', 8, 20760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (31, 31, N'ITPSA CENTROAMERICA, S.A.', 8, 20760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 8)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (32, 32, N'DROGUERIA COLON, S.A.', 86, 1129.6, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (32, 32, N'DROGUERIA COLON, S.A.', 86, 1129.6, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 86)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (33, 33, N'FITEQ, S.A.', 122, 16584.5, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (33, 33, N'FITEQ, S.A.', 122, 16584.5, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 122)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (34, 34, N'EXPERTOS EN BIOSEGURIDAD, S.A.', 652, 11380, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (34, 34, N'EXPERTOS EN BIOSEGURIDAD, S.A.', 652, 11380, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 652)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (35, 35, N'ESPACIOS Y AMBIENTES, S.A.', 275, 13223.58, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (35, 35, N'ESPACIOS Y AMBIENTES, S.A.', 275, 13223.58, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 275)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (36, 36, N'ITPSA CENTROAMERICA, S.A.', 8, 19410.1, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (36, 36, N'ITPSA CENTROAMERICA, S.A.', 8, 19410.1, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 8)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (37, 37, N'ITPSA CENTROAMERICA, S.A.', 10, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (37, 37, N'ITPSA CENTROAMERICA, S.A.', 10, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 10)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (38, 38, N'ITPSA CENTROAMERICA, S.A.', 120, 43138, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (38, 38, N'ITPSA CENTROAMERICA, S.A.', 120, 43138, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 120)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (39, 39, N'CONSORCIO CENTROAMERICANO DE ALIMENTOS, S.A.', 800, 25400, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (39, 39, N'CONSORCIO CENTROAMERICANO DE ALIMENTOS, S.A.', 800, 25400, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 800)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (40, 40, N'ITPSA CENTROAMERICA, S.A.', 14, 16440, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (40, 40, N'ITPSA CENTROAMERICA, S.A.', 14, 16440, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 14)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (41, 41, N'FITEQ, S.A.', 10, 3304.67, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (41, 41, N'FITEQ, S.A.', 10, 3304.67, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 10)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (42, 42, N'HERRAMIENTAS MATERIALES Y EQUIPOS, S.A.', 1100, 53000, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (42, 42, N'HERRAMIENTAS MATERIALES Y EQUIPOS, S.A.', 1100, 53000, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1100)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (43, 43, N'PRIME FOOD IMPORTS, S.A.', 385, 19249.26, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (43, 43, N'PRIME FOOD IMPORTS, S.A.', 385, 19249.26, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 385)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (44, 44, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 840, 24873, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (44, 44, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 840, 24873, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 840)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (45, 45, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 12, 20400, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (45, 45, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 12, 20400, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 12)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (46, 46, N'ITPSA CENTROAMERICA, S.A.', 52, 61800, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (46, 46, N'ITPSA CENTROAMERICA, S.A.', 52, 61800, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 52)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (47, 47, N'EVERARDO MALDONADO Y COMPAÑIA LIMITADA', 10, 5262.67, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (47, 47, N'EVERARDO MALDONADO Y COMPAÑIA LIMITADA', 10, 5262.67, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 10)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (48, 48, N'DROGUERIA COLON, S.A.', 235, 889.2, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (48, 48, N'DROGUERIA COLON, S.A.', 235, 889.2, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 235)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (49, 49, N'INSTANTES, S.A.', 1, 133.77, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (49, 49, N'INSTANTES, S.A.', 1, 133.77, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (50, 50, N'MUNDO UNIDO, S.A.', 125, 37670, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (50, 50, N'MUNDO UNIDO, S.A.', 125, 37670, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 125)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (51, 51, N'MUNDO UNIDO, S.A.', 4977, 49540, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (51, 51, N'MUNDO UNIDO, S.A.', 4977, 49540, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4977)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (52, 52, N'INDUSTRIA DE HAMBURGUESAS, S.A.', 1332, 5794.2, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (52, 52, N'INDUSTRIA DE HAMBURGUESAS, S.A.', 1332, 5794.2, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1332)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (53, 53, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 3, 3137, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (53, 53, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 3, 3137, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (54, 54, N'GRANOS CONTINENTALES, S.A.', 4800, 240480, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (54, 54, N'GRANOS CONTINENTALES, S.A.', 4800, 240480, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4800)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (55, 55, N'SOLUCIONES ELECTROMECANICAS Y CONSTRUCTIVAS, S.A.', 50, 550, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (55, 55, N'SOLUCIONES ELECTROMECANICAS Y CONSTRUCTIVAS, S.A.', 50, 550, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 50)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (56, 56, N'GLOBAL, S.A.', 2, 446.32, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (56, 56, N'GLOBAL, S.A.', 2, 446.32, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (57, 57, N'ITPSA CENTROAMERICA, S.A.', 2, 982, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (57, 57, N'ITPSA CENTROAMERICA, S.A.', 2, 982, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (58, 58, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 20, 18500, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (58, 58, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 20, 18500, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 20)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (59, 59, N'ITPSA CENTROAMERICA, S.A.', 19, 19435.05, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (59, 59, N'ITPSA CENTROAMERICA, S.A.', 19, 19435.05, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 19)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (60, 60, N'ITPSA CENTROAMERICA, S.A.', 6, 6270, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (60, 60, N'ITPSA CENTROAMERICA, S.A.', 6, 6270, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (61, 61, N'ITPSA CENTROAMERICA, S.A.', 19, 19435.05, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (61, 61, N'ITPSA CENTROAMERICA, S.A.', 19, 19435.05, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 19)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (62, 62, N'PROVEEDORA INDUSTRIAL DE MATERIAS PRIMAS, S.A.', 1, 107, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (62, 62, N'PROVEEDORA INDUSTRIAL DE MATERIAS PRIMAS, S.A.', 1, 107, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (63, 63, N'BODEGA FARMACEUTICA, S.A.', 20, 138.24, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (63, 63, N'BODEGA FARMACEUTICA, S.A.', 20, 138.24, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 20)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (64, 64, N'DISAR, S.A.', 13, 276.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (64, 64, N'DISAR, S.A.', 13, 276.9, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 13)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (65, 65, N'ITPSA CENTROAMERICA, S.A.', 20, 20520, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (65, 65, N'ITPSA CENTROAMERICA, S.A.', 20, 20520, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 20)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (66, 66, N'GRANOS CONTINENTALES, S.A.', 4803, 240481, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (66, 66, N'GRANOS CONTINENTALES, S.A.', 4803, 240481, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4803)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (67, 67, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 2, 1836, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (67, 67, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 2, 1836, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (68, 68, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 18, 18564, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (68, 68, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 18, 18564, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 18)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (69, 69, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 495.78, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (69, 69, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 495.78, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (70, 70, N'ITPSA CENTROAMERICA, S.A.', 720, 18195, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (70, 70, N'ITPSA CENTROAMERICA, S.A.', 720, 18195, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 720)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (71, 71, N'ELECTRICIDAD COMERCIAL E INDUSTRIAL, S.A.', 1, 89, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (71, 71, N'ELECTRICIDAD COMERCIAL E INDUSTRIAL, S.A.', 1, 89, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (72, 72, N'KIM JAE HONG', 3, 49, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (72, 72, N'KIM JAE HONG', 3, 49, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (73, 73, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 10, 8774, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (73, 73, N'SANIDAD Y NUTRICION ANIMAL CENTROAMERICANA, S.A.', 10, 8774, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 10)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (74, 74, N'ITPSA CENTROAMERICA, S.A.', 18, 18770, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (74, 74, N'ITPSA CENTROAMERICA, S.A.', 18, 18770, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 18)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (75, 75, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 960, 24240, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (75, 75, N'R Y R CONSULTORES EN ADMINISTRACION, S.A.', 960, 24240, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 960)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (76, 76, N'HERRAMIENTAS MATERIALES Y EQUIPOS, S.A.', 1883, 53000, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (76, 76, N'HERRAMIENTAS MATERIALES Y EQUIPOS, S.A.', 1883, 53000, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1883)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (77, 77, N'ITPSA CENTROAMERICA, S.A.', 20, 10580.75, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (77, 77, N'ITPSA CENTROAMERICA, S.A.', 20, 10580.75, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 20)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (78, 78, N'INDUSTRIA DE HAMBURGUESAS, S.A.', 396, 2534.4, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (78, 78, N'INDUSTRIA DE HAMBURGUESAS, S.A.', 396, 2534.4, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 396)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (79, 79, N'ITPSA CENTROAMERICA, S.A.', 18, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (79, 79, N'ITPSA CENTROAMERICA, S.A.', 18, 19742, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 18)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (80, 80, N'GRUPO LOS TRES GUATEMALA, S.A.', 8, 7687.61, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (80, 80, N'GRUPO LOS TRES GUATEMALA, S.A.', 8, 7687.61, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 8)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (81, 81, N'PROCESAMIENTOS DE MATERIAS PRIMAS', 2, 1760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (81, 81, N'PROCESAMIENTOS DE MATERIAS PRIMAS', 2, 1760, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (82, 120, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 1602.1, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (82, 120, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 1602.1, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (83, 121, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 2653.515, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (83, 121, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 2653.515, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (84, 122, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 1959.51, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (84, 122, N'EMBAJADA DE ESTADOS UNIDOS DE AMERICA', 1, 1959.51, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (85, 82, N'MARANELLO MOTORSPORT DE GUATEMALA, S.A.', 1, 1575, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (85, 82, N'MARANELLO MOTORSPORT DE GUATEMALA, S.A.', 1, 1575, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (86, 83, N'GRUPO Q GUATEMALA, S.A.', 1, 1470, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (86, 83, N'GRUPO Q GUATEMALA, S.A.', 1, 1470, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (87, 84, N'GRUPO Q GUATEMALA, S.A.', 1, 6150, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (87, 84, N'GRUPO Q GUATEMALA, S.A.', 1, 6150, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (88, 85, N'TRANSEQUIPOS, S.A.', 1, 11142, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (88, 85, N'TRANSEQUIPOS, S.A.', 1, 11142, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (89, 86, N'TRANSEQUIPOS, S.A.', 1, 14807, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (89, 86, N'TRANSEQUIPOS, S.A.', 1, 14807, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (90, 87, N'TRANSEQUIPOS, S.A.', 1, 11770, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (90, 87, N'TRANSEQUIPOS, S.A.', 1, 11770, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (91, 88, N'TRANSEQUIPOS, S.A.', 1, 4124, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (91, 88, N'TRANSEQUIPOS, S.A.', 1, 4124, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (92, 89, N'TRANSEQUIPOS, S.A.', 1, 14086, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (92, 89, N'TRANSEQUIPOS, S.A.', 1, 14086, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (93, 90, N'TRANSEQUIPOS, S.A.', 1, 4030, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (93, 90, N'TRANSEQUIPOS, S.A.', 1, 4030, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (94, 91, N'GRUPO Q GUATEMALA, S.A.', 2, 6300, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (94, 91, N'GRUPO Q GUATEMALA, S.A.', 2, 6300, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
 INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (95, 92, N'CONTINENTAL MOTORES, S.A.', 1, 12908, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (96, 93, N'CONTINENTAL MOTORES, S.A.', 2, 11072, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (96, 93, N'CONTINENTAL MOTORES, S.A.', 2, 11072, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (97, 94, N'CONTINENTAL MOTORES, S.A.', 1, 11100, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (97, 94, N'CONTINENTAL MOTORES, S.A.', 1, 11100, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (98, 95, N'GRUPO Q GUATEMALA, S.A.', 1, 2814, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (98, 95, N'GRUPO Q GUATEMALA, S.A.', 1, 2814, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (99, 96, N'CONTINENTAL MOTORES, S.A.', 2, 6471, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (99, 96, N'CONTINENTAL MOTORES, S.A.', 2, 6471, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (100, 97, N'CONTINENTAL MOTORES, S.A.', 3, 6471, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (100, 97, N'CONTINENTAL MOTORES, S.A.', 3, 6471, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (101, 98, N'GRUPO LOS TRES GUATEMALA, S.A.', 3, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (101, 98, N'GRUPO LOS TRES GUATEMALA, S.A.', 3, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (102, 99, N'CONTINENTAL MOTORES, S.A.', 5, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (102, 99, N'CONTINENTAL MOTORES, S.A.', 5, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 5)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (103, 100, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (103, 100, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (104, 101, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (104, 101, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
 INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (105, 102, N'CONTINENTAL MOTORES, S.A.', 1, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (106, 103, N'CONTINENTAL MOTORES, S.A.', 1, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (106, 103, N'CONTINENTAL MOTORES, S.A.', 1, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (107, 104, N'CONTINENTAL MOTORES, S.A.', 8, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (107, 104, N'CONTINENTAL MOTORES, S.A.', 8, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 7)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (108, 105, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (108, 105, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (109, 106, N'CONTINENTAL MOTORES, S.A.', 1, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (109, 106, N'CONTINENTAL MOTORES, S.A.', 1, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (110, 107, N'CONTINENTAL MOTORES, S.A.', 8, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (110, 107, N'CONTINENTAL MOTORES, S.A.', 8, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 8)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (111, 108, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (111, 108, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (112, 109, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (112, 109, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (113, 110, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (113, 110, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (114, 111, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (114, 111, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (115, 112, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (115, 112, N'CONTINENTAL MOTORES, S.A.', 2, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (116, 113, N'CONTINENTAL MOTORES, S.A.', 5, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (116, 113, N'CONTINENTAL MOTORES, S.A.', 5, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 5)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (117, 114, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (117, 114, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (118, 115, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (118, 115, N'CONTINENTAL MOTORES, S.A.', 4, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (119, 116, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (119, 116, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (120, 117, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (120, 117, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (121, 118, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (121, 118, N'CONTINENTAL MOTORES, S.A.', 6, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (122, 119, N'CONTINENTAL MOTORES, S.A.', 7, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (122, 119, N'CONTINENTAL MOTORES, S.A.', 7, 3740, 1, CAST(N'2009-07-01T00:00:10.000' AS DateTime), 7)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (123, 123, N'DM, S.A.', 1326, 17280.28, 1, CAST(N'2021-02-01T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (123, 123, N'DM, S.A.', 1326, 17280.28, 1, CAST(N'2021-02-01T08:00:00.000' AS DateTime), 1326)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (124, 124, N'LABORATORIOS DAROSA, S.A.', 33, 1390.5, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (124, 124, N'LABORATORIOS DAROSA, S.A.', 33, 1390.5, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 33)
 GO
 INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (125, 125, N'JUAMA INTERNACIONAL, S.A.', 5, 2340, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
 GO
 INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (126, 126, N'CEFECO DE CENTROAMERICA, S.A.', 7, 2173.68, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (127, 127, N'VIDRIERA GUATEMALTECA, S.A.', 1, 607.2, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (127, 127, N'VIDRIERA GUATEMALTECA, S.A.', 1, 607.2, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (128, 128, N'VIDRIERA GUATEMALTECA, S.A.', 1, 81.5, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (128, 128, N'VIDRIERA GUATEMALTECA, S.A.', 1, 81.5, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (129, 129, N'WONG JUAREZ ALVAREZ GLADYS ELIZABETH', 3, 868.35, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (129, 129, N'WONG JUAREZ ALVAREZ GLADYS ELIZABETH', 3, 868.35, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (130, 130, N'INDUSTRIA COSMETICA KENT, S.A.', 7, 367.01, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (130, 130, N'INDUSTRIA COSMETICA KENT, S.A.', 7, 367.01, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 7)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (131, 131, N'LABORATORIOS BONIN, S.A.', 5, 3221.25, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (131, 131, N'LABORATORIOS BONIN, S.A.', 5, 3221.25, 1, CAST(N'2021-01-31T08:00:00.000' AS DateTime), 5)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (132, 132, N'FLUSHING, S.A.', 5, 2130, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (132, 132, N'FLUSHING, S.A.', 5, 2130, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 5)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (133, 133, N'HENKEL CENTROAMERICANA, S.A.', 1, 638.85, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (133, 133, N'HENKEL CENTROAMERICANA, S.A.', 1, 638.85, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (134, 134, N'INDUSTRIA LA POPULAR, S.A.', 14, 2618.2, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (134, 134, N'INDUSTRIA LA POPULAR, S.A.', 14, 2618.2, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 14)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (135, 135, N'SCHNECKENBURGER MONTERROSO LUIS FERNANDO', 2, 996, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (135, 135, N'SCHNECKENBURGER MONTERROSO LUIS FERNANDO', 2, 996, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (136, 136, N'OLMECA, S.A.', 6, 2429.63, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (136, 136, N'OLMECA, S.A.', 6, 2429.63, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 6)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (137, 137, N'RECICLADORA LA JOYA S.A.', 3, 4656, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (137, 137, N'RECICLADORA LA JOYA S.A.', 3, 4656, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (138, 138, N'ALMACENES SIMAN, S.A.', 26, 381.4, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (138, 138, N'ALMACENES SIMAN, S.A.', 26, 381.4, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 26)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (139, 139, N'SUZUKI, S.A.', 4, 2501, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (139, 139, N'SUZUKI, S.A.', 4, 2501, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 4)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (140, 140, N'ALMACENES SIMAN, S.A.', 1, 1.98, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (140, 140, N'ALMACENES SIMAN, S.A.', 1, 1.98, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (141, 141, N'COMERCIALIZADORA Y PRODUCTORA DE BEBIDAS LOS VOLCANES, S.A.', 1, 831.05, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (141, 141, N'COMERCIALIZADORA Y PRODUCTORA DE BEBIDAS LOS VOLCANES, S.A.', 1, 831.05, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 1)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (142, 142, N'MUNDO QUIMICO, S.A.', 2, 1191.75, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (142, 142, N'MUNDO QUIMICO, S.A.', 2, 1191.75, 0, CAST(N'2021-01-29T08:00:00.000' AS DateTime), 2)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (143, 143, N'GRUPO LOS TRES GUATEMALA, S.A.', 7, 15572, 0, CAST(N'2021-02-01T09:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (143, 143, N'GRUPO LOS TRES GUATEMALA, S.A.', 7, 15572, 0, CAST(N'2021-02-01T09:00:00.000' AS DateTime), 7)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (144, 144, N'GRUPO LOS TRES GUATEMALA, S.A.', 3, 3832.5, 0, CAST(N'2021-02-01T09:00:00.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (144, 144, N'GRUPO LOS TRES GUATEMALA, S.A.', 3, 3832.5, 0, CAST(N'2021-02-01T09:00:00.000' AS DateTime), 3)
 GO
-INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (145, 145, N'VALDES ROSAS FRANCISCO JAVIER', 254, 3800, 0, CAST(N'2021-02-02T13:14:52.000' AS DateTime), 0)
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (145, 145, N'VALDES ROSAS FRANCISCO JAVIER', 254, 3800, 0, CAST(N'2021-02-02T13:14:52.000' AS DateTime), 254)
+GO
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (146, 146, N'ITPSA CENTROAMERICA, S.A.', 10, 10198, 0, CAST(N'2021-02-03T10:00:00.000' AS DateTime), 10)
+GO
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (147, 147, N'CINI FASHION S. A.', 1114, 20732, 0, CAST(N'2021-02-04T10:28:24.000' AS DateTime), 1114)
+GO
+INSERT [dbo].[detalleDeMercaderia] ([id], [idIngreso], [empresa], [bultos], [peso], [estado], [fechaRealIng], [stock]) VALUES (148, 148, N'ADOC DE GUATEMALA, S.A.', 1, 1321.52, 0, CAST(N'2021-02-04T12:46:31.000' AS DateTime), 1)
 GO
 SET IDENTITY_INSERT [dbo].[detalleDeMercaderia] OFF
 GO
@@ -2298,7 +2368,7 @@ INSERT [dbo].[incidencia] ([id], [idDetalle], [idIngreso], [descripcionMercaderi
 ', 1, 2, 1, 1, 2, CAST(N'2021-02-02T11:43:59.963' AS DateTime), 1049)
 GO
 INSERT [dbo].[incidencia] ([id], [idDetalle], [idIngreso], [descripcionMercaderia], [posiciones], [metros], [estadoIncidencia], [stockPos], [stockMts], [fecha], [idUsuario]) VALUES (90, 126, 126, N'OBSERVACIONES :SE RECIBIERON 7 PALETAS FORRO NYLON CLARO ROTO DE ORIGEN
-', 7, 9, 1, 7, 9, CAST(N'2021-02-02T11:47:31.147' AS DateTime), 1049)
+', 7, 9, 1, 0, 0, CAST(N'2021-02-02T11:47:31.147' AS DateTime), 1049)
 GO
 INSERT [dbo].[incidencia] ([id], [idDetalle], [idIngreso], [descripcionMercaderia], [posiciones], [metros], [estadoIncidencia], [stockPos], [stockMts], [fecha], [idUsuario]) VALUES (91, 125, 125, N'OBSERVACIONES SE RECIBIERON 5 PALETAS FORRO NYLON CLARO ROTO DE ORIGEN ', 5, 6, 1, 0, 0, CAST(N'2021-02-02T11:49:18.420' AS DateTime), 1049)
 GO
@@ -2597,9 +2667,15 @@ INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua
 GO
 INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (143, N'AI3-01-0089-2021', N'2961700018', N'GTPRQPQ2101091200018', N'456339771', N'PQ', N'CAMIONETAS', 1, CAST(N'2021-02-01T00:00:00.000' AS DateTime), NULL, 0, 4669, 3, 1, 1, 1, 1009)
 GO
-INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (144, N'AI3-01-0084-2021', N'2961700012', N'GTPRQPQ2101090900018', N'CX19266', N'PQ', N'AUTOMOVIL', 2, CAST(N'2021-02-02T09:52:44.207' AS DateTime), NULL, 0, 4669, 3, 1, 1, 1, 1009)
+INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (144, N'AI3-01-0084-2021', N'2961700012', N'GTPRQPQ2101090900018', N'CX19266', N'PQ', N'AUTOMOVIL', 4, CAST(N'2021-02-02T09:52:44.207' AS DateTime), NULL, 0, 4669, 4, 1, 1, 1, 1009)
 GO
 INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (145, N'AI3-01-0036-2021', N'3501700057', N'GTPRQPQ-21-010119-0001-9', N'SU120000497', N'PQ', N'CUADROS CON SUS MARCOS', 2, CAST(N'2021-02-02T13:19:07.240' AS DateTime), NULL, 0, 12210, 3, 1, 1, 1, 1005)
+GO
+INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (146, N'AI3-01-013-2021', N'2881700262', N'GTSTCST2101127900016', N'17E21000378', N'ST', N'GROMAX 25 ', 2, CAST(N'2021-02-04T10:28:05.717' AS DateTime), NULL, 2, 3968, 3, 1, 1, 0, 1008)
+GO
+INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (147, N'AI3-02-0105-2021', N'2961702124', N'GTPRQPQ2101246600010', N'RS121000008', N'PQ', N'ARETE IMAN', 2, CAST(N'2021-02-04T10:34:30.387' AS DateTime), NULL, 0, 12211, 3, 1, 1, 1, 1005)
+GO
+INSERT [dbo].[ingresoOperacionFiscal] ([id], [idCartaCupo], [numeroPoliza], [dua], [bl], [origenPuerto], [producto], [estadoIngreso], [fechaRegistro], [fechaContabilidad], [idUsuarioCliente], [idNit], [idServicio], [regimen], [familiaPoliza], [consolidado], [identBodega]) VALUES (148, N'AI3-10111-101-2020', N'28813310002', N'SDSDF32SFD23SFDS3FD232', N'313D3DSFFSD', N'ST', N'VEHICULOS NUEVOS', 2, CAST(N'2021-02-04T12:49:56.183' AS DateTime), NULL, 0, 51, 3, 1, 1, 1, 1005)
 GO
 SET IDENTITY_INSERT [dbo].[ingresoOperacionFiscal] OFF
 GO
@@ -2642,6 +2718,8 @@ GO
 INSERT [dbo].[ingresosConsolidadoPoliza] ([id], [idIngreso], [tipoOperacion], [idConsolidado], [cadenaVinculo], [estadoOperacion]) VALUES (18, 141, 1, 6, N'd58083e28acbef396d582901eeb7c9da', 0)
 GO
 INSERT [dbo].[ingresosConsolidadoPoliza] ([id], [idIngreso], [tipoOperacion], [idConsolidado], [cadenaVinculo], [estadoOperacion]) VALUES (19, 142, 1, 6, N'd58083e28acbef396d582901eeb7c9da', 0)
+GO
+INSERT [dbo].[ingresosConsolidadoPoliza] ([id], [idIngreso], [tipoOperacion], [idConsolidado], [cadenaVinculo], [estadoOperacion]) VALUES (20, 148, 1, 6, N'0a7526e2fb5386a79bc0fa9c97444b6f', 0)
 GO
 SET IDENTITY_INSERT [dbo].[ingresosConsolidadoPoliza] OFF
 GO
@@ -2835,7 +2913,7 @@ INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [sa
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (91, 91, 2, 6300, 351254.95, 351254.95, 42150.6, CAST(N'2021-02-01T10:01:47.377' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (92, 92, 1, 12908, 180133.76, 180133.76, 21639.4, CAST(N'2021-02-01T10:01:47.380' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (92, 92, 0, 11064, -11824.93, -11824.93, -1372.31, CAST(N'2021-02-01T10:01:47.380' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (93, 93, 2, 11072, 382159.25, 382159.25, 45859.11, CAST(N'2021-02-01T10:01:47.380' AS DateTime), NULL)
 GO
@@ -2855,11 +2933,11 @@ INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [sa
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (101, 101, 2, 3740, 231715.3, 231715.3, 27805.84, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (102, 102, 1, 3740, 64068.86, 64068.86, 7688.26, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (102, 102, 0, 2639, -35.4, -35.4, -4.25, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (103, 103, 1, 3740, 100472.13, 100472.13, 12056.66, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (104, 104, 8, 3740, 516710.82, 516710.82, 62005.28, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (104, 104, 7, 2639, 451990.81, 451990.81, 54238.88, CAST(N'2021-02-01T10:01:52.870' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (105, 105, 4, 3740, 463430.59, 463430.59, 55611.68, CAST(N'2021-02-01T10:01:52.873' AS DateTime), NULL)
 GO
@@ -2869,7 +2947,7 @@ INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [sa
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (108, 108, 6, 3740, 636634.15, 636634.15, 76396.1, CAST(N'2021-02-01T10:01:52.877' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (109, 109, 4, 3740, 258121.67, 258121.67, 30974.59, CAST(N'2021-02-01T10:01:52.877' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (109, 109, 3, 2639, 193401.66, 193401.66, 23208.19, CAST(N'2021-02-01T10:01:52.877' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (110, 110, 4, 3740, 239363.15, 239363.15, 28723.58, CAST(N'2021-02-01T10:01:52.877' AS DateTime), NULL)
 GO
@@ -2901,9 +2979,9 @@ INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [sa
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (124, 124, 33, 1390.5, 61512.25, 478958.98, 84296.81, CAST(N'2021-02-02T11:51:21.483' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (125, 125, 0, -3192.95, -71406.65, 58717.28, -5926.61, CAST(N'2021-02-02T11:49:18.420' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (125, 125, 0, 0, 0, 153.4, 18.42, CAST(N'2021-02-02T11:49:18.420' AS DateTime), NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (126, 126, 7, 2173.68, 12243.72, 95334.5, 18030.08, CAST(N'2021-02-02T11:47:31.147' AS DateTime), NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (126, 126, 0, 0, -82992.83, 97.95, 18.5, CAST(N'2021-02-02T11:47:31.147' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (127, 127, 1, 607.2, 4984.98, 38815.05, 4657.81, CAST(N'2021-02-02T11:43:59.963' AS DateTime), NULL)
 GO
@@ -2939,9 +3017,15 @@ INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [sa
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (143, 143, 8, 15572, 331189, 2577511.51, 309301.39, NULL, NULL)
 GO
-INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (144, 144, 3, 3832.5, 65950.48, 513266.21, 61591.94, NULL, NULL)
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (144, 144, 3, 3832.5, 65950.48, 513266.21, 61591.94, CAST(N'2021-02-03T11:59:17.380' AS DateTime), NULL)
 GO
 INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (145, 145, 254, 3800, 8173.16, 63583.92, 17464.58, NULL, NULL)
+GO
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (146, 146, 10, 10198, 44869.31, 349011.44, 53880.39, NULL, NULL)
+GO
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (147, 147, 1114, 20732, 36236.05, 281916.47, 78707.53, NULL, NULL)
+GO
+INSERT [dbo].[inventarioFiscal] ([id], [idIngreso], [saldoBultos], [pesoKg], [saldoValorTAduana], [saldoValorCif], [saldoValorImpuesto], [fechaReporte], [tipo]) VALUES (148, 148, 1, 1321.52, 13145.96, 98872.08, 1311.52, NULL, NULL)
 GO
 SET IDENTITY_INSERT [dbo].[inventarioFiscal] OFF
 GO
@@ -5679,7 +5763,25 @@ INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6
 GO
 INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6098, 1050, 1009, CAST(N'2021-02-02T12:47:39.000' AS DateTime))
 GO
-INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6099, 1050, 1005, CAST(N'2021-02-03T11:49:42.000' AS DateTime))
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6099, 1050, 5, CAST(N'2021-02-03T09:06:30.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6100, 1050, 1006, CAST(N'2021-02-03T09:06:41.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6101, 1050, 1010, CAST(N'2021-02-03T09:06:59.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6102, 1050, 1009, CAST(N'2021-02-03T09:07:10.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6103, 1050, 1005, CAST(N'2021-02-03T09:09:09.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6104, 1050, 1009, CAST(N'2021-02-03T09:12:09.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6105, 1050, 1009, CAST(N'2021-02-03T09:16:42.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6106, 1050, 1005, CAST(N'2021-02-03T11:47:22.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6107, 1050, 1009, CAST(N'2021-02-03T11:53:45.000' AS DateTime))
+GO
+INSERT [dbo].[navegacion] ([id], [idUsuario], [idArea], [fechaNavega]) VALUES (6108, 1050, 1005, CAST(N'2021-02-04T10:35:29.000' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[navegacion] OFF
 GO
@@ -18257,6 +18359,8 @@ INSERT [dbo].[nit] ([id], [nitEmpresa], [nombreEmpresa], [direccionEmpresa]) VAL
 GO
 INSERT [dbo].[nit] ([id], [nitEmpresa], [nombreEmpresa], [direccionEmpresa]) VALUES (12210, N'107765292', N'VALDES ROSAS FRANCISCO JAVIER', N'CALZADA RAUL AGUILAR BATREZ 35-35 ZONA 12')
 GO
+INSERT [dbo].[nit] ([id], [nitEmpresa], [nombreEmpresa], [direccionEmpresa]) VALUES (12211, N'88779262', N'CINI FASHION S. A.', N'5TA AVENIDA 14-60 ZONA 1')
+GO
 SET IDENTITY_INSERT [dbo].[nit] OFF
 GO
 SET IDENTITY_INSERT [dbo].[nivelesSistema] ON 
@@ -18545,17 +18649,31 @@ INSERT [dbo].[numAsignadoIngresos] ([id], [idIng], [idIdent], [numeroAsignado], 
 GO
 INSERT [dbo].[numAsignadoIngresos] ([id], [idIng], [idIdent], [numeroAsignado], [fechaContabilizado]) VALUES (131, 123, 1005, 43, CAST(N'2021-02-02T16:14:38.917' AS DateTime))
 GO
+INSERT [dbo].[numAsignadoIngresos] ([id], [idIng], [idIdent], [numeroAsignado], [fechaContabilizado]) VALUES (132, 144, 1009, 39, CAST(N'2021-02-03T11:59:17.380' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[numAsignadoIngresos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[numAsignadoRecibos] ON 
 GO
-INSERT [dbo].[numAsignadoRecibos] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado], [idFact], [estado]) VALUES (1, 1, 125, 1005, 1, CAST(N'2021-02-03T08:07:19.680' AS DateTime), 136, 1)
+INSERT [dbo].[numAsignadoRecibos] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado], [idFact], [estado]) VALUES (1, 5, 125, 1005, 1, CAST(N'2021-02-04T11:11:30.030' AS DateTime), 2227, 1)
+GO
+INSERT [dbo].[numAsignadoRecibos] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado], [idFact], [estado]) VALUES (2, 6, 126, 1005, 2, CAST(N'2021-02-04T11:21:27.817' AS DateTime), 4455, 1)
 GO
 SET IDENTITY_INSERT [dbo].[numAsignadoRecibos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[numAsignadoRetiros] ON 
 GO
-INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (1, 1, 125, 1005, 1, CAST(N'2021-02-03T08:07:29.283' AS DateTime))
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (1, 1, 92, 1009, 1, CAST(N'2021-02-03T09:19:30.557' AS DateTime))
+GO
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (2, 2, 109, 1009, 2, CAST(N'2021-02-03T09:24:05.030' AS DateTime))
+GO
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (3, 3, 102, 1009, 3, CAST(N'2021-02-03T09:26:49.943' AS DateTime))
+GO
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (4, 4, 104, 1009, 4, CAST(N'2021-02-03T09:28:33.630' AS DateTime))
+GO
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (5, 5, 125, 1005, 1, CAST(N'2021-02-04T11:11:01.263' AS DateTime))
+GO
+INSERT [dbo].[numAsignadoRetiros] ([id], [idRet], [idIng], [idIdent], [numeroAsignado], [fechaAsignado]) VALUES (6, 6, 126, 1005, 2, CAST(N'2021-02-04T11:20:43.943' AS DateTime))
 GO
 SET IDENTITY_INSERT [dbo].[numAsignadoRetiros] OFF
 GO
@@ -18571,13 +18689,15 @@ INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [
 GO
 INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (5, 9, 1, 7)
 GO
-INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (6, 10, 1, 38)
+INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (6, 10, 1, 39)
 GO
 INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (7, 12, 1, 3)
 GO
-INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (8, 8, 3, 1)
+INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (8, 10, 2, 4)
 GO
-INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (9, 8, 2, 1)
+INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (9, 8, 2, 2)
+GO
+INSERT [dbo].[numeradorCorrelativos] ([id], [idCategoria], [idnomCorrelativo], [ultimoNumero]) VALUES (10, 8, 3, 2)
 GO
 SET IDENTITY_INSERT [dbo].[numeradorCorrelativos] OFF
 GO
@@ -18640,6 +18760,8 @@ GO
 SET IDENTITY_INSERT [dbo].[pasesDeSalida] ON 
 GO
 INSERT [dbo].[pasesDeSalida] ([id], [idUnidad]) VALUES (1, 124)
+GO
+INSERT [dbo].[pasesDeSalida] ([id], [idUnidad]) VALUES (2, 144)
 GO
 SET IDENTITY_INSERT [dbo].[pasesDeSalida] OFF
 GO
@@ -24855,6 +24977,10 @@ INSERT [dbo].[pilotos] ([id], [licencia], [piloto]) VALUES (13969, N'16103475622
 GO
 INSERT [dbo].[pilotos] ([id], [licencia], [piloto]) VALUES (13970, N'2622651410101', N'EDDY MAURICIO ADRINO GUARAN')
 GO
+INSERT [dbo].[pilotos] ([id], [licencia], [piloto]) VALUES (13971, N'2531023671801', N'ENRIQUE  PALENCIA MARTINEZ')
+GO
+INSERT [dbo].[pilotos] ([id], [licencia], [piloto]) VALUES (13972, N'2348902660505', N'MAXIMO  BARCOS LIMA')
+GO
 SET IDENTITY_INSERT [dbo].[pilotos] OFF
 GO
 SET IDENTITY_INSERT [dbo].[placasVisita] ON 
@@ -24955,7 +25081,17 @@ SET IDENTITY_INSERT [dbo].[regimen] OFF
 GO
 SET IDENTITY_INSERT [dbo].[retiroOperacionFiscal] ON 
 GO
-INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (1, 125, 136, N'1750701284', N'DR', N'PAÑALES', 1050, 1005, 4, N'[{"idDetalles":"125","cantBultos":"5","valPosSalidaEdit":"5","valMtsSalidaEdit":"6","estadoDet":2}]', CAST(N'2021-02-03T08:05:48.000' AS DateTime), NULL, NULL)
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (1, 92, 4562, N'3291703305', N'DI', N'VEHICULOS NUEVOS', 1050, 1009, 4, N'VEHICULOS NUEVOS', CAST(N'2021-02-01T08:00:00.000' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (2, 109, 4562, N'3291702903', N'DI', N'VEHICULOS NUEVOS', 1050, 1009, 4, N'VEHICULOS NUEVOS', CAST(N'2021-02-01T09:00:00.000' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (3, 102, 4562, N'3291703298', N'DI', N'VEHICULOS NUEVOS', 1050, 1009, 4, N'VEHICULOS NUEVOS', CAST(N'2021-02-01T09:00:00.000' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (4, 104, 4562, N'3291703295', N'DI', N'VEHICULOS NUEVOS', 1050, 1009, 4, N'VEHICULOS NUEVOS', CAST(N'2021-02-01T09:00:00.000' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (5, 125, 2227, N'3061701550', N'DI', N'PLACAS SESIBILIZADAS', 1050, 1005, 4, N'[{"idDetalles":"125","cantBultos":"5","valPosSalidaEdit":"5","valMtsSalidaEdit":"6","estadoDet":2}]', CAST(N'2021-02-03T10:00:00.000' AS DateTime), NULL, NULL)
+GO
+INSERT [dbo].[retiroOperacionFiscal] ([id], [idIngresosOP], [idNit], [polizaRetiro], [regimenSalida], [descripcion], [idUsuario], [idDependencia], [estadoRet], [detallesRebajados], [fechaEmision], [fechaRetiro], [fechaConta]) VALUES (6, 126, 4455, N'3061701549', N'DI', N'CERRADURA DEXTER', 1050, 1005, 3, N'[{"idDetalles":"126","cantBultos":"7","valPosSalidaEdit":"7","valMtsSalidaEdit":"9","estadoDet":2}]', CAST(N'2021-02-03T10:00:00.000' AS DateTime), NULL, NULL)
 GO
 SET IDENTITY_INSERT [dbo].[retiroOperacionFiscal] OFF
 GO
@@ -25247,29 +25383,43 @@ SET IDENTITY_INSERT [dbo].[tokensSalidas] ON
 GO
 INSERT [dbo].[tokensSalidas] ([id], [idPase], [token], [fechaCreacion]) VALUES (1, 1, N'$2a$07$asxx54ahjppf45sd87a5auCypiilmgYK3Jf29e6E0w9uhYZLolxX6', CAST(N'2021-02-02T12:45:44.000' AS DateTime))
 GO
+INSERT [dbo].[tokensSalidas] ([id], [idPase], [token], [fechaCreacion]) VALUES (2, 2, N'$2a$07$asxx54ahjppf45sd87a5auh2o8XbLcAxfh9dSOB.s4H4Q5hvelVxi', CAST(N'2021-02-03T12:00:54.000' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[tokensSalidas] OFF
+GO
+SET IDENTITY_INSERT [dbo].[trasladoFiscalVeh] ON 
+GO
+INSERT [dbo].[trasladoFiscalVeh] ([id], [idRet], [chasis], [cantidad], [cif], [impuesto], [valUnitario], [fechaEmision], [fechaCorreo], [fechaSalida], [fechaContabilidad], [idUsuario], [estado]) VALUES (1, 1, 12, 1, 191958.69, 23011.71, 214970.4, CAST(N'2021-02-03T09:19:24.197' AS DateTime), NULL, NULL, NULL, 1050, 0)
+GO
+INSERT [dbo].[trasladoFiscalVeh] ([id], [idRet], [chasis], [cantidad], [cif], [impuesto], [valUnitario], [fechaEmision], [fechaCorreo], [fechaSalida], [fechaContabilidad], [idUsuario], [estado]) VALUES (2, 2, 66, 1, 64720.01, 7766.4, 72486.41, CAST(N'2021-02-03T09:24:03.890' AS DateTime), NULL, NULL, NULL, 1050, 0)
+GO
+INSERT [dbo].[trasladoFiscalVeh] ([id], [idRet], [chasis], [cantidad], [cif], [impuesto], [valUnitario], [fechaEmision], [fechaCorreo], [fechaSalida], [fechaContabilidad], [idUsuario], [estado]) VALUES (3, 3, 34, 1, 64104.26, 7692.51, 71796.77, CAST(N'2021-02-03T09:26:48.943' AS DateTime), NULL, NULL, NULL, 1050, 0)
+GO
+INSERT [dbo].[trasladoFiscalVeh] ([id], [idRet], [chasis], [cantidad], [cif], [impuesto], [valUnitario], [fechaEmision], [fechaCorreo], [fechaSalida], [fechaContabilidad], [idUsuario], [estado]) VALUES (4, 4, 38, 1, 64720.01, 7766.4, 72486.41, CAST(N'2021-02-03T09:28:32.503' AS DateTime), NULL, NULL, NULL, 1050, 0)
+GO
+SET IDENTITY_INSERT [dbo].[trasladoFiscalVeh] OFF
 GO
 SET IDENTITY_INSERT [dbo].[ubicaciones] ON 
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (1, 85, 1, 5, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (1, 85, 1, 5, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (2, 86, 1, 5, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (2, 86, 1, 5, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (3, 87, 1, 6, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (3, 87, 1, 6, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (4, 88, 1, 7, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (4, 88, 1, 7, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (5, 89, 1, 8, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (5, 89, 1, 8, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (6, 90, 2, 5, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (6, 90, 2, 5, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (7, 90, 2, 6, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (7, 90, 2, 6, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (8, 91, 1, 7, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (8, 91, 1, 7, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (9, 92, 1, 5, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (9, 92, 1, 5, NULL, 1)
 GO
-INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [estado]) VALUES (10, 93, 1, 8, 1)
+INSERT [dbo].[ubicaciones] ([id], [idIncidencia], [pasY], [ColX], [idAreaBodega], [estado]) VALUES (10, 93, 1, 8, NULL, 1)
 GO
 SET IDENTITY_INSERT [dbo].[ubicaciones] OFF
 GO
@@ -25285,7 +25435,13 @@ INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (4, N'TC71CDJ')
 GO
 INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (5, N'TCKU6881913')
 GO
-INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (6, N'TC016BPZ')
+INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (6, N'BSIU2095044')
+GO
+INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (7, N'TRHU4911771')
+GO
+INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (8, N'CAMION')
+GO
+INSERT [dbo].[unidadesContenedores] ([id], [contenedor]) VALUES (9, N'SMDM213143133')
 GO
 SET IDENTITY_INSERT [dbo].[unidadesContenedores] OFF
 GO
@@ -25301,7 +25457,13 @@ INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (4, N'C771BQN')
 GO
 INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (5, N'C516BPM')
 GO
-INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (6, N'C306BQM')
+INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (6, N'C698BNG')
+GO
+INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (7, N'C172BCG')
+GO
+INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (8, N'C973BFZ')
+GO
+INSERT [dbo].[unidadesPlacas] ([id], [placa]) VALUES (9, N'C250CMM')
 GO
 SET IDENTITY_INSERT [dbo].[unidadesPlacas] OFF
 GO
@@ -25611,6 +25773,12 @@ INSERT [dbo].[valoresIngOpFiscal] ([id], [idIngreso], [cantidadContenedores], [c
 GO
 INSERT [dbo].[valoresIngOpFiscal] ([id], [idIngreso], [cantidadContenedores], [cantidadClientes], [peso], [bultos], [valorTotalAduana], [tipoCambio], [totalValorCif], [valorImpuesto], [estadoSaldo], [fechaRealIng]) VALUES (145, 145, 1, 1, 3800, 254, 8173.16, 7.7796, 63583.92, 17464.58, 1, CAST(N'2021-02-02T13:14:52.000' AS DateTime))
 GO
+INSERT [dbo].[valoresIngOpFiscal] ([id], [idIngreso], [cantidadContenedores], [cantidadClientes], [peso], [bultos], [valorTotalAduana], [tipoCambio], [totalValorCif], [valorImpuesto], [estadoSaldo], [fechaRealIng]) VALUES (146, 146, 1, 1, 10198, 10, 44869.31, 7.7784, 349011.44, 53880.39, 1, CAST(N'2021-02-03T10:00:00.000' AS DateTime))
+GO
+INSERT [dbo].[valoresIngOpFiscal] ([id], [idIngreso], [cantidadContenedores], [cantidadClientes], [peso], [bultos], [valorTotalAduana], [tipoCambio], [totalValorCif], [valorImpuesto], [estadoSaldo], [fechaRealIng]) VALUES (147, 147, 1, 1, 20732, 1114, 36236.05, 7.78, 281916.47, 78707.53, 1, CAST(N'2021-02-04T10:28:24.000' AS DateTime))
+GO
+INSERT [dbo].[valoresIngOpFiscal] ([id], [idIngreso], [cantidadContenedores], [cantidadClientes], [peso], [bultos], [valorTotalAduana], [tipoCambio], [totalValorCif], [valorImpuesto], [estadoSaldo], [fechaRealIng]) VALUES (148, 148, 1, 10, 1321.52, 1, 13145.96, 7.5211, 98872.08, 1311.52, 1, CAST(N'2021-02-04T12:46:31.000' AS DateTime))
+GO
 SET IDENTITY_INSERT [dbo].[valoresIngOpFiscal] OFF
 GO
 SET IDENTITY_INSERT [dbo].[valoresPolizaDR] ON 
@@ -25629,7 +25797,17 @@ SET IDENTITY_INSERT [dbo].[valoresPolizaDR] OFF
 GO
 SET IDENTITY_INSERT [dbo].[valoresRetirosFiscal] ON 
 GO
-INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (1, 125, 1, 5, 5532.95, 1, 90580.87, 90580.87, 23842.39, 1)
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (1, 92, 1, 1, 1844, 1, 191958.69, 191958.69, 23011.71, 1)
+GO
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (2, 109, 2, 1, 1101, 1, 64720.01, 64720.01, 7766.4, 1)
+GO
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (3, 102, 3, 1, 1101, 1, 64104.26, 64104.26, 7692.51, 1)
+GO
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (4, 104, 4, 1, 1101, 1, 64720.01, 64720.01, 7766.4, 1)
+GO
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (5, 125, 5, 5, 2340, 7.7784, 19174.22, 149144.75, 17897.36, 1)
+GO
+INSERT [dbo].[valoresRetirosFiscal] ([id], [idIngreso], [idRet], [bultos], [peso], [tipoCambio], [valorTotalAduana], [totalValorCif], [valorImpuesto], [estadoSaldo]) VALUES (6, 126, 6, 2173, 7, 1, 95236.55, 95236.55, 18011.58, 1)
 GO
 SET IDENTITY_INSERT [dbo].[valoresRetirosFiscal] OFF
 GO

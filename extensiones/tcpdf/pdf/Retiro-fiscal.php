@@ -123,12 +123,12 @@ EOF;
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
                 </tr>
                 <tr>
-   <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+   <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
                              
    <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -154,8 +154,8 @@ EOF;
                 <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
-                <td style="width:90px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+                <td style="width:90px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -600,12 +600,12 @@ EOF;
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
                 </tr>
                 <tr>
-   <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+   <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
                              
    <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -630,8 +630,8 @@ EOF;
                 <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
-                <td style="width:90px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+                <td style="width:90px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -1074,12 +1074,12 @@ EOF;
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
                 </tr>
                 <tr>
-   <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+   <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
                              
    <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -1104,8 +1104,8 @@ EOF;
                 <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
-                <td style="width:90px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+                <td style="width:90px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -1545,12 +1545,12 @@ EOF;
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
                 </tr>
                 <tr>
-   <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+   <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
                              
    <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;
@@ -1575,8 +1575,8 @@ EOF;
                 <td style="width:90px"><b>Valor de Impuestos:</b></td><td style="width:165px">Q. $valImpuesto&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
-                <td style="width:75px"><b>Auxiliar Operativo:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
-                <td style="width:90px"><b>Auxiliar Bodega:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
+                <td style="width:75px"><b>Auxiliar Bodega:</b></td><td style="width:250px">$nombreRebaja $apellidosRebaja&nbsp;&nbsp;</td>
+                <td style="width:90px"><b>Auxiliar Operativo:</b></td><td style="width:165px">$nombreRetiro $apellidosRetiro&nbsp;&nbsp;</td>
                 </tr>    
         </table>	
 EOF;

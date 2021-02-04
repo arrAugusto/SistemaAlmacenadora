@@ -47,7 +47,7 @@ class AjaxRegistroIngBodega {
             "hiddenLista" => $this->hiddenLista,
             "idChequeBodega" => $this->idChequeBodega,
             "montacarga" => $this->montacarga,
-            "selectUbicacion"=>$this->selectUbicacion
+            "selectUbicacion" => $this->selectUbicacion
         );
         session_start();
         $usuarioOp = $_SESSION["id"];
@@ -171,18 +171,53 @@ class AjaxRegistroIngBodega {
     public $mostPrediosVUsados;
 
     public function ajaxMostrarOPrediosVehUsados() {
-                session_start();
+        session_start();
         $prediosVehUsados = $_SESSION["idDeBodega"];
         $respuesta = ControladorRegistroBodega::ctrMostrarOPrediosVehUsados($prediosVehUsados);
-        echo json_encode($respuesta);        
+        echo json_encode($respuesta);
     }
-    public $cambioVinculo;   
-    public function ajaxCambioVinculoCons(){
-    $hiddCopy = $this->hiddCopy;
-    $idIngPaste = $this->idIngPaste;
+
+    public $cambioVinculo;
+
+    public function ajaxCambioVinculoCons() {
+        $hiddCopy = $this->hiddCopy;
+        $idIngPaste = $this->idIngPaste;
         $respuesta = ControladorRegistroBodega::ctrCambioVinculoCons($hiddCopy, $idIngPaste);
-        echo json_encode($respuesta);            
+        echo json_encode($respuesta);
     }
+
+    public $mostrarAreaBod;
+
+    public function ajaxMostrarAreasBod() {
+        $idBodAreasBod = $this->idBodAreasBod;
+        $respuesta = ControladorRegistroBodega::ctrMostrarAreasBodegas($idBodAreasBod);
+        echo json_encode($respuesta);
+    }
+
+    public $newArea;
+
+    public function ajaxGuardarAreaBodega() {
+        $idBodNew = $this->idBodNew;
+        $nomNewArea = $this->nomNewArea;
+        $descNewArea = $this->descNewArea;
+        $tiempoArea = $this->tiempoArea;
+        $fechaVencimiento = $this->fechaVencimiento;
+        $respuesta = ControladorRegistroBodega::ctrGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento);
+        echo json_encode($respuesta);
+    }
+
+    public $editarArea;
+
+    public function ajaxEditarAreaBodega() {
+        $area = $this->area;
+        $idBodUpdate = $this->idBodUpdate;
+        $desc = $this->desc;
+        $tipoVence = $this->tipoVence;
+        $fechaVence = $this->fechaVence;
+        $respuesta = ControladorRegistroBodega::ctrEditarAreaBodega($area, $desc, $tipoVence, $fechaVence, $idBodUpdate);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["razonSocial"])) {
@@ -216,7 +251,7 @@ if (isset($_POST["idDetalle"])) {
     $guardarDetalle->idChequeBodega = $_POST["idChequeBodega"];
     $guardarDetalle->montacarga = $_POST["montacarga"];
     $guardarDetalle->selectUbicacion = $_POST["selectUbicacion"];
-    
+
     $guardarDetalle->AjaxGuardarDetalle();
 }
 
@@ -313,6 +348,37 @@ if (isset($_POST["prediosVehUsados"])) {
 if (isset($_POST["hiddCopy"])) {
     $cambioVinculo = new AjaxRegistroIngBodega();
     $cambioVinculo->hiddCopy = $_POST["hiddCopy"];
-    $cambioVinculo->idIngPaste = $_POST["idIngPaste"];    
-    $cambioVinculo->ajaxCambioVinculoCons();    
+    $cambioVinculo->idIngPaste = $_POST["idIngPaste"];
+    $cambioVinculo->ajaxCambioVinculoCons();
+}
+
+if (isset($_POST["idBodAreasBod"])) {
+    $mostrarAreaBod = new AjaxRegistroIngBodega();
+    $mostrarAreaBod->idBodAreasBod = $_POST["idBodAreasBod"];
+    $mostrarAreaBod->ajaxMostrarAreasBod();
+}
+/**
+ * API PARA GUARDAR AREAS DE BODEGAS EN LAS ALMACENADORAS
+ * */
+if (isset($_POST["idBodNew"])) {
+    $newArea = new AjaxRegistroIngBodega();
+    $newArea->idBodNew = $_POST["idBodNew"];
+    $newArea->nomNewArea = $_POST["nomNewArea"];
+    $newArea->descNewArea = $_POST["descNewArea"];
+    $newArea->tiempoArea = $_POST["tiempoArea"];
+    $newArea->fechaVencimiento = $_POST["fechaVencimiento"];
+
+    $newArea->ajaxGuardarAreaBodega();
+}
+/**
+ * API PARA HACER UN UPDATE EN 
+ * */
+if (isset($_POST["idBodUpdate"])) {
+    $editarArea = new AjaxRegistroIngBodega();
+    $editarArea->area = $_POST["area"];
+    $editarArea->desc = $_POST["desc"];
+    $editarArea->tipoVence = $_POST["tipoVence"];
+    $editarArea->fechaVence = $_POST["fechaVence"];
+    $editarArea->idBodUpdate = $_POST["idBodUpdate"];    
+    $editarArea->ajaxEditarAreaBodega();
 }

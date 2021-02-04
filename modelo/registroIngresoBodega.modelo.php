@@ -237,7 +237,30 @@ class ModeloRegIngBod {
             }
         }
     }
+    
+        public static function mdlGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento, $sp) {
 
+        $conn = Conexion::Conectar();
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?';
+        $params = array(&$idBodNew, &$nomNewArea, &$descNewArea, &$tiempoArea, &$fechaVencimiento);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        }else{
+            return sqlsrv_errors();
+        }
+    }
+       
+
+    
     public static function mdlUbicarVehUsado($sp, $idDetalle, $ubicacion) {
 
         $conn = Conexion::Conectar();
@@ -418,11 +441,12 @@ class ModeloRegIngBod {
 
         $conn = Conexion::Conectar();
         foreach ($dataListaUbica as $key => $value) {
-            $valueY = $value["ubicacionY"];
-            $valueX = $value["ubicacionX"];
+            $valueY = $value["datoY"];
+            $valueX = $value["datoX"];
+            $areaBod = $value["hiddenAreaBod"];            
             $estado = 1;
-            $sql = "EXECUTE spUbica ?, ?, ?, ?";
-            $params = array(&$llave, &$valueY, &$valueX, &$estado);
+            $sql = "EXECUTE spUbica ?, ?, ?, ?, ?";
+            $params = array(&$llave, &$valueY, &$valueX, &$estado, &$areaBod);
 
             $stmt = sqlsrv_prepare($conn, $sql, $params);
             if (sqlsrv_execute($stmt) == true) {
