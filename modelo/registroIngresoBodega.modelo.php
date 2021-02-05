@@ -243,7 +243,7 @@ class ModeloRegIngBod {
         $conn = Conexion::Conectar();
         $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?';
         $params = array(&$idBodNew, &$nomNewArea, &$descNewArea, &$tiempoArea, &$fechaVencimiento);
-        $stmt = sqlsrv_prepare($conn, $sql, $params);
+          $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
@@ -438,16 +438,15 @@ class ModeloRegIngBod {
     }
 
     public static function mdlGuardarDetalleLista($dataListaUbica, $llave) {
-
         $conn = Conexion::Conectar();
         foreach ($dataListaUbica as $key => $value) {
             $valueY = $value["datoY"];
             $valueX = $value["datoX"];
-            $areaBod = $value["hiddenAreaBod"];            
+            $areaBod = $value["idAreaBod"];            
             $estado = 1;
             $sql = "EXECUTE spUbica ?, ?, ?, ?, ?";
             $params = array(&$llave, &$valueY, &$valueX, &$estado, &$areaBod);
-
+            
             $stmt = sqlsrv_prepare($conn, $sql, $params);
             if (sqlsrv_execute($stmt) == true) {
                 if (sizeof($dataListaUbica) == $key + 1) {
@@ -660,6 +659,7 @@ class ModeloRegIngBod {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?";
         $params = array(&$Ingreso);
+        
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

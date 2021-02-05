@@ -65,12 +65,13 @@ $(document).on("click", ".btnADetalle", function () {
             var areaBodega = paragraphsPos[i].attributes.areabod.nodeValue;
             var CantPos = $(".cantidadPosiciones" + areaBodega).val();
             var CantMts = $(".Metraje" + areaBodega).val();
+            var idArea = $(".cantidadPosiciones" + areaBodega).attr("idarea");
             if (areaBodega in localStorage) {
                 var promedioLocal = localStorage.getItem("promedioTarima");
         
                 var ubicaciones = localStorage.getItem(areaBodega);
                 var areaBod = JSON.parse(ubicaciones);
-                listaDB.push([areaBodega, CantPos, CantMts, promedioLocal, areaBod]);
+                listaDB.push([idArea, areaBodega, CantPos, CantMts, promedioLocal, areaBod]);
                 console.log(listaDB);
             } else {
                 Swal.fire({
@@ -482,17 +483,24 @@ function comprovarValorcasilla(casilla) {
 }
 $(document).ready(function () {
     $("#selectUbicacion").change(function () {
-        var ubicaTipo = $(this).val();
-        if (ubicaTipo == "Piso" || ubicaTipo == "Rack") {
-            if ($("#cantidadPosiciones" + ubicaTipo).length == 0) {
+        
+
+            var e = document.getElementById("selectUbicacion");
+    var indexValue = e.options[e.selectedIndex].value;
+    var indexText = e.options[e.selectedIndex].text;
+        console.log(indexValue);
+        console.log(indexText);
+
+        if (indexValue*1 >0) {
+            if ($("#cantidadPosiciones" + indexText).length == 0) {
                 $("#rackPisoData").append(
                         `
                     <div class="input-group mt-2">
-                        <input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control cantidadPosiciones` + ubicaTipo + `" areaBod="` + ubicaTipo + `" placeholder="Cantidad de posiciones en ` + ubicaTipo + `" style="text-align: center;" value="">
-                        <input type="number" id="Metraje" name="Metraje" class="form-control Metraje` + ubicaTipo + `" areaBod="` + ubicaTipo + `" placeholder="Cantidad de Metros ` + ubicaTipo + `" style="text-align: center;" value="">
+                        <input type="number" id="cantidadPosiciones" name="cantidadPosiciones" class="form-control cantidadPosiciones` + indexText + `" idArea="`+indexValue+`" areaBod="` + indexText + `" placeholder="Cantidad de posiciones en ` + indexText + `" style="text-align: center;" value="">
+                        <input type="number" id="Metraje" name="Metraje" class="form-control Metraje` + indexText + `" areaBod="` + indexText + `" placeholder="Cantidad de Metros ` + indexText + `" style="text-align: center;" value="">
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-success" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion" tipoAreaBod="` + ubicaTipo + `">Ubicación en ` + ubicaTipo + `&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>           
-                            <button type="button" class="btn btn-outline-danger btnVerUbica" id="btnVerUbica` + ubicaTipo + `" estado=0 data-toggle="modal" data-target="#MyagrUbicacion">Ub de ` + ubicaTipo + `&nbsp;&nbsp;<i class="fa fa-eye"></i></button>                       
+                            <button type="button" class="btn btn-success" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"  idArea="`+indexValue+`" tipoAreaBod="` + indexText + `">Ubicación en ` + indexText + `&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>           
+                            <button type="button" class="btn btn-outline-danger btnVerUbica" id="btnVerUbica` + indexText + `" estado=0 data-toggle="modal" data-target="#MyagrUbicacion">Ub de ` + indexText + `&nbsp;&nbsp;<i class="fa fa-eye"></i></button>                       
                         </div>
                         <!-- /btn-group -->
                     </div>
@@ -506,15 +514,18 @@ $(document).ready(function () {
             }
 
         } else {
-            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 idPredio=' + ubicaTipo + ' data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
+            document.getElementById("divFueraMotivo").innerHTML = '<div class="form-group tooltips"><label>Pasillo</label><br><button type="button" class="btn btn-primary" id="btnUbica" estado=0 idPredio=' + indexText + ' data-toggle="modal" data-target="#MyagrUbicacion"><i class="fa fa-map-marker"></i></button><span>Seleccione ubicación</span></div>';
         }
     })
 })
 $(document).on("click", "#btnUbica", function () {
     var tipoAreaBod = $(this).attr("tipoAreaBod");
+    var idarea = $(this).attr("idarea");
 
     document.getElementById("hiddenAreaBod").value = tipoAreaBod;
+    document.getElementById("idAreaBod").value = idarea;    
     var estadoButton = $(this).attr("estado");
+
     if (estadoButton == 0) {
         document.getElementById("buttonMin").click();
         var idPredio = $(this).attr("idPredio");
@@ -647,11 +658,13 @@ $(document).on("click", ".btnGuardaUbic", function () {
 $(document).on("click", ".btnGuardaUbicacion", function () {
     var paragraphs = Array.from(document.querySelectorAll(".resetCeldas"));
     var hiddenAreaBod = document.getElementById("hiddenAreaBod").value;
+    var idAreaBod = document.getElementById("idAreaBod").value;
     listaUbInactiva = [];
     for (var i = 0; i < paragraphs.length; i++) {
         var datoY = paragraphs[i].attributes.ejeY.value;
         var datoX = paragraphs[i].attributes.ejeX.value;
         listaUbInactiva.push({
+            "idAreaBod": idAreaBod,
             "hiddenAreaBod": hiddenAreaBod,
             "datoY": datoY,
             "datoX": datoX

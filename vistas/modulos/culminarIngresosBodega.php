@@ -197,14 +197,13 @@
                                                             <input type="text" class="form-control"  id="pesoKg" name="pesoKg" placeholder="Numero de bultos" value="" readOnly="false" />
                                                         </div>
                                                     </div>
-                                                    <div class="col-4 mt-2" id="divUbicacionMerc">
+                                                    <div class="col-5 mt-2" id="divUbicacionMerc">
                                                         <input type="hidden" id="hiddenUbicaciones" name="hiddenUbicaciones" value="" />
                                                         <div class="form-group">
                                                             <label>Ubicación</label>
                                                             <select class="form-control select2 select2-hidden-accessible" name="selectUbicacion" id="selectUbicacion" style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                                 <option selected="selected">Selecione Ubicación</option>
-                                                                <option>Piso</option>
-                                                                <option>Rack</option>
+                            
                                                             </select>
                                                         </div>
                                                     </div>
@@ -278,6 +277,7 @@
                     </div>
                      <div class="col-6" id="areaBodega" >
                          <input type="hidden" id="hiddenAreaBod" value="" />
+                         <input type="hidden" id="idAreaBod" value="" />                         
                     </div>                    
                     <div id="mapEntrada" class="col-1 mt-4 pull-right">
                         <center>Entrada De :<?php echo '&nbsp;&nbsp;&nbsp;&nbsp' . $_SESSION["NavegaBod"] . '&nbsp;&nbsp' . $_SESSION["NavegaNumB"]; ?></center>

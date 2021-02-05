@@ -1538,7 +1538,7 @@ $(document).on("click", ".btnEditar", function () {
 
                             document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
                             document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
-                            if ($("#gDetalles").length>0) {
+                            if ($("#gDetalles").length > 0) {
                                 document.getElementById("gDetalles").innerHTML = "Editar Clientes";
                                 document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
                             }
@@ -1701,17 +1701,17 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                     document.getElementById("txtNitEmpresa").readOnly = true;
 
                                     var valTipoConso = $("#sel2 option:selected").text();
-                                    
+
                                     var estadoIndividual = 0;
-                                    if ($("#btnCambiarEstadoIndi").length>0) {
+                                    if ($("#btnCambiarEstadoIndi").length > 0) {
                                         var estadoIndividual = $("#btnCambiarEstadoIndi").attr("estado");
                                     }
-                                    if (valTipoConso == "Cliente consolidado" || estadoIndividual==1) {
+                                    if (valTipoConso == "Cliente consolidado" || estadoIndividual == 1) {
                                         document.getElementById("divAcciones").innerHTML = '';
                                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button></button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado="0" data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetallesManifiesto">Cargar Empresas</button></div>';
-                                        if ($("#gDetalles").length>0) {
-                                        document.getElementById("gDetalles").click();
-                                            
+                                        if ($("#gDetalles").length > 0) {
+                                            document.getElementById("gDetalles").click();
+
                                         }
                                     }
                                     if (valTipoConso == "Cliente consolidado poliza") {
@@ -1795,7 +1795,7 @@ $(document).on("click", ".btnIngresoSinTarifa", async function () {
                                         }
                                     }
 
-                                    if (valTipoConso == "Cliente individual" && estadoIndividual==0) {
+                                    if (valTipoConso == "Cliente individual" && estadoIndividual == 0) {
                                         $("#sel2").removeClass("is-valid");
                                         $("#sel2").addClass("is-invalid");
                                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-dark btnMasPilotos" id="masPilotos" estado=0  data-toggle="modal" data-target="#plusPilotos">Agregar mas pilotos</button><button type="button" class="btn btn-success btnImpresionAcuse" id="ImprimirAcuse" estado=0>Imprimir Acuse</button></div>';
@@ -1957,7 +1957,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             var chasisErroneo = chasisErroneo + 1;
                             var buttonEstado = '<button type="button" class="btn btn-danger btn-sm"><i class="fa fa-window-close"></i></button>';
                             listaEstado.push([chasis, tipoVehiculo, lineaVehiculo, estado]);
-                        
+
                         }
 
                         listaOkValidacion.push([numero, chasis, tipoVehiculo, lineaVehiculo, buttonEstado]);
@@ -1998,7 +1998,7 @@ $(document).on("click", ".btnValidarChasis", function () {
                             }
                         }
                         console.log(listaDataRevNoEn);
-                        
+
                         document.getElementById("divChaisesNoEncontrados").innerHTML = "";
                         document.getElementById("divChaisesNoEncontrados").innerHTML = '<table id="tableChasisNoEncotrados" class="table table-hover table-sm"></table>';
 
@@ -2103,8 +2103,8 @@ $(document).on("click", ".btnValidarChasis", function () {
                                 }]
                         });
                     }
-                    
-                    if (chasisErroneo>0) {
+
+                    if (chasisErroneo > 0) {
                         document.getElementById("buttonsChasis").innerHTML = '<button type="button" class="btn btn-info btnValidarChasis" id="buttonChasis" estado="0">Validar Chasis <i class="fa fa-wrench" aria-hidden="true"></i></button><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#verChasisNoEncon">Ver lineas no encotradas</button>'
 
                     }
@@ -2521,11 +2521,11 @@ async function guardarSinTarifa(tipo) {
         var numeroContenedor = document.getElementById("numeroContenedor").value;
         var numeroMarchamo = document.getElementById("numeroMarchamo").value;
         var estadoIndividual = 0;
-        if ($("#btnCambiarEstadoIndi").length>0) {
+        if ($("#btnCambiarEstadoIndi").length > 0) {
             var estadoIndividual = $("#btnCambiarEstadoIndi").attr("estado");
         }
         console.log(estadoIndividual);
-        
+
         if (ClientPoltxtNitSalida != "") {
             var lblEmpresa = document.getElementById("ClientPoltxtNombreSalida").value;
             var idNitCliente = document.getElementById("hiddenNitIdenty").value;
@@ -2571,7 +2571,7 @@ async function guardarSinTarifa(tipo) {
         datos.append("idUs", idUs);
         datos.append("etiquetaNumBod", etiquetaNumBod);
         datos.append("estadoIndividual", estadoIndividual);
-        
+
 
 
         $.ajax({
@@ -2982,9 +2982,9 @@ function guardarSinTarifaS(tipo) {
 <input type="text" class="form-control" name="tipoBusqueda" id="tipoBusqueda" placeholder="Busqueda" />
 </div><div class="col-4"><div class="form-group"><label>Cantidad de bultos</label><input type="text" class="form-control" id="bultosAgregados" name="bultosAgregados" placeholder="Ingrese cantidad de bultos"></div></div><div class="col-4"><div class="form-group"><label>Valor Peso</label><input type="text" class="form-control" id="pesoAgregado" name="pesoAgregado" placeholder="Ingrese peso"></div></div> <div class="col-4"><div class="btn-group" role="group" aria-label="Basic example"><button type="button" class="btn btn-success btnAgregarEmpresa" btnAgrega=0>Agregar Empresa</button></div></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Bultos</span><h1>9000</h1></div><!-- /.info-box-content --></div><!-- /.info-box --></div><div class="col-4"><div class="info-box"><span class="info-box-icon bg-primary"><i class="fa fa-calculator"></i></span><div class="info-box-content"><span class="info-box-text">Saldo Peso</span><h3>3</h3></div><!-- /.info-box-content --></div><!-- /.info-box --></div></div>`;
                         document.getElementById("divAcciones").innerHTML = '<div class="btn-group btn-group-lg" id="divMasButtons"><button type="button" class="btn btn-warning btnEditarIngreso" id="editarData" estado=0>Editar</button><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#gdrManifiestos" id="gDetalles" idIng=' + idIdenty + '>Cargar Empresas</button></div>';
-                        if ($("#gDetalles").length>0) {
-                        document.getElementById("gDetalles").click();
-                            
+                        if ($("#gDetalles").length > 0) {
+                            document.getElementById("gDetalles").click();
+
                         }
                     } else if (valTipoConso == "Cliente consolidado poliza") {
                         if (tipo == 0) {
@@ -3210,17 +3210,17 @@ $(document).on("change", "#sel2", async function () {
     }
     if (tipoReg == "Cliente individual") {
         $("#divMarchamo").removeClass("col-md-4");
-        $("#divConsolidado").removeClass("col-md-4"); 
+        $("#divConsolidado").removeClass("col-md-4");
 
         $("#divMarchamo").addClass("col-md-3");
         $("#divConsolidado").addClass("col-md-3");
-        $("#divButtonIndiv").addClass("col-md-2"); 
-        $("#divButtonIndiv").html("col-md-2"); 
-                
-        document.getElementById("divButtonIndiv").innerHTML = '<button type="button" id="btnCambiarEstadoIndi" class="btn btn-warning" estado=0>Agregar detalle manualmente</button>';
-        
+        $("#divButtonIndiv").addClass("col-md-2");
+        $("#divButtonIndiv").html("col-md-2");
 
-        if (clientes >= 2 && estadoInd==0) {
+        document.getElementById("divButtonIndiv").innerHTML = '<button type="button" id="btnCambiarEstadoIndi" class="btn btn-warning" estado=0>Agregar detalle manualmente</button>';
+
+
+        if (clientes >= 2 && estadoInd == 0) {
             document.getElementById("sel2").selectedIndex = "Seleccione tipo de cliente";
             swal({
                 type: "error",
@@ -5175,7 +5175,7 @@ $(document).on("click", ".btnGVehciuloUs", async function () {
     console.log(respuestaSaldoPeso);
     if ($(".tableIngFail").length == 0) {
         var cantVsClientes = document.getElementById("cantVsClientes").value;
-        if ($("#gDetalles").length>0) {
+        if ($("#gDetalles").length > 0) {
             document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
         }
         var valueClientes = document.getElementById("valueClientes").value;
@@ -6554,11 +6554,6 @@ $(document).on("click", "#btnGuardarDetallesIng", async function () {
 
 function guardarDetalleIng(llaveConsulta, empresa, bultos, peso) {
     let retorno;
-    console.log(llaveConsulta);
-    console.log(empresa);
-    console.log(bultos);
-    console.log(llaveConsulta);
-
     var datos = new FormData();
 
 
@@ -6645,12 +6640,12 @@ $(document).on("click", ".btnAgregarEmpresaInter", async function () {
                                 document.getElementById('colorDiv').setAttribute('class', "small-box bg-success");
                                 document.getElementById("clientesRegs").innerHTML = "Clientes agregados";
                                 var cantVsClientes = document.getElementById("cantVsClientes").value;
-                                if ($("#gDetalles").length>0) {
-                                document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
-                                document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
-                                    
+                                if ($("#gDetalles").length > 0) {
+                                    document.getElementById("gDetalles").innerHTML = "Agregar o revisar";
+                                    document.getElementById('gDetalles').setAttribute('class', "btn btn-info");
+
                                 }
-                                
+
                                 var valueClientes = document.getElementById("valueClientes").value;
                                 cantVsClientes = parseInt(cantVsClientes) + 1;
                                 document.getElementById("contadorH3").innerHTML = cantVsClientes;
@@ -6684,13 +6679,13 @@ $(document).on("click", ".btnAgregarEmpresaInter", async function () {
                                     if ($("#divTableFail").length == 0) {
                                         document.getElementById('colorDiv').setAttribute('class', "small-box bg-primary");
                                         document.getElementById("clientesRegs").innerHTML = 'TODOS LOS CLIENTES FUERON AGREGADOS';
-                                        
-                                        if ($("#gDetalles").length>0) {
-                                        document.getElementById("gDetalles").innerHTML = "Editar Clientes";
-                                        document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
-                                            
+
+                                        if ($("#gDetalles").length > 0) {
+                                            document.getElementById("gDetalles").innerHTML = "Editar Clientes";
+                                            document.getElementById('gDetalles').setAttribute('class', "btn btn-success");
+
                                         }
-                                        
+
                                         var valueClientes = document.getElementById("valueClientes").value;
                                         var cantVsClientes = document.getElementById("cantVsClientes").value;
                                         cantVsClientes = parseInt(cantVsClientes) + 1;
@@ -6849,16 +6844,16 @@ $(document).on("click", "#gDetalles", async function () {
 $(document).on("click", "#btnCambiarEstadoIndi", async function () {
     var estado = $(this).attr("estado");
     console.log(estado);
-    if (estado==0) {
+    if (estado == 0) {
         $(this).attr("estado", 1);
         $(this).removeClass("btn-warning");
         $(this).addClass("btn-success");
-    }else{
+    } else {
         $(this).attr("estado", 0)
         $(this).removeClass("btn-success");
         $(this).addClass("btn-warning");
-        
+
     }
-        
+
 })
 

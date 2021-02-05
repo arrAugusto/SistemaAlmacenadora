@@ -21,10 +21,12 @@ class ControladorRegistroBodega {
         return $respuesta;
     }
 
-    public static function ctrGuardarDetalle($datos, $usuarioOp) {
+    public static function  ctrGuardarDetalle($datos, $usuarioOp) {
 
+        
+        
         $dataListaUbica = $datos["hiddenLista"];
-        return $dataListaUbica;
+
 
         $idChequeBodega = $datos["idChequeBodega"];
         $montacarga = $datos["montacarga"];
@@ -47,8 +49,8 @@ class ControladorRegistroBodega {
 
             $dataListaUbica = json_decode($dataListaUbica, true);
             $llave = $respuesta["llaveIdent"][0]["Identity"];
-            return $dataListaUbica;
-            $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica, $llave);
+
+            $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica[0][5], $llave);
         }
         if ($respuestaGUbica == "fin") {
             return $respuesta;
@@ -543,13 +545,29 @@ class ControladorRegistroBodega {
         
     }
     
-    public static function ctrEditarAreaBodega($area, $desc, $tipoVence, $fechaVence, $idBodUpdate){
+    public static function ctrEditarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit){
+        if (is_numeric($idBodUpdate) && is_numeric($idAreaEdit)){
         $sp = "spUpdateAreaBod";
-        $respuesta = ModeloRegIngBod::mdlGuardarAreaBodega($area, $desc, $tipoVence, $fechaVence, $idBodUpdate, $sp);
+        $respuesta = ModeloRegIngBod::mdlGuardarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit, $sp);
         return $respuesta;
+            
+        }else{
+            return "SD";
+        }
         
     }
-
+    public static function ctrDeleteAreasBod($idBodAreasBodDelete){
+        if (is_numeric($idBodAreasBodDelete)){
+        $sp = "spDeleteArea";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($idBodAreasBodDelete, $sp);
+        return $respuesta;
+            
+        }else{
+            return "SD";
+        }
+        
+        
+    }
 }
 
 function Randomalfa() {

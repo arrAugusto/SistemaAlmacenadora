@@ -190,19 +190,28 @@ class AjaxRegistroIngBodega {
 
     public function ajaxMostrarAreasBod() {
         $idBodAreasBod = $this->idBodAreasBod;
-        $respuesta = ControladorRegistroBodega::ctrMostrarAreasBodegas($idBodAreasBod);
+
+        session_start();
+        $idDeBodega = $_SESSION["idDeBodega"];
+
+        $respuesta = ControladorRegistroBodega::ctrMostrarAreasBodegas($idDeBodega);
+
         echo json_encode($respuesta);
     }
 
     public $newArea;
 
     public function ajaxGuardarAreaBodega() {
-        $idBodNew = $this->idBodNew;
+        session_start();
+        $idDeBodega = $_SESSION["idDeBodega"];
         $nomNewArea = $this->nomNewArea;
         $descNewArea = $this->descNewArea;
-        $tiempoArea = $this->tiempoArea;
-        $fechaVencimiento = $this->fechaVencimiento;
-        $respuesta = ControladorRegistroBodega::ctrGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento);
+        $tiempoArea = 1;
+        date_default_timezone_set('America/Guatemala');
+        $date = date('Y-m-d');
+
+        $fechaVencimiento = $date;
+        $respuesta = ControladorRegistroBodega::ctrGuardarAreaBodega($idDeBodega, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento);
         echo json_encode($respuesta);
     }
 
@@ -210,12 +219,30 @@ class AjaxRegistroIngBodega {
 
     public function ajaxEditarAreaBodega() {
         $area = $this->area;
-        $idBodUpdate = $this->idBodUpdate;
         $desc = $this->desc;
-        $tipoVence = $this->tipoVence;
-        $fechaVence = $this->fechaVence;
-        $respuesta = ControladorRegistroBodega::ctrEditarAreaBodega($area, $desc, $tipoVence, $fechaVence, $idBodUpdate);
+        $tiempoArea = 1;
+        session_start();
+        $idBodUpdate = $_SESSION["idDeBodega"];
+        date_default_timezone_set('America/Guatemala');
+        $date = date('Y-m-d');
+        $fechaVencimiento = $date;
+        $idAreaEdit = $this->idAreaEdit;
+        $respuesta = ControladorRegistroBodega::ctrEditarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit);
+
         echo json_encode($respuesta);
+    }
+
+    public $mostrarAreaBodDel;
+
+    public function ajaxDeleteAreasBod() {
+        $idBodAreasBodDelete = $this->idBodAreasBodDelete;
+
+        session_start();
+        $idDeBodega = $_SESSION["idDeBodega"];
+
+        $respuesta = ControladorRegistroBodega::ctrDeleteAreasBod($idBodAreasBodDelete);
+
+        echo json_encode($respuesta);        
     }
 
 }
@@ -379,6 +406,16 @@ if (isset($_POST["idBodUpdate"])) {
     $editarArea->desc = $_POST["desc"];
     $editarArea->tipoVence = $_POST["tipoVence"];
     $editarArea->fechaVence = $_POST["fechaVence"];
-    $editarArea->idBodUpdate = $_POST["idBodUpdate"];    
+    $editarArea->idBodUpdate = $_POST["idBodUpdate"];
+    $editarArea->idAreaEdit = $_POST["idAreaEdit"];
+
     $editarArea->ajaxEditarAreaBodega();
+}
+
+
+//REQUIRIENDO PARAMETROS PARA ELIMINAR AREAS DE BODEGA
+if (isset($_POST["idBodAreasBodDelete"])) {
+    $mostrarAreaBodDel = new AjaxRegistroIngBodega();
+    $mostrarAreaBodDel->idBodAreasBodDelete = $_POST["idBodAreasBodDelete"];
+    $mostrarAreaBodDel->ajaxDeleteAreasBod();
 }

@@ -1,3 +1,5 @@
+
+
 <nav class="main-header navbar navbar-expand navbar-light bgNavSuper">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -94,6 +96,12 @@
                 </a>                
 '
                     ;
+                }
+                if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fiscales") {
+                    echo '
+                        <a href="#" class="dropdown-item ancAreasBod" data-toggle="modal" data-target="#mdlAreaBodegas">
+                            <i class="fa fa-database mr-2"></i> Areas de Bodega
+                        </a>';
                 }
                 ?>                 
             </div>
@@ -258,17 +266,15 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
     </div>
 </div>';
 }
-?>
 
+
+echo '
 
 <!--=====================================
 MODAL POLIZA CONSOLIDADA
 ======================================-->
 <!-- Modal -->
 
-<?php
-if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
-    echo '
 <div id="agregarNuevosServicios" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
         <!-- Modal content-->
@@ -307,8 +313,8 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
                                                     <th>Servicio</th>
                                                     </tr>
                                                 </thead> <tbody>';
-    $respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServiciosExt();
-    echo '
+$respuesta = ControladorPasesDeSalida::ctrMostrarOtrosServiciosExt();
+echo '
                                                 </tbody>
                                             </table>
                                         </div>                                        
@@ -366,8 +372,8 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
                                                     </tr>
                                                 </thead>
                                                 <tbody>';
-    $respuesta = ControladorPasesDeSalida::ctrMostrarGrupoEmpresas();
-    echo '
+$respuesta = ControladorPasesDeSalida::ctrMostrarGrupoEmpresas();
+echo '
                                                 </tbody>
                                             </table>
                                         </div>      
@@ -396,4 +402,98 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operacione
 
 
 ';
-}?>
+if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fiscales") {
+
+
+    echo ' 
+
+
+
+    ';
+}
+?>
+
+
+<!-- Modal -->
+<div id="mdlAreaBodegas" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lgMapa">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!--=====================================
+                INICIO FORM
+                ======================================-->
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-info card-outline">
+
+                        <!--campos formularios -->
+                        <form role="form" method="post" id="divGuardaDetalle">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-6 form-group" id="areasDeMiBodega">
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h5>Nuevas areas para bodega</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label>Nombre de area</label>
+                                                            <input type="text" id="nombreAreaNew" placeholder="Ejemplo: Rack" class="form-control is-invalid" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label>Descripción de area</label>
+                                                            <input type="text" id="descArea" placeholder="Ejemplo: Area para quimicos" class="form-control is-invalid" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer mt-4" id="editarAreaBodFoot">
+                                                        <div class="col-12">
+                                                            <button type="button" class="btn btn-outline-primary btn-block btnNuevaAreaBodega">Guardar nueva area</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="card card-warning">
+                                                <div class="card-header">
+                                                    <h5>Editar areas de bodega</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label>Nombre de area</label>
+                                                            <input type="text" id="nombreAreaEdit" placeholder="Ejemplo: Rack" class="form-control is-invalid" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label>Descripción de area</label>
+                                                            <input type="text" id="descAreaEdit" placeholder="Ejemplo: Area para quimicos" class="form-control is-invalid" onkeyup="javascript:this.value = this.value.toUpperCase();">
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-footer mt-4" id="editarAreaBodFoot">
+                                                        <div class="col-12">
+                                                            <button type="button" class="btn btn-outline-success btn-block btnEditAreaBod">Editar nueva area</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
+
