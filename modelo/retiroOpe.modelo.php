@@ -200,7 +200,7 @@ class ModeloRetiroOpe {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spSaldosRet ?";
         $params = array(&$idIngOpDet);
-
+        
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

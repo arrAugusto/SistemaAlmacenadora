@@ -11,6 +11,7 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
+        if ($respuesta!="SD") {
         foreach ($respuesta as $key => $value) {
             $sp = "spStockGeneral";
             $idIng = $value["idIng"];
@@ -19,6 +20,10 @@ class ControladorRetiroOpe {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
         return $respuesta;
         
+            
+        }else{
+            return "SD";
+        }
     }
 
     public static function ctrMostrarEstadoDetalle($idBod) {
