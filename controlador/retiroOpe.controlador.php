@@ -11,19 +11,7 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
-        if ($respuesta!="SD") {
-        foreach ($respuesta as $key => $value) {
-            $sp = "spStockGeneral";
-            $idIng = $value["idIng"];
-            $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetalles($idIng, $sp);            
-        }
-        $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
         return $respuesta;
-        
-            
-        }else{
-            return "SD";
-        }
     }
 
     public static function ctrMostrarEstadoDetalle($idBod) {
@@ -151,43 +139,41 @@ class ControladorRetiroOpe {
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
 
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
-                    
-                    $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
 
-                    foreach ($jsonDecodeDR as $key => $value) {
-                        $poliza = $value["poliza"];
-                        $idRet = $respuesta["valIdRetiro"];
-                        $bltsSumFinal = $value["bltsSumFinal"];
-                        $valDolSumFinal = $value["valDolSumFinal"];
-                        $cifFinal = $value["cifFinal"];
-                        $impuestoFinal = $value["impuestoFinal"];
-                        $sp = "spValContaRet";
-                        $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
-                
-                     }   
-                    } else {
-                    $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+                $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
+
+                foreach ($jsonDecodeDR as $key => $value) {
+                    $poliza = $value["poliza"];
+                    $idRet = $respuesta["valIdRetiro"];
+                    $bltsSumFinal = $value["bltsSumFinal"];
+                    $valDolSumFinal = $value["valDolSumFinal"];
+                    $cifFinal = $value["cifFinal"];
+                    $impuestoFinal = $value["impuestoFinal"];
+                    $sp = "spValContaRet";
+                    $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
                 }
-                $direccion = "../extensiones/imagenesQRCreadasRet/";
-                if (!file_exists($direccion)) {
-                    mkdir($direccion);
-                }
-                $codigoQR = new QrCode($arrayDataImagen, 'H', 5, 1);
-                // La ruta en donde se guardará el código
-                $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet" . $respuesta["valIdRetiro"] . ".png");
-                // Escribir archivo,
-                $codigoQR->writeFile($nombreArchivoParaGuardar);
+            } else {
+                $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
+            }
+            $direccion = "../extensiones/imagenesQRCreadasRet/";
+            if (!file_exists($direccion)) {
+                mkdir($direccion);
+            }
+            $codigoQR = new QrCode($arrayDataImagen, 'H', 5, 1);
+            // La ruta en donde se guardará el código
+            $nombreArchivoParaGuardar = ($direccion . "/qrCodeRet" . $respuesta["valIdRetiro"] . ".png");
+            // Escribir archivo,
+            $codigoQR->writeFile($nombreArchivoParaGuardar);
 
 
-                if ($respuestaActStockGen[0]["resp"] == 1) {
-                    return $respuesta;
-                } else {
-                    return "denegado";
-                }
+            if ($respuestaActStockGen[0]["resp"] == 1) {
+                return $respuesta;
             } else {
                 return "denegado";
             }
-        
+        } else {
+            return "denegado";
+        }
     }
 
     public static function ctrMostrarSelectDetOpe($idIngSelectDet) {

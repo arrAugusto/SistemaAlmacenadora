@@ -3011,13 +3011,16 @@ $(document).on("click", ".btnListaSelect", async function () {
                         console.log(respuestaDetIng.data.resHistorial);
                         listaHistorial = [];
                         for (var i = 0; i < respuestaDetIng.data.resHistorial.length; i++) {
+                            var idRet = respuestaDetIng.data.resHistorial[i].id;
+                            var idIngreso = respuestaDetIng.data.resHistorial[i].idIngreso;
                             var polizaRetiro = respuestaDetIng.data.resHistorial[i].polizaRetiro;
                             var regimen = respuestaDetIng.data.resHistorial[i].regimenSalida;
                             var bultos = respuestaDetIng.data.resHistorial[i].bultos;
                             var valorCif = respuestaDetIng.data.resHistorial[i].totalValorCif;
                             var calculoValorImpuesto = respuestaDetIng.data.resHistorial[i].valorImpuesto;
                             var fechaRetiro = respuestaDetIng.data.resHistorial[i].fechaRetiro;
-                            listaHistorial.push([polizaRetiro, fechaRetiro, regimen, bultos, valorCif, calculoValorImpuesto]);
+                            var button = '<div class="btn-group"><button type="button" class="btn btn-outline-primary btn-sm" id="btnReimprimeRec" idret="'+idRet+'">Rec.</button><button type="button" class="btn btn-outline-info btn-sm" id="btnReimprimeRet" idret="'+idRet+'">Ret.</button><button type="button" buttonid="'+idIngreso+'" class="btn btn-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button></div>';
+                            listaHistorial.push([polizaRetiro, fechaRetiro, regimen, bultos, valorCif, calculoValorImpuesto, button]);
                         }
                         console.log(listaHistorial);
                         $('#tablaMerRetiro').DataTable({
@@ -3058,6 +3061,8 @@ $(document).on("click", ".btnListaSelect", async function () {
                                     title: "valorCif"
                                 }, {
                                     title: "calculoValorImpuesto"
+                                }, {
+                                    title: "Acciones"
                                 }]
                         });
                     }

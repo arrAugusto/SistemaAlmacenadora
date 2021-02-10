@@ -52,6 +52,7 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp, $sp) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?, ?";
@@ -70,6 +71,7 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlMostrarBusqueda($datoSearch, $idDeBodega) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNitSalida ?";
@@ -196,57 +198,32 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlMostrarSaldosConta($idIngOpDet) {
-
-        $conn = Conexion::Conectar();
-        $sql = "EXECUTE spSaldosRet ?";
-        $params = array(&$idIngOpDet);
-        
-        $stmt = sqlsrv_prepare($conn, $sql, $params);
-        if (sqlsrv_execute($stmt) == true) {
-            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                $results[] = $row;
-            }
-            if (!empty($results)) {
-                $sql = "EXECUTE spTotalBlts ?";
-                $stmt = sqlsrv_prepare($conn, $sql, $params);
-                if (sqlsrv_execute($stmt) == true) {
-                    while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                        $resultsTblts[] = $row;
+        $sp = "spMstSaldosBlts";
+        $respSaldo = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+        $sp = "spRetiroNormal";
+        $retSinDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+        $sp = "spRetiroDr";
+        $retConDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+        if ($respSaldo != "SD") {
+            if ($respSaldo[0]["sldBultos"] > 0) {
+                $historia = [];
+                if ($retSinDR != "SD") {
+                    foreach ($retSinDR as $value) {
+                        array_push($historia, $value);
                     }
-                    if (!empty($resultsTblts)) {
-                        $sql = "EXECUTE spTotalIng ?";
-                        $stmt = sqlsrv_prepare($conn, $sql, $params);
-                        if (sqlsrv_execute($stmt) == true) {
-                            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-                                $resultsTIng[] = $row;
-                            }
-                            if (!empty($resultsTIng)) {
-                                $sldCif = $resultsTIng[0]["totalValorCif"] - $resultsTblts[0]["sumaCif"];
-                                $sldBultos = $resultsTIng[0]["bultos"] - $resultsTblts[0]["sumaBultos"];
-                                $sldImpuesto = $resultsTIng[0]["valorImpuesto"] - $resultsTblts[0]["sumaImpts"];
-                                $saldos = array("sldBultos" => $sldBultos, "sldCif" => $sldCif, "sldImpuesto" => $sldImpuesto);
-                                if ($sldBultos >= 1) {
-                                    return array("resHistorial" => $results, "sumRet" => $resultsTblts, "sumIng" => $resultsTIng, "saldos" => $saldos);
-                                } else {
-                                    return "SD";
-                                }
-                            } else {
-                                return "SD";
-                            }
-                        } else {
-                            sqlsrv_errors();
-                        }
-                    } else {
-                        return "SD";
-                    }
-                } else {
-                    return sqlsrv_errors();
                 }
-            } else {
-                return "sinRet";
+                if ($retConDR != "SD") {
+                    foreach ($retConDR as $value) {
+                        array_push($historia, $value);
+                    }
+                }
+                if (count($historia) > 0) {
+                    return array("resHistorial" => $historia, "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
+                } else {
+
+                    return array("resHistorial" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
+                }
             }
-        } else {
-            return sqlsrv_errors();
         }
     }
 
@@ -396,7 +373,6 @@ class ModeloRetiroOpe {
             $sqlDet = "EXECUTE spEditRetirosVehEd  ?,	?,	?,	?,	?,	?,	?";
 
             $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
-
         }
 
         if (sqlsrv_execute($stmt) == true) {
@@ -428,7 +404,7 @@ class ModeloRetiroOpe {
             }
 
             $sqlBlts = "EXECUTE spEdicionValRet  ?,	?,  ?,  ?,  ?,  ?,  ?,  ?";
-            
+
             $stmt = sqlsrv_prepare($conn, $sqlBlts, $paramsBlts);
             if (sqlsrv_execute($stmt) == true) {
                 return "Editado";
