@@ -3,11 +3,11 @@
 require_once "cone.php";
 
 class ModeloContabilidadDeRet {
-
+    
     public static function mdlListarRetPendientes($tipo, $ident, $idBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-        
+
         $params = array(&$tipo, &$ident, &$idBodega);
         $sql = "EXECUTE spRetirosPendientes ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -23,42 +23,42 @@ class ModeloContabilidadDeRet {
 
                     $params = array(&$idIngreso, &$identificaRet);
 
-                            $data = array(
-                                "nitIngreso" => $nitIngreso = $values["nitIngreso"],
-                                "nitRet" => $nitRet = $values["nitRet"],
-                                "numNit" => $numNit = $values["numNit"],
-                                "empresa" => $empresa = $values["empresa"],
-                                "numPolIng" => $numPolIng = $values["numPolIng"],
-                                "polRet" => $polRet = $values["polRet"],
-                                "pesoRet" => $pesoRet = $values["pesoRet"],
-                                "bultosRet" => $bultosRet = $values["bultosRet"],
-                                "tipoServicio" => $tipoServicio = $values["tipoServicio"],
-                                "numId" => $numId = $values["numId"],
-                                "identRet" => $identRet = $values["identRet"],
-                                "idIngOp" => $idIngOp = $values["idIngOp"],
-                                "valorEstadoRet" => $valorEstadoRet = $values["valorEstadoRet"],
-                                "totalValorCif" => $totalValorCif = $values["totalValorCif"],
-                                "valorImpuesto" => $valorImpuesto = $values["valorImpuesto"],
-                                "numeroRetiro" => $numeroRetiro = $values["numeroRetiro"],
-                                "numeroIngreso" => $numeroIngreso = $values["numeroIngreso"],
-                                "fecha" => $fecha = $values["fecha"],
-                                "nombres" => $nombres = $values["nombres"],
-                                "apellidos" => $apellidos = $values["apellidos"],
-                                "identificaRet" => $identificaRet = $values["identificaRet"]);
-                            array_push($dataArray, $data);
-                       
-                    }
-             
+                    $data = array(
+                        "nitIngreso" => $nitIngreso = $values["nitIngreso"],
+                        "nitRet" => $nitRet = $values["nitRet"],
+                        "numNit" => $numNit = $values["numNit"],
+                        "empresa" => $empresa = $values["empresa"],
+                        "numPolIng" => $numPolIng = $values["numPolIng"],
+                        "polRet" => $polRet = $values["polRet"],
+                        "pesoRet" => $pesoRet = $values["pesoRet"],
+                        "bultosRet" => $bultosRet = $values["bultosRet"],
+                        "tipoServicio" => $tipoServicio = $values["tipoServicio"],
+                        "numId" => $numId = $values["numId"],
+                        "identRet" => $identRet = $values["identRet"],
+                        "idIngOp" => $idIngOp = $values["idIngOp"],
+                        "valorEstadoRet" => $valorEstadoRet = $values["valorEstadoRet"],
+                        "totalValorCif" => $totalValorCif = $values["totalValorCif"],
+                        "valorImpuesto" => $valorImpuesto = $values["valorImpuesto"],
+                        "numeroRetiro" => $numeroRetiro = $values["numeroRetiro"],
+                        "numeroIngreso" => $numeroIngreso = $values["numeroIngreso"],
+                        "fecha" => $fecha = $values["fecha"],
+                        "nombres" => $nombres = $values["nombres"],
+                        "apellidos" => $apellidos = $values["apellidos"],
+                        "identificaRet" => $identificaRet = $values["identificaRet"]);
+                    array_push($dataArray, $data);
+                }
+
                 return $dataArray;
             } else {
                 return "SD";
             }
         }
     }
+
     public static function mdlListarRetPendientesGeneral($tipo, $idDeBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
-        
+
         $params = array(&$tipo, &$idDeBodega);
         $sql = "EXECUTE spRetirosPendGeneral ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -74,67 +74,74 @@ class ModeloContabilidadDeRet {
 
                     $params = array(&$idIngreso, &$identificaRet);
 
-                            $data = array(
-                                "nitIngreso" => $nitIngreso = $values["nitIngreso"],
-                                "nitRet" => $nitRet = $values["nitRet"],
-                                "numNit" => $numNit = $values["numNit"],
-                                "empresa" => $empresa = $values["empresa"],
-                                "numPolIng" => $numPolIng = $values["numPolIng"],
-                                "polRet" => $polRet = $values["polRet"],
-                                "pesoRet" => $pesoRet = $values["pesoRet"],
-                                "bultosRet" => $bultosRet = $values["bultosRet"],
-                                "tipoServicio" => $tipoServicio = $values["tipoServicio"],
-                                "numId" => $numId = $values["numId"],
-                                "identRet" => $identRet = $values["identRet"],
-                                "idIngOp" => $idIngOp = $values["idIngOp"],
-                                "valorEstadoRet" => $valorEstadoRet = $values["valorEstadoRet"],
-                                "totalValorCif" => $totalValorCif = $values["totalValorCif"],
-                                "valorImpuesto" => $valorImpuesto = $values["valorImpuesto"],
-                                "numeroRetiro" => $numeroRetiro = $values["numeroRetiro"],
-                                "numeroIngreso" => $numeroIngreso = $values["numeroIngreso"],
-                                "fecha" => $fecha = $values["fecha"],
-                                "nombres" => $nombres = $values["nombres"],
-                                "apellidos" => $apellidos = $values["apellidos"],
-                                "identificaRet" => $identificaRet = $values["identificaRet"]);
-                            array_push($dataArray, $data);
-                       
-                    }
-             
+                    $data = array(
+                        "nitIngreso" => $nitIngreso = $values["nitIngreso"],
+                        "nitRet" => $nitRet = $values["nitRet"],
+                        "numNit" => $numNit = $values["numNit"],
+                        "empresa" => $empresa = $values["empresa"],
+                        "numPolIng" => $numPolIng = $values["numPolIng"],
+                        "polRet" => $polRet = $values["polRet"],
+                        "pesoRet" => $pesoRet = $values["pesoRet"],
+                        "bultosRet" => $bultosRet = $values["bultosRet"],
+                        "tipoServicio" => $tipoServicio = $values["tipoServicio"],
+                        "numId" => $numId = $values["numId"],
+                        "identRet" => $identRet = $values["identRet"],
+                        "idIngOp" => $idIngOp = $values["idIngOp"],
+                        "valorEstadoRet" => $valorEstadoRet = $values["valorEstadoRet"],
+                        "totalValorCif" => $totalValorCif = $values["totalValorCif"],
+                        "valorImpuesto" => $valorImpuesto = $values["valorImpuesto"],
+                        "numeroRetiro" => $numeroRetiro = $values["numeroRetiro"],
+                        "numeroIngreso" => $numeroIngreso = $values["numeroIngreso"],
+                        "fecha" => $fecha = $values["fecha"],
+                        "nombres" => $nombres = $values["nombres"],
+                        "apellidos" => $apellidos = $values["apellidos"],
+                        "identificaRet" => $identificaRet = $values["identificaRet"]);
+                    array_push($dataArray, $data);
+                }
+
                 return $dataArray;
             } else {
                 return "SD";
             }
         }
     }
-        public static function  mdlListarRetPendientesHistorial($ident) {
+
+    public static function mdlListarRetPendientesHistorial($ident) {
+        /*
+         * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
+         * **/
+        /*
+         * TODOS LOS RETIROS ==> spRetirosHistorial
+         * **/
+        
         $dataArray = [];
         $conn = Conexion::Conectar();
-        $sql = "EXECUTE spRetirosHistorial ?";
+        $sql = "EXECUTE spRetHistUltQuinientos ?";
         $params = array(&$ident);
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
-            }   
+            }
 
-            
+
             if (!empty($results)) {
                 $data = [];
                 foreach ($results as $keys => $values) {
                     $tipo = 0;
-                    if ($keys>0) {
+                    if ($keys > 0) {
                         foreach ($data as $keyD => $valueD) {
-                            if ($values["polRet"]==$valueD["polRet"]) {
-                                $tipo = $tipo+1;
-                            } 
+                            if ($values["polRet"] == $valueD["polRet"]) {
+                                $tipo = $tipo + 1;
+                            }
                         }
                     }
-                    if ($tipo==0) {
+                    if ($tipo == 0) {
                         array_push($data, $values);
                     }
                 }
 
-                 
+
                 return $data;
             } else {
                 return "SD";
@@ -200,11 +207,12 @@ class ModeloContabilidadDeRet {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlMstrReporteRet($sp, $reportContaIdent) {
         $conn = Conexion::Conectar();
         $sql = 'EXECUTE ' . $sp . ' ?';
         $params = array(&$reportContaIdent);
-        
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -219,6 +227,7 @@ class ModeloContabilidadDeRet {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlListarRetContabilizados($sp, $tipo, $ident, $fecha) {
         $dataArray = [];
         $conn = Conexion::Conectar();
@@ -229,7 +238,7 @@ class ModeloContabilidadDeRet {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
             }
-            
+
             if (!empty($results)) {
                 foreach ($results as $key => $values) {
                     $resultsData = [];

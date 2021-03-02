@@ -25,20 +25,20 @@
             <form role="form" method="post">
                 <div class="card-body">
                     <div class="row">
-                    <div class="col-12" id="divAlerta">
+                        <div class="col-12" id="divAlerta">
 
-                    </div>
-                    <div>
-                        <input type="hidden" id="hiddenTipoOP" value="" />
-                    </div>
-                    <div class="col-12">
-                        <div class="row" id="divCalculoHistoria">
                         </div>
+                        <div>
+                            <input type="hidden" id="hiddenTipoOP" value="" />
+                        </div>
+                        <div class="col-12">
+                            <div class="row" id="divCalculoHistoria">
+                            </div>
 
-                        <?php
-                        if ($_SESSION["departamentos"] != "Operaciones Fiscales") {
+                            <?php
+                            if ($_SESSION["departamentos"] != "Operaciones Fiscales") {
 
-                            echo '
+                                echo '
     
                          </div>
 <div class="alert alert-danger" role="alert">
@@ -50,16 +50,40 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
 </div>   
     
     ';
-                        }
-                        ?>
-                    </div>
-                                            <div class="col-md-12" id="divOtrosServicios"></div>
+                            }
+                            ?>
+                        </div>
+
+
+                        <div class="col-md-12" id="divOtrosServicios"></div>
                         <div class="col-lg-6 col-sm-12 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelRec"  estadoRep="4">GENERAR HISTORIAL DE RECIBOS EXCEL <i class="fa fa-file-excel-o"></i></button>
                         </div>
                         <div class="col-lg-6 col-sm-12 mt-2">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelRet"  estadoRep="4">GENERAR HISTORIAL DE RETIROS EXCEL <i class="fa fa-file-excel-o"></i></button>
                         </div>
+
+                        <div class="col-lg-5 col-sm-12 mt-4">
+                            <button type="button" class="btn btn-outline-primary btn-block">Mostrar todos los retiros</button>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-12 mt-4">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Busca por poliza de retiro o ingreso " value="" />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-success btn-flat"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+
+
+
+                        </div>
+                        <div class="col-lg-3 col-sm-12 mt-4">
+                            <input type="text" name="daterange" class="pull-right form-control" value="" />
+
+                        </div>
+
                         <div class="col-12 mt-5">
                             <table id="tablasHistRetiro" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
@@ -370,3 +394,13 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
         </div>
     </div>
 </div>
+
+<script>
+    $(function () {
+        $('input[name="daterange"]').daterangepicker({
+            opens: 'left'
+        }, function (start, end, label) {
+            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+        });
+    });
+</script>
