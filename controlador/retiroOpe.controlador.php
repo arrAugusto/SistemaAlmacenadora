@@ -667,6 +667,22 @@ class ControladorRetiroOpe {
         return $respuesta;
     }
 
+    public static function ctrMostrarHistorialRetiros($NavegaNumB) {
+        $respuesta = ModeloRetiroOpe::mdlListarTodosRetirosF($NavegaNumB);
+        return $respuesta;
+    }
+
+    public static function ctrMostrarRangoHistorial($NavegaNumB, $fechaInicio, $fechaFin) {
+        $sp = "spRetirosHistorialRange";
+        $respuesta = ModeloRetiroOpe::mdlListarTodosRetirosRange($NavegaNumB, $fechaInicio, $fechaFin);
+        return $respuesta;
+    }
+
+    public static function ctrMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza) {
+        $respuesta = ModeloRetiroOpe::mdlMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza);
+        return $respuesta;     
+    }
+
 }
 
 class funcionDiasCalc {

@@ -64,33 +64,30 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
                         </div>
 
                         <div class="col-lg-5 col-sm-12 mt-4">
-                            <button type="button" class="btn btn-outline-primary btn-block">Mostrar todos los retiros</button>
+                            <button type="button" class="btn btn-outline-primary btn-block btnTodosRetFi">Mostrar todos los retiros</button>
                         </div>
 
                         <div class="col-lg-4 col-sm-12 mt-4">
 
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Busca por poliza de retiro o ingreso " value="" />
+                                <input type="text" class="form-control" placeholder="Busca por poliza de retiro o ingreso " id="polizaBusqueda" value="" />
                                 <span class="input-group-append">
-                                    <button type="button" class="btn btn-success btn-flat"><i class="fa fa-search"></i></button>
+                                    <button type="button" class="btn btn-success btn-flat btnRetiroPolizaHistorial"><i class="fa fa-search"></i></button>
                                 </span>
                             </div>
-
-
-
                         </div>
                         <div class="col-lg-3 col-sm-12 mt-4">
-                            <input type="text" name="daterange" class="pull-right form-control" value="" />
-
+                            <input type="text" id="daterangeRetiros" class="form-control">
                         </div>
 
-                        <div class="col-12 mt-5">
+                        <div class="col-12 mt-5" id="tableRetirosHistoria">
                             <table id="tablasHistRetiro" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                 <thead>
                                     <tr>
                                     <th style="width:auto;">#</th>
                                     <th>Nit</th>
                                     <th>Empresa</th>
+                                    <th>F. Emisión</th>
                                     <th>Poliza Ing</th>
                                     <th>Poliza Ret</th>
                                     <th>Numero Ret</th>                                    
@@ -394,13 +391,3 @@ si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
         </div>
     </div>
 </div>
-
-<script>
-    $(function () {
-        $('input[name="daterange"]').daterangepicker({
-            opens: 'left'
-        }, function (start, end, label) {
-            console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-        });
-    });
-</script>

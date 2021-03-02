@@ -552,5 +552,139 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+    
+        public static function mdlMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza) {
+        /*
+         * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
+         * **/
+        /*
+         * TODOS LOS RETIROS ==> spRetirosHistorial
+         * **/
+        
+        $dataArray = [];
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE spRetirosHistorialPoliza ?, ?";
+        $params = array(&$NavegaNumB, &$busquedaPoliza);
+ 
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+
+
+            if (!empty($results)) {
+                $data = [];
+                foreach ($results as $keys => $values) {
+                    $tipo = 0;
+                    if ($keys > 0) {
+                        foreach ($data as $keyD => $valueD) {
+                            if ($values["polRet"] == $valueD["polRet"]) {
+                                $tipo = $tipo + 1;
+                            }
+                        }
+                    }
+                    if ($tipo == 0) {
+                        array_push($data, $values);
+                    }
+                }
+
+
+                return $data;
+            } else {
+                return "SD";
+            }
+        }else{
+            return sqlsrv_errors();
+        }
+    }
+
+          public static function mdlListarTodosRetirosF($ident) {
+        /*
+         * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
+         * **/
+        /*
+         * TODOS LOS RETIROS ==> spRetirosHistorial
+         * **/
+        
+        $dataArray = [];
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE spRetirosHistorial ?";
+        $params = array(&$ident);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+
+
+            if (!empty($results)) {
+                $data = [];
+                foreach ($results as $keys => $values) {
+                    $tipo = 0;
+                    if ($keys > 0) {
+                        foreach ($data as $keyD => $valueD) {
+                            if ($values["polRet"] == $valueD["polRet"]) {
+                                $tipo = $tipo + 1;
+                            }
+                        }
+                    }
+                    if ($tipo == 0) {
+                        array_push($data, $values);
+                    }
+                }
+
+
+                return $data;
+            } else {
+                return "SD";
+            }
+        }else{
+        return sqlsrv_errors();
+        }
+    }
+
+        public static function mdlListarTodosRetirosRange($NavegaNumB, $fechaInicio, $fechaFin){
+        /*
+         * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
+         * **/
+        /*
+         * TODOS LOS RETIROS ==> spRetirosHistorial
+         * **/
+        
+        $dataArray = [];
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE spRetirosHistorialRange ?, ?, ?";
+        $params = array(&$NavegaNumB, &$fechaInicio, &$fechaFin);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+
+
+            if (!empty($results)) {
+                $data = [];
+                foreach ($results as $keys => $values) {
+                    $tipo = 0;
+                    if ($keys > 0) {
+                        foreach ($data as $keyD => $valueD) {
+                            if ($values["polRet"] == $valueD["polRet"]) {
+                                $tipo = $tipo + 1;
+                            }
+                        }
+                    }
+                    if ($tipo == 0) {
+                        array_push($data, $values);
+                    }
+                }
+
+
+                return $data;
+            } else {
+                return "SD";
+            }
+        }
+    }
 
 }

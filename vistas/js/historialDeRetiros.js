@@ -12,7 +12,7 @@ $(document).on("click", ".btnAnularRetiro_recibo", async function () {
     })
 
     const {value: tipoAnulacion} = await Swal.fire({
-        title: 'Tipo de anulación',
+        title: 'Tipo de anulación', 
         input: 'radio',
         inputOptions: inputOptions,
         allowOutsideClick: false,
@@ -188,7 +188,7 @@ $(document).on("click", ".btnAnularOperacion", async function () {
                         var idDetalle = json[i].idDetalles;
                         var nomVar = "idDetRevEd";
                         var respuesta = await datosDetallesEdicionRet(nomVar, idDetalle)
-                        console.log(respuesta);
+
                         var buttonDR = `<button type="button" class="btn btn-primary" id="buttonStock">` + respuesta[0].stock + `</button>`;
                         var dataChas = "Mercaderia";
                         var valTextDet = json[i].cantBultos;
@@ -517,3 +517,345 @@ $(document).ready(function () {
         });
     }
 });
+
+
+$(document).on("click", ".btnTodosRetFi", async function () {
+    document.getElementById("tableRetirosHistoria").innerHTML = "";
+    document.getElementById("tableRetirosHistoria").innerHTML = '<table id="tablasHistRetiro" class="table table-hover table-sm"></table>';
+    var estadoRet = $(this).attr("estadorep");
+    Swal.fire({
+        title: 'Quiere consultar todos los retiros?',
+        text: "Esto puede tardar unos segundos!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Mostrar todo!'
+    }).then(async function (result) {
+        Swal.fire({
+            title: 'Espera unos segundos!',
+            text: 'Cuando la tabla cargue los datos puedes consultar.',
+            imageUrl: 'vistas/img/plantilla/loading.gif',
+            imageWidth: 300,
+            imageHeight: 150,
+            imageAlt: 'Custom image',
+        })
+
+        if (result.value) {
+            var nomVar = "generateTodosLosRetiros";
+            var resp = await datosDetallesEdicionRet(nomVar, estadoRet);
+
+            var lista = await preparaListaRetiros(resp);
+
+            $('#tablasHistRetiro').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: lista,
+                columns: [{
+                        title: "#"
+                    }, {
+                        title: "Nit"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "F. Emisión"
+                    }, {
+                        title: "Póliza ing"
+                    }, {
+                        title: "Póliza ret"
+                    }, {
+                        title: "Numero ret"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Cif"
+                    }, {
+                        title: "Impuestos"
+                    }, {
+                        title: "Acciones"
+                    }]
+            });
+
+        }
+    })
+})
+
+
+
+$(function () {
+
+    var today = new Date();
+    $('#daterangeRetiros').daterangepicker({
+        timePicker: false,
+        startDate: moment().startOf('hour'),
+        singleDatePicker: false,
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        maxDate: (today),
+        locale: {
+            format: 'DD-MM-YYYY'
+        }
+    }, async function (start, end, label) {
+        var tiempo = start.format('YYYY-MM-DD');
+        var tiempoEnd = end.format('YYYY-MM-DD');
+        var tiempoVal = start.format('DD-MM-YYYY');
+        var tiempoValEnd = end.format('DD-MM-YYYY');
+
+        document.getElementById("hiddenDateTime").value = tiempo;
+        document.getElementById("hiddenDateTimeVal").value = tiempoVal;
+        console.log(tiempo);
+        console.log(tiempoEnd);
+
+        var resp = await filtroPorFechas(tiempo, tiempoEnd);
+        if (resp != "SD") {
+
+
+            var lista = await preparaListaRetiros(resp);
+            document.getElementById("tableRetirosHistoria").innerHTML = "";
+            document.getElementById("tableRetirosHistoria").innerHTML = '<table id="tablasHistRetiro" class="table table-hover table-sm"></table>';
+            $('#tablasHistRetiro').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: lista,
+                columns: [{
+                        title: "#"
+                    }, {
+                        title: "Nit"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "F. Emisión"
+                    }, {
+                        title: "Póliza ing"
+                    }, {
+                        title: "Póliza ret"
+                    }, {
+                        title: "Numero ret"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Cif"
+                    }, {
+                        title: "Impuestos"
+                    }, {
+                        title: "Acciones"
+                    }]
+            });
+
+
+            swal({
+                type: "success",
+                title: "Fecha Seleccionada",
+                text: "Del " + tiempoVal + " Al " + tiempoValEnd,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            Swal.fire(
+                    'No se encontraron retiros en la busqueda, el parametro de fechas no cuenta con retiros',
+                    '',
+                    'error'
+                    )
+
+        }
+    });
+});
+
+
+function filtroPorFechas(fechaInicio, fechaFin) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("fechaInicio", fechaInicio);
+    datos.append("fechaFin", fechaFin);
+    $.ajax({
+        async: false,
+        url: "ajax/retiroOpe.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+
+$(document).on("click", ".btnRetiroPolizaHistorial", async function () {
+    var polizaBusqueda = document.getElementById("polizaBusqueda").value;
+    if (polizaBusqueda != "") {
+
+
+        document.getElementById("tableRetirosHistoria").innerHTML = "";
+        document.getElementById("tableRetirosHistoria").innerHTML = '<table id="tablasHistRetiro" class="table table-hover table-sm"></table>';
+
+        Swal.fire({
+            title: 'Quiere realizar una busqueda por póliza?',
+            text: "Esto puede tardar unos segundos!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Buscar por póliza!'
+        }).then(async function (result) {
+            Swal.fire({
+                title: 'Espera unos segundos!',
+                text: 'Cuando la tabla cargue los datos puedes consultar.',
+                imageUrl: 'vistas/img/plantilla/loading.gif',
+                imageWidth: 300,
+                imageHeight: 150,
+                imageAlt: 'Custom image',
+            })
+
+            if (result.value) {
+
+
+                var nomVar = "busquedaPoliza";
+
+                var resp = await datosDetallesEdicionRet(nomVar, polizaBusqueda);
+                var lista = await preparaListaRetiros(resp);
+
+                $('#tablasHistRetiro').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Busqueda:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    data: lista,
+                    columns: [{
+                            title: "#"
+                        }, {
+                            title: "Nit"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "F. Emisión"
+                        }, {
+                            title: "Póliza ing"
+                        }, {
+                            title: "Póliza ret"
+                        }, {
+                            title: "Numero ret"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Cif"
+                        }, {
+                            title: "Impuestos"
+                        }, {
+                            title: "Acciones"
+                        }]
+                });
+
+            }
+        })
+    } else {
+        Swal.fire(
+                'EL numero de póliza esta vacía, ingrese el numero de póliza de ingreso o retiro y haga la consulta',
+                '',
+                'error'
+                )
+    }
+})
+
+
+//funcion destinada a parcear y preparar histoariles por parametros de fecha, poliza y todo el historial
+function preparaListaRetiros(resp) {
+    var contador = 0;
+    listaRetiros = [];
+    for (var i = 0; i < resp.length; i++) {
+        contador = contador + 1;
+
+        var identRet = resp[i]['identRet'];
+        var identRet = resp[i]['identRet'];
+        if (resp[i]['estadoRet'] == 2 || resp[i]['estadoRet'] == 1) {
+            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+        }
+        if (resp[i]['estadoRet'] >= 4) {
+            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+        }
+        if (resp[i]['estadoRet'] == 3) {
+            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+        }
+        if (resp[i]['estadoRet'] == -1) {
+            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-secondary'>Anulado</button></div>";
+        }
+        listaRetiros.push([contador, resp[i]['numNit'], resp[i]['empresa'], resp[i]['emision'], resp[i]['numPolIng'], resp[i]['polRet'], resp[i]['numeroRetiro'], resp[i]['bultosRet'], resp[i]['totalValorCif'], resp[i]['valorImpuesto'], botoneraAcciones]);
+    }
+    return listaRetiros;
+}
+    
+    
+    
+    

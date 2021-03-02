@@ -216,7 +216,7 @@ class ControladorHistorialIngresos {
         return $revIngRev;
     }
 
-    public static function ctrGenerateHistoriaIng($generateHistoriaIng, $valor){
+    public static function ctrGenerateHistoriaIng($generateHistoriaIng, $valor) {
         $sp = "spHIstoriaTodosIng";
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($valor, $sp);
         return $revIngRev;
@@ -298,7 +298,25 @@ class ControladorHistorialIngresos {
     public static function ctrDescargaExelVeh($generateExcelVehiNew) {
         $sp = "spExcelVehNew";
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
-        return $revIngRev;       
+        return $revIngRev;
+    }
+
+    public static function ctrTodosIngHistorial($valor) {
+        $sp = "spHisIngTodoSuper";
+        $revChasis = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+        return $revChasis;
+    }
+
+    public static function ctrMstPolIng($valor, $polizaIngHistBusq) {
+        $sp = "spHisIngTodoSuperPol";
+        $resp = ModeloCalculoDeAlmacenaje::mdlVerificaTarifaDosParms($valor, $polizaIngHistBusq, $sp);
+        return $resp;
+    }
+
+    public static function ctrParametrosFechaHis($valor, $fechaIng, $fechaFin) {
+        $sp = "spHisIngTodoSuperFParam";
+        $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($valor, $fechaIng, $fechaFin, $sp);
+        return $revIngRev;
     }
 
 }

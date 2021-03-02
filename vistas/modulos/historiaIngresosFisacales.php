@@ -19,9 +19,25 @@
                         <div class="row">
                             <div class="col-6 mt-2">
                                 <button type="button" class="btn btn-outline-success btn-lg btn-block btnHistoriaExcelIngRep"  estadoRep="4">GENERAR HISTORIAL DE INGRESO EXCEL <i class="fa fa-file-excel-o"></i></button>
-                            </div>   
- 
-                            <div class="col-12 mt-5">
+                            </div>  
+                            <div class="col-6 mt-2"></div>
+                         <div class="col-lg-5 col-sm-12 mt-4">
+                            <button type="button" class="btn btn-outline-primary btn-block btnTodosIng">Mostrar todos los ingresos</button>
+                        </div>
+
+                        <div class="col-lg-4 col-sm-12 mt-4">
+
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Busca por poliza de ingreso..." id="polizaBusquedaIng" value="" />
+                                <span class="input-group-append">
+                                    <button type="button" class="btn btn-success btn-flat btnPolizaIngHist"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 mt-4">
+                            <input type="text" id="daterangeIng" class="form-control">
+                        </div>
+                            <div class="col-12 mt-5" id="divHistorialIng">
                                 <table id="tableHistorialIng" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
                                     <thead>
                                         <tr>

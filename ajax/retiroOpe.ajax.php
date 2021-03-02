@@ -351,12 +351,45 @@ class AjaxUbicacionOpe {
 
     public function ajaxAnularRetiro() {
         session_start();
-        $usuarioOp = $_SESSION["id"];        
+        $usuarioOp = $_SESSION["id"];
         $AnularRetiro = $this->AnularRetiro;
         $motvAnulacion = $this->motvAnulacion;
         $respuesta = ControladorRetiroOpe::ctrAnularRetiro($AnularRetiro, $motvAnulacion, $usuarioOp);
         echo json_encode($respuesta);
     }
+
+    public $mostrarRetiros;
+
+    public function ajaxMostrarHistorialRetiros() {
+        session_start();
+        $NavegaNumB = $_SESSION['idDeBodega'];
+        $respuesta = ControladorRetiroOpe::ctrMostrarHistorialRetiros($NavegaNumB);
+        echo json_encode($respuesta);
+    }
+
+    //solicitando historiales por rangos
+    public $range;
+
+    public function ajaxMostrarRangoHistorial() {
+        session_start();
+        $NavegaNumB = $_SESSION['idDeBodega'];        
+        $fechaInicio = $this->fechaInicio;
+        $fechaFin = $this->fechaFin;
+        $respuesta = ControladorRetiroOpe::ctrMostrarRangoHistorial($NavegaNumB, $fechaInicio, $fechaFin);
+        echo json_encode($respuesta);        
+    }
+    
+    //busqueda por poliza
+    public $busquedaPol;
+    public function ajaxMostrarBusquedaPoliza(){
+        session_start();
+        $NavegaNumB = $_SESSION['idDeBodega'];          
+        $busquedaPoliza = $this->busquedaPoliza;
+        $respuesta = ControladorRetiroOpe::ctrMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza);
+        echo json_encode($respuesta);                
+    }
+        
+
 
 }
 
@@ -626,3 +659,23 @@ if (isset($_POST["AnularRetiro"])) {
     $anRetiro->motvAnulacion = $_POST["motvAnulacion"];
     $anRetiro->ajaxAnularRetiro();
 }
+
+if (isset($_POST["generateTodosLosRetiros"])) {
+    $mostrarRetiros = new AjaxUbicacionOpe();
+    $mostrarRetiros->generateTodosLosRetiros = $_POST["generateTodosLosRetiros"];
+    $mostrarRetiros->ajaxMostrarHistorialRetiros();
+}
+
+if (isset($_POST["fechaInicio"])) {
+    $range = new AjaxUbicacionOpe();
+    $range->fechaInicio = $_POST["fechaInicio"];
+    $range->fechaFin = $_POST["fechaFin"];
+    $range->ajaxMostrarRangoHistorial();
+}
+
+if (isset($_POST["busquedaPoliza"])) {
+    $busquedaPol = new AjaxUbicacionOpe();
+    $busquedaPol->busquedaPoliza = $_POST["busquedaPoliza"];
+    $busquedaPol->ajaxMostrarBusquedaPoliza();
+}
+

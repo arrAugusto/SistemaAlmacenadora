@@ -12,7 +12,7 @@ class historialIngresosFiscalesRet {
     public function ajaxMostrarTableIngHistoriaRet() {
         session_start();
         $NavegaNumB = $_SESSION['idDeBodega'];
-        $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesHistorial($NavegaNumB);
+        $respuesta = ModeloContabilidadDeRet::mdlListarTodosRetirosF($NavegaNumB);
 
         if ($respuesta != 'SD' && $respuesta != NULL) {
             $contador = 0;
@@ -48,12 +48,10 @@ class historialIngresosFiscalesRet {
                 if ($value['estadoRet'] == -1) {
                     $botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" . $identRet . "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" . $identRet . "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" . $identRet . "'>Ret.</button><button type='button' class='btn btn-secondary'>Anulado</button></div>";
                 }
-
                 $datoJsonRetHis = '[
                     "' . $contador . '",
                     "' . $value['numNit'] . '",
                     "' . $value['empresa'] . '",
-                    "' .  $value['emision'] . '",                        
                     "' . $value['numPolIng'] . '",
                     "' . $value['polRet'] . '",
                     "' . $value['numeroRetiro'] . '",                        

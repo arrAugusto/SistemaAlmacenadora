@@ -23,7 +23,7 @@ class historialIngresosFiscales {
                     $revision = ModeloCalculoDeAlmacenaje::mdlVerificaTarifa($idIng, $sp);
             }
         }
-        $sp = "spHisIngTodoSuper";
+        $sp = "spHisIngTodoSuperTop";
         $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         if ($respuesta != "SD") {
 
@@ -78,7 +78,7 @@ class historialIngresosFiscales {
                             $botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
                         } else if ($value['accionEstado'] >= 4) {
                             if ($_SESSION['niveles'] == 'MEDIO') {
-                                $botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" . $value['identificador'] . " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-info-gradient btn-sm btnImprimirDet'>Ing. <i class='fa fa-print'></i> </button><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+                                $botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" . $value['identificador'] . " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-info-gradient btn-sm bntImprimir'>Ing. <i class='fa fa-print'></i> </button><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
                             } else {
                                 $botoneraAcciones = "<div class='btn-group'></i><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-info-gradient btn-sm bntImprimir btn-sm'>Ing. <i class='fa fa-print'></i></button><button type='button' buttonId=" . $value['identificador'] . " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
                             }
@@ -102,9 +102,8 @@ class historialIngresosFiscales {
                 $impuesto = number_format($value["impuesto"], 2);
                 $identBodega = $value["identBodega"];
                 $bodegaNum = $value["numeroIdentidad"];
-                $bod = $bodega = "<span class='right badge badge-success'>Bodega_" . $bodegaNum . "</span>";
+                $bodega = "<span class='right badge badge-success'>Bodega_" . $bodegaNum . "</span>";
                 $contador = $contador + 1;
-
                 $datoJsonIngHis = '[
                                     "' . $contador . '",
                                     "' . $respuesta[$key]["nit"] . '",

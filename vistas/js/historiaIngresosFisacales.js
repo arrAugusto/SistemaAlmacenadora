@@ -844,102 +844,7 @@ $(document).on("click", ".btnImprimirInforme", async function () {
     window.open("extensiones/tcpdf/pdf/Informe-Ingreso-fiscal.php?codigo=" + buttonid, "_blank");
 
 })
-//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
-$(document).ready(function () {
-    if ($("#tableHistorialIng").length >= 1) {
-        $.ajax({
-            url: "ajax/datatableHistorialIng.ajax.php",
-            "bServerSide": true,
-            success: function (respuesta) {
-            }
 
-        })
-    }
-})
-
-$(document).ready(function () {
-    if ($("#tableHistorialIng").length >= 1) {
-        $('#tableHistorialIng').DataTable({
-            "bProcessing": true,
-            "sAjaxSource": "ajax/datatableHistorialIng.ajax.php",
-            "deferRender": true,
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Busqueda:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-
-            }
-        });
-    }
-});
-
-//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
-$(document).ready(function () {
-    if ($("#tableHistorialDataExtra").length >= 1) {
-        $.ajax({
-            "bServerSide": true,
-            url: "ajax/datatableHistorialIngExt.ajax.php",
-            success: function (respuesta) {
-                console.log(respuesta);
-            }
-
-        })
-    }
-})
-
-$(document).ready(function () {
-    if ($("#tableHistorialDataExtra").length >= 1) {
-        $('#tableHistorialDataExtra').DataTable({
-            "bProcessing": true,
-            "sAjaxSource": "ajax/datatableHistorialIngExt.ajax.php",
-            "deferRender": true,
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Busqueda:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                }
-
-            }
-        });
-    }
-});
 
 $(document).on("click", ".btnEditChasis", async function () {
     var idChasis = $(this).attr("idChasis");
@@ -1241,7 +1146,496 @@ $(document).ready(function () {
 });
 
 $(document).on("click", ".btnImprimirAcuseHist", function () {
-
-        var idIngreso = $(this).attr("idIng");
-        window.open("extensiones/tcpdf/pdf/Ingreso-Acuse-Recibo.php?Ingreso=" + idIngreso, "_blank");
+    var idIngreso = $(this).attr("idIng");
+    window.open("extensiones/tcpdf/pdf/Ingreso-Acuse-Recibo.php?Ingreso=" + idIngreso, "_blank");
 })
+
+
+
+//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
+$(document).ready(function () {
+    if ($("#tableHistorialDataExtra").length >= 1) {
+        $.ajax({
+            "bServerSide": true,
+            url: "ajax/datatableHistorialIngExt.ajax.php",
+            success: function (respuesta) {
+                console.log(respuesta);
+            }
+
+        })
+    }
+})
+
+$(document).ready(function () {
+    if ($("#tableHistorialDataExtra").length >= 1) {
+        $('#tableHistorialDataExtra').DataTable({
+            "bProcessing": true,
+            "sAjaxSource": "ajax/datatableHistorialIngExt.ajax.php",
+            "deferRender": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+
+            }
+        });
+    }
+});
+
+
+//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
+$(document).ready(function () {
+    if ($("#tableHistorialIng").length >= 1) {
+        $.ajax({
+            url: "ajax/datatableHistorialIng.ajax.php",
+            "bServerSide": true,
+            success: function (respuesta) {
+            }
+
+        })
+    }
+})
+
+$(document).ready(function () {
+    if ($("#tableHistorialIng").length >= 1) {
+        $('#tableHistorialIng').DataTable({
+            "bProcessing": true,
+            "sAjaxSource": "ajax/datatableHistorialIng.ajax.php",
+            "deferRender": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+
+            }
+        });
+    }
+});
+
+$(document).on("click", ".btnTodosIng", async function () {
+    document.getElementById("divHistorialIng").innerHTML = "";
+    document.getElementById("divHistorialIng").innerHTML = '<table id="tableHistorialIng" class="table table-hover table-sm"></table>';
+    var estadoRet = $(this).attr("estadorep");
+    Swal.fire({
+        title: 'Quiere consultar todos los retiros?',
+        text: "Esto puede tardar unos segundos!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Mostrar todo!'
+    }).then(async function (result) {
+        Swal.fire({
+            title: 'Espera unos segundos!',
+            text: 'Cuando la tabla cargue los datos puedes consultar.',
+            imageUrl: 'vistas/img/plantilla/loading.gif',
+            imageWidth: 300,
+            imageHeight: 150,
+            imageAlt: 'Custom image',
+        })
+
+        if (result.value) {
+            var nomVar = "generarTodosLosIng";
+            var data = 0;
+            var resp = await insertNuevoServicio(nomVar, data);
+
+
+            var lista = await preparaIngresos(resp[0], resp[1]);
+            console.log(lista);
+            $('#tableHistorialIng').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: lista,
+                columns: [{
+                        title: "#"
+                    }, {
+                        title: "Nit"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "Póliza ing"
+                    }, {
+                        title: "F. Ingreso"
+                    }, {
+                        title: "Num. Ingreso"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Cif"
+                    }, {
+                        title: "Impuestos"
+                    }, {
+                        title: "Bodega #"
+                    }, {
+                        title: "Acciones"
+                    }]
+            });
+
+        }
+    })
+})
+
+$(document).on("click", ".btnPolizaIngHist", async function () {
+    var polizaBusqueda = document.getElementById("polizaBusquedaIng").value;
+    if (polizaBusqueda != "") {
+
+
+        document.getElementById("divHistorialIng").innerHTML = "";
+        document.getElementById("divHistorialIng").innerHTML = '<table id="tableHistorialIng" class="table table-hover table-sm"></table>';
+
+        Swal.fire({
+            title: 'Quiere realizar una busqueda por póliza?',
+            text: "Esto puede tardar unos segundos!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si, Buscar por póliza!'
+        }).then(async function (result) {
+            Swal.fire({
+                title: 'Espera unos segundos!',
+                text: 'Cuando la tabla cargue los datos puedes consultar.',
+                imageUrl: 'vistas/img/plantilla/loading.gif',
+                imageWidth: 300,
+                imageHeight: 150,
+                imageAlt: 'Custom image',
+            })
+
+            if (result.value) {
+
+
+                var nomVar = "polizaIngHistBusq";
+
+                var resp = await insertNuevoServicio(nomVar, polizaBusqueda);
+                var lista = await preparaIngresos(resp[0], resp[1]);
+                console.log(lista);
+                $('#tableHistorialIng').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Busqueda:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
+                    },
+                    data: lista,
+                    columns: [{
+                            title: "#"
+                        }, {
+                            title: "Nit"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "Póliza ing"
+                        }, {
+                            title: "F. Ingreso"
+                        }, {
+                            title: "Num. Ingreso"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Cif"
+                        }, {
+                            title: "Impuestos"
+                        }, {
+                            title: "Bodega #"
+                        }, {
+                            title: "Acciones"
+                        }]
+                });
+
+            }
+        })
+    } else {
+        Swal.fire(
+                'EL numero de póliza esta vacía, ingrese el numero de póliza de ingreso o retiro y haga la consulta',
+                '',
+                'error'
+                )
+    }
+})
+
+
+
+$(function () {
+
+    var today = new Date();
+    $('#daterangeIng').daterangepicker({
+        timePicker: false,
+        startDate: moment().startOf('hour'),
+        singleDatePicker: false,
+        endDate: moment().startOf('hour').add(32, 'hour'),
+        maxDate: (today),
+        locale: {
+            format: 'DD-MM-YYYY'
+        }
+    }, async function (start, end, label) {
+        var tiempo = start.format('YYYY-MM-DD');
+        var tiempoEnd = end.format('YYYY-MM-DD');
+        var tiempoVal = start.format('DD-MM-YYYY');
+        var tiempoValEnd = end.format('DD-MM-YYYY');
+
+
+        var resp = await consultaFechasIngParam(tiempo, tiempoEnd);
+        console.log(resp);
+        if (resp[0] != "SD") {
+            document.getElementById("divHistorialIng").innerHTML = "";
+            document.getElementById("divHistorialIng").innerHTML = '<table id="tableHistorialIng" class="table table-hover table-sm"></table>';
+            var lista = await preparaIngresos(resp[0], resp[1]);
+            console.log(lista);
+            $('#tableHistorialIng').DataTable({
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Busqueda:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                },
+                data: lista,
+                columns: [{
+                        title: "#"
+                    }, {
+                        title: "Nit"
+                    }, {
+                        title: "Empresa"
+                    }, {
+                        title: "Póliza ing"
+                    }, {
+                        title: "F. Ingreso"
+                    }, {
+                        title: "Num. Ingreso"
+                    }, {
+                        title: "Bultos"
+                    }, {
+                        title: "Cif"
+                    }, {
+                        title: "Impuestos"
+                    }, {
+                        title: "Bodega #"
+                    }, {
+                        title: "Acciones"
+                    }]
+            });
+
+
+            swal({
+                type: "success",
+                title: "Fecha Seleccionada",
+                text: "Del " + tiempoVal + " Al " + tiempoValEnd,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Aceptar'
+            });
+        } else {
+            Swal.fire(
+                    'No se encontraron retiros en la busqueda, el parametro de fechas no cuenta con retiros',
+                    '',
+                    'error'
+                    )
+
+        }
+    });
+});
+
+
+function consultaFechasIngParam(tiempo, tiempoEnd) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("fechaIng", tiempo);
+    datos.append("fechaFin", tiempoEnd);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+
+
+function preparaIngresos(resp, tipo) {
+    console.log(tipo);
+    listaIng = [];
+    var contador = 0;
+    for (var i = 0; i < resp.length; i++) {
+
+        if (tipo == 'M1' || tipo == 'B1') {
+
+            var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir btn-sm'>Ing. <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-warning-gradient btn-sm btnImprimirInforme btn-sm'>Info . <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+
+            if (resp[i]['accionEstado'] == 3 && tipo == 'B1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-warning btnEditOp' estado=2 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            }
+            if (resp[i]['accionEstado'] == 3 && tipo == 'M1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-warning btnEditOp' estado=2 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            }
+
+
+            if (resp[i]['accionEstado'] == 1 && tipo == 'B1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-success btnEditOp' estado=1 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-warning-gradient btn-sm btnImprimirInforme btn-sm'>Info . <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+            } else if (resp[i]['accionEstado'] == 2 && tipo == 'B1') {
+
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-warning btnEditOp' estado=2 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-warning-gradient btn-sm btnImprimirInforme btn-sm'>Info . <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+            } else if (resp[i]['accionEstado'] >= 4 && tipo == 'B1') {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-warning-gradient btn-sm btnImprimirInforme btn-sm'>Info . <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+            } else if (resp[i]['accionEstado'] == -1 && tipo == 'B1') {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-dark' disabled>Anulado&nbsp;&nbsp;<i class='fa fa-ban'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-warning-gradient btn-sm btnImprimirInforme btn-sm'>Info . <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+            }
+
+            if (resp[i]['accionEstado'] == 1 && tipo == 'M1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-success btnEditOp' estado=1 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            } else if (resp[i]['accionEstado'] == 2 && tipo == 'M1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-warning btnEditOp' estado=2 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            } else if (resp[i]['accionEstado'] >= 4 && tipo == 'M1') {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-dark btnEditOp' estado=3 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i> </button></div>";
+            } else if (resp[i]['accionEstado'] == -1 && tipo == 'M1') {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-dark' disabled>Anulado&nbsp;&nbsp;<i class='fa fa-ban'></i></button></div>";
+            }
+        } else if (tipo == 'Bod' || tipo == 'BodM') {
+
+
+            if (resp[i]['accionEstado'] == 3) {
+                var botoneraAcciones = "<div class='btn-group'><a href='#divEdiciones' class='btn btn-warning btnEditOp' estado=2 role='button' btnEditOp=" + resp[i]['identificador'] + " ><i class='fa fa-edit'></i></a><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            }
+            if (resp[i]['accionEstado'] == 1) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            } else if (resp[i]['accionEstado'] == 2) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-danger-gradient btn-sm' disabled='disabled'><i class='fa fa-print'></i> </button></div>";
+            } else if (resp[i]['accionEstado'] >= 4) {
+                if (tipo == 'BodM') {
+                    var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-danger btnAnularMostModal'  data-toggle='modal' data-target='#AnulacionIngreso'><i class='fa fa-window-close'></i><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'>Ing. <i class='fa fa-print'></i> </button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+                } else {
+                    var botoneraAcciones = "<div class='btn-group'></i><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir btn-sm'>Ing. <i class='fa fa-print'></i></button><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-success-gradient btn-sm btnImprimirDet btn-sm'>Det . <i class='fa fa-print'></i></button></div>";
+                }
+            } else if (resp[i]['accionEstado'] == -1) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn btn-dark' disabled>Anulado&nbsp;&nbsp;<i class='fa fa-ban'></i></button></div>";
+            } else {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' buttonId=" + resp[i]['identificador'] + " class='btn bg-info-gradient btn-sm bntImprimir'><i class='fa fa-print'></i></div>";
+            }
+        }
+        var cif = Number.parseFloat(resp[i]["cif"]).toFixed(2);
+
+
+        var impuesto = Number.parseFloat(resp[i]["impuesto"]).toFixed(2);
+
+        var ingreso = resp[i]["numeroAsignado"];
+
+
+        var identBodega = resp[i]["identBodega"];
+        var bodegaNum = resp[i]["numeroIdentidad"];
+        var bodega = "<span class='right badge badge-success'>Bodega_" + bodegaNum + "</span>";
+        var contador = contador + 1;
+
+        listaIng.push([contador, resp[i]["nit"], resp[i]["empresa"], resp[i]["poliza"], resp[i]["fechaIngreso"], ingreso, resp[i]["blts"], cif, impuesto, bodega, botoneraAcciones])
+    }
+    return listaIng;
+}
+
+

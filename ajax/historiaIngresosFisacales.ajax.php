@@ -121,7 +121,7 @@ class AjaxAccionesIngresos {
 
     public function ajaxGenerateHistoriaIng() {
         session_start();
-        $valor = $_SESSION["idDeBodega"];        
+        $valor = $_SESSION["idDeBodega"];
         $generateHistoriaIng = $this->generateHistoriaIng;
         $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaIng($generateHistoriaIng, $valor);
         echo json_encode($repuesta);
@@ -203,8 +203,88 @@ class AjaxAccionesIngresos {
 
     public function ajaxDescargaExelVeh() {
         $generateExcelVehiNew = $this->generateExcelVehiNew;
-    $repuesta = ControladorHistorialIngresos::ctrDescargaExelVeh($generateExcelVehiNew);
-        echo json_encode($repuesta);        
+        $repuesta = ControladorHistorialIngresos::ctrDescargaExelVeh($generateExcelVehiNew);
+        echo json_encode($repuesta);
+    }
+
+    //mostrar todos lo ingresos
+    public $todosIng;
+
+    public function ajaxTodosIngHistorial() {
+        session_start();
+        $valor = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
+        $repuesta = ControladorHistorialIngresos::ctrTodosIngHistorial($valor);
+        echo json_encode(array($repuesta, $tipo));
+    }
+
+    public $polizaHist;
+
+    public function ajaxMstPolIng() {
+        session_start();
+        $valor = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
+        $polizaIngHistBusq = $this->polizaIngHistBusq;
+        $repuesta = ControladorHistorialIngresos::ctrMstPolIng($valor, $polizaIngHistBusq);
+        echo json_encode(array($repuesta, $tipo));
+    }
+
+    public $paramFechaHist;
+
+    public function ajaxParametrosFechaHis() {
+        session_start();
+        $valor = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
+
+        $fechaIng = $this->fechaIng;
+        $fechaFin = $this->fechaFin;
+        $repuesta = ControladorHistorialIngresos::ctrParametrosFechaHis($valor, $fechaIng, $fechaFin);
+                echo json_encode(array($repuesta, $tipo));
     }
 
 }
@@ -342,4 +422,24 @@ if (isset($_POST["generateExcelVehiNew"])) {
     $histVehNew = new AjaxAccionesIngresos();
     $histVehNew->generateExcelVehiNew = $_POST["generateExcelVehiNew"];
     $histVehNew->ajaxDescargaExelVeh();
+}
+
+
+if (isset($_POST["generarTodosLosIng"])) {
+    $todosIng = new AjaxAccionesIngresos();
+    $todosIng->generarTodosLosIng = $_POST["generarTodosLosIng"];
+    $todosIng->ajaxTodosIngHistorial();
+}
+
+if (isset($_POST["polizaIngHistBusq"])) {
+    $polizaHist = new AjaxAccionesIngresos();
+    $polizaHist->polizaIngHistBusq = $_POST["polizaIngHistBusq"];
+    $polizaHist->ajaxMstPolIng();
+}
+
+if (isset($_POST["fechaIng"])) {
+    $paramFechaHist = new AjaxAccionesIngresos();
+    $paramFechaHist->fechaIng = $_POST["fechaIng"];
+    $paramFechaHist->fechaFin = $_POST["fechaFin"];
+    $paramFechaHist->ajaxParametrosFechaHis();
 }

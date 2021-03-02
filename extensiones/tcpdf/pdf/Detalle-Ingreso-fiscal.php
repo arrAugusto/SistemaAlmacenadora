@@ -15,7 +15,7 @@ class imprimirIngresoBodega {
         $codigo = $this->codigo;
 
         $repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($codigo);
-
+       
         $cadena = ControladorRegistroBodega::ctrCadenaVinculo($codigo);
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
@@ -58,6 +58,16 @@ class imprimirIngresoBodega {
         $idIngreso = $repuestaUnidades[0]["idIngreso"];
         $poliza = $repuestaOperaciones[0]["poliza"];
         $numPlaca = $repuestaUnidades[0]["placa"];
+        
+        //datos de logos
+                        //datos de forma
+        $nit = $repuestaOperaciones[0]["nitAlm"];
+        $direccion = $repuestaOperaciones[0]["direAlm"];
+        $telefono = $repuestaOperaciones[0]["telAlm"];
+        $email = $repuestaOperaciones[0]["emailAlm"];
+        $logo = $repuestaOperaciones[0]["logoAlm"];
+        $empresa = $repuestaOperaciones[0]["empresaInterna"];
+        
         require_once('tcpdf_include.php');
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage('L', 'A4');
@@ -77,26 +87,27 @@ class imprimirIngresoBodega {
 			<td style="width:130px; text-align:left;"><img src="images/almacenadoras_logo.png"></td>
                         <td style="width:626px; text-align:right; font-size:7px;">
                             <br/>
-                            NIT: 874108
+                            NIT: $nit
                             <br/>
-                            Dirección: 24 av. 41-81, Zona 12 
+                            $direccion 
                             <br/>
-                            Teléfono: 2422-3000 
+                            Teléfono: $telefono
                             <br/>
-                            Email: aintegrada@bi.com.gt
+                            Email: $email
                         </td>
 		</tr>
 	</table>
         <table style="padding:3px; border: none; padding: none; margin: none;">
             <tr>
                 
-                <td style="width:666px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Informe recepción de $titulo</td>
-                <td style="background-color:white; width:90px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
+                <td style="width:610px; text-align:center; font-size:17px; font-family: 'Source Sans Pro';">Informe recepción de $titulo</td>
+                <td style="background-color:white; width:146px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
             </tr>
         </table><br/><br/>
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 //-------------------------------------------------------------------------------------------------------
+        
         $bloque2 = <<<EOF
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
                 <tr>
@@ -113,7 +124,7 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Elaborado por:</b></td><td style="width:350px">$nomElab $apellElab&nbsp;&nbsp;</td>
-                    <td style="width:90px"><b>Fecha Garita :</b></td><td style="width:301px">$cadenaEmisionFormat&nbsp;&nbsp;</td>
+                    <td style="width:90px"><b>Fecha Garita :</b></td><td style="width:301px">$fechaGaritaFormat&nbsp;&nbsp;</td>
                 </tr>
                 <tr>
                    <td style="width:75px"><b>Descargado por:</b></td><td style="width:350px">$nomBod $apellBod</td>
@@ -181,8 +192,8 @@ EOF;
                     $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:center;">
  		<tr>
-                    <th style="border: 1px solid #030505; background-color:white; width:660px;"><strong>TOTAL VEHICULOS INGRESADOS</strong></th>
-                    <th style="border: 1px solid #030505; background-color:white; width:116px;"><strong>$cantidad</strong></th>
+                    <th style="border: 1px solid #030505; background-color:white; width:642px;"><strong>TOTAL VEHICULOS INGRESADOS</strong></th>
+                    <th style="border: 1px solid #030505; background-color:white; width:114px;"><strong>$cantidad</strong></th>
 		</tr>
 	</table>	
 EOF;
@@ -336,28 +347,6 @@ EOF;
          * 
          */
 
-
-//-------------------------------------------------------------------------------------------------------
-
-        $bloque8 = <<<EOF
-
-       <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
-	<tbody>
-		<tr><br/>
-                    <td style="width:338px text-align:left; border: none; padding: none; margin: none;"></td>
-                    <td style="width:338px text-align:left;"></td>
-                    <td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>
-		</tr>
-		<tr>
-                    <td colspan="2" style="width:666px; text-align:left;"><strong>Nota:</strong> <br/>El ingreso de la mercadería que se describe en el presente documento, implica la aceptación por parte del su propietario de que la misma se le entregará sin responsabilidad alguna de Almacenadora Integrada, Sociedad Anónima, al portador de la respectiva póliza de importación.<br/>
-                La persona que ingrese la mercaderia a la Almacenadora es la responsable de obtener la autorización y aceptación del propietario para el ingreso de la misma. De no existir consentimiento del propietario, la responsabilidad sobre la mercadería recaerá en la persona que ingrese la mercaderia y en ningún caso en la Almacenadora.<br/>
-                Almacenadora Integrada, S.A. no se responsabiliza de la merma, deterioro o destrucción de las mercancías derivadas de su propia naturaleza</td>
-		</tr>
-	</tbody>
-        </table>
-EOF;
-
-        $pdf->writeHTML($bloque8, false, false, false, false, '');
 
         $pdf->OutPut('Sin título.pdf');
     }
