@@ -70,7 +70,7 @@ $(document).on("click", ".btnADetalle", function () {
             var idArea = $(".cantidadPosiciones" + areaBodega).attr("idarea");
             if (areaBodega in localStorage) {
                 var promedioLocal = localStorage.getItem("promedioTarima");
-                document.getElementById("rackPisoData").innerHTML = "";
+
                 var ubicaciones = localStorage.getItem(areaBodega);
                 var areaBod = JSON.parse(ubicaciones);
                 listaDB.push([idArea, areaBodega, CantPos, CantMts, promedioLocal, areaBod]);
@@ -153,13 +153,29 @@ $(document).on("click", ".btnADetalle", function () {
 
             }
             console.log(hiddenLista);
-            var dut = $(".btnEliminaUbica").length;
-            var nombreEmpresa = document.getElementById("nombreEmpresa").value;
-            var cantidadBultos = document.getElementById("cantidadBultos").value;
-            var selectUbicacion = document.getElementById("selectUbicacion").value;
-            var descripcionMerca = document.getElementById("descripcionMerca").value;
-            var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
-            var Metraje = document.getElementById("Metraje").value;
+            if ($("#nombreEmpresa").length > 0) {
+                var nombreEmpresa = document.getElementById("nombreEmpresa").value;
+            }
+            if ($("#cantidadBultos").length > 0) {
+
+                var cantidadBultos = document.getElementById("cantidadBultos").value;
+            }
+            if ($("#selectUbicacionHid").length > 0) {
+                var selectUbicacion = document.getElementById("selectUbicacionHid").value;
+
+            }
+            if ($("#descripcionMerca").length > 0) {
+                var descripcionMerca = document.getElementById("descripcionMerca").value;
+
+            }
+            if ($("#cantidadPosiciones").length > 0) {
+                var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
+
+            }
+            if ($("#Metraje").length > 0) {
+                var Metraje = document.getElementById("Metraje").value;
+
+            }
 
             var datos = new FormData();
             datos.append("idDetalle", idDetalle);
@@ -214,12 +230,42 @@ $(document).on("click", ".btnADetalle", function () {
 
                             } else {
                                 var lista = [];
-                                document.getElementById("descripcionMerca").value = "OBSERVACIONES :";
-                                document.getElementById("nombreEmpresa").value = "";
-                                document.getElementById("cantidadBultos").value = "";
-                                document.getElementById("cantidadPosiciones").value = "";
-                                document.getElementById("Metraje").value = "";
-                                document.getElementById("pesoKg").value = "";
+
+
+
+                                if ($("#descripcionMerca").length > 0) {
+                                    document.getElementById("descripcionMerca").value = "OBSERVACIONES :";
+                                }
+
+                                if ($("#nombreEmpresa").length > 0) {
+                                    var nombreEmpresa = document.getElementById("nombreEmpresa").value;
+                                }
+                                if ($("#cantidadBultos").length > 0) {
+
+                                    var cantidadBultos = document.getElementById("cantidadBultos").value;
+                                }
+                                if ($("#selectUbicacion").length > 0) {
+                                    var selectUbicacion = document.getElementById("selectUbicacionHid").value;
+
+                                }
+                                if ($("#descripcionMerca").length > 0) {
+                                    var descripcionMerca = document.getElementById("descripcionMerca").value;
+
+                                }
+                                if ($("#cantidadPosiciones").length > 0) {
+                                    var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
+
+                                }
+                                if ($("#Metraje").length > 0) {
+                                    var Metraje = document.getElementById("Metraje").value;
+
+                                }
+                                if ($("#pesoKg").length > 0) {
+                                    var Metraje = document.getElementById("pesoKg").value;
+
+                                }
+
+
 
                                 var lista = [];
                                 var numero = 0;
@@ -303,8 +349,7 @@ $(document).on("click", ".btnADetalle", function () {
                 }
             });
             if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-                $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacion" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicación</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripción de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
-
+                $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacionHid" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicación</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripción de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
             }
             /***/
             if ($("#ubicacionesSelect").length) {
@@ -334,6 +379,9 @@ $(document).on("click", ".btnADetalle", function () {
         }
 
 
+    }
+    if ($("#rackPisoData").length > 0) {
+        document.getElementById("rackPisoData").innerHTML = "";
     }
 
 });
@@ -507,7 +555,7 @@ $(document).ready(function () {
                         <input type="number" id="Metraje" name="Metraje" class="form-control Metraje` + indexText + `" areaBod="` + indexText + `" placeholder="Cantidad de Metros ` + indexText + `" style="text-align: center;" value="">
                         <div class="input-group-append">
                             <button type="button" class="btn btn-success" id="btnUbica" estado=0 data-toggle="modal" data-target="#MyagrUbicacion"  idArea="` + indexValue + `" tipoAreaBod="` + indexText + `">Ubicación en ` + indexText + `&nbsp;&nbsp;<i class="fa fa-map-marker"></i></button>           
-                            <button type="button" class="btn btn-outline-danger btnVerUbica" id="btnVerUbica` + indexText + `" estado=0 data-toggle="modal" data-target="#MyagrUbicacion">Ub de ` + indexText + `&nbsp;&nbsp;<i class="fa fa-eye"></i></button>                       
+                            <button type="button" class="btn btn-outline-danger btnTrashUbSelec" tipoAreaBod="` + indexText + `">` + indexText + `&nbsp;&nbsp;<i class="fa fa-trash"></i></button>                       
                         </div>
                         <!-- /btn-group -->
                     </div>
@@ -857,3 +905,10 @@ $(document).on("click", "#closeMontacarg", function () {
 })
 
 
+$(document).on("click", ".btnTrashUbSelec", function () {
+    var tipoAreaBod = $(this).attr("tipoAreaBod");
+    if (tipoAreaBod in localStorage) {
+        localStorage.removeItem(tipoAreaBod);
+    }
+    $(this).parent().parent().remove();
+})

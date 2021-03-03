@@ -198,12 +198,15 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlMostrarSaldosConta($idIngOpDet) {
+ 
         $sp = "spMstSaldosBlts";
         $respSaldo = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+     
         $sp = "spRetiroNormal";
         $retSinDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
         $sp = "spRetiroDr";
         $retConDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+
         if ($respSaldo != "SD") {
             if ($respSaldo[0]["sldBultos"] > 0) {
                 $historia = [];
@@ -218,11 +221,14 @@ class ModeloRetiroOpe {
                     }
                 }
                 if (count($historia) > 0) {
-                    return array("resHistorial" => $historia, "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
+                    return array("resAjuste" => "Ok", "resHistorial" => $historia, "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
                 } else {
 
-                    return array("resHistorial" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
+                    return array("resAjuste" => "Ok", "resHistorial" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
                 }
+            }else{
+                
+                    return array("resAjuste" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
             }
         }
     }

@@ -21,13 +21,10 @@ class ControladorRegistroBodega {
         return $respuesta;
     }
 
-    public static function  ctrGuardarDetalle($datos, $usuarioOp) {
+    public static function ctrGuardarDetalle($datos, $usuarioOp) {
 
-        
-        
+
         $dataListaUbica = $datos["hiddenLista"];
-
-
         $idChequeBodega = $datos["idChequeBodega"];
         $montacarga = $datos["montacarga"];
         $operacion = 2;
@@ -49,8 +46,16 @@ class ControladorRegistroBodega {
 
             $dataListaUbica = json_decode($dataListaUbica, true);
             $llave = $respuesta["llaveIdent"][0]["Identity"];
+            $sp = "spMetrosPosInci";
+            foreach ($dataListaUbica as $key => $value) {
+                $idAreaBod = $dataListaUbica[$key][0];
+                $pos = $dataListaUbica[$key][2];
+                $metraje = $dataListaUbica[$key][3];
+                $promedio = $dataListaUbica[$key][4];
 
-            $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica[0][5], $llave);
+                $respuestaPos = ModeloRegIngBod::mdlGuardarAreaBodega($llave, $idAreaBod, $pos, $metraje, $promedio, $sp);
+                $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica[$key][5], $llave);
+            }
         }
         if ($respuestaGUbica == "fin") {
             return $respuesta;
@@ -542,32 +547,28 @@ class ControladorRegistroBodega {
         $sp = "spInsertNewAreaBod";
         $respuesta = ModeloRegIngBod::mdlGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento, $sp);
         return $respuesta;
-        
     }
-    
-    public static function ctrEditarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit){
-        if (is_numeric($idBodUpdate) && is_numeric($idAreaEdit)){
-        $sp = "spUpdateAreaBod";
-        $respuesta = ModeloRegIngBod::mdlGuardarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit, $sp);
-        return $respuesta;
-            
-        }else{
+
+    public static function ctrEditarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit) {
+        if (is_numeric($idBodUpdate) && is_numeric($idAreaEdit)) {
+            $sp = "spUpdateAreaBod";
+            $respuesta = ModeloRegIngBod::mdlGuardarAreaBodega($area, $desc, $fechaVencimiento, $idBodUpdate, $idAreaEdit, $sp);
+            return $respuesta;
+        } else {
             return "SD";
         }
-        
     }
-    public static function ctrDeleteAreasBod($idBodAreasBodDelete){
-        if (is_numeric($idBodAreasBodDelete)){
-        $sp = "spDeleteArea";
-        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($idBodAreasBodDelete, $sp);
-        return $respuesta;
-            
-        }else{
+
+    public static function ctrDeleteAreasBod($idBodAreasBodDelete) {
+        if (is_numeric($idBodAreasBodDelete)) {
+            $sp = "spDeleteArea";
+            $respuesta = ModeloRegIngBod::mdlConsultaUnParam($idBodAreasBodDelete, $sp);
+            return $respuesta;
+        } else {
             return "SD";
         }
-        
-        
     }
+
 }
 
 function Randomalfa() {

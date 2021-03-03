@@ -185,6 +185,7 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarSaldosConta($idIngOpDet) {
         ///
+
         $sp = "spVerifSerIn";
         $respuestaServ = ModeloRetiroOpe::mdlDetUnParametro($idIngOpDet, $sp);
 
@@ -194,9 +195,10 @@ class ControladorRetiroOpe {
             $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
             return array("respTipo" => "vehN", "data" => $respuestaVehN, "dataRetiro" => $respuesta);
         } else {
+
             $spVeh = "spIngVehUsados";
             $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
-
+                  
             if ($respuestaRevertVeh[0]['resp'] == 1) {
                 $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
                 return array("respTipo" => "vehUs", "data" => $respuesta);

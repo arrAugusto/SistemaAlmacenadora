@@ -34,6 +34,10 @@ $(document).on("click", ".btnAgregarDetalles", function () {
 $(document).on("click", ".btnVerDetalles", async function () {
     var tipoIng = document.getElementById("hiddenTipoIng").value;
     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+   
+
+$("#selectUbicacion").empty();
+
         var prom = 0;
         if ("promedioTarima" in localStorage) {
             var promedioLocal = localStorage.getItem("promedioTarima");
@@ -267,6 +271,7 @@ $(document).on("click", ".btnVerDetalles", async function () {
                         var nomVar = "idBodAreasBod";
                         var idBod = true;
                         var resp = funcionRevVehUsados(nomVar, idBod);
+                        $("#selectUbicacion ").append('<option selected="selected">Selecione Ubicación</option>');
                         for (var i = 0; i < resp.length; i++) {
                             console.log(resp[i]);
                             $("#selectUbicacion ").append('<option value=' + resp[i].id + ' readOnly="reaondly">' + resp[i].nombreArea + '</option>');
