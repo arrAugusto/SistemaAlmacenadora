@@ -61,8 +61,8 @@ class AjaxAccionesIngresos {
             $rubros = 1;
         }
         $idIngClientesPlt = $this->idIngClientesPlt;
-        $repuesta = ControladorHistorialIngresos::ctrMostrarDetallesClientesPlts($idIngClientesPlt);
-        $data = array("dataDet" => $repuesta, "tipo" => $rubros);
+        $respuesta = ControladorHistorialIngresos::ctrMostrarDetallesClientesPlts($idIngClientesPlt);
+        $data = array("dataDet" => $respuesta, "tipo" => $rubros);
         echo json_encode($data);
     }
 
@@ -75,8 +75,8 @@ class AjaxAccionesIngresos {
         $departamento = $_SESSION["departamentos"];
         $nivel = $_SESSION["niveles"];
         $motivoAnula = $this->motivoAnula;
-        $repuesta = ControladorHistorialIngresos::ctrAnularIngreso($idIngresoAnulacion, $usuario, $departamento, $nivel, $motivoAnula);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrAnularIngreso($idIngresoAnulacion, $usuario, $departamento, $nivel, $motivoAnula);
+        echo json_encode($respuesta);
     }
 
     public $nuevoServices;
@@ -85,8 +85,8 @@ class AjaxAccionesIngresos {
         session_start();
         $usuario = $_SESSION["id"];
         $nuevoServicio = $this->nuevoServicio;
-        $repuesta = ControladorHistorialIngresos::ctrInsertNuevoServicio($nuevoServicio, $usuario);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrInsertNuevoServicio($nuevoServicio, $usuario);
+        echo json_encode($respuesta);
     }
 
     public $newListServicioS;
@@ -97,24 +97,24 @@ class AjaxAccionesIngresos {
         $idIngSerOtr = $this->idIngSerOtr;
         $listaServOtr = $this->listaServOtr;
         $tipoOpera = $this->tipoOpera;
-        $repuesta = ControladorHistorialIngresos::ctrNewServicioIng($usuario, $idIngSerOtr, $listaServOtr, $tipoOpera);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrNewServicioIng($usuario, $idIngSerOtr, $listaServOtr, $tipoOpera);
+        echo json_encode($respuesta);
     }
 
     public $mostrarServEx;
 
     public function ajaxMostrarServicioExtra() {
         $verCobrado = $this->verCobrado;
-        $repuesta = ControladorHistorialIngresos::ctrMostrarServicioExtra($verCobrado);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrMostrarServicioExtra($verCobrado);
+        echo json_encode($respuesta);
     }
 
     public $eliminarServicio;
 
     public function ajaxEliminarServicio() {
         $eliminarServicio = $this->eliminarServicio;
-        $repuesta = ControladorHistorialIngresos::ctrEliminarServicio($eliminarServicio);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrEliminarServicio($eliminarServicio);
+        echo json_encode($respuesta);
     }
 
     public $historiaIng;
@@ -123,16 +123,16 @@ class AjaxAccionesIngresos {
         session_start();
         $valor = $_SESSION["idDeBodega"];
         $generateHistoriaIng = $this->generateHistoriaIng;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaIng($generateHistoriaIng, $valor);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaIng($generateHistoriaIng, $valor);
+        echo json_encode($respuesta);
     }
 
     public $historiaRec;
 
     public function ajaxGenerateHistoriaRec() {
         $generateRecHistoria = $this->generateRecHistoria;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRec($generateRecHistoria);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRec($generateRecHistoria);
+        echo json_encode($respuesta);
     }
 
     public $historiaRet;
@@ -142,32 +142,32 @@ class AjaxAccionesIngresos {
 
         $valor = $_SESSION["idDeBodega"];
         $generateRetHistoria = $this->generateRetHistoria;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRet($generateRetHistoria, $valor);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRet($generateRetHistoria, $valor);
+        echo json_encode($respuesta);
     }
 
     public $historiaChasis;
 
     public function ajaxGenerateHistoriaChasis() {
         $generateHistoriaChasis = $this->generateHistoriaChasis;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaChasis($generateHistoriaChasis);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaChasis($generateHistoriaChasis);
+        echo json_encode($respuesta);
     }
 
     public $historiaRecEx;
 
     public function ajaxGenerateHistoriaRecEx() {
         $generateRecExHistoria = $this->generateRecExHistoria;
-        $repuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRecEx($generateRecExHistoria);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRecEx($generateRecExHistoria);
+        echo json_encode($respuesta);
     }
 
     public $chasisVeh;
 
     public function ajaxMostrarChasisVh() {
         $EditChasisVh = $this->EditChasisVh;
-        $repuesta = ControladorHistorialIngresos::ctrMostrarChasisVh($EditChasisVh);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrMostrarChasisVh($EditChasisVh);
+        echo json_encode($respuesta);
     }
 
     public $chasisVehEdt;
@@ -176,8 +176,8 @@ class AjaxAccionesIngresos {
         $idChasEdit = $this->idChasEdit;
         $chasisNewEdt = $this->chasisNewEdt;
         $tipoLineaVeh = $this->tipoLineaVeh;
-        $repuesta = ControladorHistorialIngresos::ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrEditarChasisVeh($idChasEdit, $chasisNewEdt, $tipoLineaVeh);
+        echo json_encode($respuesta);
     }
 
     public $editarBltsIng;
@@ -186,8 +186,8 @@ class AjaxAccionesIngresos {
         $idIngEditCuadreBlts = $this->idIngEditCuadreBlts;
         $totalBultosPol = $this->totalBultosPol;
         $listaDetallesBltsPso = $this->listaDetallesBltsPso;
-        $repuesta = ControladorHistorialIngresos::ctrEditarBltsIng($idIngEditCuadreBlts, $totalBultosPol, $listaDetallesBltsPso);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrEditarBltsIng($idIngEditCuadreBlts, $totalBultosPol, $listaDetallesBltsPso);
+        echo json_encode($respuesta);
     }
 
     public $editarUbica;
@@ -195,16 +195,16 @@ class AjaxAccionesIngresos {
     public function ajaxEditUbicaBodega() {
         $newBod = $this->newBod;
         $ingNewBod = $this->ingNewBod;
-        $repuesta = ControladorHistorialIngresos::ctrEditUbicaBodega($newBod, $ingNewBod);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrEditUbicaBodega($newBod, $ingNewBod);
+        echo json_encode($respuesta);
     }
 
     public $histVehNew;
 
     public function ajaxDescargaExelVeh() {
         $generateExcelVehiNew = $this->generateExcelVehiNew;
-        $repuesta = ControladorHistorialIngresos::ctrDescargaExelVeh($generateExcelVehiNew);
-        echo json_encode($repuesta);
+        $respuesta = ControladorHistorialIngresos::ctrDescargaExelVeh($generateExcelVehiNew);
+        echo json_encode($respuesta);
     }
 
     //mostrar todos lo ingresos
@@ -229,8 +229,8 @@ class AjaxAccionesIngresos {
         } else {
             $tipo = "General";
         }
-        $repuesta = ControladorHistorialIngresos::ctrTodosIngHistorial($valor);
-        echo json_encode(array($repuesta, $tipo));
+        $respuesta = ControladorHistorialIngresos::ctrTodosIngHistorial($valor);
+        echo json_encode(array($respuesta, $tipo));
     }
 
     public $polizaHist;
@@ -255,8 +255,8 @@ class AjaxAccionesIngresos {
             $tipo = "General";
         }
         $polizaIngHistBusq = $this->polizaIngHistBusq;
-        $repuesta = ControladorHistorialIngresos::ctrMstPolIng($valor, $polizaIngHistBusq);
-        echo json_encode(array($repuesta, $tipo));
+        $respuesta = ControladorHistorialIngresos::ctrMstPolIng($valor, $polizaIngHistBusq);
+        echo json_encode(array($respuesta, $tipo));
     }
 
     public $paramFechaHist;
@@ -283,8 +283,8 @@ class AjaxAccionesIngresos {
 
         $fechaIng = $this->fechaIng;
         $fechaFin = $this->fechaFin;
-        $repuesta = ControladorHistorialIngresos::ctrParametrosFechaHis($valor, $fechaIng, $fechaFin);
-                echo json_encode(array($repuesta, $tipo));
+        $respuesta = ControladorHistorialIngresos::ctrParametrosFechaHis($valor, $fechaIng, $fechaFin);
+                echo json_encode(array($respuesta, $tipo));
     }
 
 }

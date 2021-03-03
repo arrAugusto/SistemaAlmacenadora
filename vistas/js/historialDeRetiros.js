@@ -12,7 +12,7 @@ $(document).on("click", ".btnAnularRetiro_recibo", async function () {
     })
 
     const {value: tipoAnulacion} = await Swal.fire({
-        title: 'Tipo de anulación', 
+        title: 'Tipo de anulación',
         input: 'radio',
         inputOptions: inputOptions,
         allowOutsideClick: false,
@@ -546,7 +546,7 @@ $(document).on("click", ".btnTodosRetFi", async function () {
             var nomVar = "generateTodosLosRetiros";
             var resp = await datosDetallesEdicionRet(nomVar, estadoRet);
 
-            var lista = await preparaListaRetiros(resp);
+            var lista = await preparaListaRetiros(resp[0], resp[1]);
 
             $('#tablasHistRetiro').DataTable({
                 "language": {
@@ -632,7 +632,7 @@ $(function () {
         if (resp != "SD") {
 
 
-            var lista = await preparaListaRetiros(resp);
+            var lista = await await preparaListaRetiros(resp[0], resp[1]);
             document.getElementById("tableRetirosHistoria").innerHTML = "";
             document.getElementById("tableRetirosHistoria").innerHTML = '<table id="tablasHistRetiro" class="table table-hover table-sm"></table>';
             $('#tablasHistRetiro').DataTable({
@@ -765,7 +765,7 @@ $(document).on("click", ".btnRetiroPolizaHistorial", async function () {
                 var nomVar = "busquedaPoliza";
 
                 var resp = await datosDetallesEdicionRet(nomVar, polizaBusqueda);
-                var lista = await preparaListaRetiros(resp);
+                var lista = await await preparaListaRetiros(resp[0], resp[1]);
 
                 $('#tablasHistRetiro').DataTable({
                     "language": {
@@ -831,7 +831,7 @@ $(document).on("click", ".btnRetiroPolizaHistorial", async function () {
 
 
 //funcion destinada a parcear y preparar histoariles por parametros de fecha, poliza y todo el historial
-function preparaListaRetiros(resp) {
+function preparaListaRetiros(resp, tipo) {
     var contador = 0;
     listaRetiros = [];
     for (var i = 0; i < resp.length; i++) {
@@ -839,23 +839,43 @@ function preparaListaRetiros(resp) {
 
         var identRet = resp[i]['identRet'];
         var identRet = resp[i]['identRet'];
-        if (resp[i]['estadoRet'] == 2 || resp[i]['estadoRet'] == 1) {
-            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+        //boton por defecto cuando esta en estado negativo es anulado
+                    var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-secondary'>Anulado</button></div>";
+
+        if (tipo == "M1") {
+            if (resp[i]['estadoRet'] == 2 || resp[i]['estadoRet'] == 1) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularOperacion btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-eraser'></i></a><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularRetiro_recibo btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-close'></i></a><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
+            if (resp[i]['estadoRet'] >= 4) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularOperacion btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-eraser'></i></a><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularRetiro_recibo btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-close'></i></a><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
+            if (resp[i]['estadoRet'] == 3) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularOperacion btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-eraser'></i></a><a href='#divEdicionRetiro' type='button' class='btn btn-outline-danger btnAnularRetiro_recibo btn-sm' idPoliza='" + resp[i]['polRet'] + "' idRet='" + resp[i]['identificaRet'] + "' estado=0><i class='fa fa-close'></i></a><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
+            if (resp[i]['estadoRet'] == -1) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-secondary'>Anulado</button></div>";
+            }
+
+        } else {
+
+
+            if (resp[i]['estadoRet'] == 2 || resp[i]['estadoRet'] == 1) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
+            if (resp[i]['estadoRet'] >= 4) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
+            if (resp[i]['estadoRet'] == 3) {
+                var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
+            }
         }
-        if (resp[i]['estadoRet'] >= 4) {
-            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
-        }
-        if (resp[i]['estadoRet'] == 3) {
-            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i><button type='button' class='btn btn-warning btn-sm'>Pendiente</button><button type='button' class='btn btn-warning btnConsultDataConfirm btn-sm' reciboasignado='0' retiroasignado='0' polizasal='3188511109' correlinicio='100000000' idRet = '" + identRet + "' idniting = '" + resp[i]["idIngOp"] + "' servicio='3' idingreso='583' data-toggle='modal' data-target='#modalPaseSalida'><i class='fa fa-undo'></i></button></div>";
-        }
-        if (resp[i]['estadoRet'] == -1) {
-            var botoneraAcciones = "<div class='btn-group'><button type='button' class='btn btn-success btn-sm btnExcelRetSal' idRet = '" + identRet + "'><i class='fa fa-file-excel-o'></i></button><button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRec' idRet='" + identRet + "'>Rec.</button><button type='button' class='btn btn-outline-info btn-sm' id='btnReimprimeRet' idRet='" + identRet + "'>Ret.</button><button type='button' class='btn btn-secondary'>Anulado</button></div>";
-        }
+
+
         listaRetiros.push([contador, resp[i]['numNit'], resp[i]['empresa'], resp[i]['emision'], resp[i]['numPolIng'], resp[i]['polRet'], resp[i]['numeroRetiro'], resp[i]['bultosRet'], resp[i]['totalValorCif'], resp[i]['valorImpuesto'], botoneraAcciones]);
     }
     return listaRetiros;
 }
-    
-    
-    
+
+
+
     

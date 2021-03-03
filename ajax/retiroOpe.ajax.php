@@ -362,9 +362,25 @@ class AjaxUbicacionOpe {
 
     public function ajaxMostrarHistorialRetiros() {
         session_start();
-        $NavegaNumB = $_SESSION['idDeBodega'];
+        $NavegaNumB = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
         $respuesta = ControladorRetiroOpe::ctrMostrarHistorialRetiros($NavegaNumB);
-        echo json_encode($respuesta);
+        echo json_encode(array($respuesta, $tipo));
     }
 
     //solicitando historiales por rangos
@@ -372,24 +388,57 @@ class AjaxUbicacionOpe {
 
     public function ajaxMostrarRangoHistorial() {
         session_start();
-        $NavegaNumB = $_SESSION['idDeBodega'];        
+        $NavegaNumB = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
         $fechaInicio = $this->fechaInicio;
         $fechaFin = $this->fechaFin;
+
+
         $respuesta = ControladorRetiroOpe::ctrMostrarRangoHistorial($NavegaNumB, $fechaInicio, $fechaFin);
-        echo json_encode($respuesta);        
+        echo json_encode(array($respuesta, $tipo));
     }
-    
+
     //busqueda por poliza
     public $busquedaPol;
-    public function ajaxMostrarBusquedaPoliza(){
+
+    public function ajaxMostrarBusquedaPoliza() {
         session_start();
-        $NavegaNumB = $_SESSION['idDeBodega'];          
+        $NavegaNumB = $_SESSION["idDeBodega"];
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales') {
+            if ($_SESSION['niveles'] == 'BAJO') {
+                $tipo = "B1";
+            }
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "M1";
+            }
+        } else if ($_SESSION['departamentos'] == 'Bodegas Fiscales') {
+            if ($_SESSION['niveles'] == 'MEDIO') {
+                $tipo = "BodM";
+            } else {
+                $tipo = "Bod";
+            }
+        } else {
+            $tipo = "General";
+        }
         $busquedaPoliza = $this->busquedaPoliza;
         $respuesta = ControladorRetiroOpe::ctrMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza);
-        echo json_encode($respuesta);                
+        echo json_encode(array($respuesta, $tipo));
     }
-        
-
 
 }
 
