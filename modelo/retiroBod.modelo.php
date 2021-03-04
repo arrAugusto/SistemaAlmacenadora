@@ -237,6 +237,25 @@ class ModeloRetirosBodega {
         }
     }
 
+        public static function mdlActualizarStockPOSM($idDetaEdit, $idPosm, $valPosSalidaEdit, $valMtsSalidaEdit) {
+
+        $conn = Conexion::Conectar();
+        $sql = "EXECUTE spActualizarStockPOSM  ?, ?, ?, ?";
+        $params = array(&$idDetaEdit, &$idPosm, &$valPosSalidaEdit, &$valMtsSalidaEdit);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
     public static function mdlRetiroBodParamUno($value1, $value2, $sp) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?, ?";

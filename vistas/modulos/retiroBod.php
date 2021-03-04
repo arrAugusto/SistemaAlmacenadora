@@ -1,37 +1,37 @@
 <style>
-    
+
     #tableSalidaBodega td:nth-child(5){
 
         border: 1px solid #f57f17;
         font-weight: normal;
         text-align: center;
-       
+
     }
     #tableSalidaBodega td:nth-child(6){
 
         border: 1px solid #f57f17;
         font-weight: normal;
         text-align: center;
-       
+
     }
-    
+
     #tableSalidaBodega td:nth-child(7){
 
         border: 1px solid #f57f17;
         font-weight: normal;
         text-align: center;
-       
+
     }
     #tableSalidaBodega td:nth-child(8){
 
         border: 1px solid #f57f17;
         font-weight: normal;
         text-align: center;
-       
+
     }
-    
-        
-    
+
+
+
     #tableSalidaBodega th:nth-child(1){
         background-color: #0d47a1;
         border: 1px solid #0d47a1;
@@ -101,7 +101,7 @@
         font-weight: normal;
         text-align: center;
         color: white;        
-    }      #tableSalidaBodega th:nth-child(11){
+    }#tableSalidaBodega th:nth-child(11){
         background-color: #0288d1;
         border: 1px solid #0288d1;
         font-weight: normal;
@@ -115,6 +115,23 @@
         text-align: center;
         color: white;        
     }  
+    #tablePosMetraje th:nth-child(3){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }   
+    #tablePosMetraje td:nth-child(3){
+        background-color: #F18B08;    
+
+        font-weight: normal;
+        text-align: center;
+        color: white;   
+        border-radius: 1px;
+
+    }
+
 </style>
 
 
@@ -199,9 +216,12 @@
   <strong>Cambios en este modulo!</strong> Borra tu historial de navegación para recargar esta nueva función, las columnas turquesas remarcadas con color Naranja los saldos actuales del sistema.
 </div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4" id="divTableRetiraBodega">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mt-4" id="divTableRetiraBodega">
 
                     </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mt-4" id="divPOSMetraje">
+
+                    </div>                    
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-4" id="divTablePilotos">
 
                     </div>
@@ -276,7 +296,10 @@
                                             <span class="product-description" id="txtDescripcionRet">
                                             </span>
                                         </div>
-
+                                            <div class="description-block border-right">
+                                                <h5 class="description-header">Poliza   e ingreso</h5>
+                                                <span class="description-text" id="txtPolizaIng"></span>
+                                            </div>
 
                                         <div class="card-footer mt-4">
                                             <div class="row">
@@ -290,6 +313,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                 </div>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -314,43 +338,42 @@
 
                                     </div>
                                 </div>
-                                <div class="card-footer mt-4">
-                                    <div class="row">
-                                        <div class="col-sm-3 col-6">
-                                            <div class="description-block border-right">
-                                                <h5 class="description-header">Bultos <i class="fa fa-box-open"></i></h5>
-                                                <span class="description-text" id="bltsActuales"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-6">
-                                            <div class="description-block border-right">
-                                                <h5 class="description-header">Posiciones <i class="fa fa-map-pin"></i></h5>
-                                                <span class="description-text" id="posActuales"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-6">
-                                            <div class="description-block border-right">
-                                                <h5 class="description-header">Metros <i class="fa fa-map"></i></h5>
-                                                <span class="description-text" id="mtsActuales"></span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3 col-6">
-                                            <div class="description-block border-right">
-                                                <h5 class="description-header">Poliza   e ingreso</h5>
-                                                <span class="description-text" id="txtPolizaIng"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-info btnPreparacionSaldia" id="btnPreparaSalida" idRetiro=>Salida Bodega <i class="fa fa-door-open"></i></button>
-                    <input type="hidden" id="hiddenidIngreso" value="">
-                    <input type="hidden" id="hiddenidRetiro" value="">
-                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" id="hiddenidIngreso" value="">
+                <input type="hidden" id="hiddenidRetiro" value="">
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Modal Heading</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+                  <h5 class="card-title">Retiro de Mercadería</h5>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                Modal body..
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>

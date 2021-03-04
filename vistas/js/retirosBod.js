@@ -39,21 +39,23 @@ $(document).on("click", ".btnDetalleRetBod", function () {
                     }
                 }
                 if (respuesta[1][0] == "SD") {
+                    /*
                     console.log(respuesta[0][1]);
                     document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].bultos + '</label>';
                     document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].pos + '</label>';
                     document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].mts + '</label>';
-                    for (var i = 0; i < respuesta["Ubicaciones"].length; i++) {
+                    */for (var i = 0; i < respuesta["Ubicaciones"].length; i++) {
                         var pasillo = respuesta["Ubicaciones"][i].pasillo;
                         var columna = respuesta["Ubicaciones"][i].columna;
                         document.getElementById("divUbicacionesRet").innerHTML = '<span class="badge badge-primary" style="font-size: 15px;">P' + pasillo + 'C' + columna + '</span>&nbsp;&nbsp;';
                     }
                 } else {
+                    /*
                     console.log(respuesta[1]);
                     document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].bltsIngreso + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].bultosRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].nuevoSaldo + '</label>';
                     document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].ingresoPos + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].PosRetirdas + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].saldoPos + '</label>';
                     document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].mtsIngresados + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].mtsRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].stockMts + '</label>';
-                    for (var i = 0; i < respuesta[1].length; i++) {
+                    */for (var i = 0; i < respuesta[1].length; i++) {
                         var pasillo = respuesta[1][i].pasillo;
                         var columna = respuesta[1][i].columna;
                         document.getElementById("divUbicacionesRet").innerHTML += '<span class="badge badge-primary" style="font-size: 15px;">P' + pasillo + 'C' + columna + '</span>&nbsp;&nbsp;';
@@ -217,6 +219,7 @@ $(document).on("click", ".btnPreparacionSaldia", async function () {
 
 
 function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
+
     let todoMenus;
     var datos = new FormData();
     datos.append("valIdRet", valIdRet);
@@ -231,14 +234,19 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
+           
             console.log(respuesta);
+
             if (respuesta == "SD") {
                 alert(respuesta);
                 return true;
             } else {
                 document.getElementById("divTablePilotos").innerHTML = '<table id="tablePilotlos" class="table  table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
                 document.getElementById("divTableRetiraBodega").innerHTML = '<table id="tableSalidaBodega" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
+                document.getElementById("divPOSMetraje").innerHTML = '<table id="tablePosMetraje" class="table table-hover table-sm dt-responsive"></table><input type="hidden" id="hiddenListaDeta" value="">';
 
+                console.log("hola mundo");
+                //
                 if (tipoing != "vehiculoUsado") {
                     if (respuesta[2] != "SD") {
                         var nombre = respuesta[2][0].nombres;
@@ -331,29 +339,55 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                 }
 
                 var listaSalidaBodega = [];
+                var listaPOSM = [];
                 for (var i = 0; i < respuesta[1].length; i++) {
+                    //TOMANDO VALORES GENERALES DE BULTOS Y DETALLE
                     var num = i + 1;
                     var empresa = respuesta[1][i].empresa;
                     var bultos = respuesta[1][i].bultos;
-                    var inventarioExecel = '<button type="button" buttonid="' + idIngreso + '" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
                     var estockBults = respuesta[1][i].estockBults;
                     var numeroPoliza = respuesta[1][i].numeroPoliza;
-                    var stockPos = respuesta[1][i].pos;
-                    var stockMts = respuesta[1][i].mts;
+                    listaSalidaBodega.push([num, empresa, numeroPoliza, polizaretiro, bultos, estockBults]);
+                    //IDDETALLE 
                     var idDetalle = respuesta[1][i].idDetalle;
-                    console.log(respuesta[1][i].estadoDet);
-                    if (respuesta[1][i].estadoDet == 0) {
-                        var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [i] + '" value="' + stockPos + '" readOnly="readOnly" /></div>';
-                        var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [i] + '" value="' + stockMts + '" readOnly="readOnly"  /></div>';
-                        var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [i] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Editar <i class="fa fa-edit"></i></button></div>';
-                        listaSalidaBodega.push([num, empresa, bultos, stockPos, stockMts, textPos, textBultos, botonera]);
-                    } else if (respuesta[1][i].estadoDet == 1) {
-                        var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [i] + '" value="" /></div>';
-                        var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [i] + '" value="" /></div>';
-                        var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [i] + '" idDeta="' + idDetalle + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [i] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
-                        listaSalidaBodega.push([num, empresa, numeroPoliza, polizaretiro, bultos, estockBults, stockPos, stockMts, textPos, textBultos, botonera]);
+
+                    //TOMANDO DETALLES PARA REBAJA DE BULTOS Y POSICIONES
+
+                    console.log(respuesta[1][i][0]);
+                    var numContador = 0;
+                    for (var j = 0; j < respuesta[1][i][0].length; j++) {
+                        numContador = numContador + 1;
+                        var polInterna = respuesta[1][i][0][j].numeroPoliza;
+                        var nombreArea = respuesta[1][i][0][j].nombreArea;
+                        var stockPOSM = respuesta[1][i][0][j].stockPOSM;
+                        var stockMetraje = respuesta[1][i][0][j].stockMetraje;
+                        var idPOSM = respuesta[1][i][0][j].idPOSM;
+                        
+
+
+                        var inventarioExecel = '<button type="button" buttonid="' + idIngreso + '" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
+
+                        if (respuesta[1][i].estadoDet == 0) {
+                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [j] + '" value="' + stockPOSM + '" readOnly="readOnly" /></div>';
+                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [j] + '" value="' + stockMetraje + '" readOnly="readOnly"  /></div>';
+                            var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [j] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Editar <i class="fa fa-edit"></i></button></div>';
+                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
+                        } else if (respuesta[1][i].estadoDet == 1) {
+                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [j] + '" value="" /></div>';
+                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [j] + '" value="" /></div>';
+                            var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [j] + '"  idDeta="' + idDetalle + '" idPOSM="'+ idPOSM+'" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
+                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
+
+
+                        }
+
                     }
+
                 }
+
+                //enviando array ala tabla de metros o posiciones de retiro
+                InittablePosMetraje(listaPOSM);
+
                 $('#tableSalidaBodega').DataTable({
                     "language": {
                         "sProcessing": "Procesando...",
@@ -392,16 +426,6 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                             title: "Bultos Retiro"
                         }, {
                             title: "Stock Bultos"
-                        }, {
-                            title: "Stock Posiciones"
-                        }, {
-                            title: "Stock Metros"
-                        }, {
-                            title: "Posiciones"
-                        }, {
-                            title: "Metros"
-                        }, {
-                            title: "Acciones"
                         }]
                 });
 
@@ -434,9 +458,10 @@ $(document).on("click", ".btnSalidaBodega", async function () {
 $(document).on("click", ".btnGuardarCambioDet", async function () {
     var button = $(this);
     var idfila = $(this).attr("idFila");
-    console.log(idfila);
+
     var idRet = $(this).attr("idRet");
-    var idDeta = $(this).attr("idDeta");
+        var idDeta = $(this).attr("idDeta");
+    var idPosm = $(this).attr("idPosm");
     var idRetitera = $(this).attr("idRetitera");
     var valPosSalida = document.getElementById("posDet" + idfila).value;
     var valMtsSalida = document.getElementById("mtsDet" + idfila).value;
@@ -461,7 +486,8 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                 $("#posDet" + idRet).addClass("is-valid");
                 $("#mtsDet" + idRet).removeClass("is-invalid");
                 $("#mtsDet" + idRet).addClass("is-valid");
-                var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
+                var tipoAth = 0;
+                var guardDet = await ajaxGuadarDet(idDeta, idPosm, idRet, valPosSalida, valMtsSalida, tipoAth, idPosm);
                 console.log(guardDet);
                 if (guardDet == "puedeEditar") {
                     button.removeClass("btnGuardarCambioDet");
@@ -524,7 +550,8 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
         $("#posDet" + idRet).addClass("is-valid");
         $("#mtsDet" + idRet).removeClass("is-invalid");
         $("#mtsDet" + idRet).addClass("is-valid");
-        var guardDet = await ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida);
+        var tipoAth = 0;
+        var guardDet = await ajaxGuadarDet(idDeta, idPosm, idRet, valPosSalida, valMtsSalida, tipoAth, idPosm);
         console.log(guardDet);
         if (guardDet == "puedeEditar") {
             $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
@@ -571,11 +598,50 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
 
         }
         if (guardDet == "sobreGirara") {
-            Swal.fire(
-                    'Sobregira Metros y Posiciones',
-                    'Error en Metros y Posiciones, Verifique el Saldo Actual y Continue...',
-                    'error'
-                    );
+            Swal.fire({
+                title: 'Cantidad de bultos cero',
+                text: "Saldo de bultos en bodega es cero, tiene que rebajar las posiciones a cero también!",
+                type: 'warning',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok!'
+            }).then(async function (result) {
+                if (result.value) {
+                    var tipoAth = 1;
+                    var guardDet = await ajaxGuadarDet(idDeta, idPosm, idRet, valPosSalida, valMtsSalida, tipoAth, idPosm);
+                    console.log(guardDet);
+                    if (guardDet == "exito") {
+
+                        $("#btnGuardarCambioDet" + idfila).removeClass("btnGuardarCambioDet");
+                        $("#btnGuardarCambioDet" + idfila).addClass("btnEditMarchamo");
+
+                        $("#btnGuardarCambioDet" + idfila).removeClass("btn-info");
+                        $("#btnGuardarCambioDet" + idfila).addClass("btn-success");
+
+                        $("#btnGuardarCambioDet" + idfila).html("Guardado");
+
+
+                        $("#posDet" + idfila).removeClass("is-invalid");
+                        $("#posDet" + idfila).addClass("is-valid");
+
+                        $("#mtsDet" + idfila).removeClass("is-invalid");
+                        $("#mtsDet" + idfila).addClass("is-valid");
+
+                        $("#btnGuardarCambioDet" + idfila).attr("disabled", "disabled");
+                        $("#mtsDet" + idfila).attr("readOnly", true);
+                        $("#posDet" + idfila).attr("readOnly", true);
+
+                        Swal.fire(
+                                'Transacción Exitosa',
+                                'Se Guardo Correctamente los Metros y Posiciones',
+                                'success'
+                                )
+
+                    }
+                }
+            })
+
+
+
         }
 
         console.log("esperando...");
@@ -584,7 +650,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
 
 })
 
-function ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida) {
+function ajaxGuadarDet(idDeta, idPosm, idRet, valPosSalida, valMtsSalida, tipoAth, idPosm) {
     console.log(idRet);
     let todoMenus;
     var datos = new FormData();
@@ -592,6 +658,10 @@ function ajaxGuadarDet(idDeta, idRet, valPosSalida, valMtsSalida) {
     datos.append("idDetaGD", idDeta);
     datos.append("valPosSalidaGD", valPosSalida);
     datos.append("valMtsSalidaGD", valMtsSalida);
+    datos.append("tipoAth", tipoAth);
+    datos.append("idPosm", idPosm);
+    
+
     $.ajax({
         async: false,
         url: "ajax/retiroBod.ajax.php",
@@ -1037,3 +1107,51 @@ $(document).on("click", ".btnLimpiarRetiros", async function () {
 })
 
 
+//inicianlizando table para el metraje o posiciones del retiro
+function InittablePosMetraje(lista) {
+    $('#tablePosMetraje').DataTable({
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        data: lista,
+        columns: [{
+                title: "#"
+            }, {
+                title: "Póliza ing"
+            }, {
+                title: "Area Bodega"
+            }, {
+                title: "Stock Posiciones"
+            }, {
+                title: "Stock Metros"
+            }, {
+                title: "Stock Posiciones"
+            }, {
+                title: "Stock Metros"
+            }, {
+                title: "Acciones"
+            }]
+    });
+
+}

@@ -62,9 +62,11 @@ class AjaxRetiroBodega {
         $idDeta = $this->idDetaGD;
         $valPosSalida = $this->valPosSalidaGD;
         $valMtsSalida = $this->valMtsSalidaGD;
+        $tipoAth = $this->tipoAth;
+        $idPosm = $this->idPosm;
         session_start();
         $usuarioOp = $_SESSION["id"];
-        $respuesta = ControladorRetirosBodega::ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp);
+        $respuesta = ControladorRetirosBodega::ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp, $tipoAth, $idPosm);
         echo json_encode($respuesta);
     }
 
@@ -194,6 +196,8 @@ if (isset($_POST["idRetGD"])) {
     $guardarDetalleSalida->valPosSalidaGD = $_POST["valPosSalidaGD"];
     $guardarDetalleSalida->valMtsSalidaGD = $_POST["valMtsSalidaGD"];
     $guardarDetalleSalida->idDetaGD = $_POST["idDetaGD"];
+    $guardarDetalleSalida->tipoAth = $_POST["tipoAth"];
+    $guardarDetalleSalida->idPosm = $_POST["idPosm"];
     $guardarDetalleSalida->ajaxGuardarDetalleSalida();
 }
 
