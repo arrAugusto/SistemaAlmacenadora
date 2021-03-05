@@ -4,386 +4,409 @@ $(document).ready(function () {
     });
 });
 $(document).on("click", ".btnADetalle", function () {
-    var ejecucion = 0;
-    var empresa = document.getElementById("nombreEmpresa").value;
-    var bultos = document.getElementById("cantidadBultos").value;
-    var pesoKg = document.getElementById("pesoKg").value;
-    var descripcionMerca = document.getElementById("descripcionMerca").value;
-    var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
-    var Metraje = document.getElementById("Metraje").value;
-    if (pesoKg == "" || bultos == "" || empresa == "" || isNaN(pesoKg) || isNaN(bultos) || Metraje == "" || cantidadPosiciones == "" || descripcionMerca == "" || descripcionMerca == "OBSERVACIONES :" || descripcionMerca == "OBSERVACIONES : " || descripcionMerca == "OBSERVACIONES :  " || descripcionMerca == "OBSERVACIONES : 0" || isNaN(Metraje) || isNaN(cantidadPosiciones)) {
+    var paragraphsPos = Array.from(document.querySelectorAll("#cantidadPosiciones"));
+    var contadorParam = 0;
+    for (var i = 0; i < paragraphsPos.length; i++) {
+        var areaBodega = paragraphsPos[i].attributes.areabod.nodeValue;
+        if (areaBodega in localStorage) {
+            contadorParam = contadorParam + 1;
+        }
+    }
+    if (contadorParam != paragraphsPos.length) {
         Swal.fire({
-            title: "Formulario Detalle Bodega",
-            text: "Existen Campos vacios o en posiciones y metros no coloco un numero valido.",
+            title: 'Faltan Ubicaciones',
+            text: "No selecciono las ubicaciones de la mercadería !",
             type: 'error',
+            allowOutsideClick: false,
             confirmButtonColor: '#3085d6',
             confirmButtonText: 'Ok!'
         }).then((result) => {
             if (result.value) {
                 return false;
+                ejecucion = 1;
             }
         })
-    }
-    var tipoIng = document.getElementById("hiddenTipoIng").value;
 
-    if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-        /*
-         var paragraphs = Array.from(document.querySelectorAll("#spanUbiG"));
-         listaUbDB = [];
-         for (i = 0; i < paragraphs.length; i++) {
-         var dataUbY = paragraphs[i].attributes.pasy.value;
-         var dataUbX = paragraphs[i].attributes.colx.value;
-         listaUbDB.push({"ubicacionY": dataUbY, "ubicacionX": dataUbX});
-         }
-         if (listaUbDB.length == 0) {
-         Swal.fire({
-         position: 'top-center',
-         type: 'error',
-         title: 'No selecciono ninguna ubicación, favor agregue las ubicaciones correspondientes',
-         showConfirmButton: false,
-         timer: 3000
-         })
-         return false;
-         } else {
-         $("#hiddenLista").val(JSON.stringify(listaUbDB));
-         }
-         
-         */
-
-        /**
-         * 
-         * EL SIGUIENTE CODIGO TOMA LOCAL STORAGE DE UBICACIONES Y VALIDA SI EXISTEN CAMPOS VACIOS DE METROS O
-         * POSCIONES EN EL FORMULARIO AUGUSTO GOMEZ 04.02.2021
-         * 
-         * **/
+    } else {
 
 
-
-        var paragraphsPos = Array.from(document.querySelectorAll("#cantidadPosiciones"));
-        var paragraphsMts = Array.from(document.querySelectorAll("#Metraje"));
-        listaDB = [];
-
-        for (var i = 0; i < paragraphsPos.length; i++) {
-            var areaBodega = paragraphsPos[i].attributes.areabod.nodeValue;
-            var CantPos = $(".cantidadPosiciones" + areaBodega).val();
-            var CantMts = $(".Metraje" + areaBodega).val();
-            var idArea = $(".cantidadPosiciones" + areaBodega).attr("idarea");
-            if (areaBodega in localStorage) {
-                var promedioLocal = localStorage.getItem("promedioTarima");
-
-                var ubicaciones = localStorage.getItem(areaBodega);
-                var areaBod = JSON.parse(ubicaciones);
-                listaDB.push([idArea, areaBodega, CantPos, CantMts, promedioLocal, areaBod]);
-                console.log(listaDB);
-            } else {
-                Swal.fire({
-                    title: 'Faltan Ubicaciones',
-                    text: "No selecciono las ubicaciones de la mercaderia en " + areaBodega + " !",
-                    type: 'error',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok!'
-                }).then((result) => {
-                    if (result.value) {
-                        return false;
-                        ejecucion = 1;
-                    }
-                })
-
-            }
-
-            if (CantPos * 1 > 0 && CantMts * 1 > 0) {
-                var hiddenLista = JSON.stringify(listaDB);
-                console.log(hiddenLista);
-                //localStorage.removeItem(areaBodega);
-            } else {
-                Swal.fire({
-                    title: 'Campos vacios',
-                    text: "La catndiad de posiciones o metros de las ubicaciones en " + areaBodega + " estan vacias!",
-                    type: 'error',
-                    confirmButtonColor: '#3085d6',
-                    confirmButtonText: 'Ok!'
-                }).then((result) => {
-                    if (result.value) {
-                        return false;
-                    }
-
-                })
-            }
-
-            localStorage.removeItem(areaBodega);
-
+        var ejecucion = 0;
+        var empresa = document.getElementById("nombreEmpresa").value;
+        var bultos = document.getElementById("cantidadBultos").value;
+        var pesoKg = document.getElementById("pesoKg").value;
+        var descripcionMerca = document.getElementById("descripcionMerca").value;
+        var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
+        var Metraje = document.getElementById("Metraje").value;
+        if (pesoKg == "" || bultos == "" || empresa == "" || isNaN(pesoKg) || isNaN(bultos) || Metraje == "" || cantidadPosiciones == "" || descripcionMerca == "" || descripcionMerca == "OBSERVACIONES :" || descripcionMerca == "OBSERVACIONES : " || descripcionMerca == "OBSERVACIONES :  " || descripcionMerca == "OBSERVACIONES : 0" || isNaN(Metraje) || isNaN(cantidadPosiciones)) {
+            Swal.fire({
+                title: "Formulario Detalle Bodega",
+                text: "Existen Campos vacios o en posiciones y metros no coloco un numero valido.",
+                type: 'error',
+                confirmButtonColor: '#3085d6',
+                confirmButtonText: 'Ok!'
+            }).then((result) => {
+                if (result.value) {
+                    return false;
+                }
+            })
         }
+        var tipoIng = document.getElementById("hiddenTipoIng").value;
 
+        if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+            /*
+             var paragraphs = Array.from(document.querySelectorAll("#spanUbiG"));
+             listaUbDB = [];
+             for (i = 0; i < paragraphs.length; i++) {
+             var dataUbY = paragraphs[i].attributes.pasy.value;
+             var dataUbX = paragraphs[i].attributes.colx.value;
+             listaUbDB.push({"ubicacionY": dataUbY, "ubicacionX": dataUbX});
+             }
+             if (listaUbDB.length == 0) {
+             Swal.fire({
+             position: 'top-center',
+             type: 'error',
+             title: 'No selecciono ninguna ubicación, favor agregue las ubicaciones correspondientes',
+             showConfirmButton: false,
+             timer: 3000
+             })
+             return false;
+             } else {
+             $("#hiddenLista").val(JSON.stringify(listaUbDB));
+             }
+             
+             */
 
-        /**
-         * 
-         * SI NO EXISTEN CAMPOS VACIOS DE METROS O
-         * POISCIONES EN EL FORMULARIO, CONTINUA AUGUSTO GOMEZ 04.02.2021
-         * 
-         * **/
-    }
-    if (ejecucion == 0) {
-
-
-        var estadoBoton = $(this).attr("estadoBoton");
-        var idDetalle = $(this).attr("idDetalle");
-        var idOrdenIng = document.getElementById("idOrdenIng").value;
-        if (estadoBoton == 0) {
-            document.getElementById("tableDinamicIngBod").innerHTML = "";
-            var divtableDinamicIngBod = document.getElementById("tableDinamicIngBod");
-            divtableDinamicIngBod.remove("col-8");
-            document.getElementById('divAgregandoDetalles').setAttribute('class', "col-12");
-            $(this).attr('estadoBoton', 1);
-        }
-        var idChequeBodega = document.getElementById("hiddenIdUs").value;
-        var montacarga = document.getElementById("personaSeleccionada").value;
-        var montargaSelect = Array.from(document.querySelectorAll(".imgMontarguista"));
-        var listaMontarga = [];
-        for (var i = 0; i < montargaSelect.length; i++) {
-            var montacargaSel = montargaSelect[0]["attributes"]["user"].value;
-            listaMontarga.push({"montacarguistaSele": montacargaSel});
-        }
-        listaMontarga = JSON.stringify(listaMontarga);
-
-        if (idChequeBodega >= 1 && montacarga >= 1) {
-            if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-                var hiddenLista = hiddenLista;
-            } else {
-                var hiddenLista = tipoIng;
-
-            }
-            console.log(hiddenLista);
-            if ($("#nombreEmpresa").length > 0) {
-                var nombreEmpresa = document.getElementById("nombreEmpresa").value;
-            }
-            if ($("#cantidadBultos").length > 0) {
-
-                var cantidadBultos = document.getElementById("cantidadBultos").value;
-            }
-            if ($("#selectUbicacionHid").length > 0) {
-                var selectUbicacion = document.getElementById("selectUbicacionHid").value;
-
-            }
-            if ($("#descripcionMerca").length > 0) {
-                var descripcionMerca = document.getElementById("descripcionMerca").value;
-
-            }
-            if ($("#cantidadPosiciones").length > 0) {
-                var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
-
-            }
-            if ($("#Metraje").length > 0) {
-                var Metraje = document.getElementById("Metraje").value;
-
-            }
-
-            var datos = new FormData();
-            datos.append("idDetalle", idDetalle);
-            datos.append("idOrdenIng", idOrdenIng);
-            datos.append("selectUbicacion", selectUbicacion);
-            datos.append("descripcionMerca", descripcionMerca);
-            datos.append("cantidadPosiciones", cantidadPosiciones);
-            datos.append("Metraje", Metraje);
-            datos.append("hiddenLista", hiddenLista);
-            datos.append("idChequeBodega", idChequeBodega);
-            datos.append("montacarga", listaMontarga);
-            $.ajax({
-                url: "ajax/registroIngresoBodega.ajax.php",
-                method: "POST",
-                data: datos,
-                cache: false,
-                contentType: false,
-                processData: false,
-                dataType: "json",
-                success: function (respuesta) {
-                    console.log(respuesta);
-                    /*=============================================
-                     ACTUALIZANDO TABLE
-                     =============================================*/
-                    document.getElementById("tableMercaderia").innerHTML = '';
-                    document.getElementById("tableMercaderia").innerHTML = '<table id="tableDetallesMerca"  class="table table-hover"></table>';
-                    var numeroIdIng = document.getElementById("numeroIdIng").value;
-                    var datos = new FormData();
-                    datos.append("numeroIdIng", numeroIdIng);
-                    $.ajax({
-                        url: "ajax/registroIngresoBodega.ajax.php",
-                        method: "POST",
-                        data: datos,
-                        cache: false,
-                        contentType: false,
-                        processData: false,
-                        dataType: "json",
-                        success: function (respuesta) {
-                            console.log(respuesta);
-                            if (respuesta[0] == "finDetalle" || respuesta == "finDetalle") {
-                                var ordenIng = document.getElementById("numeroIdIng").value;
-                                document.getElementById("agregarDetalles").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-success btnRecarga" id="recargaBtn">Ver otros ingresos<i class="fa fa-retweet"></i></button><button type="button" class="btn btn-sm btn-primary bntSalidaRapida" idcliente="' + ordenIng + '" data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print" aria-hidden="true"></i></button></div><br/><br/><br/>';
-                                swal({
-                                    title: "Detalles agregados correctamente",
-                                    type: "success"
-                                }).then(okay => {
-                                    if (okay) {
-                                        $("#buttonMin").click();
-
-                                    }
-                                });
-
-                            } else {
-                                var lista = [];
+            /**
+             * 
+             * EL SIGUIENTE CODIGO TOMA LOCAL STORAGE DE UBICACIONES Y VALIDA SI EXISTEN CAMPOS VACIOS DE METROS O
+             * POSCIONES EN EL FORMULARIO AUGUSTO GOMEZ 04.02.2021
+             * 
+             * **/
 
 
 
-                                if ($("#descripcionMerca").length > 0) {
-                                    document.getElementById("descripcionMerca").value = "OBSERVACIONES :";
-                                }
+            var paragraphsPos = Array.from(document.querySelectorAll("#cantidadPosiciones"));
+            var paragraphsMts = Array.from(document.querySelectorAll("#Metraje"));
+            listaDB = [];
 
-                                if ($("#nombreEmpresa").length > 0) {
-                                    var nombreEmpresa = document.getElementById("nombreEmpresa").value;
-                                }
-                                if ($("#cantidadBultos").length > 0) {
+            for (var i = 0; i < paragraphsPos.length; i++) {
+                var areaBodega = paragraphsPos[i].attributes.areabod.nodeValue;
+                var CantPos = $(".cantidadPosiciones" + areaBodega).val();
+                var CantMts = $(".Metraje" + areaBodega).val();
+                var idArea = $(".cantidadPosiciones" + areaBodega).attr("idarea");
+                if (areaBodega in localStorage) {
+                    var promedioLocal = localStorage.getItem("promedioTarima");
 
-                                    var cantidadBultos = document.getElementById("cantidadBultos").value;
-                                }
-                                if ($("#selectUbicacion").length > 0) {
-                                    var selectUbicacion = document.getElementById("selectUbicacionHid").value;
-
-                                }
-                                if ($("#descripcionMerca").length > 0) {
-                                    var descripcionMerca = document.getElementById("descripcionMerca").value;
-
-                                }
-                                if ($("#cantidadPosiciones").length > 0) {
-                                    var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
-
-                                }
-                                if ($("#Metraje").length > 0) {
-                                    var Metraje = document.getElementById("Metraje").value;
-
-                                }
-                                if ($("#pesoKg").length > 0) {
-                                    var Metraje = document.getElementById("pesoKg").value;
-
-                                }
-
-
-
-                                var lista = [];
-                                var numero = 0;
-                                if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-
-                                    for (var i = 0; i < respuesta[0].length; i++) {
-                                        var numero = numero + 1;
-                                        var numeroLabel = '<label>' + numero + '</label>'
-                                        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
-                                        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
-                                        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                                        var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
-
-                                        lista.push([numeroLabel, empresa, bultos, peso, acciones]);
-                                    }
-                                } else {
-                                    for (var i = 0; i < respuesta[0].length; i++) {
-
-                                        var numero = numero + 1;
-                                        var numeroLabel = '<label>' + numero + '</label>'
-                                        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
-                                        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
-                                        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
-                                        if (tipoIng == "VEHICULOS NUEVOS") {
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
-                                        } else {
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
-
-                                        }
-
-                                        lista.push([numeroLabel, empresa, bultos, peso, acciones]);
-                                    }
-                                }
-                                $('#tableDetallesMerca').DataTable({
-                                    "language": {
-                                        "sProcessing": "Procesando...",
-                                        "sLengthMenu": "Mostrar _MENU_ registros",
-                                        "sZeroRecords": "No se encontraron resultados",
-                                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                                        "sInfoPostFix": "",
-                                        "sSearch": "Busqueda:",
-                                        "sUrl": "",
-                                        "sInfoThousands": ",",
-                                        "sLoadingRecords": "Cargando...",
-                                        "oPaginate": {
-                                            "sFirst": "Primero",
-                                            "sLast": "Último",
-                                            "sNext": "Siguiente",
-                                            "sPrevious": "Anterior"
-                                        },
-                                        "oAria": {
-                                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                                        }
-                                    },
-                                    data: lista,
-                                    columns: [{
-                                            title: "#"
-                                        }, {
-                                            title: "Empresa"
-                                        }, {
-                                            title: "Bultos"
-                                        }, {
-                                            title: "Peso"
-                                        }, {
-                                            title: "Accciones"
-                                        }]
-                                });
-                            }
-                        },
-                        error: function (respuesta) {
-                            console.log(respuesta);
+                    var ubicaciones = localStorage.getItem(areaBodega);
+                    var areaBod = JSON.parse(ubicaciones);
+                    listaDB.push([idArea, areaBodega, CantPos, CantMts, promedioLocal, areaBod]);
+                    console.log(listaDB);
+                } else {
+                    Swal.fire({
+                        title: 'Faltan Ubicaciones',
+                        text: "No selecciono las ubicaciones de la mercaderia en " + areaBodega + " !",
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok!'
+                    }).then((result) => {
+                        if (result.value) {
+                            return false;
+                            ejecucion = 1;
                         }
                     })
-                },
-                error: function (respuesta) {
-                    console.log(respuesta);
+
                 }
-            });
-            if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-                $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacionHid" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicación</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripción de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
-            }
-            /***/
-            if ($("#ubicacionesSelect").length) {
-                document.getElementById("ubicacionesSelect").innerHTML = "";
-            }
-            if ($("#textDetalleVeh").length) {
-                document.getElementById("textDetalleVeh").innerHTML = "";
+
+                if (CantPos * 1 > 0 && CantMts * 1 > 0) {
+                    var hiddenLista = JSON.stringify(listaDB);
+                    console.log(hiddenLista);
+                    //localStorage.removeItem(areaBodega);
+                } else {
+                    Swal.fire({
+                        title: 'Campos vacios',
+                        text: "La cantidad de posiciones o metros de las ubicaciones en " + areaBodega + " estan vacias!",
+                        type: 'error',
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Ok!'
+                    }).then((result) => {
+                        if (result.value) {
+                            return false;
+                        }
+
+                    })
+                }
+
+                localStorage.removeItem(areaBodega);
+
             }
 
-            if ($("#textDetalleVeh").length) {
-                document.getElementById("textDetalleVeh").innerHTML = "";
-            }
 
-
-
-            $(".divDetalleVehUsaLlave").removeAttr("disabled");
-            $(".divDetalleVehUsaBat").removeAttr("disabled");
-            $(".divDetalleVehUsaRad").removeAttr("disabled");
-            $(".divDetalleVehUsaLlanta").removeAttr("disabled");
-            $(".divDetalleVehUsaTr").removeAttr("disabled");
-            $("#btnUbica").attr("estado", 0);
-            var mensaje = "Detalle Registrado Correctamente";
-            var tipo = "success";
-            alertaToast(mensaje, tipo);
-        } else {
-            alert("el montacarguita no lo selecciono");
+            /**
+             * 
+             * SI NO EXISTEN CAMPOS VACIOS DE METROS O
+             * POISCIONES EN EL FORMULARIO, CONTINUA AUGUSTO GOMEZ 04.02.2021
+             * 
+             * **/
         }
+        if (ejecucion == 0) {
 
 
+            var estadoBoton = $(this).attr("estadoBoton");
+            var idDetalle = $(this).attr("idDetalle");
+            var idOrdenIng = document.getElementById("idOrdenIng").value;
+            if (estadoBoton == 0) {
+                document.getElementById("tableDinamicIngBod").innerHTML = "";
+                var divtableDinamicIngBod = document.getElementById("tableDinamicIngBod");
+                divtableDinamicIngBod.remove("col-8");
+                document.getElementById('divAgregandoDetalles').setAttribute('class', "col-12");
+                $(this).attr('estadoBoton', 1);
+            }
+            var idChequeBodega = document.getElementById("hiddenIdUs").value;
+            var montacarga = document.getElementById("personaSeleccionada").value;
+            var montargaSelect = Array.from(document.querySelectorAll(".imgMontarguista"));
+            var listaMontarga = [];
+            for (var i = 0; i < montargaSelect.length; i++) {
+                var montacargaSel = montargaSelect[0]["attributes"]["user"].value;
+                listaMontarga.push({"montacarguistaSele": montacargaSel});
+            }
+            listaMontarga = JSON.stringify(listaMontarga);
+
+            if (idChequeBodega >= 1 && montacarga >= 1) {
+                if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+                    var hiddenLista = hiddenLista;
+                } else {
+                    var hiddenLista = tipoIng;
+
+                }
+                console.log(hiddenLista);
+                if ($("#nombreEmpresa").length > 0) {
+                    var nombreEmpresa = document.getElementById("nombreEmpresa").value;
+                }
+                if ($("#cantidadBultos").length > 0) {
+
+                    var cantidadBultos = document.getElementById("cantidadBultos").value;
+                }
+                if ($("#selectUbicacionHid").length > 0) {
+                    var selectUbicacion = document.getElementById("selectUbicacionHid").value;
+
+                }
+                if ($("#descripcionMerca").length > 0) {
+                    var descripcionMerca = document.getElementById("descripcionMerca").value;
+
+                }
+                if ($("#cantidadPosiciones").length > 0) {
+                    var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
+
+                }
+                if ($("#Metraje").length > 0) {
+                    var Metraje = document.getElementById("Metraje").value;
+
+                }
+
+                var datos = new FormData();
+                datos.append("idDetalle", idDetalle);
+                datos.append("idOrdenIng", idOrdenIng);
+                datos.append("selectUbicacion", selectUbicacion);
+                datos.append("descripcionMerca", descripcionMerca);
+                datos.append("cantidadPosiciones", cantidadPosiciones);
+                datos.append("Metraje", Metraje);
+                datos.append("hiddenLista", hiddenLista);
+                datos.append("idChequeBodega", idChequeBodega);
+                datos.append("montacarga", listaMontarga);
+                $.ajax({
+                    url: "ajax/registroIngresoBodega.ajax.php",
+                    method: "POST",
+                    data: datos,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "json",
+                    success: function (respuesta) {
+                        console.log(respuesta);
+                        /*=============================================
+                         ACTUALIZANDO TABLE
+                         =============================================*/
+                        document.getElementById("tableMercaderia").innerHTML = '';
+                        document.getElementById("tableMercaderia").innerHTML = '<table id="tableDetallesMerca"  class="table table-hover"></table>';
+                        var numeroIdIng = document.getElementById("numeroIdIng").value;
+                        var datos = new FormData();
+                        datos.append("numeroIdIng", numeroIdIng);
+                        $.ajax({
+                            url: "ajax/registroIngresoBodega.ajax.php",
+                            method: "POST",
+                            data: datos,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            dataType: "json",
+                            success: function (respuesta) {
+                                console.log(respuesta);
+                                if (respuesta[0] == "finDetalle" || respuesta == "finDetalle") {
+                                    var ordenIng = document.getElementById("numeroIdIng").value;
+                                    document.getElementById("agregarDetalles").innerHTML = '<div class="btn-group"><button type="button" class="btn btn-success btnRecarga" id="recargaBtn">Ver otros ingresos<i class="fa fa-retweet"></i></button><button type="button" class="btn btn-sm btn-primary bntSalidaRapida" idcliente="' + ordenIng + '" data-toggle="modal" data-target="#modalSalidaRapida">Generar Pase <i class="fa fa-print" aria-hidden="true"></i></button></div><br/><br/><br/>';
+                                    swal({
+                                        title: "Detalles agregados correctamente",
+                                        type: "success"
+                                    }).then(okay => {
+                                        if (okay) {
+                                            $("#buttonMin").click();
+
+                                        }
+                                    });
+
+                                } else {
+                                    var lista = [];
+                                    if ($("#descripcionMerca").length > 0) {
+                                        document.getElementById("descripcionMerca").value = "OBSERVACIONES :";
+                                    }
+
+                                    if ($("#nombreEmpresa").length > 0) {
+                                        var nombreEmpresa = document.getElementById("nombreEmpresa").value;
+                                    }
+                                    if ($("#cantidadBultos").length > 0) {
+
+                                        var cantidadBultos = document.getElementById("cantidadBultos").value;
+                                    }
+                                    if ($("#selectUbicacion").length > 0) {
+                                        var selectUbicacion = document.getElementById("selectUbicacionHid").value;
+
+                                    }
+                                    if ($("#descripcionMerca").length > 0) {
+                                        var descripcionMerca = document.getElementById("descripcionMerca").value;
+
+                                    }
+                                    if ($("#cantidadPosiciones").length > 0) {
+                                        var cantidadPosiciones = document.getElementById("cantidadPosiciones").value;
+
+                                    }
+                                    if ($("#Metraje").length > 0) {
+                                        var Metraje = document.getElementById("Metraje").value;
+
+                                    }
+                                    if ($("#pesoKg").length > 0) {
+                                        var Metraje = document.getElementById("pesoKg").value;
+
+                                    }
+
+
+
+                                    var lista = [];
+                                    var numero = 0;
+                                    if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+
+                                        for (var i = 0; i < respuesta[0].length; i++) {
+                                            var numero = numero + 1;
+                                            var numeroLabel = '<label>' + numero + '</label>'
+                                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+
+                                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                                        }
+                                    } else {
+                                        for (var i = 0; i < respuesta[0].length; i++) {
+
+                                            var numero = numero + 1;
+                                            var numeroLabel = '<label>' + numero + '</label>'
+                                            var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+                                            var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+                                            var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+                                            if (tipoIng == "VEHICULOS NUEVOS") {
+                                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
+                                            } else {
+                                                var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
+
+                                            }
+
+                                            lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+                                        }
+                                    }
+                                    $('#tableDetallesMerca').DataTable({
+                                        "language": {
+                                            "sProcessing": "Procesando...",
+                                            "sLengthMenu": "Mostrar _MENU_ registros",
+                                            "sZeroRecords": "No se encontraron resultados",
+                                            "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                            "sInfoPostFix": "",
+                                            "sSearch": "Busqueda:",
+                                            "sUrl": "",
+                                            "sInfoThousands": ",",
+                                            "sLoadingRecords": "Cargando...",
+                                            "oPaginate": {
+                                                "sFirst": "Primero",
+                                                "sLast": "Último",
+                                                "sNext": "Siguiente",
+                                                "sPrevious": "Anterior"
+                                            },
+                                            "oAria": {
+                                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                            }
+                                        },
+                                        data: lista,
+                                        columns: [{
+                                                title: "#"
+                                            }, {
+                                                title: "Empresa"
+                                            }, {
+                                                title: "Bultos"
+                                            }, {
+                                                title: "Peso"
+                                            }, {
+                                                title: "Accciones"
+                                            }]
+                                    });
+                                }
+                            },
+                            error: function (respuesta) {
+                                console.log(respuesta);
+                            }
+                        })
+                    },
+                    error: function (respuesta) {
+                        console.log(respuesta);
+                    }
+                });
+                if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
+                    $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacionHid" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicación</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripción de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
+                }
+                /***/
+                if ($("#ubicacionesSelect").length) {
+                    document.getElementById("ubicacionesSelect").innerHTML = "";
+                }
+                if ($("#textDetalleVeh").length) {
+                    document.getElementById("textDetalleVeh").innerHTML = "";
+                }
+
+                if ($("#textDetalleVeh").length) {
+                    document.getElementById("textDetalleVeh").innerHTML = "";
+                }
+
+
+
+                $(".divDetalleVehUsaLlave").removeAttr("disabled");
+                $(".divDetalleVehUsaBat").removeAttr("disabled");
+                $(".divDetalleVehUsaRad").removeAttr("disabled");
+                $(".divDetalleVehUsaLlanta").removeAttr("disabled");
+                $(".divDetalleVehUsaTr").removeAttr("disabled");
+                $("#btnUbica").attr("estado", 0);
+                var mensaje = "Detalle Registrado Correctamente";
+                var tipo = "success";
+                alertaToast(mensaje, tipo);
+            } else {
+                alert("el montacarguita no lo selecciono");
+            }
+
+
+        }
+        if ($("#rackPisoData").length > 0) {
+            document.getElementById("rackPisoData").innerHTML = "";
+        }
     }
-    if ($("#rackPisoData").length > 0) {
-        document.getElementById("rackPisoData").innerHTML = "";
-    }
-
 });
 $(document).on("click", ".btnQuitarDetalle", function () {
     //*    $(this).parent().parent().parent().parent().parent().remove();

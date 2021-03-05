@@ -3,7 +3,8 @@
 class ControladorGeneracionDeInventarios {
 
     public static function ctrMostrarSaldos() {
-
+        
+        
         $valor = $_SESSION["idDeBodega"];
         if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
             $sp = "spSaldosSuper";

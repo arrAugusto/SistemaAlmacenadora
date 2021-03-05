@@ -34,7 +34,7 @@
                         </div>
                             
                         <div class="col-12 mt-4">
-                            <table id="tablasGeneral" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
+                            <table id="tableInventario" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
                                 <thead>
                                     <tr>
                                     <th style="whidth:3px;">#</th>
@@ -48,12 +48,7 @@
                                     <th><center>Acciones</center></th>
                                     </tr>
                                 </thead> <tbody>
-                                    <?php
-                                    $respuesta = ControladorGeneracionDeInventarios::ctrMostrarSaldos();
-                                    if ($respuesta !== null) {
-                                        
-                                    }
-                                    ?>
+   
                                 </tbody>
                             </table>
                         </div>

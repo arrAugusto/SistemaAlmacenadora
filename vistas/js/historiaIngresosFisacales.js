@@ -1209,6 +1209,7 @@ $(document).ready(function () {
             url: "ajax/datatableHistorialIng.ajax.php",
             "bServerSide": true,
             success: function (respuesta) {
+                console.log(respuesta);
             }
 
         })

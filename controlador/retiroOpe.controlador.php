@@ -88,13 +88,14 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrInsertRetiroOpe($datos) {
-
+        //parciando lista de polizas dr si existe
         $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
         $estadoTransaRebaja = 0;
         $contDetalle = 0;
         $estadoTransa = 0;
 
-
+        //lista de detalles de mercaderia
+        
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
         $contDetalle = count($arrayDetalles);
         foreach ($arrayDetalles as $key => $value) {
@@ -108,7 +109,7 @@ class ControladorRetiroOpe {
                 $estadoTransa = $estadoTransa + 1;
             }
         }
-
+                
         if ($estadoTransa == count($arrayDetalles)) {
 
             foreach ($arrayDetalles as $key => $value) {
