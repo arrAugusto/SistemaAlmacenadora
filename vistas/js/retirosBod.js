@@ -367,12 +367,12 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
 
                         var inventarioExecel = '<button type="button" buttonid="' + idIngreso + '" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
 
-                        if (respuesta[1][i].estadoDet == 0) {
+                        if (stockPOSM== 0) {
                             var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [j] + '" value="' + stockPOSM + '" readOnly="readOnly" /></div>';
                             var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [j] + '" value="' + stockMetraje + '" readOnly="readOnly"  /></div>';
                             var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [j] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Editar <i class="fa fa-edit"></i></button></div>';
                             listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
-                        } else if (respuesta[1][i].estadoDet == 1) {
+                        } else if (stockPOSM > 0) {
                             var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [j] + '" value="" /></div>';
                             var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [j] + '" value="" /></div>';
                             var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [j] + '"  idDeta="' + idDetalle + '" idPOSM="'+ idPOSM+'" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
@@ -637,6 +637,22 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                                 )
 
                     }
+                                    if (guardDet == "puedeEditar") {
+                    button.removeClass("btnGuardarCambioDet");
+                    button.addClass("btnEditarDetallePosM");
+                    button.removeClass("btn-info");
+                    button.addClass("btn-warning");
+                    button.html("Editar");
+                    $("#posDet" + idfila).removeClass("is-invalid");
+                    $("#posDet" + idfila).addClass("is-valid");
+                    $("#mtsDet" + idfila).removeClass("is-invalid");
+                    $("#mtsDet" + idfila).addClass("is-valid");
+                    Swal.fire(
+                            'Transacción Exitosa',
+                            'Se Guardo Correctamente los Metros y Posiciones',
+                            'success'
+                            )
+                }
                 }
             })
 

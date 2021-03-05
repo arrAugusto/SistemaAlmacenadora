@@ -205,11 +205,11 @@ class ControladorRetirosBodega {
                 $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRet);
          
                 $tipoEditG = 0;
-                $respuesta = ControladorRetirosBodega::ctrAccionDetalle($tipoEditG, $idRet, $idDeta, $valPosSalida, $valMtsSalida, $usuarioOp, $idPosm);
-                return $respuesta;
+                $respuesta = ControladorRetirosBodega::ctrAccionDetalle($tipoEditG, $idRet, $idDeta, $valPosSalida, $valMtsSalida, $usuarioOp, $idPosm, $tipoAth);
+
 
                 $respuestaUpdate = ModeloRetirosBodega::mdlUpdateDetalle($idRet, $usuarioOp);
-                if ($respuestaUpdate[0]["resp"] >= 1 && $stockCondicional > 0) {
+                if ($respuestaUpdate[0]["resp"] >= 1 && $stockCondicional > 0 || $tipoAth==1) {
                     return "puedeEditar";
                 } else {
                     return "exito";
@@ -224,7 +224,7 @@ class ControladorRetirosBodega {
         * METODO PARA CASTEAR EL DETALLE DE RETIRO, TAMBIEN PARA ACTUALIZAR STOCK DE POSICIONES Y METROS EN BODEGA 
         * 
      */
-    public static function ctrAccionDetalle($tipoEditG, $idRetEdit, $idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit, $usuarioOp, $idPosm) {
+    public static function ctrAccionDetalle($tipoEditG, $idRetEdit, $idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit, $usuarioOp, $idPosm, $tipoAth) {
         $idDetaEdit = trim($idDetaEdit);
         if ($tipoEditG == 1) {
             $respuesta = ModeloRetirosBodega::mdlAccionDetalleEditar($tipoEditG, $idRetEdit, $idDetaEdit, $valPosSalidaEdit, $valMtsSalidaEdit);
@@ -282,9 +282,7 @@ class ControladorRetirosBodega {
 
             $sp = "spNuevoDet";
             $actualizarDetalle = ModeloRetirosBodega::mdlRetiroBodParamUno($idRetEdit, $nuevoDetalleArray, $sp);
-
                 $actualizarStock = ModeloRetirosBodega::mdlActualizarStockPOSM($idDetaEdit, $idPosm, $valPosSalidaEdit, $valMtsSalidaEdit);
-                return array($actualizarDetalle, $actualizarStock);
                 if ($actualizarStock[0]["resp"]==1 && $actualizarDetalle == "Ok") {
                     
 
@@ -298,7 +296,7 @@ class ControladorRetirosBodega {
                     }
                 }
                 if ($cant == 1) {
-                    if ($contador == 1) {
+                    if ($contador == 1 && $tipoAth==0   ) {
                         $respuesta = ModeloRetirosBodega::mdlGuardaDetalleRet($idRetEdit, $usuarioOp);
                         return $respuesta;
                     }
