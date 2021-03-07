@@ -25,6 +25,7 @@ class ControladorRegistroBodega {
 
 
         $dataListaUbica = $datos["hiddenLista"];
+        $dataListaUbica = trim($dataListaUbica);
         $idChequeBodega = $datos["idChequeBodega"];
         $montacarga = $datos["montacarga"];
         $operacion = 2;
@@ -41,6 +42,8 @@ class ControladorRegistroBodega {
             $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
             if ($respuestaGUbica[0]["resp"] == 2) {
                 return "finDetalle";
+            }else{
+                return "pendientes";
             }
         } else {
 

@@ -34,19 +34,13 @@ $(document).on("click", ".btnAgregarDetalles", function () {
 $(document).on("click", ".btnVerDetalles", async function () {
     var tipoIng = document.getElementById("hiddenTipoIng").value;
     if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-   
-
-$("#selectUbicacion").empty();
-
+        $("#selectUbicacion").empty();
         var prom = 0;
         if ("promedioTarima" in localStorage) {
             var promedioLocal = localStorage.getItem("promedioTarima");
             ;
             var prom = 1;
         }
-
-
-
         var promedioPorTarima = document.getElementById("proTarima").value;
         console.log(promedioPorTarima);
         if (prom == 0) {
@@ -121,6 +115,7 @@ $("#selectUbicacion").empty();
         }
         var estado = $(this).attr("estado");
         if (estado == 0) {
+
             if ($("#cantidadPosiciones").length > 0) {
 
 
@@ -139,11 +134,24 @@ $("#selectUbicacion").empty();
 
     } else {
         if ($("#hiddenTipoIng").length >= 1) {
+
             if (tipoIng == "vehiculoUsado") {
+                document.getElementById("newTxtBtn").innerHTML = `
+                <input type="number" id="cantidadPosicionesVeh" name="cantidadPosiciones" class="form-control" placeholder="Cantidad de posiciones" style="text-align: center;" value="" />
+                                                                <input type="number" id="MetrajeVeh" name="Metraje" class="form-control" placeholder="Cantidad de Metros" style="text-align: center;" value="" />
+                                                                <div class="input-group-append">
+                                                                    <button type="button" estadoBoton=0 id="GuardarIngBod" idIngresoPB=0 idDetalle=0 class="btn btn-primary btnADetalle">Aceptar</button>
+                                                                </div>
+                                                                <!-- /btn-group -->
+                `;
+
                 document.getElementById("proTarima").value = 1.3;
                 document.getElementById("proTarima").readOnly = true;
                 document.getElementById("btnPromedioTarima").remove();
-                document.getElementById("cantidadPosiciones").readOnly = true;
+                if ($("#cantidadPosicionesVeh".length > 0)) {
+                    document.getElementById("cantidadPosicionesVeh").readOnly = true;
+
+                }
                 document.getElementById("chasisVeh").innerHTML = '<button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#modalCarousel">Detalles Vehiculos <i class="fa fa-briefcase"></i></button>';
             }
             if (tipoIng == "VEHICULOS NUEVOS") {
@@ -322,16 +330,16 @@ $("#selectUbicacion").empty();
                         },
                         data: lista,
                         columns: [{
-                                title: "#"
-                            }, {
-                                title: "Empresa"
-                            }, {
-                                title: "Bultos"
-                            }, {
-                                title: "Peso"
-                            }, {
-                                title: "Accciones"
-                            }]
+                            title: "#"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Peso"
+                        }, {
+                            title: "Accciones"
+                        }]
                     });
                 }
             },
@@ -417,7 +425,8 @@ function funcionRevVehUsados(nomVar, idDetalle) {
             respEdicion = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return respEdicion;
 }
 
@@ -501,14 +510,16 @@ $(document).on("click", ".btnPromedioTarima", function () {
 
 
 
-$(document).on("change", "#cantidadPosiciones", async function () {
+$(document).on("change", "#cantidadPosicionesVeh", async function () {
     var areabod = $(this).attr("areabod");
     console.log(areabod);
-    var respuesta = await CheckTextbox('cantidadPosiciones' + areabod);
+    var respuesta = await CheckTextboxPos('cantidadPosicionesVeh');
+    console.log(respuesta);
     if (respuesta) {
 
 
-        var cantPos = $(".cantidadPosiciones" + areabod).val();
+        var cantPos = $("#cantidadPosicionesVeh").val();
+        console.log(cantPos);
         var PromedioTarima = document.getElementById("proTarima").value;
         var funcCalculo = await validaCalculoPosMts(cantPos, PromedioTarima, areabod);
     }
@@ -535,6 +546,8 @@ $(document).on("change", "#cantidadPosiciones", async function () {
 
 async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
     var resNum = await patternPregNumEntero(cantPos);
+    console.log(cantPos);
+    console.log(resNum);
     if (cantPos >= 1) {
 
 
@@ -572,17 +585,16 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
         var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        document.getElementById("Metraje").value = "";
-        document.getElementById("cantidadPosiciones").value = "";
+        document.getElementById("MetrajeVeh").value = "";
+        document.getElementById("cantidadPosicionesVeh").value = "";
     }
 }
 
-$(document).on("change", "#Metraje", async function () {
+$(document).on("change", "#MetrajeVeh", async function () {
     var areabod = $(this).attr("areabod");
-    var respuesta = await CheckTextbox('Metraje');
+    var respuesta = await CheckTextboxPos('MetrajeVeh');
+    console.log(respuesta);
     if (respuesta) {
-
-
 
         var cantMts = $(this).val();
         var PromedioTarima = document.getElementById("proTarima").value;
@@ -602,6 +614,31 @@ $(document).on("change", "#Metraje", async function () {
 
     }
 });
+$(document).on("keyup", "#MetrajeVeh", async function () {
+    var areabod = $(this).attr("areabod");
+    var respuesta = await CheckTextboxPos('MetrajeVeh');
+    console.log(respuesta);
+    if (respuesta) {
+
+        var cantMts = $(this).val();
+        var PromedioTarima = document.getElementById("proTarima").value;
+        if (PromedioTarima == 0 || PromedioTarima == "") {
+            document.getElementById("proTarima").focus();
+            swal({
+                type: "warning",
+                title: "Promedio por tarima",
+                text: "Actualmente no se ha configurado, el promedio general por tarima, ingrese el promedio por tarima.",
+                showConfirmButton: true,
+                confrimButtonText: "cerrar",
+                closeConfirm: true
+            });
+        } else {
+            var funcCalculoMts = await validaCalculoMts(cantMts, PromedioTarima, areabod);
+        }
+
+    }
+});
+
 async function validaCalculoMts(cantMts, PromedioTarima, areabod) {
     var resNumMts = await patternPregNumEntero(cantMts);
     if (resNumMts == 1) {
@@ -611,13 +648,13 @@ async function validaCalculoMts(cantMts, PromedioTarima, areabod) {
         var tipo = "success";
         alertValNoAdm(mensaje, tipo);
         var nuevoMts = Math.ceil(cantMts);
-        $(".Metraje" + areabod).val(nuevoMts);
+        $("#MetrajeVeh").val(nuevoMts);
     }
     if (!isNaN(cantMts)) {
         if (nuevoMts >= 1) {
             if (PromedioTarima > 0) {
                 var cantPos = Math.ceil(nuevoMts / PromedioTarima);
-                $(".cantidadPosiciones" + areabod).val(cantPos);
+                $("#cantidadPosicionesVeh").val(cantPos);
             }
         }
     }
@@ -643,7 +680,7 @@ $(document).on("click", ".btnConsCadena", async function () {
             document.getElementById("recargaBtn").disabled = false;
         }
 
-//
+        //
         Swal.fire({
             title: "Operación Exitosa, Piloto Autorizado",
             text: "¿Desea imprimir pase de salida del piloto?",
@@ -674,7 +711,7 @@ $(document).on("click", ".btnConsCadena", async function () {
         if ($(".btnRecarga").length >= 1) {
             document.getElementById("recargaBtn").disabled = false;
         }
-//
+        //
         Swal.fire({
             title: "Operación Exitosa, Pilotos Autorizados",
             text: "¿Desea imprimir pase de salida de lo(s) piloto(s)?",
@@ -715,7 +752,8 @@ function guardarPaseVacio(operacion, tipo, cadena) {
             todoMenus = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -798,20 +836,20 @@ $(document).on("click", ".bntSalidaRapida", function () {
                 },
                 data: listaPilotos,
                 columns: [{
-                        title: "#"
-                    }, {
-                        title: "Licencia"
-                    }, {
-                        title: "Nombre de Piloto"
-                    }, {
-                        title: "Placa"
-                    }, {
-                        title: "Contenedor"
-                    }, {
-                        title: "Marchamo"
-                    }, {
-                        title: "Acción"
-                    }]
+                    title: "#"
+                }, {
+                    title: "Licencia"
+                }, {
+                    title: "Nombre de Piloto"
+                }, {
+                    title: "Placa"
+                }, {
+                    title: "Contenedor"
+                }, {
+                    title: "Marchamo"
+                }, {
+                    title: "Acción"
+                }]
             });
             /*    document.getElementById("pSalidaPiloto").value = respuesta[0]["piloto"];
              document.getElementById("pSalidaLicencia").value = respuesta[0]["licencia"];
@@ -843,6 +881,17 @@ function CheckTextbox(text) {
         return true;
     }
 }
+function CheckTextboxPos(text) {
+    var textbox = $("#" + text);
+    if (textbox.readOnly) {
+        // If disabled, do this 
+        return false;
+    } else {
+        // Enter code here
+        return true;
+    }
+}
+
 $(document).on("click", ".btnImpAutorizado", function () {
 
     var ingreso = $(this).attr("ingreso");
@@ -928,18 +977,18 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                     },
                     data: listaChasis,
                     columns: [{
-                            title: "#"
-                        }, {
-                            title: "Chasis"
-                        }, {
-                            title: "Tipo"
-                        }, {
-                            title: "Linea"
-                        }, {
-                            title: "Ubicación"
-                        }, {
-                            title: "Acciones"
-                        }]
+                        title: "#"
+                    }, {
+                        title: "Chasis"
+                    }, {
+                        title: "Tipo"
+                    }, {
+                        title: "Linea"
+                    }, {
+                        title: "Ubicación"
+                    }, {
+                        title: "Acciones"
+                    }]
                 });
             }
         }
@@ -972,7 +1021,8 @@ function finalizarChasis(idIng) {
 
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -1018,7 +1068,8 @@ function cargarPrediosDeEmpresa(dependencia) {
 
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -1113,7 +1164,8 @@ function guardarUbicacionesVehN(vehiculosUbicaN, listaValida) {
             }
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return todoMenus;
 }
 
@@ -1177,37 +1229,38 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                             },
                             data: lista,
                             columns: [{
-                                    title: "#"
-                                }, {
-                                    title: "Empresa"
-                                }, {
-                                    title: "Bultos"
-                                }, {
-                                    title: "Peso"
-                                }]
+                                title: "#"
+                            }, {
+                                title: "Empresa"
+                            }, {
+                                title: "Bultos"
+                            }, {
+                                title: "Peso"
+                            }]
                         });
                     }
                 } else {
 
                     Swal.fire(
-                            'Ingreso sin detalle',
-                            'El ingreso no tiene detalle por mostrar',
-                            'info'
-                            )
+                        'Ingreso sin detalle',
+                        'El ingreso no tiene detalle por mostrar',
+                        'info'
+                    )
                     $(".close").click();
                 }
             } else {
 
                 Swal.fire(
-                        'Ingreso sin detalle',
-                        'El ingreso no tiene detalle por mostrar',
-                        'info'
-                        )
+                    'Ingreso sin detalle',
+                    'El ingreso no tiene detalle por mostrar',
+                    'info'
+                )
                 $(".close").click();
             }
         }, error: function (respuesta) {
             console.log(respuesta);
-        }})
+        }
+    })
 })
 
 $(document).on("click", ".spanCopyVinc", async function () {
@@ -1312,8 +1365,7 @@ function funcCambioVinculo(hiddCopy, idIngPaste) {
 
 $(document).on("click", "#divDetalleVehUsa", async function () {
     var data = $(this).text();
-    $(this).attr('disabled', true);
-    data.trim();
+    var btn = $(this);
     Swal.fire({
         title: 'TRAE ' + data + '?',
         type: 'info',
@@ -1323,18 +1375,23 @@ $(document).on("click", "#divDetalleVehUsa", async function () {
         confirmButtonText: 'Si trae',
         cancelButtonText: 'No trae'
     }).then((result) => {
-        data.replace(" ", "");
-        var dataText = data;
         if (result.value) {
-            document.getElementById("textDetalleVeh").innerHTML += 'TRAE ' + data + ', ';
-        } else {
-            document.getElementById("textDetalleVeh").innerHTML += 'NO TRAE ' + data + ', ';
-        }
-        var dataDescr = document.getElementById("textDetalleVeh").value;
-        var cant = dataDescr.length;
-        var dataResp = dataDescr.substring(0, cant - 2);
-        document.getElementById("descripcionMerca").value = "OBSERVACIONES : " + dataResp;
 
+            btn.attr('disabled', true);
+            data.trim();
+
+            data.replace(" ", "");
+            var dataText = data;
+            if (result.value) {
+                document.getElementById("textDetalleVeh").innerHTML += 'TRAE ' + data + ', ';
+            } else {
+                document.getElementById("textDetalleVeh").innerHTML += 'NO TRAE ' + data + ', ';
+            }
+            var dataDescr = document.getElementById("textDetalleVeh").value;
+            var cant = dataDescr.length;
+            var dataResp = dataDescr.substring(0, cant - 2);
+            document.getElementById("descripcionMerca").value = "OBSERVACIONES : " + dataResp;
+        }
     })
 
 })
@@ -1349,10 +1406,10 @@ $(document).on("click", ".ancAreasBod", function () {
     var resp = funcionRevVehUsados(nomVar, idBod);
     if (resp == "SD") {
         Swal.fire(
-                'Sin areas en bodega!',
-                'Esta bodega no tiene configurada ninguna area para almacenar!',
-                'warning'
-                )
+            'Sin areas en bodega!',
+            'Esta bodega no tiene configurada ninguna area para almacenar!',
+            'warning'
+        )
     } else {
 
 
@@ -1397,14 +1454,14 @@ $(document).on("click", ".ancAreasBod", function () {
             },
             data: listaAreas,
             columns: [{
-                    title: "#"
-                }, {
-                    title: "Nombre Area"
-                }, {
-                    title: "Descripción"
-                }, {
-                    title: "Acciones"
-                }]
+                title: "#"
+            }, {
+                title: "Nombre Area"
+            }, {
+                title: "Descripción"
+            }, {
+                title: "Acciones"
+            }]
         });
     }
 });
@@ -1442,10 +1499,10 @@ $(document).on("click", ".btnNuevaAreaBodega", async function () {
         }
     } else {
         Swal.fire(
-                'Campos vacios',
-                'Existen campos vacios',
-                'error'
-                )
+            'Campos vacios',
+            'Existen campos vacios',
+            'error'
+        )
         $("#nombreAreaNew").removeClass("is-valid");
         $("#descArea").addClass("is-invalid");
     }
@@ -1479,7 +1536,8 @@ function funcGuardarNewArea(idBod, nombreArea, descArea, tiempoArea, fecha) {
             respEdicion = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return respEdicion;
 }
 
@@ -1496,7 +1554,7 @@ $(document).on("click", ".btnEditarArea", async function () {
         }
     }
 
-//        var nombreArea = resp[i].nombreArea;
+    //        var nombreArea = resp[i].nombreArea;
     //var descripcionArea = resp[i].;
 });
 
@@ -1535,10 +1593,10 @@ $(document).on("click", ".btnEditAreaBod", async function () {
 
     } else {
         Swal.fire(
-                'Campos vacios',
-                'Existen campos vacios',
-                'error'
-                )
+            'Campos vacios',
+            'Existen campos vacios',
+            'error'
+        )
         $("#nombreAreaEdit").removeClass("is-valid");
         $("#descAreaEdit").addClass("is-invalid");
     }
@@ -1570,7 +1628,8 @@ function funcGuardarEditArea(idBod, nombreArea, descArea, tiempoArea, fecha, ida
             respEdicion = respuesta;
         }, error: function (respuesta) {
             console.log(respuesta);
-        }});
+        }
+    });
     return respEdicion;
 }
 
