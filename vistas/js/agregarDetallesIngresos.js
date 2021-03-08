@@ -141,7 +141,7 @@ $(document).on("click", ".btnVerDetalles", async function () {
                                                                 <input type="number" id="MetrajeVeh" name="Metraje" class="form-control" placeholder="Cantidad de Metros" style="text-align: center;" value="" />
                                                                 <div class="input-group-append">
                                                                     <button type="button" estadoBoton=0 id="GuardarIngBod" idIngresoPB=0 idDetalle=0 class="btn btn-primary btnADetalle">Aceptar</button>
-                                                                </div>
+                                                                </div>      
                                                                 <!-- /btn-group -->
                 `;
 
@@ -507,13 +507,14 @@ $(document).on("click", ".btnPromedioTarima", function () {
 
  $(document).on("keyup", "#cantidadPosiciones", async function () {
     var cantPos = $(this).val();
+    
     var respuesta = await CheckTextbox('cantidadPosiciones');
     if (respuesta) {
 
-
-
+        
+        var area = $(this).attr("areaBod");
         var PromedioTarima = document.getElementById("proTarima").value;
-        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima);
+        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima, area);
         console.log(funcCalculo);
     }
 
@@ -608,27 +609,27 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
     }
 }
 async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
-    var resNum = await patternPregNumEntero(cantPos);
-    var btn = $(this);
+        var resNum = await patternPregNumEntero(cantPos);
+
     if (cantPos >= 1) {
 
 
         if (resNum == 1) {
             var nuevoPos = cantPos;
         } else if (resNum <= 0) {
-            var mensaje = "Cantidad de Posiciones, tiene que ser un nÃºmero mayor a : 0 y de tipo entero";
+            var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
             var tipo = "error";
             alertValNoAdm(mensaje, tipo);
-            btn.val(metrosConvert);
+            $(".Metraje" + areabod).val(metrosConvert);
 
-            btn.val("");
+            $(".cantidadPosiciones" + areabod).val("");
         }
-        if (!isNaN(cantPos) && cantPos > 0) {
-            
-                if (PromedioTarima > 0) {
-
+        if (!isNaN(cantPos)) {
+            if (cantPos > 0 ) {
+                if (PromedioTarima >0) {
+                    console.log(areabod);
                     var metrosConvert = Math.ceil(PromedioTarima * nuevoPos);
-                    btn.val(metrosConvert);
+                    $(".Metraje" + areabod).val(metrosConvert);
 
                 } else {
                     document.getElementById("proTarima").focus();
@@ -641,23 +642,14 @@ async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
                         closeConfirm: true
                     });
                 }
-            
+            }
         }
     } else {
-        var mensaje = "Cantidad de Posiciones, tiene que ser un nÃºmero mayor a : 0 y de tipo entero";
+        var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        if (btn.length>0){
-            document.getElementById("MetrajeVeh").value = "";
-
-        }
-        if (btn.length>0){
-
-            btn.val("");
-
-        }
-
-
+        //document.getElementById("Metraje").value = "";
+        //document.getElementById("cantidadPosiciones").value = "";
     }
 }
 

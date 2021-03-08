@@ -437,7 +437,7 @@ class ModeloRegIngBod {
         }
     }
 
-    public static function mdlGuardarDetalleLista($dataListaUbica, $llave) {
+    public static function  mdlGuardarDetalleLista($dataListaUbica, $llave) {
         $conn = Conexion::Conectar();
         foreach ($dataListaUbica as $key => $value) {
             $valueY = $value["datoY"];

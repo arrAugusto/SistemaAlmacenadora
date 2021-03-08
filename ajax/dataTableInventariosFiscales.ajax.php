@@ -17,10 +17,14 @@ class dataTableInventarios {
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
         $sp = "spSaldosInventario";
         $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+        if ($saldosAjuste!="SD") {
+            
+        
         foreach ($saldosAjuste as $key => $value) {
             $spStock = "spStockGeneral";
             $idIng = $value["id"];
             $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spStock, $idIng);
+        }
         }
         //FIN DE AJUSTES DE INGRESOS 
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
@@ -29,6 +33,9 @@ class dataTableInventarios {
         $inicioAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spInioAjusteInv, $valor);
         $spAjustes = "spDetallesAjustInv";
         $saldosAjusteDetalle = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spAjustes, $valor);
+        if ($saldosAjusteDetalle!="SD") {
+            
+        
         foreach ($saldosAjusteDetalle as $key => $value) {
             $datoArray = json_decode($value["detallesRebajados"], true);
 
@@ -42,6 +49,7 @@ class dataTableInventarios {
                 }
             }
 
+        }
         }
 
 

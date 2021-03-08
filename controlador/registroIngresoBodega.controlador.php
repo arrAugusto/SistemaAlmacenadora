@@ -40,6 +40,7 @@ class ControladorRegistroBodega {
             $ubicacion = $datos['selectUbicacion'];
             $sp = "spUbicacionVehUsado";
             $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
+            return $respuestaGUbica;
             if ($respuestaGUbica[0]["resp"] == 2) {
                 return "finDetalle";
             }else{
