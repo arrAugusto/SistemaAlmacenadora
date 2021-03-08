@@ -396,9 +396,6 @@ $(document).on("click", ".btnUsarFila", async function () {
                     text: respuesta[0]["empresa"] + ', Agregue ubicación, detalle, metros o ubicaciones. ',
                 })
 
-                for (var i = 0; i < 25; i++) {
-
-                }
             }
         },
         error: function (respuesta) {
@@ -508,7 +505,19 @@ $(document).on("click", ".btnPromedioTarima", function () {
  });
  */
 
+ $(document).on("keyup", "#cantidadPosiciones", async function () {
+    var cantPos = $(this).val();
+    var respuesta = await CheckTextbox('cantidadPosiciones');
+    if (respuesta) {
 
+
+
+        var PromedioTarima = document.getElementById("proTarima").value;
+        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima);
+        console.log(funcCalculo);
+    }
+
+});
 
 $(document).on("change", "#cantidadPosicionesVeh", async function () {
     var areabod = $(this).attr("areabod");
@@ -585,10 +594,73 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
         var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        document.getElementById("MetrajeVeh").value = "";
-        document.getElementById("cantidadPosicionesVeh").value = "";
+        if ($("#MetrajeVeh").length>0){
+            document.getElementById("MetrajeVeh").value = "";
+
+        }
+        if ($("#cantidadPosicionesVeh").length>0){
+
+            document.getElementById("cantidadPosicionesVeh").value = "";
+
+        }
+
+
     }
 }
+async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
+    var resNum = await patternPregNumEntero(cantPos);
+    var btn = $(this);
+    if (cantPos >= 1) {
+
+
+        if (resNum == 1) {
+            var nuevoPos = cantPos;
+        } else if (resNum <= 0) {
+            var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
+            var tipo = "error";
+            alertValNoAdm(mensaje, tipo);
+            btn.val(metrosConvert);
+
+            btn.val("");
+        }
+        if (!isNaN(cantPos) && cantPos > 0) {
+            
+                if (PromedioTarima > 0) {
+
+                    var metrosConvert = Math.ceil(PromedioTarima * nuevoPos);
+                    btn.val(metrosConvert);
+
+                } else {
+                    document.getElementById("proTarima").focus();
+                    swal({
+                        type: "warning",
+                        title: "Promedio por tarima",
+                        text: "Actualmente no se ha configurado, el promedio general por tarima, ingrese el promedio por tarima.",
+                        showConfirmButton: true,
+                        confrimButtonText: "cerrar",
+                        closeConfirm: true
+                    });
+                }
+            
+        }
+    } else {
+        var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
+        var tipo = "error";
+        alertValNoAdm(mensaje, tipo);
+        if (btn.length>0){
+            document.getElementById("MetrajeVeh").value = "";
+
+        }
+        if (btn.length>0){
+
+            btn.val("");
+
+        }
+
+
+    }
+}
+
 
 $(document).on("change", "#MetrajeVeh", async function () {
     var areabod = $(this).attr("areabod");
@@ -872,7 +944,7 @@ $(document).on("change", "#Metraje", function () {
     document.getElementById("GuardarIngBod").focus();
 });
 function CheckTextbox(text) {
-    var textbox = $("." + text);
+    var textbox = $("#" + text);
     if (textbox.readOnly) {
         // If disabled, do this 
         return false;
