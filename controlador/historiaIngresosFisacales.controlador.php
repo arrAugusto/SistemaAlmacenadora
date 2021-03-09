@@ -318,5 +318,10 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($valor, $fechaIng, $fechaFin, $sp);
         return $revIngRev;
     }
+    public static function ctrMostrarInvetarioExcel($valor){
+        $sp = "spSaldosSuper";
+        $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+        return $revIngRev;
 
+    }
 }

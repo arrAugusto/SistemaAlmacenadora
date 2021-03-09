@@ -443,3 +443,32 @@ $(document).ready(function () {
         });
     }
 });
+
+
+
+$(document).on("click", ".btnInventarioFiscalExcel", async function () {
+    Swal.fire({
+        title: 'Quiere descarga el inventario?',
+        text: "Esto puede tardar unos segundos!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        allowOutsideClick: false,
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Descargar!'
+    }).then(async function (result) {
+        if (result.value) {
+            var tipoOp = 1;
+
+            var nomVar = "descargaExcelInventario";
+            var resp = await insertNuevoServicio(nomVar, tipoOp);
+            console.log(resp);
+            var nombreReporte = 'HISTORIAL DE RETIROS, ESTADOS DE INGRESO: "-1 ANULADO :: 1 REGISTRADO OPERACIONES :: 2,3 PENDIENTE CULMINAR BODEGA :: 4 FINALIZADO CON NUMERO CORRELATIVO Y PENDIENTE DE CONTABILIZAR :: 5 POR CONTABILIZAR EN EL REPORTE :: 6 CONTABILIZADO"';
+            var nombreEncabezado = "DescargaReporteExcel";
+            var nombreFile = "ReporteDeIngresos_";
+            var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
+            console.log(resp);
+        }
+    })
+
+})

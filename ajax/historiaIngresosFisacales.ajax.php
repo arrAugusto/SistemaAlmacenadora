@@ -286,7 +286,14 @@ class AjaxAccionesIngresos {
         $respuesta = ControladorHistorialIngresos::ctrParametrosFechaHis($valor, $fechaIng, $fechaFin);
                 echo json_encode(array($respuesta, $tipo));
     }
+    public $inveExcel;
+    public function ajaxMostrarInvetarioExcel(){
+        session_start();
+        $valor = $_SESSION["idDeBodega"];
+        $respuesta = ControladorHistorialIngresos::ctrMostrarInvetarioExcel($valor);
+        echo json_encode($respuesta);
 
+    }
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -442,4 +449,10 @@ if (isset($_POST["fechaIng"])) {
     $paramFechaHist->fechaIng = $_POST["fechaIng"];
     $paramFechaHist->fechaFin = $_POST["fechaFin"];
     $paramFechaHist->ajaxParametrosFechaHis();
+}
+if (isset($_POST["descargaExcelInventario"])){
+    $inveExcel = new AjaxAccionesIngresos();
+    $inveExcel->descargaExcelInventario = $_POST["descargaExcelInventario"];
+    $inveExcel->ajaxMostrarInvetarioExcel();
+
 }
