@@ -26,7 +26,7 @@ class imprimirIngresoBodega {
         } else {
             $tipo = 1;
             $repuestaOpera = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
-            $nomElab = $repuestaOpera[0]["nombres"];
+                $nomElab = $repuestaOpera[0]["nombres"];
             $apellElab = $repuestaOpera[0]["apellidos"];
             $tipo = 0;
 

@@ -144,10 +144,14 @@ $(document).on("click", ".btnVerDetalles", async function () {
                                                                 </div>
                                                                 <!-- /btn-group -->
                 `;
+                if ($("#proTarima").length>0){
+                    document.getElementById("proTarima").value = 1.3;
+                    document.getElementById("proTarima").readOnly = true; 
+                }
+                if ($("#btnPromedioTarima").length>0){
+                    document.getElementById("btnPromedioTarima").remove();
 
-                document.getElementById("proTarima").value = 1.3;
-                document.getElementById("proTarima").readOnly = true;
-                document.getElementById("btnPromedioTarima").remove();
+                }
                 if ($("#cantidadPosicionesVeh".length > 0)) {
                     document.getElementById("cantidadPosicionesVeh").readOnly = true;
 

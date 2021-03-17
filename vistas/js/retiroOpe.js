@@ -1,3 +1,4 @@
+
 $(document).on("click", ".btnBuscaRetiro", function () {
     if ($("#tdDatosGenerales").length == 0) {
         document.getElementById("dataRetiro").innerHTML = "";
@@ -143,7 +144,6 @@ $(document).on("click", ".btnBuscaRetiro", function () {
     }
 });
 
-
 $(document).on("change", "#txtNitSalida", function () {
     var txtNitSalida = $(this).val();
     if (txtNitSalida == "") {
@@ -261,7 +261,6 @@ $(document).on("change", "#txtNitSalida", function () {
         });
     }
 });
-
 
 function funcRevSaldosAF(tipoIng) {
     let todoMenus;
@@ -707,7 +706,6 @@ function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetir
     return guardarRetV;
 }
 
-
 function guardarRetiroMercaderia(
         listaDetalles, hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio,
         valorTotalAduana, valorCif, calculoValorImpuesto, pesoKg, placa, contenedor, licencia, piloto,
@@ -994,8 +992,6 @@ $(document).on("change", "#contenedor", async function () {
     }
 })
 
-
-
 async function validarFormRet() {
     /*------------------------------------------------------------------/
      *  FUNCION EVALUANDO DATOS REGISTRADOS POR EL USUARIO...           |
@@ -1147,7 +1143,6 @@ function invalidar(nombreId) {
     $("#" + nombreId).removeClass("is-valid");
     $("#" + nombreId).addClass("is-invalid");
 }
-
 
 function desbloquear() {
     let desbloqueo;
@@ -2296,7 +2291,7 @@ $(document).on("click", ".btnTrasladoFiscal", async function () {
         if ($("#hiddenGdVehMerc").length > 0) {
             document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
         }
-        if (servicio.data == "sinRet") {
+        if (servicio.data != "SD") {
             var nomVar = "idIngEditOp";
             var respData = await dataIngTraslado(nomVar, idIngOpDet);
             var bultos = respData["dataIng"][0]["bultos"];
@@ -2346,7 +2341,6 @@ $(document).on("click", ".btnTrasladoFiscal", async function () {
         }
     }
 });
-
 
 function dataIngTraslado(nomVar, idIngEditOp) {
     let resp;
@@ -2406,7 +2400,6 @@ $(document).on("click", ".trasladoZAAF", async function () {
 
 
 })
-
 
 function trasladarIngFiscal(nomVar, idIngEditOp) {
     let resp;
@@ -2830,7 +2823,6 @@ $(document).ready(function () {
 
 })
 
-
 function saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal) {
     let todoMenus;
     var datos = new FormData();
@@ -2866,9 +2858,6 @@ $(document).on("click", ".btnBsqPolDADR", async function () {
     $(this).addClass("btn-secondary");
     $(this).attr("disabled", "disabled");
 });
-
-
-
 
 $(document).on("click", ".btnListaSelect", async function () {
     var idBut = $(this);
@@ -2979,7 +2968,7 @@ $(document).on("click", ".btnListaSelect", async function () {
             processData: false,
             dataType: "json",
             success: function (respuestaDetIng) {
-                
+                console.log(respuestaDetIng);
                 console.log(respuestaDetIng);
 
                 if (respuestaDetIng.respTipo == "vehN") {
@@ -3075,7 +3064,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                     }]
                             });
                         }
-         
+
                         var hiddenStockIngreso = document.getElementById("hiddenStockIngreso").value;
                         Swal.fire('Historial de retiros', 'Se muestra a continuacion todos los retiros emitidos... saldo del Ingreso ' + hiddenStockIngreso + ' bulto(s)', 'success')
                         var datos = new FormData();
@@ -3090,7 +3079,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                             dataType: "json",
                             success: function (respuesta) {
                                 console.log(respuesta);
-                           
+
                                 var hiddenTipoOP = document.getElementById("hiddenTipoOP").value;
                                 if (hiddenTipoOP == "retiro") {
                                     /*
@@ -3135,7 +3124,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                      });*/
                                 }
 
-                    
+
                                 document.getElementById("tableMostrarEmpresa").innerHTML = "";
                                 document.getElementById("tableMostrarEmpresa").innerHTML = '<table id="tablaMostrarEmpresa" class="table dt-responsive table-hover table-sm></table><input type="hidden" id="hiddenListaDeta" value="">';
                                 var datos = new FormData();
@@ -3151,7 +3140,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                     dataType: "json",
                                     success: function (respuesta) {
                                         console.log(respuesta);
-                                        
+
                                         //
                                         var polizaDRRev = 0;
                                         var revDR = 0;
@@ -3282,8 +3271,10 @@ $(document).on("click", ".btnListaSelect", async function () {
              */
             document.getElementById("dataRetiro").innerHTML = "";
             document.getElementById("dataRetiro").innerHTML = '<table id="tablaMerRetiro" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
-            console.log(servicio.dataRetiro.resHistorial);
-            listaHistorial = [];
+            if (servicio.dataRetiro.resHistorial!="SD"){
+       listaHistorial = [];
+       console.log(servicio.dataRetiro.resHistorial);
+
             for (var i = 0; i < servicio.dataRetiro.resHistorial.length; i++) {
                 var polizaRetiro = servicio.dataRetiro.resHistorial[i].polizaRetiro;
                 var regimen = servicio.dataRetiro.resHistorial[i].regimenSalida;
@@ -3334,7 +3325,12 @@ $(document).on("click", ".btnListaSelect", async function () {
                         title: "calculoValorImpuesto"
                     }]
             });
+        }else{
+            Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
+            document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+
         }
+    }
         document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
         $("#divPlaca").append().remove();
         $("#divCont").append().remove();

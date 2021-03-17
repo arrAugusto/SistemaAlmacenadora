@@ -372,7 +372,7 @@ class ModeloRegIngBod {
         }
     }
 
-    public static function mdlTraerDatosBodega($codigo) {
+    public static function  mdlTraerDatosBodega($codigo) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spIngBod ?";
         $params = array(&$codigo);

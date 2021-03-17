@@ -97,19 +97,19 @@ class ControladorRetiroOpe {
         //lista de detalles de mercaderia
         
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
+         
         $contDetalle = count($arrayDetalles);
         foreach ($arrayDetalles as $key => $value) {
             $idDetalle = $value["idDetalles"];
             $cantBultos = $value["cantBultos"];
             $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
-
             $stock = $respuesta[0]["stock"];
             $saldoNuevo = $stock - $cantBultos;
-            if ($saldoNuevo == 0 || $saldoNuevo >= 1) {
+            if ($saldoNuevo >= 0) {
                 $estadoTransa = $estadoTransa + 1;
             }
         }
-                
+        
         if ($estadoTransa == count($arrayDetalles)) {
 
             foreach ($arrayDetalles as $key => $value) {
@@ -119,10 +119,7 @@ class ControladorRetiroOpe {
                 $stock = $respuesta[0]["stock"];
                 $saldoNuevo = $stock - $cantBultos;
                 if ($datos['jsonStringDR'] == "SD") {
-
-
                     $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
-
                     if ($respuesta[0]["estado"] == 1) {
                         $estadoTransaRebaja = $estadoTransaRebaja + 1;
                     }
@@ -193,13 +190,13 @@ class ControladorRetiroOpe {
         if ($respuestaServ[0]["servicio"] == "VEHICULOS NUEVOS") {
             $sp = "spMostrarChasis";
             $respuestaVehN = ModeloRetiroOpe::mdlDetUnParametro($idIngOpDet, $sp);
+            
             $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
             return array("respTipo" => "vehN", "data" => $respuestaVehN, "dataRetiro" => $respuesta);
         } else {
 
             $spVeh = "spIngVehUsados";
             $respuestaRevertVeh = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIngOpDet, $spVeh);
-                  
             if ($respuestaRevertVeh[0]['resp'] == 1) {
                 $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
                 return array("respTipo" => "vehUs", "data" => $respuesta);

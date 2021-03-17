@@ -137,7 +137,8 @@ class ModeloRetiroOpe {
         } else {
             $tipo = 0;
         }
-
+        $dateRegistro = new DateTime($datos['hiddenDateTime']);
+         $dateRegistro->format('Y-m-d H:i:s');
         $paramsDet = array(
             &$datos['hiddeniddeingreso'],
             &$datos['idNit'],
@@ -148,7 +149,7 @@ class ModeloRetiroOpe {
             &$datos['hiddenIdBod'],
             &$estadoRet,
             &$datos['listaDetalles'],
-            &$datos['hiddenDateTime'],
+            &$dateRegistro,
             &$datos['cantBultos'],
             &$datos['pesoKg'],
             &$datos['tipoCambio'],
