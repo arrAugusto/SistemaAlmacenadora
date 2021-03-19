@@ -15,7 +15,7 @@ class imprimirIngresoBodega {
         $codigo = $this->codigo;
 
         $repuestaOperaciones = ControladorRegistroBodega::ctrTraerDatosOperaciones($codigo);
-       
+
         $cadena = ControladorRegistroBodega::ctrCadenaVinculo($codigo);
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
@@ -58,16 +58,16 @@ class imprimirIngresoBodega {
         $idIngreso = $repuestaUnidades[0]["idIngreso"];
         $poliza = $repuestaOperaciones[0]["poliza"];
         $numPlaca = $repuestaUnidades[0]["placa"];
-        
+
         //datos de logos
-                        //datos de forma
+        //datos de forma
         $nit = $repuestaOperaciones[0]["nitAlm"];
         $direccion = $repuestaOperaciones[0]["direAlm"];
         $telefono = $repuestaOperaciones[0]["telAlm"];
         $email = $repuestaOperaciones[0]["emailAlm"];
         $logo = $repuestaOperaciones[0]["logoAlm"];
         $empresa = $repuestaOperaciones[0]["empresaInterna"];
-        
+
         require_once('tcpdf_include.php');
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage('L', 'A4');
@@ -107,7 +107,7 @@ class imprimirIngresoBodega {
 EOF;
         $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
 //-------------------------------------------------------------------------------------------------------
-        
+
         $bloque2 = <<<EOF
 	<table style="font-size:7.5px; border: none; padding: none; margin: none;">
                 <tr>
@@ -228,10 +228,14 @@ EOF;
             $mtsTotal = 0;
 
             foreach ($repuestaDetalles as $key => $value) {
+                $idInc = $value["idIncidencia"];
+
+                $repPOSM = ControladorRegistroBodega::ctrMostrarPosMetros($idInc);
+
                 $nombreEmpresa = $value["nombreEmpresa"];
                 $detalleMerca = $value["detalleMerca"];
-                $posiciones = $value["posiciones"];
-                $metros = $value["metros"];
+                $posiciones = $repPOSM[0]["posiciones"];
+                $metros = $repPOSM[0]["metraje"];
                 $posTotal = $posTotal + $posiciones;
                 $mtsTotal = $mtsTotal + $metros;
                 $llave = count($repuestaDetalles);

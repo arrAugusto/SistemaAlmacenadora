@@ -40,10 +40,23 @@ class ControladorRegistroBodega {
             $ubicacion = $datos['selectUbicacion'];
             $sp = "spUbicacionVehUsado";
             $respuestaGUbica = ModeloRegIngBod::mdlUbicarVehUsado($sp, $idDetalle, $ubicacion);
-            return $respuestaGUbica;
+            //GUARDAR POSICIONES DE VEHICULOS USADOS
+            //llave principal   
+            $llave = $respuesta["llaveIdent"][0]["Identity"];
+            //posiciones
+            $pos = $datos["cantidadPosiciones"];
+            //predio menos 1 cuando el ingreso y mercaderia sean vehiculos usados
+            $idAreaBod = -1;
+            //metros
+            $metraje = $datos["Metraje"];
+            //store produce guardar pos metros
+            $sp = "spMetrosPosInci";
+            $promedio = 1.3;
+            $respuestaPos = ModeloRegIngBod::mdlGuardarAreaBodega($llave, $idAreaBod, $pos, $metraje, $promedio, $sp);
+
             if ($respuestaGUbica[0]["resp"] == 2) {
                 return "finDetalle";
-            }else{
+            } else {
                 return "pendientes";
             }
         } else {
@@ -571,6 +584,12 @@ class ControladorRegistroBodega {
         } else {
             return "SD";
         }
+    }
+
+    public static function ctrMostrarPosMetros($idInc) {
+        $sp = "spPosMetros";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($idInc, $sp);
+        return $respuesta;
     }
 
 }

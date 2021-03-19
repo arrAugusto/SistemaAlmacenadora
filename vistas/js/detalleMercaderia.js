@@ -243,7 +243,6 @@ $(document).on("click", ".btnADetalle", async function () {
                 var Metraje = document.getElementById("MetrajeVeh").value;
 
             }
-            console.log(hiddenLista);
             var datos = new FormData();
             datos.append("idDetalle", idDetalle);
             datos.append("idOrdenIng", idOrdenIng);

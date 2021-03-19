@@ -17,11 +17,7 @@ class ModeloRegIngBod {
             return $mostrarDetalle;
         }
         if ($revisionVeh[0]["resp"] == 0) {
-
-
-
             $sql = "EXECUTE spIgualDetalles ?";
-
             $stmt = sqlsrv_prepare($conn, $sql, $params);
             if (sqlsrv_execute($stmt) == true) {
                 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -128,7 +124,7 @@ class ModeloRegIngBod {
                                 $resultsIdent[] = $row;
                             }
                             if (!empty($resultsIdent)) {
-                  
+
                                 $idDetalle = $datos['idDetalle'];
                                 $paramsIngreso = array(&$datos["idOrdenIng"], &$idDetalle, &$usuarioOp);
 
@@ -237,13 +233,13 @@ class ModeloRegIngBod {
             }
         }
     }
-    
-        public static function mdlGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento, $sp) {
+
+    public static function mdlGuardarAreaBodega($idBodNew, $nomNewArea, $descNewArea, $tiempoArea, $fechaVencimiento, $sp) {
 
         $conn = Conexion::Conectar();
         $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?';
         $params = array(&$idBodNew, &$nomNewArea, &$descNewArea, &$tiempoArea, &$fechaVencimiento);
-          $stmt = sqlsrv_prepare($conn, $sql, $params);
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
                 $results[] = $row;
@@ -254,13 +250,11 @@ class ModeloRegIngBod {
             } else {
                 return "SD";
             }
-        }else{
+        } else {
             return sqlsrv_errors();
         }
     }
-       
 
-    
     public static function mdlUbicarVehUsado($sp, $idDetalle, $ubicacion) {
 
         $conn = Conexion::Conectar();
@@ -372,7 +366,7 @@ class ModeloRegIngBod {
         }
     }
 
-    public static function  mdlTraerDatosBodega($codigo) {
+    public static function mdlTraerDatosBodega($codigo) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spIngBod ?";
         $params = array(&$codigo);
@@ -437,16 +431,16 @@ class ModeloRegIngBod {
         }
     }
 
-    public static function  mdlGuardarDetalleLista($dataListaUbica, $llave) {
+    public static function mdlGuardarDetalleLista($dataListaUbica, $llave) {
         $conn = Conexion::Conectar();
         foreach ($dataListaUbica as $key => $value) {
             $valueY = $value["datoY"];
             $valueX = $value["datoX"];
-            $areaBod = $value["idAreaBod"];            
+            $areaBod = $value["idAreaBod"];
             $estado = 1;
             $sql = "EXECUTE spUbica ?, ?, ?, ?, ?";
             $params = array(&$llave, &$valueY, &$valueX, &$estado, &$areaBod);
-            
+
             $stmt = sqlsrv_prepare($conn, $sql, $params);
             if (sqlsrv_execute($stmt) == true) {
                 if (sizeof($dataListaUbica) == $key + 1) {
@@ -659,7 +653,7 @@ class ModeloRegIngBod {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?";
         $params = array(&$Ingreso);
-        
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {

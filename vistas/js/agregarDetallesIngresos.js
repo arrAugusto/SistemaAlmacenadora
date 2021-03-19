@@ -999,6 +999,7 @@ $(document).on("click", ".btnMsVehiculos", async function () {
             $("#vehiculosUbicaN").append('<option value=' + listPredios[i].idPredio + '> Predio ' + listPredios[i].pred + ' - ' + listPredios[i].descP + '</option>');
         }
         var idIng = $(this).attr("idIngVehiculosN");
+        console.log(idIng);
         if (idIng >= 1) {
             console.log(idIng);
             document.getElementById("chasisVeh").innerHTML = '';

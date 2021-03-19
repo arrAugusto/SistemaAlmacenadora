@@ -136,7 +136,11 @@ class AjaxRegistroIngBodega {
 
     public function ajaxConsultarPredios() {
         $consultarPredio = $this->consultarPredio;
-        $respuesta = ControladorRegistroBodega::ctrConsultarPredios($consultarPredio);
+
+        session_start();
+        $prediosVehUsados = $_SESSION["idDeBodega"];
+        
+        $respuesta = ControladorRegistroBodega::ctrConsultarPredios($prediosVehUsados);
         echo json_encode($respuesta);
     }
 
@@ -343,6 +347,7 @@ if (isset($_POST["consultarPredio"])) {
     $cargarChasis = new AjaxRegistroIngBodega();
     $cargarChasis->consultarPredio = $_POST["consultarPredio"];
     $cargarChasis->ajaxConsultarPredios();
+    
 }
 if (isset($_POST["vehiculosUbicaN"])) {
     $guardarChas = new AjaxRegistroIngBodega();

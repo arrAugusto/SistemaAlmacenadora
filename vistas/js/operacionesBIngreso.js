@@ -6854,6 +6854,5 @@ $(document).on("click", "#btnCambiarEstadoIndi", async function () {
         $(this).addClass("btn-warning");
 
     }
-
 })
 
