@@ -239,6 +239,12 @@ class ControladorHistorialIngresos {
         $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $param);
         return $respuesta;
     }
+    
+        public static function ctrValidarLlaveIng($validarIngOP) {
+        $sp = "spValidateLlave";
+        $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $validarIngOP);
+        return $revIngRev;        
+    }
 
     public static function ctrGenerateHistoriaChasis($generateHistoriaChasis) {
         $sp = "spHistDataExtraIngExcel";
@@ -318,10 +324,13 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::mdlVerificarCalculo($valor, $fechaIng, $fechaFin, $sp);
         return $revIngRev;
     }
-    public static function ctrMostrarInvetarioExcel($valor){
+
+    public static function ctrMostrarInvetarioExcel($valor) {
         $sp = "spSaldosSuper";
         $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         return $revIngRev;
-
     }
+
+
+
 }

@@ -61,7 +61,7 @@
 
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
                 <span class="dropdown-item dropdown-header">Tareas Pendientes Por retiro</span>
-                <?php
+                <?phpAgregar Nuevos Datos
                 $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
                 ?>
             </div>
@@ -79,6 +79,9 @@
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNit">
                     <i class="fa fa-database mr-2"></i> Agregar Nuevo Nit
                 </a>
+                <a href="#" class="dropdown-item" data-toggle="modal" data-target="#validezIng">
+                    <i class="fa fa-database mr-2"></i> Verificar validez de ingreso
+                </a>                
                 <?php
                 if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Operaciones Fiscales") {
                     echo '
@@ -497,3 +500,69 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fi
     </div>
 </div>  
 
+<!--
+
+
+<!-- Modal -->
+<div id="validezIng" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <!--=====================================
+                INICIO FORM
+                ======================================-->
+                <div class="col-md-12">
+                    <!-- Horizontal Form -->
+                    <div class="card card-info card-outline">
+
+                        <!--campos formularios -->
+                        <form role="form" method="post" id="divGuardaDetalle">
+                            <div class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+
+                                        <div class="col-6 form-group" id="areasDeMiBodega">
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h5>Válida ingreso</h5>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="input-group">
+                                                            <input type="text" id="codigoValidate" placeholder="Ejemplo: $2a$07$asxx54ahjppf4salkjghkglFHsIaNu9QdQrcK7ycW5FwVxOjKuC" class="form-control is-invalid">
+                  <span class="input-group-append">
+                      <button type="button" class="btn btn-secondary btn-flat btnQRValidateIng"><i class="fa fa-barcode"></i></button>
+                  </span>
+                </div>                                                            
+                                                        </div>
+                                                        <div class="col-12 mt-4" id="alertCodigoSistema">
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="card-footer mt-4" id="editarAreaBodFoot">
+                                                        <div class="col-12">
+                                                            <button type="button" class="btn btn-outline-success btn-block btnValidarLLave">Validar llave</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  

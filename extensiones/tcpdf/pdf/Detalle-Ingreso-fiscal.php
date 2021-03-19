@@ -20,6 +20,14 @@ class imprimirIngresoBodega {
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
         if ($servicio == "VEHICULOS NUEVOS") {
+                        $repuestaOpera = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
+            $nomElab = $repuestaOpera[0]["nombres"];
+            $apellElab = $repuestaOpera[0]["apellidos"];
+            $tipo = 0;
+
+            $repuestaBod = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
+            $nomBod = $repuestaBod[0]["nombres"];
+            $apellBod = $repuestaBod[0]["apellidos"];   
             $repuestaBodega = ControladorRegistroBodega::ctrMostrarChasis($codigo);
             $titulo = "vehículos en predios fiscales";
         } else {

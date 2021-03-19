@@ -50,7 +50,7 @@ function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones,
         btnCambiaUbica = '<button type="button" class="btn btn-primary bntCambioUbN">Cambiar Ubicaciones</button>';
         if (tipo == 1) {
             var btnCambiaUbica =
-               `
+                    `
         <div class="btn-group btn-group-sm">
   <button type="button" class="btn btn-warning btnModificarUbica" idDetModificar="` + idDetalle + `" Idincidencia="` + Idincidencia + `">Agregar <i class="fa fa-plus"></i></button>
   <button type="button" class="btn btn-danger btnEliminarUbicacion" idDetallElim=` + idDetalle + `" Idincidencia="` + Idincidencia + `" dataId="` + idSpan + `">Eliminar <i class="fa fa-trash"></i></button>
@@ -76,7 +76,7 @@ function alertaUbicacion(poliza, empresa, bultos, peso, descripcion, posiciones,
             "tapToDismiss": false
         }
         Command: toastr["info"]("Poliza : " + poliza + "<br/>Empresa : " + empresa + " <br/>Bultos : " + bultos + " <br/>Peso kg : " + peso + "<br/>Descripción : " + descripcion + "<br/>Posiciones : " + posiciones + "<br/>Metros : " + metros + "<br/><strong>Opciones de Ubicación</strong>" + btnCambiaUbica);
-   }
+    }
 }
 
 function alertValNoAdm(mensaje, tipo) {
@@ -162,7 +162,7 @@ $(function () {
         startDate: moment().startOf('hour'),
         singleDatePicker: true,
         endDate: moment().startOf('hour').add(32, 'hour'),
-        
+
         locale: {
             format: 'DD-MM-YYYY hh:mm A'
         }
@@ -184,3 +184,67 @@ $(function () {
 
 
 
+$(document).on("click", ".btnValidarLLave", async function () {
+    var llave = document.getElementById("codigoValidate").value;
+    var nomVar = "validarIngOP";
+    var resp = await  validarLlaveDeIngreso(nomVar, llave);
+    if (resp[0]["validateToken"] == 1) {
+        $("#codigoValidate").removeClass("is-invalid");
+        $("#codigoValidate").addClass("is-valid");
+        document.getElementById("alertCodigoSistema").innerHTML = `
+                
+        <div class="alert alert-success" role="alert">
+        ¡ Codigo valido  ` + llave + ` ! <i class="fa fa-check" style="font-size:48px;color:white"></i>
+        </div>
+                `;
+    } else {
+        $("#codigoValidate").removeClass("is-valid");
+        $("#codigoValidate").addClass("is-invalid");
+
+        document.getElementById("alertCodigoSistema").innerHTML = `
+                
+        <div class="alert alert-danger" role="alert">
+          ¡ Codigo no valido  ` + llave + ` 
+        </div>
+                `;
+    }
+})
+
+//validando llave en el controlador
+
+function validarLlaveDeIngreso(nomVar, idIngEditOp) {
+    let resp;
+    var datos = new FormData();
+    datos.append(nomVar, idIngEditOp);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            resp = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    })
+    return resp;
+}
+
+$(document).on("click", ".btnQRValidateIng", async function () {
+    var llave = document.getElementById("codigoValidate").value;
+    if (llave!="") {
+      
+
+        if (!llave.isArray){
+            console.log("escaneado");
+        }else{
+            console.log("no escaneado");
+        }
+
+    }
+})
