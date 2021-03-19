@@ -61,7 +61,8 @@
 
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
                 <span class="dropdown-item dropdown-header">Tareas Pendientes Por retiro</span>
-                <?phpAgregar Nuevos Datos
+                <?php
+                Agregar Nuevos Datos
                 $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
                 ?>
             </div>
@@ -463,7 +464,7 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fi
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="card card-warning">
                                                 <div class="card-header">
@@ -486,7 +487,7 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fi
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -536,11 +537,11 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fi
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="input-group">
-                                                            <input type="text" id="codigoValidate" placeholder="Ejemplo: $2a$07$asxx54ahjppf4salkjghkglFHsIaNu9QdQrcK7ycW5FwVxOjKuC" class="form-control is-invalid">
-                  <span class="input-group-append">
-                      <button type="button" class="btn btn-secondary btn-flat btnQRValidateIng"><i class="fa fa-barcode"></i></button>
-                  </span>
-                </div>                                                            
+                                                                <input type="text" id="codigoValidate" placeholder="Ejemplo: $2a$07$asxx54ahjppf4salkjghkglFHsIaNu9QdQrcK7ycW5FwVxOjKuC" class="form-control is-invalid">
+                                                                <span class="input-group-append">
+                                                                    <button type="button" class="btn btn-secondary btn-flat btnQRValidateIng">Leer codigo de ingreso <i class="fa fa-barcode"></i></button>
+                                                                </span>
+                                                            </div>                                                            
                                                         </div>
                                                         <div class="col-12 mt-4" id="alertCodigoSistema">
                                                         </div>
@@ -552,7 +553,7 @@ if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fi
                                                         </div>
                                                     </div>
                                                 </div>
-                                                
+
                                             </div>
 
                                         </div>
