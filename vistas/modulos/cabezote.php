@@ -62,7 +62,7 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
                 <span class="dropdown-item dropdown-header">Tareas Pendientes Por retiro</span>
                 <?php
-                Agregar Nuevos Datos
+
                 $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
                 ?>
             </div>
