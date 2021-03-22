@@ -144,11 +144,11 @@ $(document).on("click", ".btnVerDetalles", async function () {
                                                                 </div>
                                                                 <!-- /btn-group -->
                 `;
-                if ($("#proTarima").length>0){
+                if ($("#proTarima").length > 0) {
                     document.getElementById("proTarima").value = 1.3;
-                    document.getElementById("proTarima").readOnly = true; 
+                    document.getElementById("proTarima").readOnly = true;
                 }
-                if ($("#btnPromedioTarima").length>0){
+                if ($("#btnPromedioTarima").length > 0) {
                     document.getElementById("btnPromedioTarima").remove();
 
                 }
@@ -334,16 +334,16 @@ $(document).on("click", ".btnVerDetalles", async function () {
                         },
                         data: lista,
                         columns: [{
-                            title: "#"
-                        }, {
-                            title: "Empresa"
-                        }, {
-                            title: "Bultos"
-                        }, {
-                            title: "Peso"
-                        }, {
-                            title: "Accciones"
-                        }]
+                                title: "#"
+                            }, {
+                                title: "Empresa"
+                            }, {
+                                title: "Bultos"
+                            }, {
+                                title: "Peso"
+                            }, {
+                                title: "Accciones"
+                            }]
                     });
                 }
             },
@@ -509,17 +509,19 @@ $(document).on("click", ".btnPromedioTarima", function () {
  });
  */
 
- $(document).on("keyup", "#cantidadPosiciones", async function () {
+$(document).on("keyup", "#cantidadPosiciones", async function () {
+    var areabod = $(this).attr("areabod");
+
     var cantPos = $(this).val();
-    
+
     var respuesta = await CheckTextbox('cantidadPosiciones');
     if (respuesta) {
 
 
 
         var PromedioTarima = document.getElementById("proTarima").value;
-        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima);
-        console.log(funcCalculo);
+        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod);
+        ;
     }
 
 });
@@ -599,11 +601,11 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
         var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        if ($("#MetrajeVeh").length>0){
+        if ($("#MetrajeVeh").length > 0) {
             document.getElementById("MetrajeVeh").value = "";
 
         }
-        if ($("#cantidadPosicionesVeh").length>0){
+        if ($("#cantidadPosicionesVeh").length > 0) {
 
             document.getElementById("cantidadPosicionesVeh").value = "";
 
@@ -614,10 +616,11 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
 }
 async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
     var resNum = await patternPregNumEntero(cantPos);
-    var btn = $(this);
+    var btn = $(".Metraje" + areabod);
+
     if (cantPos >= 1) {
 
-
+        console.log(resNum);
         if (resNum == 1) {
             var nuevoPos = cantPos;
         } else if (resNum <= 0) {
@@ -626,37 +629,35 @@ async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
             alertValNoAdm(mensaje, tipo);
             btn.val(metrosConvert);
 
-            btn.val("");
         }
         if (!isNaN(cantPos) && cantPos > 0) {
-            
-                if (PromedioTarima > 0) {
+            if (PromedioTarima > 0) {
+                var metrosConvert = parseFloat((PromedioTarima * nuevoPos), 2);
+                console.log(metrosConvert);
+                btn.val(metrosConvert);
 
-                    var metrosConvert = Math.ceil(PromedioTarima * nuevoPos);
-                    btn.val(metrosConvert);
+            } else {
+                document.getElementById("proTarima").focus();
+                swal({
+                    type: "warning",
+                    title: "Promedio por tarima",
+                    text: "Actualmente no se ha configurado, el promedio general por tarima, ingrese el promedio por tarima.",
+                    showConfirmButton: true,
+                    confrimButtonText: "cerrar",
+                    closeConfirm: true
+                });
+            }
 
-                } else {
-                    document.getElementById("proTarima").focus();
-                    swal({
-                        type: "warning",
-                        title: "Promedio por tarima",
-                        text: "Actualmente no se ha configurado, el promedio general por tarima, ingrese el promedio por tarima.",
-                        showConfirmButton: true,
-                        confrimButtonText: "cerrar",
-                        closeConfirm: true
-                    });
-                }
-            
         }
     } else {
         var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        if (btn.length>0){
+        if (btn.length > 0) {
             document.getElementById("MetrajeVeh").value = "";
 
         }
-        if (btn.length>0){
+        if (btn.length > 0) {
 
             btn.val("");
 
@@ -913,20 +914,20 @@ $(document).on("click", ".bntSalidaRapida", function () {
                 },
                 data: listaPilotos,
                 columns: [{
-                    title: "#"
-                }, {
-                    title: "Licencia"
-                }, {
-                    title: "Nombre de Piloto"
-                }, {
-                    title: "Placa"
-                }, {
-                    title: "Contenedor"
-                }, {
-                    title: "Marchamo"
-                }, {
-                    title: "Acción"
-                }]
+                        title: "#"
+                    }, {
+                        title: "Licencia"
+                    }, {
+                        title: "Nombre de Piloto"
+                    }, {
+                        title: "Placa"
+                    }, {
+                        title: "Contenedor"
+                    }, {
+                        title: "Marchamo"
+                    }, {
+                        title: "Acción"
+                    }]
             });
             /*    document.getElementById("pSalidaPiloto").value = respuesta[0]["piloto"];
              document.getElementById("pSalidaLicencia").value = respuesta[0]["licencia"];
@@ -1055,18 +1056,18 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                     },
                     data: listaChasis,
                     columns: [{
-                        title: "#"
-                    }, {
-                        title: "Chasis"
-                    }, {
-                        title: "Tipo"
-                    }, {
-                        title: "Linea"
-                    }, {
-                        title: "Ubicación"
-                    }, {
-                        title: "Acciones"
-                    }]
+                            title: "#"
+                        }, {
+                            title: "Chasis"
+                        }, {
+                            title: "Tipo"
+                        }, {
+                            title: "Linea"
+                        }, {
+                            title: "Ubicación"
+                        }, {
+                            title: "Acciones"
+                        }]
                 });
             }
         }
@@ -1307,32 +1308,32 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                             },
                             data: lista,
                             columns: [{
-                                title: "#"
-                            }, {
-                                title: "Empresa"
-                            }, {
-                                title: "Bultos"
-                            }, {
-                                title: "Peso"
-                            }]
+                                    title: "#"
+                                }, {
+                                    title: "Empresa"
+                                }, {
+                                    title: "Bultos"
+                                }, {
+                                    title: "Peso"
+                                }]
                         });
                     }
                 } else {
 
                     Swal.fire(
-                        'Ingreso sin detalle',
-                        'El ingreso no tiene detalle por mostrar',
-                        'info'
-                    )
+                            'Ingreso sin detalle',
+                            'El ingreso no tiene detalle por mostrar',
+                            'info'
+                            )
                     $(".close").click();
                 }
             } else {
 
                 Swal.fire(
-                    'Ingreso sin detalle',
-                    'El ingreso no tiene detalle por mostrar',
-                    'info'
-                )
+                        'Ingreso sin detalle',
+                        'El ingreso no tiene detalle por mostrar',
+                        'info'
+                        )
                 $(".close").click();
             }
         }, error: function (respuesta) {
@@ -1484,10 +1485,10 @@ $(document).on("click", ".ancAreasBod", function () {
     var resp = funcionRevVehUsados(nomVar, idBod);
     if (resp == "SD") {
         Swal.fire(
-            'Sin areas en bodega!',
-            'Esta bodega no tiene configurada ninguna area para almacenar!',
-            'warning'
-        )
+                'Sin areas en bodega!',
+                'Esta bodega no tiene configurada ninguna area para almacenar!',
+                'warning'
+                )
     } else {
 
 
@@ -1532,14 +1533,14 @@ $(document).on("click", ".ancAreasBod", function () {
             },
             data: listaAreas,
             columns: [{
-                title: "#"
-            }, {
-                title: "Nombre Area"
-            }, {
-                title: "Descripción"
-            }, {
-                title: "Acciones"
-            }]
+                    title: "#"
+                }, {
+                    title: "Nombre Area"
+                }, {
+                    title: "Descripción"
+                }, {
+                    title: "Acciones"
+                }]
         });
     }
 });
@@ -1577,10 +1578,10 @@ $(document).on("click", ".btnNuevaAreaBodega", async function () {
         }
     } else {
         Swal.fire(
-            'Campos vacios',
-            'Existen campos vacios',
-            'error'
-        )
+                'Campos vacios',
+                'Existen campos vacios',
+                'error'
+                )
         $("#nombreAreaNew").removeClass("is-valid");
         $("#descArea").addClass("is-invalid");
     }
@@ -1671,10 +1672,10 @@ $(document).on("click", ".btnEditAreaBod", async function () {
 
     } else {
         Swal.fire(
-            'Campos vacios',
-            'Existen campos vacios',
-            'error'
-        )
+                'Campos vacios',
+                'Existen campos vacios',
+                'error'
+                )
         $("#nombreAreaEdit").removeClass("is-valid");
         $("#descAreaEdit").addClass("is-invalid");
     }
