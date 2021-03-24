@@ -526,6 +526,22 @@ $(document).on("keyup", "#cantidadPosiciones", async function () {
 
 });
 
+$(document).on("change", "#cantidadPosiciones", async function () {
+    var areabod = $(this).attr("areabod");
+
+    var cantPos = $(this).val();
+
+    var respuesta = await CheckTextbox('cantidadPosiciones');
+    if (respuesta) {
+
+
+
+        var PromedioTarima = document.getElementById("proTarima").value;
+        var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod);
+        ;
+    }
+
+});
 $(document).on("change", "#cantidadPosicionesVeh", async function () {
     var areabod = $(this).attr("areabod");
     console.log(areabod);
@@ -632,7 +648,7 @@ async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
         }
         if (!isNaN(cantPos) && cantPos > 0) {
             if (PromedioTarima > 0) {
-                var metrosConvert = parseFloat((PromedioTarima * nuevoPos), 2);
+                var metrosConvert = parseFloat(PromedioTarima * nuevoPos).toFixed(2);
                 console.log(metrosConvert);
                 btn.val(metrosConvert);
 
@@ -1023,9 +1039,9 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                     }
                     var estadoVeh = respFinVeh[i].estadoVeh;
                     if (estadoVeh == 0) {
-                        var button = '<div class="btn-group btn-group-sm"><button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-comment"></i></button><button type="button" class="btn btn-outline-danger btn-sm btnSinUbicacion" id="btnDataid' + identyChasis + '" identyChasis=' + identyChasis + ' estado=0><i class="fa fa-close"></i></button></div>';
+                        var button = '<div class="btn-group btn-group-sm"><button type="button" class="btn btn-outline-warning btn-sm btnComentarioDato"  identyChasis=' + identyChasis + ' ><i class="fa fa-comment"></i></button><button type="button" class="btn btn-outline-danger btn-sm btnSinUbicacion" id="btnDataid' + identyChasis + '" identyChasis=' + identyChasis + ' estado=0><i class="fa fa-close"></i></button></div>';
                     } else {
-                        var button = '<div class="btn-group btn-group-sm"><button type="button" class="btn btn-outline-warning btn-sm"><i class="fa fa-comment"></i></button><button type="button" class="btn btn-outline-success btn-sm" disabled="false"><i class="fa fa-circle"></i></button></div>';
+                        var button = '<div class="btn-group btn-group-sm"><button type="button" class="btn btn-outline-warning btn-sm btnComentarioDato"  identyChasis=' + identyChasis + ' ><i class="fa fa-comment"></i></button><button type="button" class="btn btn-outline-success btn-sm" disabled="false"><i class="fa fa-circle"></i></button></div>';
                     }
                     listaChasis.push([numero, chasis, tipoV, lineaV, btnubica, button]);
                 }
@@ -1736,4 +1752,46 @@ $(document).on("click", ".btnDeleteArea", async function () {
     }
 })
 
+$(document).on("click", ".btnComentarioDato", async function () {
+    var identychasis  =$(this).attr("identychasis");
+    const {value: text} = await Swal.fire({
+        input: 'textarea',
+        inputLabel: 'Daños o comentarios',
+        inputPlaceholder: 'Sea especifico en cual es el daño al vehículo o comentario...',
+        inputAttributes: {
+            'aria-label': 'Type your message here'
+        },
+        showCancelButton: true
+    })
 
+    if (text) {
+        Swal.fire(text)
+        var resp = comentarioVehiculo(identychasis, text);
+    }
+});
+
+
+function comentarioVehiculo(identychasis, comentario){
+     let respEdicion;
+     console.log(identychasis);
+    var datos = new FormData();
+    datos.append("comentIdentychasis", identychasis);    
+    datos.append("comentComentario", comentario);
+    $.ajax({
+        async: false,
+        url: "ajax/registroIngresoBodega.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+            respEdicion = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+        }
+    });
+    return respEdicion;   
+}

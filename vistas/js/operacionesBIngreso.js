@@ -2585,16 +2585,15 @@ async function guardarSinTarifa(tipo) {
             dataType: "json",
             success: function (respuesta) {
                 console.log(respuesta);
-                llaveIndet = respuesta.Identity;
+                if (respuesta.Identity >= 1) {
 
-                if (llaveIndet >= 1) {
-
-                    document.getElementById("hiddenIdentity").value = llaveIndet;
+                    document.getElementById("hiddenIdentity").value = respuesta.Identity;
                     respGST = true;
 
 
                 } else {
                     respGST = false;
+                        
                 }
             },
             error: function (respuesta) {
@@ -5594,7 +5593,6 @@ function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG) {
                 todoMenus = true;
             } else {
                 todoMenus = respuesta;
-
             }
 
         }, error: function (respuesta) {

@@ -592,6 +592,12 @@ class ControladorRegistroBodega {
         return $respuesta;
     }
 
+    public static function ctrComentarioVeh($comentIdentychasis, $comentComentario) {
+        $sp = "spInsertComent";
+        $respuesta = ModeloRegIngBod::mdlConsultaDosParam($comentIdentychasis, $sp, $comentComentario);
+        return $respuesta;
+    }
+
 }
 
 function Randomalfa() {

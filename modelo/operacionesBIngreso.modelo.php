@@ -58,9 +58,15 @@ class ModeloControladorOpB {
     }
 
     public static function mdlRegistrarIngresoOperacion($datos) {
+
+        
+        
         $conn = Conexion::Conectar();
         $idBodega = $datos["hiddenIdBod"];
         $comentario = "Registrado Operaciones";
+        
+        $date = date("d/m/Y H:i:s", strtotime($datos['hiddenDateTime']));
+
         $params = array(
             &$datos['cartaDeCupo'],
             &$datos['poliza'],
@@ -83,7 +89,7 @@ class ModeloControladorOpB {
             &$datos['tipoDeCambio'],
             &$datos['totalValorCif'],
             &$datos['valorImpuesto'],
-            &$datos['hiddenDateTime'],
+            &$date,
             &$comentario,
             &$datos["idUs"]
         );

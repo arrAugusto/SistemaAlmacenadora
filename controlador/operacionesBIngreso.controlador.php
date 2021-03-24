@@ -88,6 +88,7 @@ class ControladorOpB {
                 } else {
 
                     $respuesta = ModeloControladorOpB::mdlRegistrarIngresoOperacion($datos);
+
                     if ($respuesta["resp"]) {
                         $idSer = $datos["servicioTarifa"];
                         $sp = "spServicio";
@@ -104,7 +105,7 @@ class ControladorOpB {
                             $dato = $respuesta["dataTxt"][0]["Identity"] * 1;
                             if ($dato >= 1) {
                                 $resp = 0;
-                                if ($datos["sel2"] == "Cliente individual"  && $datos["estadoIndividual"] == 0 || $datos["sel2"] == "Cliente consolidado poliza") {
+                                if ($datos["sel2"] == "Cliente individual" && $datos["estadoIndividual"] == 0 || $datos["sel2"] == "Cliente consolidado poliza") {
                                     $llaveConsulta = $respuesta["dataTxt"][0]["Identity"] * 1;
                                     $datosArrayDetalle = array("tipoBusqueda" => $datos["lblEmpresa"], "bultosAgregados" => $datos["bultos"], "pesoAgregado" => $datos["peso"], "idUs" => $datos["idUs"]);
                                     $tipoOperacion = 1;
@@ -144,7 +145,7 @@ class ControladorOpB {
                                 return $respuesta["dataTxt"][0];
                             }
                         }
-                        return 149;
+            
                     } else {
                         return $respuesta;
                     }
@@ -248,7 +249,7 @@ class ControladorOpB {
                 $lineaVehiculo = $value[2];
             }
             $respuesta = ModeloControladorOpB::mdlValidacionNuevosVehiculos($TipoVehiculo, $lineaVehiculo);
-             
+
             $respuestaSimilar = ModeloControladorOpB::mdlSimilarNuevosVehiculos($TipoVehiculo, $lineaVehiculo);
             if ($respuesta == 0 && $respuestaSimilar == 1) {
                 $respuesta = 2;
@@ -435,6 +436,7 @@ class ControladorOpB {
                     $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
                     $agregadosDB = $agregadosDB + 1;
                 }
+
             }
             if ($agregadosDB == $varAgregados) {
                 $idIngreso = $hiddenIdnetyIngV;

@@ -139,7 +139,7 @@ class AjaxRegistroIngBodega {
 
         session_start();
         $prediosVehUsados = $_SESSION["idDeBodega"];
-        
+
         $respuesta = ControladorRegistroBodega::ctrConsultarPredios($prediosVehUsados);
         echo json_encode($respuesta);
     }
@@ -246,7 +246,16 @@ class AjaxRegistroIngBodega {
 
         $respuesta = ControladorRegistroBodega::ctrDeleteAreasBod($idBodAreasBodDelete);
 
-        echo json_encode($respuesta);        
+        echo json_encode($respuesta);
+    }
+
+    public $gdNewComentarioVeh;
+
+    public function ajaxComentarioVeh() {
+        $comentIdentychasis = $this->comentIdentychasis;
+        $comentComentario = $this->comentComentario;
+        $respuesta = ControladorRegistroBodega::ctrComentarioVeh($comentIdentychasis, $comentComentario);
+        echo json_encode($respuesta);
     }
 
 }
@@ -347,7 +356,6 @@ if (isset($_POST["consultarPredio"])) {
     $cargarChasis = new AjaxRegistroIngBodega();
     $cargarChasis->consultarPredio = $_POST["consultarPredio"];
     $cargarChasis->ajaxConsultarPredios();
-    
 }
 if (isset($_POST["vehiculosUbicaN"])) {
     $guardarChas = new AjaxRegistroIngBodega();
@@ -423,4 +431,11 @@ if (isset($_POST["idBodAreasBodDelete"])) {
     $mostrarAreaBodDel = new AjaxRegistroIngBodega();
     $mostrarAreaBodDel->idBodAreasBodDelete = $_POST["idBodAreasBodDelete"];
     $mostrarAreaBodDel->ajaxDeleteAreasBod();
+}
+
+if (isset($_POST["comentIdentychasis"])) {
+    $gdNewComentarioVeh = new AjaxRegistroIngBodega();
+    $gdNewComentarioVeh->comentIdentychasis = $_POST["comentIdentychasis"];
+    $gdNewComentarioVeh->comentComentario = $_POST["comentComentario"];
+    $gdNewComentarioVeh->ajaxComentarioVeh();
 }

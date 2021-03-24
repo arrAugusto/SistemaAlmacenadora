@@ -157,10 +157,12 @@ class ControladorRetirosBodega {
     public static function ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp, $tipoAth, $idPosm) {
         $sp = "spDetalleStockPOSM";
         $respuestaDetalle = ModeloRetiroOpe::mdlMostrarStockPOSM($idDeta, $sp);
+
         $sp = "spDetallesRevision";
-
         $detallesReb = ModeloRetiroOpe::mdlDetUnParametro($idRet, $sp);
-
+        
+        //recorriendo los detalles rebajados en almacenadora
+        
         if ($detallesReb != "SD") {
 
 
@@ -285,7 +287,8 @@ class ControladorRetirosBodega {
             $sp = "spNuevoDet";
             $actualizarDetalle = ModeloRetirosBodega::mdlRetiroBodParamUno($idRetEdit, $nuevoDetalleArray, $sp);
             $actualizarStock = ModeloRetirosBodega::mdlActualizarStockPOSM($idDetaEdit, $idPosm, $valPosSalidaEdit, $valMtsSalidaEdit);
-            if ($actualizarStock[0]["resp"] == 1 && $actualizarDetalle == "Ok") {
+ 
+            if ($actualizarStock!="SD" && $actualizarDetalle == "Ok") {
 
 
                 $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRetEdit);

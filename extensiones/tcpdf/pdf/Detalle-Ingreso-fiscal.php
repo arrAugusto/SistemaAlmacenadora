@@ -166,8 +166,7 @@ EOF;
                     <th style="border: 1px solid #030505; background-color:white; width:114px; text-align:center;"><strong>LINEA</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:114px; text-align:center;"><strong>PREDIO</strong></th>            
                     <th style="border: 1px solid #030505; background-color:white; width:114px; text-align:center;"><strong>CANTIDAD</strong></th>            
-   </tr>
-	</table>	
+   </tr></table>	
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
 
@@ -208,6 +207,48 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
                 }
             }
+            
+                        $bloque3 = <<<EOF
+	<table style="font-size:8px;">
+ 		<tr>
+                 <br/>
+                    <th style="border: 1px solid #030505; background-color:white; width:300px; text-align:center;"><strong>VEHÍCULOS CON INCIDENCIA</strong></th>
+                    <th style="border: 1px solid #030505; background-color:white; width:300px; text-align:center;"><strong>DAÑOS O AVERÍAS</strong></th>            
+   </tr></table>	
+EOF;
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
+            
+            
+            foreach ($repuestaBodega as $key => $value) {
+                $chasis = $value["chasis"];
+                $tipo = $value["comentario"];
+                $fontLetra = "font-size:7px";
+                $tdChasis = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:300px; ' . $fontLetra . ' text-align:left;">' . $chasis . '</td>';
+                $tdTipo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:300px; ' . $fontLetra . '">' . $tipo . '</td>';
+
+                $bloque4 = <<<EOF
+<table style="padding: 2px 5px; text-align:center;">
+        <tr>
+            $tdChasis
+            $tdTipo
+        </tr>
+</table>	
+EOF;
+                $pdf->writeHTML($bloque4, false, false, false, false, '');            
+            
+        }    
+  
+                $bloque4 = <<<EOF
+<table style="padding: 2px 5px; text-align:center;">
+        <tr>
+                    <th style="border-top: 1px solid #030505; background-color:white; width:300px;"><strong></strong></th>
+                    <th style="border-top: 1px solid #030505; background-color:white; width:300px;"><strong></strong></th>
+        </tr>
+</table>	
+EOF;
+         
+            $pdf->writeHTML($bloque4, false, false, false, false, '');        
+        
         } else {
 
             $bloque3 = <<<EOF
@@ -223,6 +264,8 @@ EOF;
 	</table>	
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
+            
+            
 
 //-------------------------------------------------------------------------------------------------------
             $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);
@@ -301,7 +344,7 @@ EOF;
         $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
-	<tr><br/><br/><br/>
+	<tr>
           <br/>
             <th style="border: 1px solid #030505; background-color:white; width:291px;"><strong>Piloto</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:121px;"><strong>Licencia</strong></th>
