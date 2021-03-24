@@ -201,7 +201,8 @@ class ControladorRetirosBodega {
             $nuevoSaldoMts = $stockMts - $valMtsSalida;
 
             $stockCondicional = $respuestaDetalle[0]["stock"];
-            if ($stockBlts == 0 && $nuevoSaldoPos == 0 && $nuevoSaldoMts == 0 ||
+
+            if ($stockBlts == 0 && $nuevoSaldoPos == 0 && $nuevoSaldoMts == 0 || $nuevoSaldoPos < 1 && $nuevoSaldoMts < 1 ||
                     $stockBlts > 0 && $nuevoSaldoPos > 0 && $nuevoSaldoMts > 0 || $tipoAth == 1 && $stockBlts == 0 && $nuevoSaldoPos > 0 && $nuevoSaldoMts > 0) {
 
                 $respuestaDetalle = ModeloRetirosBodega::mdlDetallesSalidaMerca($idRet);
