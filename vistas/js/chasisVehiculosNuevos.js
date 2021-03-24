@@ -70,3 +70,8 @@ $(document).on("click", ".btnDescargaExcelVehNew", async function () {
         }
     })
 })
+
+$(document).on("click", "#btnImprimirRetPil", async function () {
+    alert("holka mundi");
+    
+})

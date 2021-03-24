@@ -40,8 +40,7 @@ class historialIngresosFiscales {
                 }
                 if ($idRet >= 1) {
                     $estado = "Liquidado";
-                    
-                    $buttonRet = "<button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRet' idret='".$idRet."'>Ret. <i class='fa fa-print'></i></button>";
+                    $buttonRet = "<button type='button' class='btn btn-outline-primary btn-sm' id='btnReimprimeRet' idret='".$idRet."'>Ret. <i class='fa fa-print'></i></button><div class='btn btn-success btn-sm btn-flat btnMasPilotos' id='idbtnMasPilotos' estado='0' idret='".$idRet."' idmaspilotos='".$idRet."' data-toggle='modal' data-target='#plusPilotos'><i class='fa fa-plus' style='font-size:20px' aria-hidden='true'></i></div>";
                 }
                 $buttons = "<div class='btn-group btn-sm'>" . $buttonIng . $buttonRet . "</div>";
                 $datoJsonChasisNew = '[
@@ -74,3 +73,6 @@ class historialIngresosFiscales {
 //ACTIVAR HISTORIAL DE INGRESO DATATABLE
 $activarHistorial = new historialIngresosFiscales();
 $activarHistorial->ajaxMostrarTableIngHistoria();
+
+
+

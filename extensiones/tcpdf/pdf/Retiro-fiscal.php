@@ -25,6 +25,15 @@ class imprimirIngresoBodega {
         }
         $estado = 0;
         $datosUnidades = ControladorRetiroOpe::ctrDatosPilotos($retiroF, $estado);
+        //revision de unidades activas
+        $cantarUnidades = 0;
+        foreach ($datosUnidades as $key => $value) {
+            if ($value["estadoUnidad"]>0) {
+                $cantarUnidades = $cantarUnidades+1;
+            }
+        }
+         
+
         $tipo = 1;
         $respAuxRebaja = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombreRebaja = $respAuxRebaja[0]["nombres"];
@@ -328,6 +337,62 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
+                if ($cantarUnidades>0){
+    
+
+//-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr><br/>
+            <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:100px;"><strong>Contenedor</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>Marchamo</strong></th>
+        </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//------------------------------------------------------------------------------------------------------- 
+                foreach ($datosUnidades as $key => $value) {
+                    if ($value["estadoUnidad"] != 0) {
+
+
+                        $nombrePiloto = $value["nombrePiloto"];
+                        $licPiloto = $value["licPiloto"];
+                        $placaUnidad = $value["placaUnidad"];
+                        $contenedorUnidad = $value["contenedorUnidad"];
+                        $numMarchamo = $value["numMarchamo"];
+
+                        if ($numMarchamo == 0) {
+                            $numMarchamo = "NO APLICA";
+                        }
+
+                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                        $bloque6 = <<<EOF
+	<table style="padding: 2px 5px; text-align:left;">
+		<tr>
+        	    $colPiloto
+                    $colLic
+                    $colPlaca
+                    $colContainer  
+                    $marchamo
+		</tr>
+    	</table>	
+EOF;
+                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                    }
+                }
+            
+//-------------------------------------------------------------------------------------------------------
+}
             } else {
 
 
@@ -805,6 +870,62 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
+if ($cantarUnidades>0){
+    
+
+//-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr><br/>
+            <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:100px;"><strong>Contenedor</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>Marchamo</strong></th>
+        </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//------------------------------------------------------------------------------------------------------- 
+                foreach ($datosUnidades as $key => $value) {
+                    if ($value["estadoUnidad"] != 0) {
+
+
+                        $nombrePiloto = $value["nombrePiloto"];
+                        $licPiloto = $value["licPiloto"];
+                        $placaUnidad = $value["placaUnidad"];
+                        $contenedorUnidad = $value["contenedorUnidad"];
+                        $numMarchamo = $value["numMarchamo"];
+
+                        if ($numMarchamo == 0) {
+                            $numMarchamo = "NO APLICA";
+                        }
+
+                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                        $bloque6 = <<<EOF
+	<table style="padding: 2px 5px; text-align:left;">
+		<tr>
+        	    $colPiloto
+                    $colLic
+                    $colPlaca
+                    $colContainer  
+                    $marchamo
+		</tr>
+    	</table>	
+EOF;
+                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                    }
+                }
+            
+//-------------------------------------------------------------------------------------------------------
+}
             } else {
 
 
@@ -1278,6 +1399,62 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
+if ($cantarUnidades>0){
+    
+
+//-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr><br/>
+            <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:100px;"><strong>Contenedor</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>Marchamo</strong></th>
+        </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//------------------------------------------------------------------------------------------------------- 
+                foreach ($datosUnidades as $key => $value) {
+                    if ($value["estadoUnidad"] != 0) {
+
+
+                        $nombrePiloto = $value["nombrePiloto"];
+                        $licPiloto = $value["licPiloto"];
+                        $placaUnidad = $value["placaUnidad"];
+                        $contenedorUnidad = $value["contenedorUnidad"];
+                        $numMarchamo = $value["numMarchamo"];
+
+                        if ($numMarchamo == 0) {
+                            $numMarchamo = "NO APLICA";
+                        }
+
+                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                        $bloque6 = <<<EOF
+	<table style="padding: 2px 5px; text-align:left;">
+		<tr>
+        	    $colPiloto
+                    $colLic
+                    $colPlaca
+                    $colContainer  
+                    $marchamo
+		</tr>
+    	</table>	
+EOF;
+                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                    }
+                }
+            
+//-------------------------------------------------------------------------------------------------------
+}
             } else {
 
 
@@ -1749,6 +1926,62 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
+if ($cantarUnidades>0){
+    
+
+//-------------------------------------------------------------------------------------------------------
+
+                $bloque3 = <<<EOF
+	<table style="font-size:8px; text-align:left;">
+      
+	<tr><br/>
+            <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:100px;"><strong>Contenedor</strong></th>
+            <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>Marchamo</strong></th>
+        </tr>
+	</table>	
+EOF;
+
+                $pdf->writeHTML($bloque3, false, false, false, false, '');
+//------------------------------------------------------------------------------------------------------- 
+                foreach ($datosUnidades as $key => $value) {
+                    if ($value["estadoUnidad"] != 0) {
+
+
+                        $nombrePiloto = $value["nombrePiloto"];
+                        $licPiloto = $value["licPiloto"];
+                        $placaUnidad = $value["placaUnidad"];
+                        $contenedorUnidad = $value["contenedorUnidad"];
+                        $numMarchamo = $value["numMarchamo"];
+
+                        if ($numMarchamo == 0) {
+                            $numMarchamo = "NO APLICA";
+                        }
+
+                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                        $bloque6 = <<<EOF
+	<table style="padding: 2px 5px; text-align:left;">
+		<tr>
+        	    $colPiloto
+                    $colLic
+                    $colPlaca
+                    $colContainer  
+                    $marchamo
+		</tr>
+    	</table>	
+EOF;
+                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                    }
+                }
+            
+//-------------------------------------------------------------------------------------------------------
+}
             } else {
 
 

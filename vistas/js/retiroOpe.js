@@ -2049,6 +2049,7 @@ $(document).on("click", ".btnMasPilotos", async function () {
         var estado = 1;
     }
     var respTodosPlt = await verPltsRet(nomVar, idMasPilotos, estado);
+    console.log(respTodosPlt);
     if (respTodosPlt != "SD") {
         for (var i = 0; i < respTodosPlt.length; i++) {
             var nombrePilotoPlusUn = respTodosPlt[i].nombrePiloto;
@@ -2070,6 +2071,33 @@ $(document).on("click", ".btnMasPilotos", async function () {
                       <!-- /btn-group -->
                       <input type="text" class="form-control" id="texToEmpresaVal` + respTodosPlt[0].Identity + `" value="` + nombrePilotoPlusUn + ` - ` + numeroLicenciaPlus + ` - ` + numeroPlacaPlusUn + ` - ` + numeroContenedorPlusUn + `" />
                     </div>`);
+        }
+    } else {
+        Swal.fire(
+                'No existen pilotos',
+                'Actuamente este retiro no tiene pilotos agregados',
+                'warning'
+                )
+
+        if ($("#tablasChasisNew").length > 0) {
+            document.getElementById("numeroLicenciaPlus").value = "";
+            document.getElementById("nombrePilotoPlusUn").value = "";
+            document.getElementById("numeroPlaca").value = "";
+            document.getElementById("numeroContenedorPlusUn").value = "";
+            document.getElementById("numeroMarchamoPlusUn").value = "";
+
+            $("#numeroLicenciaPlus").removeClass("is-valid");
+            $("#nombrePilotoPlusUn").removeClass("is-valid");
+            $("#numeroPlaca").removeClass("is-valid");
+            $("#numeroContenedorPlusUn").removeClass("is-valid");
+            $("#numeroMarchamoPlusUn").removeClass("is-valid");
+
+            $("#numeroLicenciaPlus").addClass("is-invalid");
+            $("#nombrePilotoPlusUn").addClass("is-invalid");
+            $("#numeroPlaca").addClass("is-invalid");
+            $("#numeroContenedorPlusUn").addClass("is-invalid");
+            $("#numeroMarchamoPlusUn").addClass("is-invalid");
+            document.getElementById("ListaSelect").innerHTML = "";
         }
     }
 });
@@ -3271,66 +3299,66 @@ $(document).on("click", ".btnListaSelect", async function () {
              */
             document.getElementById("dataRetiro").innerHTML = "";
             document.getElementById("dataRetiro").innerHTML = '<table id="tablaMerRetiro" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
-            if (servicio.dataRetiro.resHistorial!="SD"){
-       listaHistorial = [];
-       console.log(servicio.dataRetiro.resHistorial);
+            if (servicio.dataRetiro.resHistorial != "SD") {
+                listaHistorial = [];
+                console.log(servicio.dataRetiro.resHistorial);
 
-            for (var i = 0; i < servicio.dataRetiro.resHistorial.length; i++) {
-                var polizaRetiro = servicio.dataRetiro.resHistorial[i].polizaRetiro;
-                var regimen = servicio.dataRetiro.resHistorial[i].regimenSalida;
-                var bultos = servicio.dataRetiro.resHistorial[i].bultos;
-                var valorCif = servicio.dataRetiro.resHistorial[i].totalValorCif;
-                var calculoValorImpuesto = servicio.dataRetiro.resHistorial[i].valorImpuesto;
-                var fechaRetiro = servicio.dataRetiro.resHistorial[i].fechaRetiro;
-                listaHistorial.push([polizaRetiro, fechaRetiro, regimen, bultos, valorCif, calculoValorImpuesto]);
-            }
-            console.log(listaHistorial);
-            $('#tablaMerRetiro').DataTable({
-                "language": {
-                    "sProcessing": "Procesando...",
-                    "sLengthMenu": "Mostrar _MENU_ registros",
-                    "sZeroRecords": "No se encontraron resultados",
-                    "sEmptyTable": "Ningún dato disponible en esta tabla",
-                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
-                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
-                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                    "sInfoPostFix": "",
-                    "sSearch": "Busqueda:",
-                    "sUrl": "",
-                    "sInfoThousands": ",",
-                    "sLoadingRecords": "Cargando...",
-                    "oPaginate": {
-                        "sFirst": "Primero",
-                        "sLast": "Último",
-                        "sNext": "Siguiente",
-                        "sPrevious": "Anterior"
+                for (var i = 0; i < servicio.dataRetiro.resHistorial.length; i++) {
+                    var polizaRetiro = servicio.dataRetiro.resHistorial[i].polizaRetiro;
+                    var regimen = servicio.dataRetiro.resHistorial[i].regimenSalida;
+                    var bultos = servicio.dataRetiro.resHistorial[i].bultos;
+                    var valorCif = servicio.dataRetiro.resHistorial[i].totalValorCif;
+                    var calculoValorImpuesto = servicio.dataRetiro.resHistorial[i].valorImpuesto;
+                    var fechaRetiro = servicio.dataRetiro.resHistorial[i].fechaRetiro;
+                    listaHistorial.push([polizaRetiro, fechaRetiro, regimen, bultos, valorCif, calculoValorImpuesto]);
+                }
+                console.log(listaHistorial);
+                $('#tablaMerRetiro').DataTable({
+                    "language": {
+                        "sProcessing": "Procesando...",
+                        "sLengthMenu": "Mostrar _MENU_ registros",
+                        "sZeroRecords": "No se encontraron resultados",
+                        "sEmptyTable": "Ningún dato disponible en esta tabla",
+                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                        "sInfoPostFix": "",
+                        "sSearch": "Busqueda:",
+                        "sUrl": "",
+                        "sInfoThousands": ",",
+                        "sLoadingRecords": "Cargando...",
+                        "oPaginate": {
+                            "sFirst": "Primero",
+                            "sLast": "Último",
+                            "sNext": "Siguiente",
+                            "sPrevious": "Anterior"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                        }
                     },
-                    "oAria": {
-                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                    }
-                },
-                data: listaHistorial,
-                columns: [{
-                        title: "polizaRetiro"
-                    }, {
-                        title: "Fecha de Retiro"
-                    }, {
-                        title: "regimen"
-                    }, {
-                        title: "bultos"
-                    }, {
-                        title: "valorCif"
-                    }, {
-                        title: "calculoValorImpuesto"
-                    }]
-            });
-        }else{
-            Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
-            document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
+                    data: listaHistorial,
+                    columns: [{
+                            title: "polizaRetiro"
+                        }, {
+                            title: "Fecha de Retiro"
+                        }, {
+                            title: "regimen"
+                        }, {
+                            title: "bultos"
+                        }, {
+                            title: "valorCif"
+                        }, {
+                            title: "calculoValorImpuesto"
+                        }]
+                });
+            } else {
+                Swal.fire('Sin datos', 'La poliza consultada no cuenta con historial de retiros', 'success');
+                document.getElementById("dataRetiro").innerHTML = '<div class="col-12"><div class="alert alert-primary" role="alert">¡Actualmente no cuenta con retiros esta poliza!<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></div></div>';
 
+            }
         }
-    }
         document.getElementById("hiddenGdVehMerc").value = servicio.respTipo;
         $("#divPlaca").append().remove();
         $("#divCont").append().remove();
