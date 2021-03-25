@@ -2043,6 +2043,10 @@ $(document).on("click", ".btnMasPilotos", async function () {
     $("#btnGuardaNuevaUnidad").addClass("btn-info");
     $("#btnGuardaNuevaUnidad").html("Guardar Nueva Unidad");
     var idMasPilotos = $(this).attr("idMasPilotos");
+    if ($("#tablasChasisNew").length>0){
+        $("#btnGuardaNuevaUnidad").attr("idRetOp", idMasPilotos);
+    }
+    console.log(idMasPilotos);
     var nomVar = "todasUnidades";
     var estado = 0;
     if ($(".btnEditarRetiro").length > 0) {
@@ -2082,19 +2086,26 @@ $(document).on("click", ".btnMasPilotos", async function () {
         if ($("#tablasChasisNew").length > 0) {
             document.getElementById("numeroLicenciaPlus").value = "";
             document.getElementById("nombrePilotoPlusUn").value = "";
-            document.getElementById("numeroPlaca").value = "";
+
             document.getElementById("numeroContenedorPlusUn").value = "";
             document.getElementById("numeroMarchamoPlusUn").value = "";
 
+
+            if ($("#numeroPlaca").length>0){
+                document.getElementById("numeroPlaca").value = "";
+                $("#numeroPlaca").removeClass("is-valid");
+                $("#numeroPlaca").addClass("is-invalid");                                
+            }
+
             $("#numeroLicenciaPlus").removeClass("is-valid");
             $("#nombrePilotoPlusUn").removeClass("is-valid");
-            $("#numeroPlaca").removeClass("is-valid");
+
             $("#numeroContenedorPlusUn").removeClass("is-valid");
             $("#numeroMarchamoPlusUn").removeClass("is-valid");
 
             $("#numeroLicenciaPlus").addClass("is-invalid");
             $("#nombrePilotoPlusUn").addClass("is-invalid");
-            $("#numeroPlaca").addClass("is-invalid");
+
             $("#numeroContenedorPlusUn").addClass("is-invalid");
             $("#numeroMarchamoPlusUn").addClass("is-invalid");
             document.getElementById("ListaSelect").innerHTML = "";

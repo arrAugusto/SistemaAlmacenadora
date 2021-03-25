@@ -4311,10 +4311,11 @@ $(document).on("click", ".btnGuardaNuevaUnidadPlus", async function () {
     }
     if ($("#buttonMostrarCons").length == 0) {
         var hiddenIdentity = $(".btnMasPilotos").attr("idMasPilotos");
-
-
     } else {
         var hiddenIdentity = document.getElementById("hiddenIdentity").value;
+    }
+    if ($("#tablasChasisNew").length>0){
+        var hiddenIdentity = $("#btnGuardaNuevaUnidad").attr("idRetOp");
     }
     var sumTotal = (numeroLicenciaPlusG + nombrePilotoPlusUnG + numeroPlacaPlusUnG + numeroContenedorPlusUnG + numeroMarchamoPlusUnG);
 

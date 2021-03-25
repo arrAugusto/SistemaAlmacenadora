@@ -65,8 +65,7 @@ class ModeloControladorOpB {
         $idBodega = $datos["hiddenIdBod"];
         $comentario = "Registrado Operaciones";
         
-        $date = date("d/m/Y H:i:s", strtotime($datos['hiddenDateTime']));
-
+        $date = date("Y-m-d H:i:s", strtotime($datos['hiddenDateTime']));
         $params = array(
             &$datos['cartaDeCupo'],
             &$datos['poliza'],
@@ -941,7 +940,6 @@ class ModeloControladorOpB {
     public static function mdlRevPilotosUnidadPlus($numeroLicenciaPlusRev, $numeroPlacaPlusUnRev, $numeroContenedorPlusUnRev, $numeroMarchamoPlusUnRev, $hiddenIdentityPlusRev, $tipoPlus) {
         $conn = Conexion::Conectar();
         $params = array(&$hiddenIdentityPlusRev, &$numeroLicenciaPlusRev, &$numeroPlacaPlusUnRev, &$numeroContenedorPlusUnRev, &$numeroMarchamoPlusUnRev, &$tipoPlus);
-        return $params; 
         $sql = "EXECUTE spRevUnidadPlus ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
