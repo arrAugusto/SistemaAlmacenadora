@@ -941,7 +941,7 @@ class ModeloControladorOpB {
     public static function mdlRevPilotosUnidadPlus($numeroLicenciaPlusRev, $numeroPlacaPlusUnRev, $numeroContenedorPlusUnRev, $numeroMarchamoPlusUnRev, $hiddenIdentityPlusRev, $tipoPlus) {
         $conn = Conexion::Conectar();
         $params = array(&$hiddenIdentityPlusRev, &$numeroLicenciaPlusRev, &$numeroPlacaPlusUnRev, &$numeroContenedorPlusUnRev, &$numeroMarchamoPlusUnRev, &$tipoPlus);
-
+        return $params; 
         $sql = "EXECUTE spRevUnidadPlus ?, ?, ?, ?, ?, ?";
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {

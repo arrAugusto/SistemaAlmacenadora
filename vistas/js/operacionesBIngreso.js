@@ -4383,7 +4383,7 @@ $(document).on("click", ".btnGuardaNuevaUnidadPlus", async function () {
             timer: 3000
         })
     }
-
+    console.log(hiddenIdentity);
 });
 
 function revisionForm(numeroLicenciaPlus, nombrePilotoPlusUn, numeroPlacaPlusUn, numeroContenedorPlusUn, numeroMarchamoPlusUn, hiddenIdentity, tipo) {
