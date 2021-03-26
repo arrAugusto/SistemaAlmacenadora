@@ -110,8 +110,8 @@
                     <td style="background-color:white; width:155px; text-align:center; color:red; text-align:rigth; font-size:10px;">Ingreso No.<br/>$numAsigIng</td>
                 </tr>
             </table><br/><br/>
-    EOF;
-            $pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
+EOF;
+$pdf->writeHTML($bloque1, false, false, false, false, PDF_HEADER_STRING);
     //-------------------------------------------------------------------------------------------------------
             $bloque2 = <<<EOF
             <table style="font-size:7.5px; border: none; padding: none; margin: none;">
@@ -136,8 +136,8 @@
                         <td style="width:90px"><b>Fecha emisión :</b></td><td style="width:165px">$cadenaEmisionFormat</td>
                     </tr>    
        </table>	
-    EOF;
-            $pdf->writeHTML($bloque2, false, false, false, false, '');
+EOF;
+$pdf->writeHTML($bloque2, false, false, false, false, '');
     //-------------------------------------------------------------------------------------------------------
             if ($estado == -1) {
 
@@ -151,8 +151,8 @@
 
        </tr>
        </table>	
-    EOF;
-                $pdf->writeHTML($bloque2, false, false, false, false, '');
+EOF;
+    $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
     //-------------------------------------------------------------------------------------------------------
 
@@ -168,8 +168,8 @@
                         <th style="border: 1px solid #030505; background-color:white; width:70px; text-align:center;"><strong>CANTIDAD</strong></th>            
        </tr>
             </table>	
-    EOF;
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+EOF;
+    $pdf->writeHTML($bloque3, false, false, false, false, '');
 
                 foreach ($repuestaBodega as $key => $value) {
                     $chasis = $value["chasis"];
@@ -193,9 +193,9 @@
                 $tdCantidad
             </tr>
     </table>	
-    EOF;
+EOF;
                     $cantidad = count($repuestaBodega);
-                    $pdf->writeHTML($bloque4, false, false, false, false, '');
+        $pdf->writeHTML($bloque4, false, false, false, false, '');
                     if ($key + 1 == count($repuestaBodega)) {
                         $bloque3 = <<<EOF
             <table style="font-size:8px; text-align:center;">
@@ -204,8 +204,8 @@
                         <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>$cantidad</strong></th>
                     </tr>
             </table>	
-    EOF;
-                        $pdf->writeHTML($bloque3, false, false, false, false, '');
+EOF;
+            $pdf->writeHTML($bloque3, false, false, false, false, '');
                     }
                 }
             } else {
@@ -218,8 +218,8 @@
                         <th style="border: 1px solid #030505; background-color:white; width:62px;"><strong>CANTIDAD</strong></th>
                     </tr>
             </table>	
-    EOF;
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+EOF;
+    $pdf->writeHTML($bloque3, false, false, false, false, '');
 
     //-------------------------------------------------------------------------------------------------------
                 $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);
@@ -258,9 +258,9 @@
 
                     </tr>
             </table>	
-    EOF;
+EOF;
 
-                    $pdf->writeHTML($bloque4, false, false, false, false, '');
+        $pdf->writeHTML($bloque4, false, false, false, false, '');
                 }
 
     //-------------------------------------------------------------------------------------------------------
@@ -271,9 +271,9 @@
                     <th style="border: 1px solid #030505; background-color:white; width:62px; text-align:center"><strong>$bultosTotal</strong></th>
                 </tr>
             </table>	
-    EOF;
+EOF;
 
-                $pdf->writeHTML($bloque5, false, false, false, false, '');
+    $pdf->writeHTML($bloque5, false, false, false, false, '');
             }
     //-------------------------------------------------------------------------------------------------------
 
@@ -289,9 +289,9 @@
                 <th style="border: 1px solid #030505; background-color:white; width:70px;"><strong>Marchamo</strong></th>
             </tr>
             </table>	
-    EOF;
+EOF;
 
-            $pdf->writeHTML($bloque3, false, false, false, false, '');
+$pdf->writeHTML($bloque3, false, false, false, false, '');
     //-------------------------------------------------------------------------------------------------------
             //       var_dump($repuestaUnidades);
             $fontLetra = "font-size:7px";
@@ -325,9 +325,9 @@
                         $marchamo
                     </tr>
             </table>	
-    EOF;
+EOF;
 
-                $pdf->writeHTML($bloque4, false, false, false, false, '');
+    $pdf->writeHTML($bloque4, false, false, false, false, '');
             }
 
             /*
@@ -356,9 +356,9 @@
                     </tr>
             </tbody>
             </table>
-    EOF;
+EOF;
 
-            $pdf->writeHTML($bloque8, false, false, false, false, '');
+$pdf->writeHTML($bloque8, false, false, false, false, '');
 
             $pdf->OutPut('Sin título.pdf');
         }

@@ -88,6 +88,7 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrInsertRetiroOpe($datos) {
+
         //parciando lista de polizas dr si existe
         $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
         $estadoTransaRebaja = 0;
@@ -138,7 +139,7 @@ class ControladorRetiroOpe {
 
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
 
-                $jsonDecodeDR = json_decode($datos['jsonStringDR'], true);
+              
 
                 foreach ($jsonDecodeDR as $key => $value) {
                     $poliza = $value["poliza"];
@@ -149,6 +150,8 @@ class ControladorRetiroOpe {
                     $impuestoFinal = $value["impuestoFinal"];
                     $sp = "spValContaRet";
                     $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
+
+                    
                 }
             } else {
                 $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
