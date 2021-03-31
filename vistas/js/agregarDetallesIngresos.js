@@ -334,16 +334,16 @@ $(document).on("click", ".btnVerDetalles", async function () {
                         },
                         data: lista,
                         columns: [{
-                                title: "#"
-                            }, {
-                                title: "Empresa"
-                            }, {
-                                title: "Bultos"
-                            }, {
-                                title: "Peso"
-                            }, {
-                                title: "Accciones"
-                            }]
+                            title: "#"
+                        }, {
+                            title: "Empresa"
+                        }, {
+                            title: "Bultos"
+                        }, {
+                            title: "Peso"
+                        }, {
+                            title: "Accciones"
+                        }]
                     });
                 }
             },
@@ -431,7 +431,6 @@ function funcionRevVehUsados(nomVar, idDetalle) {
     return respEdicion;
 }
 
-
 $(document).on("click", ".btnPaseDeSalidaVacio", function () {
     var valUnidad = $(this).attr("idUnidad");
     var datos = new FormData();
@@ -463,8 +462,6 @@ $(document).on("click", ".btnPaseDeSalidaVacio", function () {
         }
     });
 })
-
-
 
 $(document).on("click", ".btnPromedioTarima", function () {
     var promedioTarima = document.getElementById("proTarima").value;
@@ -542,6 +539,7 @@ $(document).on("change", "#cantidadPosiciones", async function () {
     }
 
 });
+
 $(document).on("change", "#cantidadPosicionesVeh", async function () {
     var areabod = $(this).attr("areabod");
     console.log(areabod);
@@ -630,6 +628,7 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
 
     }
 }
+
 async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
     var resNum = await patternPregNumEntero(cantPos);
     var btn = $(".Metraje" + areabod);
@@ -683,7 +682,6 @@ async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
     }
 }
 
-
 $(document).on("change", "#MetrajeVeh", async function () {
     var areabod = $(this).attr("areabod");
     var respuesta = await CheckTextboxPos('MetrajeVeh');
@@ -708,6 +706,7 @@ $(document).on("change", "#MetrajeVeh", async function () {
 
     }
 });
+
 $(document).on("keyup", "#MetrajeVeh", async function () {
     var areabod = $(this).attr("areabod");
     var respuesta = await CheckTextboxPos('MetrajeVeh');
@@ -825,7 +824,6 @@ $(document).on("click", ".btnConsCadena", async function () {
     }
 })
 
-
 function guardarPaseVacio(operacion, tipo, cadena) {
     let todoMenus;
     var datos = new FormData();
@@ -930,20 +928,20 @@ $(document).on("click", ".bntSalidaRapida", function () {
                 },
                 data: listaPilotos,
                 columns: [{
-                        title: "#"
-                    }, {
-                        title: "Licencia"
-                    }, {
-                        title: "Nombre de Piloto"
-                    }, {
-                        title: "Placa"
-                    }, {
-                        title: "Contenedor"
-                    }, {
-                        title: "Marchamo"
-                    }, {
-                        title: "Acción"
-                    }]
+                    title: "#"
+                }, {
+                    title: "Licencia"
+                }, {
+                    title: "Nombre de Piloto"
+                }, {
+                    title: "Placa"
+                }, {
+                    title: "Contenedor"
+                }, {
+                    title: "Marchamo"
+                }, {
+                    title: "Acción"
+                }]
             });
             /*    document.getElementById("pSalidaPiloto").value = respuesta[0]["piloto"];
              document.getElementById("pSalidaLicencia").value = respuesta[0]["licencia"];
@@ -959,12 +957,15 @@ $(document).on("click", ".bntSalidaRapida", function () {
 
     });
 });
+
 $(document).on("change", "#cantidadPosiciones", function () {
     document.getElementById("GuardarIngBod").focus();
 });
+
 $(document).on("change", "#Metraje", function () {
     document.getElementById("GuardarIngBod").focus();
 });
+
 function CheckTextbox(text) {
     var textbox = $("#" + text);
     if (textbox.readOnly) {
@@ -975,6 +976,7 @@ function CheckTextbox(text) {
         return true;
     }
 }
+
 function CheckTextboxPos(text) {
     var textbox = $("#" + text);
     if (textbox.readOnly) {
@@ -1005,6 +1007,7 @@ $(document).on("click", ".btnImpAutorizado", function () {
     })
 
 });
+
 $(document).on("click", ".btnMsVehiculos", async function () {
     var dependencia = document.getElementById("hiddenIdDependencia").value;
 
@@ -1072,18 +1075,18 @@ $(document).on("click", ".btnMsVehiculos", async function () {
                     },
                     data: listaChasis,
                     columns: [{
-                            title: "#"
-                        }, {
-                            title: "Chasis"
-                        }, {
-                            title: "Tipo"
-                        }, {
-                            title: "Linea"
-                        }, {
-                            title: "Ubicación"
-                        }, {
-                            title: "Acciones"
-                        }]
+                        title: "#"
+                    }, {
+                        title: "Chasis"
+                    }, {
+                        title: "Tipo"
+                    }, {
+                        title: "Linea"
+                    }, {
+                        title: "Ubicación"
+                    }, {
+                        title: "Acciones"
+                    }]
                 });
             }
         }
@@ -1137,7 +1140,6 @@ $(document).on("click", ".btnSinUbicacion", async function () {
         $(this).attr("estado", 0);
     }
 })
-
 
 function cargarPrediosDeEmpresa(dependencia) {
     let todoMenus;
@@ -1237,7 +1239,6 @@ $(document).on("click", ".btnGdChasVehN", async function () {
 
 });
 
-
 function guardarUbicacionesVehN(vehiculosUbicaN, listaValida) {
     let todoMenus;
     var datos = new FormData();
@@ -1324,32 +1325,32 @@ $(document).on("click", ".btnMostrarDetOpIng", async function () {
                             },
                             data: lista,
                             columns: [{
-                                    title: "#"
-                                }, {
-                                    title: "Empresa"
-                                }, {
-                                    title: "Bultos"
-                                }, {
-                                    title: "Peso"
-                                }]
+                                title: "#"
+                            }, {
+                                title: "Empresa"
+                            }, {
+                                title: "Bultos"
+                            }, {
+                                title: "Peso"
+                            }]
                         });
                     }
                 } else {
 
                     Swal.fire(
-                            'Ingreso sin detalle',
-                            'El ingreso no tiene detalle por mostrar',
-                            'info'
-                            )
+                        'Ingreso sin detalle',
+                        'El ingreso no tiene detalle por mostrar',
+                        'info'
+                    )
                     $(".close").click();
                 }
             } else {
 
                 Swal.fire(
-                        'Ingreso sin detalle',
-                        'El ingreso no tiene detalle por mostrar',
-                        'info'
-                        )
+                    'Ingreso sin detalle',
+                    'El ingreso no tiene detalle por mostrar',
+                    'info'
+                )
                 $(".close").click();
             }
         }, error: function (respuesta) {
@@ -1380,7 +1381,6 @@ $(document).on("click", ".spanCopyVinc", async function () {
         title: 'Vinculo copiado : ' + vinculo
     })
 });
-
 
 $(document).on("click", ".spanVincular", async function () {
     var hiddCopy = document.getElementById("hiddCopy").value;
@@ -1431,8 +1431,6 @@ $(document).on("click", ".spanVincular", async function () {
     }
 });
 
-
-
 function funcCambioVinculo(hiddCopy, idIngPaste) {
     let estado;
     var datos = new FormData();
@@ -1456,7 +1454,6 @@ function funcCambioVinculo(hiddCopy, idIngPaste) {
     });
     return estado;
 }
-
 
 $(document).on("click", "#divDetalleVehUsa", async function () {
     var data = $(this).text();
@@ -1490,6 +1487,7 @@ $(document).on("click", "#divDetalleVehUsa", async function () {
     })
 
 })
+
 $(document).on("change", ".montacarguista", function () {
     $("#divMontarguist").removeClass('has-error');
     $("#divMontarguist").addClass('has-success');
@@ -1501,10 +1499,10 @@ $(document).on("click", ".ancAreasBod", function () {
     var resp = funcionRevVehUsados(nomVar, idBod);
     if (resp == "SD") {
         Swal.fire(
-                'Sin areas en bodega!',
-                'Esta bodega no tiene configurada ninguna area para almacenar!',
-                'warning'
-                )
+            'Sin areas en bodega!',
+            'Esta bodega no tiene configurada ninguna area para almacenar!',
+            'warning'
+        )
     } else {
 
 
@@ -1549,14 +1547,14 @@ $(document).on("click", ".ancAreasBod", function () {
             },
             data: listaAreas,
             columns: [{
-                    title: "#"
-                }, {
-                    title: "Nombre Area"
-                }, {
-                    title: "Descripción"
-                }, {
-                    title: "Acciones"
-                }]
+                title: "#"
+            }, {
+                title: "Nombre Area"
+            }, {
+                title: "Descripción"
+            }, {
+                title: "Acciones"
+            }]
         });
     }
 });
@@ -1594,17 +1592,15 @@ $(document).on("click", ".btnNuevaAreaBodega", async function () {
         }
     } else {
         Swal.fire(
-                'Campos vacios',
-                'Existen campos vacios',
-                'error'
-                )
+            'Campos vacios',
+            'Existen campos vacios',
+            'error'
+        )
         $("#nombreAreaNew").removeClass("is-valid");
         $("#descArea").addClass("is-invalid");
     }
 
 });
-
-
 
 function funcGuardarNewArea(idBod, nombreArea, descArea, tiempoArea, fecha) {
     let respEdicion;
@@ -1688,10 +1684,10 @@ $(document).on("click", ".btnEditAreaBod", async function () {
 
     } else {
         Swal.fire(
-                'Campos vacios',
-                'Existen campos vacios',
-                'error'
-                )
+            'Campos vacios',
+            'Existen campos vacios',
+            'error'
+        )
         $("#nombreAreaEdit").removeClass("is-valid");
         $("#descAreaEdit").addClass("is-invalid");
     }
@@ -1753,8 +1749,8 @@ $(document).on("click", ".btnDeleteArea", async function () {
 })
 
 $(document).on("click", ".btnComentarioDato", async function () {
-    var identychasis  =$(this).attr("identychasis");
-    const {value: text} = await Swal.fire({
+    var identychasis = $(this).attr("identychasis");
+    const { value: text } = await Swal.fire({
         input: 'textarea',
         inputLabel: 'Daños o comentarios',
         inputPlaceholder: 'Sea especifico en cual es el daño al vehículo o comentario...',
@@ -1770,12 +1766,11 @@ $(document).on("click", ".btnComentarioDato", async function () {
     }
 });
 
-
-function comentarioVehiculo(identychasis, comentario){
-     let respEdicion;
-     console.log(identychasis);
+function comentarioVehiculo(identychasis, comentario) {
+    let respEdicion;
+    console.log(identychasis);
     var datos = new FormData();
-    datos.append("comentIdentychasis", identychasis);    
+    datos.append("comentIdentychasis", identychasis);
     datos.append("comentComentario", comentario);
     $.ajax({
         async: false,
@@ -1793,5 +1788,100 @@ function comentarioVehiculo(identychasis, comentario){
             console.log(respuesta);
         }
     });
-    return respEdicion;   
+    return respEdicion;
 }
+
+$(document).on("click", ".iGenerateQR", async function () {
+    var numeroIdIng = $(this).attr("idIng");
+    var nomVar = "numeroIdIng";
+
+    var respuesta = funcionRevVehUsados(nomVar, numeroIdIng);
+
+    document.getElementById("divImpresionQRDet").innerHTML = ` 
+                <div class="card card-danger card-outline">
+                    <div class="card-body">
+                        <div class="row">
+                        <div class="col-12" id="divEmpresasQR">
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+    document.getElementById("divEmpresasQR").innerHTML = '';
+    document.getElementById("divEmpresasQR").innerHTML = '<table id="tableDetallesMerca" class="table table-hover table-sm"></table>';
+
+    lista = [];
+    var numero = 0;
+    for (var i = 0; i < respuesta[0].length; i++) {
+
+        var numero = numero + 1;
+        var numeroLabel = '<label>' + numero + '</label>'
+        var empresa = '<label>' + respuesta[0][i]["empresa"] + '</label>';
+        var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
+        var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
+        acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnPrintQRVaried btn-sm" idDetalle=' + respuesta[0][i]["id"] + '><i class="fa fa-print"></i></button></div>';
+
+
+        lista.push([numeroLabel, empresa, bultos, peso, acciones]);
+    }
+    $('#tableDetallesMerca').DataTable({
+        "language": {
+            "sProcessing": "Procesando...",
+            "sLengthMenu": "Mostrar _MENU_ registros",
+            "sZeroRecords": "No se encontraron resultados",
+            "sEmptyTable": "Ningún dato disponible en esta tabla",
+            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix": "",
+            "sSearch": "Busqueda:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst": "Primero",
+                "sLast": "Último",
+                "sNext": "Siguiente",
+                "sPrevious": "Anterior"
+            },
+            "oAria": {
+                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            }
+        },
+        data: lista,
+        columns: [{
+            title: "#"
+        }, {
+            title: "Empresa"
+        }, {
+            title: "Bultos"
+        }, {
+            title: "Peso"
+        }, {
+            title: "Accciones"
+        }]
+    });
+
+})
+
+
+$(document).on("click", ".btnPrintQRVaried", async function () {
+    var idDetalle = $(this).attr("idDetalle");
+    const { value: password } = await Swal.fire({
+        title: 'Cantidad de impresiones QR',
+        input: 'number',
+        inputLabel: 'number',
+        inputPlaceholder: 'Cantidad de impresiones QR',
+        inputAttributes: {
+            maxlength: 10,
+            autocapitalize: 'off',
+            autocorrect: 'off'
+        }
+    })
+
+    if (password) {
+        Swal.fire(`Cantidad: ${password}`)
+    }
+})
+
+

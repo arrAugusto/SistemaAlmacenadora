@@ -597,7 +597,11 @@ class ControladorRegistroBodega {
         $respuesta = ModeloRegIngBod::mdlConsultaDosParam($comentIdentychasis, $sp, $comentComentario);
         return $respuesta;
     }
-
+    public static function ctrDatosDetalleQR($codigo){
+        $sp = "spConsultaDetQR";
+        $respuesta = ModeloRegIngBod::mdlConsultaUnParam($codigo, $sp);
+        return $respuesta;            
+    }
 }
 
 function Randomalfa() {

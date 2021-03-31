@@ -169,10 +169,11 @@ class ControladorIngresosPendientes {
                                 $botonera = '<button type="button" class="btn btn-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                             }
                             $contadorFila = $contadorFila + 1;
+                        $qrCode = '&nbsp;&nbsp;<i class="fa fa-qrcode iGenerateQR" idIng="'.$idIng.'" style="color:#BB0058; font-size:36px; cursor: pointer;"></i>';
                             echo '
                       <tr>
                         <td>' . ($contadorFila) . '</td>
-                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
+                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons.$qrCode . '</label></td>
                         <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>

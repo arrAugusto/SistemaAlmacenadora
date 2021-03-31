@@ -17,14 +17,14 @@ class dataTableInventarios {
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
         $sp = "spSaldosInventario";
         $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
-        if ($saldosAjuste!="SD") {
-            
-        
-        foreach ($saldosAjuste as $key => $value) {
-            $spStock = "spStockGeneral";
-            $idIng = $value["id"];
-            $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spStock, $idIng);
-        }
+        if ($saldosAjuste != "SD") {
+
+
+            foreach ($saldosAjuste as $key => $value) {
+                $spStock = "spStockGeneral";
+                $idIng = $value["id"];
+                $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spStock, $idIng);
+            }
         }
         //FIN DE AJUSTES DE INGRESOS 
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
@@ -33,23 +33,26 @@ class dataTableInventarios {
         $inicioAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spInioAjusteInv, $valor);
         $spAjustes = "spDetallesAjustInv";
         $saldosAjusteDetalle = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spAjustes, $valor);
-        if ($saldosAjusteDetalle!="SD") {
-            
-        
-        foreach ($saldosAjusteDetalle as $key => $value) {
-            $datoArray = json_decode($value["detallesRebajados"], true);
+        if ($saldosAjusteDetalle != "SD") {
+            foreach ($saldosAjusteDetalle as $key => $value) {
+                $datoArray = json_decode($value["detallesRebajados"], true);
+                if (is_array($datoArray)) {
 
-            if (is_array($datoArray)) {
-    
-                for ($i = 0; $i < count($datoArray); ++$i) {
-                   $idDetalles = intval($datoArray[$i]["idDetalles"]);
-                   $cantBultos = intval($datoArray[$i]["cantBultos"]);
-                   $spDetAjuste = "ActualizarDetInv";
-                   $saldosAjusteDetalle = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($spDetAjuste, $idDetalles, $cantBultos);
+                    for ($i = 0; $i < count($datoArray); ++$i) {
+                        $idDetalles = intval($datoArray[$i]["idDetalles"]);
+                        $cantBultos = intval($datoArray[$i]["cantBultos"]);
+                        $spDetAjuste = "ActualizarDetInv";
+                        $saldosAjusteDetalle = ModeloHistorialIngresos::mdlMostrarTableIngHistoria($spDetAjuste, $idDetalles, $cantBultos);
+                    }
                 }
             }
+                        $sp = "spVehNew";
+                        $respIngVeh = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+                        
 
-        }
+            foreach ($respIngVeh as $key => $value) {
+                
+            }
         }
 
 

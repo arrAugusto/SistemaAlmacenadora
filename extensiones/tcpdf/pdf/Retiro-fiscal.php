@@ -16,7 +16,7 @@ class imprimirIngresoBodega {
         $retiroF = $this->retiroF;
 
         $respRet = ControladorRetiroOpe::ctrDatosRetirosGenerardos($retiroF);
-        
+
         $detDR = ControladorRetiroOpe::ctrValoresDRRetiro($retiroF);
 
         $tipoDR = 0;
@@ -28,11 +28,11 @@ class imprimirIngresoBodega {
         //revision de unidades activas
         $cantarUnidades = 0;
         foreach ($datosUnidades as $key => $value) {
-            if ($value["estadoUnidad"]>0) {
-                $cantarUnidades = $cantarUnidades+1;
+            if ($value["estadoUnidad"] > 0) {
+                $cantarUnidades = $cantarUnidades + 1;
             }
         }
-         
+
 
         $tipo = 1;
         $respAuxRebaja = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
@@ -67,14 +67,14 @@ class imprimirIngresoBodega {
 
         $fechaEmision = $respRet[0]["fechaEm"]->format("d-m-Y h:i:s A");
         $numeroRetiro = $respRet[0]["numeroRetiro"];
-        
-                        //datos de forma
+        $fechaRet = $respRet[0]["fechaRet"]->format("d-m-Y h:i:s A");
+        //datos de forma
         $nit = $respRet[0]["nitAlm"];
         $direccion = $respRet[0]["direAlm"];
         $telefono = $respRet[0]["telAlm"];
         $email = $respRet[0]["emailAlm"];
         $logo = $respRet[0]["logoAlm"];
-        
+
         require_once('tcpdf_include.php');
 
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
@@ -90,7 +90,7 @@ class imprimirIngresoBodega {
 
 
 //---------------------------------------------------------------------------------------------------
-        $bloque1 = <<<EOF
+            $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
@@ -125,9 +125,14 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
                 <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+
+   <tr>
                 <td style="width:75px"><b>Poliza de Retiro:</b></td><td style="width:250px">$polRetiro&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
                 </tr>
@@ -142,7 +147,6 @@ EOF;
         </table>	
 EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
-                
             } else {
 
                 $bloque2 = <<<EOF
@@ -152,8 +156,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                       <td style="width:75px"><b>Poliza de Ingreso:</b></td><td style="width:250px">$polIng&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Poliza de Retiro:</b></td><td style="width:165px">$polRetiro</td>
@@ -171,10 +180,10 @@ EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
 //-------------------------------------------------------------------------------------------------------
-        if ($estadoRet==-1) {
-            
-        
-        $bloque2 = <<<EOF
+            if ($estadoRet == -1) {
+
+
+                $bloque2 = <<<EOF
 	<table>
                 <tr>
    <td style="width:200px;"></td>
@@ -184,8 +193,8 @@ EOF;
    </tr>
    </table>	
 EOF;
-        $pdf->writeHTML($bloque2, false, false, false, false, '');        
-     }   
+                $pdf->writeHTML($bloque2, false, false, false, false, '');
+            }
 //-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
@@ -337,12 +346,12 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
-                if ($cantarUnidades>0){
-    
+                if ($cantarUnidades > 0) {
+
 
 //-------------------------------------------------------------------------------------------------------
 
-                $bloque3 = <<<EOF
+                    $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
@@ -355,28 +364,28 @@ EOF;
 	</table>	
 EOF;
 
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+                    $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
-                foreach ($datosUnidades as $key => $value) {
-                    if ($value["estadoUnidad"] != 0) {
+                    foreach ($datosUnidades as $key => $value) {
+                        if ($value["estadoUnidad"] != 0) {
 
 
-                        $nombrePiloto = $value["nombrePiloto"];
-                        $licPiloto = $value["licPiloto"];
-                        $placaUnidad = $value["placaUnidad"];
-                        $contenedorUnidad = $value["contenedorUnidad"];
-                        $numMarchamo = $value["numMarchamo"];
+                            $nombrePiloto = $value["nombrePiloto"];
+                            $licPiloto = $value["licPiloto"];
+                            $placaUnidad = $value["placaUnidad"];
+                            $contenedorUnidad = $value["contenedorUnidad"];
+                            $numMarchamo = $value["numMarchamo"];
 
-                        if ($numMarchamo == 0) {
-                            $numMarchamo = "NO APLICA";
-                        }
+                            if ($numMarchamo == 0) {
+                                $numMarchamo = "NO APLICA";
+                            }
 
-                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
-                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
-                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
-                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
-                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
-                        $bloque6 = <<<EOF
+                            $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                            $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                            $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                            $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                            $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                            $bloque6 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -387,12 +396,12 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                            $pdf->writeHTML($bloque6, false, false, false, false, '');
+                        }
                     }
-                }
-            
+
 //-------------------------------------------------------------------------------------------------------
-}
+                }
             } else {
 
 
@@ -623,7 +632,7 @@ EOF;
             $pdf->setPrintFooter(false);
 // SEGUNDA PAGINA            
 //---------------------------------------------------------------------------------------------------
-        $bloque1 = <<<EOF
+            $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
@@ -658,8 +667,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                 <td style="width:75px"><b>Poliza de Retiro:</b></td><td style="width:250px">$polRetiro&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
@@ -684,8 +698,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                       <td style="width:75px"><b>Poliza de Ingreso:</b></td><td style="width:250px">$polIng&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Poliza de Retiro:</b></td><td style="width:165px">$polRetiro</td>
@@ -703,10 +722,10 @@ EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
 //-------------------------------------------------------------------------------------------------------
-        if ($estadoRet==-1) {
-            
-        
-        $bloque2 = <<<EOF
+            if ($estadoRet == -1) {
+
+
+                $bloque2 = <<<EOF
 	<table>
                 <tr>
    <td style="width:200px;"></td>
@@ -716,8 +735,8 @@ EOF;
    </tr>
    </table>	
 EOF;
-        $pdf->writeHTML($bloque2, false, false, false, false, '');        
-     }   
+                $pdf->writeHTML($bloque2, false, false, false, false, '');
+            }
 //-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
@@ -870,12 +889,12 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
-if ($cantarUnidades>0){
-    
+                if ($cantarUnidades > 0) {
+
 
 //-------------------------------------------------------------------------------------------------------
 
-                $bloque3 = <<<EOF
+                    $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
@@ -888,28 +907,28 @@ if ($cantarUnidades>0){
 	</table>	
 EOF;
 
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+                    $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
-                foreach ($datosUnidades as $key => $value) {
-                    if ($value["estadoUnidad"] != 0) {
+                    foreach ($datosUnidades as $key => $value) {
+                        if ($value["estadoUnidad"] != 0) {
 
 
-                        $nombrePiloto = $value["nombrePiloto"];
-                        $licPiloto = $value["licPiloto"];
-                        $placaUnidad = $value["placaUnidad"];
-                        $contenedorUnidad = $value["contenedorUnidad"];
-                        $numMarchamo = $value["numMarchamo"];
+                            $nombrePiloto = $value["nombrePiloto"];
+                            $licPiloto = $value["licPiloto"];
+                            $placaUnidad = $value["placaUnidad"];
+                            $contenedorUnidad = $value["contenedorUnidad"];
+                            $numMarchamo = $value["numMarchamo"];
 
-                        if ($numMarchamo == 0) {
-                            $numMarchamo = "NO APLICA";
-                        }
+                            if ($numMarchamo == 0) {
+                                $numMarchamo = "NO APLICA";
+                            }
 
-                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
-                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
-                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
-                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
-                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
-                        $bloque6 = <<<EOF
+                            $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                            $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                            $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                            $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                            $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                            $bloque6 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -920,12 +939,12 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                            $pdf->writeHTML($bloque6, false, false, false, false, '');
+                        }
                     }
-                }
-            
+
 //-------------------------------------------------------------------------------------------------------
-}
+                }
             } else {
 
 
@@ -1153,7 +1172,7 @@ EOF;
 // SINO SI SOLO TIENE UN PILOTO LA  
 //---------------------------------------------------------------------------------------------------
 //---------------------------------------------------------------------------------------------------
-        $bloque1 = <<<EOF
+            $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
@@ -1188,8 +1207,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                 <td style="width:75px"><b>Poliza de Retiro:</b></td><td style="width:250px">$polRetiro&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
@@ -1214,8 +1238,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                       <td style="width:75px"><b>Poliza de Ingreso:</b></td><td style="width:250px">$polIng&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Poliza de Retiro:</b></td><td style="width:165px">$polRetiro</td>
@@ -1233,10 +1262,10 @@ EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
 //-------------------------------------------------------------------------------------------------------
-        if ($estadoRet==-1) {
-            
-        
-        $bloque2 = <<<EOF
+            if ($estadoRet == -1) {
+
+
+                $bloque2 = <<<EOF
 	<table>
                 <tr>
    <td style="width:200px;"></td>
@@ -1246,8 +1275,8 @@ EOF;
    </tr>
    </table>	
 EOF;
-        $pdf->writeHTML($bloque2, false, false, false, false, '');        
-     }   
+                $pdf->writeHTML($bloque2, false, false, false, false, '');
+            }
 //-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
@@ -1399,12 +1428,12 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
-if ($cantarUnidades>0){
-    
+                if ($cantarUnidades > 0) {
+
 
 //-------------------------------------------------------------------------------------------------------
 
-                $bloque3 = <<<EOF
+                    $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
@@ -1417,28 +1446,28 @@ if ($cantarUnidades>0){
 	</table>	
 EOF;
 
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+                    $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
-                foreach ($datosUnidades as $key => $value) {
-                    if ($value["estadoUnidad"] != 0) {
+                    foreach ($datosUnidades as $key => $value) {
+                        if ($value["estadoUnidad"] != 0) {
 
 
-                        $nombrePiloto = $value["nombrePiloto"];
-                        $licPiloto = $value["licPiloto"];
-                        $placaUnidad = $value["placaUnidad"];
-                        $contenedorUnidad = $value["contenedorUnidad"];
-                        $numMarchamo = $value["numMarchamo"];
+                            $nombrePiloto = $value["nombrePiloto"];
+                            $licPiloto = $value["licPiloto"];
+                            $placaUnidad = $value["placaUnidad"];
+                            $contenedorUnidad = $value["contenedorUnidad"];
+                            $numMarchamo = $value["numMarchamo"];
 
-                        if ($numMarchamo == 0) {
-                            $numMarchamo = "NO APLICA";
-                        }
+                            if ($numMarchamo == 0) {
+                                $numMarchamo = "NO APLICA";
+                            }
 
-                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
-                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
-                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
-                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
-                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
-                        $bloque6 = <<<EOF
+                            $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                            $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                            $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                            $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                            $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                            $bloque6 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -1449,12 +1478,12 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                            $pdf->writeHTML($bloque6, false, false, false, false, '');
+                        }
                     }
-                }
-            
+
 //-------------------------------------------------------------------------------------------------------
-}
+                }
             } else {
 
 
@@ -1680,7 +1709,7 @@ EOF;
 
 // 
 //---------------------------------------------------------------------------------------------------
-        $bloque1 = <<<EOF
+            $bloque1 = <<<EOF
 	<table style="border: none; padding: none; margin: none;">
 		<tr><br/>
 			<td style="width:130px; text-align:left;"><img src="../../../$logo"></td>
@@ -1715,8 +1744,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                 <td style="width:75px"><b>Poliza de Retiro:</b></td><td style="width:250px">$polRetiro&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Valor Cif:</b></td><td style="width:165px">Q. $valCif</td>
@@ -1741,8 +1775,13 @@ EOF;
                 </tr>
                 <tr>
                     <td style="width:75px"><b>Nit:</b></td><td style="width:250px">$nitEmpresa</td>
-                    <td style="width:90px;"><b>Fecha Emisión:</b></td><td style="width:165px">$fechaEmision</td>    
+                    <td style="width:90px;"><b></b></td><td style="width:165px"></td>    
                 </tr>
+                <tr>
+                    <td style="width:75px"><b>Fecha Emisión:</b></td><td style="width:250px">$fechaEmision</td>
+                    <td style="width:90px;"><b>Fecha Salida:</b></td><td style="width:165px">$fechaRet</td>    
+                </tr>
+                        
                 <tr>
                       <td style="width:75px"><b>Poliza de Ingreso:</b></td><td style="width:250px">$polIng&nbsp;&nbsp;</td>
                     <td style="width:90px"><b>Poliza de Retiro:</b></td><td style="width:165px">$polRetiro</td>
@@ -1760,10 +1799,10 @@ EOF;
                 $pdf->writeHTML($bloque2, false, false, false, false, '');
             }
 //-------------------------------------------------------------------------------------------------------
-        if ($estadoRet==-1) {
-            
-        
-        $bloque2 = <<<EOF
+            if ($estadoRet == -1) {
+
+
+                $bloque2 = <<<EOF
 	<table>
                 <tr>
    <td style="width:200px;"></td>
@@ -1773,8 +1812,8 @@ EOF;
    </tr>
    </table>	
 EOF;
-        $pdf->writeHTML($bloque2, false, false, false, false, '');        
-     }   
+                $pdf->writeHTML($bloque2, false, false, false, false, '');
+            }
 //-------------------------------------------------------------------------------------------------------
             if ($respRet[0]["cantChasN"] >= 1) {
                 $sp = "spChasisVNuevo";
@@ -1926,12 +1965,12 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
                 }
-if ($cantarUnidades>0){
-    
+                if ($cantarUnidades > 0) {
+
 
 //-------------------------------------------------------------------------------------------------------
 
-                $bloque3 = <<<EOF
+                    $bloque3 = <<<EOF
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
@@ -1944,28 +1983,28 @@ if ($cantarUnidades>0){
 	</table>	
 EOF;
 
-                $pdf->writeHTML($bloque3, false, false, false, false, '');
+                    $pdf->writeHTML($bloque3, false, false, false, false, '');
 //------------------------------------------------------------------------------------------------------- 
-                foreach ($datosUnidades as $key => $value) {
-                    if ($value["estadoUnidad"] != 0) {
+                    foreach ($datosUnidades as $key => $value) {
+                        if ($value["estadoUnidad"] != 0) {
 
 
-                        $nombrePiloto = $value["nombrePiloto"];
-                        $licPiloto = $value["licPiloto"];
-                        $placaUnidad = $value["placaUnidad"];
-                        $contenedorUnidad = $value["contenedorUnidad"];
-                        $numMarchamo = $value["numMarchamo"];
+                            $nombrePiloto = $value["nombrePiloto"];
+                            $licPiloto = $value["licPiloto"];
+                            $placaUnidad = $value["placaUnidad"];
+                            $contenedorUnidad = $value["contenedorUnidad"];
+                            $numMarchamo = $value["numMarchamo"];
 
-                        if ($numMarchamo == 0) {
-                            $numMarchamo = "NO APLICA";
-                        }
+                            if ($numMarchamo == 0) {
+                                $numMarchamo = "NO APLICA";
+                            }
 
-                        $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
-                        $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
-                        $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
-                        $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
-                        $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
-                        $bloque6 = <<<EOF
+                            $colPiloto = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:191px; ' . $fontLetra . '">' . $nombrePiloto . '</td>';
+                            $colLic = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:111px; ' . $fontLetra . '">' . $licPiloto . '</td>';
+                            $colPlaca = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:90px; ' . $fontLetra . '">' . $placaUnidad . '</td>';
+                            $colContainer = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:100px; ' . $fontLetra . '">' . $contenedorUnidad . '</td>';
+                            $marchamo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; border-bottom: 1px solid #030505; width:70px; ' . $fontLetra . '">' . $numMarchamo . '</td>';
+                            $bloque6 = <<<EOF
 	<table style="padding: 2px 5px; text-align:left;">
 		<tr>
         	    $colPiloto
@@ -1976,12 +2015,12 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-                        $pdf->writeHTML($bloque6, false, false, false, false, '');
+                            $pdf->writeHTML($bloque6, false, false, false, false, '');
+                        }
                     }
-                }
-            
+
 //-------------------------------------------------------------------------------------------------------
-}
+                }
             } else {
 
 

@@ -219,7 +219,7 @@ EOF;
                     </tr>
             </table>	
 EOF;
-    $pdf->writeHTML($bloque3, false, false, false, false, '');
+$pdf->writeHTML($bloque3, false, false, false, false, '');
 
     //-------------------------------------------------------------------------------------------------------
                 $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);

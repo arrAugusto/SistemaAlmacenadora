@@ -141,6 +141,7 @@
                         ?>
                     </div>
                     <div class="col-12" id="divDetallesMerca">
+                    <div class="col-12" id="divImpresionQRDet">                    
                     </div>
                 </div>
             </form>
