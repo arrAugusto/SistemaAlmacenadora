@@ -15,17 +15,24 @@ class dataTableInventarios {
         session_start();
         $valor = $_SESSION["idDeBodega"];
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
-        $sp = "spSaldosInventario";
+            $sp = "spSaldosInventario";
         $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         if ($saldosAjuste != "SD") {
-
-
             foreach ($saldosAjuste as $key => $value) {
                 $spStock = "spStockGeneral";
                 $idIng = $value["id"];
                 $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spStock, $idIng);
             }
         }
+        $sp = "spSaldosInventarioVeh";
+        
+        $saldosAjusteVeh = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor); 
+        foreach ($saldosAjusteVeh as $key => $value) {
+            $sp = "spStockGeneralVeh";
+                $idIng = $value["id"];
+                $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idIng);
+
+            }
         //FIN DE AJUSTES DE INGRESOS 
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
 

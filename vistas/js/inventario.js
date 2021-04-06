@@ -136,7 +136,6 @@ function JSONToCSVConvertor(JSONData, detalles, ReportTitle, ShowLabel) {
     document.body.removeChild(link);
 }
 
-
 $(document).on("click", ".btnEditBod", async function () {
     var valIdIng = $(this).attr("btnEditBod");
     var detalles = await mostrarEdicionesBodega(valIdIng);
@@ -145,8 +144,6 @@ $(document).on("click", ".btnEditBod", async function () {
         var css = "display: none;";
     document.getElementById("divTableUbi").setAttribute("style", css);  
 })
-
-
 
 function mostrarEdicionesBodega(valIdIng) {
 
@@ -234,7 +231,6 @@ $(document).on("click", ".btnCambiarUbicaciones", async function () {
     var ubicacionEdicion = await mapaEdicionUbicacion(idDet);
     console.log(ubicacionEdicion);
 })
-
 
 function mapaEdicionUbicacion(idDet) {
 
@@ -344,7 +340,6 @@ document.getElementById(dataid).setAttribute("style", "color: red; font-size:14p
 
 })
 
-
 $(document).on("click", ".btnEliminarUbicacion", async function () {
 var dataid = $(this).attr("dataid");
 var idIncidencia = $(this).attr("idincidencia");
@@ -361,7 +356,6 @@ toastr.clear();
         
     }
 })
-
 
 function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
      let todoMenus;
@@ -390,10 +384,6 @@ function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
         }});
     return todoMenus;   
 }
-
-
-
-
 
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 $(document).ready(function () {
@@ -443,8 +433,6 @@ $(document).ready(function () {
         });
     }
 });
-
-
 
 $(document).on("click", ".btnInventarioFiscalExcel", async function () {
     Swal.fire({

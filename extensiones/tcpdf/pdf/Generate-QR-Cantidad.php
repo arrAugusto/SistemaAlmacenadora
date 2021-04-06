@@ -53,6 +53,7 @@ class imprimirIngresoBodega {
         $pdf->setPrintHeader(false);
         $pdf->setPrintFooter(false);
         //---------------------------------------------------------------------------------------------------
+        for ($i=0; $i<$cantidadQR; $i++){
         $bloque3 = <<<EOF
     <table>
 	<tbody>
@@ -61,17 +62,14 @@ class imprimirIngresoBodega {
     		<td style="text-align: center; font-size: 70px; width: 560px;">&nbsp;$poliza</td>
 		</tr>
 		<tr>
-                    <td style="text-align:center; font-size: 25px; width: 462px; text-align: left;">&nbsp;$empresaDet</td>
+                    <td style="text-align:center; font-size: 20px; width: 462px; text-align: left;">&nbsp;$empresaDet</td>
 		</tr>
 		<tr>
-                    <td style="text-align:left; font-size: 25px; width: 462px;">&nbsp;Peso:&nbsp;&nbsp;$peso Kg, &nbsp;$fechaEmision</td>
-		</tr>
-		<tr>
-                    <td style="text-align:left; font-size: 25px; width: 742px;">Código: $idHash</td>
+                    <td style="text-align:left; font-size: 20px; width: 462px;">&nbsp;Peso:&nbsp;&nbsp;$peso Kg, &nbsp;$fechaEmision<br />Cod. $idHash</td>
 		</tr>
 
    <tr>
-                    <td style="text-align:center; font-size: 35px; width: 742px; border-bottom: 1px;">$empresaIng</td>
+                    <td style="text-align:center; font-size: 25px; color: red; width: 742px; border-bottom: 1px;">$empresaIng</td>
 		</tr>
 
    </tbody>
@@ -79,32 +77,9 @@ class imprimirIngresoBodega {
     
 EOF;
 $pdf->writeHTML($bloque3, false, false, false, false, '');
-        $bloque3 = <<<EOF
-    <table>
-	<tbody>
-		<tr>
-                    <td rowspan="3" style="width: 180px; height: 180px;"><img style="width:180px; height:180px;" src="$nombreArchivoParaGuardar"></td>
-    		<td style="text-align: center; font-size: 70px; width: 560px;">&nbsp;$poliza</td>
-		</tr>
-		<tr>
-                    <td style="text-align:center; font-size: 25px; width: 462px; text-align: left;">&nbsp;$empresaDet</td>
-		</tr>
-		<tr>
-                    <td style="text-align:left; font-size: 25px; width: 462px;">&nbsp;Peso:&nbsp;&nbsp;$peso Kg, &nbsp;$fechaEmision</td>
-		</tr>
-		<tr>
-                    <td style="text-align:left; font-size: 25px; width: 742px;">Código: $idHash</td>
-		</tr>
-
-   <tr>
-                    <td style="text-align:center; font-size: 35px; width: 742px; border-bottom: 1px;">$empresaIng</td>
-		</tr>
-
-   </tbody>
-</table>
+            
+        }
     
-EOF;
-$pdf->writeHTML($bloque3, false, false, false, false, '');
         $pdf->OutPut('Sin título.pdf');
     }
 
