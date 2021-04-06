@@ -25,6 +25,7 @@ function ajaxGuardarChasisVeh(idRetCal, listaJson) {
     });
     return respFunc;
 }
+
 $(document).on("click", ".btnImprimirRecibo", async function () {
     let polizaRetiroRev;
     document.getElementById("divOtrosServicios").innerHTML = "";
@@ -695,7 +696,6 @@ function funcGuardarValRet() {
 
 }
 
-
 function revDatosExtras(polizaRetiroRev) {
     let resp;
     var datos = new FormData();
@@ -840,6 +840,7 @@ function remplazoDataRet(idNumRetConsult) {
     return resp;
 
 }
+
 $(document).on("change", "#valorDoll", function () {
     var valDolIngresado = $(this).val();
     var valIng = parseFloat(valDolIngresado);
@@ -896,6 +897,7 @@ $(document).on("change", "#valorDoll", function () {
         }
     }
 });
+
 $(document).on("change", "#tCambio", function () {
     var tCambio = $(this).val();
     var valIng = parseFloat(tCambio);
@@ -948,6 +950,7 @@ $(document).on("change", "#tCambio", function () {
         }
     }
 });
+
 $(document).on("change", "#cif", function () {
     var cif = $(this).val();
     var valIng = parseFloat(cif).toFixed(2);
@@ -976,6 +979,7 @@ $(document).on("change", "#cif", function () {
         }
     }
 });
+
 $(document).on("change", "#impuestos", function () {
     var impuestos = $(this).val();
     var valIng = parseFloat(impuestos);
@@ -1001,6 +1005,7 @@ $(document).on("change", "#impuestos", function () {
         }
     }
 });
+
 $(document).on("change", "#bultos", function () {
     var bultos = $(this).val();
     var valIng = parseFloat(bultos);
@@ -1026,6 +1031,7 @@ $(document).on("change", "#bultos", function () {
         }
     }
 });
+
 $(document).on("change", "#peso", function () {
     var peso = $(this).val();
     var valIng = parseFloat(peso);
@@ -1095,6 +1101,7 @@ function totalAlmDescuentoNormal() {
         document.getElementById("factTNormalRec").innerHTML = totalACobrarFac;
     }
 }
+
 $(document).on("click", ".btnCambioDesNormal", function () {
     var estado = $(this).attr("estado");
     if (estado == 0) {
@@ -1110,6 +1117,7 @@ $(document).on("click", ".btnCambioDesNormal", function () {
         $('#percentQueTNormal').html('%');
     }
 });
+
 $(document).on("click", ".btnAgregarOtrosNormal", function () {
     var estado = $(this).attr("estado");
     if (estado == 0) {
@@ -1272,6 +1280,7 @@ function capturarOtrosNormalD(e) {
         $("#tipOtros").css("display", "inline-block");
     }
 }
+
 $(document).on("click", ".btnNuevoServicios", function () {
     var selectOtrosServ = document.getElementById("selectOtrosServ").value;
     var montoOtroServicio = document.getElementById("montoOtroServicio").value;
@@ -1365,6 +1374,7 @@ function totalCobrar() {
     formatNumber("spanTotalC");
     formatNumber("totaTh");
 }
+
 $(document).on("click", ".btnServiciosDefault", function () {
     var selectOtrosServDefault = document.getElementById("selectOtrosServDefault").value;
     var montoOtroServicioDefault = document.getElementById("montoOtroServicioDefault").value;
@@ -1437,6 +1447,7 @@ $(document).on("mouseover", ".btnDescuento", async function () {
     }
 
 })
+
 $(document).on("click", ".btnDescuento", async function () {
     const {
         value: tipoDescuento
@@ -1519,6 +1530,7 @@ $(document).on("click", ".btnDescuento", async function () {
                 )
     }
 })
+
 $(document).on("click", ".imprimirReciboAlmacenaje", async function () {
     //Retiro
     var idNitFact = document.getElementById("hiddenIdNitFact").value;
@@ -1844,8 +1856,6 @@ function AjaxUnParam(idRet, nomVar) {
     return respFunc;
 }
 
-
-
 async function registroDescuentosQ(valDescuentoQP, valServicio) {
     var hiddenAlmacenaje = document.getElementById("hiddenAlmacenaje").value;
     var hiddenAlmacenaje = hiddenAlmacenaje * 1;
@@ -1888,7 +1898,6 @@ async function registroDescuentosQ(valDescuentoQP, valServicio) {
     document.getElementById("spanDescuentos").innerHTML = valDescuentoQP;
     totalCobrar();
 }
-
 
 function registrarDescuentoPercent(valDescuentoQP, valServicio) {
     var valPorcentaje = (valDescuentoQP / 100);
@@ -2090,6 +2099,7 @@ $(document).on("click", "#btnVehNew", async function () {
     document.getElementById("tableVehUsados").innerHTML = '<table id="tablaMerRetiroVeh" class="table table-hover table-sm"></table><input type="hidden" id="hiddenListaDeta" value="">';
 
     var idRet = $(this).attr("idRet");
+    console.log(idRet);
     var nomVar = "idRetVehN";
     var respuesta = await AjaxUnParam(idRet, nomVar);
     console.log(respuesta);
@@ -2109,7 +2119,8 @@ $(document).on("click", "#btnVehNew", async function () {
 
         listVeh.push([chasis, tipoVehiculo, linea, predio, aduanaV, cif, impuesto, total]);
 
-    }
+    }   
+    console.log(listVeh);
     $('#tablaMerRetiroVeh').DataTable({
         "language": {
             "sProcessing": "Procesando...",
@@ -2195,8 +2206,6 @@ $(document).on("change", ".textImpuesto", async function () {
         $("#textValTotal" + idNum).addClass("is-valid");
     }
 })
-
-
 
 function valTotalCosteo(idNum) {
     var textValAd = "textValAd" + idNum;
@@ -2300,6 +2309,7 @@ $(document).on("click", ".btnTomarDatRet", async function () {
 
 
 })
+
 $(document).ready(function () {
     $('#tablasVehiculos').DataTable({
         "language": {

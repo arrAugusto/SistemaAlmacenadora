@@ -596,7 +596,6 @@ class ControladorRetiroOpe {
     }
 
     public static function ctrDetalleVehN($idRetVehN) {
-        return $idRetVehN;  
         $sp = "spChasisVNuevo";
         $respuesta = ModeloRetiroOpe::mdlModificacionDetalles($idRetVehN, $sp);
         return $respuesta;
