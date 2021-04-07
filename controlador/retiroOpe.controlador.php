@@ -110,7 +110,7 @@ class ControladorRetiroOpe {
                 $estadoTransa = $estadoTransa + 1;
             }
         }
-        
+
         if ($estadoTransa == count($arrayDetalles)) {
 
             foreach ($arrayDetalles as $key => $value) {
@@ -119,27 +119,28 @@ class ControladorRetiroOpe {
                 $respuesta = ModeloRetiroOpe::mdlConsultarDetalle($idDetalle);
                 $stock = $respuesta[0]["stock"];
                 $saldoNuevo = $stock - $cantBultos;
-                if ($datos['jsonStringDR'] == "SD") {
+
+            
                     $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
                     if ($respuesta[0]["estado"] == 1) {
                         $estadoTransaRebaja = $estadoTransaRebaja + 1;
                     }
-                }
+
             }
         } else if ($estadoTransa != count($arrayDetalles)) {
             return "denegado";
         }
 
-
+        
+        
         if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR'] != "SD") {
             $idIngreso = $datos["hiddeniddeingreso"];
 
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
+           
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
 
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
-
-              
 
                 foreach ($jsonDecodeDR as $key => $value) {
                     $poliza = $value["poliza"];
@@ -150,9 +151,9 @@ class ControladorRetiroOpe {
                     $impuestoFinal = $value["impuestoFinal"];
                     $sp = "spValContaRet";
                     $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
-
                     
                 }
+
             } else {
                 $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
             }
@@ -166,6 +167,9 @@ class ControladorRetiroOpe {
             // Escribir archivo,
             $codigoQR->writeFile($nombreArchivoParaGuardar);
 
+            if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
+                return $respuesta;                
+            }
 
             if ($respuestaActStockGen[0]["resp"] == 1) {
                 return $respuesta;

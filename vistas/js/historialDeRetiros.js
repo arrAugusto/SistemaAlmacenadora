@@ -387,10 +387,6 @@ $(document).on("click", "#anulacionSistemaRetRec", function () {
     })
 });
 
-
-
-
-
 $(document).on("click", ".btnHistoriaExcelRec", async function () {
     var estadoRet = $(this).attr("estadorep");
     Swal.fire({

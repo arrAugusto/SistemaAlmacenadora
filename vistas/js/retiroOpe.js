@@ -483,10 +483,10 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
 
 
                     }
-                    console.log(totalBultos);
-                    console.log(cantBultos);
-                    if (verSaldo == 0 || verSaldo == 1) {
-                        if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2) {
+
+                    console.log(verSaldo);
+                    if (verSaldo == 0 || verSaldo == 1 || "listaDR" in localStorage) {
+                        if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2 || "listaDR" in localStorage) {
 
 
                             if (totalBultos == cantBultos) {
@@ -603,7 +603,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                 Swal.fire('Diferencia bultos', 'En el formulario declaro ' + cantBultos + ' bultos y en detalles ud declaro ' + totalBultos + ' bultos.', 'error');
                             }
                         } else {
-                            if (respSaldos[0].saldoBultos == bultsResp) {
+                            if (respSaldos[0].saldoBultos == bultsResp ) {
                                 Swal.fire({
                                     title: 'Diferencia de saldos',
                                     text: "Por ser ultimo retiro parcial, puede aplicar los valores del sistema si lo desea, sino revise los saldos rebajados!",

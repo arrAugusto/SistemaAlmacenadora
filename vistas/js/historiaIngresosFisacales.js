@@ -821,7 +821,6 @@ $(document).on("click", ".btnHistoriaExcelIngRep", async function () {
     }).then(async function (result) {
         if (result.value) {
             var tipoOp = 1;
-
             var nomVar = "generateHistoriaIng";
             var resp = await insertNuevoServicio(nomVar, tipoOp);
             var nombreReporte = 'HISTORIAL DE RETIROS, ESTADOS DE INGRESO: "-1 ANULADO :: 1 REGISTRADO OPERACIONES :: 2,3 PENDIENTE CULMINAR BODEGA :: 4 FINALIZADO CON NUMERO CORRELATIVO Y PENDIENTE DE CONTABILIZAR :: 5 POR CONTABILIZAR EN EL REPORTE :: 6 CONTABILIZADO"';

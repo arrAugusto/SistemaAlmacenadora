@@ -138,7 +138,7 @@ class ModeloRetiroOpe {
             $tipo = 0;
         }
         $dateRegistro = new DateTime($datos['hiddenDateTime']);
-         $dateRegistro->format('Y-m-d H:i:s');
+        $dateRegistro->format('Y-m-d H:i:s');
         $paramsDet = array(
             &$datos['hiddeniddeingreso'],
             &$datos['idNit'],
@@ -199,10 +199,10 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlMostrarSaldosConta($idIngOpDet) {
- 
+
         $sp = "spMstSaldosBlts";
         $respSaldo = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
-     
+
         $sp = "spRetiroNormal";
         $retSinDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
         $sp = "spRetiroDr";
@@ -227,9 +227,9 @@ class ModeloRetiroOpe {
 
                     return array("resAjuste" => "Ok", "resHistorial" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
                 }
-            }else{
-                
-                    return array("resAjuste" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
+            } else {
+
+                return array("resAjuste" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
             }
         }
     }
@@ -310,6 +310,7 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlMostrarStockPOSM($idOpDetTraer, $sp) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE " . $sp . " ?";
@@ -328,6 +329,7 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlNuevoStock($idDetalle, $cantBultos) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNuevoSaldoDetalle ?, ?";
@@ -576,20 +578,20 @@ class ModeloRetiroOpe {
             return sqlsrv_errors();
         }
     }
-    
-        public static function mdlMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza) {
+
+    public static function mdlMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza) {
         /*
          * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
-         * **/
+         * * */
         /*
          * TODOS LOS RETIROS ==> spRetirosHistorial
-         * **/
-        
+         * * */
+
         $dataArray = [];
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spRetirosHistorialPoliza ?, ?";
         $params = array(&$NavegaNumB, &$busquedaPoliza);
- 
+
         $stmt = sqlsrv_prepare($conn, $sql, $params);
         if (sqlsrv_execute($stmt) == true) {
             while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
@@ -618,19 +620,19 @@ class ModeloRetiroOpe {
             } else {
                 return "SD";
             }
-        }else{
+        } else {
             return sqlsrv_errors();
         }
     }
 
-          public static function mdlListarTodosRetirosF($ident) {
+    public static function mdlListarTodosRetirosF($ident) {
         /*
          * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
-         * **/
+         * * */
         /*
          * TODOS LOS RETIROS ==> spRetirosHistorial
-         * **/
-        
+         * * */
+
         $dataArray = [];
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spRetirosHistorial ?";
@@ -648,7 +650,7 @@ class ModeloRetiroOpe {
                     $tipo = 0;
                     if ($keys > 0) {
                         foreach ($data as $keyD => $valueD) {
-                            if ($values["polRet"] == $valueD["polRet"]) {
+                            if ($values["polRet"] == $valueD["polRet"] && $values["numeroRetiro"] == $valueD["numeroRetiro"]) {
                                 $tipo = $tipo + 1;
                             }
                         }
@@ -663,19 +665,19 @@ class ModeloRetiroOpe {
             } else {
                 return "SD";
             }
-        }else{
-        return sqlsrv_errors();
+        } else {
+            return sqlsrv_errors();
         }
     }
 
-        public static function mdlListarTodosRetirosRange($NavegaNumB, $fechaInicio, $fechaFin){
+    public static function mdlListarTodosRetirosRange($NavegaNumB, $fechaInicio, $fechaFin) {
         /*
          * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
-         * **/
+         * * */
         /*
          * TODOS LOS RETIROS ==> spRetirosHistorial
-         * **/
-        
+         * * */
+
         $dataArray = [];
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spRetirosHistorialRange ?, ?, ?";
