@@ -195,7 +195,7 @@ $(document).on("click", ".btnValidarLLave", async function () {
                 
         <div class="alert alert-success" role="alert">
         ¡ Codigo valido  ` + llave + ` ! <i class="fa fa-check" style="font-size:48px;color:white"></i>
-        </div>
+        </div>  
                 `;
     } else {
         $("#codigoValidate").removeClass("is-valid");
@@ -237,14 +237,27 @@ function validarLlaveDeIngreso(nomVar, idIngEditOp) {
 
 $(document).on("click", ".btnQRValidateIng", async function () {
     var llave = document.getElementById("codigoValidate").value;
-    if (llave!="") {
-      
+    if (llave != "") {
 
-        if (!llave.isArray){
+
+        if (!llave.isArray) {
             console.log("escaneado");
-        }else{
+        } else {
             console.log("no escaneado");
         }
 
+    }
+})
+
+$(document).ready(function () {
+    var estado = 0;
+    if ("promedioTarima" in localStorage) {
+        var estado = 1
+        var promedioLocal = localStorage.getItem("promedioTarima");
+        localStorage.setItem("promedioTarima", promedioLocal);
+    }
+    localStorage.clear();
+    if (estado == 1) {
+        localStorage.setItem("promedioTarima", promedioLocal);
     }
 })

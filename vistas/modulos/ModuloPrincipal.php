@@ -105,6 +105,7 @@
         <script src="vistas/js/controlDeIngPersonas.js"></script>
         <script src="vistas/js/historialRetChasisVehN.js"></script>
         <script src="vistas/js/trasladosPendientesAF.js"></script>
+        <script src="vistas/js/cuadreKardex.js"></script>
 
 
         <!-- iCheck 1.0.1 -->

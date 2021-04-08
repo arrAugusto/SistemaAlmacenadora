@@ -6220,6 +6220,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
 
                 }
             }
+            
             if ($(".btnAgregarPoliza").length && barcodePolizaIng.length == 219) {
                 document.getElementById("ClientPoltxtNitSalida").value = nitTrim;
                 $("#ClientPoltxtNitSalida").trigger('change');
@@ -6851,7 +6852,6 @@ $(document).on("click", "#btnCambiarEstadoIndi", async function () {
         $(this).attr("estado", 0)
         $(this).removeClass("btn-success");
         $(this).addClass("btn-warning");
-
     }
 })
 

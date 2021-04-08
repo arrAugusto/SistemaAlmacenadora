@@ -304,6 +304,13 @@ class AjaxAccionesIngresos {
         echo json_encode($respuesta);
     }
 
+    public $polizaData;
+    public function ajaxPolizaRet(){
+        $polizaData = $this->polizaData;
+        $respuesta = ControladorHistorialIngresos::ctrPolizaRet($polizaData);
+        echo json_encode($respuesta);
+        
+    }
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -471,4 +478,10 @@ if (isset($_POST["validarIngOP"])) {
     $validarLlave = new AjaxAccionesIngresos();
     $validarLlave->validarIngOP = $_POST["validarIngOP"];
     $validarLlave->ajaxValidarLlave();
+}
+
+if (isset($_POST["polizaData"])) {
+    $polizaData = new AjaxAccionesIngresos();
+    $polizaData->polizaData = $_POST["polizaData"];
+    $polizaData->ajaxPolizaRet();
 }

@@ -144,7 +144,7 @@
                 </p>
             </a>
         </li>
-                <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview">
             <a href="inventariosFiscales" class="nav-link">
                 <i class="fa fa-clipboard colorBarSuper"></i>
                 <p class="colorBarSuper">
@@ -153,9 +153,15 @@
 
             </a>
         </li>
-        
-
-                    </ul>            
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardex" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Cuadre Kardex
+                </p>
+            </a>
+        </li>
+        </ul>            
         </li>
 
         
@@ -264,9 +270,15 @@
 
             </a>
         </li>
-        
-
-                    </ul>            
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardex" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Cuadre Kardex
+                </p>
+            </a>
+        </li>        
+        </ul>            
         </li>
 
             <li class="nav-item has-treeview">
@@ -777,6 +789,14 @@
 
             </a>
         </li>
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardex" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Cuadre Kardex
+                </p>
+            </a>
+        </li>        
         <li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
         <li class="nav-item has-treeview">
             <a href="chasisVehiculosNuevos" class="nav-link">
@@ -926,6 +946,14 @@
 
             </a>
         </li>
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardex" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Cuadre Kardex
+                </p>
+            </a>
+        </li>        
         <li class="nav-item has-treeview">
             <a href="retiroBod" class="nav-link">
                 <i class="fa fa-send colorBarSuper"></i>

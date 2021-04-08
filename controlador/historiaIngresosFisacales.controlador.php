@@ -251,6 +251,7 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;
     }
+    
 
     public static function ctrGenerateHistoriaRecEx($generateRecExHistoria) {
         $sp = "spServExtraCorrel";
@@ -331,6 +332,10 @@ class ControladorHistorialIngresos {
         return $revIngRev;
     }
 
-
+    public static function ctrPolizaRet($polizaData){
+           $sp = "spIdRetiro";
+        $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $polizaData);
+        return $revIngRev;     
+    }
 
 }

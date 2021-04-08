@@ -65,6 +65,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "trasladosPendientesAF" ||                         
                         $_GET["ruta"] == "datosGeneralesPolizas" ||                         
                         
+                        $_GET["ruta"] == "cuadreKardex" ||                         
                         $_GET["ruta"] == "salir") {
                     /*
                       Include para hacer URL amigables.
@@ -110,6 +111,7 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                         $_GET["ruta"] == "historialRetChasisContable" || 
                         $_GET["ruta"] == "trasladosPendientesAF" || 
                         $_GET["ruta"] == "datosGeneralesPolizas" ||                         
+                        $_GET["ruta"] == "cuadreKardex" ||                         
                         
                         $_GET["ruta"] == "ingReportados") {
                     /*
@@ -144,7 +146,10 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "nuevasEmpresas" ||
                     $_GET["ruta"] == "activarTarifa" ||
                     $_GET["ruta"] == "mapeoBodega" ||                    
+                    $_GET["ruta"] == "cuadreKardex" ||                         
+
                     $_GET["ruta"] == "detallesTarifa") {
+
                 /*
                   Include para hacer URL amigables.
                  */
