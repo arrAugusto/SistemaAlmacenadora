@@ -17,11 +17,12 @@ class historialSaldosKardex {
 
         if ($respuesta != 'SD' && $respuesta != NULL) {
             $contador = 0;
-            $circlePlus = "<i class='fa fa-plus-circle faPlusData' style='color:#0066FA; cursor: pointer;'></i>";
             $cabeza = '{
             "data": [';
             echo $cabeza;
             foreach ($respuesta as $key => $value) {
+            $circlePlus = "<i class='fa fa-plus-circle faRevision' idDetalle='".$value["idDetalle"]."' style='color:#0066FA; cursor: pointer;'></i>";
+
                 $botoneraAcciones = "";
                 $contador = $contador + 1;
 

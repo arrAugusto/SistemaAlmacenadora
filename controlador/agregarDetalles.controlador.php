@@ -1,11 +1,10 @@
 <?php
-class ControladorAgrDetalles{
-	public static function ctrMostrarEmpresas(){
 
+class ControladorAgrDetalles {
 
-$respuesta=ModeloAgregarDetalles::mdlMostrarEmpresas();
-return $respuesta;
+    public static function ctrMostrarEmpresas() {
+        $respuesta = ModeloAgregarDetalles::mdlMostrarEmpresas();
+        return $respuesta;
+    }
 
-
-	}
 }

@@ -7,7 +7,8 @@ require_once "../controlador/usuario.controlador.php";
 //CONTROLADOR Y MODELO DE CALCULOS
 require_once "../controlador/calculoDeAlmacenaje.controlador.php";
 require_once "../modelo/calculoDeAlmacenaje.modelo.php";
-
+//REGISTRO AJAX PARA USAR EL ALGORITMO DE LLAVE PRIVADA
+require_once "../controlador/registroIngresoBodega.controlador.php";
 class AjaxAccionesIngresos {
 
     public $editarIngOP;
@@ -305,12 +306,23 @@ class AjaxAccionesIngresos {
     }
 
     public $polizaData;
-    public function ajaxPolizaRet(){
+
+    public function ajaxPolizaRet() {
         $polizaData = $this->polizaData;
         $respuesta = ControladorHistorialIngresos::ctrPolizaRet($polizaData);
         echo json_encode($respuesta);
-        
     }
+
+    public $revisarPol;
+
+    public function ajaxRevisionPol() {
+        $objRevPol = $this->objRevPol;
+        session_start();
+        $usuario = $_SESSION["id"];        
+        $respuesta = ControladorHistorialIngresos::ctrRevisionPol($objRevPol, $usuario);
+        echo json_encode($respuesta);
+    }
+
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -484,4 +496,10 @@ if (isset($_POST["polizaData"])) {
     $polizaData = new AjaxAccionesIngresos();
     $polizaData->polizaData = $_POST["polizaData"];
     $polizaData->ajaxPolizaRet();
+}
+
+if (isset($_POST["objRevPol"])) {
+    $revisarPol = new AjaxAccionesIngresos();
+    $revisarPol->objRevPol = $_POST["objRevPol"];
+    $revisarPol->ajaxRevisionPol();
 }

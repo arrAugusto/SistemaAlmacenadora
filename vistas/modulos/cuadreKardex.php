@@ -21,7 +21,15 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 mt-4">
-                                        <h1>Mercaderias en bodega</h1>
+                                        <div class="row">
+                                            <div class="col-6 mt-4">
+                                                <h1>Mercaderias en bodega</h1>
+                                            </div> 
+
+                                            <div class="col-6 mt-4">
+                                                <button type="button" class="btn btn-outline-info btn-block faPlusData" style="font-size:25px">Escaner codigo <i class="fa fa-qrcode"></i></button>
+                                            </div> 
+                                        </div> 
                                     </div> 
                                     <div class="col-12 mt-4">
                                         <table id="tbCuadreKardexMerca" role="grid" class="table  dt-responsive table-striped table-hover table-sm">
@@ -53,12 +61,16 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 mt-4">
-                                        <h1>Cuadre de Póliza <i class="fa fa-check-circle" style="font-size: 25px; color: green;"></i></h1>
+                                        <div class="row">
+
+                                            <div class="col-6 mt-4">
+                                                <h1>Cuadre de Póliza</h1>
+                                            </div>
+                                            <div class="col-6 validacionKardex"><i class="fa fa-exclamation-circle" style="font-size: 75px; color: orange;"></i></div>
+                                        </div>
                                     </div>
                                     <div class="col-12 mt-4" id="cardCuadre">
-                                        
                                     </div>
-
                                 </div>  
                             </div>
                     </div>
@@ -66,4 +78,4 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
-
+</div>

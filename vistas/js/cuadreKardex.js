@@ -50,11 +50,12 @@ $(document).ready(function () {
 $(document).on("click", ".faPlusData", async function () {
 
     var verDataPoliza = await dataPoliza('2881700760');
-            document.getElementById("cardCuadre").innerHTML = `
+    document.getElementById("cardCuadre").innerHTML = `
 <div class="row">
     <div class="col-5 mt-1">
         <label>Numero Poliza</label>    
         <input type="text" class="form-control is-valid" id="polizaRet" value="" readOnly="readOnly" />
+        <input type="hidden" id="identRet" value="" />
     </div>
 
     <div class="col-3 mt-1">
@@ -94,10 +95,13 @@ $(document).on("click", ".faPlusData", async function () {
         <label>Nombre Empresa</label>    
         <input type="text" class="form-control is-valid" id="nombreEmpresa" value="" readOnly="readOnly" />
     </div>
+    <div class="col-12 mt-3 divDetalleSelect">
+        
+    </div>    
     <div class="col-12 mt-3">
-        <div class="btn-group">
-            <button type="button" class="btn btn-outline-primary btn-sm" id="btnReimprimeRec" idret=`+verDataPoliza[0].identRet+`>Rec.</button>
-            <button type="button" class="btn btn-outline-info btn-sm" id="btnReimprimeRet" idret=`+verDataPoliza[0].identRet+`>Ret.</button>
+        <div class="btn-group btn-block">
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnReimprimeRec" idret=` + verDataPoliza[0].identRet + `>Rec.</button>
+            <button type="button" class="btn btn-outline-info btn-sm" id="btnReimprimeRet" idret=` + verDataPoliza[0].identRet + `>Ret.</button>
         </div>
     </div>
 
@@ -105,57 +109,58 @@ $(document).on("click", ".faPlusData", async function () {
 `;
 
     console.log(verDataPoliza);
-            document.getElementById("polizaRet").value = verDataPoliza[0].polizaRetiro;
-            document.getElementById("regimenSalida").value = verDataPoliza[0].regimenSalida;
-            document.getElementById("bultos").value = verDataPoliza[0].bultos;
-            document.getElementById("numeroPoliza").value = verDataPoliza[0].numeroPoliza;
-            document.getElementById("nombres").value = verDataPoliza[0].nombres;
-            document.getElementById("fechaEmision").value = verDataPoliza[0].fechaEmision;
-            document.getElementById("nitEmpresa").value = verDataPoliza[0].nitEmpresa;
-            document.getElementById("nombreEmpresa").value = verDataPoliza[0].nombreEmpresa;
+    document.getElementById("polizaRet").value = verDataPoliza[0].polizaRetiro;
+    document.getElementById("regimenSalida").value = verDataPoliza[0].regimenSalida;
+    document.getElementById("bultos").value = verDataPoliza[0].bultos;
+    document.getElementById("numeroPoliza").value = verDataPoliza[0].numeroPoliza;
+    document.getElementById("nombres").value = verDataPoliza[0].nombres;
+    document.getElementById("fechaEmision").value = verDataPoliza[0].fechaEmision;
+    document.getElementById("nitEmpresa").value = verDataPoliza[0].nitEmpresa;
+    document.getElementById("nombreEmpresa").value = verDataPoliza[0].nombreEmpresa;
 
-            document.getElementById("cif").value = verDataPoliza[0].totalValorCif;
-            document.getElementById("impuestos").value = verDataPoliza[0].valorImpuesto;
+    document.getElementById("cif").value = verDataPoliza[0].totalValorCif;
+    document.getElementById("impuestos").value = verDataPoliza[0].valorImpuesto;
+    document.getElementById("identRet").value = verDataPoliza[0].identRet;
 
-/*
-    const {value: text} = await Swal.fire({
-        input: 'textarea',
-        imageUrl: 'vistas/img/plantilla/ejemploPoliza.png',
-        imageWidth: 400,
-        showCancelButton: true,
-        allowOutsideClick: false,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-        inputLabel: 'textQR',
-        inputPlaceholder: 'Escanea el Quick response ("QR)"',
-        inputAttributes: {
-            'aria-label': 'Escanea el Quick response ("QR)"'
-        },
-        showCancelButton: true
-    })
-
-    if (text) {
-        var resp = await qrBarcodePol(text);
-        var data = JSON.stringify(resp);
-        if (resp != "SD") {
-            localStorage.setItem("listaCuadreKardex", data);
-            var verDataPoliza = await dataPoliza(resp[0][2]);
-            document.getElementById("cardCuadre").innerHTML = `
-<div class="row">
-    <div class="col-6">
-        <label>Numero Poliza</label>    
-        <input type="text" class="form-control is-valid" value="` + resp[0][2] + `" readOnly="readOnly" />
-    </div>
-    <div class="col-6">
-        <label>Numero Poliza</label>    
-        <input type="text" class="form-control is-valid" value="` + resp[0][2] + `" readOnly="readOnly" />
-    </div>
-</div>            
-`;
-
-        }
-
-    }*/
+    /*
+     const {value: text} = await Swal.fire({
+     input: 'textarea',
+     imageUrl: 'vistas/img/plantilla/ejemploPoliza.png',
+     imageWidth: 400,
+     showCancelButton: true,
+     allowOutsideClick: false,
+     imageHeight: 200,
+     imageAlt: 'Custom image',
+     inputLabel: 'textQR',
+     inputPlaceholder: 'Escanea el Quick response ("QR)"',
+     inputAttributes: {
+     'aria-label': 'Escanea el Quick response ("QR)"'
+     },
+     showCancelButton: true
+     })
+     
+     if (text) {
+     var resp = await qrBarcodePol(text);
+     var data = JSON.stringify(resp);
+     if (resp != "SD") {
+     localStorage.setItem("listaCuadreKardex", data);
+     var verDataPoliza = await dataPoliza(resp[0][2]);
+     document.getElementById("cardCuadre").innerHTML = `
+     <div class="row">
+     <div class="col-6">
+     <label>Numero Poliza</label>    
+     <input type="text" class="form-control is-valid" value="` + resp[0][2] + `" readOnly="readOnly" />
+     </div>
+     <div class="col-6">
+     <label>Numero Poliza</label>    
+     <input type="text" class="form-control is-valid" value="` + resp[0][2] + `" readOnly="readOnly" />
+     </div>
+     </div>            
+     `;
+     
+     }
+     
+     }*/
 });
 
 function qrBarcodePol(barcodePolizaIng) {
@@ -245,6 +250,160 @@ function dataPoliza(poliza) {
     let respFunc;
     var datos = new FormData();
     datos.append("polizaData", poliza);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+
+$(document).on("click", ".faRevision", async function () {
+    var idDetalle = $(this).attr("idDetalle");
+    var idRet = document.getElementById("identRet").value;
+    const {value: text} = await Swal.fire({
+        input: 'text',
+        imageWidth: 400,
+        showCancelButton: true,
+        allowOutsideClick: false,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        inputLabel: 'textQR',
+        inputPlaceholder: 'Ingrese cantidad de bultos',
+        inputAttributes: {
+            'aria-label': 'Ingrese cantidad de bultos'
+        },
+        showCancelButton: true
+    })
+    if (text) {
+        var bultos = parseInt(text);
+        if (bultos > 0) {
+
+
+            $(".divDetalleSelect").append(
+                    `
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-danger" id="buttonTrash" idDetalle=` + idDetalle + `><i class="fa fa-trash"></i></button>
+                    </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control" id="texToEmpresaVal" value="AGENCIA DE VEHICULOS KENWORTH DE CENTROAMERICA, S.A." readonly="readOnly">
+                        <input type="number" class="form-control" id="revDetalleBlts" value=` + bultos + `>
+                </div>
+                `);
+
+
+            var buttonTrash = Array.from(document.querySelectorAll("#buttonTrash"));
+            var paragraphsBultos = Array.from(document.querySelectorAll("#revDetalleBlts"));
+            console.log(buttonTrash);
+            var totalBultos = 0;
+            var listaVehiculos = [];
+            for (var i = 0; i < paragraphsBultos.length; i++) {
+                var bultosRev = paragraphsBultos[i].attributes[3].value;
+                var idDet = buttonTrash[i].attributes[3].value;
+
+                var parseBlts = parseInt(bultosRev);
+                var totalBultos = totalBultos + parseBlts;
+                listaVehiculos.push([idRet, idDet, bultosRev]);
+
+            }
+            var bltsIng = document.getElementById("bultos").value;
+            var bltsIng = parseInt(bltsIng);
+            if (totalBultos > bltsIng) {
+                Swal.fire({
+                    title: 'Cantidad de bultos no cuadra',
+                    text: "La cantidad de bultos ingresados, es mayor a lo que se declaro en el retiro!",
+                    type: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })
+
+            }
+            console.log(bultos);
+            console.log(bltsIng);
+
+            if (totalBultos < bltsIng) {
+                Swal.fire({
+                    title: 'Cantidad de bultos',
+                    text: "La cantidad de bultos ingresados, es menor a lo que se declaro en el retiro!",
+                    type: 'warning',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })
+
+            }
+            if (totalBultos == bltsIng) {
+                console.log(listaVehiculos);
+                var listaVehiculos = JSON.stringify(listaVehiculos);
+                var resp = await revisionDeRetiroAndPol(listaVehiculos);
+                if (resp==false) {
+                Swal.fire({
+                    title: 'Detalle Erróneo',
+                    text: "El detalle que seleccionaste es erroneo o la cantidad de bultos no coincide aún!",
+                    type: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })                    
+                    $(".validacionKardex").html('<i class="fa fa-times-circle" style="font-size: 75px; color: red;"></i>');
+                    return false;
+                }
+                if (resp[0].resp==1) {
+                Swal.fire({
+                    title: 'Transacción exitosa',
+                    text: "La póliza cuadra en el sistema puede continuar.!",
+                    type: 'success',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })                         
+                    $(".validacionKardex").html('<i class="fa fa-check-circle" style="font-size: 75px; color: green;"></i>');
+                    return true;
+                    
+                }
+            }
+
+
+        }
+    }
+})
+
+
+function revisionDeRetiroAndPol(listaVehiculos) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("objRevPol", listaVehiculos);
     $.ajax({
         async: false,
         url: "ajax/historiaIngresosFisacales.ajax.php",
