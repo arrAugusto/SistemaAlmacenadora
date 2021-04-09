@@ -184,7 +184,7 @@ $(document).on("click", ".btnCambiaDataEdicion", function () {
     var emailActual = $("#emailActual").val();
 
     if (editarTelefono != telefonoActual || emailActual != editarEmail) {
-        
+
     } else {
         Swal.fire(
                 'No existen cambios',
@@ -196,4 +196,50 @@ $(document).on("click", ".btnCambiaDataEdicion", function () {
 
 })
 
+$(document).on("click", ".btnChangePass", async function () {
+    var colabora = document.getElementById("colabora").value;
+    var resp = await change(colabora);
 
+    if (resp[0].resp == 1) {
+        Swal.fire({
+            title: 'PassWord cambiado con exito',
+            text: "Pedir que el usuario cambie la contraseña!",
+            type: 'success',
+            allowOutsideClick: false,
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        }).then((result) => {
+            if (result.value) {
+                location.reload();
+            }
+        })
+    }else{
+        window.location="salir";
+    }
+})
+
+
+
+function change(colabora) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("colabora", colabora);
+    $.ajax({
+        async: false,
+        url: "ajax/usuarios.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}

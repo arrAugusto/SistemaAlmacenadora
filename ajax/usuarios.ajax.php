@@ -76,6 +76,18 @@ class AjaxUsuarios {
         $activarUsuarioCliente = $this->activarUsuarioCliente;
         $respuesta = ControladorUsuarios::ctrEstadoCliente($activarIdCliente, $activarUsuarioCliente);
         echo json_encode($respuesta);
+    }
+
+    public $colabordor;
+
+    public function ajaxColaborador() {
+        $colabora = $this->colabora;
+   session_start();
+        if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok" && $_SESSION["niveles"] === "ADMINISTRADOR") {
+            $tipoRestaura = true;
+        }
+        $respuesta = ControladorUsuarios::ctrColaborador($colabora, $tipoRestaura);
+        echo json_encode($respuesta);
         
     }
 
@@ -132,4 +144,9 @@ if (isset($_POST["activarIdCliente"])) {
     $estadoCliente->activarIdCliente = $_POST["activarIdCliente"];
     $estadoCliente->activarUsuarioCliente = $_POST["activarUsuarioCliente"];
     $estadoCliente->ajaxEstadoCliente();
+}
+if (isset($_POST["colabora"])) {
+    $colabordor = new AjaxUsuarios();
+    $colabordor->colabora = $_POST["colabora"];
+    $colabordor->ajaxColaborador();
 }

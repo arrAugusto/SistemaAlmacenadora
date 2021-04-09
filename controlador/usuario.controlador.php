@@ -75,12 +75,12 @@ window.location="Inicio";
 No cuenta con permisos para ingresar al sistema
 </div>';
                         }
-                    }else{
-                echo '</br></br><div class="alert alert-danger alert-dismissible">
+                    } else {
+                        echo '</br></br><div class="alert alert-danger alert-dismissible">
 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 <h5><i class="icon fa fa-danger"></i> ¡Aviso!</h5>
 Contraseña o Usuario Incorrecto
-</div>';                        
+</div>';
                     }
                 }
             } else {
@@ -132,7 +132,7 @@ Contraseña o Usuario Incorrecto
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagepng($destino, $ruta);
-                            }else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
+                            } else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                                 /* =============================================
                                   GUARDAR LA IMAGEN EN EL DIRECTORIO
                                   ============================================= */
@@ -143,8 +143,8 @@ Contraseña o Usuario Incorrecto
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destino, $ruta);
-                            }else{
-                                            echo '<script>
+                            } else {
+                                echo '<script>
 
 swal({
 type: "error",
@@ -155,8 +155,8 @@ confrimButtonText: "Aceptar",
 closeConfirm: true
  });
                     </script>';
-                        return false;
-                    }
+                                return false;
+                            }
                         }
                     }
 
@@ -249,7 +249,7 @@ closeConfirm: true
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagepng($destino, $ruta);
-                            }else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
+                            } else if ($_FILES["nuevaFoto"]["type"] == "image/jpeg") {
                                 /* =============================================
                                   GUARDAR LA IMAGEN EN EL DIRECTORIO
                                   ============================================= */
@@ -260,8 +260,8 @@ closeConfirm: true
                                 $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                                 imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                                 imagejpeg($destino, $ruta);
-                            }else{
-                                            echo '<script>
+                            } else {
+                                echo '<script>
 
 swal({
 type: "error",
@@ -272,8 +272,8 @@ confrimButtonText: "Aceptar",
 closeConfirm: true
  });
                     </script>';
-                        return false;
-                    }
+                                return false;
+                            }
                         }
                     }
 
@@ -433,7 +433,7 @@ closeConfirm: true
     }
 
     static public function ctrEditarUsuario() {
-     
+
         if (isset($_POST["editarUsuario"])) {
 
             if ($_POST["editarTelefono"] == $_POST["telefonoActual"] &&
@@ -501,16 +501,20 @@ closeConfirm: true
                     </script>';
                 } else if ($_POST["nuevacontra"] != "" &&
                         $_POST["confirmapassword"] != "") {
+
                     if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevacontra"]) &&
                             preg_match('/^[a-zA-Z0-9]+$/', $_POST["confirmapassword"])) {
+
                         if ($_POST["nuevacontra"] == $_POST["confirmapassword"]) {
+
                             $nuevoDato = crypt($_POST["nuevacontra"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                             $encriptarAnterior = crypt($_POST["passwordAcutal"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
                             $tabla = "personal";
                             $colum = "contra";
                             $item = "usuarios";
                             $datos = array("nuevoDato" => $nuevoDato, "encriptarAnterior" => $encriptarAnterior, "usuario" => $_SESSION["usuario"]);
-                            $respuesta = ModeloUsuarios::mdlEditarContraFoto($tabla, $item, $datos, $colum);
+                            $respuesta = ModeloUsuarios::mdlRestablecer($nuevoDato, $_SESSION["usuario"]);
+                            var_dump($respuesta);
                             if ($respuesta == "ok") {
                                 echo '<script>
 swal({
@@ -528,6 +532,17 @@ closeConfirm: true
                         } else {
                             echo '<script />';
                         }
+                    } else {
+                        echo '<script>
+swal({
+type: "error",
+title: "Caracteres no acepatados",
+text: "Su contraseña fue modificada",
+showConfirmButton: true,
+confrimButtonText: "Aceptar",
+closeConfirm: true
+ });
+</script>';
                     }
                 }
             } else {
@@ -536,7 +551,7 @@ closeConfirm: true
 swal({
 type: "error",
 title: "SU CONTRASEÑA NO COINCIDE",
-text: "Las contraseña digitada actual no es correcta"'.$encriptar1.',
+text: "Las contraseña digitada actual no es correcta"' . $encriptar1 . ',
 showConfirmButton: true,
 confrimButtonText: "Aceptar",
 closeConfirm: true
@@ -548,7 +563,7 @@ closeConfirm: true
 
     static public function ctrCambiarFoto() {
         if (isset($_POST["fotoActual"])) {
-         
+
             $editarFoto = $_FILES["editarFoto"];
             if ($_FILES['editarFoto']['name'] != null) {
                 $ruta = $_POST["fotoActual"];
@@ -582,7 +597,7 @@ closeConfirm: true
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                         imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                         imagepng($destino, $ruta);
-                    }else if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
+                    } else if ($_FILES["editarFoto"]["type"] == "image/jpeg") {
                         /* =============================================
                           GUARDAR LA IMAGEN EN EL DIRECTORIO
                           ============================================= */
@@ -593,8 +608,8 @@ closeConfirm: true
                         $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
                         imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
                         imagejpeg($destino, $ruta);
-                    }else{
-                                            echo '<script>
+                    } else {
+                        echo '<script>
 
 swal({
 type: "error",
@@ -801,7 +816,16 @@ closeConfirm: true
 
     public static function ctrVerUsuarioEdicion($idUsuario) {
         $respuesta = ModeloUsuarios::mdlVerUsuarioEdicion($idUsuario);
-        return $respuesta;        
+        return $respuesta;
+    }
+
+    public static function ctrColaborador($colabora, $tipoRestaura) {
+
+        if ($tipoRestaura) {
+            $encriptar = crypt($colabora, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+            $respuesta = ModeloUsuarios::mdlRestablecer($encriptar, $colabora);
+            return $respuesta;
+        }
     }
 
 }

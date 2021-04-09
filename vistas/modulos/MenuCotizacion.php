@@ -1021,6 +1021,7 @@
                         <p class="colorBarSuper">Autorizar Internos</p>
                     </a>
                 </li>
+            
             </ul>
         </li>
 
@@ -1047,6 +1048,12 @@
                 </li>
             </ul>
         </li>
+                        <li class="nav-item">
+                    <a href="changePassword" class="nav-link">
+                        <i class="fa fa-unlock colorBarSuper"></i>
+                        <p class="colorBarSuper">Change Password</p>
+                    </a>
+                </li>    
 ';
         }
         ?>

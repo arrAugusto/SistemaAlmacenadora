@@ -19,6 +19,8 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "gestorUsuarios" ||
                     $_GET["ruta"] == "gestorClientes" ||
                     $_GET["ruta"] == "miperfil"||
+                    $_GET["ruta"] == "changePassword" ||
+                    
                     $_GET["ruta"] == "salir"
                     ) {
                 /*
