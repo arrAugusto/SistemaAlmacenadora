@@ -239,11 +239,11 @@ class ControladorHistorialIngresos {
         $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $param);
         return $respuesta;
     }
-    
-        public static function ctrValidarLlaveIng($validarIngOP) {
+
+    public static function ctrValidarLlaveIng($validarIngOP) {
         $sp = "spValidateLlave";
         $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $validarIngOP);
-        return $revIngRev;        
+        return $revIngRev;
     }
 
     public static function ctrGenerateHistoriaChasis($generateHistoriaChasis) {
@@ -251,7 +251,6 @@ class ControladorHistorialIngresos {
         $revIngRev = ModeloCalculoDeAlmacenaje::ctrGenerateHistoriaIng($sp);
         return $revIngRev;
     }
-    
 
     public static function ctrGenerateHistoriaRecEx($generateRecExHistoria) {
         $sp = "spServExtraCorrel";
@@ -332,10 +331,10 @@ class ControladorHistorialIngresos {
         return $revIngRev;
     }
 
-    public static function ctrPolizaRet($polizaData){
-           $sp = "spIdRetiro";
+    public static function ctrPolizaRet($polizaData) {
+        $sp = "spIdRetiro";
         $revIngRev = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $polizaData);
-        return $revIngRev;     
+        return $revIngRev;
     }
 
 }

@@ -53,7 +53,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-12 mt-4">
-                                        <h1>Cuadre de poliza</h1>
+                                        <h1>Cuadre de Póliza <i class="fa fa-check-circle" style="font-size: 25px; color: green;"></i></h1>
                                     </div>
                                     <div class="col-12 mt-4" id="cardCuadre">
                                         

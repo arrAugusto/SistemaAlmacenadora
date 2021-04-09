@@ -48,6 +48,76 @@ $(document).ready(function () {
 });
 
 $(document).on("click", ".faPlusData", async function () {
+
+    var verDataPoliza = await dataPoliza('2881700760');
+            document.getElementById("cardCuadre").innerHTML = `
+<div class="row">
+    <div class="col-5 mt-1">
+        <label>Numero Poliza</label>    
+        <input type="text" class="form-control is-valid" id="polizaRet" value="" readOnly="readOnly" />
+    </div>
+
+    <div class="col-3 mt-1">
+        <label>Pól Ret</label>    
+        <input type="text" class="form-control is-valid" id="regimenSalida" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-4 mt-1">
+        <label>Blts</label>    
+        <input type="text" class="form-control is-valid" id="bultos" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-6 mt-1">
+        <label>Val Cif</label>    
+        <input type="text" class="form-control is-valid" id="cif" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-6 mt-1">
+        <label>Val Impuestos</label>    
+        <input type="text" class="form-control is-valid" id="impuestos" value="" readOnly="readOnly" />
+    </div>
+
+    <div class="col-6 mt-1">
+        <label>Pól Ing</label>    
+        <input type="text" class="form-control is-valid" id="numeroPoliza" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-6 mt-1">
+        <label>Emitido</label>    
+        <input type="text" class="form-control is-valid" id="nombres" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-6 mt-1">
+        <label>Emisión</label>    
+        <input type="text" class="form-control is-valid" id="fechaEmision" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-6 mt-1">
+        <label>Nit </label>    
+        <input type="text" class="form-control is-valid" id="nitEmpresa" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-12 mt-1">
+        <label>Nombre Empresa</label>    
+        <input type="text" class="form-control is-valid" id="nombreEmpresa" value="" readOnly="readOnly" />
+    </div>
+    <div class="col-12 mt-3">
+        <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary btn-sm" id="btnReimprimeRec" idret=`+verDataPoliza[0].identRet+`>Rec.</button>
+            <button type="button" class="btn btn-outline-info btn-sm" id="btnReimprimeRet" idret=`+verDataPoliza[0].identRet+`>Ret.</button>
+        </div>
+    </div>
+
+</div>            
+`;
+
+    console.log(verDataPoliza);
+            document.getElementById("polizaRet").value = verDataPoliza[0].polizaRetiro;
+            document.getElementById("regimenSalida").value = verDataPoliza[0].regimenSalida;
+            document.getElementById("bultos").value = verDataPoliza[0].bultos;
+            document.getElementById("numeroPoliza").value = verDataPoliza[0].numeroPoliza;
+            document.getElementById("nombres").value = verDataPoliza[0].nombres;
+            document.getElementById("fechaEmision").value = verDataPoliza[0].fechaEmision;
+            document.getElementById("nitEmpresa").value = verDataPoliza[0].nitEmpresa;
+            document.getElementById("nombreEmpresa").value = verDataPoliza[0].nombreEmpresa;
+
+            document.getElementById("cif").value = verDataPoliza[0].totalValorCif;
+            document.getElementById("impuestos").value = verDataPoliza[0].valorImpuesto;
+
+/*
     const {value: text} = await Swal.fire({
         input: 'textarea',
         imageUrl: 'vistas/img/plantilla/ejemploPoliza.png',
@@ -85,10 +155,8 @@ $(document).on("click", ".faPlusData", async function () {
 
         }
 
-    }
+    }*/
 });
-
-
 
 function qrBarcodePol(barcodePolizaIng) {
     let lista = [];
@@ -172,8 +240,6 @@ function qrBarcodePol(barcodePolizaIng) {
     lista.push([nitTrim, duca, polizaIng, peso, valDolares, tipoCambio, impuestos]);
     return lista;
 }
-
-
 
 function dataPoliza(poliza) {
     let respFunc;
