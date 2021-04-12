@@ -593,7 +593,7 @@ EOF;
             $bloque7 = <<<EOF
 <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
     <tbody>
-    <tr><br/><br/><br/><br/>
+    <tr><br/><br/><br/>
         <td style="width:186px text-align:left; border: none; padding: none; margin: none;">Elaborado por.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Vo. Bo.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Recibí Conforme.:_________________________________</td>    
@@ -608,13 +608,13 @@ EOF;
             $bloque8 = <<<EOF
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
+		<tr><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="width:480px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
- 			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
+			<td colspan="2" style="width:500px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+ 			<td style="width:60px; text-align:rigth;"><img style="width:60px; height:60px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
         </table>
@@ -1088,7 +1088,6 @@ EOF;
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
-          <br/>
             <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
@@ -1138,7 +1137,7 @@ EOF;
             $bloque7 = <<<EOF
 <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
     <tbody>
-    <tr><br/><br/><br/><br/>
+    <tr><br/><br/><br/>
         <td style="width:186px text-align:left; border: none; padding: none; margin: none;">Elaborado por.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Vo. Bo.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Recibí Conforme.:_________________________________</td>    
@@ -1153,13 +1152,13 @@ EOF;
             $bloque8 = <<<EOF
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
+		<tr><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="width:480px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
- 			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
+			<td colspan="2" style="width:500px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+ 			<td style="width:60px; text-align:rigth;"><img style="width:60px; height:60px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
         </table>
@@ -1627,7 +1626,6 @@ EOF;
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
-          <br/>
             <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
@@ -1677,7 +1675,7 @@ EOF;
             $bloque7 = <<<EOF
 <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
     <tbody>
-    <tr><br/><br/><br/><br/>
+    <tr><br/><br/><br/>
         <td style="width:186px text-align:left; border: none; padding: none; margin: none;">Elaborado por.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Vo. Bo.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Recibí Conforme.:_________________________________</td>    
@@ -1692,13 +1690,13 @@ EOF;
             $bloque8 = <<<EOF
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
+		<tr><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="width:480px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
- 			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
+			<td colspan="2" style="width:500px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+ 			<td style="width:60px; text-align:rigth;"><img style="width:60px; height:60px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
         </table>
@@ -2164,7 +2162,6 @@ EOF;
 	<table style="font-size:8px; text-align:left;">
       
 	<tr><br/>
-          <br/>
             <th style="border: 1px solid #030505; background-color:white; width:191px;"><strong>Piloto</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:111px;"><strong>Licencia</strong></th>
             <th style="border: 1px solid #030505; background-color:white; width:90px;"><strong>Placa</strong></th>
@@ -2214,7 +2211,7 @@ EOF;
             $bloque7 = <<<EOF
 <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
     <tbody>
-    <tr><br/><br/><br/><br/>
+    <tr><br/><br/><br/>
         <td style="width:186px text-align:left; border: none; padding: none; margin: none;">Elaborado por.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Vo. Bo.:_________________________________</td>    
         <td style="width:185px text-align:left; border: none; padding: none; margin: none;">Recibí Conforme.:_________________________________</td>    
@@ -2229,13 +2226,13 @@ EOF;
             $bloque8 = <<<EOF
        <table style="font-size:7px; border: none; padding: none; margin: none;"> <!-- Lo cambiaremos por CSS -->
 	<tbody>
-		<tr><br/><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
+		<tr><td style="width:245px text-align:left; border: none; padding: none; margin: none;"></td>
 			<td style="width:242px text-align:left;"></td>
 			<td rowspan="2" style="width:80px text-align:center;"><img style="width:80px; height:80px; text-align:center;" src=""></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="width:480px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
- 			<td style="width:80px; text-align:left;"><img style="width:80px; height:80px; text-align:center;" src="$concatenarConsultImagen"></td>               
+			<td colspan="2" style="width:500px; text-align:left;"><br/><strong>Nota:</strong> <br/>Se han entregado los bultos arriba descritos, al portador quien declara haberlos recibido a su entera satisfacción y no se aceptará ninguna reclamación que se formule despues de haber sido retirados de la bodega<br/></td>
+ 			<td style="width:60px; text-align:rigth;"><img style="width:60px; height:60px; text-align:center;" src="$concatenarConsultImagen"></td>               
 		</tr>
 	</tbody>
         </table>
