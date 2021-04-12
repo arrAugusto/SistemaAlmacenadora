@@ -96,7 +96,7 @@ class dataTableInventarios {
                         $botoneraAcciones = "<div class='btn-group'><div class='btn-group'><button type='button' buttonId=" . $value['identificador'] . " class='btn btn-success btnGeneracionExcel btn-sm'><i class='fa fa-file-excel-o'></i></button><div class='btn-group'></div>";
                     }
                     $fecha_actual = new DateTime();
-                    $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
+                    $cadena_fecha_actual = $value["fechaRegistro"];
 
 
 

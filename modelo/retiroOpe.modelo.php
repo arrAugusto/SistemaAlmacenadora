@@ -72,7 +72,7 @@ class ModeloRetiroOpe {
         }
     }
 
-    public static function mdlMostrarBusqueda($datoSearch, $idDeBodega) {
+    public static function  mdlMostrarBusqueda($datoSearch, $idDeBodega) {
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spNitSalida ?";
         $params = array(&$datoSearch);
@@ -199,15 +199,21 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlMostrarSaldosConta($idIngOpDet) {
-
+        $sp = "spVehNewCount";
+        $resp = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+        if ($resp[0]["idVeh"]>0) {    
+        $sp = "spMstSaldosBltsVEHN";
+        $respSaldo = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+        }else{
         $sp = "spMstSaldosBlts";
         $respSaldo = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
+            
+        }
 
         $sp = "spRetiroNormal";
         $retSinDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
         $sp = "spRetiroDr";
         $retConDR = ModeloRetiroOpe::mdlModificacionDetalles($idIngOpDet, $sp);
-
         if ($respSaldo != "SD") {
             if ($respSaldo[0]["sldBultos"] > 0) {
                 $historia = [];
@@ -228,7 +234,6 @@ class ModeloRetiroOpe {
                     return array("resAjuste" => "Ok", "resHistorial" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
                 }
             } else {
-
                 return array("resAjuste" => "SD", "sumRet" => 0, "sumIng" => 0, "saldos" => $respSaldo);
             }
         }

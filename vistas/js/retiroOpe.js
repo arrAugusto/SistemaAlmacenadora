@@ -1,4 +1,3 @@
-
 $(document).on("click", ".btnBuscaRetiro", function () {
     if ($("#tdDatosGenerales").length == 0) {
         document.getElementById("dataRetiro").innerHTML = "";
@@ -35,7 +34,7 @@ $(document).on("click", ".btnBuscaRetiro", function () {
 
                         var contador = 1;
                         for (var i = 0; i < respuesta[0].length; i++) {
-
+                            console.log(respuesta[0]);
                             var datPoliza = respuesta[0][i].Poliza;
                             var datconsolidado = respuesta[0][i].Empresa;
                             var datblts = respuesta[0][i].blts;
@@ -284,6 +283,7 @@ function funcRevSaldosAF(tipoIng) {
     })
     return todoMenus;
 }
+
 $(document).on("click", ".btnGuardarRetiro", async function () {
     if ($("#hiddenDR").length > 0) {
         var estado = document.getElementById("hiddenDR").value;
@@ -658,7 +658,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
     }
 });
 
-
 function guardarRetVehehiculos(hiddeniddeingreso, hiddenIdUs, idNit, polizaRetiro, regimen, tipoCambio, valorTotalAduana,
         valorCif, calculoValorImpuesto, pesoKg, licencia, piloto, hiddenIdBod, cantBultos, hiddenIdentificador,
         hiddenDateTime, listaVehiculos, descMercaderia, jsonStorageDR
@@ -914,6 +913,7 @@ $(document).on("click", ".btnAceptaDetalle", function () {
                 )
     }
 });
+
 /*
  $(document).on("change", "#cantBultos", function () {
  var idIngresoCantBultos = document.getElementById("hiddeniddeingreso").value;
@@ -1459,6 +1459,7 @@ function funcEditarVeh(listaVehiculos, hiddeniddeingreso, hiddenIdUs, idNit, pol
 
 
 }
+
 function desbloqueBloque(tipo) {
     if (tipo == 0) {
         document.getElementById("textParamBusqRet").readOnly = true;
@@ -1711,8 +1712,6 @@ $(document).on("click", ".btnEditarRetiroVeh", async function () {
     }
 })
 
-
-
 $(document).on("change", "#regimen", function () {
     var dato = $(this).val();
     console.log(dato);
@@ -1739,7 +1738,6 @@ $(document).on("change", "#regimen", function () {
         }
     }
 });
-
 
 $(document).on("change", "#valorTAduana", function () {
     var dato = $(this).val();
@@ -1788,7 +1786,6 @@ $(document).on("change", "#valorTAduana", function () {
         $("#hiddenValorTAduana").val(0);
     }
 });
-
 
 $(document).on("change", "#cambio", function () {
     var dato = $(this).val();
@@ -1870,7 +1867,6 @@ $(document).on("change", "#calculoValorImpuesto", function () {
     }
 });
 
-
 $(document).on("change", "#pesoKg", function () {
     var dato = $(this).val();
     var parseDato = parseFloat(dato).toFixed(2);
@@ -1905,8 +1901,6 @@ $(document).on("change", "#pesoKg", function () {
         $("#hiddenPesoKg").val(0);
     }
 });
-
-
 
 $(document).on("change", "#cantBultos", function () {
     var dato = $(this).val();
@@ -1957,7 +1951,6 @@ $(document).on("change", "#descMercaderia", async function () {
     }
 })
 
-
 $(document).on("click", "#btnEditPiloto", async function () {
     $("#btnGuardaNuevaUnidad").removeClass("btnGuardaNuevaUnidadPlus");
     $("#btnGuardaNuevaUnidad").addClass("btnEditarUnidadPlus");
@@ -1986,6 +1979,7 @@ $(document).on("click", "#btnEditPiloto", async function () {
         $(".btnEditarUnidadPlus").html("Editar Unidad");
     }
 });
+
 function verPltsRet(nomVar, idRet, estado) {
     let respEdit;
     var datos = new FormData();
@@ -2112,8 +2106,6 @@ $(document).on("click", ".btnMasPilotos", async function () {
         }
     }
 });
-
-
 
 $(document).on("click", ".btnEditarUnidadPlus", async function () {
     var idUnidadEdit = $(this).attr("idDatoPlto");
