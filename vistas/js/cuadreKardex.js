@@ -49,7 +49,7 @@ $(document).ready(function () {
 
 $(document).on("click", ".faPlusData", async function () {
 
-    var verDataPoliza = await dataPoliza('2881700760');
+    var verDataPoliza = await dataPoliza('3220716996');
     document.getElementById("cardCuadre").innerHTML = `
 <div class="row">
     <div class="col-5 mt-1">
@@ -270,7 +270,6 @@ function dataPoliza(poliza) {
     return respFunc;
 }
 
-
 $(document).on("click", ".faRevision", async function () {
     var idDetalle = $(this).attr("idDetalle");
     var idRet = document.getElementById("identRet").value;
@@ -399,7 +398,6 @@ $(document).on("click", ".faRevision", async function () {
     }
 })
 
-
 function revisionDeRetiroAndPol(listaVehiculos) {
     let respFunc;
     var datos = new FormData();
@@ -423,3 +421,183 @@ function revisionDeRetiroAndPol(listaVehiculos) {
         }})
     return respFunc;
 }
+
+
+//CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
+$(document).ready(function () {
+
+    if ($("#tbCuadreKardexVeh").length >= 1) {
+        $.ajax({
+            url: "ajax/cuadreKardexVeh.ajax.php",
+            "bServerSide": true,
+            success: function (respuesta) {
+                console.log(respuesta);
+            }
+
+        })
+    }
+})
+
+$(document).ready(function () {
+    if ($("#tbCuadreKardexVeh").length >= 1) {
+        $('#tbCuadreKardexVeh').DataTable({
+            "bProcessing": true,
+            "sAjaxSource": "ajax/cuadreKardexVeh.ajax.php",
+            "deferRender": true,
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+
+            }
+        });
+    }
+});
+
+$(document).on("click", ".faRevisionVeh", async function () {
+    var idDetalle = $(this).attr("idDetalle");
+    var idRet = document.getElementById("identRet").value;
+    const {value: text} = await Swal.fire({
+        input: 'text',
+        imageWidth: 400,
+        showCancelButton: true,
+        allowOutsideClick: false,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        inputLabel: 'textQR',
+        inputPlaceholder: 'Ingrese cantidad de bultos',
+        inputAttributes: {
+            'aria-label': 'Ingrese cantidad de bultos'
+        },
+        showCancelButton: true
+    })
+    if (text) {
+        var bultos = parseInt(text);
+        if (bultos > 0) {
+
+
+            $(".divDetalleSelect").append(
+                    `
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button type="button" class="btn btn-danger" id="buttonTrash" idDetalle=` + idDetalle + `><i class="fa fa-trash"></i></button>
+                    </div>
+                        <!-- /btn-group -->
+                        <input type="text" class="form-control" id="texToEmpresaVal" value="AGENCIA DE VEHICULOS KENWORTH DE CENTROAMERICA, S.A." readonly="readOnly">
+                        <input type="number" class="form-control" id="revDetalleBlts" value=` + bultos + `>
+                </div>
+                `);
+
+
+            var buttonTrash = Array.from(document.querySelectorAll("#buttonTrash"));
+            var paragraphsBultos = Array.from(document.querySelectorAll("#revDetalleBlts"));
+            console.log(buttonTrash);
+            var totalBultos = 0;
+            var listaVehiculos = [];
+            for (var i = 0; i < paragraphsBultos.length; i++) {
+                var bultosRev = paragraphsBultos[i].attributes[3].value;
+                var idDet = buttonTrash[i].attributes[3].value;
+
+                var parseBlts = parseInt(bultosRev);
+                var totalBultos = totalBultos + parseBlts;
+                listaVehiculos.push([idRet, idDet, bultosRev]);
+
+            }
+            var bltsIng = document.getElementById("bultos").value;
+            var bltsIng = parseInt(bltsIng);
+            if (totalBultos > bltsIng) {
+                Swal.fire({
+                    title: 'Cantidad de bultos no cuadra',
+                    text: "La cantidad de bultos ingresados, es mayor a lo que se declaro en el retiro!",
+                    type: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })
+
+            }
+            console.log(bultos);
+            console.log(bltsIng);
+
+            if (totalBultos < bltsIng) {
+                Swal.fire({
+                    title: 'Cantidad de bultos',
+                    text: "La cantidad de bultos ingresados, es menor a lo que se declaro en el retiro!",
+                    type: 'warning',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })
+
+            }
+            if (totalBultos == bltsIng) {
+                console.log(listaVehiculos);
+                var listaVehiculos = JSON.stringify(listaVehiculos);
+                var resp = await revisionDeRetiroAndPol(listaVehiculos);
+                if (resp==false) {
+                Swal.fire({
+                    title: 'Detalle Erróneo',
+                    text: "El detalle que seleccionaste es erroneo o la cantidad de bultos no coincide aún!",
+                    type: 'error',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })                    
+                    $(".validacionKardex").html('<i class="fa fa-times-circle" style="font-size: 75px; color: red;"></i>');
+                    return false;
+                }
+                if (resp[0].resp==1) {
+                Swal.fire({
+                    title: 'Transacción exitosa',
+                    text: "La póliza cuadra en el sistema puede continuar.!",
+                    type: 'success',
+                    allowOutsideClick: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Ok!'
+                }).then((result) => {
+                    if (result.value) {
+                        return false;
+                    }
+                })                         
+                    $(".validacionKardex").html('<i class="fa fa-check-circle" style="font-size: 75px; color: green;"></i>');
+                    return true;
+                    
+                }
+            }
+
+
+        }
+    }
+})
+

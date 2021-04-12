@@ -157,11 +157,20 @@
             <a href="cuadreKardex" class="nav-link">
                 <i class="fa fa-wrench colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Cuadre Kardex
+                    Kardex Mercaderia&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
                 </p>
             </a>
         </li>
-        </ul>            
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardexVeh" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Kardex Vehículos&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
+                </p>
+            </a>
+        </li>
+
+</ul>            
         </li>
 
         
@@ -274,7 +283,7 @@
             <a href="cuadreKardex" class="nav-link">
                 <i class="fa fa-wrench colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Cuadre Kardex
+                    Kardex Mercaderia&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
                 </p>
             </a>
         </li>        
@@ -793,11 +802,20 @@
             <a href="cuadreKardex" class="nav-link">
                 <i class="fa fa-wrench colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Cuadre Kardex
+                    Kardex Mercaderia&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
                 </p>
             </a>
         </li>        
-        <li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
+        <li class="nav-item has-treeview">
+            <a href="cuadreKardexVeh" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Kardex Vehículos&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
+                </p>
+            </a>
+        </li>
+ 
+<li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
         <li class="nav-item has-treeview">
             <a href="chasisVehiculosNuevos" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
@@ -950,11 +968,20 @@
             <a href="cuadreKardex" class="nav-link">
                 <i class="fa fa-wrench colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Cuadre Kardex
+                    Kardex Mercaderia&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
                 </p>
             </a>
         </li>        
         <li class="nav-item has-treeview">
+            <a href="cuadreKardexVeh" class="nav-link">
+                <i class="fa fa-wrench colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Kardex Vehículos&nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
+                </p>
+            </a>
+        </li>
+ 
+<li class="nav-item has-treeview">
             <a href="retiroBod" class="nav-link">
                 <i class="fa fa-send colorBarSuper"></i>
                 <p class="colorBarSuper">

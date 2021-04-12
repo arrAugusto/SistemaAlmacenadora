@@ -170,7 +170,7 @@ class ControladorRetiroOpe {
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
                 return $respuesta;                
             }
-
+            
             if ($respuestaActStockGen[0]["resp"] == 1) {
                 return $respuesta;
             } else {
