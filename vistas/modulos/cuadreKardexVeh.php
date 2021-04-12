@@ -23,7 +23,7 @@
                                     <div class="col-12 mt-4">
                                         <div class="row">
                                             <div class="col-6 mt-4">
-                                                <h1>Mercaderias en bodega</h1>
+                                                <h1>Vehiculos en predio</h1>
                                             </div> 
 
                                             <div class="col-6 mt-4">

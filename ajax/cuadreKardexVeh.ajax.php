@@ -13,7 +13,7 @@ class historialSaldosKardexVeh {
         session_start();
         $NavegaNumB = $_SESSION['idDeBodega'];
         $sp = "spsaldosCuadreKardexVeh";
-        $respuesta = ModeloContabilidadDeRet::mdlMstrReporteRet($sp, $NavegaNumB) ;
+        $respuesta = ModeloContabilidadDeRet::mdlMstrReporteRet($sp, $NavegaNumB);
 
         if ($respuesta != 'SD' && $respuesta != NULL) {
             $contador = 0;
@@ -21,17 +21,14 @@ class historialSaldosKardexVeh {
             "data": [';
             echo $cabeza;
             foreach ($respuesta as $key => $value) {
-           $circlePlus = "<i class='fa fa-plus-circle faRevisionVeh' idChas='".$value["idChas"]."' style='color:#0066FA; cursor: pointer;'></i>";
-                $botoneraAcciones = "";
                 $contador = $contador + 1;
-
-
+                $circlePlus = "<i class='fa fa-plus-circle faRevisionVeh' idChas='" . $value["idChas"] . "' idRet='" . $value["idRet"] . "' chasis='" . $value["chasis"] . "' tipoVehiculo='" . $value["tipoVehiculo"] . "'  linea='" . $value["linea"] . "' style='color:#00BD06; cursor: pointer;'></i>";
                 $datoJsonRetHis = '[
                     "' . $contador . '",
                     "' . $value['nitEmpresa'] . '",
                     "' . $value['numeroPoliza'] . '",
-                    "' .  $value['nombreEmpresa'] . $circlePlus.'",                        
-                    "' . $value['chasis'] . '",
+                    "' . $value['nombreEmpresa'] . '",                        
+                    "' . $value['chasis'] . $circlePlus . '",
                     "' . $value['tipoVehiculo'] . '",                        
                     "' . $value['linea'] . '"                ],';
                 if ($key + 1 != count($respuesta)) {

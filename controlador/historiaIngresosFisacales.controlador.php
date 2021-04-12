@@ -350,9 +350,8 @@ class ControladorHistorialIngresos {
 
         foreach ($listaReb as $key => $value) {
             $totalId = $totalId + $value["idDetalles"];
-  
+
             $totalBlts = $totalBlts + $value["cantBultos"];
-            
         }
         //suma de detalles y butos de la comprobación en poliza
         $totalIdR = 0;
@@ -365,13 +364,50 @@ class ControladorHistorialIngresos {
             date_default_timezone_set('America/Guatemala');
             $date = date('Y-m-d H:m:s');
             $ranABC = Randomalfa();
-            $hashGenerado = hash("sha512", $ranABC . $date.$idRet);
+            $hashGenerado = hash("sha512", $ranABC . $date . $idRet);
             $encriptar = crypt($hashGenerado, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
             $sp = "spBitacoraPolNew";
             //return array($idRet, $usuario, $date, $encriptar, $sp);
             $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRet, $usuario, $date, $encriptar, $sp);
             return $respuesta;
-        }else{
+        } else {
+            return false;
+        }
+    }
+
+    public static function ctrRevisionVehNew($listaIdVehOBJ, $usuario) {
+        $lista = json_decode($listaIdVehOBJ, true);
+
+        $idRetPol = $lista[0]["idRetPol"];
+        $sp = "spChasisVNuevo";
+
+        $chasisPol = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idRetPol);
+        //eliminando todos los vehiculos del retiro si al final el arreglo esta vacio 
+        //significa que todos los chasis fueron correctamente rebajado
+        $contEvent = 0;
+        foreach ($lista as $key => $value) {
+            $idChas = $value["idChas"];
+            $idChas = intval($idChas);
+            $idVehN = $value["idVehN"];
+            $idVehN = intval($idVehN);
+            foreach ($chasisPol as $keys => $values) {
+
+                if ($values["idRetNew"] == $idVehN && $values["id"] == $idChas) {
+                    $contEvent = $contEvent + 1;
+                }
+            }
+        }
+        if (count($chasisPol) == $contEvent) {
+            date_default_timezone_set('America/Guatemala');
+            $date = date('Y-m-d H:m:s');
+            $ranABC = Randomalfa();
+            $hashGenerado = hash("sha512", $ranABC . $date . $idVehN);
+            $encriptar = crypt($hashGenerado, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+            $sp = "spBitacoraPolNew";
+            //return array($idRet, $usuario, $date, $encriptar, $sp);
+            $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idVehN, $usuario, $date, $encriptar, $sp);
+            return $respuesta;
+        } else {
             return false;
         }
     }
