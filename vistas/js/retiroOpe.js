@@ -52,9 +52,6 @@ $(document).on("click", ".btnBuscaRetiro", function () {
                                 var acciones = '<div class="btn-group"><button type="button" class="btn btn-primary btnListaSelect btn-sm" id="buttonDisparoDetalle" idIngSelectDetOpe=' + respuesta[0][i]["idIng"] + ' id="select' + [i] + '" empresa="' + datconsolidado + '" poliza="' + datPoliza + '" numeroButt=' + [i] + ' idDeBodega=' + respuesta[0][i].idIng + '  id="buttonDetalleRet">Seleccionar</button></div>';
                             }
 
-                            console.log(respuesta[0][i].empresaID);
-                            console.log(respuesta[1]);
-
                             if (respuesta[0][i].empresaID != respuesta[1]) {
                                 listaOtra.push([datPoliza, datconsolidado, datblts, datdimPeso, acciones, respuesta[0][i].empresa, respuesta[0][i].numeroIdentidad]);
 

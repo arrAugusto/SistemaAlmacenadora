@@ -64,12 +64,9 @@ class dataTableInventarios {
 
 
 
-        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+
             $sp = "spSaldosSuper";
             $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
-        } else {
-            $respuesta = ModeloGeneracionDeInventarios::mdlMostrarInventario($valor);
-        }
 
         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {

@@ -1867,7 +1867,7 @@ $(document).on("click", ".iGenerateQR", async function () {
 
 $(document).on("click", ".btnPrintQRVaried", async function () {
     var idDetalle = $(this).attr("idDetalle");
-    const { value: password } = await Swal.fire({
+    const { value: cantdQR } = await Swal.fire({
         title: 'Cantidad de impresiones QR',
         input: 'number',
         inputLabel: 'number',
@@ -1879,8 +1879,8 @@ $(document).on("click", ".btnPrintQRVaried", async function () {
         }
     })
 
-    if (password) {
-        Swal.fire(`Cantidad: ${password}`)
+    if (cantdQR) {
+        window.open("extensiones/tcpdf/pdf/Generate-QR-Cantidad.php?codigo=" + idDetalle+"&cantidadQR="+cantdQR, "_blank");
     }
 })
 

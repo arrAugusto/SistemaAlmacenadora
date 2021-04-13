@@ -11,6 +11,20 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
+        if ($respuesta != "SD") {
+            foreach ($respuesta as $key => $value) {
+                $sp = "spCountChas";
+                $idIng = $value["idIng"];
+                $isVeh = ModeloRetiroOpe::mdlDetUnParametro($idIng, $sp);
+                if ($isVeh[0]["countChas"] > 0) {
+                    $sp = "spStockGeneralVeh";
+                    $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
+                } else {
+                    $spStock = "spStockGeneral";
+                    $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
+                }
+            }
+        }
         return $respuesta;
     }
 
@@ -96,9 +110,9 @@ class ControladorRetiroOpe {
         $estadoTransa = 0;
 
         //lista de detalles de mercaderia
-        
+
         $arrayDetalles = json_decode($datos['listaDetalles'], true);
-         
+
         $contDetalle = count($arrayDetalles);
         foreach ($arrayDetalles as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -120,24 +134,23 @@ class ControladorRetiroOpe {
                 $stock = $respuesta[0]["stock"];
                 $saldoNuevo = $stock - $cantBultos;
 
-            
-                    $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
-                    if ($respuesta[0]["estado"] == 1) {
-                        $estadoTransaRebaja = $estadoTransaRebaja + 1;
-                    }
 
+                $respuesta = ModeloRetiroOpe::mdlNuevoStock($idDetalle, $saldoNuevo);
+                if ($respuesta[0]["estado"] == 1) {
+                    $estadoTransaRebaja = $estadoTransaRebaja + 1;
+                }
             }
         } else if ($estadoTransa != count($arrayDetalles)) {
             return "denegado";
         }
 
-        
-        
+
+
         if ($estadoTransaRebaja == $contDetalle || $datos['jsonStringDR'] != "SD") {
             $idIngreso = $datos["hiddeniddeingreso"];
 
             $respuesta = ModeloRetiroOpe::mdlInsertRetiroOpe($datos);
-           
+
             $arrayDataImagen = json_encode(array("retiroCod" => $respuesta["valIdRetiro"], "numeroPoliza" => $datos['polizaRetiro']));
 
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
@@ -151,9 +164,7 @@ class ControladorRetiroOpe {
                     $impuestoFinal = $value["impuestoFinal"];
                     $sp = "spValContaRet";
                     $respuestaActStockGen = ModeloRetiroOpe::mdlInsertRetPolizaRetDR($poliza, $idRet, $bltsSumFinal, $valDolSumFinal, $cifFinal, $impuestoFinal, $sp);
-                    
                 }
-
             } else {
                 $respuestaActStockGen = ModeloRetiroOpe::mdlActualizarStockGeneral($idIngreso);
             }
@@ -168,9 +179,9 @@ class ControladorRetiroOpe {
             $codigoQR->writeFile($nombreArchivoParaGuardar);
 
             if ($respuesta != "SD" && $datos['jsonStringDR'] != "SD") {
-                return $respuesta;                
+                return $respuesta;
             }
-            
+
             if ($respuestaActStockGen[0]["resp"] == 1) {
                 return $respuesta;
             } else {
@@ -197,7 +208,7 @@ class ControladorRetiroOpe {
         if ($respuestaServ[0]["servicio"] == "VEHICULOS NUEVOS") {
             $sp = "spMostrarChasis";
             $respuestaVehN = ModeloRetiroOpe::mdlDetUnParametro($idIngOpDet, $sp);
-            
+
             $respuesta = ModeloRetiroOpe::mdlMostrarSaldosConta($idIngOpDet);
             return array("respTipo" => "vehN", "data" => $respuestaVehN, "dataRetiro" => $respuesta);
         } else {
@@ -687,7 +698,7 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusquedaPoliza($NavegaNumB, $busquedaPoliza);
-        return $respuesta;     
+        return $respuesta;
     }
 
 }
