@@ -59,7 +59,7 @@ class imprimirIngresoBodega {
 	<tbody>
 		<tr>
                     <td rowspan="3" style="width: 180px; height: 180px;"><img style="width:180px; height:180px;" src="$nombreArchivoParaGuardar"></td>
-    		<td style="text-align: center; font-size: 70px; width: 560px;">&nbsp;$poliza</td>
+    		<td style="text-align: center; font-size: 90px; width: 560px;">&nbsp;$poliza</td>
 		</tr>
 		<tr>
                     <td style="text-align:center; font-size: 20px; width: 462px; text-align: left;">&nbsp;$empresaDet</td>

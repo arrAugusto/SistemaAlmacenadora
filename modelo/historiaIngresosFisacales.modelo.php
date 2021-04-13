@@ -266,6 +266,26 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
+    public static function mdlAjusteRet($idRet, $idIng, $idDetalle,
+        $cantBultos, $valPosSalidaEdit, $valMtsSalidaEdit) {
+        
+        $conn = Conexion::Conectar();
+        $params = array(&$idRet, &$idIng, &$idDetalle, &$cantBultos, &$valPosSalidaEdit, &$valMtsSalidaEdit);
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?';
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
 
     public static function mdlMostrarDetallesPlts($idIngClientesPlt) {
         $tipo = 2;

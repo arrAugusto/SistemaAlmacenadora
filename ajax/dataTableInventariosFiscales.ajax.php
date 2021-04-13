@@ -15,7 +15,7 @@ class dataTableInventarios {
         session_start();
         $valor = $_SESSION["idDeBodega"];
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
-            $sp = "spSaldosInventario";
+        $sp = "spSaldosInventario";
         $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         if ($saldosAjuste != "SD") {
             foreach ($saldosAjuste as $key => $value) {
@@ -24,15 +24,37 @@ class dataTableInventarios {
                 $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spStock, $idIng);
             }
         }
+        //HACIENDO AJUSTES DETALLES DE RETIROS
+        $sp = "spDetallesAjustInv";
+        $detalles = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+
+        foreach ($detalles as $key => $value) {
+            $lista = json_decode($value["detallesRebajados"], true);
+            $listaRebaja = [];
+            foreach ($lista as $keys => $values) {
+                $idDetalle = $values["idDetalles"];
+                $cantBultos = $values["cantBultos"];
+                $valPosSalidaEdit = 0;
+                $valMtsSalidaEdit = 0;
+                if ($value["estadoRet"] >= 4) {
+                    $valPosSalidaEdit = $values["valPosSalidaEdit"];
+                    $valMtsSalidaEdit = $values["valMtsSalidaEdit"];
+                }
+
+                //
+                $saldosAjuste = ModeloHistorialIngresos::mdlAjusteRet($value["idRet"], $value["idIng"], $idDetalle,
+                        $cantBultos, $valPosSalidaEdit, $valMtsSalidaEdit);
+            }
+            var_dump($listaRebaja);
+            return false;
+        }
         $sp = "spSaldosInventarioVeh";
-        
-        $saldosAjusteVeh = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor); 
+        $saldosAjusteVeh = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         foreach ($saldosAjusteVeh as $key => $value) {
             $sp = "spStockGeneralVeh";
-                $idIng = $value["id"];
-                $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idIng);
-
-            }
+            $idIng = $value["id"];
+            $saldosAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idIng);
+        }
         //FIN DE AJUSTES DE INGRESOS 
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
 
@@ -44,7 +66,6 @@ class dataTableInventarios {
             foreach ($saldosAjusteDetalle as $key => $value) {
                 $datoArray = json_decode($value["detallesRebajados"], true);
                 if (is_array($datoArray)) {
-
                     for ($i = 0; $i < count($datoArray); ++$i) {
                         $idDetalles = intval($datoArray[$i]["idDetalles"]);
                         $cantBultos = intval($datoArray[$i]["cantBultos"]);
@@ -53,9 +74,9 @@ class dataTableInventarios {
                     }
                 }
             }
-                        $sp = "spVehNew";
-                        $respIngVeh = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
-                        
+            $sp = "spVehNew";
+            $respIngVeh = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+
 
             foreach ($respIngVeh as $key => $value) {
                 
@@ -65,8 +86,8 @@ class dataTableInventarios {
 
 
 
-            $sp = "spSaldosSuper";
-            $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+        $sp = "spSaldosSuper";
+        $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
 
         if ($respuesta !== null || $respuesta !== null) {
             if ($respuesta == "SD") {

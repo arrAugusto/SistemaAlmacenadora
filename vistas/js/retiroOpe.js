@@ -2997,8 +2997,7 @@ $(document).on("click", ".btnListaSelect", async function () {
             dataType: "json",
             success: function (respuestaDetIng) {
                 console.log(respuestaDetIng);
-                console.log(respuestaDetIng);
-
+ 
                 if (respuestaDetIng.respTipo == "vehN") {
                     document.getElementById("hiddenTipoRet").value = "vehN";
                     console.log(173);
