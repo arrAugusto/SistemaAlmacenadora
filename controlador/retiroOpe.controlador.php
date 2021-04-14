@@ -361,6 +361,7 @@ class ControladorRetiroOpe {
 
             $tipo = 1;
             $respuesta = ModeloRetiroOpe::mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo);
+            
             return $respuesta;
         }
     }

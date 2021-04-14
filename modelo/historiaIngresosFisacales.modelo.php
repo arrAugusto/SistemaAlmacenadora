@@ -247,6 +247,24 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
+    public static function mdlAjustarSaldoDetalles($idDetalle, $tipo, $cantBlts, $sp) {
+        $conn = Conexion::Conectar();
+        $params = array(&$idDetalle, &$tipo, &$cantBlts);
+        $sql = 'EXECUTE ' . $sp . ' ?, ?, ?';
+        $stmt = sqlsrv_prepare($conn, $sql, $params);
+        if (sqlsrv_execute($stmt) == true) {
+            while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
+                $results[] = $row;
+            }
+            if (!empty($results)) {
+                return $results;
+            } else {
+                return "SD";
+            }
+        } else {
+            return sqlsrv_errors();
+        }
+    }
 
     public static function mdlNewServicioIng($idIngSerOtr, $idServ, $valorOtros, $comentario, $usuario, $estado, $tipoOpera, $sp) {
         $conn = Conexion::Conectar();
@@ -365,5 +383,30 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
-
+    public static function mdlBitacoraDiferenciasEnStock($objSobreGiros, $objMalasRebajas, $tipoSobregiro, $descuadre){
+        $sp = "spInsBitacoraIncStock";
+        if ($tipoSobregiro>0) {
+            
+        foreach ($objSobreGiros as $key => $value) {
+            $idRetiro = $value["idRet"];
+            $detallesRebajados = $value["detallesRebajados"];
+            $bultos = $value["bultos"];
+            $tipo = $value["tipo"];
+            $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
+        }
+            
+        }
+        
+        if ($descuadre>0) {
+        foreach ($objMalasRebajas as $keys => $values) {
+            $idRetiro = $values["idRet"];
+            $detallesRebajados = $values["detallesRebajados"];
+            $bultos = $values["bultos"];
+            $tipo = $values["tipo"];
+            $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
+        }
+            
+        }
+        
+    }
 }

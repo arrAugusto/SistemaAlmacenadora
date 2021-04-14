@@ -374,7 +374,8 @@ class ModeloRetiroOpe {
     }
 
     public static function mdlEditarRetiroOpF($datos, $idRetiroBtn, $tipo) {
-
+        date_default_timezone_set('America/Guatemala');
+        $fechaGaritaFormat = date("Y-m-d H:i:s", strtotime($datos['hiddenDateTimeEdit']));
         $conn = Conexion::Conectar();
         if ($tipo == 1) {
             $paramsDet = array(
@@ -384,21 +385,21 @@ class ModeloRetiroOpe {
                 &$datos['regimenEdit'],
                 &$datos['descMercaderiaEdit'],
                 &$datos['listaDetallesEdit'],
-                &$datos['hiddenDateTimeEdit'],
+                &$fechaGaritaFormat,
                 &$idRetiroBtn
             );
             $sqlDet = "EXECUTE spEditRetiros  ?,	?,	?,	?,	?,	?,	?,	?";
 
             $stmt = sqlsrv_prepare($conn, $sqlDet, $paramsDet);
+                        
         } else {
-
             $paramsDet = array(
                 &$datos['hiddeniddeingresoVEd'],
                 &$datos['idNitVEd'],
                 &$datos['polizaRetiroVEd'],
                 &$datos['regimenVEd'],
                 &$datos['descMercaderiaVEd'],
-                &$datos['hiddenDateTimeVEd'],
+                &$fechaGaritaFormat,
                 &$idRetiroBtn
             );
             $sqlDet = "EXECUTE spEditRetirosVehEd  ?,	?,	?,	?,	?,	?,	?";

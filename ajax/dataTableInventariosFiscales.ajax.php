@@ -27,22 +27,55 @@ class dataTableInventarios {
         //HACIENDO AJUSTES DETALLES DE RETIROS
         $sp = "spDetallesAjustInv";
         $detalles = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
-
         $listaSuper = [];
+        $sobregirosDet = [];
+        $tipoSobregiro = 0;
+        $erroresRebajas = [];
+        $descuadre = 0;
         foreach ($detalles as $key => $value) {
             $detallesRebajados = json_decode($value["detallesRebajados"], true);
             if (is_array($detallesRebajados)) {
-            foreach ($detallesRebajados as $keyAdd => $valueAdd) {
-                $idDetalle = $valueAdd["idDetalles"];
-                array_push($listaSuper, array("idDetalle" => md5($idDetalle)));
+                $bultosAcumulado = 0;
+                foreach ($detallesRebajados as $keyAdd => $valueAdd) {
+                    $idDetalle = $valueAdd["idDetalles"];
+                    $tipo = 0;
+                    $revision = array_search(md5($idDetalle), $listaSuper);
+                    if ($revision) {
+                        $tipo = 1;
+                    } else {
+                        array_push($listaSuper, array("idDetalle" => md5($idDetalle)));
+                    }
+                    $cantBlts = $valueAdd["cantBultos"];
+                    $bultosAcumulado = $bultosAcumulado + $cantBlts;
+                    $cantPos = 0;
+                    $valPosSalidaEdit = 0;
+                    if ($valueAdd["estadoDet"] >= 2) {
+                        $cantPos = $valueAdd["valPosSalidaEdit"];
+                        $valPosSalidaEdit = $valueAdd["valMtsSalidaEdit"];
+                    }
+                    $sp = "spAjusteDeDetalle";
+                    $saldosAjusteVeh = ModeloHistorialIngresos::mdlAjustarSaldoDetalles($idDetalle, $tipo, $cantBlts, $sp);
+                    if ($saldosAjusteVeh[0]["resp"] == 2) {
+                        $tipoSobregiro = $tipoSobregiro+1;
+                        $polizaRet = $value["polizaRetiro"];
+                        $polizaIng = $value["numeroPoliza"];
+                        $detSobreGiro = array("idRet" => $value["idRet"], "detallesRebajados" => $value["detallesRebajados"], "bultos"=>$value["bultos"], "tipo"=>0);
+                        array_push($sobregirosDet, $detSobreGiro);
+                    }
+                }
+            }
+            if ($bultosAcumulado != intval($value["bultos"])) {
+                $descuadre = $descuadre+1;
+                $polizaRet = $value["polizaRetiro"];
+                $polizaIng = $value["numeroPoliza"];
+                        $errorRebaja = array("idRet" => $value["idRet"], "detallesRebajados" => $value["detallesRebajados"], "bultos"=>$value["bultos"], "tipo"=>1);
+                array_push($erroresRebajas, $errorRebaja);
             }
         }
-        }
-
-        var_dump($listaSuper);
-        echo "<br />";
-        return false;
-
+        
+        $bitacoraSaldos = ModeloHistorialIngresos::mdlBitacoraDiferenciasEnStock($sobregirosDet, $erroresRebajas, $tipoSobregiro, $descuadre);       
+        //rutina finalizada
+        
         $sp = "spSaldosInventarioVeh";
         $saldosAjusteVeh = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         foreach ($saldosAjusteVeh as $key => $value) {
@@ -73,9 +106,6 @@ class dataTableInventarios {
             $respIngVeh = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
 
 
-            foreach ($respIngVeh as $key => $value) {
-                
-            }
         }
 
 
