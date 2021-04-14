@@ -13,6 +13,7 @@ class dataTableInventarios {
 
     public function ajaxGestionInventario() {
         session_start();
+        //inicio de inventario
         $valor = $_SESSION["idDeBodega"];
         //HACIENDO AJUSTES DE SALDOS INGRESOS STOCK GENERAL BUSCA Y AJUSTA POSIBLES ERRORES EN EL INVENATARIO
         $sp = "spSaldosInventario";
