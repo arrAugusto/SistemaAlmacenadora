@@ -28,26 +28,21 @@ class dataTableInventarios {
         $sp = "spDetallesAjustInv";
         $detalles = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
 
+        $listaSuper = [];
         foreach ($detalles as $key => $value) {
-            $lista = json_decode($value["detallesRebajados"], true);
-            $listaRebaja = [];
-            foreach ($lista as $keys => $values) {
-                $idDetalle = $values["idDetalles"];
-                $cantBultos = $values["cantBultos"];
-                $valPosSalidaEdit = 0;
-                $valMtsSalidaEdit = 0;
-                if ($value["estadoRet"] >= 4) {
-                    $valPosSalidaEdit = $values["valPosSalidaEdit"];
-                    $valMtsSalidaEdit = $values["valMtsSalidaEdit"];
-                }
-
-                //
-                $saldosAjuste = ModeloHistorialIngresos::mdlAjusteRet($value["idRet"], $value["idIng"], $idDetalle,
-                        $cantBultos, $valPosSalidaEdit, $valMtsSalidaEdit);
+            $detallesRebajados = json_decode($value["detallesRebajados"], true);
+            if (is_array($detallesRebajados)) {
+            foreach ($detallesRebajados as $keyAdd => $valueAdd) {
+                $idDetalle = $valueAdd["idDetalles"];
+                array_push($listaSuper, array("idDetalle" => md5($idDetalle)));
             }
-            var_dump($listaRebaja);
-            return false;
         }
+        }
+
+        var_dump($listaSuper);
+        echo "<br />";
+        return false;
+
         $sp = "spSaldosInventarioVeh";
         $saldosAjusteVeh = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
         foreach ($saldosAjusteVeh as $key => $value) {
