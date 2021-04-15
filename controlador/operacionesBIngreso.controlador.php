@@ -145,7 +145,6 @@ class ControladorOpB {
                                 return $respuesta["dataTxt"][0];
                             }
                         }
-            
                     } else {
                         return $respuesta;
                     }
@@ -436,7 +435,6 @@ class ControladorOpB {
                     $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
                     $agregadosDB = $agregadosDB + 1;
                 }
-
             }
             if ($agregadosDB == $varAgregados) {
                 $idIngreso = $hiddenIdnetyIngV;
@@ -537,23 +535,38 @@ class ControladorOpB {
     }
 
     public static function ctrCartaDeMedioMillonCant() {
+        $llaveIngresosPen = $_SESSION["idDeBodega"];
+
         $sp = "spCartaDeMillonCount";
         $fecha = date('Y-m-d');
         $fechaRango = date("Y-m-d", strtotime($fecha . "- 2 days"));
-        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($fechaRango, $sp);
+        $respuesta = ModeloControladorOpB::mdlConsultaTipoV($fechaRango, $llaveIngresosPen, $sp);
+        if ($respuesta != "SD") {
+            if ($respuesta[0]["cantidadMedioM"] >= 1) {
+                echo '<span class="badge badge-danger navbar-badge"><strong style="color: white;">' . $respuesta[0]["cantidadMedioM"] . '</strong></span>';
+            }
+        }
+    }
 
-        if ($respuesta[0]["cantidadMedioM"] >= 1) {
-            echo '<span class="badge badge-danger navbar-badge"><strong style="color: white;">' . $respuesta[0]["cantidadMedioM"] . '</strong></span>';
+    public static function ctrDescuadresMercaderias() {
+        $llaveIngresosPen = $_SESSION["idDeBodega"];
+        $sp = "spDescuadresCount";
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($llaveIngresosPen, $sp);
+        if ($respuesta != "SD") {
+            if ($respuesta[0]["countIncidencias"] >= 1) {
+                echo '<span class="badge badge-danger navbar-badge"><strong style="color: white;">' . $respuesta[0]["countIncidencias"] . '</strong></span>';
+            }
         }
     }
 
     public static function ctrCartaDeMedioMillon() {
 
+        $llaveIngresosPen = $_SESSION["idDeBodega"];
 
         $sp = "spCartaDeMillon";
         $fecha = date('Y-m-d');
         $fechaRango = date("Y-m-d", strtotime($fecha . "- 2 days"));
-        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($fechaRango, $sp);
+        $respuesta = ModeloControladorOpB::mdlConsultaTipoV($fechaRango, $llaveIngresosPen, $sp);
         if ($respuesta != "SD") {
 
 
@@ -579,10 +592,68 @@ class ControladorOpB {
                             <h3 class="dropdown-item-title">
                                 ' . $nombres . '
                                 <span class="float-right text-sm text-danger"><i class="fa fa-star"></i></span>
+                                
                             </h3>
                             <p class="text-sm">Solicite la carta de medio millon ala empresa ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>
-                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Día ' . $fechaGaritaFormat . '</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Emisión : ' . $fechaGaritaFormat . '</p>
                         </div>
+                    </div>
+                    <!-- Message End -->
+                </a>        
+        
+        ';
+            }
+        }
+    }
+
+    public static function ctrRetirosMalRebajados() {
+
+        $llaveIngresosPen = $_SESSION["idDeBodega"];
+
+        $sp = "spIncRebajasMalas";
+        $respuesta = ModeloControladorOpB::mdlTipoNewVeh($llaveIngresosPen, $sp);
+
+        if ($respuesta != "SD") {
+
+
+            foreach ($respuesta as $key => $value) {
+                if ($value["foto"] == "NA") {
+                    $foto = "vistas/img/usuarios/default/anonymous.png";
+                } else {
+                    $foto = $value["foto"];
+                }
+                $nombres = $value["nombres"];
+                $cadena_fecha_Garita = $value["fechaEmision"];
+                $fechaGaritaFormat = date("d/m/Y H:i:s A", strtotime($cadena_fecha_Garita));
+                // ARRAY : LISTA TEMPORAL PARA GUARDAR, LAS POLIZAS YA MAQUETADAS EN EL TABLE
+                date_default_timezone_set('America/Guatemala');
+                $timeActual = date('d-m-Y H:i:s');
+
+                echo '   
+                <a href="#" class="dropdown-item">
+                    <!-- Message Start -->
+                    <div class="media">
+                        <img src="' . $foto . '" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+                        <div class="media-body">
+                            <h3 class="dropdown-item-title">
+                                ' . $nombres . '
+                            <div class="infoDeIncidencia"style="border: 0px;">
+                                    
+                            <span class="float-right text-sm text-info"><i class="fa fa-question-circle"></i></span>                                
+                            </div>
+
+<span class="float-right text-sm text-success"> <i class="fa fa-star"></i></span>
+                            </h3>
+
+                            <p class="text-sm">Deficiencia en rebaja de saldo empresa : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>
+                            <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Emisión : ' . $fechaGaritaFormat . '</p>
+                            ';                          
+                if ($_SESSION['departamentos'] == 'Operaciones Fiscales' && $_SESSION['niveles'] == 'MEDIO') {
+                    echo '                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><button type="button" class="btn btn-primary btn-sm btn-block btnRebajaCorregida" idBitacora="' . $value["idBitacora"] . '">Retiro corregido</button></p>';
+                }
+
+
+                echo '                      </div>
                     </div>
                     <!-- Message End -->
                 </a>        

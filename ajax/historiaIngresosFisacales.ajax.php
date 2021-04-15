@@ -327,12 +327,25 @@ class AjaxAccionesIngresos {
     public $revVeh;
 
     public function ajaxRevisionVehNew() {
-      $listaIdVehOBJ = $this->listaIdVehOBJ;
-              session_start();
+        $listaIdVehOBJ = $this->listaIdVehOBJ;
+        session_start();
         $usuario = $_SESSION["id"];
         $respuesta = ControladorHistorialIngresos::ctrRevisionVehNew($listaIdVehOBJ, $usuario);
         echo json_encode($respuesta);
-      
+    }
+
+    public $deletInci;
+
+    public function ajaxDeleteIncidencia() {
+        $corregirIncidencia = $this->corregirIncidencia;
+        $aut = false;
+        session_start();
+
+        if ($_SESSION['departamentos'] == 'Operaciones Fiscales' && $_SESSION['niveles'] == 'MEDIO') {
+            $aut = true;
+        }
+        $respuesta = ControladorHistorialIngresos::ctrDeleteIncidencia($corregirIncidencia, $aut);
+        echo json_encode($respuesta);
     }
 
 }
@@ -386,7 +399,6 @@ if (isset($_POST["nuevoServicio"])) {
     $nuevoServices->ajaxNuevoServicies();
 }
 
-
 if (isset($_POST["idIngSerOtr"])) {
     $newListServicioS = new AjaxAccionesIngresos();
     $newListServicioS->idIngSerOtr = $_POST["idIngSerOtr"];
@@ -436,6 +448,7 @@ if (isset($_POST["generateRecExHistoria"])) {
     $historiaRecEx->generateRecExHistoria = $_POST["generateRecExHistoria"];
     $historiaRecEx->ajaxGenerateHistoriaRecEx();
 }
+
 if (isset($_POST["EditChasisVh"])) {
     $chasisVeh = new AjaxAccionesIngresos();
     $chasisVeh->EditChasisVh = $_POST["EditChasisVh"];
@@ -458,7 +471,6 @@ if (isset($_POST["idIngEditCuadreBlts"])) {
     $editarBltsIng->ajaxEditarBltsIng();
 }
 
-
 if (isset($_POST["newBod"])) {
     $editarUbica = new AjaxAccionesIngresos();
     $editarUbica->newBod = $_POST["newBod"];
@@ -471,7 +483,6 @@ if (isset($_POST["generateExcelVehiNew"])) {
     $histVehNew->generateExcelVehiNew = $_POST["generateExcelVehiNew"];
     $histVehNew->ajaxDescargaExelVeh();
 }
-
 
 if (isset($_POST["generarTodosLosIng"])) {
     $todosIng = new AjaxAccionesIngresos();
@@ -491,12 +502,12 @@ if (isset($_POST["fechaIng"])) {
     $paramFechaHist->fechaFin = $_POST["fechaFin"];
     $paramFechaHist->ajaxParametrosFechaHis();
 }
+
 if (isset($_POST["descargaExcelInventario"])) {
     $inveExcel = new AjaxAccionesIngresos();
     $inveExcel->descargaExcelInventario = $_POST["descargaExcelInventario"];
     $inveExcel->ajaxMostrarInvetarioExcel();
 }
-
 
 if (isset($_POST["validarIngOP"])) {
     $validarLlave = new AjaxAccionesIngresos();
@@ -516,9 +527,14 @@ if (isset($_POST["objRevPol"])) {
     $revisarPol->ajaxRevisionPol();
 }
 
-
 if (isset($_POST["listaIdVehOBJ"])) {
     $revVeh = new AjaxAccionesIngresos();
     $revVeh->listaIdVehOBJ = $_POST["listaIdVehOBJ"];
     $revVeh->ajaxRevisionVehNew();
+}
+
+if (isset($_POST["corregirIncidencia"])) {
+    $deletInci = new AjaxAccionesIngresos();
+    $deletInci->corregirIncidencia = $_POST["corregirIncidencia"];
+    $deletInci->ajaxDeleteIncidencia();
 }

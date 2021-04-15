@@ -412,4 +412,14 @@ class ControladorHistorialIngresos {
         }
     }
 
+    public static function ctrDeleteIncidencia($corregirIncidencia, $aut) {
+        if ($aut) {
+            $sp = "spDeleteBitacora";
+            $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $corregirIncidencia);
+            return $respuesta;
+        } else {
+            return false;
+        }
+    }
+
 }

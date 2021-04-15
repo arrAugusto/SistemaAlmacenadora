@@ -51,6 +51,23 @@
                 ?></span>
             </a>
         </li>-->
+
+        <li class="nav-item dropdown show newData">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="fa fa-pied-piper colorBarSuper"></i>
+                <?php
+                $respuesta = ControladorOpB::ctrDescuadresMercaderias();
+                ?>
+            </a>
+
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
+                <span class="dropdown-item dropdown-header">Retiros mal rebajados</span>
+                <?php
+                $respuesta = ControladorOpB::ctrRetirosMalRebajados();
+                ?>
+            </div>
+        </li>
+
         <li class="nav-item dropdown show newData">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="true">
                 <i class="fa fa-bell colorBarSuper"></i>
@@ -62,7 +79,6 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" id="agNewNit">
                 <span class="dropdown-item dropdown-header">Tareas Pendientes Por retiro</span>
                 <?php
-
                 $respuesta = ControladorOpB::ctrCartaDeMedioMillon();
                 ?>
             </div>

@@ -182,8 +182,6 @@ $(function () {
     });
 });
 
-
-
 $(document).on("click", ".btnValidarLLave", async function () {
     var llave = document.getElementById("codigoValidate").value;
     var nomVar = "validarIngOP";
@@ -261,3 +259,56 @@ $(document).ready(function () {
         localStorage.setItem("promedioTarima", promedioLocal);
     }
 })
+
+$(document).on("click", ".btnRebajaCorregida", async function () {
+    var idBitacora = $(this).attr("idBitacora");
+    Swal.fire({
+        title: 'La deficiencia fue corregida?',
+        text: "Si no fue corregida, se volvera a mostrar esta notificación!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si!'
+    }).then(async function (result) {
+        if (result.value) {
+            var nomVar = "corregirIncidencia";
+            var resp = await  validarLlaveDeIngreso(nomVar, idBitacora);
+            if (!resp) {
+
+                Window.location = "salir";
+            } else {
+
+
+                Swal.fire(
+                        'Eliminada!',
+                        'Esta incidencia fue eliminada de la vista.',
+                        'success'
+                        )
+            }
+        }
+    })
+})
+
+$(document).on("mouseover", ".infoDeIncidencia", async function () {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": true,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "8000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+    Command: toastr['warning']('Para corregir esta transacción, vaya a historial de retiros y edite la cantidad de bultos rebajados en el detalle...', '¡¡ Incidencia de mala rebaja !!');
+
+})
+

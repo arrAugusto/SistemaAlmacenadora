@@ -247,6 +247,7 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlAjustarSaldoDetalles($idDetalle, $tipo, $cantBlts, $sp) {
         $conn = Conexion::Conectar();
         $params = array(&$idDetalle, &$tipo, &$cantBlts);
@@ -284,9 +285,10 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
+
     public static function mdlAjusteRet($idRet, $idIng, $idDetalle,
-        $cantBultos, $valPosSalidaEdit, $valMtsSalidaEdit) {
-        
+            $cantBultos, $valPosSalidaEdit, $valMtsSalidaEdit) {
+
         $conn = Conexion::Conectar();
         $params = array(&$idRet, &$idIng, &$idDetalle, &$cantBultos, &$valPosSalidaEdit, &$valMtsSalidaEdit);
         $sql = 'EXECUTE ' . $sp . ' ?, ?, ?, ?, ?, ?';
@@ -383,30 +385,29 @@ class ModeloHistorialIngresos {
             return sqlsrv_errors();
         }
     }
-    public static function mdlBitacoraDiferenciasEnStock($objSobreGiros, $objMalasRebajas, $tipoSobregiro, $descuadre){
+
+    public static function mdlBitacoraDiferenciasEnStock($objSobreGiros, $objMalasRebajas, $tipoSobregiro, $descuadre) {
         $sp = "spInsBitacoraIncStock";
-        if ($tipoSobregiro>0) {
-            
-        foreach ($objSobreGiros as $key => $value) {
-            $idRetiro = $value["idRet"];
-            $detallesRebajados = $value["detallesRebajados"];
-            $bultos = $value["bultos"];
-            $tipo = $value["tipo"];
-            $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
+        if ($tipoSobregiro > 0) {
+
+            foreach ($objSobreGiros as $key => $value) {
+                $idRetiro = $value["idRet"];
+                $detallesRebajados = $value["detallesRebajados"];
+                $bultos = $value["bultos"];
+                $tipo = $value["tipo"];
+                $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
+            }
         }
-            
+
+        if ($descuadre > 0) {
+            foreach ($objMalasRebajas as $keys => $values) {
+                $idRetiro = $values["idRet"];
+                $detallesRebajados = $values["detallesRebajados"];
+                $bultos = $values["bultos"];
+                $tipo = $values["tipo"];
+                $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
+            }
         }
-        
-        if ($descuadre>0) {
-        foreach ($objMalasRebajas as $keys => $values) {
-            $idRetiro = $values["idRet"];
-            $detallesRebajados = $values["detallesRebajados"];
-            $bultos = $values["bultos"];
-            $tipo = $values["tipo"];
-            $respuesta = ModeloHistorialIngresos::mdlGenerarBitacoraRet($idRetiro, $detallesRebajados, $bultos, $tipo, $sp);
-        }
-            
-        }
-        
     }
+
 }
