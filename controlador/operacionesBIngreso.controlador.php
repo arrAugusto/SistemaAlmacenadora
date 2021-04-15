@@ -615,7 +615,7 @@ class ControladorOpB {
 
         if ($respuesta != "SD") {
 
-
+            
             foreach ($respuesta as $key => $value) {
                 if ($value["foto"] == "NA") {
                     $foto = "vistas/img/usuarios/default/anonymous.png";
@@ -641,11 +641,16 @@ class ControladorOpB {
                                     
                             <span class="float-right text-sm text-info"><i class="fa fa-question-circle"></i></span>                                
                             </div>
-
-<span class="float-right text-sm text-success"> <i class="fa fa-star"></i></span>
+                            <span class="float-right text-sm text-success"> <i class="fa fa-star"></i></span>
                             </h3>
+                            ';
+                if ($value["tipoIncidencia"]==0) {
+                    echo '<p class="text-sm">Sobregiro en el saldo total : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>';
+                }else{
+                    echo '<p class="text-sm">Mala rebaja en retiro : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>';
+                }
+                            echo'
 
-                            <p class="text-sm">Deficiencia en rebaja de saldo empresa : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Emisión : ' . $fechaGaritaFormat . '</p>
                             ';                          
                 if ($_SESSION['departamentos'] == 'Operaciones Fiscales' && $_SESSION['niveles'] == 'MEDIO') {
