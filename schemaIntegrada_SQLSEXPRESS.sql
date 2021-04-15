@@ -1,6 +1,6 @@
 USE [Integrada]
 GO
-/****** Object:  Table [dbo].[aduanas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[aduanas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15,7 +15,7 @@ CREATE TABLE [dbo].[aduanas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[agrupacionEmpresas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[agrupacionEmpresas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -30,7 +30,7 @@ CREATE TABLE [dbo].[agrupacionEmpresas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ajustesContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ajustesContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -47,7 +47,7 @@ CREATE TABLE [dbo].[ajustesContables](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[almacenajes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[almacenajes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -72,7 +72,7 @@ CREATE TABLE [dbo].[almacenajes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[areasBodegas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[areasBodegas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +90,7 @@ CREATE TABLE [dbo].[areasBodegas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[areasVisitada]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[areasVisitada]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -104,7 +104,7 @@ CREATE TABLE [dbo].[areasVisitada](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[autoDeAnulaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[autoDeAnulaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -123,7 +123,7 @@ CREATE TABLE [dbo].[autoDeAnulaIng](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[bitacoraIncidenciaStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[bitacoraIncidenciaStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -142,7 +142,7 @@ CREATE TABLE [dbo].[bitacoraIncidenciaStock](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[bitacoraIngresos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[bitacoraIngresos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -159,7 +159,7 @@ CREATE TABLE [dbo].[bitacoraIngresos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[bitacoraPolizas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[bitacoraPolizas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -176,7 +176,7 @@ CREATE TABLE [dbo].[bitacoraPolizas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[bitacoraRetiroCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[bitacoraRetiroCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,7 @@ CREATE TABLE [dbo].[bitacoraRetiroCalculo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[bodegas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[bodegas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +211,7 @@ CREATE TABLE [dbo].[bodegas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[calculosNormal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[calculosNormal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -237,7 +237,7 @@ CREATE TABLE [dbo].[calculosNormal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[categorias]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[categorias]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -251,7 +251,7 @@ CREATE TABLE [dbo].[categorias](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[chasisVehiculosNuevos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[chasisVehiculosNuevos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -271,7 +271,7 @@ CREATE TABLE [dbo].[chasisVehiculosNuevos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[clientesSinTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[clientesSinTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -291,7 +291,7 @@ CREATE TABLE [dbo].[clientesSinTarifa](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroAlteracionServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroAlteracionServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -307,7 +307,7 @@ CREATE TABLE [dbo].[cobroAlteracionServicios](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroAlteracionServiciosFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroAlteracionServiciosFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -323,7 +323,7 @@ CREATE TABLE [dbo].[cobroAlteracionServiciosFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroDescuentosAutorizados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroDescuentosAutorizados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -338,7 +338,7 @@ CREATE TABLE [dbo].[cobroDescuentosAutorizados](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroDescuentosAutorizadosFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroDescuentosAutorizadosFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -353,7 +353,7 @@ CREATE TABLE [dbo].[cobroDescuentosAutorizadosFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroOtrosGastos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroOtrosGastos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -369,7 +369,7 @@ CREATE TABLE [dbo].[cobroOtrosGastos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobroOtrosGastosFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobroOtrosGastosFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -385,7 +385,7 @@ CREATE TABLE [dbo].[cobroOtrosGastosFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosAlmacenajes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosAlmacenajes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -400,7 +400,7 @@ CREATE TABLE [dbo].[cobrosAlmacenajes](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosAlmacenajesFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosAlmacenajesFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -419,7 +419,7 @@ CREATE TABLE [dbo].[cobrosAlmacenajesFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosGastosAdmin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosGastosAdmin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -434,7 +434,7 @@ CREATE TABLE [dbo].[cobrosGastosAdmin](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosGastosAdminFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosGastosAdminFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -450,7 +450,7 @@ CREATE TABLE [dbo].[cobrosGastosAdminFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -465,7 +465,7 @@ CREATE TABLE [dbo].[cobrosManejo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosManejoFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosManejoFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -481,7 +481,7 @@ CREATE TABLE [dbo].[cobrosManejoFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosMarchElectro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosMarchElectro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -496,7 +496,7 @@ CREATE TABLE [dbo].[cobrosMarchElectro](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosRevision]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosRevision]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -511,7 +511,7 @@ CREATE TABLE [dbo].[cobrosRevision](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosRevisionFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosRevisionFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -526,7 +526,7 @@ CREATE TABLE [dbo].[cobrosRevisionFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosRevisionIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosRevisionIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -541,7 +541,7 @@ CREATE TABLE [dbo].[cobrosRevisionIng](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosSeguroFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosSeguroFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -557,7 +557,7 @@ CREATE TABLE [dbo].[cobrosSeguroFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosZonaAduanera]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosZonaAduanera]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -572,7 +572,7 @@ CREATE TABLE [dbo].[cobrosZonaAduanera](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cobrosZonaAduaneraFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cobrosZonaAduaneraFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -587,7 +587,7 @@ CREATE TABLE [dbo].[cobrosZonaAduaneraFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[codigosCif]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[codigosCif]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -602,7 +602,7 @@ CREATE TABLE [dbo].[codigosCif](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[comentariosVehNuevos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[comentariosVehNuevos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -617,7 +617,7 @@ CREATE TABLE [dbo].[comentariosVehNuevos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[consolidadoPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[consolidadoPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -632,7 +632,7 @@ CREATE TABLE [dbo].[consolidadoPoliza](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[contabilidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[contabilidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -654,7 +654,7 @@ CREATE TABLE [dbo].[contabilidad](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[correaltivoPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[correaltivoPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -670,7 +670,7 @@ CREATE TABLE [dbo].[correaltivoPoliza](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[correlativoFormas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[correlativoFormas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -685,7 +685,7 @@ CREATE TABLE [dbo].[correlativoFormas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[cuentasContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[cuentasContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -700,7 +700,7 @@ CREATE TABLE [dbo].[cuentasContables](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[datosUnidades]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[datosUnidades]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -720,7 +720,7 @@ CREATE TABLE [dbo].[datosUnidades](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[debeHaber]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[debeHaber]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -734,7 +734,7 @@ CREATE TABLE [dbo].[debeHaber](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[departamentos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[departamentos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -748,7 +748,7 @@ CREATE TABLE [dbo].[departamentos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[descuentosCalculos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[descuentosCalculos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -767,7 +767,7 @@ CREATE TABLE [dbo].[descuentosCalculos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DETALLE_RETIRO]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[DETALLE_RETIRO]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -787,7 +787,7 @@ CREATE TABLE [dbo].[DETALLE_RETIRO](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detalleDeMercaderia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[detalleDeMercaderia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -807,7 +807,7 @@ CREATE TABLE [dbo].[detalleDeMercaderia](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[detallesBodegaGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[detallesBodegaGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -827,7 +827,7 @@ CREATE TABLE [dbo].[detallesBodegaGeneral](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[DETALLESRECIBOS]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[DETALLESRECIBOS]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -845,7 +845,7 @@ CREATE TABLE [dbo].[DETALLESRECIBOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[empresas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[empresas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -867,7 +867,7 @@ CREATE TABLE [dbo].[empresas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[empresasConsolidadas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[empresasConsolidadas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -883,7 +883,7 @@ CREATE TABLE [dbo].[empresasConsolidadas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ESTADOPOLIZAS]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ESTADOPOLIZAS]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -906,7 +906,7 @@ CREATE TABLE [dbo].[ESTADOPOLIZAS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[explicacionesContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[explicacionesContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -920,7 +920,7 @@ CREATE TABLE [dbo].[explicacionesContables](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[gastos_Admin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[gastos_Admin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -943,7 +943,7 @@ CREATE TABLE [dbo].[gastos_Admin](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[grupoEmpresas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[grupoEmpresas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -957,7 +957,7 @@ CREATE TABLE [dbo].[grupoEmpresas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[INACTIVOS]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[INACTIVOS]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -973,7 +973,7 @@ CREATE TABLE [dbo].[INACTIVOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[incidencia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[incidencia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -996,7 +996,7 @@ CREATE TABLE [dbo].[incidencia](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ingAreaGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ingAreaGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1017,7 +1017,7 @@ CREATE TABLE [dbo].[ingAreaGeneral](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ingresoOperacionFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ingresoOperacionFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1046,7 +1046,7 @@ CREATE TABLE [dbo].[ingresoOperacionFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ingresosConsolidadoPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ingresosConsolidadoPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1064,7 +1064,7 @@ CREATE TABLE [dbo].[ingresosConsolidadoPoliza](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[inicioCorrelativos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[inicioCorrelativos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1078,7 +1078,7 @@ CREATE TABLE [dbo].[inicioCorrelativos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[inventarioFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[inventarioFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1099,7 +1099,7 @@ CREATE TABLE [dbo].[inventarioFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[manejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[manejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1122,7 +1122,7 @@ CREATE TABLE [dbo].[manejo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[mapeoAreas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[mapeoAreas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1139,7 +1139,7 @@ CREATE TABLE [dbo].[mapeoAreas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[medidasVehiculos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[medidasVehiculos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1159,7 +1159,7 @@ CREATE TABLE [dbo].[medidasVehiculos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[metrajeDetallado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[metrajeDetallado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1177,7 +1177,7 @@ CREATE TABLE [dbo].[metrajeDetallado](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[movimientosContaFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[movimientosContaFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1188,7 +1188,7 @@ CREATE TABLE [dbo].[movimientosContaFiscal](
 	[estado] [int] NOT NULL
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[navegacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[navegacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1204,7 +1204,7 @@ CREATE TABLE [dbo].[navegacion](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[nit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[nit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1220,7 +1220,7 @@ CREATE TABLE [dbo].[nit](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[nivelesSistema]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[nivelesSistema]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1234,7 +1234,7 @@ CREATE TABLE [dbo].[nivelesSistema](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[nombresCorrelativos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[nombresCorrelativos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1248,7 +1248,7 @@ CREATE TABLE [dbo].[nombresCorrelativos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numAsignadoIngresos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numAsignadoIngresos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1265,7 +1265,7 @@ CREATE TABLE [dbo].[numAsignadoIngresos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numAsignadoPaseVacio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numAsignadoPaseVacio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1282,7 +1282,7 @@ CREATE TABLE [dbo].[numAsignadoPaseVacio](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numAsignadoRecibos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numAsignadoRecibos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1302,7 +1302,7 @@ CREATE TABLE [dbo].[numAsignadoRecibos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numAsignadoRetiros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numAsignadoRetiros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1320,7 +1320,7 @@ CREATE TABLE [dbo].[numAsignadoRetiros](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numeradorCorrelativos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numeradorCorrelativos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1336,7 +1336,7 @@ CREATE TABLE [dbo].[numeradorCorrelativos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[numPolizaFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[numPolizaFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1350,7 +1350,7 @@ CREATE TABLE [dbo].[numPolizaFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OC]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[OC]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1361,7 +1361,7 @@ CREATE TABLE [dbo].[OC](
 	[CLIENTE] [varchar](50) NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[operacionesEnSistema]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[operacionesEnSistema]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1376,7 +1376,7 @@ CREATE TABLE [dbo].[operacionesEnSistema](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[OTROS_GASTOS]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[OTROS_GASTOS]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1399,7 +1399,7 @@ CREATE TABLE [dbo].[OTROS_GASTOS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[otrosServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[otrosServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1414,7 +1414,7 @@ CREATE TABLE [dbo].[otrosServicios](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[otrosServiciosDescuentos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[otrosServiciosDescuentos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1431,7 +1431,7 @@ CREATE TABLE [dbo].[otrosServiciosDescuentos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[parametros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[parametros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1447,7 +1447,7 @@ CREATE TABLE [dbo].[parametros](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[pasesDeSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[pasesDeSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1461,7 +1461,7 @@ CREATE TABLE [dbo].[pasesDeSalida](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[personal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[personal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1492,7 +1492,7 @@ CREATE TABLE [dbo].[personal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[personalVisitas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[personalVisitas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1507,7 +1507,7 @@ CREATE TABLE [dbo].[personalVisitas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[pilotos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[pilotos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1522,7 +1522,7 @@ CREATE TABLE [dbo].[pilotos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[placasVisita]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[placasVisita]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1536,7 +1536,7 @@ CREATE TABLE [dbo].[placasVisita](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[polizasContaFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[polizasContaFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1556,7 +1556,7 @@ CREATE TABLE [dbo].[polizasContaFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[POSINACTIVAS]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[POSINACTIVAS]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1571,7 +1571,7 @@ CREATE TABLE [dbo].[POSINACTIVAS](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[posMetrajeBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[posMetrajeBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1591,7 +1591,7 @@ CREATE TABLE [dbo].[posMetrajeBod](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[prediosDeVehiculos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[prediosDeVehiculos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1607,7 +1607,7 @@ CREATE TABLE [dbo].[prediosDeVehiculos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[procedenciaVisita]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[procedenciaVisita]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1621,7 +1621,7 @@ CREATE TABLE [dbo].[procedenciaVisita](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[productosGenerales]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[productosGenerales]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1635,7 +1635,7 @@ CREATE TABLE [dbo].[productosGenerales](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[regimen]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[regimen]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1650,7 +1650,7 @@ CREATE TABLE [dbo].[regimen](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[registroDeCobros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[registroDeCobros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1668,7 +1668,7 @@ CREATE TABLE [dbo].[registroDeCobros](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[registroDeCobrosFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[registroDeCobrosFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1686,7 +1686,7 @@ CREATE TABLE [dbo].[registroDeCobrosFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[retiroOperacionFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[retiroOperacionFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1711,7 +1711,7 @@ CREATE TABLE [dbo].[retiroOperacionFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[retiroOperacionFVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[retiroOperacionFVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1735,7 +1735,7 @@ CREATE TABLE [dbo].[retiroOperacionFVeh](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[saldoContable801109_01]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[saldoContable801109_01]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1755,7 +1755,7 @@ CREATE TABLE [dbo].[saldoContable801109_01](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[saldoContable801109_01AF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[saldoContable801109_01AF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1775,7 +1775,7 @@ CREATE TABLE [dbo].[saldoContable801109_01AF](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[saldoContable802103_0101AF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[saldoContable802103_0101AF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1795,7 +1795,7 @@ CREATE TABLE [dbo].[saldoContable802103_0101AF](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[saldoContable802103_0102]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[saldoContable802103_0102]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1815,7 +1815,7 @@ CREATE TABLE [dbo].[saldoContable802103_0102](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[seguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[seguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1840,7 +1840,7 @@ CREATE TABLE [dbo].[seguro](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[servicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[servicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1857,7 +1857,7 @@ CREATE TABLE [dbo].[servicios](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[serviciosDefault]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[serviciosDefault]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1872,7 +1872,7 @@ CREATE TABLE [dbo].[serviciosDefault](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[serviciosDefExtras]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[serviciosDefExtras]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1893,7 +1893,7 @@ CREATE TABLE [dbo].[serviciosDefExtras](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[serviciosExtrasPrestados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[serviciosExtrasPrestados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1912,7 +1912,7 @@ CREATE TABLE [dbo].[serviciosExtrasPrestados](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[sinCodigo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[sinCodigo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1933,7 +1933,7 @@ CREATE TABLE [dbo].[sinCodigo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[subBitacoraCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[subBitacoraCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1948,7 +1948,7 @@ CREATE TABLE [dbo].[subBitacoraCalc](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tarifasNormales]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tarifasNormales]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -1995,7 +1995,7 @@ CREATE TABLE [dbo].[tarifasNormales](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tarifasVehUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tarifasVehUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2019,7 +2019,7 @@ CREATE TABLE [dbo].[tarifasVehUsados](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tbPrueba]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tbPrueba]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2033,7 +2033,7 @@ CREATE TABLE [dbo].[tbPrueba](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tipoCambio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tipoCambio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2048,7 +2048,7 @@ CREATE TABLE [dbo].[tipoCambio](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tiposDeVehiculos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tiposDeVehiculos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2062,7 +2062,7 @@ CREATE TABLE [dbo].[tiposDeVehiculos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tipoTransacciones]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tipoTransacciones]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2077,7 +2077,7 @@ CREATE TABLE [dbo].[tipoTransacciones](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[tokensSalidas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[tokensSalidas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2093,7 +2093,7 @@ CREATE TABLE [dbo].[tokensSalidas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[trasladoFiscalVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[trasladoFiscalVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2118,7 +2118,7 @@ CREATE TABLE [dbo].[trasladoFiscalVeh](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ubicaciones]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[ubicaciones]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2136,7 +2136,7 @@ CREATE TABLE [dbo].[ubicaciones](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[unidadesContenedores]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[unidadesContenedores]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2150,7 +2150,7 @@ CREATE TABLE [dbo].[unidadesContenedores](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[unidadesPlacas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[unidadesPlacas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2164,7 +2164,7 @@ CREATE TABLE [dbo].[unidadesPlacas](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[usuariosExternos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[usuariosExternos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2202,7 +2202,7 @@ CREATE TABLE [dbo].[usuariosExternos](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[valoresFob]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[valoresFob]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2217,7 +2217,7 @@ CREATE TABLE [dbo].[valoresFob](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[valoresIngOpFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[valoresIngOpFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2241,7 +2241,7 @@ CREATE TABLE [dbo].[valoresIngOpFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[valoresPolizaDR]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[valoresPolizaDR]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2260,7 +2260,7 @@ CREATE TABLE [dbo].[valoresPolizaDR](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[valoresRetirosFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[valoresRetirosFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2282,7 +2282,7 @@ CREATE TABLE [dbo].[valoresRetirosFiscal](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[vehiculosUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[vehiculosUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2302,7 +2302,7 @@ CREATE TABLE [dbo].[vehiculosUsados](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[vinculosDeBodegas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[vinculosDeBodegas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2321,7 +2321,7 @@ UNIQUE NONCLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[visitasAlmacenadoraIntegrada]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  Table [dbo].[visitasAlmacenadoraIntegrada]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2344,7 +2344,7 @@ CREATE TABLE [dbo].[visitasAlmacenadoraIntegrada](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  StoredProcedure [dbo].[ActualizarDetInv]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[ActualizarDetInv]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2387,7 +2387,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[AnulacionDef]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[AnulacionDef]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2412,7 +2412,7 @@ WHERE id = @idIngreso
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[InicioDetallesAjustes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[InicioDetallesAjustes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2459,7 +2459,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spActCobro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActCobro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2516,7 +2516,7 @@ VALUES
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spActivacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActivacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2539,7 +2539,7 @@ AND numeroTarifa=@numeroTarifa
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spActivacion1]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActivacion1]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2565,7 +2565,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spActivarTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActivarTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2604,7 +2604,7 @@ SET @error = @@Error
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spActualizarStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActualizarStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2641,7 +2641,7 @@ set stockPos = @nuevoStockPos, stockMts = @nuevoStockMts
 WHERE idDetalle = @idCliente
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spActualizarStockPOSM]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spActualizarStockPOSM]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2705,7 +2705,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAjusteDeDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAjusteDeDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2763,7 +2763,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spAjustesContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAjustesContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2801,7 +2801,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAjustesVehiculosNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAjustesVehiculosNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2884,7 +2884,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAnulacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnulacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2972,7 +2972,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAnularDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnularDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -2997,7 +2997,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAnularIncid]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnularIncid]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3027,7 +3027,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAnularOPF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnularOPF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3051,7 +3051,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAnularRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnularRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3104,7 +3104,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spAnularTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAnularTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3147,7 +3147,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAsientoContable]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAsientoContable]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3263,7 +3263,7 @@ END
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spAsientoContableAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAsientoContableAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3405,7 +3405,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spAsientoContableAjuste]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAsientoContableAjuste]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3525,7 +3525,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAsignarEje]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAsignarEje]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3551,7 +3551,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAsigNumPaseVacio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAsigNumPaseVacio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3636,7 +3636,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spAutAnulaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spAutAnulaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3678,7 +3678,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBitacoraIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBitacoraIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3711,7 +3711,7 @@ INSERT INTO [dbo].[bitacoraIngresos]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spBitacoraPolNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBitacoraPolNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3753,7 +3753,7 @@ SELECT 1 'resp'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spBitacoraRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBitacoraRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3798,7 +3798,7 @@ BEGIN
 COMMIT TRAN NuevaTran
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spBltsIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBltsIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3821,7 +3821,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBorrarUnidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBorrarUnidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3858,7 +3858,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBultosIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBultosIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3885,7 +3885,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBultosIngN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBultosIngN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3908,7 +3908,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBusquedaConsolidado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBusquedaConsolidado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3933,7 +3933,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spBusquedaInc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spBusquedaInc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -3958,7 +3958,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCadenaPlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCadenaPlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4007,7 +4007,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCadenaPltNormal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCadenaPltNormal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4056,7 +4056,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCadenaPltUnidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCadenaPltUnidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4096,7 +4096,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCantCadenasConsolidado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCantCadenasConsolidado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4123,7 +4123,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCartaDeMillon]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCartaDeMillon]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4131,16 +4131,21 @@ GO
 
 
 CREATE PROCEDURE [dbo].[spCartaDeMillon]
-@fecha datetime
+@fecha date,
+@bodega int
 	AS
 BEGIN
 	SET NOCOUNT ON;
-
+DECLARE @dependencia INT
+SET @dependencia = (SELECT dependencia FROM bodegas WHERE id = @bodega)
 select ISNULL(personal.foto, 'NA') AS 'foto', personal.nombres, personal.apellidos,
 convert(varchar, ret.fechaEmision, 25) AS 'fechaEmision', 
 ret.polizaRetiro, nit.nombreEmpresa from retiroOperacionFiscal ret
 INNER JOIN valoresRetirosFiscal val ON val.idRet = ret.id
 INNER JOIN nit ON nit.id = ret.idNit
+INNER JOIN ingresoOperacionFiscal ing ON ing.id = ret.idIngresosOP
+INNER JOIN bodegas bod ON bod.id = ing.identBodega
+INNER JOIN empresas emp ON emp.id = bod.dependencia AND dependencia = @dependencia
 INNER JOIN personal ON personal.id = ret.idUsuario
 WHERE (val.totalValorCif+val.valorImpuesto)>=500000 AND ret.estadoRet >= 1 AND ret.estadoRet <= 3 AND ret.fechaEmision >= @fecha
 ORDER BY  ret.fechaEmision DESC
@@ -4149,7 +4154,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCartaDeMillonCount]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCartaDeMillonCount]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4157,13 +4162,19 @@ GO
 
 
 CREATE PROCEDURE [dbo].[spCartaDeMillonCount]
-@fecha datetime
+@fecha date
+, @bodega int
 	AS
 BEGIN
 	SET NOCOUNT ON;
+DECLARE @dependencia INT
+SET @dependencia = (SELECT dependencia FROM bodegas WHERE id = @bodega)
 
 select COUNT(*) AS 'cantidadMedioM' from retiroOperacionFiscal ret
 INNER JOIN valoresRetirosFiscal val ON val.idRet = ret.id
+INNER JOIN ingresoOperacionFiscal ing ON ing.id = ret.idIngresosOP
+INNER JOIN bodegas bod ON bod.id = ing.identBodega
+INNER JOIN empresas emp ON emp.id = bod.dependencia AND dependencia = @dependencia
 INNER JOIN nit ON nit.id = ret.idNit
 INNER JOIN personal ON personal.id = ret.idUsuario
 WHERE (val.totalValorCif+val.valorImpuesto)>=500000 AND ret.estadoRet >= 1 AND ret.estadoRet <= 3 AND ret.fechaEmision >= @fecha
@@ -4173,7 +4184,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spChasisVNuevo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spChasisVNuevo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4200,7 +4211,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spClienteSinT]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spClienteSinT]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4251,7 +4262,7 @@ END
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spClienteTar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spClienteTar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4274,7 +4285,7 @@ SELECT *   FROM clientesSinTarifa WHERE idNit = @idNit
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCltDataRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCltDataRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4307,7 +4318,7 @@ INNER JOIN personal ON personal.id = bitacoraRetiroCalculo.idUsuario AND bitacor
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCltDatosSal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCltDatosSal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4343,7 +4354,7 @@ left JOIN valoresIngOpFiscal valIng ON valIng.idIngreso = ingOp.id
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCltEjecutivo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCltEjecutivo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4368,7 +4379,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCltSinTar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCltSinTar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4399,7 +4410,7 @@ INNER JOIN empresas emp ON emp.id = bod.dependencia
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCobroManejos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCobroManejos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4429,7 +4440,7 @@ INSERT INTO [dbo].[cobrosManejoFiscal]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCobroSeguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCobroSeguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4459,7 +4470,7 @@ INSERT INTO [dbo].[cobrosSeguroFiscal]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCobrosFiscalRev]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCobrosFiscalRev]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4483,7 +4494,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConfiNavega]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConfiNavega]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4508,7 +4519,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsServ]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsServ]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4588,7 +4599,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConstReg]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConstReg]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4611,7 +4622,7 @@ SELECT * FROM REGIMEN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsulIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsulIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4641,7 +4652,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsulNitTar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsulNitTar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4685,7 +4696,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaBltPs]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaBltPs]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4705,7 +4716,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaChasCorreo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaChasCorreo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4746,7 +4757,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaChasis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaChasis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4770,7 +4781,7 @@ SELECT COUNT(*) AS 'contChasis' FROM detalleDeMercaderia WHERE idIngreso = @id a
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaChasSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaChasSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4813,7 +4824,7 @@ AND tras.estado = 0
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaChasSinConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaChasSinConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4879,7 +4890,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaDetQR]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaDetQR]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4912,7 +4923,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaEmppresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaEmppresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4932,7 +4943,7 @@ INNER JOIN empresas ON empresas.id = bodegas.dependencia AND bodegas.id = @idBod
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaPredios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaPredios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -4959,7 +4970,7 @@ select id AS 'idPredio', predio AS 'pred', descripcion  AS 'descP', idDependenci
 WHERE idDependencia = @depeEmp
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaRetUnidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaRetUnidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5016,7 +5027,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaRetUnidadRev]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaRetUnidadRev]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5050,7 +5061,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaTipoV]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaTipoV]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5089,7 +5100,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaTrasladosAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaTrasladosAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5121,7 +5132,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultaUbica]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultaUbica]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5147,7 +5158,7 @@ INNER JOIN ubicaciones ub ON ub.idIncidencia = inci.id AND ub.estado = 1 AND dtM
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spConsulTipoConsol]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsulTipoConsol]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5179,7 +5190,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultNav]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultNav]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5213,7 +5224,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultPlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultPlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5246,7 +5257,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultReg]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultReg]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5271,7 +5282,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spConsultRetDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spConsultRetDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5303,7 +5314,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContabilidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContabilidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5333,7 +5344,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContabilizaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContabilizaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5357,7 +5368,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContabilizaLoteIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContabilizaLoteIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5388,7 +5399,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContabilizaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContabilizaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5425,7 +5436,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContabilizaVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContabilizaVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5467,7 +5478,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5542,7 +5553,7 @@ SET @revision = (SELECT ISNULL(COUNT(*),0) FROM numAsignadoIngresos where idIng 
 	
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContaIngresoEstado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContaIngresoEstado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5584,7 +5595,7 @@ end
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spContaRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContaRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5648,7 +5659,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContaVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContaVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5680,7 +5691,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spContaVehEstado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spContaVehEstado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5711,7 +5722,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCorreoPrepara]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCorreoPrepara]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5751,7 +5762,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCortesRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCortesRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5773,7 +5784,7 @@ SELECT TOP 1 convert(varchar(12),corte,105) AS 'Fcorte' FROM CORTERECIBO WHERE i
 ORDER BY corte DESC
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spCountChas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCountChas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5797,7 +5808,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCreaInventario]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCreaInventario]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5851,7 +5862,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCreaNewEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCreaNewEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5895,7 +5906,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCrearVisita]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCrearVisita]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -5966,7 +5977,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCreateCont]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCreateCont]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6007,7 +6018,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCreatePlaca]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCreatePlaca]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6048,7 +6059,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCtrPendDia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCtrPendDia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6081,7 +6092,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spCuentasContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spCuentasContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6104,7 +6115,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDataCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6154,7 +6165,7 @@ Tipo_Direccion
 FROM tarifasNormales WHERE Dependencia_Nit like @idNitChar
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataCalculoNormal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataCalculoNormal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6201,7 +6212,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDataClientes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataClientes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6224,7 +6235,7 @@ SELECT contacto AS 'nombreContacto', telefono AS 'telefonoContacto', email AS 'C
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataEjecutivo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataEjecutivo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6249,7 +6260,7 @@ ELSE
        PRINT 'SD';
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataRecibo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataRecibo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6289,7 +6300,7 @@ INNER JOIN nit nitIng ON nitIng.id = ingOP.idNit
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6373,7 +6384,7 @@ LEFT JOIN cobrosRevisionIng revIng ON revIng.idRetiro =  retOp.id
 LEFT JOIN cobrosMarchElectro cbMarc ON cbMarc.idRetiro =  retOp.id 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataRetBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataRetBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6398,7 +6409,7 @@ FROM retiroOperacionFiscal retOP WHERE retOP.id = @valIdRet
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDataRetExcel]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDataRetExcel]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6443,7 +6454,7 @@ LEFT JOIN unidadesContenedores contenedorRet ON contenedorRet.id = dtUnRet.unida
 LEFT JOIN personal ON personal.id = retOp.idUsuario
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDatoPlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatoPlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6467,7 +6478,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosBodega]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosBodega]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6501,7 +6512,7 @@ WHERE transaccion LIKE 'Culminar Ingreso' AND idIngreso = @idIngFinalizado
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6542,7 +6553,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6587,7 +6598,7 @@ INNER JOIN SERVICIOS srv ON srv.id = ingIng.idServicio
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosCalculoIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosCalculoIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6621,7 +6632,7 @@ INNER JOIN regimen ON regimen.id = ingF.regimen
 END
 	
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosContabilidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosContabilidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6642,7 +6653,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosGeneralVisita]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosGeneralVisita]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6706,7 +6717,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6726,7 +6737,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosRetOp]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosRetOp]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6757,7 +6768,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatosSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatosSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6780,7 +6791,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDatoUnd]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDatoUnd]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6806,7 +6817,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteArea]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteArea]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6844,7 +6855,37 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteDetalleIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteBitacora]    Script Date: 14/04/2021 19:32:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[spDeleteBitacora]
+@valor int
+
+	AS
+BEGIN
+	SET NOCOUNT ON;
+
+DECLARE @error INT
+BEGIN TRAN tranDeleteBitacora
+UPDATE bitacoraIncidenciaStock SET estado = 0 WHERE id = @valor 
+SET @error = @@ERROR
+IF (@error!=0)
+BEGIN
+ROLLBACK TRAN tranDeleteBitacora
+SELECT 0 'resp'
+END
+ELSE
+BEGIN
+COMMIT TRAN tranDeleteBitacora
+SELECT 1 'resp'
+END
+END
+GO
+/****** Object:  StoredProcedure [dbo].[spDeleteDetalleIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6878,7 +6919,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteFilaAlmacenaje]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteFilaAlmacenaje]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6907,7 +6948,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteFilaGtosAdmin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteFilaGtosAdmin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6936,7 +6977,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteFilaManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteFilaManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6964,7 +7005,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteFilaOtrosGts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteFilaOtrosGts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -6992,7 +7033,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteFilaSeguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteFilaSeguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7020,7 +7061,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDeleteIngGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDeleteIngGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7058,7 +7099,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDepartamentos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDepartamentos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7082,7 +7123,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDesactivar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDesactivar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7109,7 +7150,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDescExcelIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDescExcelIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7141,7 +7182,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDescontabiliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDescontabiliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7178,7 +7219,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDescontabilizaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDescontabilizaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7217,7 +7258,37 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDescuentoOtro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDescuadresCount]    Script Date: 14/04/2021 19:32:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[spDescuadresCount]
+@bodega int
+	AS
+BEGIN
+	SET NOCOUNT ON;
+
+
+DECLARE @dependencia INT
+SET @dependencia = (SELECT dependencia FROM bodegas WHERE id = @bodega)
+
+
+SELECT COUNT(*) AS 'countIncidencias' FROM bitacoraIncidenciaStock bita
+INNER JOIN retiroOperacionFiscal ret ON ret.id = bita.idRetiro
+INNER JOIN ingresoOperacionFiscal ing ON ing.id = ret.idIngresosOP
+INNER JOIN bodegas bod ON bod.id = ing.identBodega
+INNER JOIN empresas emp ON emp.id = bod.dependencia AND dependencia = @dependencia
+WHERE bita.estado = 1
+
+
+END
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[spDescuentoOtro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7295,7 +7366,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetalleDeBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetalleDeBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7313,7 +7384,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetalleIngreso]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetalleIngreso]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7344,7 +7415,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetallesAjustInv]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetallesAjustInv]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7365,11 +7436,12 @@ select detallesRebajados,ret.estadoRet, ret.polizaRetiro, ing.numeroPoliza, valR
 INNER JOIN ingresoOperacionFiscal ing ON ing.id = ret.idIngresosOP
 INNER JOIN bodegas bod on bod.id = ing.identBodega and bod.dependencia = @dependencia
 INNER JOIN valoresRetirosFiscal valRet ON valRet.idRet = ret.id
-WHERE estadoRet>=1 AND descripcion not like 'VEHICULOS NUEVOS'
+LEFT JOIN chasisVehiculosNuevos chas ON chas.idIngreso= ing.id
+WHERE ret.estadoRet>0 AND chas.id IS NULL
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDetallesEdit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetallesEdit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7396,7 +7468,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spDetallesRevision]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetallesRevision]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7428,7 +7500,7 @@ end
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetalleStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetalleStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7449,7 +7521,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetalleStockPOSM]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetalleStockPOSM]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7478,7 +7550,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetRetConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetRetConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7501,7 +7573,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDetRetSal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDetRetSal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7531,7 +7603,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDibMapa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDibMapa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7554,7 +7626,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spDibMapaIn]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spDibMapaIn]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7583,7 +7655,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEdicionDetIndivi]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEdicionDetIndivi]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7615,7 +7687,7 @@ WHERE idIngreso = @idIngreso
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEdicionUbicacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEdicionUbicacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7640,7 +7712,7 @@ INNER JOIN ingresoOperacionFiscal ing ON ing.id = inci.idIngreso AND ub.idIncide
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEdicionValRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEdicionValRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7680,7 +7752,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarBodInci]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarBodInci]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7716,7 +7788,7 @@ SELECT @estado AS 'tipoRes'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7757,7 +7829,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarGastosAdministracion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarGastosAdministracion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7781,7 +7853,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarIngOP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarIngOP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7832,7 +7904,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarIngreso]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarIngreso]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7877,7 +7949,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarInventario]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarInventario]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7910,7 +7982,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7934,7 +8006,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarOtrosGastos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarOtrosGastos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -7959,7 +8031,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarPilotoAnt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarPilotoAnt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8013,7 +8085,7 @@ SELECT 1 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarSaldoOp]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarSaldoOp]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8069,7 +8141,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditarSeguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditarSeguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8092,7 +8164,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditFechaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditFechaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8122,7 +8194,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditIngOp]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditIngOp]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8154,7 +8226,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditMarchamoSal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditMarchamoSal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8187,7 +8259,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditRetiros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditRetiros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8225,7 +8297,7 @@ UPDATE [dbo].[retiroOperacionFiscal]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditRetirosVehEd]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditRetirosVehEd]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8261,7 +8333,7 @@ UPDATE [dbo].[retiroOperacionFiscal]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEditStockInci]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditStockInci]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8315,7 +8387,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEditUbicaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEditUbicaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8360,7 +8432,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEjecutivoCredito]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEjecutivoCredito]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8379,7 +8451,7 @@ SELECT per.id AS 'identyEje', per.nombres AS 'nom', per.apellidos AS 'ape', per.
 INNER JOIN PERSONAL per ON cliente.idNit = @valor AND per.id = cliente.ejecutivoVentas
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spElimHist]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spElimHist]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8408,7 +8480,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEliminarUbica]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEliminarUbica]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8438,7 +8510,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8461,7 +8533,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoCliente]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoCliente]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8505,7 +8577,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoContaDia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoContaDia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8538,7 +8610,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8575,7 +8647,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8626,7 +8698,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoIngRev]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoIngRev]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8679,7 +8751,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoPersonal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoPersonal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8723,7 +8795,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8824,7 +8896,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoRetVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoRetVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8913,7 +8985,7 @@ SET @asigNum = (SELECT COUNT(*) FROM numAsignadoRetiros WHERE idRet = @valor)
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstadoTar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstadoTar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8955,7 +9027,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spEstIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spEstIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -8998,7 +9070,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spExcelVehNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spExcelVehNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9048,7 +9120,7 @@ ORDER BY numAsIng.numeroAsignado
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spFCambioDia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFCambioDia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9079,7 +9151,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFechaRecalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFechaRecalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9121,7 +9193,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFinalizarAjusteVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFinalizarAjusteVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9168,7 +9240,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFinalVinculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFinalVinculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9195,7 +9267,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFinalVN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFinalVN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9232,7 +9304,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFinDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFinDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9268,7 +9340,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spFinEdit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spFinEdit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9297,7 +9369,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGdAlmacenaje]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGdAlmacenaje]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9343,7 +9415,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGdOtrosServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGdOtrosServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9376,7 +9448,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGdServCobrados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGdServCobrados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9542,7 +9614,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGdServiciosAlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGdServiciosAlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9577,7 +9649,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGDVehiculosUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGDVehiculosUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9619,7 +9691,7 @@ INSERT INTO [dbo].[vehiculosUsados]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGenerateExcel]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGenerateExcel]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9653,7 +9725,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGenerateExcelDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGenerateExcelDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9687,7 +9759,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGestorCliente]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGestorCliente]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9716,7 +9788,7 @@ INNER JOIN personal ON personal.id =  usx.ejecutivoVentas
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spGestorDeTarifas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGestorDeTarifas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9740,7 +9812,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGPDependienteVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGPDependienteVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9762,7 +9834,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGruposVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGruposVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9780,7 +9852,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGuardarToken]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGuardarToken]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9815,7 +9887,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGuardCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGuardCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9897,7 +9969,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spGuardDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spGuardDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9959,7 +10031,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -9991,7 +10063,7 @@ INNER JOIN servicios ser ON ser.id = IFOpe.idServicio
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIngTodo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIngTodo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10026,7 +10098,7 @@ LEFT JOIN numAsignadoIngresos asig ON asig.idIng = IFOpe.id
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuper]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuper]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10071,7 +10143,7 @@ ORDER BY IFOpe.id, asig.numeroAsignado, nit.id, sldF.fechaRealIng ASC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperFParam]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperFParam]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10119,7 +10191,7 @@ ORDER BY IFOpe.id, asig.numeroAsignado, nit.id, sldF.fechaRealIng ASC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperPol]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperPol]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10165,7 +10237,7 @@ ORDER BY IFOpe.id, asig.numeroAsignado, nit.id, sldF.fechaRealIng ASC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperTop]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHisIngTodoSuperTop]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10208,7 +10280,7 @@ IFOpe.id  DESC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spHistDataExtraIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistDataExtraIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10245,7 +10317,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHistDataExtraIngExcel]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistDataExtraIngExcel]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10287,7 +10359,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHistoriaCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistoriaCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10341,7 +10413,7 @@ end
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHistoriaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistoriaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10383,7 +10455,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHistoriaRec]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistoriaRec]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10443,7 +10515,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHistoriaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHistoriaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10506,7 +10578,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spHIstoriaTodosIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spHIstoriaTodosIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10522,7 +10594,7 @@ BEGIN
 
 
 DECLARE @dependencia INT
-SET @dependencia = (SELECT dependencia FROM bodegas where id = 1)
+SET @dependencia = (SELECT dependencia FROM bodegas where id = @idBodega)
 DECLARE @inicio INT
 SET @inicio = (SELECT numeroInicio FROM inicioCorrelativos)
 
@@ -10563,7 +10635,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIdentConsul]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIdentConsul]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10586,7 +10658,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIdPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIdPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10612,7 +10684,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spIdRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIdRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10645,7 +10717,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIgualDetalles]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIgualDetalles]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10671,7 +10743,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIgualIncidencia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIgualIncidencia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10698,7 +10770,39 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIndentIngresos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIncRebajasMalas]    Script Date: 14/04/2021 19:32:20 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+CREATE PROCEDURE [dbo].[spIncRebajasMalas]
+@bodega int
+	AS
+BEGIN
+	SET NOCOUNT ON;
+
+DECLARE @dependencia INT
+SET @dependencia = (SELECT dependencia FROM bodegas WHERE id = @bodega)
+
+SELECT ISNULL(per.foto, 'NA') AS 'foto', per.nombres, per.apellidos, 
+convert(varchar, ret.fechaEmision, 25) AS 'fechaEmision', ret.polizaRetiro, nit.nombreEmpresa,
+bitacora.id as 'idBitacora'
+
+FROM bitacoraIncidenciaStock bitacora
+INNER JOIN retiroOperacionFiscal ret ON ret.id = bitacora.idRetiro
+INNER JOIN ingresoOperacionFiscal ing ON ing.id = ret.idIngresosOP
+INNER JOIN nit ON nit.id = ret.idNit
+INNER JOIN bodegas bod ON bod.id = ing.identBodega
+INNER JOIN empresas emp ON emp.id = bod.dependencia AND dependencia = @dependencia
+INNER JOIN personal per ON per.id = ret.idUsuario
+WHERE bitacora.estado = 1
+END
+
+
+GO
+/****** Object:  StoredProcedure [dbo].[spIndentIngresos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10723,7 +10827,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIndentRetiros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIndentRetiros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10747,7 +10851,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngAreasAuto]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngAreasAuto]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10779,7 +10883,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10822,7 +10926,7 @@ WHERE dt.idIngreso = @valor
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spIngEstadoTres]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngEstadoTres]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10847,7 +10951,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngInactivas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngInactivas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10880,7 +10984,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngIncidencias]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngIncidencias]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10946,7 +11050,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngOpe]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngOpe]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -10996,7 +11100,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spIngPendientes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngPendientes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11026,7 +11130,7 @@ SELECT ingOP.id AS 'numeroOrden', nt.nombreEmpresa AS 'empresa', nt.nitEmpresa A
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spIngPendientesFail]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngPendientesFail]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11059,7 +11163,7 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spIngRprteContabilizado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngRprteContabilizado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11098,7 +11202,7 @@ where ingOp.identBodega = @identB AND ingOp.fechaContabilidad = @fecha order by 
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spIngVehUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spIngVehUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11133,7 +11237,7 @@ end
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInicioNumerador]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInicioNumerador]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11168,7 +11272,7 @@ end
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsBitacoraIncStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsBitacoraIncStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11187,7 +11291,7 @@ BEGIN
 DECLARE @error INT
 BEGIN TRAN tranBitacora
 DECLARE @idRetRevision INT
-SET @idRetRevision = (SELECT COUNT(*) FROM bitacoraIncidenciaStock WHERE idRetiro = @idRetiro)
+SET @idRetRevision = (SELECT COUNT(*) FROM bitacoraIncidenciaStock WHERE idRetiro = @idRetiro AND estado=1)
 IF (@idRetRevision=0)
 BEGIN
 INSERT INTO [dbo].[bitacoraIncidenciaStock] VALUES (@idRetiro, @detalle, @cantBultosIncidencia, GETDATE(), @tipoIncidencia, 1)
@@ -11211,7 +11315,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertAreasAuto]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertAreasAuto]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11257,7 +11361,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertComent]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertComent]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11297,7 +11401,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertExtraCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertExtraCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11377,7 +11481,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertIngGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertIngGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11430,7 +11534,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertNewAreaBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertNewAreaBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11480,7 +11584,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertNewEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertNewEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11539,7 +11643,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertNormales]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertNormales]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11619,7 +11723,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertNormales1]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertNormales1]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11704,7 +11808,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertTresC]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertTresC]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11733,7 +11837,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsertValFob]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsertValFob]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11765,7 +11869,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spInsRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -11890,7 +11994,7 @@ END
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsRetiroVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsRetiroVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12003,7 +12107,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spInsUnidades]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spInsUnidades]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12093,7 +12197,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spJefeRepConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spJefeRepConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12115,7 +12219,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spListaVehUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spListaVehUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12148,7 +12252,7 @@ AND bodegas.areasAutorizadas LIKE 'Predio de Vehiculos Usados'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMapa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMapa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12180,7 +12284,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMaxContabilidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMaxContabilidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12198,7 +12302,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMedidasVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMedidasVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12237,7 +12341,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMedidaVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMedidaVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12284,7 +12388,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMetrajeVehi]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMetrajeVehi]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12309,7 +12413,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMetrosPosInci]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMetrosPosInci]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12361,7 +12465,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMigraEstadoIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMigraEstadoIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12393,7 +12497,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spModificarCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spModificarCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12459,7 +12563,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spModificarRubrosSerCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spModificarRubrosSerCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12523,7 +12627,7 @@ SELECT 1 AS 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spModStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spModStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12549,7 +12653,7 @@ WHERE id = @idDet
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spModStockAnterior]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spModStockAnterior]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12596,7 +12700,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMontarguista]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMontarguista]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12619,7 +12723,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostraLineasSinMed]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostraLineasSinMed]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12648,7 +12752,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarAreasBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarAreasBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12673,7 +12777,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarChasis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarChasis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12710,7 +12814,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarCodigoOPB]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarCodigoOPB]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12742,7 +12846,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarDetCont]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarDetCont]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12765,7 +12869,7 @@ WHERE ingOp.identBodega = @ident
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarDetI]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarDetI]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12792,7 +12896,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarEmpreEdit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarEmpreEdit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12813,7 +12917,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarEmpresas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarEmpresas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12831,7 +12935,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarEstado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarEstado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12858,7 +12962,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarFila]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarFila]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12887,7 +12991,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarGestorus]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarGestorus]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12919,7 +13023,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarIngBod1]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarIngBod1]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12950,7 +13054,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarIngBod2]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarIngBod2]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -12981,7 +13085,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarIngBodOp]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarIngBodOp]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13007,7 +13111,7 @@ ORDER BY ingOp.numeroIngreso
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarLineas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarLineas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13032,7 +13136,7 @@ INNER JOIN tiposDeVehiculos tpVeh ON tpVeh.id = mdVeh.idTipoVeh
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarNit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarNit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13054,7 +13158,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarNitOP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarNitOP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13076,7 +13180,7 @@ BEGIN
 	SELECT * FROM nit WHERE id = @valor
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarNitOPB]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarNitOPB]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13109,7 +13213,7 @@ WHERE nit.nitEmpresa  LIKE @valor
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarPen]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarPen]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13125,7 +13229,7 @@ BEGIN
 SELECT count(*) AS 'cantIng' FROM ingresoOperacionFiscal WHERE identBodega = @valor and estadoIngreso = 2
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13161,7 +13265,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarSerAcuse]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarSerAcuse]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13182,7 +13286,7 @@ where idTipoTran = @idOpera and tipoTran = @tipoOp
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarSerTar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarSerTar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13218,7 +13322,7 @@ ALM.idServicio=SER.id AND idUsuarioCliente = 3 AND ALM.aplicaServicio=1
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarServicios3]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarServicios3]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13249,7 +13353,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarServicios4]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarServicios4]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13281,7 +13385,7 @@ INNER JOIN SERVICIOS SERVI ON AL.idServicio=SERVI.id;END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarSumDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarSumDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13301,7 +13405,7 @@ SELECT COUNT(*) AS 'sumaIncidencias' FROM INCIDENCIAS WHERE idDetalle = @valor
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarSumMer]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarSumMer]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13321,7 +13425,7 @@ SELECT COUNT(*) AS 'sumaMerca' FROM detalleDeMercaderia WHERE idIngreso = @valor
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarTodo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarTodo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13357,7 +13461,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarTotalesConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarTotalesConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13382,7 +13486,7 @@ where ingOp.estadoIngreso = 5 AND ingOp.identBodega =  @ident
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarUbicacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarUbicacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13406,7 +13510,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarUsuario]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarUsuario]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13451,7 +13555,7 @@ where per.usuarios = @idUsuario
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarUsuarioEdit]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarUsuarioEdit]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13481,7 +13585,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarUsuarioIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarUsuarioIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13508,7 +13612,7 @@ INNER JOIN personal per ON per.id = bitacora.idUsuario and bitacora.idIngreso = 
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarUsuarios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarUsuarios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13532,7 +13636,7 @@ left JOIN empresas emp ON emp.id = bod.dependencia
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarVehiculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarVehiculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13557,7 +13661,7 @@ INNER JOIN tiposDeVehiculos tpVeh ON tpVeh.id = mdVeh.idTipoVeh AND  mdVeh.id = 
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMostrarVehNewCorreo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostrarVehNewCorreo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13586,7 +13690,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMostVeFina]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMostVeFina]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13612,7 +13716,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstAjustesConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstAjustesConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13643,7 +13747,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstAlmacenaje]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstAlmacenaje]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13665,7 +13769,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13686,7 +13790,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstDependencias]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstDependencias]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13709,7 +13813,7 @@ INNER JOIN EMPRESAS em ON bod.dependencia = em.id
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMstDetalles]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstDetalles]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13736,7 +13840,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstDetBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstDetBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13759,7 +13863,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstEmpresaCoin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstEmpresaCoin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13772,7 +13876,7 @@ AS
 SELECT nombreEmpresa FROM NIT WHERE nombreEmpresa LIKE CONCAT (@dato,'%')
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstGtsAd]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstGtsAd]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13802,7 +13906,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstIngCobro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstIngCobro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13836,7 +13940,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13865,7 +13969,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstPara]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstPara]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13889,7 +13993,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstrAduana]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstrAduana]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13913,7 +14017,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstrSldF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstrSldF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13948,7 +14052,7 @@ INNER JOIN ingresoOperacionFiscal ingOp ON sldIF.idIngreso = ingOp.id AND ingOp.
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMstrSldFR]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstrSldFR]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13982,7 +14086,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstSaldosBlts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstSaldosBlts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14109,7 +14213,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstSaldosBltsVEHN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstSaldosBltsVEHN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14234,7 +14338,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstSeguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstSeguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14263,7 +14367,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstSuma]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstSuma]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14290,7 +14394,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstTotalBlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstTotalBlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14316,7 +14420,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMstUnicaUb]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMstUnicaUb]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14388,7 +14492,7 @@ INNER JOIN NIT nt ON ing.idNit = nt.id AND nt.nitEmpresa LIKE @buscando
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMtsCtaContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMtsCtaContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14404,7 +14508,7 @@ select * from cuentasContables
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spMuestraEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMuestraEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14427,7 +14531,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spMuestraOtrosServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spMuestraOtrosServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14450,7 +14554,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNAplicaTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNAplicaTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14475,7 +14579,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNewConsolidad]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNewConsolidad]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14517,7 +14621,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNewServicio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNewServicio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14554,7 +14658,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNewServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNewServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14604,7 +14708,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNitEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNitEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14624,7 +14728,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNitIngO]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNitIngO]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14647,7 +14751,7 @@ INNER JOIN USUARIOSEXTERNOS usx ON usx.idNit = ing.idNit
 INNER JOIN PERSONAL per ON per.id = usx.ejecutivoVentas 
  END
 GO
-/****** Object:  StoredProcedure [dbo].[spNitRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNitRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14672,7 +14776,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNitSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNitSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14758,7 +14862,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNitUsuario]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNitUsuario]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14781,7 +14885,7 @@ SELECT usx.id AS 'idCliente', nt.nitEmpresa AS 'nitCliente' FROM USUARIOSEXTERNO
 INNER JOIN NIT nt ON nt.id = usx.idNit
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNivelesUser]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNivelesUser]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14807,7 +14911,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevaEmpresa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevaEmpresa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14872,7 +14976,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevaEmpresaGP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevaEmpresaGP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14913,7 +15017,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevaLinea]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevaLinea]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14939,7 +15043,7 @@ INSERT INTO [dbo].[medidasVehiculos]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevaPlaca]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevaPlaca]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -14970,7 +15074,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevaSerie0]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevaSerie0]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15016,7 +15120,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoAlmacenaje]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoAlmacenaje]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15086,7 +15190,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoContenedor]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoContenedor]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15116,7 +15220,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15139,7 +15243,7 @@ SET detallesRebajados = @nuevoDetalle
 WHERE id = @idRet
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15210,7 +15314,7 @@ INNER JOIN inventarioFiscal inven ON inven.idIngreso = ingOp.id
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoEstadoChas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoEstadoChas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15252,7 +15356,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoIngOPe]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoIngOPe]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15383,7 +15487,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoIngOPeCarga]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoIngOPeCarga]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15526,7 +15630,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoMapa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoMapa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15573,7 +15677,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoMarchamo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoMarchamo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15613,7 +15717,7 @@ SELECT 1 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoRetBlt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoRetBlt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15669,7 +15773,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoSaldo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoSaldo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15724,7 +15828,7 @@ SET estadoSaldo = 2, fechaCorte = @corte
 WHERE id = @idIngSaldo
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoSaldoDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoSaldoDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15771,7 +15875,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoTipoV]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoTipoV]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15798,7 +15902,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15848,7 +15952,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNuevoV]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNuevoV]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15898,7 +16002,7 @@ INSERT INTO [dbo].[chasisVehiculosNuevos]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNumPolizas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNumPolizas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15952,7 +16056,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spNumRecibo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNumRecibo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -15986,7 +16090,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spNvCliente]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spNvCliente]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16085,7 +16189,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spOtrosGastosRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spOtrosGastosRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16115,7 +16219,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spOtrosServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spOtrosServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16141,7 +16245,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPaseSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPaseSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16186,7 +16290,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPaseSalidaCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPaseSalidaCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16218,7 +16322,7 @@ INNER JOIN servicios srv ON srv.id = ingOp.idServicio
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spPaseSalidaVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPaseSalidaVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16251,7 +16355,7 @@ INNER JOIN servicios srv ON srv.id = ingOp.idServicio AND retOp.detallesRebajado
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spPiloto]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPiloto]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16278,7 +16382,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPilotosCont]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPilotosCont]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16302,7 +16406,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPilotosUnidades]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPilotosUnidades]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16348,7 +16452,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPilotosUnidadesIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPilotosUnidadesIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16395,7 +16499,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPolizaIngreso]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPolizaIngreso]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16424,7 +16528,7 @@ END
 
       
 GO
-/****** Object:  StoredProcedure [dbo].[spPosMetros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPosMetros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16443,7 +16547,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spPredioVeUsado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spPredioVeUsado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16466,7 +16570,7 @@ SELECT * FROM bodegas WHERE areasAutorizadas like '%PREDIO DE VEHICULOS USADOS%'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRegistraAjustes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRegistraAjustes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16504,7 +16608,7 @@ where (invent.saldoBultos = 0 and invent.saldoValorCif!=0) or  (invent.saldoBult
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRegistroCobroFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRegistroCobroFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16547,7 +16651,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRegRecibo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRegRecibo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16585,7 +16689,7 @@ INSERT INTO [dbo].[DETALLESRECIBOS]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRemoveChasAnt]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRemoveChasAnt]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16612,7 +16716,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRepChasisNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRepChasisNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16653,7 +16757,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spReplaceValRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReplaceValRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16697,7 +16801,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spReporteAjuste]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReporteAjuste]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16732,7 +16836,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spReporteConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReporteConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16774,7 +16878,7 @@ INNER JOIN personal ON personal.id = bitaRet.idUsuario
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spReporteRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReporteRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16815,7 +16919,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spReportesContabilida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReportesContabilida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16855,7 +16959,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRespuestaUnidades]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRespuestaUnidades]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16899,7 +17003,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRestablecer]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRestablecer]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16937,7 +17041,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRetHistUltQuinientos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetHistUltQuinientos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -16983,7 +17087,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetiroDr]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetiroDr]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17005,7 +17109,7 @@ where valPol.idIng = @idIng AND valPol.id IS not NULL
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRetiroNormal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetiroNormal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17026,7 +17130,7 @@ where valRet.idIngreso = @idIng AND valPol.id IS NULL
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRetiroOperacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetiroOperacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17058,7 +17162,7 @@ end
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosBodP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosBodP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17097,7 +17201,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosContabilizados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosContabilizados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17139,7 +17243,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosHistorial]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosHistorial]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17185,7 +17289,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosHistorialPoliza]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosHistorialPoliza]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17273,7 +17377,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosHistorialRange]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosHistorialRange]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17323,7 +17427,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosPendGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosPendGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17368,7 +17472,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetirosPendientes]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetirosPendientes]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17414,7 +17518,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetPlto]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetPlto]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17451,7 +17555,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRetUnidades]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRetUnidades]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17490,7 +17594,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevChasis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevChasis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17510,7 +17614,7 @@ WHERE chas.idIngreso = @valor
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevChasisDup]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevChasisDup]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17536,7 +17640,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevChasisSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevChasisSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17563,7 +17667,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevChasisVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevChasisVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17605,7 +17709,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevDescCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevDescCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17665,7 +17769,7 @@ SELECT 1 AS 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevDescCalcExis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevDescCalcExis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17690,7 +17794,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spReversionChas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spReversionChas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17746,7 +17850,7 @@ SET @error= @error
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevertirCons]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevertirCons]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17809,7 +17913,7 @@ END
 
 end
 GO
-/****** Object:  StoredProcedure [dbo].[spRevertirConsFail]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevertirConsFail]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17869,7 +17973,7 @@ END
 
 end
 GO
-/****** Object:  StoredProcedure [dbo].[spRevertirIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevertirIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17938,7 +18042,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevIncid]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevIncid]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17970,7 +18074,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevIncide]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevIncide]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -17995,7 +18099,7 @@ SELECT ISNULL(COUNT(*), 0) AS 'cantidad'  FROM incidencia WHERE idIngreso=@idBul
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevIncideUP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevIncideUP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18051,7 +18155,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevisionIngEstadoCuatro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevisionIngEstadoCuatro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18136,7 +18240,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevisionPlto]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevisionPlto]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18161,7 +18265,7 @@ set @licenciaVal = (SELECT COUNT(*) FROM pilotos WHERE licencia LIKE @licencia)
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevisionRetEstadoTres]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevisionRetEstadoTres]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18192,7 +18296,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevPol]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevPol]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18271,7 +18375,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevPolizaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevPolizaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18296,7 +18400,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevRegistroTra]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevRegistroTra]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18324,7 +18428,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevUnidadPlus]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevUnidadPlus]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18355,7 +18459,7 @@ SELECT @resultSum AS 'resultRevision'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spRevVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18390,7 +18494,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spRevVehN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spRevVehN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18422,7 +18526,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldoCobro2]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldoCobro2]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18479,7 +18583,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18504,7 +18608,7 @@ INNER JOIN empresas empre ON empre.id = bod.dependencia
 INNER JOIN nit nt  ON nt.id = ingOp.idNit
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosCif]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosCif]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18532,7 +18636,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosCobro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosCobro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18561,7 +18665,7 @@ SELECT 2 AS 'respuestaSele'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosContabilizados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosContabilizados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18590,7 +18694,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosContables]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosContables]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18613,7 +18717,7 @@ SELECT @countImpts AS 'countImpts', @countCif AS 'countCif'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosContablesAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosContablesAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18636,7 +18740,7 @@ SELECT @countImpts AS 'countImpts', @countCif AS 'countCif'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spsaldosContablesF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spsaldosContablesF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18668,7 +18772,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosContaGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosContaGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18703,7 +18807,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spsaldosCuadreKardex]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spsaldosCuadreKardex]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18734,7 +18838,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spsaldosCuadreKardexVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spsaldosCuadreKardexVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18764,7 +18868,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosDR]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosDR]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18849,7 +18953,7 @@ END
 
       
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosImpts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosImpts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18878,7 +18982,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosInventario]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosInventario]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18909,7 +19013,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosInventarioVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosInventarioVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18934,7 +19038,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18965,7 +19069,7 @@ INNER JOIN valoresRetirosFiscal sldRet ON sldRet.idRet = retOp.id AND sldRet.idI
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSaldosSuper]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSaldosSuper]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19006,7 +19110,7 @@ ORDER BY nt.id, ingV.fechaRealIng ASC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSEjecutivo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSEjecutivo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19033,7 +19137,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSelecDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSelecDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19059,7 +19163,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSelectDetRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSelectDetRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19090,7 +19194,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSelectPersonal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSelectPersonal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19110,7 +19214,7 @@ INNER JOIN PERSONAL persona ON persona.departamento = depart.id AND depart.depar
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSelectStockBultos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSelectStockBultos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19138,7 +19242,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSerTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSerTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19165,7 +19269,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spServExtraCorrel]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spServExtraCorrel]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19185,7 +19289,7 @@ INNER JOIN retiroOperacionFiscal ret ON ret.id = servCob.idCalculo
 INNER JOIN nit on nit.id = ret.idNit 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spServicio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spServicio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19208,7 +19312,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spServicioDefault]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spServicioDefault]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19230,7 +19334,7 @@ SELECT id AS 'servicio', servicioDefault AS 'servicioDef' FROM serviciosDefault
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spServicioF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spServicioF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19251,7 +19355,7 @@ SELECT id AS 'idServicio', servicio AS 'nombreServicio' FROM SERVICIOS WHERE tip
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSldInicialConta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSldInicialConta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19302,7 +19406,7 @@ SELECT 1 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSldInicialContaAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSldInicialContaAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19353,7 +19457,7 @@ SELECT 1 'resp'
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSldosFcal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSldosFcal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19412,7 +19516,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spspRevPolizaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spspRevPolizaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19437,7 +19541,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spStockDetalles]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spStockDetalles]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19463,7 +19567,7 @@ INNER JOIN incidencia inci ON detM.id = inci.idDetalle where detM.idIngreso = @i
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spStockGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spStockGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19590,7 +19694,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spStockGeneralVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spStockGeneralVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19640,7 +19744,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spStockIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spStockIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19666,7 +19770,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spStockPosMts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spStockPosMts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19701,7 +19805,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSubBitacoraCal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSubBitacoraCal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19733,7 +19837,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSumBlsDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumBlsDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19763,7 +19867,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSumBlsDeta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumBlsDeta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19787,7 +19891,7 @@ SELECT ISNULL(SUM(bultos),0) AS 'bultosDetalle' FROM detalleDeMercaderia WHERE i
 END
 	
 GO
-/****** Object:  StoredProcedure [dbo].[spSumBlts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumBlts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19813,7 +19917,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSumDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19841,7 +19945,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSumRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19866,7 +19970,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spSumTotalPol]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSumTotalPol]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19885,7 +19989,7 @@ SELECT sum(monto) AS 'sumaMonto' FROM polizasContaFiscal WHERE numeroPoliza = @n
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spSuperEstadoRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spSuperEstadoRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19944,7 +20048,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTarifaCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTarifaCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19964,7 +20068,7 @@ SELECT alm.idTarifa AS 'identy',alm.baseCalculo AS 'base', alm.calculoSobre AS '
 INNER JOIN ingresoOperacionFiscal ing ON ing.idServicio = alm.idServicio AND ing.id = @valor
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spTarifaCalN]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTarifaCalN]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20008,7 +20112,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTarifaVehUsados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTarifaVehUsados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20047,7 +20151,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTElectronica]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTElectronica]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20077,7 +20181,7 @@ INSERT INTO [dbo].[cobrosGastosAdminFiscal]
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spTipoServicio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTipoServicio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20104,7 +20208,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTipoVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTipoVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20125,7 +20229,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTotalBlts]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTotalBlts]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20159,7 +20263,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTotalIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTotalIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20183,7 +20287,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTpCambioDia]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTpCambioDia]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20229,7 +20333,7 @@ END
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTrasladoAf]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTrasladoAf]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20266,7 +20370,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTrasladoFiscal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTrasladoFiscal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20302,7 +20406,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTrasladoFiscalDef]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTrasladoFiscalDef]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20338,7 +20442,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spTrasladoVeh]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTrasladoVeh]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20396,7 +20500,7 @@ END
 END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spTServicios]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spTServicios]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20421,7 +20525,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUbica]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbica]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20468,7 +20572,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUbicacionVehUsado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbicacionVehUsado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20526,7 +20630,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUbicaData]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbicaData]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20557,7 +20661,7 @@ INNER JOIN ubicaciones ubica ON inci.id = ubica.idIncidencia AND ubica.estado = 
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUbicaDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbicaDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20590,7 +20694,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUbicaRetiro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbicaRetiro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20621,7 +20725,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUbicSld]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUbicSld]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20653,7 +20757,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUnidadConsPol]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUnidadConsPol]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20690,7 +20794,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUnidadesRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUnidadesRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20748,7 +20852,7 @@ EXECUTE spInsUnidades @ret, @pilotoiD, @placaId, @idContenedores, 2, '0'
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateAreaBod]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateAreaBod]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20791,7 +20895,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBaseCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBaseCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20814,7 +20918,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBaseGstosAdmin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBaseGstosAdmin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20838,7 +20942,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBaseManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBaseManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20865,7 +20969,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBaseMoneda]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBaseMoneda]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20889,7 +20993,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBaseOtros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBaseOtros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20917,7 +21021,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBltsDetIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBltsDetIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -20983,7 +21087,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateBltsIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateBltsIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21028,7 +21132,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateCalculoSobre]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateCalculoSobre]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21050,7 +21154,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateChasis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateChasis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21077,7 +21181,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateCont]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateCont]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21120,7 +21224,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateDetalle]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateDetalle]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21181,7 +21285,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateEstadoDet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateEstadoDet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21217,7 +21321,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateEstadoDeta]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateEstadoDeta]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21243,7 +21347,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21270,7 +21374,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateIngCons]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateIngCons]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21356,7 +21460,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateIngEstado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateIngEstado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21388,7 +21492,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateIngGeneral]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateIngGeneral]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21436,7 +21540,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateMoneda]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateMoneda]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21459,7 +21563,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateMonedaCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateMonedaCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21485,7 +21589,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateMonedaManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateMonedaManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21512,7 +21616,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateMonedaOtros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateMonedaOtros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21540,7 +21644,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePeriodo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePeriodo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21565,7 +21669,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePeriodoCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePeriodoCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21588,7 +21692,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdatePrdoCalculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdatePrdoCalculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21613,7 +21717,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateSeguroSobre]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateSeguroSobre]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21637,7 +21741,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateUbicaChas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateUbicaChas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21663,7 +21767,7 @@ WHERE id = @idChas
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateValor]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateValor]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21687,7 +21791,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateValorGtsAdmin]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateValorGtsAdmin]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21711,7 +21815,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateValorManejo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateValorManejo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21738,7 +21842,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateValorOtros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateValorOtros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21766,7 +21870,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUpdateVlrSeguro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUpdateVlrSeguro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21792,7 +21896,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUsuarioOP]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUsuarioOP]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21823,7 +21927,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spUsuarioTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spUsuarioTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21845,7 +21949,7 @@ SET @usuario = (select idUsuarioCliente from ingresoOperacionFiscal WHERE id = @
 SELECT @usuario AS	'tipoUsuario'
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValAnulacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValAnulacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21912,7 +22016,7 @@ END
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValCadenaIng]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValCadenaIng]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21937,7 +22041,7 @@ SELECT cadenaVinculo AS 'cadena', estadoOperacion AS 'operacion', idIngreso AS '
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValCadenaIngPasV]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValCadenaIngPasV]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21965,7 +22069,7 @@ INNER JOIN pasesDeSalida pasSal ON pasSal.idUnidad = datUn.id
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValChasis]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValChasis]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -21994,7 +22098,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValChasisSimilar]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValChasisSimilar]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22023,7 +22127,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValContaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValContaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22070,7 +22174,7 @@ END
 EXECUTE spStockGeneral @idIng
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValidaCobro]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValidaCobro]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22094,7 +22198,7 @@ SELECT @validacionOp AS 'valiCobro'
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spvalidarCntServicio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spvalidarCntServicio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22121,7 +22225,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValidarCui]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValidarCui]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22150,7 +22254,7 @@ SELECT ISNULL(COUNT(*), 0) AS 'countPilotos' FROM datosUnidades WHERE idOp = @id
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValidateLlave]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValidateLlave]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22170,7 +22274,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValNewUbica]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValNewUbica]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22191,7 +22295,7 @@ SELECT estado FROM chasisVehiculosNuevos WHERE id = @idChasis
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValoresContaRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValoresContaRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22220,7 +22324,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValoresContaRetAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValoresContaRetAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22251,7 +22355,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValoresDRRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValoresDRRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22289,7 +22393,7 @@ WHERE valDR.idRet = @ret
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValoresPolizasDR]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValoresPolizasDR]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22309,7 +22413,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValPaseSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValPaseSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22333,7 +22437,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spValStock]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValStock]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22368,7 +22472,7 @@ SELECT @bultosDet AS 'bultosAgregadosDet', @pesoDet AS 'pesosAgregadosDet', @bul
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spValVinculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spValVinculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22393,7 +22497,7 @@ SELECT COUNT(*) AS 'countCadena' FROM ingresosConsolidadoPoliza WHERE cadenaVinc
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVehAutorizados]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVehAutorizados]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22436,7 +22540,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVehNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVehNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22454,7 +22558,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVehNewCount]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVehNewCount]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22476,7 +22580,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerBodegas]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerBodegas]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22503,7 +22607,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerCadena]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerCadena]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22532,7 +22636,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerCadenaSalida]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerCadenaSalida]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22561,7 +22665,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerDescuentos]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerDescuentos]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22584,7 +22688,7 @@ WHERE idCalculo = @idCalculo
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerDetalleStockPOSM]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerDetalleStockPOSM]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22613,7 +22717,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerEstadoTreRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerEstadoTreRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22641,7 +22745,7 @@ WHERE retOp.estadoRet = 3
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerEstadoVehRet]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerEstadoVehRet]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22665,7 +22769,7 @@ WHERE chasisV.idRet = @valor
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerIdCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerIdCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22680,7 +22784,7 @@ BEGIN
 SELECT id FROM calculosNormal WHERE poliza LIKE @poliza
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificaCalc]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificaCalc]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22705,7 +22809,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificacion]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificacion]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22747,7 +22851,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificacionVinculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificacionVinculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22777,7 +22881,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificarCorteRec]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificarCorteRec]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22802,7 +22906,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificarEstado]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificarEstado]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22826,7 +22930,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificarTarCal]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificarTarCal]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22853,7 +22957,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificaTarifa]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificaTarifa]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22940,7 +23044,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificaVehNew]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificaVehNew]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -22977,7 +23081,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerificaVehUs]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerificaVehUs]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23000,7 +23104,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVerifSerIn]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerifSerIn]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23020,7 +23124,7 @@ BEGIN
 INNER JOIN servicios srvC ON ing.idServicio = srvC.id AND ing.id = @valor
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerMasRubros]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerMasRubros]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23043,7 +23147,7 @@ left join serviciosDefault ON serviciosDefault.id = servPre.idServicio
 where idCalculo = @idCalculo
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerPolizaContable]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerPolizaContable]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23073,7 +23177,7 @@ ORDER BY numPoliza.numero ASC, CAST(debeHaber.concepto AS VARCHAR) ASC
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[spVerSaldAF]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVerSaldAF]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23093,7 +23197,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVinculo]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVinculo]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -23132,7 +23236,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[spVinculoCambio]    Script Date: 14/04/2021 13:15:13 ******/
+/****** Object:  StoredProcedure [dbo].[spVinculoCambio]    Script Date: 14/04/2021 19:32:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
