@@ -69,8 +69,8 @@ $(document).on("click", ".faPlusData", async function () {
         var data = JSON.stringify(resp);
         if (resp != "SD") {
             localStorage.setItem("listaCuadreKardex", data);
-            var verDataPoliza = await dataPoliza(resp[0][2]);
 
+            var verDataPoliza = await dataPoliza(resp[0][2]);
             document.getElementById("cardCuadre").innerHTML = `
 <div class="row">
     <div class="col-5 mt-1">
@@ -408,7 +408,6 @@ function revisionDeRetiroAndPol(listaVehiculos) {
     return respFunc;
 }
 
-
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
 $(document).ready(function () {
 
@@ -537,7 +536,6 @@ $(document).on("click", ".faRevisionVeh", async function () {
 
 })
 
-
 function revisionVeh(listaIdVeh) {
     let respFunc;
     var datos = new FormData();
@@ -561,3 +559,98 @@ function revisionVeh(listaIdVeh) {
         }})
     return respFunc;
 }
+
+$(document).on("click", ".btImpFePolizas", async function () {
+    tipo = true;
+    document.getElementById("divFechasPolizas").innerHTML = "";
+    document.getElementById("divFechasPolizas").innerHTML = '<table id="tableFechasPol" class="table table-hover table-sm"></table>';
+    var resp = await revisionVeh(tipo);
+    if (resp != "SD") {
+        var listaFechas = [];
+        var contador = 0;
+        for (var i = 0; i < resp.length; i++) {
+            var contador = contador + 1;
+
+            var fechaReporte = resp[i].fechasReportes;
+            var button = '<button type="button" class="btn btn-outline-success btn-block btn sm btnImprimirFechaReport" btnFechaDeseada="' + fechaReporte + '">Imprimir <i class="fa fa-print"></i></button>';
+            listaFechas.push([contador, fechaReporte, button]);
+        }
+        console.log(listaFechas);
+        $('#tableFechasPol').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Busqueda:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            },
+            data: listaFechas,
+            columns: [{
+                    title: "#"
+                }, {
+                    title: "Fecha Generada"
+                }, {
+                    title: "Acciones"
+                }]
+        });
+
+    }
+})
+
+function revisionVeh(tipo) {
+    let respFunc;
+    var datos = new FormData();
+    datos.append("fechasPolizas", tipo);
+    $.ajax({
+        async: false,
+        url: "ajax/historiaIngresosFisacales.ajax.php",
+        method: "POST",
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json",
+        success: function (respuesta) {
+            console.log(respuesta);
+
+            respFunc = respuesta;
+        }, error: function (respuesta) {
+            console.log(respuesta);
+            respFunc = respuesta;
+        }})
+    return respFunc;
+}
+
+$(document).on("click", ".btnImprimirFechaReport", async function () {
+    var fecha = $(this).attr("btnfechadeseada");
+    Swal.fire({
+        title: 'Desea generar un reporte?',
+        text: "Fecha seleccionada " + fecha + "!",
+        type: 'info',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            window.open("extensiones/tcpdf/pdf/ReportePolizasPDF.php?fecha=" + fecha, "_blank");
+        }
+    })
+})

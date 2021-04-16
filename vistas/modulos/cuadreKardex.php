@@ -22,13 +22,16 @@
                                 <div class="row">
                                     <div class="col-12 mt-4">
                                         <div class="row">
-                                            <div class="col-6 mt-4">
+                                            <div class="col-4 mt-4">
                                                 <h1>Mercaderias en bodega</h1>
                                             </div> 
-
-                                            <div class="col-6 mt-4">
+                                            <div class="col-4 mt-4">
                                                 <button type="button" class="btn btn-outline-info btn-block faPlusData" style="font-size:25px">Escaner codigo <i class="fa fa-qrcode"></i></button>
                                             </div> 
+                                            <div class="col-4 mt-4">
+                                                <button type="button" class="btn btn-outline-info btn-block btImpFePolizas" data-toggle="modal" data-target="#modalFechasPolizas" style="font-size:25px">Reporte <i class="fa fa-calendar"></i></button>
+                                            </div> 
+
                                         </div> 
                                     </div> 
                                     <div class="col-12 mt-4">
@@ -78,4 +81,24 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalFechasPolizas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Fechas de reporte de polizas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-8" id="divFechasPolizas">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

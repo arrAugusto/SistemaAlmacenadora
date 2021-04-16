@@ -360,7 +360,7 @@ class ControladorHistorialIngresos {
             $totalIdR = $totalIdR + $value[1];
             $totalBltsR = $totalBltsR + $value[2];
         }
-        if ($totalId === $totalIdR && $totalBlts === $totalBltsR) {
+        if ($totalId == $totalIdR && $totalBlts == $totalBltsR) {
             date_default_timezone_set('America/Guatemala');
             $date = date('Y-m-d H:m:s');
             $ranABC = Randomalfa();
@@ -418,6 +418,17 @@ class ControladorHistorialIngresos {
             $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $corregirIncidencia);
             return $respuesta;
         } else {
+            return false;
+        }
+    }
+
+    public static function ctrMostrarFechasPolizas($valor, $fechasPolizas) {
+        if ($fechasPolizas) {
+            $sp = "spListaFechasPolizas";
+            $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
+            return $respuesta;
+            
+        }else{
             return false;
         }
     }

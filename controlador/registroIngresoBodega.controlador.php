@@ -597,10 +597,24 @@ class ControladorRegistroBodega {
         $respuesta = ModeloRegIngBod::mdlConsultaDosParam($comentIdentychasis, $sp, $comentComentario);
         return $respuesta;
     }
-    public static function ctrDatosDetalleQR($codigo){
+
+    public static function ctrDatosDetalleQR($codigo) {
         $sp = "spConsultaDetQR";
         $respuesta = ModeloRegIngBod::mdlConsultaUnParam($codigo, $sp);
-        return $respuesta;            
+        return $respuesta;
+    }
+
+    public static function ctrdatosMostrarDatos($fecha, $NavegaNumB) {
+        $sp = "spReportFechaPOL";
+        $respuesta = ModeloRegIngBod::mdlConsultaDosParam($NavegaNumB, $sp, $fecha);
+        return $respuesta;
+        
+    }
+    public static function ctrdatosMostDatPolNoReg($fecha, $NavegaNumB){
+        $sp = "spReportFechaPOLNOR";
+        $respuesta = ModeloRegIngBod::mdlConsultaDosParam($NavegaNumB, $sp, $fecha);
+        return $respuesta;
+        
     }
 }
 

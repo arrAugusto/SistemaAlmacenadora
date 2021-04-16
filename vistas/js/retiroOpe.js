@@ -3167,8 +3167,6 @@ $(document).on("click", ".btnListaSelect", async function () {
                                     dataType: "json",
                                     success: function (respuesta) {
                                         console.log(respuesta);
-
-                                        //
                                         var polizaDRRev = 0;
                                         var revDR = 0;
                                         if ("listaDR" in localStorage) {
@@ -3185,6 +3183,7 @@ $(document).on("click", ".btnListaSelect", async function () {
                                         }
                                         if (polizaDRRev == 0 && revDR == 0 || polizaDRRev == 1 && revDR == 1) {
                                             lista = [];
+                                            console.log(respuesta["respuestaDetalle"]);
                                             for (var i = 0; i < respuesta["respuestaDetalle"].length; i++) {
                                                 var polizaIngSelect = respuesta["respuestaDetalle"][i].numeroPoliza;
 

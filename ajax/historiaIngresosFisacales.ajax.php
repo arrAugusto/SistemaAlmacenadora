@@ -141,7 +141,6 @@ class AjaxAccionesIngresos {
 
     public function ajaxGenerateHistoriaRet() {
         session_start();
-
         $valor = $_SESSION["idDeBodega"];
         $generateRetHistoria = $this->generateRetHistoria;
         $respuesta = ControladorHistorialIngresos::ctrGenerateHistoriaRet($generateRetHistoria, $valor);
@@ -347,7 +346,16 @@ class AjaxAccionesIngresos {
         $respuesta = ControladorHistorialIngresos::ctrDeleteIncidencia($corregirIncidencia, $aut);
         echo json_encode($respuesta);
     }
-
+    public $fPolizas;
+    public function ajaxMostrarFechasPolizas(){
+        $fechasPolizas = $this->fechasPolizas;
+        session_start();
+        $valor = $_SESSION["idDeBodega"];
+        $respuesta = ControladorHistorialIngresos::ctrMostrarFechasPolizas($valor, $fechasPolizas);
+        echo json_encode($respuesta);
+        
+        
+    }
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -537,4 +545,12 @@ if (isset($_POST["corregirIncidencia"])) {
     $deletInci = new AjaxAccionesIngresos();
     $deletInci->corregirIncidencia = $_POST["corregirIncidencia"];
     $deletInci->ajaxDeleteIncidencia();
+}
+
+if (isset($_POST["fechasPolizas"])) {
+    $fPolizas = new AjaxAccionesIngresos();
+    $fPolizas->fechasPolizas=$_POST["fechasPolizas"];
+    $fPolizas->ajaxMostrarFechasPolizas();
+
+            
 }
