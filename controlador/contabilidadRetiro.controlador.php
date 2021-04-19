@@ -4,12 +4,8 @@ class ControladorContabilidadDeRet {
 
     public static function ctrListarRetiros($tipo, $NavegaNumB) {
         $idDeBodega = $_SESSION["idDeBodega"];
-        
-        if ($_SESSION["departamentos"] == "Operaciones Fiscales" && $_SESSION["niveles"] == "MEDIO") {
+
             $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientesGeneral($tipo, $idDeBodega);
-        } else {
-            $respuesta = ModeloContabilidadDeRet::mdlListarRetPendientes($tipo, $NavegaNumB, $idDeBodega);
-        }
         if ($respuesta != "SD") {
             $dataVerif = [];
             foreach ($respuesta as $key => $value) {
@@ -93,7 +89,8 @@ class ControladorContabilidadDeRet {
             }
         }
     }
-    public static function ctrMostrarChasisRet($tipo, $idBodega){
+
+    public static function ctrMostrarChasisRet($tipo, $idBodega) {
         $sp = "spConsultaChasSinConta";
         $respuesta = ModeloContabilidadDeRet::mdlMstrReporteRet($sp, $tipo);
         return $respuesta;

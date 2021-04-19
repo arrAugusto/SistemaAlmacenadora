@@ -490,8 +490,9 @@ $(document).on("click", ".faRevisionVeh", async function () {
                 listaIdVeh.push({idVehN, idRetPol, idChas});
             }
             var listaIdVeh = JSON.stringify(listaIdVeh);
-            console.log(listaIdVeh);
+
             var resp = await revisionVeh(listaIdVeh);
+            console.log(resp);
             if (!resp) {
                 Swal.fire({
                     title: 'Detalle Erróneo',

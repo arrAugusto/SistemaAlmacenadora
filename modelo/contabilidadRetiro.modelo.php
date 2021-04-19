@@ -3,7 +3,7 @@
 require_once "cone.php";
 
 class ModeloContabilidadDeRet {
-    
+
     public static function mdlListarRetPendientes($tipo, $ident, $idBodega) {
         $dataArray = [];
         $conn = Conexion::Conectar();
@@ -109,11 +109,11 @@ class ModeloContabilidadDeRet {
     public static function mdlListarRetPendientesHistorial($ident) {
         /*
          * ULTIMOS 500 REGISTROS spRetHistUltQuinientos
-         * **/
+         * * */
         /*
          * TODOS LOS RETIROS ==> spRetirosHistorial
-         * **/
-        
+         * * */
+
         $dataArray = [];
         $conn = Conexion::Conectar();
         $sql = "EXECUTE spRetHistUltQuinientos ?";

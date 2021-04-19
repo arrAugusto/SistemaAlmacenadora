@@ -32,7 +32,7 @@ class ControladorGeneracionDeContabilidad {
                             $spanBodega = '<span class="right badge badge-primary">Bodega_' . ($value["numeroIdentidad"]) . '</span>';
                         }
                     }
-                    $botoneraAcciones = '<div class="btn-group"><a href="#divEdiciones" class="btn btn-outline-warning btnEditOp btn-sm" estado=1 role="button" btnEditOp=' . $value["identificador"] . ' ><i class="fa fa-edit"></i></a><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-dark btnSelectMultiple btn-sm" estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-danger btn-sm btnContabilizar"><i class="fa fa-thumbs-down"></i></button></div>';
+                    $botoneraAcciones = '<div class="btn-group"><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-success btnGeneracionExcel btn-sm"><i class="fa fa-file-excel-o"></i></button><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-dark btnSelectMultiple btn-sm" estado=0><i class="fa fa-close"></i></button><div class="btn-group"><button type="button" buttonId=' . $value["identificador"] . ' class="btn btn-outline-danger btn-sm btnContabilizar"><i class="fa fa-thumbs-down"></i></button></div>';
                     $fecha_actual = new DateTime();
                     $cadena_fecha_actual = $value["fechaRegistro"]->format("d-m-Y");
 
@@ -142,12 +142,13 @@ class ControladorGeneracionDeContabilidad {
         $sp = "spDescExcelIng";
         $respuesta = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $idBod, $estadoDescarga);
         return $respuesta;
-        
     }
-    public static function ctrMostrarIdIngMasiva($idIngMasivo){
+
+    public static function ctrMostrarIdIngMasiva($idIngMasivo) {
         $sp = "spIdPoliza";
         $tipo = 0;
         $repContabilidad = ModeloGeneracionDeContabilidad::mdlIngRegistroContaReportes($sp, $idIngMasivo, $tipo);
         return $repContabilidad;
     }
+
 }

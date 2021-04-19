@@ -22,7 +22,7 @@ class historialSaldosKardexVeh {
             echo $cabeza;
             foreach ($respuesta as $key => $value) {
                 $contador = $contador + 1;
-                $circlePlus = "<i class='fa fa-plus-circle faRevisionVeh' idChas='" . $value["idChas"] . "' idRet='" . $value["idRet"] . "' chasis='" . $value["chasis"] . "' tipoVehiculo='" . $value["tipoVehiculo"] . "'  linea='" . $value["linea"] . "' style='color:#00BD06; cursor: pointer;'></i>";
+                    $circlePlus = "<i class='fa fa-plus-circle faRevisionVeh' idChas='" . $value["idChas"] . "' idRet='" . $value["idRet"] . "' chasis='" . $value["chasis"] . "' tipoVehiculo='" . $value["tipoVehiculo"] . "'  linea='" . $value["linea"] . "' style='color:#00BD06; cursor: pointer;'></i>";
                 $datoJsonRetHis = '[
                     "' . $contador . '",
                     "' . $value['nitEmpresa'] . '",

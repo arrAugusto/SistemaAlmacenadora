@@ -382,6 +382,7 @@ class ControladorHistorialIngresos {
         $sp = "spChasisVNuevo";
 
         $chasisPol = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $idRetPol);
+
         //eliminando todos los vehiculos del retiro si al final el arreglo esta vacio 
         //significa que todos los chasis fueron correctamente rebajado
         $contEvent = 0;
