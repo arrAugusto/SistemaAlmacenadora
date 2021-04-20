@@ -70,7 +70,7 @@ $(document).on("click", ".faPlusData", async function () {
         if (resp != "SD") {
             localStorage.setItem("listaCuadreKardex", data);
 
-            var verDataPoliza = await dataPoliza(resp[0][2]);
+            var verDataPoliza = await dataPoliza(resp[0][2]);   x
             document.getElementById("cardCuadre").innerHTML = `
 <div class="row">
     <div class="col-5 mt-1">
@@ -491,7 +491,7 @@ $(document).on("click", ".faRevisionVeh", async function () {
             }
             var listaIdVeh = JSON.stringify(listaIdVeh);
 
-            var resp = await revisionVeh(listaIdVeh);
+            var resp = await revisionVehOBJ(listaIdVeh);
             console.log(resp);
             if (!resp) {
                 Swal.fire({
@@ -537,7 +537,7 @@ $(document).on("click", ".faRevisionVeh", async function () {
 
 })
 
-function revisionVeh(listaIdVeh) {
+function revisionVehOBJ(listaIdVeh) {
     let respFunc;
     var datos = new FormData();
     datos.append("listaIdVehOBJ", listaIdVeh);

@@ -19,7 +19,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-12 mt-4">
-                                 <iframe width="1200" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiNzQ0NDE1YTUtYWJlMS00MzI4LWFlMDctMjEzNGQ2MWQ5MzVjIiwidCI6IjVmNTNiNGNlLTYzZDQtNGVlOC04OGQyLTIyZjBiMmQ0YjI3YSIsImMiOjR9&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>   
+                                 <!--<iframe width="1200" height="500" src="https://app.powerbi.com/view?r=eyJrIjoiNzQ0NDE1YTUtYWJlMS00MzI4LWFlMDctMjEzNGQ2MWQ5MzVjIiwidCI6IjVmNTNiNGNlLTYzZDQtNGVlOC04OGQyLTIyZjBiMmQ0YjI3YSIsImMiOjR9&pageName=ReportSection" frameborder="0" allowFullScreen="true"></iframe>   -->
                             </div>
                         </div>
                     </div>
