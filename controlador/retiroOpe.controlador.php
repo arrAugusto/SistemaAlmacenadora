@@ -11,6 +11,7 @@ class ControladorRetiroOpe {
 
     public static function ctrMostrarBusqueda($datoSearch, $idDeBodega) {
         $respuesta = ModeloRetiroOpe::mdlMostrarBusqueda($datoSearch, $idDeBodega);
+        
         if ($respuesta != "SD") {
             foreach ($respuesta as $key => $value) {
                 $sp = "spCountChas";
@@ -20,6 +21,7 @@ class ControladorRetiroOpe {
                     $sp = "spStockGeneralVeh";
                     $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
                 } else {
+                    return "hola mundo";
                     $spStock = "spStockGeneral";
                     $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
                 }
