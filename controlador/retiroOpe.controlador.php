@@ -21,7 +21,7 @@ class ControladorRetiroOpe {
                     $sp = "spStockGeneralVeh";
                     $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
                 } else {
-                    return "hola mundo";
+              
                     $spStock = "spStockGeneral";
                     $reAjuste = ModeloRetiroOpe::mdlUpdateParam($idIng, $sp);
                 }
