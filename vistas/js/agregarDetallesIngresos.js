@@ -505,41 +505,50 @@ $(document).on("click", ".btnPromedioTarima", function () {
  }
  });
  */
-
+//posiciones para mercaderias en key up (cuando escribe)
 $(document).on("keyup", "#cantidadPosiciones", async function () {
     var areabod = $(this).attr("areabod");
-
     var cantPos = $(this).val();
-
     var respuesta = await CheckTextbox('cantidadPosiciones');
     if (respuesta) {
-
-
-
         var PromedioTarima = document.getElementById("proTarima").value;
         var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod);
-        ;
     }
 
 });
-
+//posiciones para mercaderias en change (cuando cambia a otro elemento)
 $(document).on("change", "#cantidadPosiciones", async function () {
     var areabod = $(this).attr("areabod");
-
     var cantPos = $(this).val();
-
     var respuesta = await CheckTextbox('cantidadPosiciones');
     if (respuesta) {
-
-
-
         var PromedioTarima = document.getElementById("proTarima").value;
         var funcCalculo = await validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod);
         ;
     }
+});
+//metraje para mercaderias en key up (cuando escribe)
+$(document).on("keyup", "#Metraje", async function () {
+    var areabod = $(this).attr("areabod");
+    var cantPos = $(this).val();
+    var respuesta = await CheckTextbox('Metraje');
+    if (respuesta) {
+        var PromedioTarima = document.getElementById("proTarima").value;
+        var funcCalculo = await convertirMetrajeAPos(cantPos, PromedioTarima, areabod);
+    }
 
 });
+//metraje para mercaderias en key up (cuando escribe)
+$(document).on("change", "#Metraje", async function () {
+    var areabod = $(this).attr("areabod");
+    var cantPos = $(this).val();
+    var respuesta = await CheckTextbox('Metraje');
+    if (respuesta) {
+        var PromedioTarima = document.getElementById("proTarima").value;
+        var funcCalculo = await convertirMetrajeAPos(cantPos, PromedioTarima, areabod);
+    }
 
+});
 $(document).on("change", "#cantidadPosicionesVeh", async function () {
     var areabod = $(this).attr("areabod");
     console.log(areabod);
@@ -628,11 +637,64 @@ async function validaCalculoPosMts(cantPos, PromedioTarima, areabod) {
 
     }
 }
+//metraje convert
+async function convertirMetrajeAPos(cantMts, PromedioTarima, areabod) {
+    var resNum = await patternPregNumEntero(cantMts);
+    var inputText = $(".cantidadPosiciones" + areabod);
 
+    if (cantMts >= 1) {
+
+        if (resNum == 1) {
+            var nuevoPos = cantMts;
+        } else if (resNum <= 0) {
+            var mensaje = "Cantidad de Metros, tiene que ser un número mayor a : 0 y de tipo entero";
+            var tipo = "error";
+            alertValNoAdm(mensaje, tipo);
+            inputText.val(metrosConvert);
+
+        }
+        if (!isNaN(cantMts) && cantMts > 0) {
+            if (PromedioTarima > 0) {
+                var metrosConvert = parseFloat(PromedioTarima * nuevoPos).toFixed(2);
+                var cantPos = Math.round(metrosConvert);    
+                $("#cantidadPosicionesVeh").val(cantPos);
+                inputText.val(cantPos);
+
+            } else {
+                document.getElementById("proTarima").focus();
+                swal({
+                    type: "warning",
+                    title: "Promedio por tarima",
+                    text: "Actualmente no se ha configurado, el promedio general por tarima, ingrese el promedio por tarima.",
+                    showConfirmButton: true,
+                    confrimButtonText: "cerrar",
+                    closeConfirm: true
+                });
+            }
+
+        }
+    } else {
+        var mensaje = "Cantidad de Metros, tiene que ser un número mayor a : 0 y de tipo entero";
+        var tipo = "error";
+        alertValNoAdm(mensaje, tipo);
+        if (inputText.length > 0) {
+            document.getElementById("MetrajeVeh").value = "";
+        }
+        if (inputText.length > 0) {
+
+            inputText.val("");
+
+        }
+
+
+    }
+}
+
+
+//posiciones convert
 async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
     var resNum = await patternPregNumEntero(cantPos);
     var btn = $(".Metraje" + areabod);
-
     if (cantPos >= 1) {
 
         console.log(resNum);
@@ -668,10 +730,7 @@ async function validaCalculoPosMtsMerca(cantPos, PromedioTarima, areabod) {
         var mensaje = "Cantidad de Posiciones, tiene que ser un número mayor a : 0 y de tipo entero";
         var tipo = "error";
         alertValNoAdm(mensaje, tipo);
-        if (btn.length > 0) {
-            document.getElementById("MetrajeVeh").value = "";
 
-        }
         if (btn.length > 0) {
 
             btn.val("");

@@ -4,6 +4,37 @@ $(document).ready(function () {
     });
 });
 $(document).on("click", ".btnADetalle", async function () {
+    var tipoIng = document.getElementById("hiddenTipoIng").value;
+    var tipOp = 0;
+    var paragraphsRev = Array.from(document.querySelectorAll("#btnUbica"));
+    if (paragraphsRev.length == 0 && (tipoIng != "VEHICULOS NUEVOS" || tipoIng != "vehiculoUsado")) {
+        Swal.fire(
+                'Error en el metraje!',
+                'No puede continuar no agrego metraje!',
+                'error'
+                )
+        return false;
+    }
+    var contador = 0;
+    for (var i = 0; i < paragraphsRev.length; i++) {
+        if (paragraphsRev[i].attributes.tipoareabod.value in localStorage) {
+            var localMetraje = localStorage.getItem(paragraphsRev[i].attributes.tipoareabod.value);
+            var localMetraje = JSON.parse(localMetraje);
+            console.log(localMetraje);
+            if (localMetraje.length > 0 || localMetraje != "") {
+                contador++;
+
+            }
+        }
+    }
+    if (contador != paragraphsRev.length) {
+        Swal.fire(
+                'Error ubicaciones!',
+                'No agrego ubicaciones al detalle de bodega!',
+                'error'
+                )
+        return false;
+    }
 
     var estadoBoton = $(this).attr("estadoBoton");
     var idDetalle = $(this).attr("idDetalle");
@@ -12,8 +43,7 @@ $(document).on("click", ".btnADetalle", async function () {
     var paragraphsPos = Array.from(document.querySelectorAll("#cantidadPosiciones"));
     var contadorParam = 0;
 
-    var tipoIng = document.getElementById("hiddenTipoIng").value;
-    var tipOp = 0;
+
 
     if (tipoIng == "VEHICULOS NUEVOS" || tipoIng == "vehiculoUsado") {
         tipOp = 1;
@@ -29,7 +59,7 @@ $(document).on("click", ".btnADetalle", async function () {
         if (contadorParam != paragraphsPos.length) {
             Swal.fire({
                 title: 'Faltan Ubicaciones',
-                text: "No selecciono las ubicaciones de la mercader�a !",
+                text: "No selecciono las ubicaciones de la mercadería !",
                 type: 'error',
                 allowOutsideClick: false,
                 confirmButtonColor: '#3085d6',
@@ -110,7 +140,7 @@ $(document).on("click", ".btnADetalle", async function () {
              Swal.fire({
              position: 'top-center',
              type: 'error',
-             title: 'No selecciono ninguna ubicaci�n, favor agregue las ubicaciones correspondientes',
+             title: 'No selecciono ninguna ubicación, favor agregue las ubicaciones correspondientes',
              showConfirmButton: false,
              timer: 3000
              })
@@ -354,7 +384,7 @@ $(document).on("click", ".btnADetalle", async function () {
                                         var bultos = '<label>' + respuesta[0][i]["bultos"] + '</label>';
                                         var peso = '<label>' + respuesta[0][i]["peso"] + '</label>';
                                         if (tipoIng == "VEHICULOS NUEVOS") {
-                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Veh�culos</i></button></div>';
+                                            var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnMsVehiculos btn-sm" idIngVehiculosN=' + numeroIdIng + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Mostrar Vehículos</i></button></div>';
                                         } else {
                                             var acciones = '<div class="btn-group"><button type="button" class="btn btn-success btnUsarFila btn-sm" buttonUsarId=' + respuesta[0][i]["id"] + '><i class="fa fa-thumbs-up">&nbsp;&nbsp;Seleccionar</i></button></div>';
 
@@ -369,7 +399,7 @@ $(document).on("click", ".btnADetalle", async function () {
                                         "sProcessing": "Procesando...",
                                         "sLengthMenu": "Mostrar _MENU_ registros",
                                         "sZeroRecords": "No se encontraron resultados",
-                                        "sEmptyTable": "Ning�n dato disponible en esta tabla",
+                                        "sEmptyTable": "Ningún dato disponible en esta tabla",
                                         "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
                                         "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0",
                                         "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
@@ -380,7 +410,7 @@ $(document).on("click", ".btnADetalle", async function () {
                                         "sLoadingRecords": "Cargando...",
                                         "oPaginate": {
                                             "sFirst": "Primero",
-                                            "sLast": "�ltimo",
+                                            "sLast": "último",
                                             "sNext": "Siguiente",
                                             "sPrevious": "Anterior"
                                         },
@@ -414,7 +444,7 @@ $(document).on("click", ".btnADetalle", async function () {
                 }
             });
             if (tipoIng != "VEHICULOS NUEVOS" && tipoIng != "vehiculoUsado") {
-                $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacionHid" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicaci�n</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripci�n de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
+                $("#divContenidoDetalle").append('<div id="divNum' + idDetalle + '" class="row"><div class="col-3"><div class="form-group"><label>Empresa</label><div class="input-group mb-1"><div class="input-group-prepend"><button idButtonDetalle="' + idDetalle + '" class="btn btn-danger btnQuitarDetalle" type="button"><i class="fa fa-close"></i></button><button idButtonDetalleEdit="' + idDetalle + '" class="btn btn-warning bntEditarDetalle" type="button" estado=0><i class="fa fa-edit"></i></button></div><!-- /btn-group --><input class="form-control" type="text" id="IdTextEmpresa' + idDetalle + '" value="' + nombreEmpresa + '" readOnly="readOnly"></div></div></div><div class="col-1"><div class="form-group"><label>Bultos</label><input class="form-control" placeholder="Numero de bultos" type="text" id="IdTextBultos' + idDetalle + '" value="' + cantidadBultos + '" readOnly="readOnly"></div></div><div class="col-2"><!-- /btn-group --> <label> Posiciones y metraje</label><div class="input-group"><input class="form-control" style="text-align: center;" type="text" id="IdTextPosiciones' + idDetalle + '" value="' + cantidadPosiciones + '" readOnly="readOnly"><b>||</b><input class="form-control" style="text-align: center;" type="text" id="IdTextMetraje' + idDetalle + '" value="' + Metraje + '"  readOnly="readOnly"><input id="selectUbicacionHid" name="" type="hidden" value="Piso"  readOnly="readOnly"><input  name="" type="hidden" value=""  readOnly="readOnly"><div class="input-group-append"></div></div></div><div class="col-1"><div class="form-group"><label>Ubicación</label><select class="form-control select2" id="selectConsolidado" name="selectConsolidado" style="width: 100%;" disabled="disabled"><option selected="selected">' + selectUbicacion + '</option><option>Piso</option><option>Rack</option><option>Predio Vehiculos Usados</option><option>Fuera de bodega</option><option>Predio Vehiculos Nuevos</option></select></div></div><div class="col-4"><div class="form-group"><label>Descripción de ingreso</label><div class="input-group input-group"><input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso' + idDetalle + '" value="' + descripcionMerca + '" readOnly="readOnly"></div></div></div>');
                 document.getElementById("rackPisoData").innerHTML = "";
             }
             if (tipoIng == "VEHICULOS NUEVOS" || tipoIng == "vehiculoUsado") {
@@ -955,7 +985,7 @@ $(document).on("change", "#personaSeleccionada", async function () {
         <div class="info-box-content">
             <span class="info-box-text">` + nombre + ` ` + apellidos + `</span>
             <span class="info-box-number">Correo : ` + email + `</span>
-        <span class="info-box-number">Tel�fono : ` + telefono + `  Montarguista</span>
+        <span class="info-box-number">Teléfono : ` + telefono + `  Montarguista</span>
         </div>
         <button type="button" id="closeMontacarg" idMont="idMont` + idMontarcaga + `" class="closeMont" data-dismiss="alert" aria-label="Close">
                                         <span aria-hidden="true">X</span>

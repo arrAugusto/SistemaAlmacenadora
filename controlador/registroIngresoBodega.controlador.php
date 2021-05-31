@@ -22,8 +22,6 @@ class ControladorRegistroBodega {
     }
 
     public static function ctrGuardarDetalle($datos, $usuarioOp) {
-
-
         $dataListaUbica = $datos["hiddenLista"];
         $dataListaUbica = trim($dataListaUbica);
         $idChequeBodega = $datos["idChequeBodega"];
@@ -33,9 +31,10 @@ class ControladorRegistroBodega {
         date_default_timezone_set('America/Guatemala');
         $time = date('Y-m-d H:i:s');
         $idIngreso = $datos['idOrdenIng'];
-        $respuesta = ModeloRegIngBod::mdlGuardarDetalle($datos, $usuarioOp);
+
 
         if ($datos["hiddenLista"] == "vehiculoUsado") {
+                    $respuesta = ModeloRegIngBod::mdlGuardarDetalle($datos, $usuarioOp);
             $idDetalle = $datos['idDetalle'];
             $ubicacion = $datos['selectUbicacion'];
             $sp = "spUbicacionVehUsado";
@@ -62,20 +61,27 @@ class ControladorRegistroBodega {
         } else {
 
             $dataListaUbica = json_decode($dataListaUbica, true);
+            foreach ($dataListaUbica as $key => $value) {
+                if (count($value)==0){
+                    return "Error, sin pos";
+                }
+            }
+
+            $respuesta = ModeloRegIngBod::mdlGuardarDetalle($datos, $usuarioOp);
             $llave = $respuesta["llaveIdent"][0]["Identity"];
             $sp = "spMetrosPosInci";
+            
             foreach ($dataListaUbica as $key => $value) {
-                $idAreaBod = $dataListaUbica[$key][0];
-                $pos = $dataListaUbica[$key][2];
-                $metraje = $dataListaUbica[$key][3];
-                $promedio = $dataListaUbica[$key][4];
-
-                $respuestaPos = ModeloRegIngBod::mdlGuardarAreaBodega($llave, $idAreaBod, $pos, $metraje, $promedio, $sp);
+                $idAreaBod = (int)$dataListaUbica[$key][0];
+                $pos = (int)$dataListaUbica[$key][2];
+                $metraje = (float)$dataListaUbica[$key][3];
+                $promedio = (float)$dataListaUbica[$key][4];
                 $respuestaGUbica = ModeloRegIngBod::mdlGuardarDetalleLista($dataListaUbica[$key][5], $llave);
+                $respuestaPos = ModeloRegIngBod::mdlGuardarAreaBodega($llave, $idAreaBod, $pos, $metraje, $promedio, $sp);
             }
         }
         if ($respuestaGUbica == "fin") {
-            return $respuesta;
+            return array($respuesta, $respuestaPos, $respuestaGUbica);
         }
     }
 
