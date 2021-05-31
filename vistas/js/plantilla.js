@@ -247,18 +247,6 @@ $(document).on("click", ".btnQRValidateIng", async function () {
     }
 })
 
-$(document).ready(function () {
-    var estado = 0;
-    if ("promedioTarima" in localStorage) {
-        var estado = 1
-        var promedioLocal = localStorage.getItem("promedioTarima");
-        localStorage.setItem("promedioTarima", promedioLocal);
-    }
-    localStorage.clear();
-    if (estado == 1) {
-        localStorage.setItem("promedioTarima", promedioLocal);
-    }
-})
 
 $(document).on("click", ".btnRebajaCorregida", async function () {
     var idBitacora = $(this).attr("idBitacora");
@@ -278,8 +266,6 @@ $(document).on("click", ".btnRebajaCorregida", async function () {
 
                 Window.location = "salir";
             } else {
-
-
                 Swal.fire(
                         'Eliminada!',
                         'Esta incidencia fue eliminada de la vista.',

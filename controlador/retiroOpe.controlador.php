@@ -262,7 +262,7 @@ class ControladorRetiroOpe {
 
     public static function ctrEditarRetiroOpF($datos, $idRetiroBtn, $usuarioOp) {
         $RevDetRebajados = json_decode($datos['listaDetallesEdit'], true);
-
+        
         $contador = 0;
         foreach ($RevDetRebajados as $key => $value) {
             $idDetalle = $value["idDetalles"];
@@ -272,8 +272,6 @@ class ControladorRetiroOpe {
             $sp = "spConsultRetDet";
             $mostrarDetRebajado = ModeloRetiroOpe::mdlModificacionDetalles($idRetiroBtn, $sp);
             $arrayDetallesReb = json_decode($mostrarDetRebajado[0]["detallesRebajados"], true);
-
-
             if ($idDetalle == $arrayDetallesReb[0]["idDetalles"]) {
                 $saldoActual = $mostrarDetalleStock[0]["bultosDetalle"];
                 $Rebajado = $arrayDetallesReb[0]["cantBultos"];

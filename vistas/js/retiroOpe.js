@@ -313,7 +313,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                     var estado = 0;
                 } else {
 
-
                     for (var i = 0; i < paragraphsButton.length; i++) {
                         var estadoDet = 1;
                         var idButton = paragraphsButton[i].attributes.numorigen.textContent;
@@ -340,27 +339,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                 }
 
             }
-            /*   if ("listaDR" in localStorage) {
-             listaIdButton = [];
-             var estadoDet = 1;
-             estado = 2;
-             var jsonStorageDR = localStorage.getItem("listaDR");
-             var jsonStorageDR = JSON.parse(jsonStorageDR);
-             console.log(jsonStorageDR);
-             for (var i = 0; i < jsonStorageDR.length; i++) {
-             
-             var cantBultos = jsonStorageDR[i].bltsSumFinal;
-             var idButton = jsonStorageDR[i].idIngDR;
-             
-             
-             listaIdButton.push({
-             "idDetalles": idButton,
-             "cantBultos": cantBultos,
-             "estadoDet": estadoDet
-             });
-             }
-             
-             }*/
+
             if (estado > 0 && estado == 1) {
                 alert("no selecciono ningun cliente");
             } else if (estado == 0 || estado == 2) {
@@ -405,7 +384,6 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         listaVehiculos = [];
                         var paragraphsButton = Array.from(document.querySelectorAll("#buttonTrashVeh"));
                         if (paragraphsButton.length > 0) {
-
 
                             for (var i = 0; i < paragraphsButton.length; i++) {
                                 var numOrigen = paragraphsButton[i].attributes.numorigen.value;
@@ -477,15 +455,11 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                         for (var i = 0; i < jsonStorageDR.length; i++) {
                             var totalBultos = totalBultos + jsonStorageDR[i].bltsSumFinal;
                         }
-
-
                     }
 
                     console.log(verSaldo);
                     if (verSaldo == 0 || verSaldo == 1 || "listaDR" in localStorage) {
                         if (bltsSaldo == 0 && condicion == 0 || bltsSaldo == 1 && condicion == 1 || bltsSaldo == 2 && condicion == 2 || "listaDR" in localStorage) {
-
-
                             if (totalBultos == cantBultos) {
 
                                 if (tipoIng == "vehM" || tipoIng == "vehUs") {
@@ -600,7 +574,7 @@ $(document).on("click", ".btnGuardarRetiro", async function () {
                                 Swal.fire('Diferencia bultos', 'En el formulario declaro ' + cantBultos + ' bultos y en detalles ud declaro ' + totalBultos + ' bultos.', 'error');
                             }
                         } else {
-                            if (respSaldos[0].saldoBultos == bultsResp ) {
+                            if (respSaldos[0].saldoBultos == bultsResp) {
                                 Swal.fire({
                                     title: 'Diferencia de saldos',
                                     text: "Por ser ultimo retiro parcial, puede aplicar los valores del sistema si lo desea, sino revise los saldos rebajados!",
@@ -2034,7 +2008,7 @@ $(document).on("click", ".btnMasPilotos", async function () {
     $("#btnGuardaNuevaUnidad").addClass("btn-info");
     $("#btnGuardaNuevaUnidad").html("Guardar Nueva Unidad");
     var idMasPilotos = $(this).attr("idMasPilotos");
-    if ($("#tablasChasisNew").length>0){
+    if ($("#tablasChasisNew").length > 0) {
         $("#btnGuardaNuevaUnidad").attr("idRetOp", idMasPilotos);
     }
     console.log(idMasPilotos);
@@ -2082,10 +2056,10 @@ $(document).on("click", ".btnMasPilotos", async function () {
             document.getElementById("numeroMarchamoPlusUn").value = "";
 
 
-            if ($("#numeroPlaca").length>0){
+            if ($("#numeroPlaca").length > 0) {
                 document.getElementById("numeroPlaca").value = "";
                 $("#numeroPlaca").removeClass("is-valid");
-                $("#numeroPlaca").addClass("is-invalid");                                
+                $("#numeroPlaca").addClass("is-invalid");
             }
 
             $("#numeroLicenciaPlus").removeClass("is-valid");
@@ -2846,9 +2820,11 @@ $(document).on("click", ".btnPolizaDR", async function () {
 })
 
 $(document).ready(function () {
-    localStorage.removeItem("listaDR");
-    localStorage.removeItem("listaChasisDR");
+    if ($(".btnPolizaDR").length > 0) {
+        localStorage.removeItem("listaDR");
+        localStorage.removeItem("listaChasisDR");
 
+    }
 })
 
 function saldosSobreGiros(poliza, bltsSumFinal, cifFinal, impuestoFinal) {
@@ -2997,10 +2973,10 @@ $(document).on("click", ".btnListaSelect", async function () {
             dataType: "json",
             success: function (respuestaDetIng) {
                 console.log(respuestaDetIng);
- 
+
                 if (respuestaDetIng.respTipo == "vehN") {
                     document.getElementById("hiddenTipoRet").value = "vehN";
-                    console.log(173);
+
                 } else if (respuestaDetIng.respTipo == "vehM" || servicio.respTipo == "vehUs") {
                     if (respuestaDetIng.data.resAjuste != "SD") {
 
@@ -3175,6 +3151,9 @@ $(document).on("click", ".btnListaSelect", async function () {
                                             var jsonStorageDR = localStorage.getItem("listaDR");
                                             var jsonStorageDR = JSON.parse(jsonStorageDR);
                                             for (var i = 0; i < jsonStorageDR.length; i++) {
+                                                console.log(jsonStorageDR[i].poliza);
+                                                console.log(polizaIngSelect);
+
                                                 if (jsonStorageDR[i].poliza == polizaIngSelect) {
                                                     var polizaDRRev = 1;
                                                 }
@@ -3425,4 +3404,3 @@ $(document).on("click", ".btnListaSelect", async function () {
         });
     }
 });
-

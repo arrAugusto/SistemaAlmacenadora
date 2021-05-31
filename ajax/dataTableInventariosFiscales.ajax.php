@@ -69,7 +69,7 @@ class dataTableInventarios {
                 $descuadre = $descuadre+1;
                 $polizaRet = $value["polizaRetiro"];
                 $polizaIng = $value["numeroPoliza"];
-                        $errorRebaja = array("idRet" => $value["idRet"], "detallesRebajados" => $value["detallesRebajados"], "bultos"=>$value["bultos"], "tipo"=>1);
+                $errorRebaja = array("idRet" => $value["idRet"], "detallesRebajados" => $value["detallesRebajados"], "bultos"=>$value["bultos"], "tipo"=>1);
                 array_push($erroresRebajas, $errorRebaja);
             }
         }
@@ -91,6 +91,7 @@ class dataTableInventarios {
         $inicioAjuste = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spInioAjusteInv, $valor);
         $spAjustes = "spDetallesAjustInv";
         $saldosAjusteDetalle = ModeloHistorialIngresos::mdlMostrarChasisVehContables($spAjustes, $valor);
+   
         if ($saldosAjusteDetalle != "SD") {
             foreach ($saldosAjusteDetalle as $key => $value) {
                 $datoArray = json_decode($value["detallesRebajados"], true);
@@ -105,12 +106,7 @@ class dataTableInventarios {
             }
             $sp = "spVehNew";
             $respIngVeh = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
-
-
         }
-
-
-
 
         $sp = "spSaldosSuper";
         $respuesta = ModeloHistorialIngresos::mdlMostrarChasisVehContables($sp, $valor);
