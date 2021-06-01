@@ -7,7 +7,7 @@ $(document).on("click", ".btnADetalle", async function () {
     var tipoIng = document.getElementById("hiddenTipoIng").value;
     var tipOp = 0;
     var paragraphsRev = Array.from(document.querySelectorAll("#btnUbica"));
-    if (paragraphsRev.length == 0 && (tipoIng != "VEHICULOS NUEVOS" || tipoIng != "vehiculoUsado")) {
+    if (paragraphsRev.length == 0 && document.getElementById("hiddenTipoIng").value == "ZA") {
         Swal.fire(
                 'Error en el metraje!',
                 'No puede continuar no agrego metraje!',

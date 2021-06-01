@@ -119,8 +119,6 @@ class ControladorRetirosBodega {
         $respuesta = ModeloRetirosBodega::mdlDetallesSalidaMerca($valIdRet);
         if ($respuesta != "SD") {
 
-
-
             $arrayDetalle = json_decode($respuesta[0]["detallesRebajados"], true);
             $arrayNuevoDetalle = [];
 
@@ -139,12 +137,14 @@ class ControladorRetirosBodega {
                 $estado = $value["estadoDet"];
                 $pos = $respuestaDetalle[0]["stockPos"];
                 $mts = $respuestaDetalle[0]["stockMts"];
+                $promedio = $respuestaDetalle[0]["promedio"];
+                
                 if ($value["estadoDet"] == 0) {
                     $cantPos = $value["cantPos"];
                     $cantMts = $value["cantMts"];
-                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "cantPos" => $cantPos, "cantMts" => $cantMts, "estadoDet" => $value["estadoDet"], "estockBults" => $bultsStock, "numeroPoliza" => $numeroPoliza, "detalladoPosM" => $respuestaDetalle);
+                    $detalles = array("promedio"=>$promedio, "idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "cantPos" => $cantPos, "cantMts" => $cantMts, "estadoDet" => $value["estadoDet"], "estockBults" => $bultsStock, "numeroPoliza" => $numeroPoliza, "detalladoPosM" => $respuestaDetalle);
                 } else {
-                    $detalles = array("idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "estadoDet" => $value["estadoDet"], "estockBults" => $bultsStock, "numeroPoliza" => $numeroPoliza, $respuestaDetalle);
+                    $detalles = array("promedio"=>$promedio, "idDetalle" => $idDetalle, "empresa" => $empresa, "bultos" => $bultos, "pos" => $pos, "mts" => $mts, "estadoDet" => $value["estadoDet"], "estockBults" => $bultsStock, "numeroPoliza" => $numeroPoliza, $respuestaDetalle);
                 }
                 array_push($arrayNuevoDetalle, $detalles);
             }

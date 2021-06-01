@@ -40,22 +40,22 @@ $(document).on("click", ".btnDetalleRetBod", function () {
                 }
                 if (respuesta[1][0] == "SD") {
                     /*
-                    console.log(respuesta[0][1]);
-                    document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].bultos + '</label>';
-                    document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].pos + '</label>';
-                    document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].mts + '</label>';
-                    */for (var i = 0; i < respuesta["Ubicaciones"].length; i++) {
+                     console.log(respuesta[0][1]);
+                     document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].bultos + '</label>';
+                     document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].pos + '</label>';
+                     document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[1]["Ing"][0].mts + '</label>';
+                     */for (var i = 0; i < respuesta["Ubicaciones"].length; i++) {
                         var pasillo = respuesta["Ubicaciones"][i].pasillo;
                         var columna = respuesta["Ubicaciones"][i].columna;
                         document.getElementById("divUbicacionesRet").innerHTML = '<span class="badge badge-primary" style="font-size: 15px;">P' + pasillo + 'C' + columna + '</span>&nbsp;&nbsp;';
                     }
                 } else {
                     /*
-                    console.log(respuesta[1]);
-                    document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].bltsIngreso + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].bultosRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].nuevoSaldo + '</label>';
-                    document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].ingresoPos + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].PosRetirdas + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].saldoPos + '</label>';
-                    document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].mtsIngresados + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].mtsRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].stockMts + '</label>';
-                    */for (var i = 0; i < respuesta[1].length; i++) {
+                     console.log(respuesta[1]);
+                     document.getElementById("bltsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].bltsIngreso + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].bultosRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].nuevoSaldo + '</label>';
+                     document.getElementById("posActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].ingresoPos + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].PosRetirdas + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].saldoPos + '</label>';
+                     document.getElementById("mtsActuales").innerHTML = '<label class="badge bg-info" style="font-size: 13px;">Ingreso : &nbsp;&nbsp;' + respuesta[0][0].mtsIngresados + '</label><br/><label class="badge bg-info" style="font-size: 13px;">Retiro : &nbsp;&nbsp;' + respuesta[0][0].mtsRetirados + '</label></br><label class="badge bg-danger" style="font-size: 20px;">Saldo : &nbsp;&nbsp;' + respuesta[0][0].stockMts + '</label>';
+                     */for (var i = 0; i < respuesta[1].length; i++) {
                         var pasillo = respuesta[1][i].pasillo;
                         var columna = respuesta[1][i].columna;
                         document.getElementById("divUbicacionesRet").innerHTML += '<span class="badge badge-primary" style="font-size: 15px;">P' + pasillo + 'C' + columna + '</span>&nbsp;&nbsp;';
@@ -234,7 +234,7 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
         processData: false,
         dataType: "json",
         success: function (respuesta) {
-           
+
             console.log(respuesta);
 
             if (respuesta == "SD") {
@@ -361,22 +361,22 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                         var nombreArea = respuesta[1][i][0][j].nombreArea;
                         var stockPOSM = respuesta[1][i][0][j].stockPOSM;
                         var stockMetraje = respuesta[1][i][0][j].stockMetraje;
-                        var idPOSM = respuesta[1][i][0][j].idPOSM;
-                        
+                        var promedio = respuesta[1][i][0][j].promedio;
 
+                        var idPOSM = respuesta[1][i][0][j].idPOSM;
 
                         var inventarioExecel = '<button type="button" buttonid="' + idIngreso + '" class="btn btn-outline-success btnGeneracionExcel btn-sm">Hist. Retiros <i class="fa fa-file-excel-o"></i></button>';
 
-                        if (stockPOSM== 0) {
-                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="posDet' + [j] + '" value="' + stockPOSM + '" readOnly="readOnly" /></div>';
-                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid" id="mtsDet' + [j] + '" value="' + stockMetraje + '" readOnly="readOnly"  /></div>';
+                        if (stockPOSM == 0) {
+                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid textPOSConvert" id="posDet' + [j] + '" index="' + [j] + '" value="' + stockPOSM + '" readOnly="readOnly" promedio="' + promedio + '" /></div>';
+                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid textMTSConvert" id="mtsDet' + [j] + '" index="' + [j] + '" value="' + stockMetraje + '" readOnly="readOnly" promedio="' + promedio + '" /></div>';
                             var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [j] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Editar <i class="fa fa-edit"></i></button></div>';
-                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
+                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, promedio, stockMetraje, textPos, textBultos, botonera]);
                         } else if (stockPOSM > 0) {
-                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="posDet' + [j] + '" value="" /></div>';
-                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid" id="mtsDet' + [j] + '" value="" /></div>';
-                            var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [j] + '"  idDeta="' + idDetalle + '" idPOSM="'+ idPOSM+'" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
-                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
+                            var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid textPOSConvert" id="posDet' + [j] + '" index="' + [j] + '" value="" promedio="' + promedio + '" /></div>';
+                            var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid textMTSConvert" id="mtsDet' + [j] + '" index="' + [j] + '" value="" promedio="' + promedio + '" /></div>';
+                            var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [j] + '"  idDeta="' + idDetalle + '" idPOSM="' + idPOSM + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
+                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, promedio, stockMetraje, textPos, textBultos, botonera]);
 
 
                         }
@@ -460,7 +460,7 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
     var idfila = $(this).attr("idFila");
 
     var idRet = $(this).attr("idRet");
-        var idDeta = $(this).attr("idDeta");
+    var idDeta = $(this).attr("idDeta");
     var idPosm = $(this).attr("idPosm");
     var idRetitera = $(this).attr("idRetitera");
     var valPosSalida = document.getElementById("posDet" + idfila).value;
@@ -637,22 +637,22 @@ $(document).on("click", ".btnGuardarCambioDet", async function () {
                                 )
 
                     }
-                                    if (guardDet == "puedeEditar") {
-                    button.removeClass("btnGuardarCambioDet");
-                    button.addClass("btnEditarDetallePosM");
-                    button.removeClass("btn-info");
-                    button.addClass("btn-warning");
-                    button.html("Editar");
-                    $("#posDet" + idfila).removeClass("is-invalid");
-                    $("#posDet" + idfila).addClass("is-valid");
-                    $("#mtsDet" + idfila).removeClass("is-invalid");
-                    $("#mtsDet" + idfila).addClass("is-valid");
-                    Swal.fire(
-                            'Transacción Exitosa',
-                            'Se Guardo Correctamente los Metros y Posiciones',
-                            'success'
-                            )
-                }
+                    if (guardDet == "puedeEditar") {
+                        button.removeClass("btnGuardarCambioDet");
+                        button.addClass("btnEditarDetallePosM");
+                        button.removeClass("btn-info");
+                        button.addClass("btn-warning");
+                        button.html("Editar");
+                        $("#posDet" + idfila).removeClass("is-invalid");
+                        $("#posDet" + idfila).addClass("is-valid");
+                        $("#mtsDet" + idfila).removeClass("is-invalid");
+                        $("#mtsDet" + idfila).addClass("is-valid");
+                        Swal.fire(
+                                'Transacción Exitosa',
+                                'Se Guardo Correctamente los Metros y Posiciones',
+                                'success'
+                                )
+                    }
                 }
             })
 
@@ -676,7 +676,7 @@ function ajaxGuadarDet(idDeta, idPosm, idRet, valPosSalida, valMtsSalida, tipoAt
     datos.append("valMtsSalidaGD", valMtsSalida);
     datos.append("tipoAth", tipoAth);
     datos.append("idPosm", idPosm);
-    
+
 
     $.ajax({
         async: false,
@@ -1171,3 +1171,12 @@ function InittablePosMetraje(lista) {
     });
 
 }
+
+$(document).on("keyup", ".textPOSConvert", async function () {
+    var index = $(this).attr("index");
+    var promedio = $(this).attr("promedio");
+    
+    if ($("#mtsDet" + index).val() == "" || !empty($("#mtsDet" + index).val())) {
+        
+    }
+});
