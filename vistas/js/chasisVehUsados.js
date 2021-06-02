@@ -11,7 +11,6 @@ $(document).on("click", ".btnExcelChasis", async function () {
     }).then(async function (result) {
         if (result.value) {
             var tipoOp = 1;
-
             var nomVar = "generateHistoriaChasis";
             var resp = await insertNuevoServicio(nomVar, tipoOp);
             var nombreReporte = 'HISTORIAL DE CHASIS VEHÍCULOS USADOS';

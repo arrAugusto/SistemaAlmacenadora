@@ -139,7 +139,7 @@
     }
 
     #tablePosMetraje td:nth-child(4){
-        background-color: #F18B08;    
+        background-color: red;    
         font-weight: normal;
         text-align: center;
         color: white;   
