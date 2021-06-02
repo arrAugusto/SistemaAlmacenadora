@@ -121,7 +121,6 @@ class ControladorRetirosBodega {
 
             $arrayDetalle = json_decode($respuesta[0]["detallesRebajados"], true);
             $arrayNuevoDetalle = [];
-
             foreach ($arrayDetalle as $key => $value) {
                 $idDetalle = $value["idDetalles"];
                 $sp = "spDetalleStockPOSM";
@@ -157,15 +156,10 @@ class ControladorRetirosBodega {
     public static function ctrGuardarDetalleSalida($idDeta, $idRet, $valPosSalida, $valMtsSalida, $usuarioOp, $tipoAth, $idPosm) {
         $sp = "spDetalleStockPOSM";
         $respuestaDetalle = ModeloRetiroOpe::mdlMostrarStockPOSM($idDeta, $sp);
-
         $sp = "spDetallesRevision";
         $detallesReb = ModeloRetiroOpe::mdlDetUnParametro($idRet, $sp);
-        
         //recorriendo los detalles rebajados en almacenadora
-        
         if ($detallesReb != "SD") {
-
-
             $dataDetalle = [];
             foreach ($detallesReb as $key => $value) {
                 $json = json_decode($value["detallesRebajados"], true);
@@ -199,9 +193,11 @@ class ControladorRetirosBodega {
             $nuevoSaldoPos = $stockPos - $valPosSalida;
             //stock metros 
             $nuevoSaldoMts = $stockMts - $valMtsSalida;
-
+            //round math
+            $nuevoSaldoPos = round($nuevoSaldoPos, 2);
+            $nuevoSaldoMts   = round($nuevoSaldoMts, 2);
+            
             $stockCondicional = $respuestaDetalle[0]["stock"];
-
             if ($stockBlts == 0 && $nuevoSaldoPos == 0 && $nuevoSaldoMts == 0 || $nuevoSaldoPos < 1 && $nuevoSaldoMts < 1 ||
                     $stockBlts > 0 && $nuevoSaldoPos > 0 && $nuevoSaldoMts > 0 || $tipoAth == 1 && $stockBlts == 0 && $nuevoSaldoPos > 0 && $nuevoSaldoMts > 0) {
 
@@ -218,7 +214,6 @@ class ControladorRetirosBodega {
                     return "exito";
                 }
             } else {
-
                 return "sobreGirara";
             }
         }

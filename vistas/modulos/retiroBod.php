@@ -122,9 +122,15 @@
         text-align: center;
         color: white;        
     }   
+    #tablePosMetraje th:nth-child(4){
+        background-color: #0288d1;
+        border: 1px solid #0288d1;
+        font-weight: normal;
+        text-align: center;
+        color: white;        
+    }   
     #tablePosMetraje td:nth-child(3){
         background-color: #F18B08;    
-
         font-weight: normal;
         text-align: center;
         color: white;   
@@ -132,6 +138,14 @@
 
     }
 
+    #tablePosMetraje td:nth-child(4){
+        background-color: #F18B08;    
+        font-weight: normal;
+        text-align: center;
+        color: white;   
+        border-radius: 1px;
+
+    }
 </style>
 
 
@@ -211,11 +225,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-1">
-<div class="alert alert-warning">
-  <strong>Cambios en este modulo!</strong> Borra tu historial de navegación para recargar esta nueva función, las columnas turquesas remarcadas con color Naranja los saldos actuales del sistema.
-</div>
-                    </div>
+
                     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 mt-4" id="divTableRetiraBodega">
 
                     </div>
@@ -296,10 +306,10 @@
                                             <span class="product-description" id="txtDescripcionRet">
                                             </span>
                                         </div>
-                                            <div class="description-block border-right">
-                                                <h5 class="description-header">Poliza   e ingreso</h5>
-                                                <span class="description-text" id="txtPolizaIng"></span>
-                                            </div>
+                                        <div class="description-block border-right">
+                                            <h5 class="description-header">Poliza   e ingreso</h5>
+                                            <span class="description-text" id="txtPolizaIng"></span>
+                                        </div>
 
                                         <div class="card-footer mt-4">
                                             <div class="row">
@@ -313,7 +323,7 @@
                                                 </div>
                                                 <div class="col-8">
                                                 </div>
-                                                
+
                                             </div>
                                         </div>
                                     </div>
@@ -362,7 +372,7 @@
                 <h4 class="modal-title">Modal Heading</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-                  <h5 class="card-title">Retiro de Mercadería</h5>
+            <h5 class="card-title">Retiro de Mercadería</h5>
 
             <!-- Modal body -->
             <div class="modal-body">

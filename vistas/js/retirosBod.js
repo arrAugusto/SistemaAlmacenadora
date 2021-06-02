@@ -1,3 +1,5 @@
+/* global parseFloat */
+
 $(document).on("click", ".btnDetalleRetBod", function () {
     var idIngreso = $(this).attr("idIngreso");
     var idRetiro = $(this).attr("idretiro");
@@ -371,12 +373,12 @@ function ajaxSolicInfo(valIdRet, tipoing, polizaretiro, idIngreso) {
                             var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid textPOSConvert" id="posDet' + [j] + '" index="' + [j] + '" value="' + stockPOSM + '" readOnly="readOnly" promedio="' + promedio + '" /></div>';
                             var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control is-valid textMTSConvert" id="mtsDet' + [j] + '" index="' + [j] + '" value="' + stockMetraje + '" readOnly="readOnly" promedio="' + promedio + '" /></div>';
                             var botonera = '<div id="botoneraPosMts"><button type="button" class="btn btn-warning btn-sm btnEditarDetallePosM" id="btnEditarDetallePos' + [j] + '" idDeta="' + idDetalle + ' " estado="0" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Editar <i class="fa fa-edit"></i></button></div>';
-                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, promedio, stockMetraje, textPos, textBultos, botonera]);
+                            listaPOSM.push([numContador, polInterna, nombreArea, promedio, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
                         } else if (stockPOSM > 0) {
                             var textPos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid textPOSConvert" id="posDet' + [j] + '" index="' + [j] + '" value="" promedio="' + promedio + '" /></div>';
                             var textBultos = '<div class="input-group input-group-sm"><input type="number" class="form-control input-group-sm is-invalid textMTSConvert" id="mtsDet' + [j] + '" index="' + [j] + '" value="" promedio="' + promedio + '" /></div>';
                             var botonera = '<div class="btn-group" id="botoneraPosMts"><button type="button" class="btn btn-info btn-sm btnGuardarCambioDet" id="btnGuardarCambioDet' + [j] + '"  idDeta="' + idDetalle + '" idPOSM="' + idPOSM + '" idRet=' + valIdRet + ' idRetItera=' + valIdRet + ' idFila=' + [j] + '>Guardar <i class="fa fa-save"></i></button>' + inventarioExecel + '</div>';
-                            listaPOSM.push([numContador, polInterna, nombreArea, stockPOSM, promedio, stockMetraje, textPos, textBultos, botonera]);
+                            listaPOSM.push([numContador, polInterna, nombreArea, promedio, stockPOSM, stockMetraje, textPos, textBultos, botonera]);
 
 
                         }
@@ -1158,13 +1160,15 @@ function InittablePosMetraje(lista) {
             }, {
                 title: "Area Bodega"
             }, {
-                title: "Stock Posiciones"
+                title: "Promedio"
             }, {
-                title: "Stock Metros"
+                title: "Stock Pos"
             }, {
-                title: "Stock Posiciones"
+                title: "Stock Mts"
             }, {
-                title: "Stock Metros"
+                title: "POS Sal"
+            }, {
+                title: "Mts Sal"
             }, {
                 title: "Acciones"
             }]
@@ -1175,8 +1179,7 @@ function InittablePosMetraje(lista) {
 $(document).on("keyup", ".textPOSConvert", async function () {
     var index = $(this).attr("index");
     var promedio = $(this).attr("promedio");
-    
-    if ($("#mtsDet" + index).val() == "" || !empty($("#mtsDet" + index).val())) {
-        
-    }
+    var metros = $(this).val() * promedio;
+    $("#mtsDet" + index).val(parseFloat(metros).toFixed(2));
 });
+
