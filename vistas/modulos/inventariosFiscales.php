@@ -32,7 +32,7 @@
                         <div class="col-6">
                             <button type="button" class="btn btn-outline-success btn-lg btn-block btnInventarioFiscalExcel" estadorep="4">GENERAR SALDOS<i class="fa fa-file-excel-o"></i></button>
                         </div>
-                            
+
                         <div class="col-12 mt-4">
                             <table id="tableInventario" role="grid" class="table  dt-responsive table-striped table-hover table-sm" >
                                 <thead>
@@ -48,7 +48,7 @@
                                     <th><center>Acciones</center></th>
                                     </tr>
                                 </thead> <tbody>
-   
+
                                 </tbody>
                             </table>
                         </div>
@@ -67,7 +67,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4">
-                            
+
                             <label>Selecciona Servicio</label>
                             <input type="hidden" name="ServicioTarifa" id="ServicioTarifa">
                             <input type="hidden" id="hiddenIdentity" value="" />
@@ -226,30 +226,64 @@
                 </div>
             </div>
     </section>
-        <section id="divEdicionesBodega">
-       <div class="col-12" id="divDetallesMerca"> 
-        <div class="card card-success">
-        <div class="card-header">
-            <h5 class="card-title">Edicion de detalles <?php if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'."Su usuario no tiene navegación configurada";
-        }else{
-          echo '&nbsp;&nbsp;&nbsp;&nbsp;'.$_SESSION["Navega"].'&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">'.$_SESSION["NavegaBod"].'</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">'.$_SESSION["NavegaNumB"].'</i>';
+    <section id="divEdicionesBodega">
+        <div class="col-12" id="divDetallesMerca"> 
+            <div class="card card-success">
+                <div class="card-header">
+                    <h5 class="card-title">Edicion de detalles <?php
+                        if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . "Su usuario no tiene navegación configurada";
+                        } else {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>';
+                        }
+                        ?></h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12" id="divContenidoEdicionBodega">
 
-        }?></h5>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-12" id="divContenidoEdicionBodega">
 
 
-
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        </div>
-            </div>
-</section>
+    </section>
+    <section id="divTableUbi">
+        <div class="col-12" id="divTableUbicciones"> 
+            <div class="card card-success">
+                <div class="card-header">
+                    <h5 class="card-title">Edicion de detalles <?php
+                        if (isset($_SESSION["Navega"]) && $_SESSION["Navega"] == "SinNav") {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . "Su usuario no tiene navegación configurada";
+                        } else {
+                            echo '&nbsp;&nbsp;&nbsp;&nbsp;' . $_SESSION["Navega"] . '&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaBod">' . $_SESSION["NavegaBod"] . '</i>&nbsp;&nbsp;&nbsp;&nbsp;<i id="etiquetaNumBod">' . $_SESSION["NavegaNumB"] . '</i>';
+                        }
+                        ?></h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12" id="mapeandoUbica">
 
+
+                            <?php
+                            $respuesta = ControladorUbicacionBodega::ctrDibujarMapaDetalles();
+                            ?>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div id="mapeandoAcciones" class="col-12"></div>
+        <div class="card-footer mt-4" id="divBottoneraAccion">
+            <div class="btn-group" id="divBotonesAcciones">
+
+            </div>
+        </div>
+    </section>  
 </div>
 
 <!-- The Modal -->

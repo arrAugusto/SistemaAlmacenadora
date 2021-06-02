@@ -17,7 +17,7 @@ $(document).on("click", ".btnExcelChasis", async function () {
             var nombreEncabezado = "DescargaReporteExcel";
             var nombreFile = "ReporteDeIngresosVehUs_";
             var creaExcel = await JSONToCSVDescargaExcel(resp, nombreEncabezado, nombreReporte, nombreFile, true);
-            console.log(resp);
+
         }
     })
 })

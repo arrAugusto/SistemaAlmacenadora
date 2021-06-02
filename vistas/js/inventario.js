@@ -141,8 +141,8 @@ $(document).on("click", ".btnEditBod", async function () {
     var detalles = await mostrarEdicionesBodega(valIdIng);
     var css = "display: block;";
     document.getElementById("divEdicionesBodega").setAttribute("style", css);
-        var css = "display: none;";
-    document.getElementById("divTableUbi").setAttribute("style", css);  
+    var css = "display: none;";
+    document.getElementById("divTableUbi").setAttribute("style", css);
 })
 
 function mostrarEdicionesBodega(valIdIng) {
@@ -165,9 +165,13 @@ function mostrarEdicionesBodega(valIdIng) {
             if (respuesta != "SD") {
                 document.getElementById("divContenidoEdicionBodega").innerHTML = "";
                 for (var i = 0; i < respuesta.length; i++) {
+                    if (respuesta[i].stock_Bultos == 0) {
+                        var button = `<button type="button" class="btn btn-dark btn-flat" idDet="` + respuesta[i].idDetalle + `" disabled>Opciones de Ubicación</button>`;
 
+                    } else {
+                        var button = `<button type="button" class="btn btn-info btn-flat btnCambiarUbicaciones" idDet="` + respuesta[i].idDetalle + `">Opciones de Ubicación</button>`;
+                    }
                     document.getElementById("divContenidoEdicionBodega").innerHTML += `
-
                 <div id="divNum5" class="row">
                 	<div class="col-3">
                 		<div class="form-group">
@@ -198,8 +202,8 @@ function mostrarEdicionesBodega(valIdIng) {
                 		<div class="form-group">
                 			<label>Descripción de ingreso</label>
                 			<div class="input-group input-group">
-                				<input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso` + respuesta[i].idDetalle + `" value="` + respuesta[i].Descripción + `" readonly="readOnly"><span class="input-group-append">
-                					<button type="button" class="btn btn-info btn-flat btnCambiarUbicaciones" idDet="` + respuesta[i].idDetalle + `">Opciones de Ubicación</button>
+                				<input class="form-control" placeholder="Descripcion de ingreso" type="text" id="IdDescIngreso` + respuesta[i].idDetalle + `" value="` + respuesta[i].Descripcion + `" readonly="readOnly"><span class="input-group-append">
+                					` + button + `
                 				</span>
                 			</div>
                 		</div>
@@ -222,12 +226,12 @@ function mostrarEdicionesBodega(valIdIng) {
 }
 
 $(document).on("click", ".btnCambiarUbicaciones", async function () {
-    
+
     var css = "display: block;";
-    document.getElementById("divTableUbi").setAttribute("style", css);    
+    document.getElementById("divTableUbi").setAttribute("style", css);
     var idDet = $(this).attr("idDet");
     console.log(idDet);
-    
+
     var ubicacionEdicion = await mapaEdicionUbicacion(idDet);
     console.log(ubicacionEdicion);
 })
@@ -267,7 +271,7 @@ function mapaEdicionUbicacion(idDet) {
                 var columnaUnic = respuesta["respuestaUbicas"][resUbica].columna;
                 var idBod = respuesta["respuestaUbicas"][resUbica].idBodega;
 
-                document.getElementById(pasillo + columna).innerHTML += '<br/>&nbsp;&nbsp;<i class="fa fa-circle element" columnaX="'+respuesta["respuestaUbicas"][resUbica].columna+'" pasilloY="'+respuesta["respuestaUbicas"][resUbica].pasillo+'" id="elemento' + pasilloUnic + columnaUnic + idBod + '" idbodega="' + idBod + '" onmouseover="capturar(' + "elemento" + pasilloUnic + columnaUnic + idBod + ')" onmouseout="desmarcar(' + "elemento" + pasilloUnic + columnaUnic + idBod + ')" style="font-size:5px"></i>';
+                document.getElementById(pasillo + columna).innerHTML += '<br/>&nbsp;&nbsp;<i class="fa fa-circle element" columnaX="' + respuesta["respuestaUbicas"][resUbica].columna + '" pasilloY="' + respuesta["respuestaUbicas"][resUbica].pasillo + '" id="elemento' + pasilloUnic + columnaUnic + idBod + '" idbodega="' + idBod + '" onmouseover="capturar(' + "elemento" + pasilloUnic + columnaUnic + idBod + ')" onmouseout="desmarcar(' + "elemento" + pasilloUnic + columnaUnic + idBod + ')" style="font-size:5px"></i>';
             }
 
 
@@ -335,34 +339,34 @@ function mapaEdicionUbicacionModificar(idDet) {
 }
 
 $(document).on("mouseover", ".btnEliminarUbicacion", async function () {
-var dataid = $(this).attr("dataid");
-document.getElementById(dataid).setAttribute("style", "color: red; font-size:14px;");
+    var dataid = $(this).attr("dataid");
+    document.getElementById(dataid).setAttribute("style", "color: red; font-size:14px;");
 
 })
 
 $(document).on("click", ".btnEliminarUbicacion", async function () {
-var dataid = $(this).attr("dataid");
-var idIncidencia = $(this).attr("idincidencia");
-var pasilloY = $("#" + dataid).attr("pasilloY");
-var columnaX = $("#" + dataid).attr("columnaX");
-var respuesta = await eleminarUbicacion(pasilloY, columnaX, idIncidencia);
-console.log(respuesta);
-    if (respuesta=="Ok") {
-toastr.clear();
-        document.getElementById('P'+pasilloY+'C'+columnaX).innerHTML = 'P'+pasilloY+'C'+columnaX;
+    var dataid = $(this).attr("dataid");
+    var idIncidencia = $(this).attr("idincidencia");
+    var pasilloY = $("#" + dataid).attr("pasilloY");
+    var columnaX = $("#" + dataid).attr("columnaX");
+    var respuesta = await eleminarUbicacion(pasilloY, columnaX, idIncidencia);
+    console.log(respuesta);
+    if (respuesta == "Ok") {
+        toastr.clear();
+        document.getElementById('P' + pasilloY + 'C' + columnaX).innerHTML = 'P' + pasilloY + 'C' + columnaX;
         Swal.fire('Eliminada', 'La ubicación fue eliminada con exito', 'success');
-    }else if (respuesta=="Denegado") {
+    } else if (respuesta == "Denegado") {
         Swal.fire('No se anulo', 'Primero debe elegir la nueva ubicacion y luego anular', 'error');
-        
+
     }
 })
 
-function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
-     let todoMenus;
+function eleminarUbicacion(pasilloY, columnaX, idIncidencia) {
+    let todoMenus;
     var datos = new FormData();
     datos.append("pasilloYTrash", pasilloY);
     datos.append("columnaXTrash", columnaX);
-    datos.append("idIncidenciaTrash", idIncidencia);    
+    datos.append("idIncidenciaTrash", idIncidencia);
     $.ajax({
         async: false,
         url: "ajax/inventariosFiscales.ajax.php",
@@ -374,15 +378,15 @@ function eleminarUbicacion(pasilloY, columnaX, idIncidencia){
         dataType: "json",
         success: function (respuesta) {
             console.log(respuesta);
-            if (respuesta=="Denegado") {
+            if (respuesta == "Denegado") {
                 todoMenus = "Denegado";
-            }else{
-                    todoMenus = "Ok";
+            } else {
+                todoMenus = "Ok";
             }
         }, error: function (respuesta) {
             console.log(respuesta);
         }});
-    return todoMenus;   
+    return todoMenus;
 }
 
 //CARGAR DATATABLE HISTORIAL DE INGRESOS FISCALES CON DATOS JSON
