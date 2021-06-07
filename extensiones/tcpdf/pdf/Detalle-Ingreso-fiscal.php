@@ -20,14 +20,14 @@ class imprimirIngresoBodega {
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
         if ($servicio == "VEHICULOS NUEVOS") {
-                        $repuestaOpera = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
+            $repuestaOpera = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
             $nomElab = $repuestaOpera[0]["nombres"];
             $apellElab = $repuestaOpera[0]["apellidos"];
             $tipo = 0;
 
             $repuestaBod = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
             $nomBod = $repuestaBod[0]["nombres"];
-            $apellBod = $repuestaBod[0]["apellidos"];   
+            $apellBod = $repuestaBod[0]["apellidos"];
             $repuestaBodega = ControladorRegistroBodega::ctrMostrarChasis($codigo);
             $titulo = "vehículos en predios fiscales";
         } else {
@@ -207,8 +207,8 @@ EOF;
                     $pdf->writeHTML($bloque3, false, false, false, false, '');
                 }
             }
-            
-                        $bloque3 = <<<EOF
+
+            $bloque3 = <<<EOF
 	<table style="font-size:8px;">
  		<tr>
                  <br/>
@@ -218,14 +218,13 @@ EOF;
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
             
-            
             foreach ($repuestaBodega as $key => $value) {
                 $chasis = $value["chasis"];
                 $tipo = $value["comentario"];
+                if (!empty($tipo)){
                 $fontLetra = "font-size:7px";
                 $tdChasis = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:300px; ' . $fontLetra . ' text-align:left;">' . $chasis . '</td>';
                 $tdTipo = '<td style="border-left: 1px solid #030505; border-right: 1px solid #030505; width:300px; ' . $fontLetra . '">' . $tipo . '</td>';
-
                 $bloque4 = <<<EOF
 <table style="padding: 2px 5px; text-align:center;">
         <tr>
@@ -234,11 +233,10 @@ EOF;
         </tr>
 </table>	
 EOF;
-                $pdf->writeHTML($bloque4, false, false, false, false, '');            
-            
-        }    
-  
-                $bloque4 = <<<EOF
+                $pdf->writeHTML($bloque4, false, false, false, false, '');
+    }       
+}
+            $bloque4 = <<<EOF
 <table style="padding: 2px 5px; text-align:center;">
         <tr>
                     <th style="border-top: 1px solid #030505; background-color:white; width:300px;"><strong></strong></th>
@@ -246,9 +244,7 @@ EOF;
         </tr>
 </table>	
 EOF;
-         
-            $pdf->writeHTML($bloque4, false, false, false, false, '');        
-        
+            $pdf->writeHTML($bloque4, false, false, false, false, '');
         } else {
 
             $bloque3 = <<<EOF
@@ -264,12 +260,11 @@ EOF;
 	</table>	
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
-            
-            
+
+
 
 //-------------------------------------------------------------------------------------------------------
             $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);
-
             if (count($repuestaDetalles) <= 3) {
                 $fontLetra = "font-size:7px";
             } else if (count($repuestaDetalles) >= 4) {
@@ -277,12 +272,9 @@ EOF;
             }
             $posTotal = 0;
             $mtsTotal = 0;
-
             foreach ($repuestaDetalles as $key => $value) {
                 $idInc = $value["idIncidencia"];
-
                 $repPOSM = ControladorRegistroBodega::ctrMostrarPosMetros($idInc);
-
                 $nombreEmpresa = $value["nombreEmpresa"];
                 $detalleMerca = $value["detalleMerca"];
                 $posiciones = $repPOSM[0]["posiciones"];
@@ -416,7 +408,3 @@ ini_set('display_errors', 0);
 ini_set('log_errors', 1);
 $ingreso->traerDatosIngreso();
 ?>
-
-
-
-
