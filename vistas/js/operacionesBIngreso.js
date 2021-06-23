@@ -1874,8 +1874,9 @@ $(document).on("click", ".btnValidarChasis", function () {
         var sin_salto = chasisTrim.split("\n").join("");
         var cadenaArray = sin_salto.split("|");
         var validacion = cadenaArray.length;
-        var validarIter = (validacion / iteraciones);
+        var validarIter = parseInt(validacion / iteraciones);
         var validarIterInt = parseInt(validarIter);
+        
         if (validarIter == validarIterInt) {
             var lista = [];
             var denegacion = 0;
@@ -5505,6 +5506,7 @@ function cambiarLinea(indexValue, txtTpVeh, txtLnVeh) {
 
 
 $(document).on("click", ".btnGuradarChasVeh", async function () {
+
     if ($(".btnGuradarChasVeh").attr("estado") == 1) {
         Swal.fire({
             position: 'top-center',
@@ -5514,6 +5516,7 @@ $(document).on("click", ".btnGuradarChasVeh", async function () {
             timer: 3000
         })
     } else {
+
         var chasisDelimitados = document.getElementById("chasisDelimitados").value;
         var chasisTrim = chasisDelimitados.trim();
         var sin_salto = chasisTrim.split("\n").join("");
