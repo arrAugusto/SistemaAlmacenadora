@@ -48,12 +48,8 @@
                 </p>
             </a>
         </li>
-
-
-
 <li class="nav-item has-treeview">
             <a href="culminarIngresosBodega" class="nav-link">';
-
             $respuesta = ControladorOpB::ctrMostrarIngPendientes();
             echo '
                 <i class="fa fa-warning"';
@@ -91,7 +87,7 @@
                 </p>
             </a>
         </li>
-                        <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview">
             <a href="calcAlmacenajeF" class="nav-link">
                 <i class="fa fa-calculator colorBarSuper"></i>
                 <p class="colorBarSuper">
@@ -130,7 +126,6 @@
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Chasis Veh. Nuevos
-                    
                 </p>
             </a>
         </li>        
@@ -169,12 +164,8 @@
                 </p>
             </a>
         </li>
-
 </ul>            
         </li>
-
-        
-
 ';
 
             if ($_SESSION["departamentos"] == "Ventas") {
@@ -200,7 +191,6 @@
                     </a>
                 </li>
             </ul>
-            
         </li>';
             }
         }
@@ -213,7 +203,6 @@
                 $style = 'colorBarSuper';
             }
             echo '
-                
                 <li class="nav-item has-treeview">
                     <a class="nav-link">
                 <i class="fa fa-circle colorBarSuperVill"></i>
@@ -241,7 +230,7 @@
                         <p class="colorBarSuper">Detalle Tarifa</p>
                     </a>
                 </li>
-                            <li class="nav-item">
+            <li class="nav-item">
             <a href="gestorDeTarifas" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">Gestor de tarifas</p>
@@ -249,7 +238,7 @@
             </li>   
             </ul>
 
-</li>       
+            </li>       
                 <li class="nav-item has-treeview">
                     <a class="nav-link">
                 <i class="fa fa-circle colorBarSuperVill"></i>
@@ -559,7 +548,7 @@
                 <i class="fa fa-angle-left right colorBarSuper"></i>
             </a>
             <ul class="nav nav-treeview">   
-        <li class="nav-item has-treeview">
+            <li class="nav-item has-treeview">
             <a href="historiaIngresosFisacales" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
@@ -568,13 +557,12 @@
 
             </a>
         </li>
-                <li class="nav-item has-treeview">
+        <li class="nav-item has-treeview">
             <a href="historiaRetirosFisacales" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Historial de retiros
                 </p>
-
             </a>
         </li>
         
@@ -651,8 +639,6 @@
                 </p>
             </a>
         </li>
-
-
         <li class="nav-item has-treeview">
             <a href="paseDeSalida" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
@@ -887,14 +873,15 @@
         }
         if ($_SESSION["niveles"] == "MEDIO" && $_SESSION["departamentos"] == "Bodegas Fiscales" || $_SESSION["niveles"] == "BAJO" && $_SESSION["departamentos"] == "Bodegas Fiscales") {
             echo '      
-        <li class="nav-item">
-                <a href="gestorDeTarifas" class="nav-link">
+            <li class="nav-item">
+            <a href="gestorDeTarifas" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">Gestor de tarifas</p>
             </a>
         </li>    
         <li class="nav-item has-treeview">
             <a href="culminarIngresosBodega" class="nav-link">';
+
             $respuesta = ControladorOpB::ctrMostrarIngPendientes();
             echo '
                 <i class="fa fa-warning"';
@@ -914,7 +901,7 @@
 
                 echo '  </i>
                 <p class="colorBarSuper">
-                    Ingresos Pendientes
+                    Culminar Ingresos
                 <span class="badge badge-danger right">';
                 echo $respuesta[0]["cantIng"];
             }
@@ -924,29 +911,83 @@
             </a>
         </li> 
         <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="fa fa-circle colorBarSuperVillGren"></i>
+                <p class="colorBarSuper">
+                    Historiales
+                </p>
+                <i class="fa fa-angle-left right colorBarSuper"></i>
+            </a>
+            <ul class="nav nav-treeview">   
+            <li class="nav-item has-treeview">
             <a href="historiaIngresosFisacales" class="nav-link">
                 <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
                     Historial de ingresos
                 </p>
+
             </a>
         </li>
         <li class="nav-item has-treeview">
-            <a href="historialChasisVehUsados" class="nav-link">
-                 <i class="fa fa-truck colorBarSuper"></i>
+            <a href="historiaRetirosFisacales" class="nav-link">
+                <i class="fa fa-history colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Usados &nbsp;&nbsp;
+                    Historial de retiros
+                </p>
+            </a>
+        </li>
+        
+                <li class="nav-item has-treeview">
+            <a href="datosGeneralesPolizas" class="nav-link">
+                <i class="fa fa-history colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Acuses - Pilotos
+                </p>
+
+            </a>
+        </li>
+        </ul>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+                <i class="fa fa-circle colorBarSuperVillGren"></i>
+                <p class="colorBarSuper">
+                    Opciones de retiro
+                </p>
+                <i class="fa fa-angle-left right colorBarSuper"></i>
+            </a>
+            <ul class="nav nav-treeview">         
+
+
+        <li class="nav-item has-treeview">
+            <a href="retiroBod" class="nav-link">
+                <i class="fa fa-send colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Retiro Fiscal Bodega
                 </p>
             </a>
         </li>
         <li class="nav-item has-treeview">
-            <a href="chasisVehiculosNuevos" class="nav-link">
+            <a href="paseDeSalida" class="nav-link">
                 <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Chasis Veh. Nuevos &nbsp;&nbsp;
+                    Pases de salida
                 </p>
             </a>
         </li>
+                <li class="nav-item has-treeview">
+            <a href="paseSalidaVehNuevo" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Pases Vehículos N
+                </p>
+            </a>
+        </li>
+    </ul>
+    </li>
+            ';
+
+            echo '
         <li class="nav-item has-treeview">
             <a href="UbicacionBodega" class="nav-link">
                 <i class="fa fa-crosshairs colorBarSuper"></i>
@@ -954,7 +995,7 @@
                     Ubicaciones
                 </p>
             </a>
-        </li>
+        </li>        
         <li class="nav-item has-treeview">
             <a href="inventariosFiscales" class="nav-link">
                 <i class="fa fa-clipboard colorBarSuper"></i>
@@ -981,25 +1022,51 @@
             </a>
         </li>
  
-<li class="nav-item has-treeview">
-            <a href="retiroBod" class="nav-link">
-                <i class="fa fa-send colorBarSuper"></i>
+<li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
+        <li class="nav-item has-treeview">
+            <a href="chasisVehiculosNuevos" class="nav-link">
+                <i class="fa fa-truck colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Retiro Fiscal Bodega
+                    Chasis Veh. Nuevos &nbsp;&nbsp;
+                </p>
+            </a>
+        </li>
+                        <li class="nav-item has-treeview">
+            <a href="historialChasisVehUsados" class="nav-link">
+                 <i class="fa fa-truck colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Chasis Veh. Usados &nbsp;&nbsp;
+                </p>
+
+            </a>
+        </li>
+        <li class="nav-item has-treeview">
+            <a href="historialRetChasisVehN" class="nav-link">
+                <i class="fa fa-envelope colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Correo Vehiculos &nbsp;&nbsp;<span class="right badge badge-danger">Nuevo</span>
+                </p>
+            </a>
+        </li>        
+        <li class="nav-item has-treeview">
+            <a href="medidasVehiculos" class="nav-link">
+                <i class="fa fa-car colorBarSuper"></i>
+                <p class="colorBarSuper">
+                    Medidas Vehiculos
                 </p>
             </a>
         </li>
         <li class="nav-item has-treeview">
-            <a href="paseDeSalida" class="nav-link">
-                <i class="fa fa-truck colorBarSuper"></i>
+            <a href="vehiculosSinMedidas" class="nav-link">
+                <i class="fa fa-sort-numeric-asc colorBarSuper"></i>
                 <p class="colorBarSuper">
-                    Pases de salida
+                    Vehículos sin medida
                 </p>
+
             </a>
         </li>
+        <li class="text-info">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;_____________________</li>
 ';
-
-
             echo '
         <li class="nav-item has-treeview">
             <a href="clientesSinTarifa" class="nav-link">

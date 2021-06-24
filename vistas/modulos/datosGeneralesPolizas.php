@@ -31,27 +31,7 @@
                     <div>
                         <input type="hidden" id="hiddenTipoOP" value="" />
                     </div>
-                    <div class="col-12">
-                        <div class="row" id="divCalculoHistoria">
-                        </div>
 
-                        <?php
-                        if ($_SESSION["departamentos"] != "Operaciones Fiscales") {
-
-                            echo '
-    
-                         </div>
-<div class="alert alert-danger" role="alert">
-Las mercaderías listadas son clientes que estan por retirarse,
-si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button>
-</div>   
-    ';
-                        }
-                        ?>
-                    </div>
 
                         <div class="col-12 mt-5">
                             <table id="tablasPilotosUnidades" role="grid" class="table  dt-responsive table-striped table-hover table-sm">

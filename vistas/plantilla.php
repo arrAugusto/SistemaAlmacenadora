@@ -200,10 +200,13 @@ if (isset($_SESSION["IniciarSesion"]) && $_SESSION["IniciarSesion"] == "ok") {
                     $_GET["ruta"] == "gestorUsuarios" ||
                     $_GET["ruta"] == "retiroBod" ||
                     $_GET["ruta"] == "miperfil" ||
+                    $_GET["ruta"] == "historiaRetirosFisacales" ||
                     $_GET["ruta"] == "clientesSinTarifa" ||
                     $_GET["ruta"] == "ingresosPendientes" ||
                     $_GET["ruta"] == "inventariosFiscales" ||
                     $_GET["ruta"] == "chasisVehiculosNuevos" ||
+                    $_GET["ruta"] == "datosGeneralesPolizas" ||    
+                    $_GET["ruta"] == "paseSalidaVehNuevo" ||    
                     $_GET["ruta"] == "historialChasisVehUsados" ||                       
                     $_GET["ruta"] == "salir") {
                 /*
