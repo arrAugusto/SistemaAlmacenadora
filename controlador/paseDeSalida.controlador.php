@@ -47,7 +47,7 @@ class ControladorPasesDeSalida {
                         <td>' . $value["bultosRet"] . '</td>
                         <td>' . $value["pesoRet"] . '</td>
                         <td>' . $value["tipoServicio"] . '</td>';
-                if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
+                if ($_SESSION["departamentos"] == "Operaciones Fiscales" || $_SESSION["departamentos"] == "Bodegas Fiscales") {
                     echo '    <td>' . $bottonera . '</td>';
                 }
                 echo '   

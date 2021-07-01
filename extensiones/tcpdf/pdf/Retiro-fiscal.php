@@ -38,10 +38,18 @@ class imprimirIngresoBodega {
         $respAuxRebaja = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombreRebaja = $respAuxRebaja[0]["nombres"];
         $apellidosRebaja = $respAuxRebaja[0]["apellidos"];
+
         $tipo = 2;
         $respAuxRetiro = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
         $nombreRetiro = $respAuxRetiro[0]["nombres"];
         $apellidosRetiro = $respAuxRetiro[0]["apellidos"];
+        if ($respRet[0]["cantChasN"] >= 1) {
+            $tipo = 3;
+            $respAuxRetiro = ControladorPasesDeSalida::ctrAuxiliares($retiroF, $tipo);
+            $nombreRetiro = $respAuxRetiro[0]["nombres"];
+            $apellidosRetiro = $respAuxRetiro[0]["apellidos"];
+        }
+
         $valEmpresas = 0;
         $idNitSal = $respRet[0]["idNitRet"];
         $idNitIng = $respRet[0]["idNitIng"];

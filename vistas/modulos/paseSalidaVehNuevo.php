@@ -180,7 +180,7 @@
                                     <th>Peso</th>
                                     <th>Servicio</th>
                                     <?php
-                                    if ($_SESSION["departamentos"] == "Operaciones Fiscales") {
+                                    if ($_SESSION["departamentos"] == "Operaciones Fiscales" || $_SESSION["departamentos"] == "Bodegas Fiscales") {
                                         echo '<th>Acciones</th>';
                                     }
                                     ?>

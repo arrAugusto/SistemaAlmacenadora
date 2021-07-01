@@ -147,8 +147,6 @@
 
     }
 </style>
-
-
 <div class="content-wrapper">
     <section class="content-header">
         <div class="container-fluid">
@@ -162,33 +160,11 @@
                     </ol>
                 </div>
             </div>
-            <div class="card card-success">
+                    <div class="card card-success card-outline">
                 <div class="card-body">
                     <form role="form" method="post">
                         <div class="row">
                             <div class="col-12">
-                                <?php
-                                if ($_SESSION["departamentos"] != "Operaciones Fiscales") {
-                                    echo '<div class="col-12">
-                                        </div>  
-                                            <div class="alert alert-danger" role="alert">
-                                            Las mercaderías listadas son clientes que estan por retirarse,
-                                            si la mercaderia no puede salir, comuniquese con el area de oficinas fiscales ' . $_SESSION["NavegaBod"] . ' - ' . $_SESSION["NavegaNumB"]
-                                    . '<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div></div>';
-                                } else {
-                                    echo ' <div class="col-12">
-                                        <div class="alert alert-primary" role="alert">
-                                            ¡Listado de retiros pendientes!
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div></div>    
-                          ';
-                                }
-                                ?>
                                 <div class="col-12 mt-4">
                                     <table id="tablasGeneral" role="grid" class="table  dt-responsive nowrap table-hover table-sm" cellspacing="0">
                                         <thead>
@@ -212,7 +188,7 @@
                                         </tbody>
                                     </table    
                                 </div>
-                            </div>
+ 
                         </div>
 
                         <?php

@@ -20,11 +20,11 @@ class imprimirIngresoBodega {
 
         $servicio = $repuestaOperaciones[0]["servicioIng"];
         if ($servicio == "VEHICULOS NUEVOS") {
+            $tipo = 1;
             $repuestaOpera = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
             $nomElab = $repuestaOpera[0]["nombres"];
             $apellElab = $repuestaOpera[0]["apellidos"];
             $tipo = 0;
-
             $repuestaBod = ControladorRegistroBodega::ctrTraerDatosBodegas($codigo, $tipo);
             $nomBod = $repuestaBod[0]["nombres"];
             $apellBod = $repuestaBod[0]["apellidos"];
@@ -66,7 +66,6 @@ class imprimirIngresoBodega {
         $idIngreso = $repuestaUnidades[0]["idIngreso"];
         $poliza = $repuestaOperaciones[0]["poliza"];
         $numPlaca = $repuestaUnidades[0]["placa"];
-
         //datos de logos
         //datos de forma
         $nit = $repuestaOperaciones[0]["nitAlm"];
@@ -75,7 +74,6 @@ class imprimirIngresoBodega {
         $email = $repuestaOperaciones[0]["emailAlm"];
         $logo = $repuestaOperaciones[0]["logoAlm"];
         $empresa = $repuestaOperaciones[0]["empresaInterna"];
-
         require_once('tcpdf_include.php');
         $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
         $pdf->AddPage('L', 'A4');
@@ -155,7 +153,6 @@ EOF;
             $pdf->writeHTML($bloque2, false, false, false, false, '');
         }
 //-------------------------------------------------------------------------------------------------------
-
         if ($servicio == "VEHICULOS NUEVOS") {
             $bloque3 = <<<EOF
 	<table style="font-size:8px;">
@@ -169,7 +166,6 @@ EOF;
    </tr></table>	
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
-
             foreach ($repuestaBodega as $key => $value) {
                 $chasis = $value["chasis"];
                 $tipo = $value["tipoVehiculo"];
@@ -260,9 +256,6 @@ EOF;
 	</table>	
 EOF;
             $pdf->writeHTML($bloque3, false, false, false, false, '');
-
-
-
 //-------------------------------------------------------------------------------------------------------
             $repuestaDetalles = ControladorRegistroBodega::ctrTraerDatosBodega($codigo);
             if (count($repuestaDetalles) <= 3) {
@@ -346,7 +339,6 @@ EOF;
         </tr>
 	</table>	
 EOF;
-
         $pdf->writeHTML($bloque3, false, false, false, false, '');
 //-------------------------------------------------------------------------------------------------------
         //       var_dump($repuestaUnidades);
@@ -382,7 +374,6 @@ EOF;
 		</tr>
     	</table>	
 EOF;
-
             $pdf->writeHTML($bloque4, false, false, false, false, '');
         }
 
