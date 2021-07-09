@@ -132,6 +132,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
         var idRetCal = button.attr("idRet");
         var respRemplazoValRet = await remplazoDataRet(idRetCal);
         if (respRemplazoValRet[0]["resp"] == 1) {
+            
             if ($contador == 0) {
                 if ($("#tablasVehiculos").length == 0) {
                     document.getElementById("divCalculoHistoria").innerHTML = ``;
@@ -217,7 +218,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                                  <div class="btn btn-success btn-lg btn-flat"  id="imprimirRetiroAlmacenaje" idRet= ` + idRetCal + `>
                                     <i class="fa fa-print fa-lg mr-2"></i>
                                     Imprimir Retiro
-                                </div>  
+                                </div>   
                                 </div>
                                 <div class="col-sm-12 col-lg-4 mt-4">
                                 <div class="btn btn-success btn-lg btn-flat btnMasPilotos" id="idbtnMasPilotos" estado="0"  idRet= ` + idRetCal + ` idMasPilotos= ` + idRetCal + ` data-toggle="modal" data-target="#plusPilotos">
@@ -520,27 +521,7 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                         }
                     });
                     var revDato = await revDatosExtras(polizaRetiroRev);
-                    console.log(revDato);
-                    /*if (revDato == false) {
-                     toastr.options = {
-                     "closeButton": false,
-                     "debug": false,
-                     "newestOnTop": false,
-                     "progressBar": false,
-                     "positionClass": "toast-top-full-width",
-                     "preventDuplicates": true,
-                     "onclick": null,
-                     "showDuration": "400",
-                     "hideDuration": "2000",
-                     "timeOut": "8000",
-                     "extendedTimeOut": "1000",
-                     "showEasing": "swing",
-                     "hideEasing": "linear",
-                     "showMethod": "fadeIn",
-                     "hideMethod": "fadeOut"
-                     }
-                     Command: -toastr["error"]("¡ Error existen datos con diferencia en la difitacion revise !");
-                     }*/
+
                     if (revDato == true) {
                         formatNumber("ZonaAdCalculo");
                         formatNumber("AlmNormalCalculo");
@@ -631,8 +612,9 @@ $(document).on("click", ".btnImprimirRecibo", async function () {
                     } else {
                         var hiddenGTOAcuse = document.getElementById("hiddenGTOAcuse").value;
                         var hiddenGTOAcuse = hiddenGTOAcuse * 1;
-
+                        if ($("#spanOtro").length >= 1) {
                         document.getElementById("spanOtro").innerHTML = hiddenGTOAcuse;
+                     }   
                     }
 
                 } else {

@@ -99,6 +99,7 @@ class ModeloPasesDeSalida {
                 $cantClientes = $results[0]["cantClientes"];
                 $minGastosAdministracion = $results[0]["minGastosAdministracion"];
                 $defaultCopias = $results[0]["TarifaCopias"];
+
                 if ($results[0]["servicioAlm"] == "ZONA ADUANERA") {
                     $nuevafechaInicio = $results[0]["FecingAlmacen"];
                     if ($hiddenDateTimeVal != "NA") {
@@ -117,6 +118,7 @@ class ModeloPasesDeSalida {
                         $tipoCalc = false;
                     }
                     $tiempoTotal = funcionesDeCalculo::dias($nuevafechaInicio, $fechaCorte);
+
                     if ($tiempoTotal >= $results[0]["delZA"]) {
                         $diaAlmacenaje = ($tiempoTotal - $results[0]["delZA"]) + 1;
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
@@ -124,6 +126,33 @@ class ModeloPasesDeSalida {
                         $diaAlmacenaje = 0;
                         $diasZA = $tiempoTotal - $diaAlmacenaje;
                     }
+                }else{
+                                       $nuevafechaInicio = $results[0]["FecingAlmacen"];
+                    if ($hiddenDateTimeVal != "NA") {
+                        $fechaCorte = $hiddenDateTimeVal;
+                    } else {
+                        $fechaCorte = $results[0]["fechaRet"];
+                    }
+                    $fecha_actual1 = strtotime(date('Y-m-d'));
+                    $fecha_entrada2 = strtotime($fechaCorte);
+                    /*
+                     *  VALIDANDO SI LA FECHA ESTA DENTRO DEL DIA DE COBRO
+                     */
+                    if ($fecha_actual1 == $fecha_entrada2) {
+                        $tipoCalc = true;
+                    } else {
+                        $tipoCalc = false;
+                    }
+                    $tiempoTotal = funcionesDeCalculo::dias($nuevafechaInicio, $fechaCorte);
+
+                    if ($tiempoTotal >= $results[0]["delZA"]) {
+                        $diaAlmacenaje = ($tiempoTotal - $results[0]["delZA"]) + 1;
+                        $diasZA = $tiempoTotal - $diaAlmacenaje;
+                    } else if ($tiempoTotal < $results[0]["delZA"]) {
+                        $diaAlmacenaje = 0;
+                        $diasZA = $tiempoTotal - $diaAlmacenaje;
+                    }
+ 
                 }
 
                 if ($respuestaVerifica[0]["tarifaEspecial"] == 1) {
