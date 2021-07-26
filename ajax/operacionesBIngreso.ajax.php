@@ -423,10 +423,11 @@ class AjaxOperacionesBIngreso {
     public function ajaxGuardarNuevosVehiculos() {
         $hiddenIdnetyIngV = $this->hiddenIdnetyIngV;
         $jsonVehiculosG = $this->jsonVehiculosG;
+        $estadoDT = $this->estadoDT;
         session_start();
         $usuarioOp = $_SESSION["id"];
-        $respuesta = ControladorOpB::ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp);
-
+        
+        $respuesta = ControladorOpB::ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp, $estadoDT);
         echo json_encode($respuesta);
     }
 
@@ -754,6 +755,7 @@ if (isset($_POST["hiddenIdnetyIngV"])) {
     $nuevosVehiculosG = new AjaxOperacionesBIngreso();
     $nuevosVehiculosG->hiddenIdnetyIngV = $_POST["hiddenIdnetyIngV"];
     $nuevosVehiculosG->jsonVehiculosG = $_POST["jsonVehiculosG"];
+    $nuevosVehiculosG->estadoDT = $_POST["estadoDT"];
     $nuevosVehiculosG->ajaxGuardarNuevosVehiculos();
 }
 if (isset($_POST["listaNoEncontrada"])) {

@@ -1861,6 +1861,21 @@ function multiplicacion(tipoDeCambio, valorTotalAduana) {
 }
 
 $(document).on("click", ".btnValidarChasis", function () {
+    var idIng = document.getElementById("hiddenIdentity").value;
+    var estado = $("#dt-btnAuth" + idIng).attr("estado");
+    if (estado == 1) {
+        swal({
+            position: 'top-center',
+            type: 'warning',
+            title: '¡Tiene configurada la opción DT!',
+        }).then(okay => {
+
+        })
+
+    }
+
+
+
     document.getElementById("divRelleno").innerHTML = "";
     document.getElementById("divChaisesNoEncontrados").innerHTML = "";
     document.getElementById("hiddenGuardarDB").innerHTML = "";
@@ -1876,7 +1891,7 @@ $(document).on("click", ".btnValidarChasis", function () {
         var validacion = cadenaArray.length;
         var validarIter = parseInt(validacion / iteraciones);
         var validarIterInt = parseInt(validarIter);
-        
+
         if (validarIter == validarIterInt) {
             var lista = [];
             var denegacion = 0;
@@ -2594,7 +2609,7 @@ async function guardarSinTarifa(tipo) {
 
                 } else {
                     respGST = false;
-                        
+
                 }
             },
             error: function (respuesta) {
@@ -4315,7 +4330,7 @@ $(document).on("click", ".btnGuardaNuevaUnidadPlus", async function () {
     } else {
         var hiddenIdentity = document.getElementById("hiddenIdentity").value;
     }
-    if ($("#tablasChasisNew").length>0){
+    if ($("#tablasChasisNew").length > 0) {
         var hiddenIdentity = $("#btnGuardaNuevaUnidad").attr("idRetOp");
     }
     var sumTotal = (numeroLicenciaPlusG + nombrePilotoPlusUnG + numeroPlacaPlusUnG + numeroContenedorPlusUnG + numeroMarchamoPlusUnG);
@@ -5506,6 +5521,11 @@ function cambiarLinea(indexValue, txtTpVeh, txtLnVeh) {
 
 
 $(document).on("click", ".btnGuradarChasVeh", async function () {
+    var estadoDT = 0;
+    var idIng = document.getElementById("hiddenIdentity").value;
+    if ($("#dt-btnAuth" + idIng).length > 0) {
+        var estadoDT = $("#dt-btnAuth" + idIng).attr("estado");
+    }
 
     if ($(".btnGuradarChasVeh").attr("estado") == 1) {
         Swal.fire({
@@ -5527,32 +5547,30 @@ $(document).on("click", ".btnGuradarChasVeh", async function () {
             var jsonVehiculosG = document.getElementById("hiddenJsonVehiculos").value;
             console.log(jsonVehiculosG);
 
-            var respuestaVehN = guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG);
-            console.log(respuestaVehN);
-            if (respuestaVehN) {
+            var respuestaVehN = guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG, estadoDT);
+           
+
+            if (respuestaVehN || estadoDT==1) {
                 $(".btnGuradarChasVeh").removeClass("btn-success");
                 $(".btnGuradarChasVeh").addClass("btn-warning");
                 $(".btnGuradarChasVeh").attr("disabled", "disabled");
                 $(".btnGuradarChasVeh").attr("estado", 1);
                 $(".btnGuradarChasVeh").html("Vehiculos Guardados");
                 $(".btnValidarChasis").attr("disabled", "disabled");
-
                 swal({
                     position: 'top-center',
                     type: 'success',
                     title: '¡Chasises guardados correctamente!',
                 }).then(okay => {
                     return 0;
-                })
-
-            } else if (respuestaVehN[0]["estado"] == true) {
+                });
+            } else if (respuestaVehN[0]["estado"] == true || estadoDT==1) {
                 $(".btnGuradarChasVeh").removeClass("btn-success");
                 $(".btnGuradarChasVeh").addClass("btn-warning");
                 $(".btnGuradarChasVeh").attr("disabled", "disabled");
                 $(".btnGuradarChasVeh").attr("estado", 1);
                 $(".btnGuradarChasVeh").html("Vehiculos Guardados");
                 $(".btnValidarChasis").attr("disabled", "disabled");
-
                 swal({
                     position: 'top-center',
                     type: 'success',
@@ -5560,27 +5578,31 @@ $(document).on("click", ".btnGuradarChasVeh", async function () {
                 }).then(okay => {
                     location.reload();
                     return 0;
-                })
+                });
+            }
 
-            } else {
-                swal({
-                    position: 'top-center',
-                    type: 'error',
-                    title: '¡Chasises duplicados!',
-                }).then(okay => {
-                    location.reload();
-                    return 0;
-                })
+            if (respuestaVehN.chasisDuplicados.length != undefined) {
+                if (respuestaVehN.chasisDuplicados.length != 0) {
+                    swal({
+                        position: 'top-center',
+                        type: 'error',
+                        title: '¡Se registran chasis duplicados revise en su invenatario, si el error persiste, consulte el inventario Algesa/Almacenadora!',
+                    }).then(okay => {
+
+                    })
+                    return false;
+                }
             }
         }
     }
-})
+});
 
-function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG) {
+function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG, estadoDT) {
     let todoMenus;
     var datos = new FormData();
     datos.append("hiddenIdnetyIngV", hiddenIdnetyIngV);
     datos.append("jsonVehiculosG", jsonVehiculosG);
+    datos.append("estadoDT", estadoDT);
     $.ajax({
         async: false,
         url: "ajax/operacionesBIngreso.ajax.php",
@@ -5593,11 +5615,9 @@ function guardarChasisVehiculosNuevos(hiddenIdnetyIngV, jsonVehiculosG) {
         success: function (respuesta) {
             console.log(respuesta);
 
-            if (respuesta) {
-                todoMenus = true;
-            } else {
-                todoMenus = respuesta;
-            }
+
+            todoMenus = respuesta;
+
 
         }, error: function (respuesta) {
             console.log(respuesta);
@@ -6223,7 +6243,7 @@ $(document).on("click", ".btnCapturarQRPol", async function () {
 
                 }
             }
-            
+
             if ($(".btnAgregarPoliza").length && barcodePolizaIng.length == 219) {
                 document.getElementById("ClientPoltxtNitSalida").value = nitTrim;
                 $("#ClientPoltxtNitSalida").trigger('change');
@@ -6857,4 +6877,23 @@ $(document).on("click", "#btnCambiarEstadoIndi", async function () {
         $(this).addClass("btn-warning");
     }
 })
+
+$(document).on("click", ".btn-DT-DuplicarChasis", function () {
+    var estado = $(this).attr("estado");
+    var estado = parseInt(estado);
+    if (estado == 0) {
+        $(this).removeClass("btn-warning");
+        $(this).addClass("btn-danger");
+        $(this).html("Autorizado Ok");
+        $(this).attr("estado", 1);
+    }
+    if (estado == 1) {
+        $(this).removeClass("btn-danger");
+        $(this).addClass("btn-warning");
+        $(this).html("Registrar DT");
+        $(this).attr("estado", 0);
+    }
+});
+
+
 

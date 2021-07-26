@@ -169,11 +169,11 @@ class ControladorIngresosPendientes {
                                 $botonera = '<button type="button" class="btn btn-primary btn-sm btnMostrarDetOpIng" idIng="' . $verPase . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
                             }
                             $contadorFila = $contadorFila + 1;
-                        $qrCode = '&nbsp;&nbsp;<i class="fa fa-qrcode iGenerateQR" idIng="'.$idIng.'" style="color:#BB0058; font-size:36px; cursor: pointer;"></i>';
+                            $qrCode = '&nbsp;&nbsp;<i class="fa fa-qrcode iGenerateQR" idIng="' . $idIng . '" style="color:#BB0058; font-size:36px; cursor: pointer;"></i>';
                             echo '
                       <tr>
                         <td>' . ($contadorFila) . '</td>
-                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons.$qrCode . '</label></td>
+                        <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . $qrCode . '</label></td>
                         <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>
@@ -193,7 +193,8 @@ class ControladorIngresosPendientes {
         $respuesta = ModeloIngresosPendientes::mdlTransaccionesPendientes($llaveIngresosPen, $sp);
 
         if ($respuesta != "SD") {
-            foreach ($respuesta as $key => $value) {                //revision si esta cuadrado
+            foreach ($respuesta as $key => $value) {
+                //revision si esta cuadrado
                 $idIng = $value["numeroOrden"];
                 $consPol = 0;
                 $cantidadClientes = $value["cantidadClientes"];
@@ -232,22 +233,27 @@ class ControladorIngresosPendientes {
                         $sp = "spCountChas";
                         $idIng = $value["numeroOrden"];
                         $respuestaTran = ModeloIngresosPendientes::mdlTransaccionesPendientes($idIng, $sp);
-                        if ($respuestaTran[0]["countChas"] >= 1) {
-                            $vehNV = 1;
-                        }
-                        $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
+                        if ($value["bultos"] != $respuestaTran[0]["countChas"]) {
 
-                        $botonera = '<button type="button" class="btn btn-primary btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehiculos N.</button>';
-                        $empresaCons = $respuesta[$key]["empresa"];
 
-                        echo '
+
+                            if ($respuestaTran[0]["countChas"] >= 1) {
+                                $vehNV = 1;
+                            }
+                            $buttonDetalle = '<button type="button" class="btn btn-success btn-sm btnMostrarDetOpIng" iding="' . $value["numeroOrden"] . '" data-toggle="modal" data-target="#mdlDepDiffBodega">Ver Manifiesto&nbsp;&nbsp;<i class="fa fa-eye"></i></button>';
+
+                            $botonera = '<button type="button" class="btn btn-primary btnVehiculosNuevos" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" data-toggle="modal" data-target="#gdVehiculosNuevos">Vehículos N.</button><button type="button" class="btn btn-warning btn-DT-DuplicarChasis" id="dt-btnAuth' . $value["numeroOrden"] . '" idIngOp="' . $value["numeroOrden"] . '" bultosIng="' . $value["bultos"] . '" estado=0>Registrar DT</button>';
+                            $empresaCons = $respuesta[$key]["empresa"];
+
+                            echo '
                       <tr>
                         <td>' . ($key + 1) . '</td>
                         <td>' . '<label id="lblEmpresa' . ($key + 1) . '">' . $empresaCons . '</label></td>
                         <td>' . '<label id="lblNit' . ($key + 1) . '">' . $respuesta[$key]["nit"] . '</label></td>
                         <td>' . '<label id="lblBultos' . ($key + 1) . '">' . $respuesta[$key]["bultos"] . '</label></td>
                         <td>' . '<label id="lblPoliza' . ($key + 1) . '">' . $respuesta[$key]["poliza"] . '</label></td>';
-                        echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
+                            echo '<td>' . '<center><div class="btn-group">' . $botonera . $buttonDetalle . '</div></center></td>';
+                        }
                     } else {
 
                         if ($value["servicioFis"] == "VEHICULOS USADOS") {

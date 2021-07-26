@@ -374,7 +374,7 @@ class ControladorOpB {
         return $respuesta;
     }
 
-    public static function ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp) {
+    public static function ctrGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG, $usuarioOp, $estadoDT) {
 
 //$respuesta = ModeloCalculos::mdlGuardarNuevosVehiculos($hiddenIdnetyIngV, $jsonVehiculosG);
 //revisando si los vehiculos no se estan duplicando
@@ -383,71 +383,74 @@ class ControladorOpB {
         $arrayChasisVal = [];
         $duplicado = 0;
         $varAgregados = 0;
+
         foreach ($listaChasis as $key => $value) {
             $varAgregados = $varAgregados + 1;
             $chasis = $value[0];
             $tipo = $value[1];
             $linea = $value[2];
             $repuesta = ModeloControladorOpB::mdlRevisionVehiculosNuevos($chasis, $tipo, $linea);
-            if ($repuesta[0]["cantidadChas"] >= 1) {
-                $duplicado = $duplicado + 1;
-                array_push($arrayChasisVal, $chasis);
+            if ($estadoDT == 0) {
+                if ($repuesta[0]["cantidadChas"] >= 1) {
+                    $duplicado = $duplicado + 1;
+                    array_push($arrayChasisVal, $chasis);
+                }
             }
         }
+
         if ($duplicado >= 1) {
             return array("chasisDuplicados" => $arrayChasisVal, "estado" => false);
-        } else {
-//revisando las lineas que existen y cuales no      
-            $tipo = 1;
-            $respustaChasis = ControladorOpB::ctrValidacionNuevosVehiculos($jsonVehiculosG, $tipo);
+        }
+        //revisando las lineas que existen y cuales no      
+        $tipo = 1;
+        $respustaChasis = ControladorOpB::ctrValidacionNuevosVehiculos($jsonVehiculosG, $tipo);
 
-//guardando cada uno de los vehiculos
-            $agregadosDB = 0;
-            foreach ($respustaChasis as $key => $values) {
+        //guardando cada uno de los vehiculos
+        $agregadosDB = 0;
+        foreach ($respustaChasis as $key => $values) {
 
-                if ($values["estado"] == 0) {
-//vehiculos y lineas no registradas en nuestra db
-                    $tipoVh = $values["TipoVehiculo"];
-                    $lineaV = $values["lineaVehiculo"];
-                    $sp = "spConsultaTipoV";
-                    $respuesta = ModeloControladorOpB::mdlConsultaTipoV($tipoVh, $lineaV, $sp);
+            if ($values["estado"] == 0) {
+                //vehiculos y lineas no registradas en nuestra db
+                $tipoVh = $values["TipoVehiculo"];
+                $lineaV = $values["lineaVehiculo"];
+                $sp = "spConsultaTipoV";
+                $respuesta = ModeloControladorOpB::mdlConsultaTipoV($tipoVh, $lineaV, $sp);
+                $idTipo = $respuesta[0]["tipoVe"];
+                //si el tipo de vehiculo no existe en db se agrega 
+                if ($respuesta[0]["tipoVe"] == 0 || $respuesta[0]["lineaVe"] == 0) {
 
-                    $idTipo = $respuesta[0]["tipoVe"];
-//si el tipo de vehiculo no existe en db se agrega 
-
-                    if ($respuesta[0]["tipoVe"] == 0 || $respuesta[0]["lineaVe"] == 0) {
-
-                        if ($respuesta[0]["tipoVe"] == 0) {
-                            $sp = "spNuevoTipoV";
-                            $respInsertNuevoTipo = ModeloControladorOpB::mdlTipoNewVeh($tipoVh, $sp);
-                            $idTipo = $respInsertNuevoTipo[0]["Identity"];
-                        }
-                        if ($respuesta[0]["lineaVe"] == 0) {
-                            $sp = "spNuevaLinea";
-                            $respInsertNuevoLinea = ModeloControladorOpB::mdlConsultaTipoV($idTipo, $lineaV, $sp);
-                        }
-//vehiculos y lineasde vehiculos registradas en nuestra db
-                        $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
-                        $agregadosDB = $agregadosDB + 1;
+                    if ($respuesta[0]["tipoVe"] == 0) {
+                        $sp = "spNuevoTipoV";
+                        $respInsertNuevoTipo = ModeloControladorOpB::mdlTipoNewVeh($tipoVh, $sp);
+                        $idTipo = $respInsertNuevoTipo[0]["Identity"];
                     }
-                } else {
-//vehiculos y lineasde vehiculos registradas en nuestra db
+                    if ($respuesta[0]["lineaVe"] == 0) {
+                        $sp = "spNuevaLinea";
+                        $respInsertNuevoLinea = ModeloControladorOpB::mdlConsultaTipoV($idTipo, $lineaV, $sp);
+                    }
+                    //vehiculos y lineas de vehiculos registradas en nuestra db
                     $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
                     $agregadosDB = $agregadosDB + 1;
                 }
-            }
-            if ($agregadosDB == $varAgregados) {
-                $idIngreso = $hiddenIdnetyIngV;
-                $idUSser = $usuarioOp;
-                $estado = 0;
-                $respuesta = ModeloControladorOpB::mdlEstadoIngresoFiscal($idIngreso, $estado, $idUSser);
-            }
-
-            if ($respuesta[0]["resp"] == 1) {
-                return true;
             } else {
-                return false;
+                //vehiculos y lineasde vehiculos registradas en db
+
+                $respuesta = ModeloControladorOpB::mdlGuardarVehiculo($hiddenIdnetyIngV, $values);
+   
+                $agregadosDB = $agregadosDB + 1;
             }
+        }
+        if ($agregadosDB == $varAgregados) {
+            $idIngreso = $hiddenIdnetyIngV;
+            $idUSser = $usuarioOp;
+            $estado = 0;
+            $respuesta = ModeloControladorOpB::mdlEstadoIngresoFiscal($idIngreso, $estado, $idUSser);
+        }
+
+        if ($respuesta[0]["resp"] == 1) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -615,7 +618,7 @@ class ControladorOpB {
 
         if ($respuesta != "SD") {
 
-            
+
             foreach ($respuesta as $key => $value) {
                 if ($value["foto"] == "NA") {
                     $foto = "vistas/img/usuarios/default/anonymous.png";
@@ -644,15 +647,15 @@ class ControladorOpB {
                             <span class="float-right text-sm text-success"> <i class="fa fa-star"></i></span>
                             </h3>
                             ';
-                if ($value["tipoIncidencia"]==0) {
+                if ($value["tipoIncidencia"] == 0) {
                     echo '<p class="text-sm">Sobregiro en el saldo total : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>';
-                }else{
+                } else {
                     echo '<p class="text-sm">Mala rebaja en retiro : ' . $value["nombreEmpresa"] . ', con póliza ' . $value["polizaRetiro"] . '</p>';
                 }
-                            echo'
+                echo'
 
                             <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i>Emisión : ' . $fechaGaritaFormat . '</p>
-                            ';                          
+                            ';
                 if ($_SESSION['departamentos'] == 'Operaciones Fiscales' && $_SESSION['niveles'] == 'MEDIO') {
                     echo '                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i><button type="button" class="btn btn-primary btn-sm btn-block btnRebajaCorregida" idBitacora="' . $value["idBitacora"] . '">Retiro corregido</button></p>';
                 }
