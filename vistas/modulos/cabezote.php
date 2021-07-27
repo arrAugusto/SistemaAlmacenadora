@@ -96,6 +96,10 @@
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#agregarNit">
                     <i class="fa fa-database mr-2"></i> Agregar Nuevo Nit
                 </a>
+                <a class="dropdown-item item item-descargar-excel">
+                    <i class="fa fa-database mr-2"></i> Descargar Data de NIT&nbsp;&nbsp;<span style="color:#2BBA00;"><i class="fa fa-download"></i></span>
+                </a>
+
                 <a href="#" class="dropdown-item" data-toggle="modal" data-target="#validezIng">
                     <i class="fa fa-database mr-2"></i> Verificar validez de ingreso
                 </a>                

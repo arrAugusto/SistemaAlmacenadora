@@ -102,7 +102,11 @@ class ControladorHistorialIngresos {
             }
         }
     }
-
+    public static function ctrMostarNit(){
+        $sp = "spNitAll";
+        $respuesta = ModeloHistorialIngresos::mdlMostrarSinParams($sp);
+        return $respuesta;
+    }
     public static function ctrEditarIngOperacion($idIngEditOp) {
         $respuesta = ModeloHistorialIngresos::mdlEditarIngOperacion($idIngEditOp);
         return $respuesta;

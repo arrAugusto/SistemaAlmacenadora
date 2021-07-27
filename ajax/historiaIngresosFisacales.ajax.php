@@ -356,6 +356,14 @@ class AjaxAccionesIngresos {
         
         
     }
+    public $excelNit;
+    public function ajaxDescargarNit(){
+        $generateExcelNII = $this->generateExcelNII;
+        $respuesta = ControladorHistorialIngresos::ctrMostarNit();
+        echo json_encode($respuesta);
+        
+    }
+
 }
 
 if (isset($_POST["idIngEditOp"])) {
@@ -551,6 +559,10 @@ if (isset($_POST["fechasPolizas"])) {
     $fPolizas = new AjaxAccionesIngresos();
     $fPolizas->fechasPolizas=$_POST["fechasPolizas"];
     $fPolizas->ajaxMostrarFechasPolizas();
+}
 
-            
+if (isset($_POST["generateExcelNII"])) {
+    $excelNit = new AjaxAccionesIngresos();
+    $excelNit -> generateExcelNII = $_POST["generateExcelNII"];
+    $excelNit ->ajaxDescargarNit();
 }
