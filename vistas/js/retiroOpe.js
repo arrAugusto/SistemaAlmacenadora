@@ -282,6 +282,40 @@ function funcRevSaldosAF(tipoIng) {
 }
 
 $(document).on("click", ".btnGuardarRetiro", async function () {
+
+    //Revisión o validación de polizas DR
+    var paragraphsButtonTrash = Array.from(document.querySelectorAll("#buttonTrash"));
+
+    //suma
+    var sumatoria = 0;
+    //recorriendo array
+    for (var i = 0; i < paragraphsButtonTrash.length; i++) {
+        var idIngreso = paragraphsButtonTrash[i].attributes.numorigen.value;
+        //validacion para saber si existen ingresos diferentes.
+        var idIngreso = parseInt(idIngreso);
+        var sumatoria = (sumatoria + idIngreso);
+    }
+    var promedio = (sumatoria / paragraphsButtonTrash.length)
+    var promedio = parseInt(promedio);
+    var idInicial = parseInt(paragraphsButtonTrash[0].attributes.numorigen.value);
+    if (idInicial != promedio && $("#tablePolizasDR").length == 0) {
+        Swal.fire({
+            title: 'Rebaja de póliza DR incorrecta',
+            allowOutsideClick: false,
+            text: "Pólizas de DR, tiene que llevar un detalle de rebaja.!",
+            type: 'error',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Ok!'
+        }).then(async function (result) {
+            if (result.value) {
+                return false;
+            }
+        })
+        return false;
+    }
+
+    //continua la programación del retiro
+
     if ($("#hiddenDR").length > 0) {
         var estado = document.getElementById("hiddenDR").value;
     }
